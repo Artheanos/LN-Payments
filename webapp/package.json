@@ -1,0 +1,54 @@
+{
+  "name": "webapp",
+  "description": "Front end application",
+  "version": "0.0.1",
+  "private": true,
+  "author": "",
+  "repository": {
+    "url": "https://github.com/Artheaons/LN-Payments/webapp"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "test": "jest",
+    "lint": "eslint src --max-warnings=0"
+  },
+  "dependencies": {
+    "i18next": "^21.6.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-i18next": "^11.15.3",
+    "react-router-dom": "^6.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^17.0.9",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.10.0",
+    "@typescript-eslint/parser": "^5.10.0",
+    "@vitejs/plugin-react": "^1.1.4",
+    "autoprefixer": "^10.4.2",
+    "babel-jest": "^27.4.6",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-tailwindcss": "^3.3.0",
+    "jest": "^27.4.7",
+    "postcss": "^8.4.5",
+    "prettier": "2.5.1",
+    "tailwindcss": "^3.0.15",
+    "typescript": "^4.5.4",
+    "vite": "^2.7.12",
+    "vite-tsconfig-paths": "^3.3.17"
+  }
+}
