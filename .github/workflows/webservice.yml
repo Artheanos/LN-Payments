@@ -2,7 +2,7 @@ name: Java webservice CI
 on:
   push:
     branches: [dev]
-    pull_request:
+  pull_request:
 
 defaults:
   run:
