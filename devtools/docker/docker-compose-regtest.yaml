@@ -1,0 +1,45 @@
+version: '3'
+services:
+  btc:
+    command:
+      -regtest=1
+
+  lnd:
+    command:
+      --bitcoin.regtest
+
+  alice:
+    image: lightninglabs/lnd:v0.12.0-beta
+    container_name: alice
+    restart: always
+    ports:
+      - "10010:10009"
+      - "9010:9735"
+    volumes:
+      - ./lnd/lnd.conf:/root/.lnd/lnd.conf
+      - bitcoin:/root/.bitcoin/
+      - lnd_alice:/root/.lnd/ # data persistence
+    command:
+      --bitcoin.regtest
+      --alias=alice
+      --rpclisten=0.0.0.0:10010
+
+  bob:
+    image: lightninglabs/lnd:v0.12.0-beta
+    container_name: bob
+    restart: always
+    ports:
+      - "10011:10009"
+      - "9011:9735"
+    volumes:
+      - ./lnd/lnd.conf:/root/.lnd/lnd.conf
+      - bitcoin:/root/.bitcoin/
+      - lnd_bob:/root/.lnd/ # data persistence
+    command:
+      --bitcoin.regtest
+      --alias=bob
+      --rpclisten=0.0.0.0:10011
+
+volumes:
+  lnd_alice:
+  lnd_bob:
