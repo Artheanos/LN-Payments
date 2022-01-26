@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   btc:
     image: ruimarinho/bitcoin-core
@@ -21,6 +21,8 @@ services:
     volumes:
       - ./bitcoind/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - bitcoin:/home/bitcoin/.bitcoin/ # data persistence
+    networks:
+      default:
 
   lnd:
     image: lightninglabs/lnd:v0.12.0-beta
@@ -34,7 +36,13 @@ services:
       - ./lnd/lnd.conf:/root/.lnd/lnd.conf
       - bitcoin:/root/.bitcoin/
       - lnd:/root/.lnd/ # data persistence
+    networks:
+      default:
 
 volumes:
   bitcoin:
   lnd:
+
+networks:
+  default:
+    name: ln-payments
