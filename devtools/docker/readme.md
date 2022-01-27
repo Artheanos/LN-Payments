@@ -1,4 +1,7 @@
 # How to set up containers for local development
+
+## Starting from command line
+
 ### 1. Testnet
 Firstly you must create persistent bitcoin volume.
 ```
@@ -14,5 +17,5 @@ docker-compose -f devtools/docker/docker-compose.yaml -f devtools/docker/docker-
 docker-compose -f devtools/docker/docker-compose.yaml -f devtools/docker/docker-compose-regtest.yaml up
 ```
 
-## Starting from intellij
+## Starting from IntelliJ
 When you create new launch configuration in idea, you will have to select 2 files in _docker compose files_ section.
