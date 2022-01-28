@@ -1,5 +1,7 @@
+:imagesdir: ../images/
+
 [.text-center]
-image:images/pjatk_logo.png[image]
+image:pjatk_logo.png[image]
 
 [.text-center]
 == Karta projektu
