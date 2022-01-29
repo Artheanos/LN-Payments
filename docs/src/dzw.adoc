@@ -32,7 +32,6 @@ Pieczul Jan
 Puźniakowski Tadeusz
 |===
 
-[.text-center]
 .*Historia dokumentu*
 [cols="2,4,2,2,2"]
 |===
@@ -55,7 +54,7 @@ niezmienna.
 Niestety występuje problem z finansowaniem operacji zapisywania danych na blockchainie bitcoina. Rozwiązaniem tego
 problemu może być stworzenie sklepu z jednorazowymi tokenami.
 
-Użytkownik dokonuje płatności w sklepie korzystając z kryptowaluty(np. Bitcoin) i w zamian otrzymuje określoną liczbę
+Użytkownik dokonuje płatności w sklepie korzystając z kryptowaluty (np. Bitcoin) i w zamian otrzymuje określoną liczbę
 jednorazowych tokenów, a za ich pomocą ma możliwość np. zapisywania danych.
 
 == Cele systemu
@@ -72,13 +71,13 @@ blockchain.
 
 Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu Ingenuity. Będzie to
 serwer pozwalający na przyjmowanie płatności, zwracając w zamian token, który będzie pozwalał na zarejestrowanie
-wydarzeń w zewnętrznym systemie. Serwer po wygenerowaniu tokenu będzie wysyłał go na serwer klienta, rejestrując
+wydarzeń w zewnętrznym systemie. Serwer po wygenerowaniu tokena będzie wysyłał go na serwer klienta, rejestrując
 token w swojej bazie danych. Baza danych po naszej stronie będzie służyła do rejestrowania historii transakcji.
-Planujemy 2 typy użytkowników: klient, oraz administrator. Jeden administrator tworzony będzie automatycznie przy
+Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie automatycznie przy
 pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie będą musieli
-posiadali konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony pozwalającej na
-wykonanie płatności w sieci lightning, na której będzie wyświetlany token który zakupił. System będzie posiadał
-wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew z wbudowanego portfela, wymagane będą
+posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony pozwalającej na
+wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupił. System będzie posiadał
+wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew ze wbudowanego portfela, wymagane będą
 podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej,
 służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej użytkownik
 będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina. To rozwiązanie można by
@@ -136,7 +135,7 @@ Projekt zostanie zrealizowany przez zespół trzyosobowy, do końca semestru let
 
 == Słownik pojęć
 
-*Token* - ciąg znaków uprawniający do podpisywania zdażeń (albo jakikolwiek inny kod) +
+*Token* - ciąg znaków uprawniający do podpisywania zdarzeń (albo jakikolwiek inny kod) +
 *Sieć lightning* - kryptowalutowy protokół płatniczy drugiej warstwy. Ma on za zadanie umożliwić dokonywać szybkich
 płatności. +
 *bitcoind* - program, który implementuje protokół Bitcoin +
