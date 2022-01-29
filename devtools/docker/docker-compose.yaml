@@ -1,0 +1,48 @@
+version: '3.5'
+services:
+  btc:
+    image: ruimarinho/bitcoin-core
+    container_name: btc
+    restart: always
+    expose:
+      - "8333"
+      - "28333"
+      - "28332"
+      - "18333"
+      - "18332"
+      - "18532"
+    ports:
+      - "8333:8333"
+      - "28333:28333"
+      - "28332:28332"
+      - "18333:18333"
+      - "18332:18332"
+      - "18443:18443"
+    volumes:
+      - ./bitcoind/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
+      - bitcoin:/home/bitcoin/.bitcoin/ # data persistence
+    networks:
+      default:
+
+  lnd:
+    image: lightninglabs/lnd:v0.12.0-beta
+    container_name: lnd
+    restart: always
+    ports:
+      - "10009:10009"
+      - "9009:9735"
+      - "9735:9735"
+    volumes:
+      - ./lnd/lnd.conf:/root/.lnd/lnd.conf
+      - bitcoin:/root/.bitcoin/
+      - lnd:/root/.lnd/ # data persistence
+    networks:
+      default:
+
+volumes:
+  bitcoin:
+  lnd:
+
+networks:
+  default:
+    name: ln-payments

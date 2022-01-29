@@ -1,0 +1,13 @@
+version: '3'
+services:
+  btc:
+    command:
+      -testnet=1
+
+  lnd:
+    command:
+      --bitcoin.testnet
+
+volumes:
+  bitcoin:
+    external: true
