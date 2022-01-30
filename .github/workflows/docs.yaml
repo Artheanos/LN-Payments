@@ -28,7 +28,7 @@ jobs:
       - name: Build files
         run: make
       - name: Line endings check
-        run: git grep -n --color $'\n' -- "*.adoc" && echo "^ Possible Windows style line ending detected. Please use Unix style line endings (\n)." && exit 1 || true
+        run: git grep -n --color $'\r' -- "*.adoc" && echo "^ Possible Windows style line ending detected. Please use Unix style line endings (\n)." && exit 1 || true
       - name: Find trailing spaces
         run: git grep -n --color ' $' -- "*.adoc" && echo "^ Trailing space detected at end of line. Please remove." && exit 1 || true
       - name: Check for tabs
