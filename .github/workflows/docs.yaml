@@ -28,14 +28,14 @@ jobs:
       - name: Build files
         run: make
       - name: Line endings check
-        run: git grep -n --color $'\n' -- "*.adoc" && echo "^ Possible Windows style line ending detected. Please use Unix style line endings (\n)." && exit 0 || true
+        run: git grep -n --color $'\n' -- "*.adoc" && echo "^ Possible Windows style line ending detected. Please use Unix style line endings (\n)." && exit 1 || true
       - name: Find trailing spaces
-        run: git grep -n --color ' $' -- "*.adoc" && echo "^ Trailing space detected at end of line. Please remove." && exit 0 || true
+        run: git grep -n --color ' $' -- "*.adoc" && echo "^ Trailing space detected at end of line. Please remove." && exit 1 || true
       - name: Check for tabs
-        run: git grep  -n --color  $'\t' -- "*.adoc" && echo "^ Use of tabs detected. Please use space for indentation." && exit 0 || true
+        run: git grep  -n --color  $'\t' -- "*.adoc" && echo "^ Use of tabs detected. Please use space for indentation." && exit 1 || true
       - name: Multiple blank lines
-        run: git grep "" -- "*.adoc" | uniq -c | grep -1 "^      [2-9] " | cut -b9- | sed 's/:$/:[more-than-one-blank-line-here-please-remove]/' | grep ":" && echo "^ Multiple blank lines detected. Please use only one blank line between paragraphs." && exit 0 || true
+        run: git grep "" -- "*.adoc" | uniq -c | grep -1 "^      [2-9] " | cut -b9- | sed 's/:$/:[more-than-one-blank-line-here-please-remove]/' | grep ":" && echo "^ Multiple blank lines detected. Please use only one blank line between paragraphs." && exit 1 || true
       - name: File should end with new line
-        run: for FILE in $(git ls-files -- "*.adoc"); do if [[ $(tail -c1 $FILE) != "" ]]; then echo "File ${FILE} does not end with a newline character (\n)."; exit 0; fi; done
+        run: for FILE in $(git ls-files -- "*.adoc"); do if [[ $(tail -c1 $FILE) != "" ]]; then echo "File ${FILE} does not end with a newline character (\n)."; exit 1; fi; done
       - name: Max line width
-        run: git grep -n --color '.\{120\}' -- "*.adoc" && echo "^ Lines should not be longer than 120 characters" && exit 0 || true
+        run: git grep -n --color '.\{120\}' -- "*.adoc" && echo "^ Lines should not be longer than 120 characters" && exit 1 || true
