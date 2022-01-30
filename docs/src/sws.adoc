@@ -64,7 +64,7 @@ Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź b
 
 *TODO*
 
-=== Udziałowcy 
+=== Udziałowcy
 
 [cols="1h,4"]
 |===

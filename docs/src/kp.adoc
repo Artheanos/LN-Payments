@@ -23,7 +23,7 @@ image:pjatk_logo.png[image]
 |===
 | *_Wykonawcy_* | *_Numer albumu_* | *_Specjalizacja_* | *_Tryb studiów:_*
 | Aleksander Konieczny | s19376 1.3+^.^| Aplikacje Internetowe 1.3+^.^| niestacjonarne
-| Jan Pieczul | s19497 
+| Jan Pieczul | s19497
 | Sebastian Lewandowski | s18000
 |===
 
