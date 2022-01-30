@@ -38,4 +38,4 @@ jobs:
       - name: File should end with new line
         run: for FILE in $(git ls-files -- "*.adoc"); do if [[ $(tail -c1 $FILE) != "" ]]; then echo "File ${FILE} does not end with a newline character (\n)."; exit 1; fi; done
       - name: Max line width
-        run: git grep -n --color '.\{120\}' -- "*.adoc" && echo "^ Lines should not be longer than 120 characters" && exit 1 || true
+        run: git grep -n --color '.\{121\}' -- "*.adoc" && echo "^ Lines should not be longer than 120 characters" && exit 1 || true
