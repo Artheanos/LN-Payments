@@ -1,0 +1,149 @@
+:imagesdir: ../images/
+:table-caption!:
+:sectnums:
+
+[cols="2,1,1"]
+|===
+
+| *Numer zlecenia oraz nazwa i akronim projektu:* +
+Local Crypto
+
+| *Zleceniodawca:* +
+_{ew. nazwa klienta zewnętrznego}_
+
+1.2+| *Zleceniobiorca:* +
+PJATK
+
+| *Zespół projektowy:* +
+Konieczny Aleksander +
+Pieczul Jan +
+Lewandowski Sebastian
+
+| *Kierownik projektu:* +
+Aleksander Konieczny
+
+| *Nazwa dokumentu:* +
+Dokument Założeń Wstępnych
+
+| *Odpowiedzialny za dokument:* +
+Pieczul Jan
+
+| *Opiekun projektu:* +
+Puźniakowski Tadeusz
+|===
+
+.*Historia dokumentu*
+[cols="2,4,2,2,2"]
+|===
+| *Wersja* | *Opis modyfikacji* | *Rozdział / strona* | *Autor modyfikacji* | *Data*
+| 1.0 | Wstępna wersja | Całość | Pieczul Jan | 20.11.21
+| 1.1 | Poprawki oraz uzupełnienie braków | Całość | Lewandowski Sebastian | 5.12.21
+| 1.2 | Poprawki i aktualizacje | Całość | Konieczny Aleksander | 6.12.21
+| 1.4 | Migracja do formatu adoc | Całość | Aleksander Konieczny | 29.01.22
+|===
+
+== Opis problemu
+
+Wraz z rozwojem technologii blockchain, pojawiają się nowe zastosowania inne niż tylko używanie jej jako wirtualne
+pieniądze. Podczas transakcji na blockchainie istnieje możliwość zapisania do 80 bajtów danych, których nie można
+później zmienić. Stwarza to możliwość do wykorzystania tej technologii np. do rejestrowania określonych wydarzeń.
+Można sobie wyobrazić, że ciężarówka wjeżdża do portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną
+transakcją w sieci bitcoin. Dzięki temu mamy dowód, że to wydarzenie zdarzyło się na pewno, a ta informacja jest
+niezmienna.
+
+Niestety występuje problem z finansowaniem operacji zapisywania danych na blockchainie bitcoina. Rozwiązaniem tego
+problemu może być stworzenie sklepu z jednorazowymi tokenami.
+
+Użytkownik dokonuje płatności w sklepie korzystając z kryptowaluty (np. Bitcoin) i w zamian otrzymuje określoną liczbę
+jednorazowych tokenów, a za ich pomocą ma możliwość np. zapisywania danych.
+
+== Cele systemu
+
+System ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci Bitcoin. Wdrożenie tego
+systemu rozwiąże problem, skąd pozyskać środki do korzystania z funkcjonalności związanych z zapisywaniem danych.
+Chcielibyśmy aby nasz projekt został wdrożony w ramach europejskiego projektu Ingenuity. System jest przeznaczony
+przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również
+jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji. Sukcesem dla nas będzie uzyskanie działającego i
+niezawodnego systemu, którego jakość będzie pozwalała na wdrożenie go w ramach innych projektów używających technologii
+blockchain.
+
+== Kontekst systemu
+
+Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu Ingenuity. Będzie to
+serwer pozwalający na przyjmowanie płatności, zwracając w zamian token, który będzie pozwalał na zarejestrowanie
+wydarzeń w zewnętrznym systemie. Serwer po wygenerowaniu tokena będzie wysyłał go na serwer klienta, rejestrując
+token w swojej bazie danych. Baza danych po naszej stronie będzie służyła do rejestrowania historii transakcji.
+Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie automatycznie przy
+pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie będą musieli
+posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony pozwalającej na
+wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupił. System będzie posiadał
+wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew ze wbudowanego portfela, wymagane będą
+podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej,
+służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej użytkownik
+będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina. To rozwiązanie można by
+zaimplementować jako rozszerzenie do serwisu BTC Pay Server, natomiast jest to bardzo duże narzędzie, które i tak
+nie zapewnia wielu wymaganych przez nas funkcjonalności. O wiele lepszym pomysłem jest stworzenie nowego i lekkiego
+rozwiązania, które będzie lepiej pasować do kontekstu naszego systemu.
+
+== Zakres systemu (funkcjonalność)
+
+=== Z punktu widzenia Administratora
+
+* Generowanie faktury w celu otrzymania płatności
+* Przyjmowanie płatności w sieci lightning
+* Możliwość przeglądania historii płatności
+* Możliwość przeglądania tokenów (które zostały wygenerowane i wysłane do Użytkownika po dokonaniu przez niego płatności)
+* Wypłata środków(przelew) po uzbieraniu zadeklarowanej kwoty
+* Wysyłanie powiadomień w aplikacji mobilnej
+* Budowanie transakcji multisig bitcoina z potwierdzeniami w aplikacji mobilnej
+
+=== Z punktu widzenia Użytkownika
+
+* Możliwość dokonywania płatności w sieci lightning i otrzymywania wygenerowanych tokenów
+* Możliwość przeglądania historii swoich płatności(tylko zarejestrowani użytkownicy)
+
+== Wymagania jakościowe i inne
+
+* System ma zapewnić, aby przy poprawnym użytkowaniu aplikacji, dostęp do klucza prywatnego miał tylko jego właściciel.
+* Użytkownik ma być autentykowany przy użyciu jego klucza prywatnego.
+* Tylko administrator może podpisać przelew.
+* System ma przeprowadzać płatność tylko po ustalonej ilości podpisów.
+* Dostarczony system nie ma mieć przerw w dostawie usług.
+* Konta adminów mają być zabezpieczone przed atakami.
+* Płatność ma zostać wykonana w ciągu X sekund.
+
+== Wizja konstrukcyjna
+W części back-endowej skorzystamy z Javy 11, Springa, Bitcoinj i LightningJ. Do testów użyjemy JUnit 5, Mockito oraz REST-assured.
+
+Do części front-endowej użyjemy: React, TypeScript i Material-UI
+
+Aplikacja mobilna zostanie stworzona w React Native / Flutter.
+
+Oprócz tego skorzystamy jeszcze z Dockera, który będzie zawierał w sobie bitcoind, lnd oraz bazę danych SQL (PostgreSQL)
+
+image:diagram_architecture.png[]
+
+== Ograniczenia
+
+=== Dotyczące produktu
+
+System powinien generować token, który zostanie wysłany do firmy Telefonica.
+
+=== Dotyczące zasobów projektowych
+
+Projekt zostanie zrealizowany przez zespół trzyosobowy, do końca semestru letniego 2022.
+
+== Słownik pojęć
+
+*Token* - ciąg znaków uprawniający do podpisywania zdarzeń (albo jakikolwiek inny kod) +
+*Sieć lightning* - kryptowalutowy protokół płatniczy drugiej warstwy. Ma on za zadanie umożliwić dokonywać szybkich
+płatności. +
+*bitcoind* - program, który implementuje protokół Bitcoin +
+*lnd(Lightning Network Daemon)* - kompletna implementacja węzła sieci lightning +
+*Portfel* - Program przechowujący klucze prywatne i publiczne do wykonywania transakcji na krypto walutach +
+*Klucz publiczny* - używany do szyfrowania lub podpisywania informacji +
+*Klucz prywatny* - używany do odszyfrowania informacji lub autoryzacji podpisu +
+*Podpis* - sprawdzenia autentyczności danych +
+*Użytkownik* - Osoba wykonująca płatność w zamian za token +
+*Admin / Administrator* - Użytkownik posiadający konto, ma możliwość podpisywania przelewów +
+*Przelew* - Przesłanie skumulowanych środków
