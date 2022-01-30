@@ -48,11 +48,13 @@ Zdefiniowanie wymagań na podstawie analizy otoczenia projektu oraz analizy potr
 
 === Zakres dokumentu
 
-Dokument przedstawia kontekst biznesowy systemu, określenie udziałowców oraz przedstawia analizę potrzeb klientów. Zawiera również zdefiniowane wymagania biznesowe.
+Dokument przedstawia kontekst biznesowy systemu, określenie udziałowców oraz przedstawia analizę potrzeb klientów.
+Zawiera również zdefiniowane wymagania biznesowe.
 
 === Odbiorcy
 
-Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź będący jego udziałowcami: członków zespołu projektowego, promotora Tadeusza Puźniakowskiego i dziekana PJATK Marka Bednarczyka.
+Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź będący jego udziałowcami: członków zespołu
+projektowego, promotora Tadeusza Puźniakowskiego i dziekana PJATK Marka Bednarczyka.
 
 === Słownik pojęć
 
@@ -64,7 +66,7 @@ Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź b
 
 *TODO*
 
-=== Udziałowcy 
+=== Udziałowcy
 
 [cols="1h,4"]
 |===
@@ -83,7 +85,8 @@ Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź b
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: |_UOB 02_
 |Nazwa: |_Administrator_
-|Opis: |_Osoba mająca wgląd w ustawienia serwera, może inicjować przelewy z głównego portfela, podpisywać transakcje swoim kluczem i przeglądać historię wpłat_
+|Opis: |_Osoba mająca wgląd w ustawienia serwera, może inicjować przelewy z głównego portfela, podpisywać transakcje
+swoim kluczem i przeglądać historię wpłat_
 |Typ udziałowca: |_Ożywiony bezpośredni_
 |Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu_
 |Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących_
@@ -97,20 +100,29 @@ Dokument skierowany jest do wszystkich osób zaangażowanych w projekt, bądź b
 |Nazwa: |_Uczelnia_
 |Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu Ingenious_
 |Typ udziałowca: |_Nieożywiony pośredni_
-|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań biznesowych_
+|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań
+biznesowych_
 |Ograniczenia: |_Nie ma wglądu w projekt, jedynie go nadzoruje_
 |Wymagania: |_TBD_
 |===
 
 === Klienci
 
-Klientami wewnętrznymi jest dla nas uczelnia, która chce wdrożyć projekt w ramach projektu Ingenuity. Bezpośrednimi odbiorcami będą osoby nadzorujące nasz projekt, czyli Tadeusz Puźniakowski i Marek Bednarczyk. Wszystkie aspekty projektu będą z nimi konsultowane.
+Klientami wewnętrznymi jest dla nas uczelnia, która chce wdrożyć projekt w ramach projektu Ingenuity. Bezpośrednimi
+odbiorcami będą osoby nadzorujące nasz projekt, czyli Tadeusz Puźniakowski i Marek Bednarczyk. Wszystkie aspekty
+projektu będą z nimi konsultowane.
 
-Klientem zewnętrznym jest przede wszystkim projekt Ingenuity. Będziemy dostosowywali nasz projekt aby był zgodny z ich wizją i żeby był w stanie wpasować się w istniejącą już architekturę. Klientami będą też inni użytkownicy, którzy będą chcieli wdrożyć nasz serwer przykładowo do przyjmowania mikropłatności do gier mobilnych, które będą trafiały na wspólne firmowe konto.
+Klientem zewnętrznym jest przede wszystkim projekt Ingenuity. Będziemy dostosowywali nasz projekt aby był zgodny z ich
+wizją i żeby był w stanie wpasować się w istniejącą już architekturę. Klientami będą też inni użytkownicy, którzy będą
+chcieli wdrożyć nasz serwer przykładowo do przyjmowania mikropłatności do gier mobilnych, które będą trafiały na wspólne
+firmowe konto.
 
 === Charakterystyka użytkowników
 
-Liczba administratorów prawdopodobnie będzie niewielka. Będą oni powiązani z portfelem, aby mogli wykonywać przelewy i podpisywać transakcje w portfelu multisig. Użytkowników będzie mogła być nieograniczona ilość. Każdy kto będzie chciał skorzystać z usługi oferowanej przez serwer będzie mógł to zrobić. Opcjonalnie użytkownik będzie mógł założyć konto, aby mieć podgląd na historię swoich transakcji.
+Liczba administratorów prawdopodobnie będzie niewielka. Będą oni powiązani z portfelem, aby mogli wykonywać przelewy i
+podpisywać transakcje w portfelu multisig. Użytkowników będzie mogła być nieograniczona ilość. Każdy kto będzie chciał
+skorzystać z usługi oferowanej przez serwer będzie mógł to zrobić. Opcjonalnie użytkownik będzie mógł założyć konto, aby
+mieć podgląd na historię swoich transakcji.
 
 == Wymagania
 
@@ -312,7 +324,8 @@ potrzebnej akcji
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F08 h|Priorytet: |*M*
 |Nazwa 3+|Otrzymanie tokenu po płatności przy pomocy Lightning Network bez logowania
-|Opis 3+|Użytkownik nawet nie zalogowany ma dostęp do panelu płatności, na którym dostępne są dane potrzebne do zapłacenia w LN.
+|Opis 3+|Użytkownik nawet niezalogowany ma dostęp do panelu płatności, na którym dostępne są dane potrzebne do
+zapłacenia w LN.
 |Kryteria akceptacji 3+|Użytkownik ma dostęp do adresu węzła oraz kodu do transakcji
 |Dane wejściowe 3+|
 |Warunki początkowe 3+|
@@ -442,7 +455,8 @@ stosowne powiadomienie o nowej oczekującej transakcji do podpisania.
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F.A.05 |Priorytet: |*S*
 |Nazwa 3+|Odrzucanie transakcji
-|Opis 3+|W przypadku, w którym administrator nie zgadza się na podpisanie transakcji, może ją odrzucić i wysłać tą informację do serwera
+|Opis 3+|W przypadku, w którym administrator nie zgadza się na podpisanie transakcji, może ją odrzucić i wysłać tą
+informację do serwera
 |Kryteria akceptacji 3+|Użytkownik jest w stanie odrzucić oczekującą transakcje
 |Dane wejściowe 3+|Transakcje pobrane z serwera
 |Warunki początkowe 3+|
@@ -487,7 +501,8 @@ podpisów wcześniej podanej liczby użytkowników._
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |_NF03_ h|Priorytet: |*M*
 |Nazwa 3+|_Transakcji BTC nie mogą zawierać błędów_
-|Opis 3+|_Portfel prawdopodobnie będzie akumulował spore ilości bitcoinów. W przypadku wykonywania transakcji on-chain nie możemy pozwolić sobie na żadne błędy przy generowanie transakcji, gdyż są one niemożliwe do
+|Opis 3+|_Portfel prawdopodobnie będzie akumulował spore ilości bitcoinów. W przypadku wykonywania transakcji on-chain
+nie możemy pozwolić sobie na żadne błędy przy generowanie transakcji, gdyż są one niemożliwe do
 modyfikacji._
 |Kryteria akceptacji 3+|_Wszystkie transakcje wysyłane z naszego portfela muszą być bezbłędnie rejestrowane na
 głównym węźle bitcoina._

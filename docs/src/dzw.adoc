@@ -92,7 +92,8 @@ rozwiązania, które będzie lepiej pasować do kontekstu naszego systemu.
 * Generowanie faktury w celu otrzymania płatności
 * Przyjmowanie płatności w sieci lightning
 * Możliwość przeglądania historii płatności
-* Możliwość przeglądania tokenów (które zostały wygenerowane i wysłane do Użytkownika po dokonaniu przez niego płatności)
+* Możliwość przeglądania tokenów (które zostały wygenerowane i wysłane do Użytkownika po dokonaniu przez niego
+płatności)
 * Wypłata środków(przelew) po uzbieraniu zadeklarowanej kwoty
 * Wysyłanie powiadomień w aplikacji mobilnej
 * Budowanie transakcji multisig bitcoina z potwierdzeniami w aplikacji mobilnej
@@ -113,7 +114,8 @@ rozwiązania, które będzie lepiej pasować do kontekstu naszego systemu.
 * Płatność ma zostać wykonana w ciągu X sekund.
 
 == Wizja konstrukcyjna
-W części back-endowej skorzystamy z Javy 11, Springa, Bitcoinj i LightningJ. Do testów użyjemy JUnit 5, Mockito oraz REST-assured.
+W części back-endowej skorzystamy z Javy 11, Springa, Bitcoinj i LightningJ. Do testów użyjemy JUnit 5, Mockito oraz
+REST-assured.
 
 Do części front-endowej użyjemy: React, TypeScript i Material-UI
 
