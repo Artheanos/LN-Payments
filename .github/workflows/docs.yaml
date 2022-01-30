@@ -15,9 +15,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Ruby 2.6
-        uses: actions/setup-ruby@v1
+        uses: actions/setup-ruby@v2
         with:
-          ruby-version: 2.6.
+          ruby-version: 2.6
 
       - name: Cache Maven packages
         uses: actions/cache@v2
