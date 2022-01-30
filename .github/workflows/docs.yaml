@@ -26,7 +26,7 @@ jobs:
           gem install asciidoctor-diagram
 
       - name: Build files
-        run: cd src && make
+        run: make
       - name: Line endings check
         run: git grep -n --color $'\n' -- "*.adoc" && echo "^ Possible Windows style line ending detected. Please use Unix style line endings (\n)." && exit 0 || true
       - name: Find trailing spaces
