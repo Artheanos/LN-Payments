@@ -1,0 +1,16 @@
+addReviewers: true
+numberOfReviewers: 2
+reviewers:
+  - Artheanos
+  - SxLewandowski
+  - oskar117
+
+addAssignees: true
+numberOfAssignees: 2
+assignees:
+  - Artheanos
+  - SxLewandowski
+  - oskar117
+
+skipKeywords:
+  - WIP
