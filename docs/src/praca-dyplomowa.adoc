@@ -1,0 +1,8 @@
+= Praca Dyplomowa
+:toc:
+:title-page:
+:sectnums:
+
+include::chapters/01-wstep.adoc[]
+
+include::chapters/bibliografia.adoc[]
