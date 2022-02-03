@@ -1,8 +1,11 @@
 = Praca Dyplomowa
+Aleksander Konieczny; Jan Pieczul; Sebastian Lewandowski
 :toc:
 :title-page:
 :sectnums:
 
 include::chapters/01-wstep.adoc[]
+
+include::chapters/02-omowienie-problemu.adoc[]
 
 include::chapters/bibliografia.adoc[]
