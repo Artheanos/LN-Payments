@@ -3,6 +3,8 @@ on:
   push:
     branches: [dev]
   pull_request:
+    paths:
+      - 'webservice/**'
 
 defaults:
   run:
