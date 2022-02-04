@@ -4,8 +4,8 @@
 
 Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to
 struktura danych gwarantująca niezmienność danych historycznych. Składa się on z bloków połączonych ze sobą, w
-których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomić węzeł w sieci
-Bitcoin może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
+których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
+Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
 możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jego transakcja jest
 zapisywana na 80 bajtach i zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
 zwanym kopaniem. Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich bloki. Następnie _kopacz_ stara się
@@ -15,17 +15,17 @@ określoną liczbę zer na początku. Liczba zer jest ustalana w taki sposób, a
 
 Pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin jest aktualnie
 na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby zmniejszyć ruch oraz nie
-zaśmiecać blockchaina, istnieje pojęcie opłaty transakcyjnej. Jest to suma, jaką musimy zaoferować kopaczowi, aby ten
-zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10 minut, a
-jest on w stanie pomieścić maksymalnie kilka tysięcy transakcji. Spowodowało to, że opłaty transakcyjne są bardzo
-wysokie. W lutym 2022 jest to około $2, natomiast w kwietniu 2021 opłaty osiągnęły $60. Wysokie opłaty sprawiają, że
-mikropłatności przy użyciu bitcoina są praktycznie nieopłacalne. Opłaty znacznie musiałyby przebić wartość samej
-transakcji.
+zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować kopaczowi, aby
+ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10
+minut, a jest on w stanie pomieścić maksymalnie kilka tysięcy transakcji. Spowodowało to, że opłaty transakcyjne są
+bardzo wysokie. W lutym 2022 jest to około $2, natomiast w kwietniu 2021 opłaty osiągnęły wartość $60. Wysokie opłaty
+sprawiają, że mikropłatności przy użyciu bitcoina są praktycznie nieopłacalne, ponieważ koszty znacząco przewyższają
+wartość samej transakcji.
 
 Rozwiązaniem dla tego problemu było stworzenie sieci Lightning, która działa jak druga warstwa dla sieci Bitcoin
 <<lnbook>>. Umożliwia ona tworzenie kanałów płatności _peer to peer_. Przy otwieraniu kanału użytkownicy tworzą
-wspólną transakcję w Bitcoinach która blokuje środki, które będą dostępne w sieci Lightning. Umożliwia to wykonywanie
-płatności z pominięciem księgowania ich w blockchainie Bitcoina. Po zatwierdzeniu transakcji użytkownicy
+wspólną transakcję w Bitcoinach która blokuje środki i sprawia, że będą one dostępne w sieci Lightning. Umożliwia to
+wykonywanie płatności z pominięciem księgowania ich w blockchainie Bitcoina. Po zatwierdzeniu transakcji użytkownicy
 mogą przelewać nawet najmniejsze kwoty. Płatności te mogą nie mieć żadnych opłat oraz są natychmiastowe. Sieć posiada
 również opcję "routowania". Jeżeli kilka węzłów jest ze sobą połączonych kanałami płatności, sieć jest w stanie tak
 pokierować płatnością, aby znaleźć odbiorcę bez otwartego bezpośredniego kanału. Każda osoba, która ma otwarty kanał
@@ -35,18 +35,18 @@ niemożliwe przy użyciu podstawowej sieci Bitcoin.
 
 === Kontekst problemu
 
-Dane zapisane w blockchainie są niezmienne. Każda próba zmiany danych wymaga w bloku, wymaga ponownego przeliczenia
+Dane zapisane w blockchainie są niezmienne. Każda próba zmiany danych w bloku wymaga ponownego przeliczenia
 dowodu pracy dla zmienionego bloku oraz dla wszystkich następnych. Sieć zawsze traktuje najdłuższy łańcuch bloków
 jako prawdziwy. Aktualnie moc obliczeniowa stojąca za siecią jest tak ogromna, że próba zmiany danych jest niemożliwa.
 
 Niezmienność danych w systemie jest jego ogromną zaletą. Otwiera to drzwi przed innymi zastosowaniami dla kryptowalut.
-Skoro dane są niezmienne, można je użyć w innym kontekście, jak na przykład jako dowód bądź potwierdzenie
-autentyczności przedmiotu, bądź zdarzenia. Przykładowo można użyć numeru transakcji w Bitcoinach jako identyfikatora
-dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do portu, a to
-wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin.  Osoba próbująca potwierdzić to
-wydarzenie może wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim kluczem publicznym. Dzięki
-temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest finansowanie takich transakcji.
-Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia.
+Skoro dane są niezmienne, można je użyć w innym kontekście, na przykład jako dowód bądź potwierdzenie
+autentyczności przedmiotu, bądź zdarzenia. Przykładowo istnieje możliwość użycia numeru transakcji w Bitcoinach jako
+identyfikatora dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do
+portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Osoba próbująca
+potwierdzić to wydarzenie jest w stanie wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim
+kluczem publicznym. Dzięki temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest
+finansowanie takich transakcji. Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia.
 
 === Proponowane rozwiązanie
 
@@ -62,8 +62,8 @@ rejestrując token w swojej bazie danych. Baza danych po naszej stronie będzie 
 transakcji. Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie
 automatycznie przy pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie
 będą musieli posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony
-pozwalającej na wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupił. System
-będzie posiadał wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew ze wbudowanego portfela,
+pozwalającej na wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupili. System
+będzie posiadał wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew z wbudowanego portfela,
 wymagane będą podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji
 mobilnej, służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej
 użytkownik będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina.
