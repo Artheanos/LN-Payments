@@ -70,18 +70,43 @@ użytkownik będzie logował się przy pomocy tych samych referencji jak w przyp
 
 === Konkurencyjne rozwiązania
 
-opisy i dlaczego słabe są
-
 ==== BTCPayServer
+
+Jest to uniwersalny serwer to przyjmowania płatności w różnych kryptowalutach. Można za jego pomocą zbudować punkt
+sprzedaży, zbiórkę pieniędzy czy też sklep internetowy. Za pomocą wtyczek można dodawać do serwera dodatkowe
+funkcjonalności takie jak integracje z innymi frameworkami do sprzedaży np.: Shopify czy WooCommerce. BTCPayServer
+posiada również wsparcie dla sieci Lightning. Rozwiązanie naszego problemu można by zrealizować za pomocą własnej
+wtyczki generującej tokeny. Trzeba by wtedy sporych nakładów pracy za zintegrowanie wszystkich elementów rozwiązania.
+Serwer ten jet również bardzo ciężkim rozwiązaniem, które wspiera bardzo dużo funkcjonalności których kompletnie nie
+potrzebujemy. Jest też dosyć skomplikowany w uruchomieniu. Uważamy, że oparcie naszego rozwiązania na BTCPayServer
+nie jest słusznym wyborem, ponieważ nasz produkt ma być lekki, szybki i łatwy we wdrożeniu. Są to cechy, których
+omawiane rozwiązanie nie posiada.
 
 ==== Coinbase Commerce
 
+Jest to zamknięte i płatne rozwiązanie podobne do BTCPayServer. Nie ma możliwości samodzielnego wdrożenia serwera.
+Użytkownik, który chce dodać płatności do swojej strony internetowej, musi założyć konto, stworzyć sklep oraz
+zintegrować płatności ze swoim serwisem. Teoretycznie jest możliwe napisanie własnego kodu, który będzie korzystał
+z Coinbase Commerce do obsługi płatności, a całą resztę robić w naszej części aplikacje. Stracilibyśmy wtedy
+kontrolę nad częścią funkcjonalności naszego systemu. Coinbase Commerce nie wspiera również sieci Lightning.
+
 ==== Bitrefill
 
-=== Kontekst systemu
-
-jak to ma działać (przejrzec proponowane rozwiązanie w sumie)
+Bitrefill jest serwisem, który umożliwia zakup różnych kodów zniżkowych i kart podarunkowych przy pomocy kryptowalut.
+Nie jest to rozwiązanie, które każdy może samodzielnie wdrożyć. Jeżeli chcielibyśmy sprzedawać nasze tokeny za pomocą
+tego rozwiązania, musielibyśmy zgłosić się do twórców, aby móc sprzedawać nasze produkty. Następnie wykorzystując
+API, musielibyśmy zintegrować część aplikacji odpowiedzialną za generowanie tokenów. Sieć Lightning jest również
+dopiero implementowana. Kolejnym problemem jest zależność od właścicieli platformy. Wdrożenie naszego rozwiązania
+przy użyciu Bitrefill jest możliwe, aczkolwiek mocno różniłoby się od naszej wizji systemu.
 
 === Cele systemu
 
-napisac o innych zastosowaniach itd
+System ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci Bitcoin. Wdrożenie
+tego systemu rozwiąże problem pozyskiwania środków do korzystania z funkcjonalności związanych z zapisywaniem danych.
+Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _Ingenious_. System jest przeznaczony
+przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również
+jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji. Serwer musi być przede wszystkim lekki,
+łatwy w obsłudze i niezawodny. Kod programy będzie otwarty, więc każda osoba chcąca samodzielnie postawić serwer
+sprzedający tokeny będzie mogła to zrobić kompletnie za darmo. Sukcesem dla nas będzie uzyskanie działającego i
+niezawodnego systemu, którego jakość będzie pozwalała na wdrożenie go w ramach innych projektów używających
+technologii Blockchain i Bitcoin.
