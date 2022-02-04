@@ -17,8 +17,8 @@ Pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci 
 na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby zmniejszyć ruch oraz nie
 zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować kopaczowi, aby
 ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10
-minut, a jest on w stanie pomieścić maksymalnie kilka tysięcy transakcji. Spowodowało to, że opłaty transakcyjne są
-bardzo wysokie. W lutym 2022 jest to około $2, natomiast w kwietniu 2021 opłaty osiągnęły wartość $60. Wysokie opłaty
+minut i maksymalnie może pomieścić kilka tysięcy transakcji, to opłaty transakcyjne są bardzo wysokie. W lutym
+2022 jest to około $2, natomiast w kwietniu 2021 opłaty osiągnęły wartość $60. Wysokie opłaty
 sprawiają, że mikropłatności przy użyciu bitcoina są praktycznie nieopłacalne, ponieważ koszty znacząco przewyższają
 wartość samej transakcji.
 
