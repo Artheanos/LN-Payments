@@ -7,7 +7,7 @@ struktura danych gwarantująca niezmienność danych historycznych. Składa się
 których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
 Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
 możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jego transakcja jest
-zapisywana na 80 bajtach i zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
+zapisywana na 80 bajtach, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
 zwanym kopaniem. Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich bloki. Następnie _kopacz_ stara się
 zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
 wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi posiadać
@@ -24,7 +24,7 @@ wartość samej transakcji.
 
 Rozwiązaniem dla tego problemu było stworzenie sieci Lightning, która działa jak druga warstwa dla sieci Bitcoin
 <<lnbook>>. Umożliwia ona tworzenie kanałów płatności _peer to peer_. Przy otwieraniu kanału użytkownicy tworzą
-wspólną transakcję w Bitcoinach która blokuje środki i sprawia, że będą one dostępne w sieci Lightning. Umożliwia to
+wspólną transakcję w Bitcoinach, która blokuje środki i sprawia, że będą one dostępne w sieci Lightning. Umożliwia to
 wykonywanie płatności z pominięciem księgowania ich w blockchainie Bitcoina. Po zatwierdzeniu transakcji użytkownicy
 mogą przelewać nawet najmniejsze kwoty. Płatności te mogą nie mieć żadnych opłat oraz są natychmiastowe. Sieć posiada
 również opcję "routowania". Jeżeli kilka węzłów jest ze sobą połączonych kanałami płatności, sieć jest w stanie tak
