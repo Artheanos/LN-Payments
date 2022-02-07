@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "lnp.lnd.certificatePath",
+      "type": "java.lang.String",
+      "description": "Description for lnp.lnd.certificatePath."
+    },
+    {
+      "name": "lnp.lnd.host",
+      "type": "java.lang.String",
+      "description": "Description for lnp.lnd.host."
+    },
+    {
+      "name": "lnp.lnd.macaroonPath",
+      "type": "java.lang.String",
+      "description": "Description for lnp.lnd.macaroonPath."
+    },
+    {
+      "name": "lnp.lnd.port",
+      "type": "java.lang.Integer",
+      "description": "Description for lnp.lnd.port."
+    }
+  ]
+}
