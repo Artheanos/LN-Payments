@@ -1,0 +1,48 @@
+@startuml
+actor Actor
+boundary Webapp
+participant LND
+boundary PaymentResource
+control PaymentFacade
+control InvoiceService
+control TokenService
+control PaymentRepository
+
+Actor -> Webapp : Loads quickbuy page
+Webapp -> PaymentResource : GET /payments/info
+PaymentResource -> PaymentFacade : getPaymentDetails()
+activate PaymentFacade
+PaymentFacade -> PaymentRepository : getPaymentDetails()
+PaymentRepository -> PaymentFacade : return pending payments
+PaymentFacade -> PaymentFacade : build response and check current price
+PaymentFacade -> PaymentResource : return response
+deactivate PaymentFacade
+PaymentResource -> Webapp : return response
+
+Actor -> Webapp : Completes first form
+Webapp -> PaymentResource : POST /payments
+PaymentResource -> PaymentFacade : newPayment()
+activate PaymentFacade
+PaymentFacade -> InvoiceService : generate invoice
+InvoiceService -> PaymentFacade : return invoice
+PaymentFacade -> PaymentRepository : save payment
+PaymentRepository -> PaymentFacade : return id
+PaymentFacade -> PaymentResource : return response
+deactivate PaymentFacade
+PaymentResource -> Webapp : return response
+Webapp -> Actor : display qr with payment details
+
+Actor -> Actor : Pays invoice
+LND -> PaymentResource : Invoice was paid!
+PaymentResource -> PaymentFacade : completePayment()
+activate PaymentFacade
+PaymentFacade -> PaymentRepository : setPaidStatus()
+PaymentRepository -> PaymentFacade : ok
+PaymentFacade -> TokenService : generateXTokens()
+TokenService -> PaymentFacade : return tokens
+PaymentFacade -> PaymentResource : return response
+deactivate PaymentFacade
+PaymentResource [#blue]-> Webapp : WS: payment confirmation
+Webapp -> Actor : Display tokens
+
+@enduml
