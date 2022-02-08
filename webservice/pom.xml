@@ -123,6 +123,7 @@
                             <excludes>
                                 <exclude>**/*Config.*</exclude>
                                 <exclude>**/*Application.*</exclude>
+                                <exclude>**/*Settings.*</exclude>
                             </excludes>
                         </configuration>
                         <executions>

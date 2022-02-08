@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment;
+package pl.edu.pjatk.lnpayments.webservice.payment.config;
 
 import org.lightningj.lnd.wrapper.ClientSideException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment;
+package pl.edu.pjatk.lnpayments.webservice.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lightningj.lnd.wrapper.StatusException;
@@ -8,27 +8,21 @@ import org.lightningj.lnd.wrapper.message.AddInvoiceResponse;
 import org.lightningj.lnd.wrapper.message.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
+import pl.edu.pjatk.lnpayments.webservice.service.InvoiceService;
 
 @Slf4j
 @Service
-public class InvoiceService {
+public class InvoiceServiceImpl implements InvoiceService {
 
     private final SynchronousLndAPI synchronousLndAPI;
 
     @Autowired
-    public InvoiceService(SynchronousLndAPI synchronousLndAPI) {
+    public InvoiceServiceImpl(SynchronousLndAPI synchronousLndAPI) {
         this.synchronousLndAPI = synchronousLndAPI;
     }
 
-    /**
-     * Generates invoice and sends it to LND.
-     *
-     * @param tokenAmount Amount of tokens to buy
-     * @param price Price of single token
-     * @param expiry Time in seconds in which invoice will expire
-     * @param memo Message that is displayed together with invoice
-     * @return payment request string, that user can use to pay the invoice
-     */
+    @Override
     public String createInvoice(int tokenAmount, int price, int expiry, String memo) {
         int invoiceValue = tokenAmount * price;
         Invoice invoice = generateInvoice(expiry, memo, invoiceValue);

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment;
+package pl.edu.pjatk.lnpayments.webservice.payment.exception;
 
 public class LightningException extends RuntimeException {
 
