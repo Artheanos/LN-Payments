@@ -1,0 +1,112 @@
+== Omówienie problemu
+
+=== Przedstawienie problemu
+
+Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to
+struktura danych gwarantująca niezmienność danych historycznych. Składa się on z bloków połączonych ze sobą, w
+których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
+Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
+możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jego transakcja jest
+zapisywana na 80 bajtach, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
+zwanym kopaniem. Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich bloki. Następnie _kopacz_ stara się
+zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
+wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi posiadać
+określoną liczbę zer na początku. Liczba zer jest ustalana w taki sposób, aby blok był wykopywany co ok. 10 minut.
+
+Pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin jest aktualnie
+na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby zmniejszyć ruch oraz nie
+zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować kopaczowi, aby
+ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10
+minut i maksymalnie może pomieścić kilka tysięcy transakcji, to opłaty transakcyjne są bardzo wysokie. W lutym
+2022 jest to około $2, natomiast w kwietniu 2021 opłaty osiągnęły wartość $60. Wysokie opłaty
+sprawiają, że mikropłatności przy użyciu bitcoina są praktycznie nieopłacalne, ponieważ koszty znacząco przewyższają
+wartość samej transakcji.
+
+Rozwiązaniem dla tego problemu było stworzenie sieci Lightning, która działa jak druga warstwa dla sieci Bitcoin
+<<lnbook>>. Umożliwia ona tworzenie kanałów płatności _peer to peer_. Przy otwieraniu kanału użytkownicy tworzą
+wspólną transakcję w Bitcoinach, która blokuje środki i sprawia, że będą one dostępne w sieci Lightning. Umożliwia to
+wykonywanie płatności z pominięciem księgowania ich w blockchainie Bitcoina. Po zatwierdzeniu transakcji użytkownicy
+mogą przelewać nawet najmniejsze kwoty. Płatności te mogą nie mieć żadnych opłat oraz są natychmiastowe. Sieć posiada
+również opcję "routowania". Jeżeli kilka węzłów jest ze sobą połączonych kanałami płatności, sieć jest w stanie tak
+pokierować płatnością, aby znaleźć odbiorcę bez otwartego bezpośredniego kanału. Każda osoba, która ma otwarty kanał
+może go w każdej chwili zamknąć, a cała historia transakcji w kanale zostaje wysłana jako jedna transakcja do innych
+węzłów sieci Bitcoin. Dzięki sieci Lightning możliwe jest realizowanie szybkich i małych mikropłatności, co jest
+niemożliwe przy użyciu podstawowej sieci Bitcoin.
+
+=== Kontekst problemu
+
+Dane zapisane w blockchainie są niezmienne. Każda próba zmiany danych w bloku wymaga ponownego przeliczenia
+dowodu pracy dla zmienionego bloku oraz dla wszystkich następnych. Sieć zawsze traktuje najdłuższy łańcuch bloków
+jako prawdziwy. Aktualnie moc obliczeniowa stojąca za siecią jest tak ogromna, że próba zmiany danych jest niemożliwa.
+
+Niezmienność danych w systemie jest jego ogromną zaletą. Otwiera to drzwi przed innymi zastosowaniami dla kryptowalut.
+Skoro dane są niezmienne, można je użyć w innym kontekście, na przykład jako dowód bądź potwierdzenie
+autentyczności przedmiotu, bądź zdarzenia. Przykładowo istnieje możliwość użycia numeru transakcji w Bitcoinach jako
+identyfikatora dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do
+portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Osoba próbująca
+potwierdzić to wydarzenie jest w stanie wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim
+kluczem publicznym. Dzięki temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest
+finansowanie takich transakcji. Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia.
+
+=== Proponowane rozwiązanie
+
+System, który proponujemy ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci
+Bitcoin. Wdrożenie tego systemu rozwiąże problem, skąd pozyskać środki do korzystania z funkcjonalności związanych z
+zapisywaniem danych. System jest przeznaczony przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia
+przy pomocy bitcoinów. Może być używany również jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji.
+Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu Ingenious.
+
+Chcemy stworzyć serwer pozwalający na przyjmowanie płatności, zwracając w zamian token, który będzie pozwalał na
+zarejestrowanie wydarzeń w zewnętrznym systemie. Serwer po wygenerowaniu tokena będzie wysyłał go na serwer klienta,
+rejestrując token w swojej bazie danych. Baza danych po naszej stronie będzie służyła do rejestrowania historii
+transakcji. Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie
+automatycznie przy pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie
+będą musieli posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony
+pozwalającej na wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupili. System
+będzie posiadał wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew z wbudowanego portfela,
+wymagane będą podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji
+mobilnej, służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej
+użytkownik będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina.
+
+=== Konkurencyjne rozwiązania
+
+==== BTCPayServer
+
+Jest to uniwersalny serwer to przyjmowania płatności w różnych kryptowalutach. Można za jego pomocą zbudować punkt
+sprzedaży, zbiórkę pieniędzy czy też sklep internetowy. Za pomocą wtyczek można dodawać do serwera dodatkowe
+funkcjonalności takie jak integracje z innymi frameworkami do sprzedaży np.: Shopify czy WooCommerce. BTCPayServer
+posiada również wsparcie dla sieci Lightning. Rozwiązanie naszego problemu można by zrealizować za pomocą własnej
+wtyczki generującej tokeny. Trzeba by wtedy sporych nakładów pracy za zintegrowanie wszystkich elementów rozwiązania.
+Serwer ten jet również bardzo ciężkim rozwiązaniem, które wspiera bardzo dużo funkcjonalności których kompletnie nie
+potrzebujemy. Jest też dosyć skomplikowany w uruchomieniu. Uważamy, że oparcie naszego rozwiązania na BTCPayServer
+nie jest słusznym wyborem, ponieważ nasz produkt ma być lekki, szybki i łatwy we wdrożeniu. Są to cechy, których
+omawiane rozwiązanie nie posiada.
+
+==== Coinbase Commerce
+
+Jest to zamknięte i płatne rozwiązanie podobne do BTCPayServer. Nie ma możliwości samodzielnego wdrożenia serwera.
+Użytkownik, który chce dodać płatności do swojej strony internetowej, musi założyć konto, stworzyć sklep oraz
+zintegrować płatności ze swoim serwisem. Teoretycznie jest możliwe napisanie własnego kodu, który będzie korzystał
+z Coinbase Commerce do obsługi płatności, a całą resztę robić w naszej części aplikacje. Stracilibyśmy wtedy
+kontrolę nad częścią funkcjonalności naszego systemu. Coinbase Commerce nie wspiera również sieci Lightning.
+
+==== Bitrefill
+
+Bitrefill jest serwisem, który umożliwia zakup różnych kodów zniżkowych i kart podarunkowych przy pomocy kryptowalut.
+Nie jest to rozwiązanie, które każdy może samodzielnie wdrożyć. Jeżeli chcielibyśmy sprzedawać nasze tokeny za pomocą
+tego rozwiązania, musielibyśmy zgłosić się do twórców, aby móc sprzedawać nasze produkty. Następnie wykorzystując
+API, musielibyśmy zintegrować część aplikacji odpowiedzialną za generowanie tokenów. Sieć Lightning jest również
+dopiero implementowana. Kolejnym problemem jest zależność od właścicieli platformy. Wdrożenie naszego rozwiązania
+przy użyciu Bitrefill jest możliwe, aczkolwiek mocno różniłoby się od naszej wizji systemu.
+
+=== Cele systemu
+
+System ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci Bitcoin. Wdrożenie
+tego systemu rozwiąże problem pozyskiwania środków do korzystania z funkcjonalności związanych z zapisywaniem danych.
+Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _Ingenious_. System jest przeznaczony
+przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również
+jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji. Serwer musi być przede wszystkim lekki,
+łatwy w obsłudze i niezawodny. Kod programy będzie otwarty, więc każda osoba chcąca samodzielnie postawić serwer
+sprzedający tokeny będzie mogła to zrobić kompletnie za darmo. Sukcesem dla nas będzie uzyskanie działającego i
+niezawodnego systemu, którego jakość będzie pozwalała na wdrożenie go w ramach innych projektów używających
+technologii Blockchain i Bitcoin.
