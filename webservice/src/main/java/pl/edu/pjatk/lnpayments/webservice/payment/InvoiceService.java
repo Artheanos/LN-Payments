@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.payment;
 
+import lombok.extern.slf4j.Slf4j;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
@@ -8,6 +9,7 @@ import org.lightningj.lnd.wrapper.message.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class InvoiceService {
 
@@ -27,13 +29,16 @@ public class InvoiceService {
      * @param memo Message that is displayed together with invoice
      * @return payment request string, that user can use to pay the invoice
      */
-    //TODO: Discuss exception handling
-    public String createInvoice(int tokenAmount, int price, int expiry, String memo)
-            throws StatusException, ValidationException {
+    public String createInvoice(int tokenAmount, int price, int expiry, String memo) {
         int invoiceValue = tokenAmount * price;
         Invoice invoice = generateInvoice(expiry, memo, invoiceValue);
-        AddInvoiceResponse addInvoiceResponse = synchronousLndAPI.addInvoice(invoice);
-        return addInvoiceResponse.getPaymentRequest();
+        try {
+            AddInvoiceResponse addInvoiceResponse = synchronousLndAPI.addInvoice(invoice);
+            return addInvoiceResponse.getPaymentRequest();
+        } catch (StatusException | ValidationException e) {
+            log.error("LND has thrown exception while creating invoice: ", e);
+            throw new LightningException("Error creating invoice", e);
+        }
     }
 
     private Invoice generateInvoice(int expiry, String memo, int invoiceValue) {
