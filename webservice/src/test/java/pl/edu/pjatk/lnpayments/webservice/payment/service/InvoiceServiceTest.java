@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.service.impl;
+package pl.edu.pjatk.lnpayments.webservice.payment.service;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
-import pl.edu.pjatk.lnpayments.webservice.service.impl.InvoiceServiceImpl;
+import pl.edu.pjatk.lnpayments.webservice.service.InvoiceService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class InvoiceServiceImplTest {
+class InvoiceServiceTest {
 
     private ListAppender<ILoggingEvent> logAppender;
 
@@ -33,11 +33,11 @@ class InvoiceServiceImplTest {
     private SynchronousLndAPI synchronousLndAPI;
 
     @InjectMocks
-    private InvoiceServiceImpl invoiceServiceImpl;
+    private InvoiceService invoiceService;
 
     @BeforeEach
     void setUp() {
-        Logger logger = (Logger) LoggerFactory.getLogger(InvoiceServiceImpl.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(InvoiceService.class);
         logAppender = new ListAppender<>();
         logAppender.start();
         logger.addAppender(logAppender);
@@ -49,7 +49,7 @@ class InvoiceServiceImplTest {
         when(synchronousLndAPI.addInvoice(any())).thenReturn(getAddInvoiceResponse());
         String expected = getAddInvoiceResponse().getPaymentRequest();
 
-        String result = invoiceServiceImpl.createInvoice(1, 1, 1, "test");
+        String result = invoiceService.createInvoice(1, 1, 1, "test");
 
         assertThat(result).isEqualTo(expected);
     }
@@ -60,7 +60,7 @@ class InvoiceServiceImplTest {
         when(synchronousLndAPI.addInvoice(any())).thenThrow(ValidationException.class);
 
         assertThatExceptionOfType(LightningException.class)
-                .isThrownBy(() -> invoiceServiceImpl.createInvoice(1, 1, 1, "test"))
+                .isThrownBy(() -> invoiceService.createInvoice(1, 1, 1, "test"))
                 .withMessageStartingWith("Error creating invoice")
                 .withCauseExactlyInstanceOf(ValidationException.class);
         assertThat(logAppender.list)
