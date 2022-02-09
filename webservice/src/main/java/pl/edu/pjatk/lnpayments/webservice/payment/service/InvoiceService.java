@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.service;
+package pl.edu.pjatk.lnpayments.webservice.payment.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lightningj.lnd.wrapper.StatusException;

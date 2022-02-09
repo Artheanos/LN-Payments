@@ -17,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
-import pl.edu.pjatk.lnpayments.webservice.service.InvoiceService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
