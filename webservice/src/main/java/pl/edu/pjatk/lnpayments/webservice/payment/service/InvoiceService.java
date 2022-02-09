@@ -26,13 +26,13 @@ public class InvoiceService {
      *
      * @param tokenAmount Amount of tokens to buy
      * @param price Price of single token
-     * @param expiry Time in seconds in which invoice will expire
+     * @param expiryInSeconds Time in seconds in which invoice will expire
      * @param memo Message that is displayed together with invoice
      * @return payment request string, that user can use to pay the invoice
      */
-    public String createInvoice(int tokenAmount, int price, int expiry, String memo) {
+    public String createInvoice(int tokenAmount, int price, int expiryInSeconds, String memo) {
         int invoiceValue = tokenAmount * price;
-        Invoice invoice = generateInvoice(expiry, memo, invoiceValue);
+        Invoice invoice = generateInvoice(expiryInSeconds, memo, invoiceValue);
         try {
             AddInvoiceResponse addInvoiceResponse = synchronousLndAPI.addInvoice(invoice);
             return addInvoiceResponse.getPaymentRequest();
@@ -42,11 +42,11 @@ public class InvoiceService {
         }
     }
 
-    private Invoice generateInvoice(int expiry, String memo, int invoiceValue) {
+    private Invoice generateInvoice(int expiryInSeconds, String memo, int invoiceValue) {
         Invoice invoice = new Invoice();
         invoice.setValue(invoiceValue);
         invoice.setMemo(memo);
-        invoice.setExpiry(expiry);
+        invoice.setExpiry(expiryInSeconds);
         return invoice;
     }
 
