@@ -40,11 +40,11 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - PGDATA=/postgresql
+      - POSTGRES_DB=lnpayments
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
     volumes:
-      - db:/postgresql
+      - db:/var/lib/postgresql/data
 
 volumes:
   bitcoin:
