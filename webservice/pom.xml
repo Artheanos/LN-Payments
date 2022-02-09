@@ -18,6 +18,7 @@
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <checkstyle.version>9.2.1</checkstyle.version>
+        <lightningj.version>0.13.1-Beta</lightningj.version>
     </properties>
 
     <dependencies>
@@ -42,6 +43,16 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.lightningj</groupId>
+            <artifactId>lightningj</artifactId>
+            <version>${lightningj.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -112,6 +123,7 @@
                             <excludes>
                                 <exclude>**/*Config.*</exclude>
                                 <exclude>**/*Application.*</exclude>
+                                <exclude>**/*Settings.*</exclude>
                             </excludes>
                         </configuration>
                         <executions>
