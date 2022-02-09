@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.common;
+package pl.edu.pjatk.lnpayments.webservice.common.service;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 //TODO: Replace with service for retrieving these settings from persistent storage
-public class TempSettings {
+public class TempSettings implements PropertyService {
 
     private final int price = 100;
     private final String description = "Super opis";
