@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.model;
+package pl.edu.pjatk.lnpayments.webservice.payment.resource.dto;
 
 import lombok.Data;
 

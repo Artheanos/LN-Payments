@@ -3,7 +3,7 @@ package pl.edu.pjatk.lnpayments.webservice.payment.facade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentDetailsRequest;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;

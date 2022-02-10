@@ -2,9 +2,9 @@ package pl.edu.pjatk.lnpayments.webservice.payment.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfoResponse;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 
 import java.util.List;
