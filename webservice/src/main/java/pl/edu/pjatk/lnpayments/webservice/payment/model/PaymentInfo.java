@@ -1,12 +1,12 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 
 import java.util.List;
 
-@Data
+@Getter
 @Builder
 public class PaymentInfo {
 

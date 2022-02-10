@@ -22,7 +22,7 @@ public class PaymentFacade {
     private final NodeDetailsService nodeDetailsService;
 
     @Autowired
-    public PaymentFacade(InvoiceService invoiceService, PropertyService propertyService,
+    PaymentFacade(InvoiceService invoiceService, PropertyService propertyService,
                          PaymentDataService paymentDataService, NodeDetailsService nodeDetailsService) {
         this.invoiceService = invoiceService;
         this.propertyService = propertyService;

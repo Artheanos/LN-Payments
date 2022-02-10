@@ -16,7 +16,7 @@ public class PaymentInfoConverter {
     private final PaymentDetailsConverter paymentDetailsConverter;
 
     @Autowired
-    public PaymentInfoConverter(PaymentDetailsConverter paymentDetailsConverter) {
+    PaymentInfoConverter(PaymentDetailsConverter paymentDetailsConverter) {
         this.paymentDetailsConverter = paymentDetailsConverter;
     }
 

@@ -24,7 +24,7 @@ public class PaymentResource {
     private final PaymentInfoConverter paymentInfoConverter;
 
     @Autowired
-    public PaymentResource(PaymentFacade paymentFacade, PaymentDetailsConverter paymentDetailsConverter, PaymentInfoConverter paymentInfoConverter) {
+    PaymentResource(PaymentFacade paymentFacade, PaymentDetailsConverter paymentDetailsConverter, PaymentInfoConverter paymentInfoConverter) {
         this.paymentFacade = paymentFacade;
         this.paymentDetailsConverter = paymentDetailsConverter;
         this.paymentInfoConverter = paymentInfoConverter;

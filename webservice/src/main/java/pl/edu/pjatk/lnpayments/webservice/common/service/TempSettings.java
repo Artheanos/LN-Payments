@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @NoArgsConstructor
 //TODO: Replace with service for retrieving these settings from persistent storage
-public class TempSettings implements PropertyService {
+class TempSettings implements PropertyService {
 
     private final int price = 100;
     private final String description = "Super opis";

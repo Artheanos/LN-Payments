@@ -14,7 +14,7 @@ public class PaymentDataService {
     private final PaymentRepository paymentRepository;
 
     @Autowired
-    public PaymentDataService(PaymentRepository paymentRepository) {
+    PaymentDataService(PaymentRepository paymentRepository) {
         this.paymentRepository = paymentRepository;
     }
 

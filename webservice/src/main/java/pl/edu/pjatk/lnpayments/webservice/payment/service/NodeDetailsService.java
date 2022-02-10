@@ -21,7 +21,7 @@ public class NodeDetailsService {
     private final String nodeUrl;
 
     @Autowired
-    public NodeDetailsService(SynchronousLndAPI synchronousLndAPI) {
+    NodeDetailsService(SynchronousLndAPI synchronousLndAPI) {
         this.synchronousLndAPI = synchronousLndAPI;
         nodeUrl = buildNodeUrl();
     }
