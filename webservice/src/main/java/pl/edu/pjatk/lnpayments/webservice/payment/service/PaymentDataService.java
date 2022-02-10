@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class PaymentDataService {
 
@@ -17,5 +20,10 @@ public class PaymentDataService {
 
     public Payment savePayment(Payment payment) {
         return paymentRepository.save(payment);
+    }
+
+    public List<Payment> findPendingPaymentsByUser() {
+        //TODO implement, when we have a way to authenticate users
+        return Collections.emptyList();
     }
 }

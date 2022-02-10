@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.payment.converter.PaymentDetailsConverter;
+import pl.edu.pjatk.lnpayments.webservice.payment.converter.PaymentInfoConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfoResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
-import pl.edu.pjatk.lnpayments.webservice.payment.service.NodeDetailsService;
 
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.INFO_PATH;
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_PATH;
@@ -18,21 +20,21 @@ import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_PATH;
 public class PaymentResource {
 
     private final PaymentFacade paymentFacade;
-    private final NodeDetailsService nodeDetailsService;
     private final PaymentDetailsConverter paymentDetailsConverter;
+    private final PaymentInfoConverter paymentInfoConverter;
 
     @Autowired
-    public PaymentResource(PaymentFacade paymentFacade, NodeDetailsService nodeDetailsService, PaymentDetailsConverter paymentDetailsConverter) {
+    public PaymentResource(PaymentFacade paymentFacade, PaymentDetailsConverter paymentDetailsConverter, PaymentInfoConverter paymentInfoConverter) {
         this.paymentFacade = paymentFacade;
-        this.nodeDetailsService = nodeDetailsService;
         this.paymentDetailsConverter = paymentDetailsConverter;
+        this.paymentInfoConverter = paymentInfoConverter;
     }
 
     @GetMapping(INFO_PATH)
     public ResponseEntity<?> paymentInfo() {
-
-        String nodeInfo = nodeDetailsService.getNodeUrl();
-        return ResponseEntity.ok("dududu");
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse();
+        PaymentInfoResponse paymentInfoResponse = paymentInfoConverter.convertToDto(paymentInfo);
+        return ResponseEntity.ok(paymentInfoResponse);
     }
 
     @PostMapping

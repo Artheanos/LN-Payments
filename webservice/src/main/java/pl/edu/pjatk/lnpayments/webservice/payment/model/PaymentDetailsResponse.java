@@ -1,12 +1,12 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.model;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
 import java.time.Instant;
 
-@Data
 @Builder
+@Getter
 public class PaymentDetailsResponse {
 
     private String paymentRequest;
