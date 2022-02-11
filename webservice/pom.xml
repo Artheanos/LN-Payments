@@ -21,6 +21,7 @@
         <lightningj.version>0.13.1-Beta</lightningj.version>
         <protobuf-java.version>3.19.1</protobuf-java.version>
         <wiremock.version>2.32.0</wiremock.version>
+        <h2.version>2.1.210</h2.version>
     </properties>
 
     <dependencies>
@@ -70,6 +71,11 @@
             <artifactId>wiremock-jre8</artifactId>
             <version>${wiremock.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
     </dependencies>
 
