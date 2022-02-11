@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * there. We must keep them for now for sake of code coverage.
  */
 @ExtendWith(MockitoExtension.class)
-public class PaymentDataServiceTest {
+class PaymentDataServiceTest {
 
     @Mock
     private PaymentRepository paymentRepository;

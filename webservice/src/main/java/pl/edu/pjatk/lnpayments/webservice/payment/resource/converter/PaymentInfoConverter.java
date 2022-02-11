@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.converter;
+package pl.edu.pjatk.lnpayments.webservice.payment.resource.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

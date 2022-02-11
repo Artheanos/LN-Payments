@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.converter;
+package pl.edu.pjatk.lnpayments.webservice.payment.resource.converter;
 
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;

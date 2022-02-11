@@ -3,8 +3,8 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pjatk.lnpayments.webservice.payment.converter.PaymentDetailsConverter;
-import pl.edu.pjatk.lnpayments.webservice.payment.converter.PaymentInfoConverter;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentDetailsConverter;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentInfoConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
@@ -26,7 +26,9 @@ public class PaymentResource {
     private final PaymentInfoConverter paymentInfoConverter;
 
     @Autowired
-    PaymentResource(PaymentFacade paymentFacade, PaymentDetailsConverter paymentDetailsConverter, PaymentInfoConverter paymentInfoConverter) {
+    PaymentResource(PaymentFacade paymentFacade,
+                    PaymentDetailsConverter paymentDetailsConverter,
+                    PaymentInfoConverter paymentInfoConverter) {
         this.paymentFacade = paymentFacade;
         this.paymentDetailsConverter = paymentDetailsConverter;
         this.paymentInfoConverter = paymentInfoConverter;
@@ -40,7 +42,8 @@ public class PaymentResource {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentDetailsResponse> createPayment(@RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest) {
+    public ResponseEntity<PaymentDetailsResponse> createPayment(
+            @RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest) {
         Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest);
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
         return ResponseEntity.ok(response);
