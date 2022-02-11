@@ -19,6 +19,11 @@
       "name": "lnp.lnd.port",
       "type": "java.lang.Integer",
       "description": "Description for lnp.lnd.port."
+    },
+    {
+      "name": "lnp.misc.ipRetrieverUrl",
+      "type": "java.lang.String",
+      "description": "Description for lnp.misc.ipRetrieverUrl."
     }
   ]
 }

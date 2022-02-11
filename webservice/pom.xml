@@ -20,6 +20,7 @@
         <checkstyle.version>9.2.1</checkstyle.version>
         <lightningj.version>0.13.1-Beta</lightningj.version>
         <protobuf-java.version>3.19.1</protobuf-java.version>
+        <wiremock.version>2.32.0</wiremock.version>
     </properties>
 
     <dependencies>
@@ -63,6 +64,12 @@
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock-jre8</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

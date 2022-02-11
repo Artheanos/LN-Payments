@@ -5,6 +5,7 @@ import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
 
@@ -19,10 +20,12 @@ public class NodeDetailsService {
 
     private final SynchronousLndAPI synchronousLndAPI;
     private final String nodeUrl;
+    private final String ipServiceUrl;
 
     @Autowired
-    NodeDetailsService(SynchronousLndAPI synchronousLndAPI) {
+    NodeDetailsService(SynchronousLndAPI synchronousLndAPI, @Value("${lnp.misc.ipRetrieverUrl}") String ipServiceUrl) {
         this.synchronousLndAPI = synchronousLndAPI;
+        this.ipServiceUrl = ipServiceUrl;
         nodeUrl = buildNodeUrl();
     }
 
@@ -42,7 +45,7 @@ public class NodeDetailsService {
     }
 
     private String retrievePublicIp() throws IOException {
-        URL url = new URL("https://checkip.amazonaws.com/");
+        URL url = new URL(ipServiceUrl);
         BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
         return reader.readLine();
     }
