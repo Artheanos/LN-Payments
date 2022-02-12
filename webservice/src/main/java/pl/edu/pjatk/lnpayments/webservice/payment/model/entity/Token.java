@@ -31,12 +31,12 @@ public class Token {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Token token = (Token) o;
-        return id.equals(token.id) && value.equals(token.value);
+        return value.equals(token.value);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, value);
+        return Objects.hash(value);
     }
 
 }

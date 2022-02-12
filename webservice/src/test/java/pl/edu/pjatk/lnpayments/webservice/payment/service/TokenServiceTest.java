@@ -6,6 +6,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
 
 import java.util.Collection;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,6 +21,7 @@ class TokenServiceTest {
         Collection<Token> tokens = tokenService.generateTokens(payment);
 
         assertThat(tokens).hasSize(5);
+        assertThat(tokens).isInstanceOf(Set.class);
         assertThat(tokens).extracting(Token::getValue).allMatch(value -> value.length() == 64);
     }
 }
