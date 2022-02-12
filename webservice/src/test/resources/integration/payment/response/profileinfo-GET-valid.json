@@ -1,0 +1,6 @@
+{
+  "price": 100,
+  "description": "Super opis",
+  "nodeUrl": "key@1.2.3.4:9735",
+  "pendingPayments": []
+}

@@ -17,7 +17,7 @@ public class InvoiceService {
     private final SynchronousLndAPI synchronousLndAPI;
 
     @Autowired
-    public InvoiceService(SynchronousLndAPI synchronousLndAPI) {
+    InvoiceService(SynchronousLndAPI synchronousLndAPI) {
         this.synchronousLndAPI = synchronousLndAPI;
     }
 
