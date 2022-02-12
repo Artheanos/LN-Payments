@@ -29,7 +29,7 @@ class PaymentDataServiceTest {
 
     @Test
     void shouldSaveItemAndReturnCopy() {
-        Payment payment = new Payment("asd", 60, PaymentStatus.PENDING);
+        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING);
         when(paymentRepository.save(payment)).thenReturn(payment);
 
         Payment returnedPayment = paymentDataService.savePayment(payment);

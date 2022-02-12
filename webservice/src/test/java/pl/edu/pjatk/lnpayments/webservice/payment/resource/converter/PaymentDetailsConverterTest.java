@@ -13,11 +13,12 @@ class PaymentDetailsConverterTest {
 
     @Test
     void shouldConvertToDto() {
-        Payment payment = new Payment("123", 123, PaymentStatus.PENDING);
+        Payment payment = new Payment("123", 1, 1, 123, PaymentStatus.PENDING);
 
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
 
         assertThat(response.getPaymentRequest()).isEqualTo("123");
         assertThat(response.getTimestamp()).isBefore(response.getExpirationTimestamp());
     }
+
 }
