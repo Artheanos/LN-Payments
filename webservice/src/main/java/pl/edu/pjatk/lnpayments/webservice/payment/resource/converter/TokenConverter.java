@@ -11,6 +11,6 @@ import java.util.stream.Collectors;
 public class TokenConverter {
 
     public TokenResponse convertAllToDto(Collection<Token> tokens) {
-        return new TokenResponse(tokens.stream().map(Token::getValue).collect(Collectors.toSet()));
+        return new TokenResponse(tokens.stream().map(Token::getSequence).collect(Collectors.toSet()));
     }
 }

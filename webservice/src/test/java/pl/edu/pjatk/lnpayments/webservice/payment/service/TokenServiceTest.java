@@ -22,6 +22,6 @@ class TokenServiceTest {
 
         assertThat(tokens).hasSize(5);
         assertThat(tokens).isInstanceOf(Set.class);
-        assertThat(tokens).extracting(Token::getValue).allMatch(value -> value.length() == 64);
+        assertThat(tokens).extracting(Token::getSequence).allMatch(value -> value.length() == 64);
     }
 }

@@ -21,6 +21,6 @@ class TokenConverterTest {
         TokenResponse tokenResponse = tokenConverter.convertAllToDto(tokens);
 
         assertThat(tokenResponse.getTokens()).hasSize(2);
-        assertThat(tokenResponse.getTokens()).contains(token1.getValue(), token2.getValue());
+        assertThat(tokenResponse.getTokens()).contains(token1.getSequence(), token2.getSequence());
     }
 }
