@@ -43,4 +43,7 @@ public class Payment {
         this.status = paymentStatus;
     }
 
+    public void assignTokens(Collection<Token> tokens) {
+        this.tokens.addAll(tokens);
+    }
 }

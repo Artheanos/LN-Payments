@@ -2,6 +2,7 @@ package pl.edu.pjatk.lnpayments.webservice.payment.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 
@@ -26,4 +27,10 @@ public class PaymentDataService {
         //TODO implement, when we have a way to authenticate users
         return Collections.emptyList();
     }
+
+    public Payment findPaymentByRequest(String paymentRequest) {
+        return paymentRepository.findPaymentByPaymentRequest(paymentRequest)
+                .orElseThrow(InconsistentDataException::new);
+    }
+
 }
