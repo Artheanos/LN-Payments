@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment;
+package pl.edu.pjatk.lnpayments.webservice.payment.observer;
 
 import io.grpc.stub.StreamObserver;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,6 @@ public class InvoiceObserver implements StreamObserver<Invoice> {
 
     @Override
     public void onNext(Invoice invoice) {
-        log.info(invoice.getPaymentRequest() + invoice.getState());
         if (invoice.getState() == Invoice.InvoiceState.SETTLED) {
             paymentFacade.finalizePayment(invoice.getPaymentRequest());
         }

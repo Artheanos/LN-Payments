@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.edu.pjatk.lnpayments.webservice.payment.InvoiceObserver;
+import pl.edu.pjatk.lnpayments.webservice.payment.observer.InvoiceObserver;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 
 import javax.net.ssl.SSLException;

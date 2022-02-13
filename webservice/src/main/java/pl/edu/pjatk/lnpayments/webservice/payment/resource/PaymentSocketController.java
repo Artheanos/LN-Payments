@@ -2,7 +2,6 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
@@ -21,11 +20,6 @@ public class PaymentSocketController {
     public PaymentSocketController(SimpMessagingTemplate messagingTemplate, TokenConverter tokenConverter) {
         this.messagingTemplate = messagingTemplate;
         this.tokenConverter = tokenConverter;
-    }
-
-    @MessageMapping("/payment")
-    public void get(String anything) {
-        log.info("Receiving something through websocket");
     }
 
     public void sendTokens(String channelId, Collection<Token> tokens) {

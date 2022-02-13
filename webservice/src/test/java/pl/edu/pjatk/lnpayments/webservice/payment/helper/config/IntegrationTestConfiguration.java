@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.helper.config;
 
+import org.lightningj.lnd.wrapper.AsynchronousAPI;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
@@ -26,4 +27,10 @@ public class IntegrationTestConfiguration {
         when(api.addInvoice(any())).thenReturn(invoice);
         return api;
     }
+
+    @Bean
+    AsynchronousAPI asynchronousLndAPI() {
+        return Mockito.mock(AsynchronousAPI.class);
+    }
+
 }
