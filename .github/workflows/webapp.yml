@@ -31,5 +31,7 @@ jobs:
         run: yarn
       - name: Eslint
         run: yarn lint
+      - name: Tests
+        run: yarn test
       - name: Typescript and build
         run: yarn build

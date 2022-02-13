@@ -3,7 +3,7 @@ import { AppBar } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import routesBuilder from '../routesBuilder'
+import routesBuilder from 'routesBuilder'
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation('common')

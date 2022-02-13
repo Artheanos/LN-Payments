@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 interface Props {
   confirmButtonContent?: string
   message: string
-  onConfirm?: () => void
+  onConfirm: () => void
   open: boolean
   setOpen: (open: boolean) => void
 }
@@ -23,7 +23,7 @@ export const ConfirmationModal: React.FC<Props> = ({
 
   const confirmHandler = () => {
     hideModal()
-    onConfirm?.()
+    onConfirm()
   }
 
   return (

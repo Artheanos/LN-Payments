@@ -6,7 +6,7 @@ interface Props {
   stageName: string
 }
 
-enum HeaderClassName {
+export enum HeaderClassName {
   PAST = 'text-gray-500',
   PRESENT = 'text-purple-500',
   FUTURE = ''

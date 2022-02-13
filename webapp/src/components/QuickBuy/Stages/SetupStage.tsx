@@ -1,8 +1,8 @@
 import React, { FormEvent } from 'react'
 import { Button, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 import { StageProps } from '../StageProps'
-import { useTranslation } from 'react-i18next'
 
 export const SetupStage: React.FC<StageProps> = ({ onNext }) => {
   const { t } = useTranslation('common')

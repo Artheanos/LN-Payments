@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Card, List, ListItem } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 import { StageProps } from '../StageProps'
-import { useTranslation } from 'react-i18next'
 
 export const TokensStage: React.FC<StageProps> = ({ onNext }) => {
   const { t } = useTranslation('common')

@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { Button } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
+import { ConfirmationModal } from '../../Modals/ConfirmationModal'
 import { StageProps } from '../StageProps'
 import { millisecondsToClock, secondsFromNow } from 'utils/dates'
-import { ConfirmationModal } from '../../Modals/ConfirmationModal'
 
 export const TransactionStage: React.FC<StageProps> = ({
   onNext,
@@ -17,7 +17,7 @@ export const TransactionStage: React.FC<StageProps> = ({
     deadline.valueOf() - new Date().valueOf() - 1
   )
 
-  const [openModal, setOpenModal] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
     if (timeLeft > 0) {
@@ -30,7 +30,7 @@ export const TransactionStage: React.FC<StageProps> = ({
       }, 1000)
       return () => clearTimeout(interval)
     } else {
-      setOpenModal(true)
+      setModalVisible(true)
     }
   }, [deadline, t, timeLeft])
 
@@ -39,9 +39,9 @@ export const TransactionStage: React.FC<StageProps> = ({
       <ConfirmationModal
         confirmButtonContent="Go to setup"
         message={t('quickBuy.transaction.timeoutMessage')}
-        onConfirm={() => setStageIndex(0)}
-        open={openModal}
-        setOpen={setOpenModal}
+        onConfirm={() => setStageIndex?.(0)}
+        open={modalVisible}
+        setOpen={setModalVisible}
       />
       <div>{millisecondsToClock(timeLeft)}</div>
       <Button variant="contained" onClick={onPrevious}>

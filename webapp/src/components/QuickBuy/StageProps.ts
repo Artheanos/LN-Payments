@@ -1,5 +1,5 @@
 export interface StageProps {
   onNext: () => void
   onPrevious: () => void
-  setStageIndex: (index: number) => void
+  setStageIndex?: (index: number) => void
 }
