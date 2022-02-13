@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.facade;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
@@ -75,7 +76,8 @@ public class PaymentFacade {
         Payment payment = paymentDataService.findPaymentByRequest(paymentRequest);
         payment.assignTokens(tokenService.generateTokens(payment));
         payment.setStatus(PaymentStatus.COMPLETE);
-        paymentSocketController.sendTokens(payment.getPaymentRequest().substring(0, 8), payment.getTokens());
+        String paymentHash = DigestUtils.sha256Hex(paymentRequest);
+        paymentSocketController.sendTokens(paymentHash.substring(0, 8), payment.getTokens());
     }
 
 }

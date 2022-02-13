@@ -10,11 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class TokenConverter {
 
-    public TokenResponse convertToDto(Token token) {
-        return new TokenResponse(token.getValue());
-    }
-
-    public Collection<TokenResponse> convertAllToDto(Collection<Token> tokens) {
-        return tokens.stream().map(this::convertToDto).collect(Collectors.toSet());
+    public TokenResponse convertAllToDto(Collection<Token> tokens) {
+        return new TokenResponse(tokens.stream().map(Token::getValue).collect(Collectors.toSet()));
     }
 }
