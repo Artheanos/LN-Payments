@@ -42,13 +42,20 @@ public class PaymentFacade {
 
     public Payment createNewPayment(PaymentDetailsRequest paymentDetailsRequest) {
         int paymentExpiryInSeconds = propertyService.getPaymentExpiryInSeconds();
+        int price = propertyService.getPrice();
+        int numberOfTokens = paymentDetailsRequest.getNumberOfTokens();
         String paymentRequest = invoiceService.createInvoice(
-                paymentDetailsRequest.getNumberOfTokens(),
-                propertyService.getPrice(),
+                numberOfTokens,
+                price,
                 paymentExpiryInSeconds,
                 propertyService.getInvoiceMemo()
         );
-        Payment payment = new Payment(paymentRequest, paymentExpiryInSeconds, PaymentStatus.PENDING);
+        Payment payment = new Payment(
+                paymentRequest,
+                numberOfTokens,
+                price,
+                paymentExpiryInSeconds,
+                PaymentStatus.PENDING);
         return paymentDataService.savePayment(payment);
     }
 

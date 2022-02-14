@@ -77,6 +77,10 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -159,8 +163,8 @@
                                 <id>check</id>
                                 <phase>verify</phase>
                                 <goals>
-                                    <goal>check</goal>
                                     <goal>report</goal>
+                                    <goal>check</goal>
                                 </goals>
                                 <configuration>
                                     <rules>
