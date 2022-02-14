@@ -1,3 +1,11 @@
+import { QuickBuy } from '../components/QuickBuy/QuickBuy'
+import { Navbar } from '../components/Navbar'
+
 export const QuickBuyPage = () => {
-  return <div>BUY</div>
+  return (
+    <>
+      <Navbar />
+      <QuickBuy />
+    </>
+  )
 }

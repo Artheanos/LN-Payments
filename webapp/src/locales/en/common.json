@@ -1,3 +1,28 @@
 {
-    "title": "LN Payments"
+  "cancel": "Cancel",
+  "close": "Close",
+  "confirm": "Confirm",
+  "next": "Next",
+  "title": "LN Payments",
+  "quickBuy": {
+    "setup": {
+      "header": "Setup",
+      "form": {
+        "tokenCount": {
+          "label": "Number of tokens"
+        },
+        "email": {
+          "label": "Email"
+        }
+      },
+      "info": "Tokens are very cool things"
+    },
+    "transaction": {
+      "header": "Transaction",
+      "timeoutMessage": "Transaction has expired"
+    },
+    "tokens": {
+      "header": "Tokens"
+    }
+  }
 }
