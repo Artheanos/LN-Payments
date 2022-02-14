@@ -20,10 +20,10 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String value;
+    private String sequence;
 
-    public Token(String value) {
-        this.value = value;
+    public Token(String sequence) {
+        this.sequence = sequence;
     }
 
     @Override
@@ -31,12 +31,12 @@ public class Token {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Token token = (Token) o;
-        return value.equals(token.value);
+        return sequence.equals(token.sequence);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value);
+        return Objects.hash(sequence);
     }
 
 }

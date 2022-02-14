@@ -5,13 +5,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -42,5 +46,24 @@ class PaymentDataServiceTest {
         //TODO: implement in LP-xxx
         List<Payment> payments = paymentDataService.findPendingPaymentsByUser();
         assertThat(payments).isEmpty();
+    }
+
+    @Test
+    void shouldFindPaymentById() {
+        String paymentRequest = "asd";
+        Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING);
+        when(paymentRepository.findPaymentByPaymentRequest(paymentRequest)).thenReturn(Optional.of(payment));
+
+        Payment result = paymentDataService.findPaymentByRequest(paymentRequest);
+
+        assertThat(payment).isEqualTo(result);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenNoEntityFound() {
+        when(paymentRepository.findPaymentByPaymentRequest(anyString())).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(InconsistentDataException.class)
+                .isThrownBy(() -> paymentDataService.findPaymentByRequest(""));
     }
 }
