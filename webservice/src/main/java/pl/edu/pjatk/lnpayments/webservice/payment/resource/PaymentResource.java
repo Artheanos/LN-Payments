@@ -14,6 +14,8 @@ import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoRespon
 
 import javax.validation.Valid;
 
+import java.time.Instant;
+
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.INFO_PATH;
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_PATH;
 
@@ -44,9 +46,9 @@ public class PaymentResource {
     @PostMapping
     public ResponseEntity<PaymentDetailsResponse> createPayment(
             @RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest) {
-        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest);
-        PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
-        return ResponseEntity.ok(response);
+//        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest);
+//        PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
+        return ResponseEntity.ok(new PaymentDetailsResponse("123", Instant.now(), Instant.now()));
     }
 
 }

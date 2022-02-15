@@ -1,25 +1,37 @@
 import React from 'react'
 import { Button } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { Formik, Field, FormikValues, Form } from 'formik'
+import { Formik, Field, Form } from 'formik'
 
 import { StageProps } from 'components/QuickBuy/StageProps'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
+import { api } from 'api'
 
-export const SetupStage: React.FC<StageProps> = ({ onNext }) => {
+interface CreateForm {
+  numberOfTokens: number
+  email: string
+}
+
+export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   const { t } = useTranslation('common')
 
-  const onSubmit = (form: FormikValues) => {
-    onNext()
+  const onSubmit = (form: CreateForm) => {
+    api.payment.create(form).then((payment) => {
+      setPayment(payment)
+      onNext()
+    })
   }
 
   return (
     <div>
       <div>{t('quickBuy.setup.info')}</div>
-      <Formik initialValues={{ tokenCount: 1, email: '' }} onSubmit={onSubmit}>
+      <Formik
+        initialValues={{ numberOfTokens: 1, email: '' }}
+        onSubmit={onSubmit}
+      >
         <Form className="flex flex-col gap-4 mx-auto mt-12 w-64">
           <Field
-            name="tokenCount"
+            name="numberOfTokens"
             label={t('quickBuy.setup.form.tokenCount.label')}
             type="number"
             variant="outlined"

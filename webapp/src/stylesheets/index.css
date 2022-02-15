@@ -13,18 +13,6 @@ html * {
   font-family: "Inter", sans-serif;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0 50%;
-  }
-}
-
 .btn {
   @apply font-bold py-3 px-5 rounded-xl bg-purple-400;
 }
