@@ -8,11 +8,6 @@ import java.time.Instant;
 @Getter
 @Builder
 public class PaymentDetailsResponse {
-    public PaymentDetailsResponse(String paymentRequest, Instant timestamp, Instant expirationTimestamp) {
-        this.paymentRequest = paymentRequest;
-        this.timestamp = timestamp;
-        this.expirationTimestamp = expirationTimestamp;
-    }
 
     private String paymentRequest;
     private Instant timestamp;

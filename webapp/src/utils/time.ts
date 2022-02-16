@@ -1,17 +1,13 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const millisecondsToClock = (milliseconds: number) => {
   return new Date(milliseconds).toISOString().substring(14, 19)
 }
 
-const fromNow = (milliseconds: number) => {
-  const result = new Date()
-  result.setMilliseconds(result.getMilliseconds() + milliseconds)
-  return result
-}
-
-export const useCountdown = (milliseconds: number, onTimeout: () => void) => {
-  const deadline = useMemo(() => fromNow(milliseconds), [])
+export const useCountdown = (deadline?: Date, onTimeout?: () => void) => {
+  if (!deadline) {
+    deadline = new Date()
+  }
 
   const [timeLeft, setTimeLeft] = useState(
     deadline.valueOf() - new Date().valueOf() - 1
@@ -20,7 +16,7 @@ export const useCountdown = (milliseconds: number, onTimeout: () => void) => {
   useEffect(() => {
     if (timeLeft > 0) {
       const interval = setTimeout(() => {
-        let newTimeLeft = deadline.valueOf() - new Date().valueOf()
+        let newTimeLeft = deadline!.valueOf() - new Date().valueOf()
         if (newTimeLeft < 0) {
           newTimeLeft = 0
         }
@@ -28,14 +24,14 @@ export const useCountdown = (milliseconds: number, onTimeout: () => void) => {
       }, 1000)
       return () => clearTimeout(interval)
     } else {
-      onTimeout()
+      onTimeout?.()
     }
   }, [onTimeout, deadline, timeLeft])
 
   return timeLeft
 }
 
-const API_DATE_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{6}Z$/
+const API_DATE_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d+Z$/
 
 export const datify = <T extends Record<string, string | Date | never>>(
   object: T

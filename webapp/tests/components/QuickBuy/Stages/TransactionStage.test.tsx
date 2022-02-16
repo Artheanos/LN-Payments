@@ -2,40 +2,40 @@ import React from 'react'
 import { render, screen, waitFor } from 'tests/test-utils'
 import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage'
 
-jest.mock('utils/dates', () => {
-  const originalModule = jest.requireActual('utils/dates')
-  return {
-    ...originalModule,
-    secondsFromNow: () => originalModule.secondsFromNow(2)
-  }
-})
-
 describe('TransactionStage', () => {
+  const fakePaymentDetails = {
+    paymentRequest: '123',
+    timestamp: new Date(),
+    expirationTimestamp: new Date(new Date().valueOf() + 4_000)
+  }
+
   let onPrevious: jest.Mock
   let onNext: jest.Mock
   let setStageIndex: jest.Mock
+  let setPayment: jest.Mock
 
   beforeEach(() => {
     onPrevious = jest.fn(() => {})
     onNext = jest.fn(() => {})
     setStageIndex = jest.fn(() => {})
+    setPayment = jest.fn(() => {})
+
     render(
       <TransactionStage
-        onPrevious={onPrevious}
-        onNext={onNext}
-        setStageIndex={setStageIndex}
+        payment={fakePaymentDetails}
+        {...{ onNext, onPrevious, setStageIndex, setPayment }}
       />
     )
   })
 
   it('renders time left', async () => {
-    expect(screen.getByText('00:01')).toBeInTheDocument()
-    await waitFor(() => screen.getByText('00:00'))
+    expect(screen.getByText('00:03')).toBeInTheDocument()
+    await waitFor(() => screen.getByText('00:02'))
   })
 
   describe('timeout', () => {
     beforeEach(async () => {
-      await waitFor(() => screen.getByText('Go to setup'), { timeout: 2100 })
+      await waitFor(() => screen.getByText('Go to setup'), { timeout: 5000 })
     })
 
     it('shows confirmation modal', () => {
@@ -44,17 +44,17 @@ describe('TransactionStage', () => {
 
     it('calls setStageIndex when confirming modal', () => {
       screen.getByText('Go to setup').click()
-      expect(setStageIndex.mock.calls.length).toBe(1)
+      expect(setStageIndex).toHaveBeenCalledTimes(1)
     })
   })
 
   it('calls onPrevious when pressing Cancel', () => {
-    expect(onPrevious.mock.calls.length).toBe(0)
-    expect(onNext.mock.calls.length).toBe(0)
+    expect(onPrevious).not.toHaveBeenCalled()
+    expect(onNext).not.toHaveBeenCalled()
 
     screen.getByText('Cancel').click()
 
-    expect(onPrevious.mock.calls.length).toBe(1)
-    expect(onNext.mock.calls.length).toBe(0)
+    expect(onPrevious).toHaveBeenCalledTimes(1)
+    expect(onNext).not.toHaveBeenCalled()
   })
 })

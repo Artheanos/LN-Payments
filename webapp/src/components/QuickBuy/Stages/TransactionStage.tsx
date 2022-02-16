@@ -10,13 +10,19 @@ export const TransactionStage: React.FC<StageProps> = ({
   onNext,
   onPrevious,
   setStageIndex,
+  payment,
   setPayment
 }) => {
   const { t } = useTranslation('common')
-  const timeLeft = useCountdown(5_000, () => {
+  const timeLeft = useCountdown(payment?.expirationTimestamp, () => {
     setModalVisible(true)
     setPayment(null)
   })
+
+  const onCancel = () => {
+    setPayment(null)
+    onPrevious()
+  }
 
   const [modalVisible, setModalVisible] = useState(false)
 
@@ -30,7 +36,7 @@ export const TransactionStage: React.FC<StageProps> = ({
         setOpen={setModalVisible}
       />
       <div>{millisecondsToClock(timeLeft)}</div>
-      <Button variant="contained" onClick={onPrevious}>
+      <Button variant="contained" onClick={onCancel}>
         {t('cancel')}
       </Button>
       <Button variant="contained" color="info" onClick={onNext}>

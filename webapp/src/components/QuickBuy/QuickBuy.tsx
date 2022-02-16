@@ -27,7 +27,6 @@ export const QuickBuy: React.FC = () => {
   useEffect(() => {
     if (payment) {
       setStageIndex(StageIndex.Transaction)
-      // TODO Redirect to Setup if expired
     }
   }, [payment])
 

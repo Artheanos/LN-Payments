@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler } from 'react'
+import React, { ChangeEventHandler } from 'react'
 import { FieldProps } from 'formik'
 import { TextField, TextFieldProps } from '@mui/material'
 
