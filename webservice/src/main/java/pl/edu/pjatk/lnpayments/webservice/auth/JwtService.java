@@ -15,8 +15,8 @@ public class JwtService {
     private final String secret;
 
     public JwtService(
-            @Value("${lnd.auth.expirationInMs}") int expirationInMs,
-            @Value("${lnd.auth.jwtSecret}") String secret) {
+            @Value("${lnp.auth.expirationInMs}") int expirationInMs,
+            @Value("${lnp.auth.jwtSecret}") String secret) {
         this.expirationInMs = expirationInMs;
         this.secret = secret;
     }
