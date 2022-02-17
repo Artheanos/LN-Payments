@@ -54,7 +54,14 @@ class JwtServiceTest {
     }
 
     @Test
-    void shouldReturnFalseForRandomExpiredToken() {
+    void shouldReturnFalseForEmptyString() {
+        boolean result = jwtService.isTokenValid("");
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    void shouldReturnFalseForRandomToken() {
         boolean result = jwtService.isTokenValid("""
                 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOi
                 IxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0I
