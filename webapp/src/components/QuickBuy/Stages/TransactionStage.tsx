@@ -1,38 +1,30 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-import { ConfirmationModal } from '../../Modals/ConfirmationModal'
-import { StageProps } from '../StageProps'
-import { millisecondsToClock, secondsFromNow } from 'utils/dates'
+import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { StageProps } from 'components/QuickBuy/StageProps'
+import { millisecondsToClock, useCountdown } from 'utils/time'
 
 export const TransactionStage: React.FC<StageProps> = ({
   onNext,
   onPrevious,
-  setStageIndex
+  setStageIndex,
+  payment,
+  setPayment
 }) => {
   const { t } = useTranslation('common')
-  const deadline = useMemo(() => secondsFromNow(5), [])
-  const [timeLeft, setTimeLeft] = useState(
-    deadline.valueOf() - new Date().valueOf() - 1
-  )
+  const timeLeft = useCountdown(payment?.expirationTimestamp, () => {
+    setModalVisible(true)
+    setPayment(null)
+  })
+
+  const onCancel = () => {
+    setPayment(null)
+    onPrevious()
+  }
 
   const [modalVisible, setModalVisible] = useState(false)
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const interval = setTimeout(() => {
-        let newTimeLeft = deadline.valueOf() - new Date().valueOf()
-        if (newTimeLeft < 0) {
-          newTimeLeft = 0
-        }
-        setTimeLeft(newTimeLeft)
-      }, 1000)
-      return () => clearTimeout(interval)
-    } else {
-      setModalVisible(true)
-    }
-  }, [deadline, t, timeLeft])
 
   return (
     <div>
@@ -44,7 +36,7 @@ export const TransactionStage: React.FC<StageProps> = ({
         setOpen={setModalVisible}
       />
       <div>{millisecondsToClock(timeLeft)}</div>
-      <Button variant="contained" onClick={onPrevious}>
+      <Button variant="contained" onClick={onCancel}>
         {t('cancel')}
       </Button>
       <Button variant="contained" color="info" onClick={onNext}>
