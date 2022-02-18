@@ -24,6 +24,16 @@
       "name": "lnp.misc.ipRetrieverUrl",
       "type": "java.lang.String",
       "description": "Description for lnp.misc.ipRetrieverUrl."
+    },
+    {
+      "name": "lnp.auth.expirationInMs",
+      "type": "java.lang.String",
+      "description": "Description for lnp.auth.expirationInMs."
+    },
+    {
+      "name": "lnp.auth.jwtSecret",
+      "type": "java.lang.String",
+      "description": "Description for lnp.auth.jwtSecret."
     }
   ]
 }
