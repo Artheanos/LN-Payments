@@ -1,4 +1,5 @@
 {
+  "ok": "Ok",
   "cancel": "Cancel",
   "close": "Close",
   "confirm": "Confirm",
@@ -15,7 +16,7 @@
           "label": "Email"
         }
       },
-      "info": "Tokens are very cool things"
+      "info": "Tokens are very cool things. You can use them to do all sorts of things. That's why tokens are very cool things."
     },
     "transaction": {
       "header": "Transaction",
@@ -23,50 +24,6 @@
     },
     "tokens": {
       "header": "Tokens"
-    }
-  },
-  "register": {
-    "header": "Register",
-    "send": "Register",
-    "form": {
-      "email": {
-        "label": "Email",
-        "errors": {
-          "required": "Email is required!",
-          "valid": "Email not valid!"
-        }
-      },
-      "fullName": {
-        "label": "Full Name",
-        "errors": {
-          "required": "Full name is required!",
-          "min": "Full name must have at least 3 characters!",
-          "max": "Full name must be no longer than 50 characters!"
-        }
-      },
-      "password": {
-        "label": "Password",
-        "errors": {
-          "regex": "Password must contain 8 characters, one uppercase, one lowercase, one number and one special case character!",
-          "required": "Password is required!"
-        }
-      },
-      "passwordConfirmation": {
-        "label": "Repeat your password",
-        "errors": {
-          "match": "Passwords does not match!"
-        }
-      }
-    },
-    "api": {
-      "errors": {
-        "409": "Given email is already in use",
-        "400": "Bad data provided",
-        "default": "Something went wrong"
-      },
-      "success": {
-        "message": "You have been successfully registered. You can now log in!"
-      }
     }
   }
 }

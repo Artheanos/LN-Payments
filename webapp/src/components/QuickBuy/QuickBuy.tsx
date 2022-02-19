@@ -37,7 +37,7 @@ export const QuickBuy: React.FC = () => {
       <div className="mt-10">
         <StageProgress currentStageIndex={stageIndex} />
       </div>
-      <div className="pt-20">
+      <div className="px-10 pt-20">
         <CurrentStage
           onNext={() => setStageIndex((prev) => zeroIfNotInRange(prev + 1))}
           onPrevious={() => setStageIndex((prev) => zeroIfNotInRange(prev - 1))}

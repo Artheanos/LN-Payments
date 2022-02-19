@@ -41,7 +41,9 @@ describe('SetupStage', () => {
   })
 
   it('renders info', () => {
-    expect(screen.getByText('Tokens are very cool things')).toBeInTheDocument()
+    expect(
+      screen.getByText('Tokens are very cool things', { exact: false })
+    ).toBeInTheDocument()
   })
 
   it('calls setPayment when pressing Next', async () => {

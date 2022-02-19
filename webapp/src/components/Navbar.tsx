@@ -10,9 +10,9 @@ export const Navbar: React.FC = () => {
 
   return (
     <AppBar
-      position={'static'}
+      position="static"
       className="justify-start py-2 pl-10"
-      color={'secondary'}
+      color="secondary"
     >
       <Link
         className="flex text-2xl font-bold text-gray-900"

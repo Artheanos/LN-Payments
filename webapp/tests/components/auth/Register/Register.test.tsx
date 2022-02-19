@@ -1,8 +1,8 @@
-import { render, screen } from '../../test-utils'
-import { Register } from '../../../src/components/Register/Register'
+import { render, screen } from '../../../test-utils'
+import { Register } from '../../../../src/components/auth/Register/Register'
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
-import routesBuilder from '../../../src/routesBuilder'
+import routesBuilder from '../../../../src/routesBuilder'
 import { fireEvent, waitFor } from '@testing-library/react'
 
 describe('Register form', () => {
@@ -16,7 +16,7 @@ describe('Register form', () => {
     fireEvent.change(screen.getByLabelText('Email'), {
       target: { value: 'test@test.pl' }
     })
-    fireEvent.change(screen.getByLabelText('Full Name'), {
+    fireEvent.change(screen.getByLabelText('Full name'), {
       target: { value: 'testest' }
     })
     fireEvent.change(screen.getByLabelText('Password'), {
@@ -36,17 +36,17 @@ describe('Register form', () => {
 
   it('Should render registration form', () => {
     expect(screen.getByLabelText('Email')).toBeInTheDocument()
-    expect(screen.getByLabelText('Full Name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Full name')).toBeInTheDocument()
     expect(screen.getByLabelText('Password')).toBeInTheDocument()
     expect(screen.getByLabelText('Repeat your password')).toBeInTheDocument()
-    expect(screen.getByRole('button')).toBeInTheDocument()
+    expect(screen.getAllByRole('button')[0]).toBeInTheDocument()
   })
 
   it('should register user with proper data', async () => {
-    statusCode = 200
+    statusCode = 201
     server.listen()
     fillForm()
-    screen.getByRole('button').click()
+    screen.getAllByRole('button')[0].click()
     await waitFor(() => {
       expect(
         screen.getByText(
@@ -59,7 +59,7 @@ describe('Register form', () => {
     statusCode = 400
     server.listen()
     fillForm()
-    screen.getByRole('button').click()
+    screen.getAllByRole('button')[0].click()
     await waitFor(() => {
       expect(screen.getByText('Bad data provided')).toBeInTheDocument()
     })
