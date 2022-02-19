@@ -18,6 +18,7 @@ import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationTest;
+import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.DisabledSecurityConfig;
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.IntegrationTestConfiguration;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
@@ -36,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @ActiveProfiles("test")
-@SpringBootTest(classes = IntegrationTestConfiguration.class, webEnvironment = RANDOM_PORT)
+@SpringBootTest(classes = {IntegrationTestConfiguration.class, DisabledSecurityConfig.class}, webEnvironment = RANDOM_PORT)
 class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
 
     @LocalServerPort
