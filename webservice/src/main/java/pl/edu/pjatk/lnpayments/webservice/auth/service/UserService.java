@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
@@ -40,7 +39,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new UserDetailsImpl(userRepository.findByEmail(username)
+        return userConverter.convertToUserDetails(userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username + "not found!")));
     }
 }

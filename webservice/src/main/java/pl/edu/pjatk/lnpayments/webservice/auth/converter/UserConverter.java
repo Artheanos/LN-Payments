@@ -1,8 +1,10 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
@@ -25,4 +27,13 @@ public class UserConverter {
                 .email(request.getEmail())
                 .build();
     }
+
+    public UserDetails convertToUserDetails(User user) {
+        return UserDetailsImpl.builder()
+                .email(user.getEmail())
+                .role(user.getRole())
+                .password(user.getPassword())
+                .build();
+    }
+
 }
