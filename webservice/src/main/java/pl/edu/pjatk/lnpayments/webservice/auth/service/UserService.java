@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.auth.UserDetailsImpl;
+import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.auth;
+package pl.edu.pjatk.lnpayments.webservice.auth.filter;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

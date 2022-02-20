@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.auth;
+package pl.edu.pjatk.lnpayments.webservice.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import pl.edu.pjatk.lnpayments.webservice.auth.filter.AuthTokenFilter;
 
 @Configuration
 @EnableWebSecurity
