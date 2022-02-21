@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.auth;
+package pl.edu.pjatk.lnpayments.webservice.auth.service;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
