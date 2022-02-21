@@ -29,8 +29,8 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void createUser(RegisterRequest request) {
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new ValidationException("User with given mail exists!");
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ValidationException("User with mail " + request.getEmail() + " exists!");
         }
 
         User user = userConverter.convertToEntity(request, Role.ROLE_USER);
@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username + "not found!"));
+                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
         return userConverter.convertToUserDetails(user);
     }
 }

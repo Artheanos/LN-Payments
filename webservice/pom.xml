@@ -183,7 +183,7 @@
                                 <configuration>
                                     <rules>
                                         <rule>
-                                            <element>CLASS</element>
+                                            <element>BUNDLE</element>
                                             <limits>
                                                 <limit>
                                                     <counter>LINE</counter>
