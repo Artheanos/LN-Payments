@@ -6,6 +6,7 @@ public class Constants {
     public static final String AUTH_PATH = "/auth";
     public static final String INFO_PATH = "/info";
     public static final String REGISTER_PATH = "/register";
+    public static final String LOGIN_PATH = "/login";
 
     private Constants() {}
 
