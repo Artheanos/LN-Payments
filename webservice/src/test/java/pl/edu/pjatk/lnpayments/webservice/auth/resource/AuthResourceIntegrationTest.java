@@ -12,9 +12,11 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
@@ -23,6 +25,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationT
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.IntegrationTestConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -133,5 +136,33 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
                 .role(Role.ROLE_USER)
                 .password(passwordEncoder.encode("test"))
                 .fullName("test").build();
+    }
+
+    @Test
+    void refreshTokenShouldReturnOkAndNewToken() throws Exception {
+        String email = "email@email.com";
+        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        String token = jwtService.generateToken(email);
+
+        MvcResult result = mockMvc
+                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String stringResponse = result.getResponse().getContentAsString();
+        RefreshTokenResponse response = objectMapper.readValue(stringResponse, RefreshTokenResponse.class);
+        String responseToken = response.getToken();
+        assertThat(jwtService.retrieveEmail(responseToken)).isEqualTo(email);
+    }
+
+    @Test
+    void refreshTokenShouldReturn401WhenTheTokenIsInvalid() throws Exception {
+        String email = "email@email.com";
+        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        String token = "thisTokenIsInvalid";
+
+        mockMvc
+                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .andExpect(status().isUnauthorized());
     }
 }

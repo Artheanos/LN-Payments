@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.filter;
 
+import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,26 +32,29 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
-        Optional<String> token = parseJwtToken(request);
-        if(token.isPresent() && jwtService.isTokenValid(token.get())) {
-            String username = jwtService.retrieveEmail(token.get());
-            UserDetails user = userDetailsService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain chain
+    ) throws ServletException, IOException {
+        Optional<String> token = parseRequest(request);
+        if (token.isPresent() && jwtService.isTokenValid(token.get())) {
+            setAuthentication(request, token.get());
         }
         chain.doFilter(request, response);
     }
 
-    private Optional<String> parseJwtToken(HttpServletRequest req) {
-        String authHeader = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return Optional.of(authHeader.substring(7));
-        }
-        return Optional.empty();
+    private void setAuthentication(HttpServletRequest request, String token) throws SignatureException {
+        String username = jwtService.retrieveEmail(token);
+        UserDetails user = userDetailsService.loadUserByUsername(username);
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+    }
+
+    private Optional<String> parseRequest(HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        return jwtService.headerToToken(authHeader);
     }
 }

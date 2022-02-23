@@ -10,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -57,4 +60,17 @@ class AuthResourceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    @Test
+    void refreshTokenShouldReturnOk() {
+        String oldToken = "token123";
+        String authHeader = String.format("Bearer %s", oldToken);
+        String newToken = "token321";
+
+        when(jwtService.refreshToken(oldToken)).thenReturn(newToken);
+        when(jwtService.headerToToken(authHeader)).thenReturn(Optional.of(oldToken));
+        ResponseEntity<RefreshTokenResponse> response = authResource.refreshToken(authHeader);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getToken()).isEqualTo(newToken);
+    }
 }

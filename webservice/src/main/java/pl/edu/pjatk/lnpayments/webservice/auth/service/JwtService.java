@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -31,7 +32,7 @@ public class JwtService {
                 .compact();
     }
 
-    public String renewToken(String token) {
+    public String refreshToken(String token) {
         String email = retrieveEmail(token);
         return generateToken(email);
     }
@@ -62,4 +63,12 @@ public class JwtService {
         return false;
     }
 
+    public Optional<String> headerToToken(String header) {
+        if (header == null) return Optional.empty();
+
+        String[] split = header.split(" ");
+        if (split.length != 2) return Optional.empty();
+
+        return Optional.of(split[1]);
+    }
 }
