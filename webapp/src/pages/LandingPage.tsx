@@ -17,9 +17,12 @@ export const LandingPage = () => {
             {t('title')}
           </p>
           <p className="text-xl text-gray-900">Very cool!</p>
-          <div className="mt-20">
+          <div className="mt-20 space-x-16">
             <Link to={routesBuilder.quickBuy}>
               <button className="btn">QuickBuy</button>
+            </Link>
+            <Link to={routesBuilder.register}>
+              <button className="btn">Register</button>
             </Link>
           </div>
         </div>

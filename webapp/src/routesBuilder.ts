@@ -1,10 +1,12 @@
 export default {
   landingPage: '/',
   quickBuy: '/quick-buy',
+  register: '/register',
   api: {
     payments: {
       index: '/api/payments',
-      info: '/api/payment/info'
+      info: '/api/payment/info',
+      register: '/api/auth/register'
     }
   }
 }
