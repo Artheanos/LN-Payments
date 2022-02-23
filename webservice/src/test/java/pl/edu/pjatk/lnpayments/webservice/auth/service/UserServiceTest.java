@@ -93,13 +93,14 @@ class UserServiceTest {
         String email = "test@test.pl";
         String name = "test";
         String pass = "pass";
+        String token = "token";
         User user = new User(email, "test", "pass", Role.ROLE_USER);
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
-        LoginResponse result = userService.findLoggedUser(email);
+        LoginResponse result = userService.findAndConvertLoggedUser(email, token);
 
         verify(userRepository).findByEmail(email);
-        verify(userConverter).convertToLoginResponse(user);
+        verify(userConverter).convertToLoginResponse(user, token);
     }
 
     @Test
@@ -110,7 +111,7 @@ class UserServiceTest {
         assertThatExceptionOfType(UsernameNotFoundException.class)
                 .isThrownBy(() -> userService.loadUserByUsername(email))
                 .withMessage(email + " not found!");
-        verify(userConverter, never()).convertToLoginResponse(any());
+        verify(userConverter, never()).convertToLoginResponse(any(), anyString());
     }
 
     private UserDetails mockUserDetails(String email, String pass, Role role) {

@@ -17,6 +17,7 @@ import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AuthResourceTest {
@@ -46,11 +47,12 @@ class AuthResourceTest {
     void shouldLoginUserAndReturnResponseForCorrectData() {
         String email = "test@test.pl";
         LoginRequest request = new LoginRequest(email, "test");
+        when(jwtService.generateToken(email)).thenReturn("token");
 
         ResponseEntity<LoginResponse> response = authResource.login(request);
 
         verify(jwtService).generateToken(email);
-        verify(userService).findLoggedUser(email);
+        verify(userService).findAndConvertLoggedUser(email, "token");
         verify(authenticationManager).authenticate(any());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }

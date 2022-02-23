@@ -1,6 +1,7 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationTest;
@@ -43,6 +45,9 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtService jwtService;
 
     @AfterEach
     void tearDown() {
@@ -89,13 +94,13 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(header().exists(HttpHeaders.AUTHORIZATION))
                 .andReturn().getResponse().getContentAsString();
 
         LoginResponse loginResponse = objectMapper.readValue(response, LoginResponse.class);
         assertThat(loginResponse.getFullName()).isEqualTo("test");
         assertThat(loginResponse.getEmail()).isEqualTo(EMAIL);
         assertThat(loginResponse.getRole()).isEqualTo(Role.ROLE_USER);
+        assertThat(loginResponse.getToken()).is(new Condition<>(jwtService::isTokenValid, "Is JWT token?"));
     }
 
     @Test

@@ -37,8 +37,8 @@ public class UserConverter {
                 .build();
     }
 
-    public LoginResponse convertToLoginResponse(User user) {
-        return new LoginResponse(user.getEmail(), user.getFullName(), user.getRole());
+    public LoginResponse convertToLoginResponse(User user, String token) {
+        return new LoginResponse(user.getEmail(), user.getFullName(), user.getRole(), token);
     }
 
 }

@@ -1,7 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,10 +46,8 @@ class AuthResource {
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         String email = request.getEmail();
         String jwtToken = jwtService.generateToken(email);
-        LoginResponse loginResponse = userService.findLoggedUser(email);
+        LoginResponse loginResponse = userService.findAndConvertLoggedUser(email, jwtToken);
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.AUTHORIZATION, jwtToken)
-                .body(loginResponse);
+        return ResponseEntity.ok().body(loginResponse);
     }
 }

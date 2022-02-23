@@ -56,10 +56,11 @@ class UserConverterTest {
     void shouldConvertToLoginResponse() {
         User user = new User("test@test.pl", "test", "pass", Role.ROLE_USER);
 
-        LoginResponse loginResponse = userConverter.convertToLoginResponse(user);
+        LoginResponse loginResponse = userConverter.convertToLoginResponse(user, "token");
 
         assertThat(loginResponse.getEmail()).isEqualTo(user.getEmail());
         assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());
         assertThat(loginResponse.getRole()).isEqualTo(user.getRole());
+        assertThat(loginResponse.getToken()).isEqualTo("token");
     }
 }

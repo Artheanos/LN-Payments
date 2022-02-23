@@ -38,9 +38,9 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    public LoginResponse findLoggedUser(String username) {
+    public LoginResponse findAndConvertLoggedUser(String username, String jwtToken) {
         User user = findUser(userRepository, username);
-        return userConverter.convertToLoginResponse(user);
+        return userConverter.convertToLoginResponse(user, jwtToken);
     }
 
     @Override
