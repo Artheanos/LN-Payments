@@ -46,11 +46,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    private Optional<String> parseJwtToken(HttpServletRequest req) {
-        String authHeader = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            return Optional.of(authHeader.substring(7));
-        }
-        return Optional.empty();
+    private Optional<String> parseJwtToken(HttpServletRequest request) {
+        String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        return JwtService.headerToToken(authHeader);
     }
 }

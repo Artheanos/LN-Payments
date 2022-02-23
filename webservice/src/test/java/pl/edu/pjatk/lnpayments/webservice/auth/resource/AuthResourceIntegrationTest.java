@@ -6,16 +6,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.IntegrationTestConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,13 +35,16 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private JwtService jwtService;
+
     @AfterEach
     void tearDown() {
         userRepository.deleteAll();
     }
 
     @Test
-    void shouldReturnOkAndProperResponse() throws Exception {
+    void registrationShouldReturnOkAndProperResponse() throws Exception {
         RegisterRequest request = new RegisterRequest("test@test.pl", "test", "zaq1@WSX");
         mockMvc.perform(post("/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -46,7 +54,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturn409WhenEmailIsTaken() throws Exception {
+    void registrationShouldReturn409WhenEmailIsTaken() throws Exception {
         RegisterRequest request = new RegisterRequest("test@test.pl", "test", "zaq1@WSX");
         User user = User.builder().email("test@test.pl").build();
         userRepository.save(user);
@@ -57,11 +65,26 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturn400ForInvalidParams() throws Exception {
+    void registrationShouldReturn400ForInvalidParams() throws Exception {
         RegisterRequest request = new RegisterRequest("test@test.pl", null, "");
         mockMvc.perform(post("/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void renewalShouldReturnOkAndNewToken() throws Exception {
+        String email = "email@email.com";
+        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        String token = jwtService.generateToken(email);
+
+        MvcResult result = mockMvc
+                .perform(get("/auth/renew").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String newToken = result.getResponse().getContentAsString();
+        assertThat(jwtService.retrieveEmail(newToken)).isEqualTo(email);
     }
 }
