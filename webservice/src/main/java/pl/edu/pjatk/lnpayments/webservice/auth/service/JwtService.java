@@ -32,7 +32,7 @@ public class JwtService {
                 .compact();
     }
 
-    public String renewToken(String token) {
+    public String refreshToken(String token) {
         String email = retrieveEmail(token);
         return generateToken(email);
     }
@@ -63,7 +63,7 @@ public class JwtService {
         return false;
     }
 
-    static public Optional<String> headerToToken(String header) {
+    public Optional<String> headerToToken(String header) {
         if (header == null) return Optional.empty();
 
         String[] split = header.split(" ");

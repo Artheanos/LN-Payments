@@ -48,6 +48,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     private Optional<String> parseJwtToken(HttpServletRequest request) {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-        return JwtService.headerToToken(authHeader);
+        return jwtService.headerToToken(authHeader);
     }
 }

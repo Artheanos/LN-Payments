@@ -12,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
@@ -34,6 +35,9 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private JwtService jwtService;
@@ -74,17 +78,30 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void renewalShouldReturnOkAndNewToken() throws Exception {
+    void refreshTokenShouldReturnOkAndNewToken() throws Exception {
         String email = "email@email.com";
         userRepository.save(new User(email, "", "", Role.ROLE_USER));
         String token = jwtService.generateToken(email);
 
         MvcResult result = mockMvc
-                .perform(get("/auth/renew").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        String newToken = result.getResponse().getContentAsString();
-        assertThat(jwtService.retrieveEmail(newToken)).isEqualTo(email);
+        String stringResponse = result.getResponse().getContentAsString();
+        RefreshTokenResponse response = objectMapper.readValue(stringResponse, RefreshTokenResponse.class);
+        String responseToken = response.getToken();
+        assertThat(jwtService.retrieveEmail(responseToken)).isEqualTo(email);
+    }
+
+    @Test
+    void refreshTokenShouldReturn401WhenTheTokenIsInvalid() throws Exception {
+        String email = "email@email.com";
+        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        String token = jwtService.generateToken(email) + "1";
+
+        mockMvc
+                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .andExpect(status().isUnauthorized());
     }
 }

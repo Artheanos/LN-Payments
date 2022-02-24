@@ -7,9 +7,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -37,13 +40,15 @@ class AuthResourceTest {
 
     @Test
     void shouldReturnOk() {
-        String token = "token123";
+        String oldToken = "token123";
+        String authHeader = String.format("Bearer %s", oldToken);
         String newToken = "token321";
 
-        when(jwtService.renewToken(token)).thenReturn(newToken);
-        ResponseEntity<?> response = authResource.renewToken(String.format("Bearer %s", token));
+        when(jwtService.refreshToken(oldToken)).thenReturn(newToken);
+        when(jwtService.headerToToken(authHeader)).thenReturn(Optional.of(oldToken));
+        ResponseEntity<RefreshTokenResponse> response = authResource.refreshToken(authHeader);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(newToken);
+        assertThat(response.getBody().getToken()).isEqualTo(newToken);
     }
 }
