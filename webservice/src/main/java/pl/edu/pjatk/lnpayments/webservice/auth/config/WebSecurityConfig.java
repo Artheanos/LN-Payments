@@ -18,11 +18,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import pl.edu.pjatk.lnpayments.webservice.auth.filter.AuthTokenFilter;
 
-import static pl.edu.pjatk.lnpayments.webservice.common.Constants.AUTH_PATH;
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final String[] UNSECURED_PATHS = {
+            AUTH_PATH + "/**",
+
+            "/v2/api-docs",
+            "/swagger-ui/**",
+            "/swagger-resources/**"
+    };
 
     private final UserDetailsService userDetailsService;
     private final AuthTokenFilter jwtFilter;
@@ -50,7 +57,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(AUTH_PATH + "/**").permitAll()
+                .antMatchers(UNSECURED_PATHS).permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
