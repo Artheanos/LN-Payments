@@ -7,6 +7,9 @@ export default {
       index: '/api/payments',
       info: '/api/payment/info',
       register: '/api/auth/register'
+    },
+    auth: {
+      register: '/api/auth/register'
     }
   }
 }
