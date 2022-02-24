@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
@@ -37,10 +38,20 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    public LoginResponse findAndConvertLoggedUser(String username, String jwtToken) {
+        User user = findUser(userRepository, username);
+        return userConverter.convertToLoginResponse(user, jwtToken);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+        User user = findUser(userRepository, username);
         return userConverter.convertToUserDetails(user);
     }
+
+    private User findUser(UserRepository userRepository, String username) {
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+    }
+
 }

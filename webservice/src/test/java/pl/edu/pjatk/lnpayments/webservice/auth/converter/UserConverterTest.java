@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
@@ -49,5 +50,17 @@ class UserConverterTest {
         assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
         assertThat(userDetails.getAuthorities()).hasSize(1);
         assertThat(userDetails.getAuthorities().contains(Role.ROLE_USER)).isTrue();
+    }
+
+    @Test
+    void shouldConvertToLoginResponse() {
+        User user = new User("test@test.pl", "test", "pass", Role.ROLE_USER);
+
+        LoginResponse loginResponse = userConverter.convertToLoginResponse(user, "token");
+
+        assertThat(loginResponse.getEmail()).isEqualTo(user.getEmail());
+        assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());
+        assertThat(loginResponse.getRole()).isEqualTo(user.getRole());
+        assertThat(loginResponse.getToken()).isEqualTo("token");
     }
 }

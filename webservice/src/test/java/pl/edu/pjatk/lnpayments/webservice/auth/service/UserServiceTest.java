@@ -10,12 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 import javax.validation.ValidationException;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -86,6 +86,32 @@ class UserServiceTest {
                 .isThrownBy(() -> userService.loadUserByUsername(email))
                 .withMessage(email + " not found!");
         verify(userConverter, never()).convertToUserDetails(any());
+    }
+
+    @Test
+    void shouldReturnLoginRequestIfUserExists() {
+        String email = "test@test.pl";
+        String name = "test";
+        String pass = "pass";
+        String token = "token";
+        User user = new User(email, "test", "pass", Role.ROLE_USER);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+
+        LoginResponse result = userService.findAndConvertLoggedUser(email, token);
+
+        verify(userRepository).findByEmail(email);
+        verify(userConverter).convertToLoginResponse(user, token);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFoundForLoggedUser() {
+        String email = "test@test.pl";
+        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userService.loadUserByUsername(email))
+                .withMessage(email + " not found!");
+        verify(userConverter, never()).convertToLoginResponse(any(), anyString());
     }
 
     private UserDetails mockUserDetails(String email, String pass, Role role) {
