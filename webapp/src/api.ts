@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 import routesBuilder from './routesBuilder'
 import { datify } from './utils/time'

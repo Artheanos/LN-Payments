@@ -83,44 +83,34 @@ export const Register: React.FC = () => {
               name="email"
               label={t('register.form.email.label')}
               variant="outlined"
-              error={Boolean(errors.email && touched.email)}
-              helperText={errors.email && touched.email && String(errors.email)}
+              touched={touched.email}
+              error={errors.email}
               component={TextInput}
             />
             <Field
               name="fullName"
               label={t('register.form.fullName.label')}
               variant="outlined"
-              error={Boolean(errors.fullName && touched.fullName)}
-              helperText={
-                errors.fullName && touched.fullName && String(errors.fullName)
-              }
+              touched={touched.fullName}
+              error={errors.fullName}
               component={TextInput}
             />
             <Field
               name="password"
               type={'password'}
               label={t('register.form.password.label')}
+              touched={touched.password}
+              error={errors.password}
               variant="outlined"
-              error={Boolean(errors.password && touched.password)}
-              helperText={
-                errors.password && touched.password && String(errors.password)
-              }
               component={TextInput}
             />
             <Field
               name="passwordConfirmation"
               type={'password'}
               label={t('register.form.passwordConfirmation.label')}
+              touched={touched.passwordConfirmation}
+              error={errors.passwordConfirmation}
               variant="outlined"
-              error={Boolean(
-                errors.passwordConfirmation && touched.passwordConfirmation
-              )}
-              helperText={
-                errors.passwordConfirmation &&
-                touched.passwordConfirmation &&
-                String(errors.passwordConfirmation)
-              }
               component={TextInput}
             />
             <div className="flex justify-end">
