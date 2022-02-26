@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { LandingPage } from 'pages/LandingPage'
 import { QuickBuyPage } from 'pages/QuickBuyPage'
 import routesBuilder from 'routesBuilder'
-import {RegisterPage} from "../pages/RegisterPage";
+import { RegisterPage } from '../pages/RegisterPage'
 
 const theme = createTheme({
   palette: {
