@@ -1,16 +1,15 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
@@ -49,5 +48,11 @@ class AuthResource {
         LoginResponse loginResponse = userService.findAndConvertLoggedUser(email, jwtToken);
 
         return ResponseEntity.ok().body(loginResponse);
+    }
+
+    @GetMapping(REFRESH_PATH)
+    ResponseEntity<RefreshTokenResponse> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String authHeader) {
+        String newToken = jwtService.refreshToken(jwtService.headerToToken(authHeader).get());
+        return ResponseEntity.ok(new RefreshTokenResponse(newToken));
     }
 }

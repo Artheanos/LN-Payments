@@ -80,7 +80,7 @@ class JwtServiceTest {
 
     @Test
     void shouldGenerateRenewedValidToken() {
-        String newToken = jwtService.renewToken(testJwt);
+        String newToken = jwtService.refreshToken(testJwt);
         String retrievedEmail = jwtService.retrieveEmail(newToken);
 
         assertThat(jwtService.isTokenValid(newToken)).isTrue();

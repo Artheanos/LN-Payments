@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -48,8 +49,9 @@ class AuthTokenFilterTest {
 
     @Test
     void shouldNotAuthenticateUserWhenNoTokenProvided() throws ServletException, IOException {
-        String token = "Bearer 2137";
-        when(httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(token);
+        String authHeader = "Bearer 2137";
+        when(httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(authHeader);
+        when(jwtService.headerToToken(authHeader)).thenReturn(Optional.of("2137"));
 
         authTokenFilter.doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
 
@@ -61,10 +63,14 @@ class AuthTokenFilterTest {
     @Test
     void shouldAuthenticateUser() throws ServletException, IOException {
         String token = "2137";
+        String authHeader = String.format("Bearer %s", token);
         String email = "test@test.pl";
+
         when(jwtService.isTokenValid(token)).thenReturn(true);
         when(jwtService.retrieveEmail(token)).thenReturn(email);
-        when(httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn("Bearer " + token);
+        when(jwtService.headerToToken(authHeader)).thenReturn(Optional.of(token));
+
+        when(httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION)).thenReturn(authHeader);
         when(userDetailsService.loadUserByUsername(email)).thenReturn(prepareUserDetails(email));
 
         authTokenFilter.doFilterInternal(httpServletRequest, httpServletResponse, filterChain);
@@ -72,6 +78,7 @@ class AuthTokenFilterTest {
         verify(filterChain).doFilter(any(), any());
         verify(jwtService).isTokenValid(anyString());
         verify(userDetailsService).loadUserByUsername(anyString());
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         assertThat(userDetails.getUsername()).isEqualTo(email);
     }
