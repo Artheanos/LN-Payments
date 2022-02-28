@@ -5,12 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
-import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.converter.StandardUserConverter;
+import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -18,13 +17,13 @@ import javax.validation.ValidationException;
 @Service
 public class UserService implements UserDetailsService {
 
-    private final UserRepository userRepository;
-    private final UserConverter userConverter;
+    private final StandardUserRepository userRepository;
+    private final StandardUserConverter standardUserConverter;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserConverter userConverter) {
+    public UserService(StandardUserRepository userRepository, StandardUserConverter standardUserConverter) {
         this.userRepository = userRepository;
-        this.userConverter = userConverter;
+        this.standardUserConverter = standardUserConverter;
     }
 
     @Transactional
@@ -34,22 +33,22 @@ public class UserService implements UserDetailsService {
             throw new ValidationException("User with mail " + request.getEmail() + " exists!");
         }
 
-        User user = userConverter.convertToEntity(request, Role.ROLE_USER);
+        StandardUser user = standardUserConverter.convertToEntity(request);
         userRepository.save(user);
     }
 
     public LoginResponse findAndConvertLoggedUser(String username, String jwtToken) {
-        User user = findUser(userRepository, username);
-        return userConverter.convertToLoginResponse(user, jwtToken);
+        StandardUser user = findStandardUser(username);
+        return standardUserConverter.convertToLoginResponse(user, jwtToken);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findUser(userRepository, username);
-        return userConverter.convertToUserDetails(user);
+        StandardUser user = findStandardUser(username);
+        return standardUserConverter.convertToUserDetails(user);
     }
 
-    private User findUser(UserRepository userRepository, String username) {
+    private StandardUser findStandardUser(String username) {
         return userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
     }

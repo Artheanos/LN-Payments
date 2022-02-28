@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.helper.config;
+package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.core.annotation.Order;

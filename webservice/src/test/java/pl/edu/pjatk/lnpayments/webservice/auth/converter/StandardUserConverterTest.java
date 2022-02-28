@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -18,20 +18,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class UserConverterTest {
+class StandardUserConverterTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private UserConverter userConverter;
+    private StandardUserConverter standardUserConverter;
 
     @Test
     void shouldConvertDtoToUser() {
         when(passwordEncoder.encode(anyString())).thenReturn("encoded_pass");
         RegisterRequest request = new RegisterRequest("test@test.pl", "test", "pass");
 
-        User user = userConverter.convertToEntity(request, Role.ROLE_USER);
+        StandardUser user = standardUserConverter.convertToEntity(request);
 
         assertThat(user.getEmail()).isEqualTo("test@test.pl");
         assertThat(user.getPassword()).isEqualTo("encoded_pass");
@@ -42,9 +42,9 @@ class UserConverterTest {
 
     @Test
     void shouldConvertToUserDetails() {
-        User user = new User("test@test.pl", "test", "pass", Role.ROLE_USER);
+        StandardUser user = new StandardUser("test@test.pl", "test", "pass");
 
-        UserDetails userDetails = userConverter.convertToUserDetails(user);
+        UserDetails userDetails = standardUserConverter.convertToUserDetails(user);
 
         assertThat(userDetails.getUsername()).isEqualTo(user.getEmail());
         assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
@@ -54,9 +54,9 @@ class UserConverterTest {
 
     @Test
     void shouldConvertToLoginResponse() {
-        User user = new User("test@test.pl", "test", "pass", Role.ROLE_USER);
+        StandardUser user = new StandardUser("test@test.pl", "test", "pass");
 
-        LoginResponse loginResponse = userConverter.convertToLoginResponse(user, "token");
+        LoginResponse loginResponse = standardUserConverter.convertToLoginResponse(user, "token");
 
         assertThat(loginResponse.getEmail()).isEqualTo(user.getEmail());
         assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());

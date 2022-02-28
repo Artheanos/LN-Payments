@@ -20,9 +20,9 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
-import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationTest;
-import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.IntegrationTestConfiguration;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
+import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -70,7 +70,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn409WhenEmailIsTaken() throws Exception {
         RegisterRequest request = new RegisterRequest(EMAIL, "test", "zaq1@WSX");
-        User user = User.builder().email(EMAIL).build();
+        StandardUser user = StandardUser.builder().email(EMAIL).build();
         userRepository.save(user);
         mockMvc.perform(post("/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -90,7 +90,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldLoginAndReturnOkIfUserExists() throws Exception {
         LoginRequest request = new LoginRequest(EMAIL, "test");
-        User user = createTestUser();
+        StandardUser user = createTestUser();
         userRepository.save(user);
 
         String response = mockMvc.perform(post("/auth/login")
@@ -109,7 +109,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn401WhenPasswordDoesNotMatch() throws Exception {
         LoginRequest request = new LoginRequest(EMAIL, "lololol");
-        User user = createTestUser();
+        StandardUser user = createTestUser();
         userRepository.save(user);
 
         mockMvc.perform(post("/auth/login")
@@ -130,10 +130,9 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
                 .andExpect(header().doesNotExist(HttpHeaders.AUTHORIZATION));
     }
 
-    private User createTestUser() {
-        return User.builder()
+    private StandardUser createTestUser() {
+        return StandardUser.builder()
                 .email(EMAIL)
-                .role(Role.ROLE_USER)
                 .password(passwordEncoder.encode("test"))
                 .fullName("test").build();
     }
@@ -141,7 +140,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void refreshTokenShouldReturnOkAndNewToken() throws Exception {
         String email = "email@email.com";
-        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        userRepository.save(new StandardUser(email, "", ""));
         String token = jwtService.generateToken(email);
 
         MvcResult result = mockMvc
@@ -158,7 +157,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void refreshTokenShouldReturn401WhenTheTokenIsInvalid() throws Exception {
         String email = "email@email.com";
-        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        userRepository.save(new StandardUser(email, "", ""));
         String token = "thisTokenIsInvalid";
 
         mockMvc
