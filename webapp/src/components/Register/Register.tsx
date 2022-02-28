@@ -11,8 +11,8 @@ export const Register: React.FC = () => {
   const { t } = useTranslation('common')
   const [showErrorsInFormModal, setShowErrorsInFormModal] =
     useState<boolean>(false)
-  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>()
+  const [errorMessage, setErrorMessage] = useState<string>()
 
   const RegisterSchema = Yup.object()
     .shape({
@@ -128,7 +128,7 @@ export const Register: React.FC = () => {
       </Formik>
       <ConfirmationModal
         confirmButtonContent={'Ok'}
-        message={t(errorMessage)}
+        message={t(errorMessage!)}
         onConfirm={() => setShowErrorsInFormModal(false)}
         open={showErrorsInFormModal}
         setOpen={setShowErrorsInFormModal}
@@ -137,7 +137,7 @@ export const Register: React.FC = () => {
         confirmButtonContent={'Ok'}
         message={t('register.api.success.message')}
         onConfirm={() => setShowSuccessModal(false)}
-        open={showSuccessModal}
+        open={showSuccessModal!}
         setOpen={setShowSuccessModal}
       />
     </div>

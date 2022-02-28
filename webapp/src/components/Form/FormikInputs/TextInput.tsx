@@ -14,7 +14,7 @@ export const TextInput: React.FC<
     <TextField
       name={field.name}
       value={field.value}
-      error={Boolean(error && touched)}
+      error={error && touched}
       helperText={error && touched && String(error)}
       onChange={onFieldChange}
       {...other}

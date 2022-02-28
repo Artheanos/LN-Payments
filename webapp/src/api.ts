@@ -15,11 +15,9 @@ export const api = {
   },
   register: {
     create: (body: RegisterRequest): Promise<number> => {
-      return axios
-        .post(routesBuilder.api.auth.register, body, { timeout: 2000 })
-        .then((response) => {
-          return response.status
-        })
+      return axios.post(routesBuilder.api.auth.register, body, {
+        timeout: 2000
+      })
     }
   }
 }

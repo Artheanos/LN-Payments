@@ -5,8 +5,7 @@ export default {
   api: {
     payments: {
       index: '/api/payments',
-      info: '/api/payment/info',
-      register: '/api/auth/register'
+      info: '/api/payment/info'
     },
     auth: {
       register: '/api/auth/register'
