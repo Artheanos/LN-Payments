@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Field, Form, Formik } from 'formik'
+import { api } from '../../api'
+import { RegisterInitialValue, RegisterProps, RegisterSchema } from './form'
 import { TextInput } from '../Form/FormikInputs/TextInput'
 import { Button } from '@mui/material'
-import * as Yup from 'yup'
 import { ConfirmationModal } from '../Modals/ConfirmationModal'
-import { api } from '../../api'
 
 export const Register: React.FC = () => {
   const { t } = useTranslation('common')
@@ -13,31 +13,6 @@ export const Register: React.FC = () => {
     useState<boolean>(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-
-  const RegisterSchema = Yup.object()
-    .shape({
-      email: Yup.string()
-        .email(t('register.form.email.errors.valid'))
-        .required(t('register.form.email.errors.required')),
-      fullName: Yup.string()
-        .min(3, t('register.form.fullName.errors.min'))
-        .max(50, t('register.form.fullName.errors.max'))
-        .required(t('register.form.fullName.errors.required')),
-      password: Yup.string()
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-          t('register.form.password.errors.regex')
-        )
-        .required(t('register.form.password.errors.required')),
-      passwordConfirmation: Yup.string()
-        .oneOf(
-          [Yup.ref('password')],
-          t('register.form.passwordConfirmation.errors.match')
-        )
-        .required(t('register.form.passwordConfirmation.errors.match'))
-    })
-    .required()
-  type RegisterProps = Yup.InferType<typeof RegisterSchema>
 
   const onSubmit = (form: RegisterProps) => {
     api.register
@@ -68,12 +43,7 @@ export const Register: React.FC = () => {
         {t('register.header')}
       </div>
       <Formik
-        initialValues={{
-          email: '',
-          fullName: '',
-          password: '',
-          passwordConfirmation: ''
-        }}
+        initialValues={RegisterInitialValue}
         onSubmit={onSubmit}
         validationSchema={RegisterSchema}
       >
