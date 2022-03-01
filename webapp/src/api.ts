@@ -12,5 +12,12 @@ export const api = {
       const response = await axios.post(routesBuilder.api.payments.index, body)
       return datify(response.data)
     }
+  },
+  register: {
+    create: (body: RegisterRequest): Promise<number> => {
+      return axios.post(routesBuilder.api.auth.register, body, {
+        timeout: 2000
+      })
+    }
   }
 }

@@ -10,3 +10,9 @@ interface PaymentInfo {
   nodeUrl: string
   pendingPayments: PaymentDetails[]
 }
+
+interface RegisterRequest {
+  email: string
+  fullName: string
+  password: string
+}

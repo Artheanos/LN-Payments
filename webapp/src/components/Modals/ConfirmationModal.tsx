@@ -38,7 +38,7 @@ export const ConfirmationModal: React.FC<Props> = ({
         <div className="flex gap-5 justify-end">
           <Button
             variant={'contained'}
-            color={'info'}
+            className="bg-purple-300"
             onClick={() => confirmHandler()}
           >
             {confirmButtonContent || t('confirm')}
