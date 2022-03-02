@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class TemporaryUser extends User {
 
-    public TemporaryUser(String email) {
-        super(email);
+    private static final String DELIMITER = "#";
+
+    public TemporaryUser(String email, String hashId) {
+        super(email + DELIMITER + hashId);
     }
 
     @Override

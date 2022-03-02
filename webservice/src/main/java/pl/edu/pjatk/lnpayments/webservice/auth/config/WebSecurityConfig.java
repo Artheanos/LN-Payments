@@ -23,10 +23,11 @@ import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final String[] UNSECURED_PATHS = {
             AUTH_PATH + REGISTER_PATH,
             AUTH_PATH + LOGIN_PATH,
-
+            AUTH_PATH + TEMPORARY_PATH,
             "/v2/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**"

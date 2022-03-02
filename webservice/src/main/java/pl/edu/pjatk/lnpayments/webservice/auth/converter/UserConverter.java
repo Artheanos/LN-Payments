@@ -8,14 +8,15 @@ import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 @Service
-public class StandardUserConverter {
+public class UserConverter {
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public StandardUserConverter(PasswordEncoder passwordEncoder) {
+    public UserConverter(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -27,11 +28,11 @@ public class StandardUserConverter {
                 .build();
     }
 
-    public UserDetails convertToUserDetails(StandardUser user) {
+    public UserDetails convertToUserDetails(User user) {
         return UserDetailsImpl.builder()
                 .email(user.getEmail())
                 .role(user.getRole())
-                .password(user.getPassword())
+                .password(user instanceof StandardUser u ? u.getPassword() : null)
                 .build();
     }
 

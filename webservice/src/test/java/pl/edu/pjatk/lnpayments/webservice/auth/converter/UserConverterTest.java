@@ -18,20 +18,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class StandardUserConverterTest {
+class UserConverterTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private StandardUserConverter standardUserConverter;
+    private UserConverter userConverter;
 
     @Test
     void shouldConvertDtoToUser() {
         when(passwordEncoder.encode(anyString())).thenReturn("encoded_pass");
         RegisterRequest request = new RegisterRequest("test@test.pl", "test", "pass");
 
-        StandardUser user = standardUserConverter.convertToEntity(request);
+        StandardUser user = userConverter.convertToEntity(request);
 
         assertThat(user.getEmail()).isEqualTo("test@test.pl");
         assertThat(user.getPassword()).isEqualTo("encoded_pass");
@@ -44,7 +44,7 @@ class StandardUserConverterTest {
     void shouldConvertToUserDetails() {
         StandardUser user = new StandardUser("test@test.pl", "test", "pass");
 
-        UserDetails userDetails = standardUserConverter.convertToUserDetails(user);
+        UserDetails userDetails = userConverter.convertToUserDetails(user);
 
         assertThat(userDetails.getUsername()).isEqualTo(user.getEmail());
         assertThat(userDetails.getPassword()).isEqualTo(user.getPassword());
@@ -56,7 +56,7 @@ class StandardUserConverterTest {
     void shouldConvertToLoginResponse() {
         StandardUser user = new StandardUser("test@test.pl", "test", "pass");
 
-        LoginResponse loginResponse = standardUserConverter.convertToLoginResponse(user, "token");
+        LoginResponse loginResponse = userConverter.convertToLoginResponse(user, "token");
 
         assertThat(loginResponse.getEmail()).isEqualTo(user.getEmail());
         assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());

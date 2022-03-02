@@ -1,29 +1,38 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.service;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.auth.converter.StandardUserConverter;
+import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
+import java.time.LocalDateTime;
 
 @Service
 public class UserService implements UserDetailsService {
 
-    private final StandardUserRepository userRepository;
-    private final StandardUserConverter standardUserConverter;
+    private final StandardUserRepository standardUserRepository;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
 
     @Autowired
-    public UserService(StandardUserRepository userRepository, StandardUserConverter standardUserConverter) {
+    public UserService(StandardUserRepository standardUserRepository,
+                       UserRepository userRepository,
+                       UserConverter userConverter) {
+        this.standardUserRepository = standardUserRepository;
         this.userRepository = userRepository;
-        this.standardUserConverter = standardUserConverter;
+        this.userConverter = userConverter;
     }
 
     @Transactional
@@ -33,24 +42,29 @@ public class UserService implements UserDetailsService {
             throw new ValidationException("User with mail " + request.getEmail() + " exists!");
         }
 
-        StandardUser user = standardUserConverter.convertToEntity(request);
+        StandardUser user = userConverter.convertToEntity(request);
         userRepository.save(user);
     }
 
+    @Transactional
+    public String createTemporaryUser(String email) {
+        String hashId = DigestUtils.sha256Hex(LocalDateTime.now().toString()).substring(0, 8);
+        TemporaryUser temporaryUser = new TemporaryUser(email, hashId);
+        User user = userRepository.save(temporaryUser);
+        return user.getEmail();
+    }
+
     public LoginResponse findAndConvertLoggedUser(String username, String jwtToken) {
-        StandardUser user = findStandardUser(username);
-        return standardUserConverter.convertToLoginResponse(user, jwtToken);
+        StandardUser user = standardUserRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+        return userConverter.convertToLoginResponse(user, jwtToken);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        StandardUser user = findStandardUser(username);
-        return standardUserConverter.convertToUserDetails(user);
-    }
-
-    private StandardUser findStandardUser(String username) {
-        return userRepository.findByEmail(username)
+        User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+        return userConverter.convertToUserDetails(user);
     }
 
 }
