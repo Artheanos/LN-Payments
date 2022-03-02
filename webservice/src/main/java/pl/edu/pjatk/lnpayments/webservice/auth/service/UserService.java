@@ -1,6 +1,5 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.service;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +16,6 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
-import java.time.LocalDateTime;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -48,8 +46,7 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public String createTemporaryUser(String email) {
-        String hashId = DigestUtils.sha256Hex(LocalDateTime.now().toString()).substring(0, 8);
-        TemporaryUser temporaryUser = new TemporaryUser(email, hashId);
+        TemporaryUser temporaryUser = new TemporaryUser(email);
         User user = userRepository.save(temporaryUser);
         return user.getEmail();
     }

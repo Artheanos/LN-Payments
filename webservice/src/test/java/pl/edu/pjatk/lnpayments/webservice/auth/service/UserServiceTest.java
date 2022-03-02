@@ -15,6 +15,7 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
 
 import javax.validation.ValidationException;
 import java.util.Collection;
@@ -93,6 +94,17 @@ class UserServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenLoggedUserNotFound() {
+        String email = "test@test.pl";
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userService.findAndConvertLoggedUser(email, "token"))
+                .withMessage(email + " not found!");
+        verify(userConverter, never()).convertToLoginResponse(any(), anyString());
+    }
+
+    @Test
     void shouldReturnLoginRequestIfUserExists() {
         String email = "test@test.pl";
         String name = "test";
@@ -110,7 +122,19 @@ class UserServiceTest {
     @Test
     void shouldThrowExceptionWhenUserNotFoundForLoggedUser() {
         String email = "test@test.pl";
-        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+        TemporaryUser user = new TemporaryUser(email);
+        when(userRepository.save(any())).thenReturn(user);
+
+        String temporaryUserHashedEmail = userService.createTemporaryUser(email);
+
+        assertThat(temporaryUserHashedEmail.length()).isEqualTo(email.length() + 9);
+        assertThat(temporaryUserHashedEmail.split("#")[0]).isEqualTo(email);
+        verify(userRepository).save(any(TemporaryUser.class));
+    }
+
+    @Test
+    void shouldSaveTemporaryUser() {
+        String email = "test@test.pl";
 
         assertThatExceptionOfType(UsernameNotFoundException.class)
                 .isThrownBy(() -> userService.loadUserByUsername(email))

@@ -1,6 +1,7 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -14,21 +15,21 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.*;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -163,5 +164,21 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         mockMvc
                 .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void shouldCreateTempUserAndReturnOk() throws Exception {
+        String email = "test@test.pl";
+        TemporaryAuthRequest req = new TemporaryAuthRequest(email);
+        MvcResult mvcResult = mockMvc.perform(post("/auth/temporary")
+                        .content(objectMapper.writeValueAsString(req))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email", startsWith(email)))
+                .andReturn();
+
+        Optional<User> savedEmail = userRepository.findByEmail(JsonPath.parse(mvcResult).read("$.email"));
+        assertThat(savedEmail).isPresent();
+        assertThat(savedEmail.get()).asString().startsWith(email);
     }
 }
