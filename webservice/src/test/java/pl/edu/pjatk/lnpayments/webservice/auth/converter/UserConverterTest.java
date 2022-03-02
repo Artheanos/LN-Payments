@@ -11,6 +11,8 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -62,5 +64,17 @@ class UserConverterTest {
         assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());
         assertThat(loginResponse.getRole()).isEqualTo(user.getRole());
         assertThat(loginResponse.getToken()).isEqualTo("token");
+    }
+
+    @Test
+    void shouldContainNullPasswordForNonStandardUser() {
+        User user = new TemporaryUser("test@test.pl");
+
+        UserDetails userDetails = userConverter.convertToUserDetails(user);
+
+        assertThat(userDetails.getUsername()).startsWith(user.getEmail());
+        assertThat(userDetails.getPassword()).isEqualTo(null);
+        assertThat(userDetails.getAuthorities()).hasSize(1);
+        assertThat(userDetails.getAuthorities().contains(Role.ROLE_TEMPORARY)).isTrue();
     }
 }

@@ -30,6 +30,7 @@ import static org.hamcrest.Matchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.edu.pjatk.lnpayments.webservice.common.entity.Role.ROLE_TEMPORARY;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -177,8 +178,9 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
                 .andExpect(jsonPath("$.email", startsWith(email)))
                 .andReturn();
 
-        Optional<User> savedEmail = userRepository.findByEmail(JsonPath.parse(mvcResult).read("$.email"));
+        Optional<User> savedEmail = userRepository.findByEmail(JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("$.email"));
         assertThat(savedEmail).isPresent();
-        assertThat(savedEmail.get()).asString().startsWith(email);
+        assertThat(savedEmail.get().getEmail()).asString().startsWith(email);
+        assertThat(savedEmail.get().getRole()).isEqualTo(ROLE_TEMPORARY);
     }
 }
