@@ -8,10 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.*;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 
@@ -72,5 +69,16 @@ class AuthResourceTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getToken()).isEqualTo(newToken);
+    }
+
+    @Test
+    void shouldReturnOkWhenTemporaryUserRequested() {
+        String email = "test@test.pl";
+
+        ResponseEntity<?> response = authResource.obtainTemporaryToken(new TemporaryAuthRequest(email));
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(jwtService).generateToken(any());
+        verify(userService).createTemporaryUser(any());
     }
 }

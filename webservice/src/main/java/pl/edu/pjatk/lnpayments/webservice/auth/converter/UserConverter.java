@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
 @Service
@@ -20,11 +20,10 @@ public class UserConverter {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User convertToEntity(RegisterRequest request, Role role) {
-        return User.builder()
+    public StandardUser convertToEntity(RegisterRequest request) {
+        return StandardUser.builder()
                 .fullName(request.getFullName())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(role)
                 .email(request.getEmail())
                 .build();
     }
@@ -33,11 +32,11 @@ public class UserConverter {
         return UserDetailsImpl.builder()
                 .email(user.getEmail())
                 .role(user.getRole())
-                .password(user.getPassword())
+                .password(user instanceof StandardUser u ? u.getPassword() : null)
                 .build();
     }
 
-    public LoginResponse convertToLoginResponse(User user, String token) {
+    public LoginResponse convertToLoginResponse(StandardUser user, String token) {
         return new LoginResponse(user.getEmail(), user.getFullName(), user.getRole(), token);
     }
 

@@ -1,33 +1,28 @@
 package pl.edu.pjatk.lnpayments.webservice.common.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "`user`", schema = "public")
-public class User
-{
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    private String email;
-    private String fullName;
-    private String password;
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    protected String email;
 
-    public User(String email, String fullName, String password, Role role) {
+    protected User(String email) {
         this.email = email;
-        this.fullName = fullName;
-        this.password = password;
-        this.role = role;
     }
 
+    public abstract Role getRole();
 }

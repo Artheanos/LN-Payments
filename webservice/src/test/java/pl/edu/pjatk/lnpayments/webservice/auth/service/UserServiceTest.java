@@ -9,11 +9,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
+import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
 
 import javax.validation.ValidationException;
 import java.util.Collection;
@@ -33,6 +35,9 @@ class UserServiceTest {
     private UserConverter userConverter;
 
     @Mock
+    private StandardUserRepository standardUserRepository;
+
+    @Mock
     private UserRepository userRepository;
 
     @InjectMocks
@@ -41,13 +46,13 @@ class UserServiceTest {
     @Test
     void shouldSaveUserWhenEmailIsNotOccupied() {
         RegisterRequest request = new RegisterRequest("test@test.pl", "test", "pass");
-        User expectedUser = new User("test@test.pl", "test", "pass", Role.ROLE_USER);
-        when(userConverter.convertToEntity(request, Role.ROLE_USER)).thenReturn(expectedUser);
+        StandardUser expectedUser = new StandardUser("test@test.pl", "test", "pass");
+        when(userConverter.convertToEntity(request)).thenReturn(expectedUser);
         when(userRepository.existsByEmail(anyString())).thenReturn(false);
 
         userService.createUser(request);
 
-        verify(userConverter).convertToEntity(request, Role.ROLE_USER);
+        verify(userConverter).convertToEntity(request);
         verify(userRepository).save(expectedUser);
         verify(userRepository).existsByEmail(request.getEmail());
     }
@@ -60,14 +65,14 @@ class UserServiceTest {
         assertThatExceptionOfType(ValidationException.class)
                 .isThrownBy(() ->userService.createUser(request))
                 .withMessage("User with mail test@test.pl exists!");
-        verify(userConverter, never()).convertToEntity(request, Role.ROLE_USER);
+        verify(userConverter, never()).convertToEntity(request);
         verify(userRepository, never()).save(any());
     }
 
     @Test
     void shouldReturnUserDetailsIfUserExists() {
         String email = "test@test.pl";
-        User user = new User(email, "test", "pass", Role.ROLE_USER);
+        StandardUser user = new StandardUser(email, "test", "pass");
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
         UserDetails details = mockUserDetails(email, "pass", Role.ROLE_USER);
         when(userConverter.convertToUserDetails(user)).thenReturn(details);
@@ -89,24 +94,47 @@ class UserServiceTest {
     }
 
     @Test
+    void shouldThrowExceptionWhenLoggedUserNotFound() {
+        String email = "test@test.pl";
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userService.findAndConvertLoggedUser(email, "token"))
+                .withMessage(email + " not found!");
+        verify(userConverter, never()).convertToLoginResponse(any(), anyString());
+    }
+
+    @Test
     void shouldReturnLoginRequestIfUserExists() {
         String email = "test@test.pl";
         String name = "test";
         String pass = "pass";
         String token = "token";
-        User user = new User(email, "test", "pass", Role.ROLE_USER);
-        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        StandardUser user = new StandardUser(email, name, pass);
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
         LoginResponse result = userService.findAndConvertLoggedUser(email, token);
 
-        verify(userRepository).findByEmail(email);
+        verify(standardUserRepository).findByEmail(email);
         verify(userConverter).convertToLoginResponse(user, token);
     }
 
     @Test
     void shouldThrowExceptionWhenUserNotFoundForLoggedUser() {
         String email = "test@test.pl";
-        when(userRepository.findByEmail(email)).thenReturn(Optional.empty());
+        TemporaryUser user = new TemporaryUser(email);
+        when(userRepository.save(any())).thenReturn(user);
+
+        String temporaryUserHashedEmail = userService.createTemporaryUser(email);
+
+        assertThat(temporaryUserHashedEmail.length()).isEqualTo(email.length() + 9);
+        assertThat(temporaryUserHashedEmail.split("#")[0]).isEqualTo(email);
+        verify(userRepository).save(any(TemporaryUser.class));
+    }
+
+    @Test
+    void shouldSaveTemporaryUser() {
+        String email = "test@test.pl";
 
         assertThatExceptionOfType(UsernameNotFoundException.class)
                 .isThrownBy(() -> userService.loadUserByUsername(email))

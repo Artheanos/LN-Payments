@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.helper.config;
+package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterAll;

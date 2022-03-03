@@ -1,6 +1,7 @@
 package pl.edu.pjatk.lnpayments.webservice.auth.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jayway.jsonpath.JsonPath;
 import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -14,21 +15,22 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginRequest;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RefreshTokenResponse;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.*;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
-import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.BaseIntegrationTest;
-import pl.edu.pjatk.lnpayments.webservice.payment.helper.config.IntegrationTestConfiguration;
+import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
+import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.edu.pjatk.lnpayments.webservice.common.entity.Role.ROLE_TEMPORARY;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -70,7 +72,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn409WhenEmailIsTaken() throws Exception {
         RegisterRequest request = new RegisterRequest(EMAIL, "test", "zaq1@WSX");
-        User user = User.builder().email(EMAIL).build();
+        StandardUser user = StandardUser.builder().email(EMAIL).build();
         userRepository.save(user);
         mockMvc.perform(post("/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
@@ -90,7 +92,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldLoginAndReturnOkIfUserExists() throws Exception {
         LoginRequest request = new LoginRequest(EMAIL, "test");
-        User user = createTestUser();
+        StandardUser user = createTestUser();
         userRepository.save(user);
 
         String response = mockMvc.perform(post("/auth/login")
@@ -109,7 +111,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn401WhenPasswordDoesNotMatch() throws Exception {
         LoginRequest request = new LoginRequest(EMAIL, "lololol");
-        User user = createTestUser();
+        StandardUser user = createTestUser();
         userRepository.save(user);
 
         mockMvc.perform(post("/auth/login")
@@ -130,10 +132,9 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
                 .andExpect(header().doesNotExist(HttpHeaders.AUTHORIZATION));
     }
 
-    private User createTestUser() {
-        return User.builder()
+    private StandardUser createTestUser() {
+        return StandardUser.builder()
                 .email(EMAIL)
-                .role(Role.ROLE_USER)
                 .password(passwordEncoder.encode("test"))
                 .fullName("test").build();
     }
@@ -141,7 +142,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void refreshTokenShouldReturnOkAndNewToken() throws Exception {
         String email = "email@email.com";
-        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        userRepository.save(new StandardUser(email, "", ""));
         String token = jwtService.generateToken(email);
 
         MvcResult result = mockMvc
@@ -158,11 +159,28 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void refreshTokenShouldReturn401WhenTheTokenIsInvalid() throws Exception {
         String email = "email@email.com";
-        userRepository.save(new User(email, "", "", Role.ROLE_USER));
+        userRepository.save(new StandardUser(email, "", ""));
         String token = "thisTokenIsInvalid";
 
         mockMvc
                 .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void shouldCreateTempUserAndReturnOk() throws Exception {
+        String email = "test@test.pl";
+        TemporaryAuthRequest req = new TemporaryAuthRequest(email);
+        MvcResult mvcResult = mockMvc.perform(post("/auth/temporary")
+                        .content(objectMapper.writeValueAsString(req))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.email", startsWith(email)))
+                .andReturn();
+
+        Optional<User> savedEmail = userRepository.findByEmail(JsonPath.parse(mvcResult.getResponse().getContentAsString()).read("$.email"));
+        assertThat(savedEmail).isPresent();
+        assertThat(savedEmail.get().getEmail()).asString().startsWith(email);
+        assertThat(savedEmail.get().getRole()).isEqualTo(ROLE_TEMPORARY);
     }
 }

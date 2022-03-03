@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.payment.helper.config;
+package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
 import org.lightningj.lnd.wrapper.AsynchronousAPI;
 import org.lightningj.lnd.wrapper.StatusException;
