@@ -39,7 +39,7 @@ public class PaymentResource {
 
     @GetMapping(INFO_PATH)
     public ResponseEntity<?> paymentInfo(Principal principal) {
-        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(Optional.of(principal.getName()));
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(Optional.ofNullable(principal.getName()));
         PaymentInfoResponse paymentInfoResponse = paymentInfoConverter.convertToDto(paymentInfo);
         return ResponseEntity.ok(paymentInfoResponse);
     }

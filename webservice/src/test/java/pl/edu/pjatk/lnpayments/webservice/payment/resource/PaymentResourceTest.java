@@ -35,7 +35,7 @@ class PaymentResourceTest {
 
         @Test
         void shouldReturnStatusOkWhenProperDataPassed() {
-            PaymentDetailsRequest request = new PaymentDetailsRequest(1, "email");
+            PaymentDetailsRequest request = new PaymentDetailsRequest(1);
 
             ResponseEntity<?> payment = paymentResource.createPayment(request, () -> null);
 
@@ -44,7 +44,7 @@ class PaymentResourceTest {
 
         @Test
         void shouldReturnStatusOKWhenNoEmailSpecified() {
-            PaymentDetailsRequest request = new PaymentDetailsRequest(1, null);
+            PaymentDetailsRequest request = new PaymentDetailsRequest(1);
 
             ResponseEntity<?> payment = paymentResource.createPayment(request, () -> null);
 
@@ -57,7 +57,7 @@ class PaymentResourceTest {
 
         @Test
         void shouldReturnOkForAnyRequest() {
-            ResponseEntity<?> payment = paymentResource.paymentInfo(null);
+            ResponseEntity<?> payment = paymentResource.paymentInfo(() -> "test");
 
             assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
         }

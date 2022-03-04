@@ -38,7 +38,8 @@ public class PaymentFacade {
                   PaymentDataService paymentDataService,
                   NodeDetailsService nodeDetailsService,
                   TokenService tokenService,
-                  PaymentSocketController paymentSocketController, UserService userService) {
+                  PaymentSocketController paymentSocketController,
+                  UserService userService) {
         this.invoiceService = invoiceService;
         this.propertyService = propertyService;
         this.paymentDataService = paymentDataService;
