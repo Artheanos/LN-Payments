@@ -2,12 +2,12 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
-import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoResponse;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +29,7 @@ public class PaymentInfoConverter {
                 .build();
     }
 
-    private List<PaymentDetailsResponse> mapPaymentToResponse(List<Payment> paymentList) {
+    private Collection<PaymentDetailsResponse> mapPaymentToResponse(Collection<Payment> paymentList) {
         return paymentList.stream()
                 .map(paymentDetailsConverter::convertToDto)
                 .collect(Collectors.toList());

@@ -16,7 +16,7 @@ class TokenServiceTest {
 
     @Test
     void shouldGenerateCorrectNumberOfUniqueTokens() {
-        Payment payment = new Payment("asd", 5, 5, 5, PaymentStatus.PENDING);
+        Payment payment = new Payment("asd", 5, 5, 5, PaymentStatus.PENDING, null);
 
         Collection<Token> tokens = tokenService.generateTokens(payment);
 

@@ -13,7 +13,7 @@ class PaymentDetailsConverterTest {
 
     @Test
     void shouldConvertToDto() {
-        Payment payment = new Payment("123", 1, 1, 123, PaymentStatus.PENDING);
+        Payment payment = new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null);
 
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
 

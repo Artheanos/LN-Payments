@@ -7,6 +7,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
@@ -52,12 +54,12 @@ class PaymentFacadeTest {
 
     @Test
     void shouldBuildPaymentInfo() {
-        when(paymentDataService.findPendingPaymentsByUser()).thenReturn(Collections.emptyList());
+        when(paymentDataService.findPendingPaymentsByUser(null)).thenReturn(Collections.emptyList());
         when(nodeDetailsService.getNodeUrl()).thenReturn("node_url");
         when(propertyService.getPrice()).thenReturn(1);
         when(propertyService.getDescription()).thenReturn("description");
 
-        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse();
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(null);
 
         assertThat(paymentInfo.getPendingPayments()).isEmpty();
         assertThat(paymentInfo.getPrice()).isEqualTo(1);
@@ -74,7 +76,7 @@ class PaymentFacadeTest {
         when(paymentDataService.savePayment(any(Payment.class))).then(AdditionalAnswers.returnsFirstArg());
         when(invoiceService.createInvoice(anyInt(), anyInt(), anyInt(), any())).thenReturn("invoice");
 
-        Payment response = paymentFacade.createNewPayment(request);
+        Payment response = paymentFacade.createNewPayment(request, "");
 
         assertThat(response.getPaymentRequest()).isEqualTo("invoice");
         assertThat(response.getStatus()).isEqualTo(PaymentStatus.PENDING);
@@ -83,7 +85,7 @@ class PaymentFacadeTest {
 
     @Test
     void shouldShouldFinalizePayment() {
-        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING);
+        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING, createUser(""));
         when(paymentDataService.findPaymentByRequest("asd")).thenReturn(payment);
         when(tokenService.generateTokens(payment)).thenReturn(Collections.singleton(new Token("aaa")));
 
@@ -95,5 +97,14 @@ class PaymentFacadeTest {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(paymentSocketController).sendTokens(captor.capture(), anyCollection());
         assertThat(captor.getValue()).hasSize(8);
+    }
+
+    private User createUser(String email) {
+        return new User(email) {
+            @Override
+            public Role getRole() {
+                return Role.ROLE_USER;
+            }
+        };
     }
 }
