@@ -5,7 +5,7 @@ import { render, RenderOptions } from '@testing-library/react'
 import { Action, BrowserHistory, createBrowserHistory } from 'history'
 
 import i18n from 'i18n'
-import { SnackbarProvider } from 'components/Layouts/GlobalSnackbar'
+import { NotificationProvider } from 'components/Context/NotificationContext'
 
 const helpers: { history: BrowserHistory; initialLocation?: string } = {
   history: createBrowserHistory()
@@ -17,9 +17,9 @@ const AllTheProviders: FC = (props) => (
     navigationType={Action.Push}
     location={{ pathname: '/login' }}
   >
-    <SnackbarProvider>
+    <NotificationProvider>
       <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
-    </SnackbarProvider>
+    </NotificationProvider>
   </Router>
 )
 

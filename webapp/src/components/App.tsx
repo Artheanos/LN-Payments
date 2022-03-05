@@ -7,7 +7,7 @@ import { LoginPage } from 'pages/auth/LoginPage'
 import { NavbarLayout } from 'components/Layouts/NavbarLayout'
 import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
-import { SnackbarProvider } from 'components/Layouts/GlobalSnackbar'
+import { NotificationProvider } from './Context/NotificationContext'
 
 const theme = createTheme({
   palette: {
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <SnackbarProvider>
+        <NotificationProvider>
           <Routes>
             <Route element={<NavbarLayout />}>
               <Route
@@ -36,7 +36,7 @@ const App = () => {
               <Route path={routesBuilder.quickBuy} element={<QuickBuyPage />} />
             </Route>
           </Routes>
-        </SnackbarProvider>
+        </NotificationProvider>
       </ThemeProvider>
     </BrowserRouter>
   )

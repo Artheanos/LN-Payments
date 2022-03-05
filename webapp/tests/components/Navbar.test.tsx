@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Navbar } from 'components/Navbar'
+import { Navbar } from 'components/common/Navbar'
 import { render, screen } from 'tests/test-utils'
 
 describe('Navbar', () => {

@@ -16,10 +16,22 @@ interface PaymentInfo {
   pendingPayments: PaymentDetails[]
 }
 
+enum Role {
+  USER,
+  ADMIN,
+  TEMPORARY
+}
+
 interface RegisterForm {
   email: string
   fullName: string
   password: string
+}
+
+interface User {
+  email: string
+  fullName: string
+  role: Role
 }
 
 interface LoginForm {
@@ -27,6 +39,6 @@ interface LoginForm {
   password: string
 }
 
-interface LoginResponse {
-  email: string
+interface LoginResponse extends User {
+  token: string
 }

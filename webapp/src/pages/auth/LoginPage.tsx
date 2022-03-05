@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 import routesBuilder from 'routesBuilder'
 import { LoginForm } from 'components/auth/Login/LoginForm'
 import { api } from 'api'
-import { useGlobalSnackbar } from 'components/Layouts/GlobalSnackbar'
+import { useNotification } from 'components/Context/NotificationContext'
 
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation('auth')
   const navigate = useNavigate()
-  const createSnackbar = useGlobalSnackbar()
+  const createSnackbar = useNotification()
   const [openAlert, setOpenAlert] = useState(false)
 
   const onSubmit = async (form: LoginForm) => {
