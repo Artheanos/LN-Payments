@@ -18,11 +18,14 @@ export const LandingPage = () => {
           </p>
           <p className="text-xl text-gray-900">Very cool!</p>
           <div className="mt-20 space-x-16">
-            <Link to={routesBuilder.quickBuy}>
-              <button className="btn">QuickBuy</button>
+            <Link to={routesBuilder.login}>
+              <button className="btn">Login</button>
             </Link>
             <Link to={routesBuilder.register}>
               <button className="btn">Register</button>
+            </Link>
+            <Link to={routesBuilder.quickBuy}>
+              <button className="btn">QuickBuy</button>
             </Link>
           </div>
         </div>

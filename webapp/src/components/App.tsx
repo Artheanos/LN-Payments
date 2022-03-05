@@ -1,10 +1,13 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
-import { LandingPage } from 'pages/LandingPage'
-import { QuickBuyPage } from 'pages/QuickBuyPage'
 import routesBuilder from 'routesBuilder'
-import { RegisterPage } from '../pages/RegisterPage'
+import { LandingPage } from 'pages/LandingPage'
+import { LoginPage } from 'pages/auth/LoginPage'
+import { NavbarLayout } from 'components/Layouts/NavbarLayout'
+import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
+import { RegisterPage } from 'pages/auth/RegisterPage'
+import { SnackbarProvider } from 'components/Layouts/GlobalSnackbar'
 
 const theme = createTheme({
   palette: {
@@ -21,11 +24,19 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <Routes>
-          <Route path={routesBuilder.landingPage} element={<LandingPage />} />
-          <Route path={routesBuilder.quickBuy} element={<QuickBuyPage />} />
-          <Route path={routesBuilder.register} element={<RegisterPage />} />
-        </Routes>
+        <SnackbarProvider>
+          <Routes>
+            <Route element={<NavbarLayout />}>
+              <Route
+                path={routesBuilder.landingPage}
+                element={<LandingPage />}
+              />
+              <Route path={routesBuilder.login} element={<LoginPage />} />
+              <Route path={routesBuilder.register} element={<RegisterPage />} />
+              <Route path={routesBuilder.quickBuy} element={<QuickBuyPage />} />
+            </Route>
+          </Routes>
+        </SnackbarProvider>
       </ThemeProvider>
     </BrowserRouter>
   )

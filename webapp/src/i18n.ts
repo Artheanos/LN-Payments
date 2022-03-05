@@ -1,10 +1,12 @@
 import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 
+import auth from 'locales/en/auth.json'
 import common from 'locales/en/common.json'
 
 const resources = {
   en: {
+    auth,
     common
   }
 }

@@ -1,3 +1,8 @@
+interface PaymentForm {
+  email: string
+  numberOfTokens: number
+}
+
 interface PaymentDetails {
   paymentRequest: string
   timestamp: Date
@@ -11,8 +16,17 @@ interface PaymentInfo {
   pendingPayments: PaymentDetails[]
 }
 
-interface RegisterRequest {
+interface RegisterForm {
   email: string
   fullName: string
   password: string
+}
+
+interface LoginForm {
+  email: string
+  password: string
+}
+
+interface LoginResponse {
+  email: string
 }
