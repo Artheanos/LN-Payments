@@ -10,7 +10,8 @@ export default {
     },
     auth: {
       register: '/api/auth/register',
-      login: '/api/auth/login'
+      login: '/api/auth/login',
+      refreshToken: '/api/auth/refreshToken'
     }
   }
 }

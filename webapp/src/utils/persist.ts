@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { datify } from './time'
 
-const getLocalJson = (key: string) => {
+export const getLocalJson = (key: string) => {
   const item = localStorage.getItem(key)
   try {
     return item ? datify(JSON.parse(item)) : undefined
@@ -10,7 +10,7 @@ const getLocalJson = (key: string) => {
   }
 }
 
-const setLocalJson = (key: string, value: unknown) => {
+export const setLocalJson = (key: string, value: unknown) => {
   localStorage.setItem(key, JSON.stringify(value))
 }
 

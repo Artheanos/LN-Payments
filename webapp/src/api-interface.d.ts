@@ -16,6 +16,10 @@ interface PaymentInfo {
   pendingPayments: PaymentDetails[]
 }
 
+interface RefreshTokenResponse {
+  token: string
+}
+
 enum Role {
   USER,
   ADMIN,

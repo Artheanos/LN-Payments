@@ -15,7 +15,7 @@ const AllTheProviders: FC = (props) => (
   <Router
     navigator={helpers.history}
     navigationType={Action.Push}
-    location={{ pathname: '/login' }}
+    location={{ pathname: '/' }}
   >
     <NotificationProvider>
       <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
@@ -28,9 +28,9 @@ const customRender = (
   options?: Omit<RenderOptions, 'wrapper'> & { location: string }
 ) => {
   helpers.history = createBrowserHistory()
-  if (options?.location) {
-    helpers.history.push(options.location)
-  }
+  // if (options?.location) {
+  helpers.history.push(options?.location || '/')
+  // }
   return render(ui, { wrapper: AllTheProviders, ...options })
 }
 
