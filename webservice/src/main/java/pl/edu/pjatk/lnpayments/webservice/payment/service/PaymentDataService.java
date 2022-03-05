@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Collection;
 
 @Service
 public class PaymentDataService {
@@ -23,9 +23,8 @@ public class PaymentDataService {
         return paymentRepository.save(payment);
     }
 
-    public List<Payment> findPendingPaymentsByUser() {
-        //TODO implement, when we have a way to authenticate users
-        return Collections.emptyList();
+    public Collection<Payment> findPendingPaymentsByUser(String email) {
+        return paymentRepository.findPendingPaymentsByUserEmailAndStatus(email, PaymentStatus.PENDING);
     }
 
     public Payment findPaymentByRequest(String paymentRequest) {

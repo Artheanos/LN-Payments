@@ -14,6 +14,9 @@ import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoRespon
 
 import javax.validation.Valid;
 
+import java.security.Principal;
+import java.util.Optional;
+
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.INFO_PATH;
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_PATH;
 
@@ -35,16 +38,16 @@ public class PaymentResource {
     }
 
     @GetMapping(INFO_PATH)
-    public ResponseEntity<?> paymentInfo() {
-        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse();
+    public ResponseEntity<?> paymentInfo(Principal principal) {
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(Optional.ofNullable(principal.getName()));
         PaymentInfoResponse paymentInfoResponse = paymentInfoConverter.convertToDto(paymentInfo);
         return ResponseEntity.ok(paymentInfoResponse);
     }
 
     @PostMapping
     public ResponseEntity<PaymentDetailsResponse> createPayment(
-            @RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest) {
-        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest);
+            @RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest, Principal principal) {
+        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest, principal.getName());
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
         return ResponseEntity.ok(response);
     }

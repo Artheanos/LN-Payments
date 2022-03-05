@@ -68,7 +68,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         Invoice invoice = new Invoice();
         invoice.setState(Invoice.InvoiceState.SETTLED);
         invoice.setPaymentRequest(paymentRequest);
-        Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING);
+        Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING, null);
         paymentDataService.savePayment(payment);
         StompSession stompSession = webSocketStompClient.connect(String.format("ws://localhost:%d/api/payment", port), new StompSessionHandlerAdapter() {}).get(1, SECONDS);
         stompSession.subscribe("/topic/34079ad7", new TokenResponseFrameHandler());

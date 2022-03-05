@@ -10,7 +10,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +33,7 @@ class PaymentDataServiceTest {
 
     @Test
     void shouldSaveItemAndReturnCopy() {
-        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING);
+        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING, null);
         when(paymentRepository.save(payment)).thenReturn(payment);
 
         Payment returnedPayment = paymentDataService.savePayment(payment);
@@ -44,14 +44,14 @@ class PaymentDataServiceTest {
     @Test
     void shouldReturnEmptyListOfPendingTransactionWhenThereAreNone() {
         //TODO: implement in LP-xxx
-        List<Payment> payments = paymentDataService.findPendingPaymentsByUser();
+        Collection<Payment> payments = paymentDataService.findPendingPaymentsByUser(null);
         assertThat(payments).isEmpty();
     }
 
     @Test
     void shouldFindPaymentById() {
         String paymentRequest = "asd";
-        Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING);
+        Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING, null);
         when(paymentRepository.findPaymentByPaymentRequest(paymentRequest)).thenReturn(Optional.of(payment));
 
         Payment result = paymentDataService.findPaymentByRequest(paymentRequest);

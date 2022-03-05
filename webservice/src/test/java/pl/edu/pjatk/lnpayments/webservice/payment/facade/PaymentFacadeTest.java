@@ -7,6 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
@@ -20,11 +21,13 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createUser;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentFacadeTest {
@@ -47,17 +50,35 @@ class PaymentFacadeTest {
     @Mock
     private TokenService tokenService;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private PaymentFacade paymentFacade;
 
     @Test
     void shouldBuildPaymentInfo() {
-        when(paymentDataService.findPendingPaymentsByUser()).thenReturn(Collections.emptyList());
+        String email = "test@test.pl";
+        when(paymentDataService.findPendingPaymentsByUser(email)).thenReturn(Collections.emptyList());
         when(nodeDetailsService.getNodeUrl()).thenReturn("node_url");
         when(propertyService.getPrice()).thenReturn(1);
         when(propertyService.getDescription()).thenReturn("description");
 
-        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse();
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(Optional.of(email));
+
+        assertThat(paymentInfo.getPendingPayments()).isEmpty();
+        assertThat(paymentInfo.getPrice()).isEqualTo(1);
+        assertThat(paymentInfo.getNodeUrl()).isEqualTo("node_url");
+        assertThat(paymentInfo.getDescription()).isEqualTo("description");
+    }
+
+    @Test
+    void shouldReturnInfoWhenNoEmailProvided() {
+        when(nodeDetailsService.getNodeUrl()).thenReturn("node_url");
+        when(propertyService.getPrice()).thenReturn(1);
+        when(propertyService.getDescription()).thenReturn("description");
+
+        PaymentInfo paymentInfo = paymentFacade.buildInfoResponse(Optional.empty());
 
         assertThat(paymentInfo.getPendingPayments()).isEmpty();
         assertThat(paymentInfo.getPrice()).isEqualTo(1);
@@ -67,23 +88,24 @@ class PaymentFacadeTest {
 
     @Test
     void shouldCreatePaymentForValidRequest() {
-        PaymentDetailsRequest request = new PaymentDetailsRequest(1, "email");
+        PaymentDetailsRequest request = new PaymentDetailsRequest(1);
         when(propertyService.getPrice()).thenReturn(1);
         when(propertyService.getInvoiceMemo()).thenReturn("memo");
         when(propertyService.getPaymentExpiryInSeconds()).thenReturn(100);
         when(paymentDataService.savePayment(any(Payment.class))).then(AdditionalAnswers.returnsFirstArg());
         when(invoiceService.createInvoice(anyInt(), anyInt(), anyInt(), any())).thenReturn("invoice");
 
-        Payment response = paymentFacade.createNewPayment(request);
+        Payment response = paymentFacade.createNewPayment(request, "test");
 
         assertThat(response.getPaymentRequest()).isEqualTo("invoice");
         assertThat(response.getStatus()).isEqualTo(PaymentStatus.PENDING);
         assertThat(response.getDate()).isBefore(response.getExpiry());
+        verify(paymentDataService).savePayment(any());
     }
 
     @Test
     void shouldShouldFinalizePayment() {
-        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING);
+        Payment payment = new Payment("asd", 1, 1, 60, PaymentStatus.PENDING, createUser(""));
         when(paymentDataService.findPaymentByRequest("asd")).thenReturn(payment);
         when(tokenService.generateTokens(payment)).thenReturn(Collections.singleton(new Token("aaa")));
 
@@ -96,4 +118,5 @@ class PaymentFacadeTest {
         verify(paymentSocketController).sendTokens(captor.capture(), anyCollection());
         assertThat(captor.getValue()).hasSize(8);
     }
+
 }
