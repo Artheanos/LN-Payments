@@ -1421,10 +1421,10 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
-"@mui/icons-material@^5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.5.0.tgz#23d5f13c62c19a75b184374a6ea6ed0f8019531d"
-  integrity sha512-rMs5flT3INyd/m1A/x8DDlNTfHmCartX8stCuSDDMmaMV123oSwg8werJ/Hg4j1FWuVk5rE5HRY45gBf12BCGw==
+"@mui/icons-material@^5.5.1":
+  version "5.5.1"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.5.1.tgz#848a57972617411370775980cbc6990588d4aafb"
+  integrity sha512-40f68p5+Yhq3dCn3QYHqQt5RETPyR3AkDw+fma8PtcjqvZ+d+jF84kFmT6NqwA3he7TlwluEtkyAmPzUE4uPdA==
   dependencies:
     "@babel/runtime" "^7.17.2"
 
@@ -1565,6 +1565,11 @@
   integrity sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==
   dependencies:
     "@sinonjs/commons" "^1.7.0"
+
+"@stomp/stompjs@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@stomp/stompjs/-/stompjs-6.1.2.tgz#4ac3c380e8d1de1da94a3623d404e67de69dd01e"
+  integrity sha512-FHDTrIFM5Ospi4L3Xhj6v2+NzCVAeNDcBe95YjUWhWiRMrBF6uN3I7AUOlRgT6jU/2WQvvYK8ZaIxFfxFp+uHQ==
 
 "@testing-library/dom@^8.0.0":
   version "8.11.3"
@@ -1734,6 +1739,13 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
+"@types/qrcode.react@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/qrcode.react/-/qrcode.react-1.0.2.tgz#f892432cc41b5dac52e3ca8873b717c8bfea6002"
+  integrity sha512-I9Oq5Cjlkgy3Tw7krCnCXLw2/zMhizkTere49OOcta23tkvH0xBTP0yInimTh0gstLRtb8Ki9NZVujE5UI6ffQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*", "@types/react-dom@^17.0.11":
   version "17.0.11"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.11.tgz#e1eadc3c5e86bdb5f7684e00274ae228e7bcc466"
@@ -1775,6 +1787,11 @@
   integrity sha512-fBZgytwhYAUkj/jC/FAV4RQ5EerRup1YQsXQCh8rZfiHkc4UahC192oH0smGwsXol3cL3A5oETuAHeQHmhXM4w==
   dependencies:
     "@types/node" "*"
+
+"@types/sockjs-client@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@types/sockjs-client/-/sockjs-client-1.5.1.tgz#7ed2093da89305af370511c4e3beb7e4ef0d7e87"
+  integrity sha512-bmZM6A1GPdjF0bcuIUC+50hZEMGkzMsiG9by6X9U+7IZFOiPtz7MJ9h05FSpPVxlj4i+TzzoG3ESo1FJlbLb6A==
 
 "@types/stack-utils@^2.0.0":
   version "2.0.1"
@@ -4790,7 +4807,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4813,6 +4830,20 @@ punycode@^2.1.0, punycode@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
+
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/qr.js/-/qr.js-0.0.0.tgz#cace86386f59a0db8050fa90d9b6b0e88a1e364f"
+  integrity sha1-ys6GOG9ZoNuAUPqQ2baw6IoeNk8=
+
+qrcode.react@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/qrcode.react/-/qrcode.react-2.0.0.tgz#20b738eddcfc6958673bbbd1a0c5568ee5c399f5"
+  integrity sha512-1CCzwC4KHYCzOLb7M+lKYqHzDMVsppKJBhrU1ZDCuJRHKiD99LeDHOkuvUKCRvnJgDzp9SnB6/WNA7qp6I7ozA==
+  dependencies:
+    loose-envify "^1.4.0"
+    prop-types "^15.6.0"
+    qr.js "0.0.0"
 
 queue-microtask@^1.2.2:
   version "1.2.3"

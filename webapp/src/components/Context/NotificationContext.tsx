@@ -34,11 +34,17 @@ export const NotificationProvider: React.FC = ({ children }) => {
 const GlobalElement: React.FC = () => useContext(NotificationContext).element
 
 export const useNotification = () => {
-  const { setOpen, setElement } = useContext(NotificationContext)
+  const { open, setOpen, setElement } = useContext(NotificationContext)
 
   return useCallback(
-    (message: string, severity: AlertColor, autoHideDuration = 6000) => {
-      setOpen(true)
+    (message: string, severity: AlertColor, autoHideDuration = 4000) => {
+      if (open) {
+        setOpen(false)
+        setTimeout(() => setOpen(true), 100)
+      } else {
+        setOpen(true)
+      }
+
       setElement(
         <Notification
           message={message}
@@ -48,6 +54,6 @@ export const useNotification = () => {
         />
       )
     },
-    [setElement, setOpen]
+    [open, setOpen, setElement]
   )
 }

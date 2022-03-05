@@ -5,6 +5,8 @@
   "confirm": "Confirm",
   "next": "Next",
   "title": "LN Payments",
+  "invoice": "Invoice",
+  "node": "Node",
   "sidebar" : {
     "quickBuy": "Quick Buy",
     "history": "History"
@@ -24,7 +26,19 @@
     },
     "transaction": {
       "header": "Transaction",
-      "timeoutMessage": "Transaction has expired"
+      "modal": {
+        "button": "Go to setup",
+        "timeoutMessage": "Transaction has expired"
+      },
+      "invoicePanel": {
+        "header": "Invoice for",
+        "currency": "uBTC",
+        "onCopyMessage": "Payment request copied to clipboard"
+      },
+      "nodePanel": {
+        "header": "Node URL",
+        "onCopyMessage": "Node URL copied to clipboard"
+      }
     },
     "tokens": {
       "header": "Tokens"

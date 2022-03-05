@@ -1,9 +1,10 @@
 import React from 'react'
-import { render, screen, waitFor } from 'tests/test-utils'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { SetupStage } from 'components/QuickBuy/Stages/SetupStage'
+
 import routesBuilder from 'routesBuilder'
+import { SetupStage } from 'components/QuickBuy/Stages/SetupStage'
+import { render, screen, waitFor } from 'tests/test-utils'
 
 describe('SetupStage', () => {
   const fakePaymentDetails = {
@@ -35,7 +36,6 @@ describe('SetupStage', () => {
         onPrevious={onPrevious}
         onNext={onNext}
         setPayment={setPayment}
-        payment={{}}
       />
     )
   })

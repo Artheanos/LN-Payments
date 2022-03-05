@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     proxy: {
+      '/api/payment': {
+        target: 'ws://localhost:8080',
+        changeOrigin: true,
+        ws: true
+      },
       '/api': {
         target: 'http://localhost:8080',
         changeOrigin: true

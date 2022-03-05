@@ -3,21 +3,24 @@ import axios, { AxiosRequestConfig } from 'axios'
 import routesBuilder from 'routesBuilder'
 import { datify } from 'utils/time'
 import { getLocalJson } from 'utils/persist'
+import { LocalKey } from '@constants'
 
 const defaultConfig: AxiosRequestConfig = {
   method: 'post'
 }
 
+export const getAuthHeader = () => `Bearer ${getLocalJson(LocalKey.TOKEN)}`
+
 const configFactory = (url: string, config: AxiosRequestConfig) => {
   const result = { url, ...defaultConfig, ...config }
-  const token = 'Bearer ' + getLocalJson('token')
+  const authHeader = getAuthHeader()
 
-  if (token) {
+  if (authHeader) {
     if (!result.headers) {
       result.headers = {}
     }
     if (!result.headers.Authorization) {
-      result.headers.Authorization = token
+      result.headers.Authorization = authHeader
     }
   }
 
@@ -69,6 +72,9 @@ export const api = {
       }
 
       return response
+    },
+    info: async (): Promise<Response<PaymentInfo>> => {
+      return request(routesBuilder.api.payments.info, { method: 'get' })
     }
   }
 }

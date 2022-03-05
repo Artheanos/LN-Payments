@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar } from '@mui/material'
+import { AppBar, Toolbar } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -11,16 +11,18 @@ export const Navbar: React.FC = () => {
   return (
     <AppBar
       position="static"
-      className="py-2 pl-10"
+      className="pl-5"
       color="secondary"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
-      <Link
-        className="flex text-2xl font-bold text-gray-900"
-        to={routesBuilder.landingPage}
-      >
-        {t('title')}
-      </Link>
+      <Toolbar className="gap-5">
+        <Link
+          className="flex text-2xl font-bold text-gray-900"
+          to={routesBuilder.landingPage}
+        >
+          {t('title')}
+        </Link>
+      </Toolbar>
     </AppBar>
   )
 }

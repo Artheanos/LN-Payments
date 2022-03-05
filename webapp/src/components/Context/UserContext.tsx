@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { api } from 'api'
 import { useLocalStorage } from 'utils/persist'
+import { LocalKey } from '@constants'
 
 type ContextType = {
   user?: User
@@ -26,8 +27,8 @@ const defaultValue: ContextType = {
 export const UserContext = React.createContext(defaultValue)
 
 export const UserProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useLocalStorage<User>('user')
-  const [token, setToken] = useLocalStorage<string>('token')
+  const [user, setUser] = useLocalStorage<User>(LocalKey.USER)
+  const [token, setToken] = useLocalStorage<string>(LocalKey.TOKEN)
   const [loading, setLoading] = useState(true)
   const isValid = useMemo(() => Boolean(user && token), [user, token])
 
@@ -36,10 +37,15 @@ export const UserProvider: React.FC = ({ children }) => {
     api.auth
       .refreshToken()
       .then(({ data }) => {
-        setToken(data?.token || '')
+        if (data) {
+          setToken(data.token)
+        } else {
+          setToken(undefined)
+          setUser(undefined)
+        }
       })
       .finally(() => setLoading(false))
-  }, [setLoading, setToken])
+  }, [setUser, setLoading, setToken])
 
   useEffect(() => tryRefreshingToken(), [tryRefreshingToken])
 
