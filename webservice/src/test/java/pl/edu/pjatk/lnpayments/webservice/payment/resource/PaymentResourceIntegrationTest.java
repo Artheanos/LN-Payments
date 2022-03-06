@@ -82,6 +82,14 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
+
+        @Test
+        void shouldReturnOkWhenNoPrincipalGiven() throws Exception {
+            String jsonContent = getJsonResponse("integration/payment/response/profileinfo-GET-valid.json");
+            mockMvc.perform(get("/payments/info"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(jsonContent));
+        }
     }
 
     @Nested
