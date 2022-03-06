@@ -7,6 +7,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.scheduling.TaskScheduler;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
@@ -19,6 +20,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.InvoiceService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.NodeDetailsService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
+import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -52,6 +54,9 @@ class PaymentFacadeTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private TaskScheduler taskScheduler;
 
     @InjectMocks
     private PaymentFacade paymentFacade;
@@ -100,7 +105,9 @@ class PaymentFacadeTest {
         assertThat(response.getPaymentRequest()).isEqualTo("invoice");
         assertThat(response.getStatus()).isEqualTo(PaymentStatus.PENDING);
         assertThat(response.getDate()).isBefore(response.getExpiry());
-        verify(paymentDataService).savePayment(any());
+        ArgumentCaptor<Payment> paymentCaptor = ArgumentCaptor.forClass(Payment.class);
+        verify(paymentDataService).savePayment(paymentCaptor.capture());
+        verify(taskScheduler).schedule(any(PaymentStatusUpdateTask.class), eq(paymentCaptor.getValue().getExpiry()));
     }
 
     @Test
