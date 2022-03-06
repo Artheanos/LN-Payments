@@ -2,6 +2,7 @@ package pl.edu.pjatk.lnpayments.webservice.payment.facade;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
@@ -42,7 +43,8 @@ public class PaymentFacade {
                   NodeDetailsService nodeDetailsService,
                   TokenService tokenService,
                   PaymentSocketController paymentSocketController,
-                  UserService userService, TaskScheduler scheduler) {
+                  UserService userService,
+                  @Qualifier("threadPoolTaskScheduler") TaskScheduler scheduler) {
         this.invoiceService = invoiceService;
         this.propertyService = propertyService;
         this.paymentDataService = paymentDataService;
