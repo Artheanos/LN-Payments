@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.model.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,6 +35,7 @@ public class Payment {
     @JoinColumn
     private User user;
 
+    @Builder
     public Payment(String paymentRequest,
                    int numberOfTokens,
                    int price,

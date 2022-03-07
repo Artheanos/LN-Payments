@@ -2,6 +2,8 @@ package pl.edu.pjatk.lnpayments.webservice.payment.facade;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
@@ -15,6 +17,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.InvoiceService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.NodeDetailsService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
+import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
@@ -31,6 +34,7 @@ public class PaymentFacade {
     private final TokenService tokenService;
     private final PaymentSocketController paymentSocketController;
     private final UserService userService;
+    private final TaskScheduler scheduler;
 
     @Autowired
     PaymentFacade(InvoiceService invoiceService,
@@ -39,7 +43,8 @@ public class PaymentFacade {
                   NodeDetailsService nodeDetailsService,
                   TokenService tokenService,
                   PaymentSocketController paymentSocketController,
-                  UserService userService) {
+                  UserService userService,
+                  @Qualifier("threadPoolTaskScheduler") TaskScheduler scheduler) {
         this.invoiceService = invoiceService;
         this.propertyService = propertyService;
         this.paymentDataService = paymentDataService;
@@ -47,6 +52,7 @@ public class PaymentFacade {
         this.tokenService = tokenService;
         this.paymentSocketController = paymentSocketController;
         this.userService = userService;
+        this.scheduler = scheduler;
     }
 
     public PaymentInfo buildInfoResponse(Optional<String> email) {
@@ -72,15 +78,17 @@ public class PaymentFacade {
                 paymentExpiryInSeconds,
                 propertyService.getInvoiceMemo()
         );
-        Payment payment = new Payment(
-                paymentRequest,
-                numberOfTokens,
-                price,
-                paymentExpiryInSeconds,
-                PaymentStatus.PENDING,
-                user
-        );
-        return paymentDataService.savePayment(payment);
+        Payment payment = Payment.builder()
+                .paymentRequest(paymentRequest)
+                .numberOfTokens(numberOfTokens)
+                .price(price)
+                .expiryInSeconds(paymentExpiryInSeconds)
+                .paymentStatus(PaymentStatus.PENDING)
+                .user(user)
+                .build();
+        Payment paymentEntity = paymentDataService.savePayment(payment);
+        scheduler.schedule(new PaymentStatusUpdateTask(paymentEntity, paymentDataService), paymentEntity.getExpiry());
+        return paymentEntity;
     }
 
     @Transactional

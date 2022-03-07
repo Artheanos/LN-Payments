@@ -42,14 +42,6 @@ class PaymentResourceTest {
             assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
         }
 
-        @Test
-        void shouldReturnStatusOKWhenNoEmailSpecified() {
-            PaymentDetailsRequest request = new PaymentDetailsRequest(1);
-
-            ResponseEntity<?> payment = paymentResource.createPayment(request, () -> null);
-
-            assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
-        }
     }
 
     @Nested
@@ -58,6 +50,13 @@ class PaymentResourceTest {
         @Test
         void shouldReturnOkForAnyRequest() {
             ResponseEntity<?> payment = paymentResource.paymentInfo(() -> "test");
+
+            assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
+        }
+
+        @Test
+        void shouldReturnOkWhenPrincipalIsNull() {
+            ResponseEntity<?> payment = paymentResource.paymentInfo(null);
 
             assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
         }
