@@ -5,7 +5,7 @@ import { render, RenderOptions } from '@testing-library/react'
 import { Action, BrowserHistory, createBrowserHistory } from 'history'
 
 import i18n from 'i18n'
-import { SnackbarProvider } from 'components/Layouts/GlobalSnackbar'
+import { NotificationProvider } from 'components/Context/NotificationContext'
 
 const helpers: { history: BrowserHistory; initialLocation?: string } = {
   history: createBrowserHistory()
@@ -15,11 +15,11 @@ const AllTheProviders: FC = (props) => (
   <Router
     navigator={helpers.history}
     navigationType={Action.Push}
-    location={{ pathname: '/login' }}
+    location={{ pathname: '/' }}
   >
-    <SnackbarProvider>
+    <NotificationProvider>
       <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
-    </SnackbarProvider>
+    </NotificationProvider>
   </Router>
 )
 
@@ -28,9 +28,9 @@ const customRender = (
   options?: Omit<RenderOptions, 'wrapper'> & { location: string }
 ) => {
   helpers.history = createBrowserHistory()
-  if (options?.location) {
-    helpers.history.push(options.location)
-  }
+  // if (options?.location) {
+  helpers.history.push(options?.location || '/')
+  // }
   return render(ui, { wrapper: AllTheProviders, ...options })
 }
 
