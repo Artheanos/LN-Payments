@@ -20,7 +20,7 @@ class JwtServiceTest {
 
     @BeforeEach
     void setUp() {
-        long testCurrentTime = 1645124481837L;
+        long testCurrentTime = System.currentTimeMillis();
         this.testJwt = Jwts.builder()
                 .setSubject(testEmail)
                 .setIssuedAt(new Date(testCurrentTime))
