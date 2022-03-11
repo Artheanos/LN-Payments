@@ -36,6 +36,7 @@ import java.util.concurrent.TimeoutException;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @ActiveProfiles("test")
@@ -86,13 +87,29 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         StompSession stompSession = webSocketStompClient.connect(
                 String.format("ws://localhost:%d/api/payment", port),
                 new WebSocketHttpHeaders(httpHeaders),
-                new StompSessionHandlerAdapter() {}).get(1, SECONDS);
+                new StompSessionHandlerAdapter() {
+                }).get(1, SECONDS);
         stompSession.subscribe("/topic/34079ad7", new TokenResponseFrameHandler());
 
         invoiceObserver.onNext(invoice);
 
         TokenResponse tokenResponse = completableFuture.get(5, SECONDS);
         assertThat(tokenResponse.getTokens()).hasSize(1);
+    }
+
+    @Test
+    void shouldReturn401WhenNoUser() {
+        String email = "test@test.pl";
+        String token = jwtService.generateToken(email);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        assertThatExceptionOfType(ExecutionException.class).isThrownBy(() ->
+                webSocketStompClient.connect(
+                        String.format("ws://localhost:%d/api/payment", port),
+                        new WebSocketHttpHeaders(httpHeaders),
+                        new StompSessionHandlerAdapter() {
+                        }).get(1, SECONDS)
+        );
     }
 
     private class TokenResponseFrameHandler implements StompFrameHandler {
