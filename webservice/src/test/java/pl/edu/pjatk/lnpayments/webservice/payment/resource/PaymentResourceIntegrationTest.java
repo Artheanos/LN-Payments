@@ -15,8 +15,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 
@@ -117,6 +120,35 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
+        }
+    }
+
+    @Nested
+    class UserPaymentsIntegrationTest {
+
+        @Test
+        void shouldReturnOkAndListOfPayments() throws Exception {
+            User user = userRepository.save(createStandardUser(EMAIL));
+            String jsonContent = getJsonResponse("integration/payment/response/payments-GET-valid.json");
+            paymentRepository.save(new Payment("123", 1, 1, 123, PaymentStatus.PENDING, user));
+            paymentRepository.save(new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, user));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
+
+            mockMvc.perform(get("/payments").principal(principal))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(jsonContent));
+        }
+
+        @Test
+        void shouldReturnOkAndEmptyArrayWhenNoPayments() throws Exception {
+            userRepository.save(createStandardUser(EMAIL));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
+
+            mockMvc.perform(get("/payments").principal(principal))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json("[]"));
         }
     }
 }
