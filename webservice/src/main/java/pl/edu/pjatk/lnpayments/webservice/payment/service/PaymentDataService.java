@@ -1,11 +1,15 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.enums.SearchableField;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.specification.PaymentSpecification;
 
 import java.util.Collection;
 
@@ -32,4 +36,7 @@ public class PaymentDataService {
                 .orElseThrow(InconsistentDataException::new);
     }
 
+    public Page<Payment> findAll(SearchableField field, String value, Pageable pageable) {
+        return paymentRepository.findAll(new PaymentSpecification(field, value), pageable);
+    }
 }

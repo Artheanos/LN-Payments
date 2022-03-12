@@ -3,6 +3,8 @@ package pl.edu.pjatk.lnpayments.webservice.payment.facade;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
@@ -11,6 +13,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.enums.SearchableField;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.PaymentSocketController;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.InvoiceService;
@@ -100,4 +103,7 @@ public class PaymentFacade {
         paymentSocketController.sendTokens(paymentHash.substring(0, 8), payment.getTokens());
     }
 
+    public Page<Payment> getPaymentsByEmail(String email, Pageable pageable) {
+        return paymentDataService.findAll(SearchableField.EMAIL, email, pageable);
+    }
 }
