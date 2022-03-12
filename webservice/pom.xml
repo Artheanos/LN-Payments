@@ -24,7 +24,7 @@
         <h2.version>2.1.210</h2.version>
         <jjwt.version>0.9.1</jjwt.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
-        <hibernate-jpamodelgen.version>5.3.7.Final</hibernate-jpamodelgen.version>
+        <hibernate-jpamodelgen.version>5.6.5.Final</hibernate-jpamodelgen.version>
     </properties>
 
     <dependencies>
@@ -206,6 +206,7 @@
                                 <exclude>**/*Config.*</exclude>
                                 <exclude>**/*Application.*</exclude>
                                 <exclude>**/*Settings.*</exclude>
+                                <exclude>**/*_.*</exclude>
                             </excludes>
                         </configuration>
                         <executions>

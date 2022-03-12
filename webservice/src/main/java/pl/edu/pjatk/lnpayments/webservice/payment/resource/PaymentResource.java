@@ -18,7 +18,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.INFO_PATH;
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_PATH;
@@ -59,7 +58,7 @@ public class PaymentResource {
     @GetMapping
     public ResponseEntity<Collection<?>> getAllUserPayments(Principal principal, Pageable pageable) {
         Page<Payment> payments = paymentFacade.getPaymentsByEmail(principal.getName(), pageable);
-        return ResponseEntity.ok(payments.stream().map(paymentDetailsConverter::convertToDto).collect(Collectors.toList()));
+        return ResponseEntity.ok(paymentDetailsConverter.convertPageToDto(payments));
     }
 
 }
