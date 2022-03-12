@@ -145,10 +145,12 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnOkAndEmptyArrayWhenNoPayments() throws Exception {
             userRepository.save(createStandardUser(EMAIL));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
+            String jsonContent = getJsonResponse("integration/payment/response/payments-GET-empty.json");
 
             mockMvc.perform(get("/payments").principal(principal))
                     .andExpect(status().isOk())
-                    .andExpect(content().json("[]"));
+                    .andExpect(content().json(jsonContent));
         }
+
     }
 }

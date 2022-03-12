@@ -1,23 +1,50 @@
-[
-  {
-    "paymentRequest": "123",
-    "price": 1,
-    "numberOfTokens": 1,
-    "paymentStatus": "PENDING",
-    "tokens": []
+{
+  "content": [
+    {
+      "paymentRequest": "123",
+      "price": 1,
+      "numberOfTokens": 1,
+      "paymentStatus": "PENDING",
+      "tokens": []
+    },
+    {
+      "paymentRequest": "456",
+      "price": 2,
+      "numberOfTokens": 3,
+      "paymentStatus": "COMPLETE",
+      "tokens": []
+    },
+    {
+      "paymentRequest": "789",
+      "price": 3,
+      "numberOfTokens": 4,
+      "paymentStatus": "CANCELLED",
+      "tokens": []
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "unpaged": false
   },
-  {
-    "paymentRequest": "456",
-    "price": 2,
-    "numberOfTokens": 3,
-    "paymentStatus": "COMPLETE",
-    "tokens": []
+  "totalPages": 1,
+  "totalElements": 3,
+  "last": true,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
   },
-  {
-    "paymentRequest": "789",
-    "price": 3,
-    "numberOfTokens": 4,
-    "paymentStatus": "CANCELLED",
-    "tokens": []
-  }
-]
+  "size": 20,
+  "number": 0,
+  "numberOfElements": 3,
+  "first": true,
+  "empty": false
+}

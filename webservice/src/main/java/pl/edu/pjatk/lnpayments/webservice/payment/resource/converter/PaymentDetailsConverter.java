@@ -5,9 +5,6 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class PaymentDetailsConverter {
 
@@ -23,9 +20,7 @@ public class PaymentDetailsConverter {
                 .build();
     }
 
-    public List<PaymentDetailsResponse> convertPageToDto(Page<Payment> payments) {
-        return payments.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public Page<PaymentDetailsResponse> convertPageToDto(Page<Payment> payments) {
+        return payments.map(this::convertToDto);
     }
 }

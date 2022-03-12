@@ -37,7 +37,7 @@ class PaymentDetailsConverterTest {
                 new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
         ));
 
-        List<PaymentDetailsResponse> result = paymentDetailsConverter.convertPageToDto(payments);
+        Page<PaymentDetailsResponse> result = paymentDetailsConverter.convertPageToDto(payments);
 
         assertThat(result).hasSize(3);
         assertThat(result).extracting(PaymentDetailsResponse::getPaymentRequest)

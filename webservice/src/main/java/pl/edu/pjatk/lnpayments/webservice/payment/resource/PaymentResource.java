@@ -16,7 +16,6 @@ import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoRespon
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.Collection;
 import java.util.Optional;
 
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.INFO_PATH;
@@ -56,7 +55,7 @@ public class PaymentResource {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<?>> getAllUserPayments(Principal principal, Pageable pageable) {
+    public ResponseEntity<Page<?>> getAllUserPayments(Principal principal, Pageable pageable) {
         Page<Payment> payments = paymentFacade.getPaymentsByEmail(principal.getName(), pageable);
         return ResponseEntity.ok(paymentDetailsConverter.convertPageToDto(payments));
     }
