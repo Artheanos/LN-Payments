@@ -9,6 +9,7 @@ public class Constants {
     public static final String LOGIN_PATH = "/login";
     public static final String REFRESH_PATH = "/refreshToken";
     public static final String TEMPORARY_PATH = "/temporary";
+    public static final String PAYMENTS_WS_PATH = "/payment";
 
     private Constants() {}
 
