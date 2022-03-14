@@ -3,10 +3,13 @@ import { Drawer, List, Toolbar } from '@mui/material'
 import { SidebarEntry } from './SidebarEntry'
 import { AccessTime, ShoppingCartOutlined } from '@mui/icons-material'
 import routesBuilder from '../../routesBuilder'
+import { useTranslation } from 'react-i18next'
 
 const drawerWidth = 300
 
 export const Sidebar: React.FC = () => {
+  const { t } = useTranslation('common')
+
   return (
     <Drawer
       variant="permanent"
@@ -18,12 +21,12 @@ export const Sidebar: React.FC = () => {
       <Toolbar />
       <List>
         <SidebarEntry
-          title="Quick Buy"
+          title={t('sidebar.quickBuy')}
           icon={<ShoppingCartOutlined />}
           route={routesBuilder.quickBuy}
         />
         <SidebarEntry
-          title="History"
+          title={t('sidebar.history')}
           icon={<AccessTime />}
           route={routesBuilder.history}
         />

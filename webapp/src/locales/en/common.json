@@ -5,6 +5,10 @@
   "confirm": "Confirm",
   "next": "Next",
   "title": "LN Payments",
+  "sidebar" : {
+    "quickBuy": "Quick Buy",
+    "history": "History"
+  },
   "quickBuy": {
     "setup": {
       "header": "Setup",
