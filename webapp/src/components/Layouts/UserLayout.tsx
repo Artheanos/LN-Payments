@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Box, LinearProgress } from '@mui/material'
+import { LinearProgress } from '@mui/material'
 import { Navigate, Outlet } from 'react-router-dom'
 
 import routesBuilder from 'routesBuilder'
