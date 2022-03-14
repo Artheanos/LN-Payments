@@ -1,19 +1,20 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentDetailsConverter;
-import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentInfoConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentDetailsConverter;
+import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentInfoConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsResponse;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentInfoResponse;
 
 import javax.validation.Valid;
-
 import java.security.Principal;
 import java.util.Optional;
 
@@ -51,6 +52,12 @@ public class PaymentResource {
         Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest, principal.getName());
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<?>> getAllUserPayments(Principal principal, Pageable pageable) {
+        Page<Payment> payments = paymentFacade.getPaymentsByEmail(principal.getName(), pageable);
+        return ResponseEntity.ok(paymentDetailsConverter.convertPageToDto(payments));
     }
 
 }

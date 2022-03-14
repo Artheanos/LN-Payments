@@ -5,16 +5,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.enums.SearchableField;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.specification.PaymentSpecification;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -43,7 +51,6 @@ class PaymentDataServiceTest {
 
     @Test
     void shouldReturnEmptyListOfPendingTransactionWhenThereAreNone() {
-        //TODO: implement in LP-xxx
         Collection<Payment> payments = paymentDataService.findPendingPaymentsByUser(null);
         assertThat(payments).isEmpty();
     }
@@ -65,5 +72,30 @@ class PaymentDataServiceTest {
 
         assertThatExceptionOfType(InconsistentDataException.class)
                 .isThrownBy(() -> paymentDataService.findPaymentByRequest(""));
+    }
+
+    @Test
+    void shouldReturnPageUsingQuery() {
+        List<Payment> payments = List.of(
+                new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
+                new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
+                new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
+        );
+        when(paymentRepository.findAll(any(PaymentSpecification.class), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(payments));
+
+        Page<Payment> response = paymentDataService.findAll(SearchableField.EMAIL, "test", PageRequest.ofSize(3));
+
+        assertThat(response).hasSize(3);
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenNoPayments() {
+        when(paymentRepository.findAll(any(PaymentSpecification.class), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(List.of()));
+
+        Page<Payment> response = paymentDataService.findAll(SearchableField.EMAIL, "test", PageRequest.ofSize(3));
+
+        assertThat(response).isEmpty();
     }
 }

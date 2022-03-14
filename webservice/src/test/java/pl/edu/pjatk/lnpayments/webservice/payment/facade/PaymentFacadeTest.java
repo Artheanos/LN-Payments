@@ -7,6 +7,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.scheduling.TaskScheduler;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
@@ -14,6 +16,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.enums.SearchableField;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.PaymentSocketController;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.InvoiceService;
@@ -23,6 +26,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -126,4 +130,17 @@ class PaymentFacadeTest {
         assertThat(captor.getValue()).hasSize(8);
     }
 
+    @Test
+    void shouldReturnPaymentsForEmail() {
+        Page<Payment> payments = new PageImpl<>(List.of(
+                new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
+                new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
+                new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
+        ));
+        when(paymentDataService.findAll(SearchableField.EMAIL, "email", null)).thenReturn(payments);
+
+        Page<Payment> response = paymentFacade.getPaymentsByEmail("email", null);
+        assertThat(response).hasSize(3);
+        verify(paymentDataService).findAll(any(), anyString(), any());
+    }
 }
