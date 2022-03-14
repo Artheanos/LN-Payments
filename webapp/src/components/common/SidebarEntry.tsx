@@ -1,9 +1,5 @@
 import React from 'react'
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material'
+import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 type Props = {
