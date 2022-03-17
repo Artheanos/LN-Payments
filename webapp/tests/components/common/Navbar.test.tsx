@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Navbar } from 'components/common/Navbar'
-import { render, screen } from 'tests/test-utils'
+import { Navbar } from 'webapp/src/components/common/Navbar'
+import { render, screen } from '../../test-utils'
 
 describe('Navbar', () => {
   it('renders proper values', () => {
