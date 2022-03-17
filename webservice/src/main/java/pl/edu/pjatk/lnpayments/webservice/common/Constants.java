@@ -11,6 +11,9 @@ public class Constants {
     public static final String TEMPORARY_PATH = "/temporary";
     public static final String PAYMENTS_WS_PATH = "/payment";
 
+    public static final String ROOT_USER_EMAIL = "admin@admin.pl";
+    public static final String ROOT_USER_PASSWORD = "admin";
+
     private Constants() {}
 
 }

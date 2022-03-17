@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
@@ -35,12 +36,15 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void createUser(RegisterRequest request) {
+        validateEmail(request.getEmail());
+        User user = userConverter.convertToEntity(request);
+        userRepository.save(user);
+    }
 
-        if (userRepository.existsByEmail(request.getEmail())) {
-            throw new ValidationException("User with mail " + request.getEmail() + " exists!");
-        }
-
-        StandardUser user = userConverter.convertToEntity(request);
+    @Transactional
+    public void createAdmin(AdminRequest request) {
+        validateEmail(request.getEmail());
+        User user = userConverter.convertToAdminEntity(request);
         userRepository.save(user);
     }
 
@@ -66,5 +70,11 @@ public class UserService implements UserDetailsService {
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email + " not found!"));
+    }
+
+    private void validateEmail(String email) {
+        if (userRepository.existsByEmail(email)) {
+            throw new ValidationException("User with mail " + email + " exists!");
+        }
     }
 }
