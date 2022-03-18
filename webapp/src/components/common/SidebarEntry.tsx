@@ -1,6 +1,6 @@
 import React from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import {Link, useLocation} from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 type Props = {
   title: string
