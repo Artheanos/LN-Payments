@@ -15,7 +15,7 @@ export const Sidebar: React.FC = () => {
       variant="permanent"
       sx={{
         width: drawerWidth,
-        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }
+        ['& .MuiDrawer-paper']: { width: drawerWidth, boxSizing: 'border-box' }
       }}
     >
       <Toolbar />
