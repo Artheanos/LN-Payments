@@ -5,7 +5,7 @@ import { AccessTime, ShoppingCartOutlined } from '@mui/icons-material'
 import routesBuilder from '../../routesBuilder'
 import { useTranslation } from 'react-i18next'
 
-const drawerWidth = 300
+const drawerWidth = '19rem'
 
 export const Sidebar: React.FC = () => {
   const { t } = useTranslation('common')
