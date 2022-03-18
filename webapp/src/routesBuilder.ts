@@ -3,6 +3,7 @@ export default {
   quickBuy: '/quick-buy',
   register: '/register',
   login: '/login',
+  history: '/history',
   api: {
     payments: {
       index: '/api/payments',

@@ -10,6 +10,7 @@ import { RegisterPage } from 'pages/auth/RegisterPage'
 import { NotificationProvider } from './Context/NotificationContext'
 import { UserProvider } from './Context/UserContext'
 import { UserLayout } from './Layouts/UserLayout'
+import { History } from './History/History'
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,7 @@ const App = () => {
                     path={routesBuilder.quickBuy}
                     element={<QuickBuyPage />}
                   />
+                  <Route path={routesBuilder.history} element={<History />} />
                 </Route>
                 <Route
                   path={routesBuilder.landingPage}

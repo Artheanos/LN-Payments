@@ -5,7 +5,8 @@
 @tailwind utilities;
 
 html,
-body {
+body,
+#root {
   height: 100%;
   background-color: #f0f0fa;
 }
