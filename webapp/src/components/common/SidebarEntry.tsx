@@ -1,6 +1,6 @@
 import React from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import { Link } from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 
 type Props = {
   title: string
@@ -9,9 +9,11 @@ type Props = {
 }
 
 export const SidebarEntry: React.FC<Props> = (props: Props) => {
+  const isSelected = props.route === useLocation().pathname
+
   return (
     <Link to={props.route}>
-      <ListItem button key={props.title}>
+      <ListItem selected={isSelected} button key={props.title}>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText primary={props.title} />
       </ListItem>
