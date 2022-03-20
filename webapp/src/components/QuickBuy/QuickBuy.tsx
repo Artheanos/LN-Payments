@@ -46,7 +46,7 @@ export const QuickBuy: React.FC = () => {
   const CurrentStage = useMemo(() => STAGE_COMPONENTS[stageIndex], [stageIndex])
 
   return (
-    <div className="w-screen text-center">
+    <div className="w-full text-center">
       <div className="mt-10">
         <StageProgress currentStageIndex={stageIndex} />
       </div>

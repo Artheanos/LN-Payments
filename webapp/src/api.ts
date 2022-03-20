@@ -75,6 +75,9 @@ export const api = {
     },
     info: async (): Promise<Response<PaymentInfo>> => {
       return request(routesBuilder.api.payments.info, { method: 'get' })
+    },
+    history: async (): Promise<Response<PaymentHistory>> => {
+      return request(routesBuilder.api.payments.index, { method: 'get' })
     }
   }
 }
