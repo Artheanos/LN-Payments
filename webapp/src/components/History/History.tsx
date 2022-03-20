@@ -14,6 +14,7 @@ import {
   Tooltip
 } from '@mui/material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 export const History: React.FC = () => {
   const [history, setHistory] = useState<PaymentHistory>()
@@ -29,7 +30,6 @@ export const History: React.FC = () => {
       .history({ page, size })
       .then((data) => {
         if (data.status === 200) {
-          console.log(data.data)
           setLoading(false)
           setHistory(data.data)
         }
@@ -88,7 +88,12 @@ export const History: React.FC = () => {
                 <TableCell>{payment.price}</TableCell>
                 <TableCell>{payment.numberOfTokens}</TableCell>
                 <TableCell>{payment.paymentStatus}</TableCell>
-                <TableCell>{payment.tokens}</TableCell>
+                {payment.tokens && (
+                  <TableCell>
+                    <VisibilityIcon />
+                    Show
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>

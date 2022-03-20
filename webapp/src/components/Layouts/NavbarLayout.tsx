@@ -8,7 +8,7 @@ export const NavbarLayout: React.FC = () => {
   return (
     <Box className="flex flex-col">
       <Navbar />
-      <Box className="flex">
+      <Box className="flex justify-center">
         <Outlet />
       </Box>
     </Box>
