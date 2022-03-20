@@ -55,14 +55,17 @@ export const History: React.FC = () => {
       queryHistory(0, parseInt(event!.currentTarget.value))
     }
   }
-
   if (loading) return <LinearProgress />
   return (
     <div className="grow p-14 w-6/12 text-center">
       <TableContainer component={Paper}>
         <Table>
-          <TableHead sx={{ fontWeight: '700' }}>
-            <TableRow>
+          <TableHead>
+            <TableRow
+              sx={{
+                ['& .MuiTableCell-root']: { fontWeight: 'bold' }
+              }}
+            >
               <TableCell>Payment Request</TableCell>
               <TableCell>Created</TableCell>
               <TableCell>Price</TableCell>
