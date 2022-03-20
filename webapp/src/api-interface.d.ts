@@ -98,3 +98,8 @@ interface Pageable {
   sort: Sort
   unpaged: boolean
 }
+
+interface PageRequest {
+  page: number
+  size: number
+}
