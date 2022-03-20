@@ -52,7 +52,7 @@ export const History: React.FC = () => {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (history) {
-      queryHistory(0, parseInt(event!.currentTarget.value))
+      queryHistory(0, parseInt(event!.target.value))
     }
   }
   if (loading) return <LinearProgress />
