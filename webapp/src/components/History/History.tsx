@@ -16,6 +16,8 @@ import {
 } from '@mui/material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import { TokenPopup } from './TokenPopup'
+import { PaymentEntry } from './PaymentEntry'
 
 export const History: React.FC = () => {
   const [history, setHistory] = useState<PaymentHistory>()
@@ -40,27 +42,6 @@ export const History: React.FC = () => {
       })
   }
 
-  const StatusColor: Record<
-    string,
-    {
-      primary: string
-      secondary: string
-    }
-  > = {
-    PENDING: {
-      primary: '#4fc3f7',
-      secondary: '#29b6f6'
-    },
-    COMPLETE: {
-      primary: '#81c784',
-      secondary: '#66bb6a'
-    },
-    CANCELLED: {
-      primary: '#e57373',
-      secondary: '#f44336'
-    }
-  }
-
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     newPage: number
@@ -79,15 +60,6 @@ export const History: React.FC = () => {
   }
 
   if (loading) return <LinearProgress />
-
-  const calculateColor = (paymentStatus: PaymentStatus) => {
-    const colors = StatusColor[paymentStatus as unknown as string]
-    return {
-      backgroundColor: colors.primary,
-      borderColor: colors.secondary
-    }
-  }
-
   return (
     <div className="grow p-14 w-6/12 text-center">
       <TableContainer component={Paper}>
@@ -108,62 +80,7 @@ export const History: React.FC = () => {
           </TableHead>
           <TableBody>
             {history?.content.map((payment: PaymentDetails, key: number) => (
-              <TableRow key={key}>
-                <Tooltip arrow title={payment.paymentRequest}>
-                  <TableCell className="max-w-sm truncate">
-                    {payment.paymentRequest}
-                  </TableCell>
-                </Tooltip>
-                <TableCell>
-                  {new Date(payment.timestamp).toLocaleString()}
-                </TableCell>
-                <TableCell>{payment.price}</TableCell>
-                <TableCell>{payment.numberOfTokens}</TableCell>
-                <TableCell>
-                  <Typography
-                    align="center"
-                    sx={{
-                      borderRadius: 8,
-                      fontWeight: 'bold',
-                      display: 'inline-block',
-                      fontSize: '0.75rem',
-                      padding: '3px 10px',
-                      borderStyle: 'solid',
-                      borderWidth: '3px',
-                      width: '100%',
-                      ...calculateColor(payment.paymentStatus)
-                    }}
-                  >
-                    {payment.paymentStatus}
-                  </Typography>
-                </TableCell>
-                <TableCell align="center">
-                  {payment.tokens ? (
-                    <Typography
-                      sx={{
-                        cursor: 'pointer',
-                        fontSize: '0.75rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        color: '#0d6efd'
-                      }}
-                    >
-                      <VisibilityIcon />
-                      <span className="pl-1">Show</span>
-                    </Typography>
-                  ) : (
-                    <Typography
-                      sx={{
-                        fontStyle: 'italic',
-                        fontSize: '0.85rem',
-                        color: 'darkgray'
-                      }}
-                    >
-                      none
-                    </Typography>
-                  )}
-                </TableCell>
-              </TableRow>
+              <PaymentEntry key={key} {...payment} />
             ))}
           </TableBody>
           {history && (
