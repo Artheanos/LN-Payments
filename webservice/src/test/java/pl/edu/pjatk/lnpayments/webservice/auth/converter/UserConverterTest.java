@@ -7,12 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -76,5 +74,19 @@ class UserConverterTest {
         assertThat(userDetails.getPassword()).isEqualTo(null);
         assertThat(userDetails.getAuthorities()).hasSize(1);
         assertThat(userDetails.getAuthorities().contains(Role.ROLE_TEMPORARY)).isTrue();
+    }
+
+    @Test
+    void shouldConvertToAdminRequest() {
+        when(passwordEncoder.encode(anyString())).thenReturn("encoded_pass");
+        AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
+
+        AdminUser user = userConverter.convertToAdminEntity(request);
+
+        assertThat(user.getEmail()).isEqualTo("test@test.pl");
+        assertThat(user.getPassword()).isEqualTo("encoded_pass");
+        assertThat(user.getFullName()).isEqualTo("test");
+        assertThat(user.getRole()).isEqualTo(Role.ROLE_ADMIN);
+        verify(passwordEncoder).encode(anyString());
     }
 }
