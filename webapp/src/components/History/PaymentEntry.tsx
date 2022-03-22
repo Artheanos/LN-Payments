@@ -74,7 +74,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
           </Typography>
         </TableCell>
         <TableCell align="center">
-          {payment.tokens ? (
+          {payment.tokens.length ? (
             <Typography
               onClick={handleClick}
               sx={{
@@ -82,6 +82,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
                 fontSize: '0.75rem',
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 color: '#0d6efd'
               }}
             >
@@ -105,14 +106,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
         id={payment.paymentRequest}
         anchorEl={anchorEl}
         handleClose={handleClose}
-        tokens={[
-          {
-            sequence: 'ddddawdawdavdfv'
-          },
-          {
-            sequence: 'ddddawdawdavdfv'
-          }
-        ]}
+        tokens={payment.tokens}
       />
     </>
   )
