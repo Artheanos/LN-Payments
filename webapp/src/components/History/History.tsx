@@ -11,13 +11,9 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Toolbar,
-  Tooltip,
-  Typography
+  Toolbar
 } from '@mui/material'
 import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import { TokenPopup } from './TokenPopup'
 import { PaymentEntry } from './PaymentEntry'
 
 export const History: React.FC = () => {
