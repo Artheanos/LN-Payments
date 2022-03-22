@@ -10,8 +10,8 @@ export const Navbar: React.FC = () => {
 
   return (
     <AppBar
-      position="static"
-      className="pl-5"
+      position="fixed"
+      className="py-2 pl-10"
       color="secondary"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >

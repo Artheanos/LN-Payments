@@ -6,11 +6,9 @@ import { Box } from '@mui/material'
 
 export const NavbarLayout: React.FC = () => {
   return (
-    <Box className="flex flex-col">
+    <Box className="flex">
       <Navbar />
-      <Box className="flex justify-center">
-        <Outlet />
-      </Box>
+      <Outlet />
     </Box>
   )
 }

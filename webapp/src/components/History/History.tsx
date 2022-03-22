@@ -11,6 +11,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Toolbar,
   Tooltip,
   Typography
 } from '@mui/material'
@@ -61,7 +62,8 @@ export const History: React.FC = () => {
 
   if (loading) return <LinearProgress />
   return (
-    <div className="grow p-14 w-6/12 text-center">
+    <div className="overflow-y-auto grow py-8 px-14 text-center">
+      <Toolbar />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
