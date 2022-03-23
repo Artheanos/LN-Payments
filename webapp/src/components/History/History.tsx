@@ -13,8 +13,10 @@ import {
   Toolbar
 } from '@mui/material'
 import { PaymentEntry } from './PaymentEntry'
+import { useTranslation } from 'react-i18next'
 
 export const History: React.FC = () => {
+  const { t } = useTranslation('common')
   const [history, setHistory] = useState<PaymentHistory>()
 
   useEffect(() => {
@@ -55,7 +57,7 @@ export const History: React.FC = () => {
     <div className="overflow-y-auto grow py-8 px-14 text-center">
       <Toolbar />
       {!history || history.empty ? (
-        <p className="italic text-gray-500">No payments found!</p>
+        <p className="italic text-gray-500">{t('history.noPayments')}</p>
       ) : (
         <TableContainer component={Paper}>
           <Table>
@@ -65,12 +67,12 @@ export const History: React.FC = () => {
                   ['& .MuiTableCell-root']: { fontWeight: 'bold' }
                 }}
               >
-                <TableCell>Payment Request</TableCell>
-                <TableCell>Created</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Number of tokens</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Tokens</TableCell>
+                <TableCell>{t('history.paymentRequest')}</TableCell>
+                <TableCell>{t('history.created')}</TableCell>
+                <TableCell>{t('history.price')}</TableCell>
+                <TableCell>{t('history.numberOfTokens')}</TableCell>
+                <TableCell>{t('history.status')}</TableCell>
+                <TableCell>{t('history.tokens')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

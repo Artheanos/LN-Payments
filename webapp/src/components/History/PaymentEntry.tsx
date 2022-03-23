@@ -2,10 +2,12 @@ import React from 'react'
 import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { TokenPopup } from './TokenPopup'
+import { useTranslation } from 'react-i18next'
 
 export const PaymentEntry: React.FC<PaymentDetails> = (
   payment: PaymentDetails
 ) => {
+  const { t } = useTranslation('common')
   const StatusColor: Record<
     string,
     {
@@ -87,7 +89,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
               }}
             >
               <VisibilityIcon />
-              <span className="pl-1">Show</span>
+              <span className="pl-1">{t('history.show')}</span>
             </Typography>
           ) : (
             <Typography
@@ -97,7 +99,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
                 color: 'darkgray'
               }}
             >
-              none
+              {t('history.none')}
             </Typography>
           )}
         </TableCell>
