@@ -18,6 +18,7 @@ public class PaymentStatusUpdateTask implements Runnable {
 
     @Override
     public void run() {
+        Payment payment = paymentDataService.findPaymentByRequest(this.payment.getPaymentRequest());
         if (payment.getStatus() != PaymentStatus.COMPLETE) {
             payment.setStatus(PaymentStatus.CANCELLED);
             paymentDataService.savePayment(payment);
