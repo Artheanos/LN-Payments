@@ -2,13 +2,12 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
-import { Toolbar } from '@mui/material'
 
 export const LandingPage = () => {
   const { t } = useTranslation('common')
 
   return (
-    <div className="flex justify-center items-center py-16 px-8 w-screen sm:py-32 sm:px-6 lg:px-8 align-center">
+    <div className="flex justify-center items-center py-16 px-8 w-screen sm:py-32 sm:px-6 lg:px-8">
       <div className="text-center">
         <h2 className="text-lg font-semibold tracking-wide text-purple-900 uppercase">
           Welcome to

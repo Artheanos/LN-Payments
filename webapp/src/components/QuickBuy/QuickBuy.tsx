@@ -7,7 +7,7 @@ import { TokensStage } from './Stages/TokensStage'
 import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
 import { UserContext } from 'components/Context/UserContext'
 import { useLocalStorage } from 'utils/persist'
-import { Toolbar, Tooltip } from '@mui/material'
+import { Toolbar } from '@mui/material'
 
 const STAGE_COMPONENTS = [SetupStage, TransactionStage, TokensStage]
 
