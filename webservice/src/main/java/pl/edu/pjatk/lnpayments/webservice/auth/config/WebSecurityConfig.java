@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import pl.edu.pjatk.lnpayments.webservice.auth.filter.AuthTokenFilter;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 
@@ -24,7 +25,7 @@ import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final String[] UNSECURED_PATHS = {
+    private final static String[] UNSECURED_PATHS = {
             AUTH_PATH + REGISTER_PATH,
             AUTH_PATH + LOGIN_PATH,
             AUTH_PATH + TEMPORARY_PATH,
@@ -33,6 +34,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**"
+    };
+
+    private final static String[] ADMIN_PATHS = {
+            AUTH_PATH + ADMIN_PATH
     };
 
     private final UserDetailsService userDetailsService;
@@ -61,6 +66,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers(ADMIN_PATHS).hasAuthority(Role.ROLE_ADMIN.toString())
                 .antMatchers(UNSECURED_PATHS).permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.common.startup;
+package pl.edu.pjatk.lnpayments.webservice.admin.startup;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
@@ -13,8 +13,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
-import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
+import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 
 import javax.validation.ValidationException;
 
@@ -26,13 +26,13 @@ import static pl.edu.pjatk.lnpayments.webservice.common.Constants.ROOT_USER_EMAI
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.ROOT_USER_PASSWORD;
 
 @ExtendWith(MockitoExtension.class)
-class InitialDataLoaderTest {
+class InitialAdminLoaderTest {
 
     @Mock
-    private UserService userService;
+    private AdminService adminService;
 
     @InjectMocks
-    private InitialDataLoader initialDataLoader;
+    private InitialAdminLoader initialAdminLoader;
 
     private ListAppender<ILoggingEvent> logAppender;
 
@@ -40,15 +40,15 @@ class InitialDataLoaderTest {
     void setUp() {
         logAppender = new ListAppender<>();
         logAppender.start();
-        ((Logger) LoggerFactory.getLogger(InitialDataLoader.class)).addAppender(logAppender);
+        ((Logger) LoggerFactory.getLogger(InitialAdminLoader.class)).addAppender(logAppender);
     }
 
     @Test
     void shouldInvokeServiceAndLogInfo() {
-        initialDataLoader.run(null);
+        initialAdminLoader.run(null);
 
         ArgumentCaptor<AdminRequest> captor = ArgumentCaptor.forClass(AdminRequest.class);
-        verify(userService).createAdmin(captor.capture());
+        verify(adminService).createAdmin(captor.capture());
         AdminRequest request = captor.getValue();
         assertThat(request.getEmail()).isEqualTo(ROOT_USER_EMAIL);
         assertThat(request.getPassword()).isEqualTo(ROOT_USER_PASSWORD);
@@ -59,11 +59,11 @@ class InitialDataLoaderTest {
 
     @Test
     void shouldLogWarningWhenUserAlreadyExists() {
-        doThrow(ValidationException.class).when(userService).createAdmin(any());
+        doThrow(ValidationException.class).when(adminService).createAdmin(any());
 
-        initialDataLoader.run(null);
+        initialAdminLoader.run(null);
 
-        verify(userService).createAdmin(any());
+        verify(adminService).createAdmin(any());
         assertThat(logAppender.list)
                 .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
                 .contains(Tuple.tuple("Unable to create initial admin user: null", Level.WARN));

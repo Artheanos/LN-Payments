@@ -5,10 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
@@ -24,14 +22,6 @@ public class UserConverter {
 
     public StandardUser convertToEntity(RegisterRequest request) {
         return StandardUser.builder()
-                .fullName(request.getFullName())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .email(request.getEmail())
-                .build();
-    }
-
-    public AdminUser convertToAdminEntity(AdminRequest request) {
-        return AdminUser.adminBuilder()
                 .fullName(request.getFullName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .email(request.getEmail())

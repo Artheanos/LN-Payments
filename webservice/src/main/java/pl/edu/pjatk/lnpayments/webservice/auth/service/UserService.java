@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
@@ -38,13 +37,6 @@ public class UserService implements UserDetailsService {
     public void createUser(RegisterRequest request) {
         validateEmail(request.getEmail());
         User user = userConverter.convertToEntity(request);
-        userRepository.save(user);
-    }
-
-    @Transactional
-    public void createAdmin(AdminRequest request) {
-        validateEmail(request.getEmail());
-        User user = userConverter.convertToAdminEntity(request);
         userRepository.save(user);
     }
 
