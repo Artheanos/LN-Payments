@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { datify } from './time'
+import { useCallback, useState } from 'react'
+import { datify } from 'utils/time'
 
 export const getLocalJson = (key: string) => {
   const item = localStorage.getItem(key)
@@ -14,15 +14,17 @@ export const setLocalJson = (key: string, value: unknown) => {
   localStorage.setItem(key, JSON.stringify(value))
 }
 
-export const useLocalStorage = <S = undefined>(
+export const useLocalStorage = <S = undefined, T = S | undefined>(
   key: string
-): [S, Dispatch<SetStateAction<S>>] => {
-  const state = useState<S>(getLocalJson(key))
-  const [stateValue] = state
+): [T, (v: T) => void] => {
+  const [state, setState] = useState<T>(getLocalJson(key))
+  const setStateWrapper = useCallback(
+    (newState: T) => {
+      setLocalJson(key, newState)
+      setState(newState)
+    },
+    [setState, key]
+  )
 
-  useEffect(() => {
-    setLocalJson(key, stateValue)
-  }, [key, stateValue])
-
-  return state
+  return [state, setStateWrapper]
 }

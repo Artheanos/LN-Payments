@@ -1,7 +1,5 @@
 import * as Yup from 'yup'
-import i18next from 'i18next'
-
-const { t } = i18next
+import { t } from 'i18next'
 
 export const RegisterSchema = Yup.object()
   .shape({

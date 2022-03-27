@@ -6,8 +6,9 @@ export default {
   history: '/history',
   api: {
     payments: {
+      ws: () => `ws://${window.location.host}/api/payment`,
       index: '/api/payments',
-      info: '/api/payment/info'
+      info: '/api/payments/info'
     },
     auth: {
       register: '/api/auth/register',

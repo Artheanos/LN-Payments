@@ -43,7 +43,7 @@ export const Register: React.FC = () => {
         initialValues={RegisterInitialValue}
         onSubmit={onSubmit}
         validationSchema={RegisterSchema}
-        initialStatus={{ email: 'dupa' }}
+        initialStatus={{ email: '' }}
       >
         <Form>
           <CardForm

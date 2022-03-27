@@ -22,7 +22,7 @@ export const LoginPage: React.FC = () => {
     if (data) {
       setUser(data)
       setToken(data.token)
-      createSnackbar(t('login.form.successMessage'), 'success', 5000)
+      createSnackbar(t('login.form.successMessage'), 'success')
       navigate(routesBuilder.landingPage)
     } else {
       setOpenAlert(true)

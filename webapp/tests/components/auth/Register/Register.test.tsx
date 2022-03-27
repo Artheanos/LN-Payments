@@ -1,8 +1,8 @@
-import { render, screen } from '../../../test-utils'
-import { Register } from '../../../../src/components/auth/Register/Register'
+import { render, screen } from 'tests/test-utils'
+import { Register } from 'components/auth/Register/Register'
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
-import routesBuilder from '../../../../src/routesBuilder'
+import routesBuilder from 'routesBuilder'
 import { fireEvent, waitFor } from '@testing-library/react'
 
 describe('Register form', () => {

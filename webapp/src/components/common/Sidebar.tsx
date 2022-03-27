@@ -1,9 +1,10 @@
 import React from 'react'
-import { Drawer, List, Toolbar } from '@mui/material'
-import { SidebarEntry } from './SidebarEntry'
 import { AccessTime, ShoppingCartOutlined } from '@mui/icons-material'
-import routesBuilder from '../../routesBuilder'
+import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+
+import routesBuilder from 'routesBuilder'
+import { SidebarEntry } from './SidebarEntry'
 
 const drawerWidth = '19rem'
 

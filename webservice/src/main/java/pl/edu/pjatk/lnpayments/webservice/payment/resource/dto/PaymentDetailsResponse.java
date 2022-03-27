@@ -13,6 +13,7 @@ import java.util.Collection;
 public class PaymentDetailsResponse {
 
     private String paymentRequest;
+    private String paymentTopic;
     private Instant timestamp;
     private Instant expirationTimestamp;
     private int price;

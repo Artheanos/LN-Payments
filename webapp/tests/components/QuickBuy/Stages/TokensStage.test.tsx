@@ -8,9 +8,7 @@ describe('TokensStage', () => {
     const onNext = jest.fn(() => {})
     const onPrevious = jest.fn(() => {})
     const setPayment = jest.fn(() => {})
-    render(
-      <TokensStage payment={null} {...{ onNext, onPrevious, setPayment }} />
-    )
+    render(<TokensStage {...{ onNext, onPrevious, setPayment }} />)
 
     expect(onNext.mock.calls.length).toBe(0)
     screen.getByText('Close').click()

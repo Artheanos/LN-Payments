@@ -38,14 +38,15 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
             />
           </Grid>
 
-          <Grid xs={12} item className="pb-5">
-            <Field
-              name="email"
-              label={t('quickBuy.setup.form.email.label')}
-              variant="standard"
-              component={TextInput}
-            />
-          </Grid>
+          {/* Enable for anonymous user*/}
+          {/* <Grid xs={12} item className="pb-5">*/}
+          {/*  <Field*/}
+          {/*    name="email"*/}
+          {/*    label={t('quickBuy.setup.form.email.label')}*/}
+          {/*    variant="standard"*/}
+          {/*    component={TextInput}*/}
+          {/*  />*/}
+          {/*</Grid>*/}
 
           <Grid xs={12} item className="flex justify-end">
             <CardFormButton content={t('next')} />

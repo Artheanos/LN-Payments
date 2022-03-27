@@ -12,7 +12,13 @@ export const Notification: React.FC<{
   const { open } = useContext(NotificationContext)
 
   return (
-    <Snackbar open={open} autoHideDuration={autoHideDuration} onClose={onClose}>
+    <Snackbar
+      open={open}
+      autoHideDuration={autoHideDuration}
+      onClose={(_, reason) => {
+        reason !== 'clickaway' && onClose()
+      }}
+    >
       <Alert severity={severity} onClose={onClose}>
         {message}
       </Alert>

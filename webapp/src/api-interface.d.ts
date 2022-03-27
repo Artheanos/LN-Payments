@@ -1,12 +1,25 @@
 interface PaymentForm {
-  email: string
   numberOfTokens: number
 }
 
+interface TempUserRequest {
+  email: string
+}
+
+interface TempUserResponse {
+  emailId: string
+  token: string
+}
+
 interface PaymentDetails {
-  paymentRequest: string
-  timestamp: Date
   expirationTimestamp: Date
+  paymentRequest: string
+  paymentTopic: string
+  timestamp: Date
+}
+
+interface WsTransactionResponse {
+  tokens: string[]
 }
 
 interface PaymentInfo {

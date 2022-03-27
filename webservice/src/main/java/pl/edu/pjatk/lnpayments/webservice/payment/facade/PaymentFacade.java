@@ -99,8 +99,8 @@ public class PaymentFacade {
         Payment payment = paymentDataService.findPaymentByRequest(paymentRequest);
         payment.assignTokens(tokenService.generateTokens(payment));
         payment.setStatus(PaymentStatus.COMPLETE);
-        String paymentHash = DigestUtils.sha256Hex(paymentRequest);
-        paymentSocketController.sendTokens(paymentHash.substring(0, 8), payment.getTokens());
+        String paymentTopic = DigestUtils.sha256Hex(paymentRequest).substring(0, 8);
+        paymentSocketController.sendTokens(paymentTopic, payment.getTokens());
     }
 
     public Page<Payment> getPaymentsByEmail(String email, Pageable pageable) {

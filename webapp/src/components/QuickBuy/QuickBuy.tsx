@@ -1,12 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
+import { LocalKey } from '@constants'
 import { SetupStage } from './Stages/SetupStage'
 import { StageProgress } from './StageProgress/StageProgress'
 import { TokensStage } from './Stages/TokensStage'
-import { TransactionStage } from './Stages/TransactionStage'
+import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
+import { UserContext } from 'components/Context/UserContext'
 import { useLocalStorage } from 'utils/persist'
 
 const STAGE_COMPONENTS = [SetupStage, TransactionStage, TokensStage]
+
 enum StageIndex {
   Setup,
   Transaction,
@@ -20,15 +23,25 @@ const zeroIfNotInRange = (index: number) => {
 
 export const QuickBuy: React.FC = () => {
   const [stageIndex, setStageIndex] = useState<StageIndex>(StageIndex.Setup)
-  const [payment, setPayment] = useLocalStorage<PaymentDetails | null>(
-    'paymentDetails'
+  const [payment, setPayment] = useLocalStorage<PaymentDetails>(
+    LocalKey.PAYMENT
   )
+  const [tokens] = useLocalStorage<string[]>(LocalKey.TRANSACTION_TOKENS)
+  const { isValid } = useContext(UserContext)
 
   useEffect(() => {
-    if (payment) {
-      setStageIndex(StageIndex.Transaction)
+    let redirectTo: StageIndex | undefined = undefined
+
+    if (tokens) {
+      redirectTo = StageIndex.Tokens
+    } else if (payment) {
+      redirectTo = StageIndex.Transaction
+    } else if (!isValid) {
+      redirectTo = StageIndex.Setup
     }
-  }, [payment])
+
+    if (redirectTo) setStageIndex(redirectTo)
+  }, [tokens, payment, isValid])
 
   const CurrentStage = useMemo(() => STAGE_COMPONENTS[stageIndex], [stageIndex])
 
@@ -37,7 +50,7 @@ export const QuickBuy: React.FC = () => {
       <div className="mt-10">
         <StageProgress currentStageIndex={stageIndex} />
       </div>
-      <div className="px-10 pt-20">
+      <div className="px-10 pt-10">
         <CurrentStage
           onNext={() => setStageIndex((prev) => zeroIfNotInRange(prev + 1))}
           onPrevious={() => setStageIndex((prev) => zeroIfNotInRange(prev - 1))}
