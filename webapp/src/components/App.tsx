@@ -9,7 +9,6 @@ import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
 import { NotificationProvider } from './Context/NotificationContext'
 import { UserProvider } from './Context/UserContext'
-import { UserLayout } from './Layouts/UserLayout'
 import { History } from './History/History'
 
 const theme = createTheme({
@@ -23,37 +22,27 @@ const theme = createTheme({
   }
 })
 
-const App = () => {
-  return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <UserProvider>
-          <NotificationProvider>
-            <Routes>
-              <Route element={<NavbarLayout />}>
-                <Route element={<UserLayout />}>
-                  <Route
-                    path={routesBuilder.quickBuy}
-                    element={<QuickBuyPage />}
-                  />
-                  <Route path={routesBuilder.history} element={<History />} />
-                </Route>
-                <Route
-                  path={routesBuilder.landingPage}
-                  element={<LandingPage />}
-                />
-                <Route
-                  path={routesBuilder.register}
-                  element={<RegisterPage />}
-                />
-                <Route path={routesBuilder.login} element={<LoginPage />} />
-              </Route>
-            </Routes>
-          </NotificationProvider>
-        </UserProvider>
-      </ThemeProvider>
-    </BrowserRouter>
-  )
-}
+const App = () => (
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <UserProvider>
+        <NotificationProvider>
+          <Routes>
+            <Route element={<NavbarLayout />}>
+              <Route path={routesBuilder.quickBuy} element={<QuickBuyPage />} />
+              <Route path={routesBuilder.history} element={<History />} />
+              <Route
+                path={routesBuilder.landingPage}
+                element={<LandingPage />}
+              />
+              <Route path={routesBuilder.register} element={<RegisterPage />} />
+              <Route path={routesBuilder.login} element={<LoginPage />} />
+            </Route>
+          </Routes>
+        </NotificationProvider>
+      </UserProvider>
+    </ThemeProvider>
+  </BrowserRouter>
+)
 
 export default App

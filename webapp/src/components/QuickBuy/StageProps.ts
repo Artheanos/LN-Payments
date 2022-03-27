@@ -4,4 +4,6 @@ export interface StageProps {
   setStageIndex?: (index: number) => void
   payment?: PaymentDetails
   setPayment: (payment: PaymentDetails | undefined) => void
+  tokens?: string[]
+  setTokens: (tokens: string[] | undefined) => void
 }

@@ -1,12 +1,14 @@
 {
-  "ok": "Ok",
   "cancel": "Cancel",
   "close": "Close",
   "confirm": "Confirm",
-  "next": "Next",
-  "title": "LN Payments",
+  "copy": "Copy",
   "invoice": "Invoice",
+  "next": "Next",
   "node": "Node",
+  "ok": "Ok",
+  "title": "LN Payments",
+  "view": "View",
   "sidebar" : {
     "quickBuy": "Quick Buy",
     "history": "History"
@@ -41,7 +43,10 @@
       }
     },
     "tokens": {
-      "header": "Tokens"
+      "info": "Keep in mind - Users who are signed out will not be able to retrieve the tokens once they close this stage",
+      "onCopyMessage": "Token {{tokenId}} has been copied to clipboard",
+      "header": "Tokens",
+      "listItemPrefix": "Token {{tokenId}}"
     }
   },
   "history": {

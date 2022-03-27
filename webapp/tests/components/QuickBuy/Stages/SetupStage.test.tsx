@@ -26,18 +26,14 @@ describe('SetupStage', () => {
   let onPrevious: jest.Mock
   let onNext: jest.Mock
   let setPayment: jest.Mock
+  let setTokens: jest.Mock
 
   beforeEach(() => {
     onPrevious = jest.fn(() => {})
     onNext = jest.fn(() => {})
     setPayment = jest.fn(() => {})
-    render(
-      <SetupStage
-        onPrevious={onPrevious}
-        onNext={onNext}
-        setPayment={setPayment}
-      />
-    )
+    setTokens = jest.fn(() => {})
+    render(<SetupStage {...{ onPrevious, onNext, setTokens, setPayment }} />)
   })
 
   it('renders info', () => {

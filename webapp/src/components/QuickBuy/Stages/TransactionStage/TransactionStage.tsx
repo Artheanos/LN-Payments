@@ -9,8 +9,6 @@ import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
 import { api, getAuthHeader } from 'api'
 import { millisecondsToClock, useCountdown } from 'utils/time'
-import { useLocalStorage } from 'utils/persist'
-import { LocalKey } from '@constants'
 
 const websocketBuilder = (onConnect: () => void) => {
   return new StompClient({
@@ -32,11 +30,11 @@ export const TransactionStage: React.FC<StageProps> = ({
   onNext,
   setStageIndex,
   payment,
-  setPayment
+  setPayment,
+  setTokens
 }) => {
   const { t } = useTranslation('common')
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>()
-  const [, setTokens] = useLocalStorage<string[]>(LocalKey.TRANSACTION_TOKENS)
   const [modalVisible, setModalVisible] = useState(false)
   const [socket, setSocket] = useState<StompClient>()
 
