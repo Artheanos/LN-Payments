@@ -10,6 +10,7 @@ public class Constants {
     public static final String REFRESH_PATH = "/refreshToken";
     public static final String TEMPORARY_PATH = "/temporary";
     public static final String PAYMENTS_WS_PATH = "/payment";
+    public static final String ADMIN_PATH = "/admins";
 
     public static final String ROOT_USER_EMAIL = "admin@admin.pl";
     public static final String ROOT_USER_PASSWORD = "admin";

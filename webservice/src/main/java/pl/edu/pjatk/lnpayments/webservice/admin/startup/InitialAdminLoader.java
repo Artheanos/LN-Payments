@@ -1,12 +1,13 @@
-package pl.edu.pjatk.lnpayments.webservice.common.startup;
+package pl.edu.pjatk.lnpayments.webservice.admin.startup;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.AdminRequest;
-import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
+import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 
 import javax.validation.ValidationException;
 
@@ -15,13 +16,14 @@ import static pl.edu.pjatk.lnpayments.webservice.common.Constants.ROOT_USER_PASS
 
 @Slf4j
 @Component
-class InitialDataLoader implements ApplicationRunner {
+@Profile("!test")
+class InitialAdminLoader implements ApplicationRunner {
 
-    private final UserService userService;
+    private final AdminService adminService;
 
     @Autowired
-    public InitialDataLoader(UserService userService) {
-        this.userService = userService;
+    public InitialAdminLoader(AdminService adminService) {
+        this.adminService = adminService;
     }
 
     @Override
@@ -34,7 +36,7 @@ class InitialDataLoader implements ApplicationRunner {
                 .email(email)
                 .build();
         try {
-            userService.createAdmin(request);
+            adminService.createAdmin(request);
             log.info("Initial user has been added with email {} and password {}", email, password);
         } catch (ValidationException e) {
             //TODO Refactor when initial configuration is implemented (eg. check if server was already initialized)

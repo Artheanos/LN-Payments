@@ -1,0 +1,37 @@
+{
+  "content": [
+    {
+      "fullName": null,
+      "email": "test1@test.pl"
+    },
+    {
+      "fullName": null,
+      "email": "test2@test.pl"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "pageNumber": 0,
+    "pageSize": 20,
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 2,
+  "first": true,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "numberOfElements": 2,
+  "empty": false
+}
