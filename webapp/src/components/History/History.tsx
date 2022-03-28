@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { api } from '../../api'
 import {
   Paper,
   Table,
@@ -14,6 +13,7 @@ import {
 } from '@mui/material'
 import { PaymentEntry } from './PaymentEntry'
 import { useTranslation } from 'react-i18next'
+import { api } from 'api'
 
 export const History: React.FC = () => {
   const { t } = useTranslation('common')
