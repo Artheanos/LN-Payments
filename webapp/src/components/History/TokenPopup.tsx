@@ -14,13 +14,18 @@ interface Props {
   handleClose: () => void
 }
 
-export const TokenPopup: React.FC<Props> = (props: Props) => {
+export const TokenPopup: React.FC<Props> = ({
+  tokens,
+  id,
+  anchorEl,
+  handleClose
+}) => {
   return (
     <Popover
-      id={props.id}
-      open={Boolean(props.anchorEl)}
-      anchorEl={props.anchorEl}
-      onClose={props.handleClose}
+      id={id}
+      open={Boolean(anchorEl)}
+      anchorEl={anchorEl}
+      onClose={handleClose}
       anchorOrigin={{
         vertical: 'bottom',
         horizontal: 'center'
@@ -31,7 +36,7 @@ export const TokenPopup: React.FC<Props> = (props: Props) => {
       }}
     >
       <List>
-        {props.tokens.map((token: string, key: number) => (
+        {tokens.map((token: string, key: number) => (
           <ListItem key={key}>
             <ListItemText>
               <Typography mr={5} sx={{ fontWeight: 'bold' }}>

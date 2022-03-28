@@ -31,9 +31,7 @@ export const History: React.FC = () => {
           setHistory(data.data)
         }
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(console.log)
   }
 
   const handleChangePage = (
