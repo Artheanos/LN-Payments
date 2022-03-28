@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 
 interface Props {
-  tokens: Token[]
+  tokens: string[]
   id: string
   anchorEl: HTMLElement | null
   handleClose: () => void
@@ -31,14 +31,14 @@ export const TokenPopup: React.FC<Props> = (props: Props) => {
       }}
     >
       <List>
-        {props.tokens.map((token: Token, key: number) => (
+        {props.tokens.map((token: string, key: number) => (
           <ListItem key={key}>
             <ListItemText>
               <Typography mr={5} sx={{ fontWeight: 'bold' }}>
                 #{key}
               </Typography>
             </ListItemText>
-            <ListItemText>{token.sequence}</ListItemText>
+            <ListItemText>{token}</ListItemText>
           </ListItem>
         ))}
       </List>

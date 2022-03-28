@@ -3,11 +3,7 @@ import { TokenPopup } from '../../../src/components/History/TokenPopup'
 
 describe('TokenPopup', () => {
   it('should properly render token popup', async () => {
-    const tokens = [
-      {
-        sequence: '2137'
-      }
-    ]
+    const tokens = ['2137']
     render(
       <TokenPopup
         tokens={tokens}

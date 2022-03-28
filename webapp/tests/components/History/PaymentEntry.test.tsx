@@ -34,7 +34,7 @@ describe('PaymentEntry', () => {
         price={2137}
         numberOfTokens={1}
         paymentStatus="COMPLETE"
-        tokens={[{ sequence: 'ddd' }]}
+        tokens={['ddd']}
       />
     )
     expect(screen.getByText('COMPLETE')).toBeInTheDocument()
