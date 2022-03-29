@@ -143,4 +143,19 @@ class PaymentFacadeTest {
         assertThat(response).hasSize(3);
         verify(paymentDataService).findAll(any(), anyString(), any());
     }
+
+    @Test
+    void shouldReturnAllPayments() {
+        Page<Payment> payments = new PageImpl<>(List.of(
+                new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
+                new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
+                new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
+        ));
+        when(paymentDataService.findAll(null)).thenReturn(payments);
+
+        Page<Payment> response = paymentFacade.getAllPayments(null);
+        assertThat(response).hasSize(3);
+        verify(paymentDataService).findAll(any());
+    }
+
 }

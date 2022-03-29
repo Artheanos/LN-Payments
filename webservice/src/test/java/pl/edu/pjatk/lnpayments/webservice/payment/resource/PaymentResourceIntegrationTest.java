@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createStandardUser;
 
 @ActiveProfiles("test")
@@ -153,4 +154,36 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         }
 
     }
+
+    @Nested
+    class AllPaymentsIntegrationTest {
+
+        @Test
+        void shouldReturnOKAndListOfAllPayments() throws Exception {
+            User admin = userRepository.save(createAdminUser(EMAIL));
+            User user = userRepository.save(createStandardUser("admin@admin.pl"));
+            String jsonContent = getJsonResponse("integration/payment/response/payments-all-GET-valid.json");
+            paymentRepository.save(new Payment("123", 1, 1, 123, PaymentStatus.PENDING, user));
+            paymentRepository.save(new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, user));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
+            paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
+
+            mockMvc.perform(get("/payments/all").principal(principal))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(jsonContent));
+        }
+
+        @Test
+        void shouldReturnOkAndEmptyArrayWhenNoAllPayments() throws Exception {
+            userRepository.save(createAdminUser(EMAIL));
+            String jsonContent = getJsonResponse("integration/payment/response/payments-GET-empty.json");
+
+            mockMvc.perform(get("/payments/all").principal(principal))
+                    .andExpect(status().isOk())
+                    .andExpect(content().json(jsonContent));
+        }
+
+    }
+
 }

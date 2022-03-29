@@ -1,0 +1,59 @@
+{
+  "content": [
+    {
+      "email": "admin@admin.pl",
+      "price": 1,
+      "numberOfTokens": 1,
+      "paymentStatus": "PENDING"
+    },
+    {
+      "email": "admin@admin.pl",
+      "price": 2,
+      "numberOfTokens": 3,
+      "paymentStatus": "COMPLETE"
+    },
+    {
+      "email": "admin@admin.pl",
+      "price": 3,
+      "numberOfTokens": 4,
+      "paymentStatus": "CANCELLED"
+    },
+    {
+      "email": "test@test.pl",
+      "price": 3,
+      "numberOfTokens": 4,
+      "paymentStatus": "CANCELLED"
+    },
+    {
+      "email": "test@test.pl",
+      "price": 3,
+      "numberOfTokens": 4,
+      "paymentStatus": "CANCELLED"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "pageNumber": 0,
+    "pageSize": 20,
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 5,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "number": 0,
+  "first": true,
+  "numberOfElements": 5,
+  "size": 20,
+  "empty": false
+}

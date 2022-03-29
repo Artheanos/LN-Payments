@@ -26,10 +26,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-/**
- * Tests here are a little dump at the moment. This will probably change in the future as we add more functionalities
- * there. We must keep them for now for sake of code coverage.
- */
 @ExtendWith(MockitoExtension.class)
 class PaymentDataServiceTest {
 
@@ -95,6 +91,29 @@ class PaymentDataServiceTest {
                 .thenReturn(new PageImpl<>(List.of()));
 
         Page<Payment> response = paymentDataService.findAll(SearchableField.EMAIL, "test", PageRequest.ofSize(3));
+
+        assertThat(response).isEmpty();
+    }
+
+    @Test
+    void shouldReturnAllPayments() {
+        List<Payment> payments = List.of(
+                new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
+                new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
+                new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
+        );
+        when(paymentRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(payments));
+
+        Page<Payment> response = paymentDataService.findAll(PageRequest.ofSize(3));
+
+        assertThat(response).hasSize(3);
+    }
+
+    @Test
+    void shouldReturnEmptyArrayWhenNoPayments() {
+        when(paymentRepository.findAll(any(Pageable.class))).thenReturn(new PageImpl<>(List.of()));
+
+        Page<Payment> response = paymentDataService.findAll(PageRequest.ofSize(3));
 
         assertThat(response).isEmpty();
     }

@@ -72,4 +72,14 @@ class PaymentResourceTest {
             assertThat(payments.getStatusCode()).isEqualTo(HttpStatus.OK);
         }
     }
+
+    @Nested
+    class AllPaymentsTest {
+        @Test
+        void shouldReturnOkForValidRequest() {
+            ResponseEntity<?> payments = paymentResource.getAllPayments(null);
+
+            assertThat(payments.getStatusCode()).isEqualTo(HttpStatus.OK);
+        }
+    }
 }

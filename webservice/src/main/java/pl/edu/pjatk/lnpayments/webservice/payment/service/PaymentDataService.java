@@ -39,4 +39,8 @@ public class PaymentDataService {
     public Page<Payment> findAll(SearchableField field, String value, Pageable pageable) {
         return paymentRepository.findAll(new PaymentSpecification(field, value), pageable);
     }
+
+    public Page<Payment> findAll(Pageable pageable) {
+        return paymentRepository.findAll(pageable);
+    }
 }
