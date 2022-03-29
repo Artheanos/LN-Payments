@@ -43,12 +43,6 @@ enum Role {
   TEMPORARY
 }
 
-enum PaymentStatus {
-  PENDING,
-  CANCELED,
-  COMPLETE
-}
-
 interface RegisterForm {
   email: string
   fullName: string

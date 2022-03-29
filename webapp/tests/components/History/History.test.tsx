@@ -1,12 +1,12 @@
-import { render, screen } from '../../test-utils'
-import { History } from '../../../src/components/History/History'
-import { setupServer } from 'msw/node'
+import { render, screen } from 'tests/test-utils'
+import { History } from 'components/History/History'
+import { setupServer, SetupServerApi } from 'msw/node'
 import { rest } from 'msw'
-import routesBuilder from '../../../src/routesBuilder'
+import routesBuilder from 'routesBuilder'
 import { waitFor } from '@testing-library/react'
 
 describe('History', () => {
-  let server
+  let server: SetupServerApi
 
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())
@@ -25,7 +25,7 @@ describe('History', () => {
     })
   })
 
-  it('should display proper number of elements', async () => {
+  it('should display proper number of elements', () => {
     server = setupServer(
       rest.get(routesBuilder.api.payments.index, (req, res, ctx) => {
         return res(

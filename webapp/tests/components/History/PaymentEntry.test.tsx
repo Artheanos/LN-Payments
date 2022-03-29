@@ -1,5 +1,5 @@
-import { render, screen } from '../../test-utils'
-import { PaymentEntry } from '../../../src/components/History/PaymentEntry'
+import { render, screen } from 'tests/test-utils'
+import { PaymentEntry } from 'components/History/PaymentEntry'
 import { waitFor } from '@testing-library/react'
 
 describe('PaymentEntry', () => {
@@ -7,12 +7,13 @@ describe('PaymentEntry', () => {
     render(
       <PaymentEntry
         paymentRequest="aaa"
-        timestamp="2022-03-21 18:23:34.543684"
-        expirationTimestamp="2022-03-21 18:23:34.543684"
+        timestamp={new Date('2022-03-21 18:23:34.543684')}
+        expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
         price={2137}
         numberOfTokens={1}
         paymentStatus="CANCELLED"
         tokens={[]}
+        paymentTopic="ddd"
       />
     )
     expect(screen.getByText('aaa')).toBeInTheDocument()
@@ -29,12 +30,13 @@ describe('PaymentEntry', () => {
     render(
       <PaymentEntry
         paymentRequest="aaa"
-        timestamp="2022-03-21 18:23:34.543684"
-        expirationTimestamp="2022-03-21 18:23:34.543684"
+        timestamp={new Date('2022-03-21 18:23:34.543684')}
+        expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
         price={2137}
         numberOfTokens={1}
         paymentStatus="COMPLETE"
         tokens={['ddd']}
+        paymentTopic="ddd"
       />
     )
     expect(screen.getByText('COMPLETE')).toBeInTheDocument()

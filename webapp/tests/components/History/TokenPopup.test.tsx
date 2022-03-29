@@ -1,5 +1,5 @@
-import { render, screen } from '../../test-utils'
-import { TokenPopup } from '../../../src/components/History/TokenPopup'
+import { render, screen } from 'tests/test-utils'
+import { TokenPopup } from 'components/History/TokenPopup'
 
 describe('TokenPopup', () => {
   it('should properly render token popup', async () => {
@@ -7,7 +7,7 @@ describe('TokenPopup', () => {
     render(
       <TokenPopup
         tokens={tokens}
-        anchorEl={<div />}
+        anchorEl={document.createElement('div')}
         id="1"
         handleClose={() => false}
       />

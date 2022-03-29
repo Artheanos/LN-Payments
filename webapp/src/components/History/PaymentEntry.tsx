@@ -3,6 +3,7 @@ import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { TokenPopup } from './TokenPopup'
 import { useTranslation } from 'react-i18next'
+import { PaymentStatus } from '@constants'
 
 export const PaymentEntry: React.FC<PaymentDetails> = (
   payment: PaymentDetails
