@@ -55,6 +55,7 @@ describe('Register form', () => {
       ).toBeInTheDocument()
     })
   })
+
   it('should display error when 4xx returned', async () => {
     statusCode = 400
     server.listen()

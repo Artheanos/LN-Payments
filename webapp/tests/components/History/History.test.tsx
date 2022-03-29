@@ -11,6 +11,10 @@ describe('History', () => {
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())
 
+  beforeAll(() => {
+    render(<History />)
+  })
+
   it('should display message when no payments', async () => {
     server = setupServer(
       rest.get(routesBuilder.api.payments.index, (req, res, ctx) => {
@@ -18,7 +22,6 @@ describe('History', () => {
       })
     )
     server.listen()
-    render(<History />)
 
     await waitFor(() => {
       expect(screen.getByText('No payments found!')).toBeInTheDocument()
@@ -47,7 +50,7 @@ describe('History', () => {
       })
     )
     server.listen()
-    render(<History />)
+
     waitFor(() => {
       expect(screen.getByText('axa')).toBeInTheDocument()
       expect(
