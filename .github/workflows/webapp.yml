@@ -35,7 +35,9 @@ jobs:
         run: yarn test
       - name: Typescript and build
         run: yarn build
-      - uses: actions/upload-artifact@v3
+      - name: Test report
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
           name: webapp-test-report
           path: webapp/test-report.html
