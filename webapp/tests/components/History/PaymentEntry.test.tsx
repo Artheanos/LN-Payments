@@ -5,16 +5,20 @@ import { waitFor } from '@testing-library/react'
 describe('PaymentEntry', () => {
   it('should properly render entry with no tokens', () => {
     render(
-      <PaymentEntry
-        paymentRequest="aaa"
-        timestamp={new Date('2022-03-21 18:23:34.543684')}
-        expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
-        price={2137}
-        numberOfTokens={1}
-        paymentStatus="CANCELLED"
-        tokens={[]}
-        paymentTopic="ddd"
-      />
+      <table>
+        <tbody>
+          <PaymentEntry
+            paymentRequest="aaa"
+            timestamp={new Date('2022-03-21 18:23:34.543684')}
+            expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
+            price={2137}
+            numberOfTokens={1}
+            paymentStatus="CANCELLED"
+            tokens={[]}
+            paymentTopic="ddd"
+          />
+        </tbody>
+      </table>
     )
     expect(screen.getByText('aaa')).toBeInTheDocument()
     expect(
@@ -28,16 +32,20 @@ describe('PaymentEntry', () => {
 
   it('should show popup with token on click', async () => {
     render(
-      <PaymentEntry
-        paymentRequest="aaa"
-        timestamp={new Date('2022-03-21 18:23:34.543684')}
-        expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
-        price={2137}
-        numberOfTokens={1}
-        paymentStatus="COMPLETE"
-        tokens={['ddd']}
-        paymentTopic="ddd"
-      />
+      <table>
+        <tbody>
+          <PaymentEntry
+            paymentRequest="aaa"
+            timestamp={new Date('2022-03-21 18:23:34.543684')}
+            expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
+            price={2137}
+            numberOfTokens={1}
+            paymentStatus="COMPLETE"
+            tokens={['ddd']}
+            paymentTopic="ddd"
+          />
+        </tbody>
+      </table>
     )
     expect(screen.getByText('COMPLETE')).toBeInTheDocument()
     screen.getByText('Show').click()
