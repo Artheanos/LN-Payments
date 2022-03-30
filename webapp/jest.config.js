@@ -7,5 +7,6 @@ module.exports = {
   modulePaths: ['<rootDir>/src/', '<rootDir>/.jest', '<rootDir>/tests/'],
   moduleNameMapper: {
     'tests/(.*)': '<rootDir>/tests/test-utils.tsx'
-  }
+  },
+  reporters: ['default', '<rootDir>/node_modules/jest-html-reporter']
 }

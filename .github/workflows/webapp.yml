@@ -5,7 +5,7 @@ name: React webapp CI
 
 on:
   push:
-    branches: [dev]
+    branches: [ dev ]
   pull_request:
     paths:
       - 'webapp/**'
@@ -35,3 +35,9 @@ jobs:
         run: yarn test
       - name: Typescript and build
         run: yarn build
+      - name: Test report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: webapp-test-report
+          path: webapp/test-report.html

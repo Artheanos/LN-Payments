@@ -7,6 +7,7 @@ import { TokensStage } from './Stages/TokensStage'
 import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
 import { UserContext } from 'components/Context/UserContext'
 import { useLocalStorage } from 'utils/persist'
+import { Toolbar } from '@mui/material'
 
 const STAGE_COMPONENTS = [SetupStage, TransactionStage, TokensStage]
 
@@ -46,7 +47,8 @@ export const QuickBuy: React.FC = () => {
   const CurrentStage = useMemo(() => STAGE_COMPONENTS[stageIndex], [stageIndex])
 
   return (
-    <div className="w-screen text-center">
+    <div className="w-full text-center">
+      <Toolbar />
       <div className="mt-10">
         <StageProgress currentStageIndex={stageIndex} />
       </div>

@@ -16,6 +16,10 @@ interface PaymentDetails {
   paymentRequest: string
   paymentTopic: string
   timestamp: Date
+  price: number
+  numberOfTokens: number
+  paymentStatus: PaymentStatus
+  tokens: string[]
 }
 
 interface WsTransactionResponse {
@@ -58,4 +62,38 @@ interface LoginForm {
 
 interface LoginResponse extends User {
   token: string
+}
+
+interface PaymentHistory {
+  content: PaymentDetails[]
+  empty: boolean
+  first: boolean
+  last: boolean
+  number: number
+  numberOfElements: number
+  pageable: Pageable
+  size: number
+  sort: Sort
+  totalElements: number
+  totalPages: number
+}
+
+interface Sort {
+  empty: boolean
+  sorted: boolean
+  unsorted: boolean
+}
+
+interface Pageable {
+  offset: number
+  pageNumber: number
+  pageSize: number
+  paged: boolean
+  sort: Sort
+  unpaged: boolean
+}
+
+interface PageRequest {
+  page: number
+  size: number
 }

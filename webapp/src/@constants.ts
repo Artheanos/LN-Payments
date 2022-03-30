@@ -4,3 +4,9 @@ export enum LocalKey {
   PAYMENT = 'paymentDetails',
   TRANSACTION_TOKENS = 'transactionTokens'
 }
+
+export enum PaymentStatus {
+  PENDING,
+  CANCELED,
+  COMPLETE
+}

@@ -4,6 +4,7 @@ import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage/Tr
 import { setupServer } from 'msw/node'
 import { rest } from 'msw'
 import routesBuilder from 'routesBuilder'
+import { PaymentStatus } from '@constants'
 
 jest.mock('@stomp/stompjs', () => {
   const originalModule = jest.requireActual('@stomp/stompjs')
@@ -38,7 +39,11 @@ describe('TransactionStage', () => {
     paymentTopic: '/topic/123',
     paymentRequest: '123',
     timestamp: new Date(),
-    expirationTimestamp: new Date(new Date().valueOf() + 4_000)
+    expirationTimestamp: new Date(new Date().valueOf() + 4_000),
+    price: 1,
+    numberOfTokens: 1,
+    paymentStatus: PaymentStatus.PENDING,
+    tokens: []
   }
 
   let onPrevious: jest.Mock
