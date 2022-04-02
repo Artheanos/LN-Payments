@@ -1,13 +1,14 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { CircularProgress } from '@mui/material'
+import { Toolbar } from '@mui/material'
 
 import { LocalKey } from '@constants'
 import { SetupStage } from './Stages/SetupStage'
 import { StageProgress } from './StageProgress/StageProgress'
-import { TokensStage } from './Stages/TokensStage'
+import { TokensStage } from './Stages/TokensStage/TokensStage'
 import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
 import { UserContext } from 'components/Context/UserContext'
 import { useLocalStorage } from 'utils/persist'
-import { Toolbar } from '@mui/material'
 
 const STAGE_COMPONENTS = [SetupStage, TransactionStage, TokensStage]
 
@@ -23,11 +24,15 @@ const zeroIfNotInRange = (index: number) => {
 }
 
 export const QuickBuy: React.FC = () => {
-  const [stageIndex, setStageIndex] = useState<StageIndex>(StageIndex.Setup)
+  const [stageIndex, setStageIndex] = useState<StageIndex | undefined>(
+    undefined
+  )
   const [payment, setPayment] = useLocalStorage<PaymentDetails>(
     LocalKey.PAYMENT
   )
-  const [tokens] = useLocalStorage<string[]>(LocalKey.TRANSACTION_TOKENS)
+  const [tokens, setTokens] = useLocalStorage<string[]>(
+    LocalKey.TRANSACTION_TOKENS
+  )
   const { isValid } = useContext(UserContext)
 
   useEffect(() => {
@@ -37,14 +42,21 @@ export const QuickBuy: React.FC = () => {
       redirectTo = StageIndex.Tokens
     } else if (payment) {
       redirectTo = StageIndex.Transaction
-    } else if (!isValid) {
+    } else if (isValid) {
       redirectTo = StageIndex.Setup
     }
 
-    if (redirectTo) setStageIndex(redirectTo)
+    setStageIndex(redirectTo)
   }, [tokens, payment, isValid])
 
-  const CurrentStage = useMemo(() => STAGE_COMPONENTS[stageIndex], [stageIndex])
+  const CurrentStage = useMemo(
+    () => (stageIndex !== undefined ? STAGE_COMPONENTS[stageIndex] : undefined),
+    [stageIndex]
+  )
+
+  if (stageIndex === undefined || !CurrentStage) {
+    return <CircularProgress />
+  }
 
   return (
     <div className="w-full text-center">
@@ -54,9 +66,11 @@ export const QuickBuy: React.FC = () => {
       </div>
       <div className="px-10 pt-10">
         <CurrentStage
-          onNext={() => setStageIndex((prev) => zeroIfNotInRange(prev + 1))}
-          onPrevious={() => setStageIndex((prev) => zeroIfNotInRange(prev - 1))}
-          {...{ payment, setPayment, setStageIndex }}
+          onNext={() => setStageIndex((prev) => zeroIfNotInRange(prev! + 1))}
+          onPrevious={() =>
+            setStageIndex((prev) => zeroIfNotInRange(prev! - 1))
+          }
+          {...{ payment, setPayment, setStageIndex, tokens, setTokens }}
         />
       </div>
     </div>

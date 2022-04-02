@@ -11,6 +11,8 @@ const helpers: { history: BrowserHistory; initialLocation?: string } = {
   history: createBrowserHistory()
 }
 
+HTMLCanvasElement.prototype.getContext = () => null
+
 const AllTheProviders: FC = (props) => (
   <Router
     navigator={helpers.history}

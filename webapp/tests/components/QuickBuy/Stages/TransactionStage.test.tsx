@@ -24,6 +24,8 @@ jest.mock('@stomp/stompjs', () => {
       activate() {
         this.onConnect()
       }
+
+      deactivate() {}
     }
   }
 })
@@ -50,8 +52,10 @@ describe('TransactionStage', () => {
   let onNext: jest.Mock
   let setStageIndex: jest.Mock
   let setPayment: jest.Mock
+  let setTokens: jest.Mock
 
   beforeEach(async () => {
+    setTokens = jest.fn(() => {})
     onPrevious = jest.fn(() => {})
     onNext = jest.fn(() => {})
     setStageIndex = jest.fn(() => {})
@@ -61,7 +65,14 @@ describe('TransactionStage', () => {
 
     render(
       <TransactionStage
-        {...{ onNext, onPrevious, setStageIndex, payment, setPayment }}
+        {...{
+          onNext,
+          onPrevious,
+          setStageIndex,
+          payment,
+          setPayment,
+          setTokens
+        }}
       />
     )
 

@@ -7,7 +7,7 @@ interface Props {
   message: string
   onConfirm?: () => void
   open: boolean
-  setOpen: (open: boolean) => void
+  setOpen: (open: false) => void
 }
 
 export const ConfirmationModal: React.FC<Props> = ({
