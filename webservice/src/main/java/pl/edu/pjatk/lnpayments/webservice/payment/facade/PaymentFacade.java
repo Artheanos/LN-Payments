@@ -106,4 +106,8 @@ public class PaymentFacade {
     public Page<Payment> getPaymentsByEmail(String email, Pageable pageable) {
         return paymentDataService.findAll(SearchableField.EMAIL, email, pageable);
     }
+
+    public Page<Payment> getAllPayments(Pageable pageable) {
+        return paymentDataService.findAll(pageable);
+    }
 }

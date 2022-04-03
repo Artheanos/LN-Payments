@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lightningj.lnd.wrapper.message.Invoice;
@@ -26,8 +27,8 @@ import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.observer.InvoiceObserver;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.TokenResponse;
-import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
 
 import java.lang.reflect.Type;
 import java.util.concurrent.CompletableFuture;
@@ -50,7 +51,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
     private PaymentFacade paymentFacade;
 
     @Autowired
-    private PaymentDataService paymentDataService;
+    private PaymentRepository paymentRepository;
 
     @Autowired
     private JwtService jwtService;
@@ -71,6 +72,12 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         invoiceObserver = new InvoiceObserver(paymentFacade);
     }
 
+    @AfterEach
+    void tearDown() {
+        userRepository.deleteAll();
+        paymentRepository.deleteAll();
+    }
+
     @Test
     void shouldSendStompMessageWhenInvoiceIsSettled() throws ExecutionException, InterruptedException, TimeoutException {
         String paymentRequest = "dududu";
@@ -81,7 +88,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         invoice.setState(Invoice.InvoiceState.SETTLED);
         invoice.setPaymentRequest(paymentRequest);
         Payment payment = new Payment(paymentRequest, 1, 1, 60, PaymentStatus.PENDING, null);
-        paymentDataService.savePayment(payment);
+        paymentRepository.save(payment);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
         StompSession stompSession = webSocketStompClient.connect(
