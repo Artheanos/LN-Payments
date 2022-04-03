@@ -6,9 +6,10 @@ import routesBuilder from 'routesBuilder'
 import { UserContext } from 'components/Context/UserContext'
 
 export const TempUserLayout: React.FC = () => {
-  const { isValid, loading } = useContext(UserContext)
+  const { isLoggedIn, loading } = useContext(UserContext)
 
   if (loading) return <LinearProgress />
-  if (!isValid) return <Navigate to={routesBuilder.login} />
+  if (!isLoggedIn) return <Navigate to={routesBuilder.login} />
+
   return <Outlet />
 }

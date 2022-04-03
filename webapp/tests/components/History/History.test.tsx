@@ -1,19 +1,15 @@
-import { render, screen } from 'tests/test-utils'
-import { History } from 'components/History/History'
-import { setupServer, SetupServerApi } from 'msw/node'
-import { rest } from 'msw'
 import routesBuilder from 'routesBuilder'
-import { waitFor } from '@testing-library/react'
+import { rest } from 'msw'
+import { setupServer, SetupServerApi } from 'msw/node'
+
+import { render, screen, waitFor } from 'tests/test-utils'
+import { History } from 'components/History/History'
 
 describe('History', () => {
   let server: SetupServerApi
 
   afterEach(() => server.resetHandlers())
   afterAll(() => server.close())
-
-  beforeAll(() => {
-    render(<History />)
-  })
 
   it('should display message when no payments', async () => {
     server = setupServer(
@@ -22,6 +18,7 @@ describe('History', () => {
       })
     )
     server.listen()
+    render(<History />)
 
     await waitFor(() => {
       expect(screen.getByText('No payments found!')).toBeInTheDocument()
@@ -50,6 +47,7 @@ describe('History', () => {
       })
     )
     server.listen()
+    render(<History />)
 
     waitFor(() => {
       expect(screen.getByText('axa')).toBeInTheDocument()

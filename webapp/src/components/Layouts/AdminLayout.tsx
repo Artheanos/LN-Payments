@@ -4,16 +4,16 @@ import { Navigate } from 'react-router-dom'
 
 import routesBuilder from 'routesBuilder'
 import { UserContext } from 'components/Context/UserContext'
-import { PanelLayout } from './PanelLayout'
 import { Role } from '@constants'
+import { PanelLayout } from './PanelLayout'
 
-export const UserLayout: React.FC = () => {
-  const { isLoggedIn, loading, user } = useContext(UserContext)
+export const AdminLayout: React.FC = () => {
+  const { user, isLoggedIn, loading } = useContext(UserContext)
 
   if (loading) return <LinearProgress />
   if (!isLoggedIn) return <Navigate to={routesBuilder.login} />
 
-  if (user?.role === Role.TEMPORARY)
+  if (user?.role !== Role.ADMIN)
     return <Navigate to={routesBuilder.landingPage} />
 
   return <PanelLayout />

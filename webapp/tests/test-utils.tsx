@@ -30,9 +30,7 @@ const customRender = (
   options?: Omit<RenderOptions, 'wrapper'> & { location: string }
 ) => {
   helpers.history = createBrowserHistory()
-  // if (options?.location) {
   helpers.history.push(options?.location || '/')
-  // }
   return render(ui, { wrapper: AllTheProviders, ...options })
 }
 

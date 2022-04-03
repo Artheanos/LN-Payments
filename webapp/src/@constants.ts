@@ -10,3 +10,9 @@ export enum PaymentStatus {
   CANCELED,
   COMPLETE
 }
+
+export enum Role {
+  USER = 'ROLE_USER',
+  ADMIN = 'ROLE_ADMIN',
+  TEMPORARY = 'ROLE_TEMPORARY'
+}
