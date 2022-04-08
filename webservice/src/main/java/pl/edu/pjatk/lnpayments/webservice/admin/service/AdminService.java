@@ -9,9 +9,11 @@ import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -38,5 +40,13 @@ public class AdminService {
     public Page<AdminResponse> findAllAdmins(Pageable pageable) {
         Page<AdminUser> admins = adminUserRepository.findAll(pageable);
         return adminConverter.convertAllToDto(admins);
+    }
+
+    public List<AdminUser> findAllWithKeys(List<String> emails) {
+        List<AdminUser> adminUsers = adminUserRepository.findAllByEmailInAndPublicKeyNotNull(emails);
+        if (adminUsers.size() != emails.size()) {
+            throw new InconsistentDataException("Not all users have uploaded their keys");
+        }
+        return adminUsers;
     }
 }

@@ -38,7 +38,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final static String[] ADMIN_PATHS = {
             AUTH_PATH + ADMIN_PATH,
-            PAYMENTS_PATH + ALL_PATH
+            PAYMENTS_PATH + ALL_PATH,
+            WALLET_PATH
     };
 
     private final UserDetailsService userDetailsService;

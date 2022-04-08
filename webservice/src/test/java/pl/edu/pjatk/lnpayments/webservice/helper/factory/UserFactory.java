@@ -23,7 +23,7 @@ public class UserFactory {
         return new StandardUser(email, "asd", "asd");
     }
 
-    public static User createAdminUser(String email) {
+    public static AdminUser createAdminUser(String email) {
         return new AdminUser(email, "asd", "asd");
     }
 }
