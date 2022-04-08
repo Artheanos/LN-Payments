@@ -18,6 +18,9 @@ public class AdminUser extends StandardUser {
         super(email, fullName, password);
     }
 
+    //TODO replace with real one, when implementing endpoint for uploading keys
+    private String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+
     @Override
     public Role getRole() {
         return Role.ROLE_ADMIN;

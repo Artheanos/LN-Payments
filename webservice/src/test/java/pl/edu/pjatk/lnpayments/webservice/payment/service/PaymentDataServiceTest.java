@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import pl.edu.pjatk.lnpayments.webservice.payment.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;

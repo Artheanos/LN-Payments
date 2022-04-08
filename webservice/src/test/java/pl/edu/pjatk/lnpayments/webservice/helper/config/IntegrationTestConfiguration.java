@@ -1,5 +1,8 @@
 package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
+import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.params.RegTestParams;
+import org.bitcoinj.wallet.Wallet;
 import org.lightningj.lnd.wrapper.AsynchronousAPI;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
@@ -11,6 +14,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @TestConfiguration
@@ -31,6 +35,14 @@ public class IntegrationTestConfiguration {
     @Bean
     AsynchronousAPI asynchronousLndAPI() {
         return Mockito.mock(AsynchronousAPI.class);
+    }
+
+    @Bean
+    WalletAppKit walletAppKit() {
+        WalletAppKit walletAppKit = mock(WalletAppKit.class);
+        when(walletAppKit.wallet()).thenReturn(Wallet.createBasic(RegTestParams.get()));
+        when(walletAppKit.params()).thenReturn(RegTestParams.get());
+        return walletAppKit;
     }
 
 }

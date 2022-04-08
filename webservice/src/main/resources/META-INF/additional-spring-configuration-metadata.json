@@ -34,6 +34,21 @@
       "name": "lnp.auth.jwtSecret",
       "type": "java.lang.String",
       "description": "Description for lnp.auth.jwtSecret."
+    },
+    {
+      "name": "lnp.wallet.fileName",
+      "type": "java.lang.String",
+      "description": "Description for lnp.wallet.fileName."
+    },
+    {
+      "name": "lnp.config.workingDirectory",
+      "type": "java.lang.String",
+      "description": "Description for lnp.config.workingDirectory."
+    },
+    {
+      "name": "lnp.wallet.network",
+      "type": "pl.edu.pjatk.lnpayments.webservice.wallet.config.Network",
+      "description": "Description for lnp.wallet.network."
     }
   ]
 }

@@ -14,12 +14,13 @@ import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 
 import javax.validation.ValidationException;
 import java.util.List;
+import java.util.Objects;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -78,4 +79,33 @@ class AdminServiceTest {
         verify(adminConverter).convertAllToDto(adminEntities);
         verify(adminUserRepository).findAll(any(Pageable.class));
     }
+
+    @Test
+    void shouldReturnAdminFromEmails() {
+        List<String> emails = List.of("test1@test.pl", "test2@test.pl");
+        AdminUser firstAdmin = new AdminUser(emails.get(0), "test1", "pass");
+        AdminUser secondAdmin = new AdminUser(emails.get(1), "test2", "pass");
+        when(adminUserRepository.findAllByEmailInAndPublicKeyNotNull(emails))
+                .thenReturn(List.of(firstAdmin, secondAdmin));
+
+        List<AdminUser> admins = adminService.findAllWithKeys(emails);
+
+        assertThat(admins).hasSize(emails.size());
+        assertThat(admins).extracting(AdminUser::getEmail).containsAll(emails);
+        assertThat(admins).extracting(AdminUser::getPublicKey).allMatch(Objects::nonNull);
+        verify(adminUserRepository).findAllByEmailInAndPublicKeyNotNull(emails);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenNotAllAdminsReturned() {
+        List<String> emails = List.of("test1@test.pl", "test2@test.pl");
+        AdminUser firstAdmin = new AdminUser(emails.get(0), "test1", "pass");
+        when(adminUserRepository.findAllByEmailInAndPublicKeyNotNull(emails))
+                .thenReturn(List.of(firstAdmin));
+
+        assertThatExceptionOfType(InconsistentDataException.class)
+                .isThrownBy(() -> adminService.findAllWithKeys(emails))
+                .withMessage("Not all users have uploaded their keys");
+    }
+
 }

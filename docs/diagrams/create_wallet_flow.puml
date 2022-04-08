@@ -1,0 +1,13 @@
+@startuml
+start
+:Request to create wallet with admin emails and required confirmations;
+if (there is a running wallet || received more numOfConfirmations than users) then (true)
+    :throw exception;
+endif
+:query for admins;
+:verify if all of them have keys;
+:create wallet(scripts, address);
+:save wallet to DB;
+:return Http 201;
+end
+@enduml
