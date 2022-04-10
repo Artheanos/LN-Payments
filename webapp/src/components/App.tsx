@@ -16,6 +16,7 @@ import { PublicLayout } from './Layouts/PublicLayout'
 import { AdminLayout } from './Layouts/AdminLayout'
 import { LogoutPage } from '../pages/auth/LogoutPage'
 import { AdminManagementPage } from 'pages/adminManagement/AdminManagementPage'
+import { AdminCreatePage } from '../pages/adminManagement/AdminCreatePage'
 
 const theme = createTheme({
   palette: {
@@ -79,9 +80,14 @@ const App = () => (
                   path={routesBuilder.adminPanel.history}
                   element={<History />}
                 />
+
                 <Route
                   path={routesBuilder.adminPanel.admins.index}
                   element={<AdminManagementPage />}
+                />
+                <Route
+                  path={routesBuilder.adminPanel.admins.create}
+                  element={<AdminCreatePage />}
                 />
               </Route>
             </Route>

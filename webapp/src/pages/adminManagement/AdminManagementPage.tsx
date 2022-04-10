@@ -19,7 +19,7 @@ export const AdminManagementPage: React.FC = () => {
           <Button variant="contained">Add new</Button>
         </Link>
       </Panel.Header>
-      <Panel.Body>
+      <Panel.Body table>
         <PageableTable
           apiRequest={api.admins.getAdmins}
           mapper={(user, key) => <AdminListItem user={user} key={key} />}
