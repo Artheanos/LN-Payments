@@ -4,6 +4,10 @@ package pl.edu.pjatk.lnpayments.webservice.wallet.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.lightningj.lnd.wrapper.SynchronousLndAPI;
+import org.lightningj.lnd.wrapper.message.ListChannelsResponse;
+import org.lightningj.lnd.wrapper.message.SendCoinsResponse;
+import org.lightningj.lnd.wrapper.message.WalletBalanceResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +27,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -41,6 +47,9 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private WalletRepository walletRepository;
+
+    @Autowired
+    private SynchronousLndAPI lndAPI;
 
     @AfterEach
     void tearDown() {
@@ -130,6 +139,29 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void shouldReturn200ForProperChannelClose() throws Exception {
+        ListChannelsResponse response = new ListChannelsResponse();
+        response.setChannels(Collections.emptyList());
+        when(lndAPI.listChannels(any())).thenReturn(response);
+        mockMvc.perform(post("/wallet/closeChannels"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldReturn200ForTransfer() throws Exception {
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        walletRepository.save(wallet);
+        WalletBalanceResponse balanceRequest = new WalletBalanceResponse();
+        balanceRequest.setConfirmedBalance(2137L);
+        SendCoinsResponse sendCoinsResponse = new SendCoinsResponse();
+        sendCoinsResponse.setTxid("tx");
+        when(lndAPI.walletBalance()).thenReturn(balanceRequest);
+        when(lndAPI.sendCoins(any())).thenReturn(sendCoinsResponse);
+        mockMvc.perform(post("/wallet/transfer"))
+                .andExpect(status().isOk());
     }
 
 }

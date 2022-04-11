@@ -24,4 +24,9 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error(exception);
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    void handleNotFound() {
+    }
+
 }

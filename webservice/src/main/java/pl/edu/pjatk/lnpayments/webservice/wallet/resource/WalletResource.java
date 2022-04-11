@@ -9,7 +9,7 @@ import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
 import javax.validation.Valid;
 
-import static pl.edu.pjatk.lnpayments.webservice.common.Constants.WALLET_PATH;
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 
 @RestController
 @RequestMapping(WALLET_PATH)
@@ -26,6 +26,18 @@ class WalletResource {
     ResponseEntity<?> createWallet(@Valid @RequestBody CreateWalletRequest createWalletRequest) {
         walletService.createWallet(createWalletRequest.getAdminEmails(), createWalletRequest.getMinSignatures());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping(CLOSE_CHANNELS_PATH)
+    ResponseEntity<?> closeAllChannels(@RequestParam(required = false) boolean withForce) {
+        walletService.closeAllChannels(withForce);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(TRANSFER_PATH)
+    ResponseEntity<?> transferFunds() {
+        walletService.transferToWallet();
+        return ResponseEntity.ok().build();
     }
 
 }
