@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.FORCE_CLOSE_INACTIVE_CHANNEL_DAYS;
+
 @Slf4j
 @Service
 public class ChannelService {
@@ -69,6 +71,6 @@ public class ChannelService {
         LocalDate lastActive = LocalDate.ofEpochDay(chanInfo.getLastUpdate());
         LocalDate now = LocalDate.now();
         long daysBetween = ChronoUnit.DAYS.between(lastActive, now);
-        return daysBetween >= 7;
+        return daysBetween >= FORCE_CLOSE_INACTIVE_CHANNEL_DAYS;
     }
 }

@@ -16,6 +16,8 @@ public class Constants {
     public static final String CLOSE_CHANNELS_PATH = "/closeChannels";
     public static final String TRANSFER_PATH = "/transfer";
 
+    public static final int FORCE_CLOSE_INACTIVE_CHANNEL_DAYS = 7;
+
     public static final String ROOT_USER_EMAIL = "admin@admin.pl";
     public static final String ROOT_USER_PASSWORD = "admin";
 
