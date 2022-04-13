@@ -3,7 +3,7 @@ package pl.edu.pjatk.lnpayments.webservice.helper.config;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.RegTestParams;
 import org.bitcoinj.wallet.Wallet;
-import org.lightningj.lnd.wrapper.AsynchronousAPI;
+import org.lightningj.lnd.wrapper.AsynchronousLndAPI;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
@@ -33,8 +33,8 @@ public class IntegrationTestConfiguration {
     }
 
     @Bean
-    AsynchronousAPI asynchronousLndAPI() {
-        return Mockito.mock(AsynchronousAPI.class);
+    AsynchronousLndAPI asynchronousLndAPI() {
+        return Mockito.mock(AsynchronousLndAPI.class);
     }
 
     @Bean

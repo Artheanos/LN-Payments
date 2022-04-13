@@ -1,21 +1,32 @@
 package pl.edu.pjatk.lnpayments.webservice.wallet.service;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.assertj.core.groups.Tuple;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.LoggerFactory;
 import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
 import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 
 import javax.validation.ValidationException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -35,8 +46,23 @@ class WalletServiceTest {
     @Mock
     private WalletRepository walletRepository;
 
+    @Mock
+    private TransferService transferService;
+
+    @Mock
+    private ChannelService channelService;
+
     @InjectMocks
     private WalletService walletService;
+
+    private ListAppender<ILoggingEvent> logAppender;
+
+    @BeforeEach
+    void setUp() {
+        logAppender = new ListAppender<>();
+        logAppender.start();
+        ((Logger) LoggerFactory.getLogger(WalletService.class)).addAppender(logAppender);
+    }
 
     @Test
     void shouldCreateWalletForValidData() {
@@ -79,6 +105,27 @@ class WalletServiceTest {
         assertThatExceptionOfType(InconsistentDataException.class)
                 .isThrownBy(() -> walletService.createWallet(adminEmails, 3))
                 .withMessage("You can't require more confirmations than you have users");
+    }
+
+    @Test
+    void shouldTransferFundsToWalletAddressAndLogMessage() {
+        Wallet wallet = Wallet.builder().address("2137").build();
+        when(walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)).thenReturn(Optional.of(wallet));
+
+        walletService.transferToWallet();
+
+        verify(transferService).transfer("2137");
+        assertThat(logAppender.list)
+                .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
+                .contains(Tuple.tuple("Funds were transferred in tx: {}", Level.INFO));
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void shouldCallChannelServiceWhenClosingAllWithProperFlag(boolean force) {
+        walletService.closeAllChannels(force);
+
+        verify(channelService).closeAllChannels(force);
     }
 
 }
