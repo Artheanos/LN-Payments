@@ -1,12 +1,16 @@
-import React from 'react'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
+import React, { useContext } from 'react'
 import { AppBar, Toolbar } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
+import { Role } from '@constants'
+import { UserContext } from '../Context/UserContext'
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation('common')
+  const { user } = useContext(UserContext)
 
   return (
     <AppBar
@@ -22,6 +26,7 @@ export const Navbar: React.FC = () => {
         >
           {t('title')}
         </Link>
+        {user?.role === Role.ADMIN && <AdminPanelSettingsIcon />}
       </Toolbar>
     </AppBar>
   )

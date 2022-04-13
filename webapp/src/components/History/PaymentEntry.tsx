@@ -1,9 +1,10 @@
 import React from 'react'
-import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import { TokenPopup } from './TokenPopup'
+import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+
 import { PaymentStatus } from '@constants'
+import { TokenPopup } from './TokenPopup'
 
 export const PaymentEntry: React.FC<PaymentDetails> = (
   payment: PaymentDetails
@@ -41,12 +42,13 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
   }
 
   const calculateColor = (paymentStatus: PaymentStatus) => {
-    const colors = StatusColor[paymentStatus as unknown as string]
+    const colors = StatusColor[paymentStatus]
     return {
       backgroundColor: colors.primary,
       borderColor: colors.secondary
     }
   }
+
   return (
     <>
       <TableRow>

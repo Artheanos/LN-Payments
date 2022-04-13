@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { CircularProgress } from '@mui/material'
-import { Toolbar } from '@mui/material'
 
 import { LocalKey } from '@constants'
 import { SetupStage } from './Stages/SetupStage'
@@ -33,7 +32,7 @@ export const QuickBuy: React.FC = () => {
   const [tokens, setTokens] = useLocalStorage<string[]>(
     LocalKey.TRANSACTION_TOKENS
   )
-  const { isValid } = useContext(UserContext)
+  const { isLoggedIn } = useContext(UserContext)
 
   useEffect(() => {
     let redirectTo: StageIndex | undefined = undefined
@@ -42,12 +41,12 @@ export const QuickBuy: React.FC = () => {
       redirectTo = StageIndex.Tokens
     } else if (payment) {
       redirectTo = StageIndex.Transaction
-    } else if (isValid) {
+    } else if (isLoggedIn) {
       redirectTo = StageIndex.Setup
     }
 
     setStageIndex(redirectTo)
-  }, [tokens, payment, isValid])
+  }, [tokens, payment, isLoggedIn])
 
   const CurrentStage = useMemo(
     () => (stageIndex !== undefined ? STAGE_COMPONENTS[stageIndex] : undefined),
@@ -60,8 +59,7 @@ export const QuickBuy: React.FC = () => {
 
   return (
     <div className="w-full text-center">
-      <Toolbar />
-      <div className="mt-10">
+      <div className="mt-2">
         <StageProgress currentStageIndex={stageIndex} />
       </div>
       <div className="px-10 pt-10">

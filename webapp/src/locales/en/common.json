@@ -3,7 +3,9 @@
   "close": "Close",
   "confirm": "Confirm",
   "copy": "Copy",
+  "email": "Email",
   "invoice": "Invoice",
+  "name": "Name",
   "next": "Next",
   "node": "Node",
   "ok": "Ok",
@@ -43,7 +45,7 @@
       }
     },
     "tokens": {
-      "info": "Keep in mind - Users who are signed out will not be able to retrieve the tokens once they close this stage",
+      "info": "Keep in mind - Unregistered users will not be able to retrieve the tokens once they close this stage",
       "onCopyMessage": "Token {{tokenId}} has been copied to clipboard",
       "header": "Tokens",
       "listItemPrefix": "Token {{tokenId}}"

@@ -43,7 +43,7 @@ const request = async <D, T>(
   }
 }
 
-type Response<T> = {
+export type Response<T> = {
   data?: T
   status: number
 }
@@ -76,11 +76,18 @@ export const api = {
     info: async (): Promise<Response<PaymentInfo>> => {
       return request(routesBuilder.api.payments.info, { method: 'get' })
     },
-    history: async (params: PageRequest): Promise<Response<PaymentHistory>> => {
+    history: async (
+      params: PageRequest
+    ): Promise<Response<Pageable<PaymentDetails>>> => {
       return request(routesBuilder.api.payments.index, {
         method: 'get',
         params: params
       })
+    }
+  },
+  admins: {
+    getAdmins: async (): Promise<Response<Pageable<User>>> => {
+      return request(routesBuilder.api.admins.index, { method: 'get' })
     }
   }
 }

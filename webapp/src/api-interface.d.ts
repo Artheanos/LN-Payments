@@ -37,12 +37,6 @@ interface RefreshTokenResponse {
   token: string
 }
 
-enum Role {
-  USER,
-  ADMIN,
-  TEMPORARY
-}
-
 interface RegisterForm {
   email: string
   fullName: string
@@ -52,7 +46,7 @@ interface RegisterForm {
 interface User {
   email: string
   fullName: string
-  role: Role
+  role: string
 }
 
 interface LoginForm {
@@ -64,14 +58,14 @@ interface LoginResponse extends User {
   token: string
 }
 
-interface PaymentHistory {
-  content: PaymentDetails[]
+interface Pageable<T> {
+  content: T[]
   empty: boolean
   first: boolean
   last: boolean
   number: number
   numberOfElements: number
-  pageable: Pageable
+  pageable: PageInfo
   size: number
   sort: Sort
   totalElements: number
@@ -84,7 +78,7 @@ interface Sort {
   unsorted: boolean
 }
 
-interface Pageable {
+interface PageInfo {
   offset: number
   pageNumber: number
   pageSize: number

@@ -10,7 +10,8 @@ type ContextType = {
   token?: string
   setToken: (token: string) => void
   loading: boolean
-  isValid: boolean
+  isLoggedIn: boolean
+  logout: () => void
   tryRefreshingToken: () => void
 }
 
@@ -20,7 +21,8 @@ const defaultValue: ContextType = {
   token: undefined,
   setToken: () => {},
   loading: true,
-  isValid: false,
+  isLoggedIn: false,
+  logout: () => {},
   tryRefreshingToken: () => {}
 }
 
@@ -30,7 +32,12 @@ export const UserProvider: React.FC = ({ children }) => {
   const [user, setUser] = useLocalStorage<User>(LocalKey.USER)
   const [token, setToken] = useLocalStorage<string>(LocalKey.TOKEN)
   const [loading, setLoading] = useState(true)
-  const isValid = useMemo(() => Boolean(user && token), [user, token])
+  const isLoggedIn = useMemo(() => Boolean(user && token), [user, token])
+
+  const logout = useCallback(() => {
+    setToken(undefined)
+    setUser(undefined)
+  }, [setToken, setUser])
 
   const tryRefreshingToken = useCallback(() => {
     setLoading(true)
@@ -40,12 +47,12 @@ export const UserProvider: React.FC = ({ children }) => {
         if (data) {
           setToken(data.token)
         } else {
-          setToken(undefined)
-          setUser(undefined)
+          logout()
         }
       })
+      .catch(logout)
       .finally(() => setLoading(false))
-  }, [setUser, setLoading, setToken])
+  }, [logout, setToken])
 
   useEffect(() => tryRefreshingToken(), [tryRefreshingToken])
 
@@ -57,7 +64,8 @@ export const UserProvider: React.FC = ({ children }) => {
         token,
         setToken,
         loading,
-        isValid,
+        isLoggedIn,
+        logout,
         tryRefreshingToken
       }}
     >
