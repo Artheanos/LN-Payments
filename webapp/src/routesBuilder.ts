@@ -6,12 +6,12 @@ export default {
   register: '/register',
   adminPanel: {
     admins: {
-      index: '/admin-panel/admins',
-      create: '/admin-panel/admins/new'
+      index: '/panel/admins',
+      create: '/panel/admins/new'
     },
-    history: '/admin-panel/history',
-    index: '/admin-panel',
-    quickBuy: '/admin-panel/quick-buy'
+    history: '/panel/history',
+    index: '/panel',
+    quickBuy: '/panel/quick-buy'
   },
   userPanel: {
     history: '/panel/history',

@@ -56,6 +56,30 @@ const App = () => (
                 />
               </Route>
 
+              <Route
+                element={<AdminLayout />}
+                path={routesBuilder.adminPanel.index}
+              >
+                <Route
+                  path={routesBuilder.adminPanel.history}
+                  element={<History />}
+                />
+                <Route
+                  path={routesBuilder.adminPanel.admins.index}
+                  element={<AdminManagementPage />}
+                />
+                <Route
+                  path={routesBuilder.adminPanel.admins.create}
+                  element={<AdminCreatePage />}
+                />
+                <Route
+                  path={routesBuilder.adminPanel.index}
+                  element={
+                    <Navigate replace to={routesBuilder.adminPanel.history} />
+                  }
+                />
+              </Route>
+
               <Route element={<PublicLayout />}>
                 <Route
                   path={routesBuilder.landingPage}
@@ -70,25 +94,6 @@ const App = () => (
                   element={<RegisterPage />}
                 />
                 <Route path={routesBuilder.login} element={<LoginPage />} />
-              </Route>
-
-              <Route
-                element={<AdminLayout />}
-                path={routesBuilder.adminPanel.index}
-              >
-                <Route
-                  path={routesBuilder.adminPanel.history}
-                  element={<History />}
-                />
-
-                <Route
-                  path={routesBuilder.adminPanel.admins.index}
-                  element={<AdminManagementPage />}
-                />
-                <Route
-                  path={routesBuilder.adminPanel.admins.create}
-                  element={<AdminCreatePage />}
-                />
               </Route>
             </Route>
             <Route path={routesBuilder.logout} element={<LogoutPage />} />
