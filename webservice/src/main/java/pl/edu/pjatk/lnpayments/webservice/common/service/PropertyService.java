@@ -9,4 +9,8 @@ public interface PropertyService {
     String getInvoiceMemo();
 
     int getPaymentExpiryInSeconds();
+
+    long getAutoChannelCloseLimit();
+
+    long getAutoTransferLimit();
 }

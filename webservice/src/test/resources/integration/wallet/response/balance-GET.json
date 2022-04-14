@@ -1,0 +1,18 @@
+{
+  "address": "789",
+  "admins": [],
+  "channelsBalance": {
+    "totalBalance": 1000,
+    "openedChannels": 1,
+    "autoChannelCloseLimit": 100000
+  },
+  "lightningWalletBalance": {
+    "availableBalance": 1000,
+    "unconfirmedBalance": 100,
+    "autoTransferLimit": 100000
+  },
+  "bitcoinWalletBalance": {
+    "availableBalance": 1000,
+    "unconfirmedBalance": 100
+  }
+}

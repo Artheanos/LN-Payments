@@ -15,13 +15,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
+import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
 import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
 import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.ChannelsBalance;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.LightningWalletBalance;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetailsResponse;
 
 import javax.validation.ValidationException;
 import java.util.Collections;
@@ -47,10 +53,13 @@ class WalletServiceTest {
     private WalletRepository walletRepository;
 
     @Mock
-    private TransferService transferService;
+    private LightningWalletService lightningWalletService;
 
     @Mock
     private ChannelService channelService;
+
+    @Mock
+    private AdminConverter adminConverter;
 
     @InjectMocks
     private WalletService walletService;
@@ -114,7 +123,7 @@ class WalletServiceTest {
 
         walletService.transferToWallet();
 
-        verify(transferService).transfer("2137");
+        verify(lightningWalletService).transfer("2137");
         assertThat(logAppender.list)
                 .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
                 .contains(Tuple.tuple("Funds were transferred in tx: {}", Level.INFO));
@@ -126,6 +135,33 @@ class WalletServiceTest {
         walletService.closeAllChannels(force);
 
         verify(channelService).closeAllChannels(force);
+    }
+
+    @Test
+    void shouldReturnWalletBalance() {
+        BitcoinWalletBalance bitcoinWalletBalance = BitcoinWalletBalance.builder().availableBalance(100L).unconfirmedBalance(100L).build();
+        ChannelsBalance channelsBalance = ChannelsBalance.builder().openedChannels(1).totalBalance(100L).autoChannelCloseLimit(100L).build();
+        LightningWalletBalance lightningWalletBalance = LightningWalletBalance.builder().availableBalance(100L).unconfirmedBalance(100L).autoTransferLimit(100L).build();
+        Wallet wallet = Wallet.builder().address("2137").build();
+        when(walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)).thenReturn(Optional.of(wallet));
+        when(lightningWalletService.getBalance()).thenReturn(lightningWalletBalance);
+        when(bitcoinService.getBalance()).thenReturn(bitcoinWalletBalance);
+        when(channelService.getChannelsBalance()).thenReturn(channelsBalance);
+
+        WalletDetailsResponse details = walletService.getDetails();
+
+        assertThat(details.getAddress()).isEqualTo("2137");
+        assertThat(details.getChannelsBalance()).isEqualTo(channelsBalance);
+        assertThat(details.getBitcoinWalletBalance()).isEqualTo(bitcoinWalletBalance);
+        assertThat(details.getLightningWalletBalance()).isEqualTo(lightningWalletBalance);
+    }
+
+    @Test
+    void shouldThrowNotFoundExceptionWhenWalletDoesNotExist() {
+        when(walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> walletService.getDetails());
     }
 
 }

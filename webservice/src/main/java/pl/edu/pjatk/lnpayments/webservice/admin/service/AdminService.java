@@ -39,7 +39,7 @@ public class AdminService {
 
     public Page<AdminResponse> findAllAdmins(Pageable pageable) {
         Page<AdminUser> admins = adminUserRepository.findAll(pageable);
-        return adminConverter.convertAllToDto(admins);
+        return adminConverter.convertPageToDto(admins);
     }
 
     public List<AdminUser> findAllWithKeys(List<String> emails) {

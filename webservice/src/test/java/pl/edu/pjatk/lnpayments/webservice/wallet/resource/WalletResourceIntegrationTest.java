@@ -2,12 +2,14 @@ package pl.edu.pjatk.lnpayments.webservice.wallet.resource;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.kits.WalletAppKit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
-import org.lightningj.lnd.wrapper.message.ListChannelsResponse;
-import org.lightningj.lnd.wrapper.message.SendCoinsResponse;
-import org.lightningj.lnd.wrapper.message.WalletBalanceResponse;
+import org.lightningj.lnd.wrapper.ValidationException;
+import org.lightningj.lnd.wrapper.message.*;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,6 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles("test")
@@ -50,6 +54,9 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private SynchronousLndAPI lndAPI;
+
+    @Autowired
+    private WalletAppKit walletAppKit;
 
     @AfterEach
     void tearDown() {
@@ -162,6 +169,52 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         when(lndAPI.sendCoins(any())).thenReturn(sendCoinsResponse);
         mockMvc.perform(post("/wallet/transfer"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldReturn200ForBalanceRequest() throws Exception {
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        walletRepository.save(wallet);
+        org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(1000L));
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(900L));
+        when(walletAppKit.wallet()).thenReturn(walletMock);
+        ChannelBalanceResponse balanceResponse = new ChannelBalanceResponse();
+        balanceResponse.setBalance(1000L);
+        Channel channel1 = new Channel();
+        channel1.setChannelPoint("channel1:1");
+        channel1.setActive(true);
+        channel1.setChanId(1);
+        ListChannelsResponse listChannelsResponse = new ListChannelsResponse();
+        listChannelsResponse.setChannels(List.of(channel1));
+        when(lndAPI.channelBalance()).thenReturn(balanceResponse);
+        when(lndAPI.listChannels(any())).thenReturn(listChannelsResponse);
+        WalletBalanceResponse walletBalanceResponse = new WalletBalanceResponse();
+        walletBalanceResponse.setUnconfirmedBalance(100L);
+        walletBalanceResponse.setConfirmedBalance(1000L);
+        when(lndAPI.walletBalance()).thenReturn(walletBalanceResponse);
+
+        String jsonContent = getJsonResponse("integration/wallet/response/balance-GET.json");
+
+        mockMvc.perform(get("/wallet"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturn404ForBalanceWhenNoWalletCreated() throws Exception {
+        mockMvc.perform(get("/wallet"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldReturn500WhenThereIsLightningException() throws Exception {
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        walletRepository.save(wallet);
+        when(lndAPI.channelBalance()).thenThrow(ValidationException.class);
+
+        mockMvc.perform(get("/wallet"))
+                .andExpect(status().isInternalServerError());
     }
 
 }

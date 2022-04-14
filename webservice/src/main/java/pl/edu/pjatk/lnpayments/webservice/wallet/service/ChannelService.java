@@ -5,8 +5,10 @@ import org.lightningj.lnd.wrapper.*;
 import org.lightningj.lnd.wrapper.message.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.observer.ChannelCloseObserver;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.ChannelsBalance;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -21,12 +23,17 @@ public class ChannelService {
     private final SynchronousLndAPI lndAPI;
     private final AsynchronousLndAPI asyncApi;
     private final ChannelCloseObserver channelCloseObserver;
+    private final PropertyService propertyService;
 
     @Autowired
-    public ChannelService(SynchronousLndAPI lndAPI, AsynchronousLndAPI asyncApi, ChannelCloseObserver channelCloseObserver) {
+    public ChannelService(SynchronousLndAPI lndAPI,
+                          AsynchronousLndAPI asyncApi,
+                          ChannelCloseObserver channelCloseObserver,
+                          PropertyService propertyService) {
         this.lndAPI = lndAPI;
         this.asyncApi = asyncApi;
         this.channelCloseObserver = channelCloseObserver;
+        this.propertyService = propertyService;
     }
 
     /**
@@ -44,6 +51,18 @@ public class ChannelService {
             }
         } catch (StatusException | ValidationException e) {
             throw new LightningException("Error when closing channels", e);
+        }
+    }
+
+    public ChannelsBalance getChannelsBalance() {
+        try {
+            return ChannelsBalance.builder()
+                    .totalBalance(lndAPI.channelBalance().getBalance())
+                    .openedChannels(lndAPI.listChannels(new ListChannelsRequest()).getChannels().size())
+                    .autoChannelCloseLimit(propertyService.getAutoChannelCloseLimit())
+                    .build();
+        } catch (StatusException | ValidationException e) {
+            throw new LightningException("Unable to get channels balance!", e);
         }
     }
 
