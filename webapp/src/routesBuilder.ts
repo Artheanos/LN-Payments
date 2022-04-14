@@ -11,6 +11,10 @@ export default {
     },
     history: '/panel/history',
     index: '/panel',
+    wallet: {
+      index: '/panel/wallet',
+      new: '/panel/wallet/new'
+    },
     quickBuy: '/panel/quick-buy'
   },
   api: {
@@ -26,6 +30,9 @@ export default {
     },
     admins: {
       index: '/api/admins'
+    },
+    wallet: {
+      index: '/api/wallet'
     }
   }
 }

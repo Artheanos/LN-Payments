@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   AccessTime,
-  AccountBalanceWallet,
   AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
   ShoppingCartOutlined
@@ -39,14 +38,9 @@ export const Sidebar: React.FC = () => {
           route={routesBuilder.userPanel.history}
         />
         <SidebarEntry
-          title="Logout"
-          icon={<MeetingRoomOutlined />}
-          route={routesBuilder.logout}
-        />
-        <SidebarEntry
           title="Wallet"
           icon={<AccountBalanceWalletOutlined />}
-          route={routesBuilder.userPanel.admins.index}
+          route={routesBuilder.userPanel.wallet.index}
           adminOnly
         />
         <SidebarEntry
@@ -54,6 +48,11 @@ export const Sidebar: React.FC = () => {
           icon="AM"
           route={routesBuilder.userPanel.admins.index}
           adminOnly
+        />
+        <SidebarEntry
+          title="Logout"
+          icon={<MeetingRoomOutlined />}
+          route={routesBuilder.logout}
         />
       </List>
     </Drawer>
