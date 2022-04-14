@@ -8,6 +8,9 @@ import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AdminConverter {
 
@@ -33,7 +36,13 @@ public class AdminConverter {
                 .build();
     }
 
-    public Page<AdminResponse> convertAllToDto(Page<AdminUser> admins) {
+    public Page<AdminResponse> convertPageToDto(Page<AdminUser> admins) {
         return admins.map(this::convertToDto);
+    }
+
+    public List<AdminResponse> convertAllToDto(List<AdminUser> admins) {
+        return admins.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 }

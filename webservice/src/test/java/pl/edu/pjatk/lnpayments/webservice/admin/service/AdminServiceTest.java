@@ -72,11 +72,11 @@ class AdminServiceTest {
         PageImpl<AdminUser> adminEntities = new PageImpl<>(List.of(firstAdmin, secondAdmin));
         PageImpl<AdminResponse> adminDtos = new PageImpl<>(List.of(convertedFirst, convertedSecond));
         when(adminUserRepository.findAll(any(Pageable.class))).thenReturn(adminEntities);
-        when(adminConverter.convertAllToDto(adminEntities)).thenReturn(adminDtos);
+        when(adminConverter.convertPageToDto(adminEntities)).thenReturn(adminDtos);
 
         Page<AdminResponse> response = adminService.findAllAdmins(PageRequest.ofSize(2));
         assertThat(response).isEqualTo(adminDtos);
-        verify(adminConverter).convertAllToDto(adminEntities);
+        verify(adminConverter).convertPageToDto(adminEntities);
         verify(adminUserRepository).findAll(any(Pageable.class));
     }
 

@@ -9,17 +9,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.lightningj.lnd.wrapper.*;
-import org.lightningj.lnd.wrapper.message.Channel;
-import org.lightningj.lnd.wrapper.message.ChannelEdge;
-import org.lightningj.lnd.wrapper.message.CloseChannelRequest;
-import org.lightningj.lnd.wrapper.message.ListChannelsResponse;
+import org.lightningj.lnd.wrapper.message.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
+import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.observer.ChannelCloseObserver;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.ChannelsBalance;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -40,6 +39,9 @@ class ChannelServiceTest {
 
     @Mock
     private ChannelCloseObserver channelCloseObserver;
+
+    @Mock
+    private PropertyService propertyService;
 
     @InjectMocks
     private ChannelService channelService;
@@ -173,6 +175,37 @@ class ChannelServiceTest {
         assertThat(logAppender.list)
                 .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
                 .contains(Tuple.tuple("Unable to close channel: {}", Level.ERROR));
+    }
+
+    @Test
+    void shouldObtainChannelsBalance() throws StatusException, ValidationException {
+        ChannelBalanceResponse balanceResponse = new ChannelBalanceResponse();
+        balanceResponse.setBalance(1000L);
+        String channelPoint1 = "channel1:1";
+        Channel channel1 = createChannel(true, channelPoint1, 1);
+        ListChannelsResponse listChannelsResponse = new ListChannelsResponse();
+        listChannelsResponse.setChannels(List.of(channel1));
+        when(lndAPI.channelBalance()).thenReturn(balanceResponse);
+        when(lndAPI.listChannels(any())).thenReturn(listChannelsResponse);
+        when(propertyService.getAutoChannelCloseLimit()).thenReturn(10000L);
+
+        ChannelsBalance channelsBalance = channelService.getChannelsBalance();
+
+        verify(propertyService).getAutoChannelCloseLimit();
+        assertThat(channelsBalance.getOpenedChannels()).isEqualTo(1);
+        assertThat(channelsBalance.getTotalBalance()).isEqualTo(1000L);
+        assertThat(channelsBalance.getAutoChannelCloseLimit()).isEqualTo(10000L);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUnableToCallLndApi() throws StatusException, ValidationException {
+        Class<ValidationException> exceptionClass = ValidationException.class;
+        when(lndAPI.channelBalance()).thenThrow(exceptionClass);
+
+        assertThatExceptionOfType(LightningException.class)
+                .isThrownBy(() -> channelService.getChannelsBalance())
+                .withMessage("Unable to get channels balance!")
+                .withCauseExactlyInstanceOf(exceptionClass);
     }
 
     private Channel createChannel(boolean isActive, String channelPoint, long chanId) {

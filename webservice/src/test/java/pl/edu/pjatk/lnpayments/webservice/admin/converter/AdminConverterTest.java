@@ -64,7 +64,22 @@ class AdminConverterTest {
                 new AdminUser("test3@test.pl", "test3", "test3")
         ));
 
-        Page<AdminResponse> result = adminConverter.convertAllToDto(payments);
+        Page<AdminResponse> result = adminConverter.convertPageToDto(payments);
+
+        assertThat(result).hasSize(3);
+        assertThat(result).extracting(AdminResponse::getFullName)
+                .containsExactlyInAnyOrder("test1", "test2", "test3");
+    }
+
+    @Test
+    void shouldCovertAllAdminsToListDto() {
+        List<AdminUser> payments = List.of(
+                new AdminUser("test1@test.pl", "test1", "test1"),
+                new AdminUser("test2@test.pl", "test2", "test2"),
+                new AdminUser("test3@test.pl", "test3", "test3")
+        );
+
+        List<AdminResponse> result = adminConverter.convertAllToDto(payments);
 
         assertThat(result).hasSize(3);
         assertThat(result).extracting(AdminResponse::getFullName)

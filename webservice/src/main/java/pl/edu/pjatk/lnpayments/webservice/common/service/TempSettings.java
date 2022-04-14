@@ -14,5 +14,7 @@ class TempSettings implements PropertyService {
     private final String description = "Super opis";
     private final String invoiceMemo = "Super memo";
     private final int paymentExpiryInSeconds = 900;
+    private final long autoChannelCloseLimit = 100000;
+    private final long autoTransferLimit = 100000;
 
 }

@@ -54,4 +54,12 @@ class WalletResourceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(walletService).transferToWallet();
     }
+
+    @Test
+    void shouldReturnOkForBalanceRequest() {
+        ResponseEntity<?> response = walletResource.getWalletDetails();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(walletService).getDetails();
+    }
 }
