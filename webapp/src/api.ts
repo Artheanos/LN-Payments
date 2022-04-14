@@ -86,8 +86,10 @@ export const api = {
     }
   },
   admins: {
-    getAdmins: async (): Promise<Response<Pageable<User>>> => {
-      return request(routesBuilder.api.admins.index, { method: 'get' })
-    }
+    getAdmins: async (params: PageRequest): Promise<Response<Pageable<User>>> =>
+      request(routesBuilder.api.admins.index, { method: 'get', params }),
+
+    createAdmin: async (data: RegisterForm): Promise<Response<unknown>> =>
+      request(routesBuilder.api.admins.index, { data })
   }
 }

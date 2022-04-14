@@ -17,7 +17,7 @@ export const SidebarEntry: React.FC<Props> = ({
   adminOnly
 }: Props) => {
   const { user } = useContext(UserContext)
-  const isSelected = route === useLocation().pathname
+  const isSelected = useLocation().pathname.startsWith(route)
 
   if (adminOnly && user?.role !== 'ROLE_ADMIN') {
     return null

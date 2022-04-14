@@ -4,7 +4,12 @@ import { TextField, TextFieldProps } from '@mui/material'
 
 type Props = FieldProps & TextFieldProps & FormikValues
 
-export const TextInput: React.FC<Props> = ({ form, field, ...other }) => {
+export const TextInput: React.FC<Props> = ({
+  field,
+  form,
+  variant,
+  ...other
+}) => {
   const onFieldChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const newValue = event.target.value
     form.setFieldValue(field.name, newValue)
@@ -20,6 +25,7 @@ export const TextInput: React.FC<Props> = ({ form, field, ...other }) => {
       error={Boolean(error && touched)}
       helperText={touched && error}
       onChange={onFieldChange}
+      variant={variant || 'standard'}
       {...other}
     />
   )

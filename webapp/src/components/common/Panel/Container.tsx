@@ -1,4 +1,10 @@
 import React from 'react'
 import { Paper } from '@mui/material'
 
-export const Container: React.FC = ({ children }) => <Paper>{children}</Paper>
+interface Props {
+  className?: string
+}
+
+export const Container: React.FC<Props> = ({ children, className }) => (
+  <Paper className={className}>{children}</Paper>
+)

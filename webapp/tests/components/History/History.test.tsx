@@ -21,7 +21,7 @@ describe('History', () => {
     render(<History />)
 
     await waitFor(() => {
-      expect(screen.getByText('No payments found!')).toBeInTheDocument()
+      expect(screen.getByText('No entries')).toBeInTheDocument()
     })
   })
 

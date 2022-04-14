@@ -21,7 +21,7 @@ export const History: React.FC = () => {
   return (
     <Panel.Container>
       <Panel.Header title="History" />
-      <Panel.Body>
+      <Panel.Body table>
         <PageableTable
           apiRequest={api.payment.history}
           mapper={(value: PaymentDetails, key: number) => (
