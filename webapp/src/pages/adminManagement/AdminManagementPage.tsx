@@ -15,7 +15,7 @@ export const AdminManagementPage: React.FC = () => {
   return (
     <Panel.Container>
       <Panel.Header title="Admin Management">
-        <Link to={routesBuilder.adminPanel.admins.create}>
+        <Link to={routesBuilder.userPanel.admins.create}>
           <Button variant="contained">Add new</Button>
         </Link>
       </Panel.Header>

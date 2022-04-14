@@ -4,16 +4,11 @@ export default {
   logout: '/logout',
   quickBuy: '/quick-buy',
   register: '/register',
-  adminPanel: {
+  userPanel: {
     admins: {
       index: '/panel/admins',
       create: '/panel/admins/new'
     },
-    history: '/panel/history',
-    index: '/panel',
-    quickBuy: '/panel/quick-buy'
-  },
-  userPanel: {
     history: '/panel/history',
     index: '/panel',
     quickBuy: '/panel/quick-buy'

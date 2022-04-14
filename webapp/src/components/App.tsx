@@ -58,24 +58,24 @@ const App = () => (
 
               <Route
                 element={<AdminLayout />}
-                path={routesBuilder.adminPanel.index}
+                path={routesBuilder.userPanel.index}
               >
                 <Route
-                  path={routesBuilder.adminPanel.history}
+                  path={routesBuilder.userPanel.history}
                   element={<History />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.admins.index}
+                  path={routesBuilder.userPanel.admins.index}
                   element={<AdminManagementPage />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.admins.create}
+                  path={routesBuilder.userPanel.admins.create}
                   element={<AdminCreatePage />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.index}
+                  path={routesBuilder.userPanel.index}
                   element={
-                    <Navigate replace to={routesBuilder.adminPanel.history} />
+                    <Navigate replace to={routesBuilder.userPanel.history} />
                   }
                 />
               </Route>

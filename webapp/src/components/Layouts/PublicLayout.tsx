@@ -10,7 +10,7 @@ export const PublicLayout: React.FC = () => {
 
   if (!isLoggedIn) return <Outlet />
   if (user?.role === Role.ADMIN) {
-    return <Navigate to={routesBuilder.adminPanel.index} />
+    return <Navigate to={routesBuilder.userPanel.index} />
   }
   return <Navigate to={routesBuilder.userPanel.index} />
 }
