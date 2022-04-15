@@ -4,9 +4,6 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.ts(x)'],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
-  modulePaths: ['<rootDir>/src/', '<rootDir>/.jest', '<rootDir>/tests/'],
-  moduleNameMapper: {
-    'tests/(.*)': '<rootDir>/tests/test-utils.tsx'
-  },
+  modulePaths: ['<rootDir>/src/', '<rootDir>/.jest', '<rootDir>/'],
   reporters: ['default', '<rootDir>/node_modules/jest-html-reporter']
 }

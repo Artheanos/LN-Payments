@@ -81,7 +81,15 @@ export const api = {
     ): Promise<Response<Pageable<PaymentDetails>>> => {
       return request(routesBuilder.api.payments.index, {
         method: 'get',
-        params: params
+        params
+      })
+    },
+    historyAll: async (
+      params: PageRequest
+    ): Promise<Response<Pageable<PublicPaymentDetails>>> => {
+      return request(routesBuilder.api.payments.all, {
+        method: 'get',
+        params
       })
     }
   },

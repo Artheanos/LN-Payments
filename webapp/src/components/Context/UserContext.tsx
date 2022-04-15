@@ -15,7 +15,7 @@ type ContextType = {
   tryRefreshingToken: () => void
 }
 
-const defaultValue: ContextType = {
+export const defaultValue: ContextType = {
   user: undefined,
   setUser: () => {},
   token: undefined,

@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 import { render, RenderOptions } from '@testing-library/react'
@@ -6,6 +6,18 @@ import { Action, BrowserHistory, createBrowserHistory } from 'history'
 
 import i18n from 'i18n'
 import { NotificationProvider } from 'components/Context/NotificationContext'
+import { Role } from '@constants'
+import {
+  UserContext,
+  defaultValue as defaultUserContextValue
+} from 'components/Context/UserContext'
+
+type CustomRenderProps = Partial<{
+  location: string
+  role: Role
+}>
+
+type RenderWrapperProps = Pick<CustomRenderProps, 'role'>
 
 const helpers: { history: BrowserHistory; initialLocation?: string } = {
   history: createBrowserHistory()
@@ -13,25 +25,36 @@ const helpers: { history: BrowserHistory; initialLocation?: string } = {
 
 HTMLCanvasElement.prototype.getContext = () => null
 
-const AllTheProviders: FC = (props) => (
-  <Router
-    navigator={helpers.history}
-    navigationType={Action.Push}
-    location={{ pathname: '/' }}
-  >
-    <NotificationProvider>
-      <I18nextProvider i18n={i18n}>{props.children}</I18nextProvider>
-    </NotificationProvider>
-  </Router>
-)
+const AllTheProviders: React.FC<RenderWrapperProps> = ({ children, role }) => {
+  const user = { email: '', fullName: '', role: role || '' }
+
+  return (
+    <Router
+      navigator={helpers.history}
+      navigationType={Action.Push}
+      location={{ pathname: '/' }}
+    >
+      <UserContext.Provider value={{ ...defaultUserContextValue, user }}>
+        <NotificationProvider>
+          <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+        </NotificationProvider>
+      </UserContext.Provider>
+    </Router>
+  )
+}
 
 const customRender = (
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'> & { location: string }
+  options?: Omit<RenderOptions, 'wrapper'> & CustomRenderProps
 ) => {
   helpers.history = createBrowserHistory()
   helpers.history.push(options?.location || '/')
-  return render(ui, { wrapper: AllTheProviders, ...options })
+  return render(ui, {
+    wrapper: ({ children }) => (
+      <AllTheProviders {...options}>{children}</AllTheProviders>
+    ),
+    ...options
+  })
 }
 
 const currentPath = () => helpers.history.location.pathname

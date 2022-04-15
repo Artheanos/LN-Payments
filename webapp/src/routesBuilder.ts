@@ -11,14 +11,16 @@ export default {
     },
     history: '/panel/history',
     index: '/panel',
+    payments: '/payments',
+    quickBuy: '/panel/quick-buy',
     wallet: {
       index: '/panel/wallet',
       new: '/panel/wallet/new'
-    },
-    quickBuy: '/panel/quick-buy'
+    }
   },
   api: {
     payments: {
+      all: '/api/payments/all',
       ws: () => `ws://${window.location.host}/api/payment`,
       index: '/api/payments',
       info: '/api/payments/info'

@@ -11,6 +11,14 @@ interface TempUserResponse {
   token: string
 }
 
+interface PublicPaymentDetails {
+  email: string
+  numberOfTokens: number
+  paymentStatus: PaymentStatus
+  price: number
+  timestamp: Date
+}
+
 interface PaymentDetails {
   expirationTimestamp: Date
   paymentRequest: string
