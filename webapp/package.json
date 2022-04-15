@@ -11,10 +11,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "jest",
+    "test:unit": "jest",
+    "test:e2e": "yarn setup:frontend & cypress run",
     "lint": "eslint src --max-warnings=0",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "setup:frontend": "yarn dev & wait-on http://localhost:3000"
   },
+
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -72,6 +75,7 @@
     "vite-tsconfig-paths": "^3.3.17"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": false
+    "stepDefinitions": "cypress/integration",
+    "nonGlobalStepDefinitions": true
   }
 }
