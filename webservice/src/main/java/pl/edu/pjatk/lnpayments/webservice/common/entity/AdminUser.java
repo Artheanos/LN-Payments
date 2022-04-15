@@ -4,12 +4,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @NoArgsConstructor
 public class AdminUser extends StandardUser {
 
@@ -18,8 +20,11 @@ public class AdminUser extends StandardUser {
         super(email, fullName, password);
     }
 
-    //TODO replace with real one, when implementing endpoint for uploading keys
-    private String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+    private String publicKey;
+
+    public boolean hasKey() {
+        return publicKey != null;
+    }
 
     @Override
     public Role getRole() {

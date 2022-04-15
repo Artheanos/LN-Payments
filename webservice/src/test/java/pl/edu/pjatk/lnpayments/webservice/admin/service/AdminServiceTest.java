@@ -2,6 +2,7 @@ package pl.edu.pjatk.lnpayments.webservice.admin.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
@@ -19,8 +21,10 @@ import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataExcep
 import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -67,8 +71,8 @@ class AdminServiceTest {
     void shouldReturnAllAdmins() {
         AdminUser firstAdmin = new AdminUser("test1@test.pl", "test1", "pass");
         AdminUser secondAdmin = new AdminUser("test2@test.pl", "test2", "pass");
-        AdminResponse convertedFirst = new AdminResponse("test1@test.pl", "test1");
-        AdminResponse convertedSecond = new AdminResponse("test2@test.pl", "test2");
+        AdminResponse convertedFirst = new AdminResponse("test1@test.pl", "test1", false);
+        AdminResponse convertedSecond = new AdminResponse("test2@test.pl", "test2", false);
         PageImpl<AdminUser> adminEntities = new PageImpl<>(List.of(firstAdmin, secondAdmin));
         PageImpl<AdminResponse> adminDtos = new PageImpl<>(List.of(convertedFirst, convertedSecond));
         when(adminUserRepository.findAll(any(Pageable.class))).thenReturn(adminEntities);
@@ -82,9 +86,12 @@ class AdminServiceTest {
 
     @Test
     void shouldReturnAdminFromEmails() {
+        String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
         List<String> emails = List.of("test1@test.pl", "test2@test.pl");
         AdminUser firstAdmin = new AdminUser(emails.get(0), "test1", "pass");
+        firstAdmin.setPublicKey(publicKey);
         AdminUser secondAdmin = new AdminUser(emails.get(1), "test2", "pass");
+        secondAdmin.setPublicKey(publicKey);
         when(adminUserRepository.findAllByEmailInAndPublicKeyNotNull(emails))
                 .thenReturn(List.of(firstAdmin, secondAdmin));
 
@@ -106,6 +113,46 @@ class AdminServiceTest {
         assertThatExceptionOfType(InconsistentDataException.class)
                 .isThrownBy(() -> adminService.findAllWithKeys(emails))
                 .withMessage("Not all users have uploaded their keys");
+    }
+
+    @Test
+    void shouldUpdateKeyIfUserExistsAndKeyIsNotUploaded() {
+        String email = "test@test.pl";
+        String key = "2137";
+        AdminUser user = new AdminUser(email, "test", "pass");
+        when(adminUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
+
+        adminService.uploadKey(email, key);
+
+        ArgumentCaptor<AdminUser> userCaptor = ArgumentCaptor.forClass(AdminUser.class);
+        verify(adminUserRepository).findByEmail(email);
+        verify(adminUserRepository).save(userCaptor.capture());
+        AdminUser result = userCaptor.getValue();
+        assertThat(result.hasKey()).isTrue();
+        assertThat(result.getPublicKey()).isEqualTo(key);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserNotFound() {
+        String email = "test@test.pl";
+        when(adminUserRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> adminService.uploadKey(email, "1"))
+                .withMessage(email + " not found!");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserAlreadyHasKeys() {
+        String email = "test@test.pl";
+        String key = "2137";
+        AdminUser user = new AdminUser(email, "test", "pass");
+        user.setPublicKey(key);
+        when(adminUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
+
+        assertThatExceptionOfType(ValidationException.class)
+                .isThrownBy(() -> adminService.uploadKey(email, "1"))
+                .withMessage("User has already uploaded his keys!");
     }
 
 }

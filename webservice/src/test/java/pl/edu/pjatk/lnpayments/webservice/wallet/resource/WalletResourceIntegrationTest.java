@@ -66,8 +66,11 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturnCreatedWhenNoIssues() throws Exception {
+        String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
         AdminUser admin1 = UserFactory.createAdminUser("admin1@test.pl");
+        admin1.setPublicKey(publicKey);
         AdminUser admin2 = UserFactory.createAdminUser("admin2@test.pl");
+        admin2.setPublicKey(publicKey);
         List<String> adminEmails = List.of(admin1.getEmail(), admin2.getEmail());
         CreateWalletRequest request = new CreateWalletRequest(1, adminEmails);
         adminUserRepository.save(admin1);

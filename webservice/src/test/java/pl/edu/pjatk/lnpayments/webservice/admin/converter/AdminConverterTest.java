@@ -39,6 +39,7 @@ class AdminConverterTest {
         assertThat(user.getEmail()).isEqualTo("test@test.pl");
         assertThat(user.getPassword()).isEqualTo("encoded_pass");
         assertThat(user.getFullName()).isEqualTo("test");
+        assertThat(user.hasKey()).isFalse();
         assertThat(user.getRole()).isEqualTo(Role.ROLE_ADMIN);
         verify(passwordEncoder).encode(anyString());
     }
