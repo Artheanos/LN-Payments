@@ -93,6 +93,6 @@ export const api = {
       request(routesBuilder.api.admins.index, { data })
   },
   wallet: {
-    getInfo: () => request(routesBuilder.api.wallet.index)
+    getInfo: () => request(routesBuilder.api.wallet.index, { method: 'get' })
   }
 }

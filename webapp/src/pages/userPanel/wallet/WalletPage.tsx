@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Grid, Paper } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
@@ -12,17 +12,33 @@ export const WalletPage: React.FC = () => {
   const notify = useNotification()
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    api.wallet.getInfo().then(({ status }) => {
-      if (status === 400) {
+  const onData = useCallback(
+    (status: number) => {
+      if (status === 404) {
         notify('Redirected to wallet creation form', 'info')
         navigate(routesBuilder.userPanel.wallet.new)
+        return
       }
       if (status === 200) {
         setLoading(false)
+        return
       }
+    },
+    [navigate, notify]
+  )
+
+  useEffect(() => {
+    let isMounted = true
+
+    api.wallet.getInfo().then(({ status }) => {
+      if (!isMounted) return
+
+      onData(status)
     })
-  }, [navigate, notify])
+    return () => {
+      isMounted = false
+    }
+  }, [onData])
 
   if (loading) return <WalletLoadingSkeleton />
 
