@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   AccessTime,
+  AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
   ShoppingCartOutlined
 } from '@mui/icons-material'
@@ -37,15 +38,21 @@ export const Sidebar: React.FC = () => {
           route={routesBuilder.userPanel.history}
         />
         <SidebarEntry
-          title="Logout"
-          icon={<MeetingRoomOutlined />}
-          route={routesBuilder.logout}
+          title="Wallet"
+          icon={<AccountBalanceWalletOutlined />}
+          route={routesBuilder.userPanel.wallet.index}
+          adminOnly
         />
         <SidebarEntry
           title="Admin Management"
           icon="AM"
-          route={routesBuilder.adminPanel.admins.index}
+          route={routesBuilder.userPanel.admins.index}
           adminOnly
+        />
+        <SidebarEntry
+          title="Logout"
+          icon={<MeetingRoomOutlined />}
+          route={routesBuilder.logout}
         />
       </List>
     </Drawer>

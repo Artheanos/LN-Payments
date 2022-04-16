@@ -2,9 +2,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import routesBuilder from 'routesBuilder'
-import { AdminCreatePage } from 'pages/adminManagement/AdminCreatePage'
+import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage'
 import { AdminLayout } from './Layouts/AdminLayout'
-import { AdminManagementPage } from 'pages/adminManagement/AdminManagementPage'
+import { AdminManagementPage } from 'pages/userPanel/adminManagement/AdminManagementPage'
 import { Error404Page } from 'pages/errors/Error404Page'
 import { History } from './History/History'
 import { LandingPage } from 'pages/LandingPage'
@@ -17,6 +17,8 @@ import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
 import { UserLayout } from './Layouts/UserLayout'
 import { UserProvider } from './Context/UserContext'
+import { WalletPage } from '../pages/userPanel/wallet/WalletPage'
+import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
 
 const theme = createTheme({
   palette: {
@@ -58,24 +60,32 @@ const App = () => (
 
               <Route
                 element={<AdminLayout />}
-                path={routesBuilder.adminPanel.index}
+                path={routesBuilder.userPanel.index}
               >
                 <Route
-                  path={routesBuilder.adminPanel.history}
+                  path={routesBuilder.userPanel.history}
                   element={<History />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.admins.index}
+                  path={routesBuilder.userPanel.admins.index}
                   element={<AdminManagementPage />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.admins.create}
+                  path={routesBuilder.userPanel.admins.create}
                   element={<AdminCreatePage />}
                 />
                 <Route
-                  path={routesBuilder.adminPanel.index}
+                  path={routesBuilder.userPanel.wallet.index}
+                  element={<WalletPage />}
+                />
+                <Route
+                  path={routesBuilder.userPanel.wallet.new}
+                  element={<WalletCreatePage />}
+                />
+                <Route
+                  path={routesBuilder.userPanel.index}
                   element={
-                    <Navigate replace to={routesBuilder.adminPanel.history} />
+                    <Navigate replace to={routesBuilder.userPanel.history} />
                   }
                 />
               </Route>

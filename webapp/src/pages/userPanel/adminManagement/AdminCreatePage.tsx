@@ -32,7 +32,7 @@ export const AdminCreatePage: React.FC = () => {
       const { status } = await api.admins.createAdmin(form)
       if (status === 201) {
         notification('New admin has been created', 'success')
-        navigate(routesBuilder.adminPanel.admins.index)
+        navigate(routesBuilder.userPanel.admins.index)
       } else if (status === 409) {
         setFieldError('email', t('register.api.errors.409'))
       }
