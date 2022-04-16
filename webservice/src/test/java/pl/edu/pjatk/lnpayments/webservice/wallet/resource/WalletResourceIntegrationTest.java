@@ -60,8 +60,8 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @AfterEach
     void tearDown() {
-        walletRepository.deleteAll();
         adminUserRepository.deleteAll();
+        walletRepository.deleteAll();
     }
 
     @Test

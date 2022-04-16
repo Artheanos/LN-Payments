@@ -71,8 +71,8 @@ class AdminServiceTest {
     void shouldReturnAllAdmins() {
         AdminUser firstAdmin = new AdminUser("test1@test.pl", "test1", "pass");
         AdminUser secondAdmin = new AdminUser("test2@test.pl", "test2", "pass");
-        AdminResponse convertedFirst = new AdminResponse("test1@test.pl", "test1", false);
-        AdminResponse convertedSecond = new AdminResponse("test2@test.pl", "test2", false);
+        AdminResponse convertedFirst = new AdminResponse("test1@test.pl", "test1", false, false);
+        AdminResponse convertedSecond = new AdminResponse("test2@test.pl", "test2", false, false);
         PageImpl<AdminUser> adminEntities = new PageImpl<>(List.of(firstAdmin, secondAdmin));
         PageImpl<AdminResponse> adminDtos = new PageImpl<>(List.of(convertedFirst, convertedSecond));
         when(adminUserRepository.findAll(any(Pageable.class))).thenReturn(adminEntities);

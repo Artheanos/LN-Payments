@@ -49,6 +49,11 @@ interface User {
   role: string
 }
 
+interface AdminUser extends User {
+  hasKey: boolean
+  isAssignedToWallet: boolean
+}
+
 interface LoginForm {
   email: string
   password: string

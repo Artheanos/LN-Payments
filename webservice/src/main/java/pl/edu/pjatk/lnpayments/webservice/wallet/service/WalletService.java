@@ -51,6 +51,7 @@ public class WalletService {
         }
         List<AdminUser> adminUsers = adminService.findAllWithKeys(adminEmails);
         Wallet wallet = bitcoinService.createWallet(adminUsers, minSignatures);
+        adminUsers.forEach(user -> user.setWallet(wallet));
         walletRepository.save(wallet);
     }
 
