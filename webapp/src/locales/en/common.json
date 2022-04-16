@@ -62,5 +62,9 @@
     "tokens": "Tokens",
     "none": "none",
     "show": "Show"
+  },
+  "adminManagement": {
+    "hasKey": "Has public key?",
+    "isAssignedToWallet": "Is assigned to a wallet?"
   }
 }

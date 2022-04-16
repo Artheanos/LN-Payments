@@ -28,8 +28,8 @@ export const AdminManagementPage: React.FC = () => {
           headers={[
             t('email'),
             t('name'),
-            'Has public key?',
-            'Is assigned to a wallet?',
+            t('adminManagement.hasKey'),
+            t('adminManagement.isAssignedToWallet'),
             ''
           ]}
         />
