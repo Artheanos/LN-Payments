@@ -1,0 +1,11 @@
+== Testy
+
+=== Serwer
+
+=== Aplikacja webowa
+
+"ciężko stwierdzić granicę pomiędzy testami jednostkowymi a integracyjnymi"
+
+=== Aplikacja mobilna
+
+=== Testy E2E
