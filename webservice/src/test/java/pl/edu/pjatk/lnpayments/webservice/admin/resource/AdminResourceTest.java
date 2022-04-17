@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +42,16 @@ class AdminResourceTest {
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(adminService).findAllAdmins(Pageable.unpaged());
+    }
+
+    @Test
+    void shouldReturnOkForUploadKeys() {
+        KeyUploadRequest uploadRequest = new KeyUploadRequest("2137");
+
+        ResponseEntity<?> response = adminResource.uploadPublicKey(uploadRequest, () -> "email");
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(adminService).uploadKey("email", "2137");
     }
 
 }

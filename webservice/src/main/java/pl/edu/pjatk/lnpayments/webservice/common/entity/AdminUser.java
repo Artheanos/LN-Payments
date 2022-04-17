@@ -4,12 +4,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@DynamicUpdate
 @NoArgsConstructor
 public class AdminUser extends StandardUser {
 
@@ -18,8 +21,19 @@ public class AdminUser extends StandardUser {
         super(email, fullName, password);
     }
 
-    //TODO replace with real one, when implementing endpoint for uploading keys
-    private String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+    private String publicKey;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wallet_id")
+    private Wallet wallet;
+
+    public boolean hasKey() {
+        return publicKey != null;
+    }
+
+    public boolean isAssignedToWallet() {
+        return wallet != null;
+    }
 
     @Override
     public Role getRole() {

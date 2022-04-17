@@ -2,14 +2,18 @@ package pl.edu.pjatk.lnpayments.webservice.admin.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
@@ -17,9 +21,11 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
 
+import java.security.Principal;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,9 +43,13 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @MockBean
+    private Principal principal;
+
     @AfterEach
     void tearDown() {
         userRepository.deleteAll();
+        adminUserRepository.deleteAll();
     }
 
     @Test
@@ -93,4 +103,81 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
+
+    @Nested
+    class UploadKeyTest {
+
+        private static final String EMAIL = "test1@test.pl";
+
+        @BeforeEach
+        void setUp() {
+            when(principal.getName()).thenReturn(EMAIL);
+        }
+
+        @Test
+        void shouldReturn200WhenValidKeyUploadPerformed() throws Exception {
+            String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+            AdminUser admin = AdminUser.adminBuilder().email(EMAIL).build();
+            adminUserRepository.save(admin);
+            KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
+
+            mockMvc.perform(patch("/admins/keys")
+                            .principal(principal)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
+                    .andExpect(status().isOk());
+            assertThat(adminUserRepository.findByEmail(EMAIL).orElseThrow().getPublicKey()).isEqualTo(publicKey);
+        }
+
+        @Test
+        void shouldReturn400WhenInvalidKeyProvided() throws Exception {
+            String publicKey = "2137";
+            KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
+
+            mockMvc.perform(patch("/admins/keys")
+                            .principal(principal)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void shouldReturn400WhenKeyNotProvided() throws Exception {
+            KeyUploadRequest keyUploadRequest = new KeyUploadRequest(null);
+
+            mockMvc.perform(patch("/admins/keys")
+                            .principal(principal)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
+                    .andExpect(status().isBadRequest());
+        }
+
+        @Test
+        void shouldReturn409WhenUserAlreadyHasKey() throws Exception {
+            String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+            AdminUser admin = AdminUser.adminBuilder().email(EMAIL).build();
+            admin.setPublicKey(publicKey);
+            adminUserRepository.save(admin);
+            KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
+
+            mockMvc.perform(patch("/admins/keys")
+                            .principal(principal)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
+                    .andExpect(status().isConflict());
+        }
+
+        @Test
+        void shouldReturn404WhenUserDoesNotExist() throws Exception {
+            String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
+            KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
+
+            mockMvc.perform(patch("/admins/keys")
+                            .principal(principal)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
+                    .andExpect(status().isNotFound());
+        }
+    }
+
 }
