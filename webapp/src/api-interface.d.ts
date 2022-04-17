@@ -96,3 +96,28 @@ interface PageRequest {
   page: number
   size: number
 }
+
+interface WalletInfo {
+  address: string
+  admins: AdminUser[]
+  channelsBalance: ChannelsBalance
+  lightningWalletBalance: LightningWalletBalance
+  bitcoinWalletBalance: BitcoinWalletBalance
+}
+
+interface ChannelsBalance {
+  totalBalance: number
+  openedChannels: number
+  autoChannelCloseLimit: number
+}
+
+interface LightningWalletBalance {
+  availableBalance: number
+  unconfirmedBalance: number
+  autoTransferLimit: number
+}
+
+interface BitcoinWalletBalance {
+  availableBalance: number
+  unconfirmedBalance: number
+}

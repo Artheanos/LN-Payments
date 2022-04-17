@@ -8,7 +8,15 @@ describe('WalletPage', () => {
   let responseStatus: number
   const server = setupServer(
     rest.get('/api/wallet', (_, res, ctx) => {
-      return res(ctx.status(responseStatus))
+      return res(
+        ctx.status(responseStatus),
+        ctx.json({
+          bitcoinWalletBalance: {
+            availableBalance: 21,
+            unconfirmedBalance: 37
+          }
+        })
+      )
     })
   )
 
@@ -23,7 +31,9 @@ describe('WalletPage', () => {
 
     it('displays wallet info', async () => {
       await waitFor(() => {
-        expect(screen.getByText('3 / 10')).toBeInTheDocument()
+        expect(screen.getByText('Bitcoin Wallet')).toBeInTheDocument()
+        expect(screen.getByText('21 sats')).toBeInTheDocument()
+        expect(screen.getByText('37 sats unconfirmed')).toBeInTheDocument()
       })
     })
   })
