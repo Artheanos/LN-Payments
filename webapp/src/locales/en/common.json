@@ -66,5 +66,16 @@
   "adminManagement": {
     "hasKey": "Has public key?",
     "isAssignedToWallet": "Is assigned to a wallet?"
+  },
+  "wallet": {
+    "bitcoinWallet": {
+      "header": "Bitcoin Wallet",
+      "unconfirmed": " unconfirmed"
+    },
+    "channelsBalance": {
+      "header": "Channels Balance",
+      "openChannels": " open channels",
+      "tooltipContent": "Progress to automatic channel close."
+    }
   }
 }

@@ -16,8 +16,10 @@ export const Navbar: React.FC = () => {
     <AppBar
       position="fixed"
       className="pl-5"
-      color="secondary"
-      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      sx={{
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        bgcolor: 'white'
+      }}
     >
       <Toolbar className="gap-5">
         <Link
