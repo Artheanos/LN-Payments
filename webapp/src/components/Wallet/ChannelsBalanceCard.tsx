@@ -1,8 +1,7 @@
 import React from 'react'
 import { WalletCard } from './WalletCard'
-import { Box, LinearProgress, Tooltip } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import {BalanceProgressBar} from "./BalanceProgressBar";
+import { BalanceProgressBar } from './BalanceProgressBar'
 
 export const ChannelsBalanceCard: React.FC<ChannelsBalance> = ({
   totalBalance,
