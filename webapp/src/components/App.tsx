@@ -6,12 +6,13 @@ import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage
 import { AdminLayout } from './Layouts/AdminLayout'
 import { AdminManagementPage } from 'pages/userPanel/adminManagement/AdminManagementPage'
 import { Error404Page } from 'pages/errors/Error404Page'
-import { History } from './History/History'
+import { HistoryPage } from '../pages/userPanel/HistoryPage'
 import { LandingPage } from 'pages/LandingPage'
 import { LoginPage } from 'pages/auth/LoginPage'
 import { LogoutPage } from 'pages/auth/LogoutPage'
 import { NavbarLayout } from 'components/Layouts/NavbarLayout'
 import { NotificationProvider } from './Context/NotificationContext'
+import { PaymentsPage } from '../pages/userPanel/PaymentsPage'
 import { PublicLayout } from './Layouts/PublicLayout'
 import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
@@ -48,7 +49,7 @@ const App = () => (
                 />
                 <Route
                   path={routesBuilder.userPanel.history}
-                  element={<History />}
+                  element={<HistoryPage />}
                 />
                 <Route
                   path={routesBuilder.userPanel.index}
@@ -62,10 +63,6 @@ const App = () => (
                 element={<AdminLayout />}
                 path={routesBuilder.userPanel.index}
               >
-                <Route
-                  path={routesBuilder.userPanel.history}
-                  element={<History />}
-                />
                 <Route
                   path={routesBuilder.userPanel.admins.index}
                   element={<AdminManagementPage />}
@@ -87,6 +84,10 @@ const App = () => (
                   element={
                     <Navigate replace to={routesBuilder.userPanel.history} />
                   }
+                />
+                <Route
+                  path={routesBuilder.userPanel.payments}
+                  element={<PaymentsPage />}
                 />
               </Route>
 

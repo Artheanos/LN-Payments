@@ -3,7 +3,8 @@ import {
   AccessTime,
   AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
-  ShoppingCartOutlined
+  ShoppingCartOutlined,
+  PaidOutlined
 } from '@mui/icons-material'
 import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
@@ -47,6 +48,12 @@ export const Sidebar: React.FC = () => {
           title="Admin Management"
           icon="AM"
           route={routesBuilder.userPanel.admins.index}
+          adminOnly
+        />
+        <SidebarEntry
+          title="Payments"
+          icon={<PaidOutlined />}
+          route={routesBuilder.userPanel.payments}
           adminOnly
         />
         <SidebarEntry

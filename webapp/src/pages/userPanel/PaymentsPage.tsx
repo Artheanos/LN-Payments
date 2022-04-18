@@ -1,13 +1,13 @@
 import React from 'react'
 
 import Panel from 'components/common/Panel'
-import { History } from 'components/History'
+import { HistoryAll } from 'components/History'
 
-export const HistoryPage: React.FC = () => (
+export const PaymentsPage: React.FC = () => (
   <Panel.Container>
-    <Panel.Header title="History" />
+    <Panel.Header title="Payments" />
     <Panel.Body table>
-      <History />
+      <HistoryAll />
     </Panel.Body>
   </Panel.Container>
 )
