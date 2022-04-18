@@ -1,17 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Box, Grid } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
+import routesBuilder from 'routesBuilder'
+import { ActionsCard } from 'components/wallet/ActionsCard'
+import { BitcoinWalletCard } from 'components/wallet/BitcoinWalletCard'
+import { ChannelsBalanceCard } from 'components/wallet/ChannelsBalanceCard'
+import { LightningWalletCard } from 'components/wallet/LightningWalletCard'
+import { WalletCard } from 'components/wallet/WalletCard'
+import { WalletLoadingSkeleton } from 'components/wallet/WalletLoadingSkeleton'
 import { api } from 'api'
 import { useNotification } from 'components/Context/NotificationContext'
-import { WalletLoadingSkeleton } from './WalletLoadingSkeleton'
-import routesBuilder from 'routesBuilder'
-import { WalletCard } from 'components/Wallet/WalletCard'
-import { BitcoinWalletCard } from 'components/Wallet/BitcoinWalletCard'
-import { ChannelsBalanceCard } from 'components/Wallet/ChannelsBalanceCard'
-import { LightningWalletCard } from 'components/Wallet/LightningWalletCard'
-import { ActionsCard } from 'components/Wallet/ActionsCard'
-import { useTranslation } from 'react-i18next'
 
 export const WalletPage: React.FC = () => {
   const { t } = useTranslation('common')

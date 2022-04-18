@@ -1,5 +1,5 @@
 import { render, screen } from 'tests/test-utils'
-import { LightningWalletCard } from 'components/Wallet/LightningWalletCard'
+import { LightningWalletCard } from 'components/wallet/LightningWalletCard'
 
 describe('LightningWalletCard', () => {
   it('should render', () => {

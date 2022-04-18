@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler } from 'react'
-import { FieldProps, FormikValues, useFormikContext } from 'formik'
+import { FieldProps, useFormikContext } from 'formik'
 import { TextField, TextFieldProps } from '@mui/material'
 
-type Props = FieldProps & TextFieldProps & FormikValues
+type Props = FieldProps & TextFieldProps
 
 export const TextInput: React.FC<Props> = ({
   field,

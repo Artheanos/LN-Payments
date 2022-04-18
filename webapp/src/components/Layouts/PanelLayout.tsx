@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 import { Sidebar } from '../common/Sidebar'
 
 export const PanelLayout = () => (
-  <Box className="flex p-8">
+  <Box className="flex p-8 text-center">
     <Sidebar />
     <Container>
       <Outlet />

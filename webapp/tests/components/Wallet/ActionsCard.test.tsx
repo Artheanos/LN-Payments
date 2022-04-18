@@ -3,7 +3,7 @@ import { rest } from 'msw'
 import routesBuilder from 'routesBuilder'
 import { waitFor } from '@testing-library/react'
 import { render, screen } from 'tests/test-utils'
-import { ActionsCard } from 'components/Wallet/ActionsCard'
+import { ActionsCard } from 'components/wallet/ActionsCard'
 
 describe('ActionsCard', () => {
   let statusCode = 200
