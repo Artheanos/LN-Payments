@@ -8,7 +8,7 @@ type Props = {
 export const WalletCard: React.FC<Props> = ({ standardSize, children }) => {
   return (
     <Grid md={standardSize} xs={12} item>
-      <Paper className="flex !flex-col justify-around py-12 px-5 space-y-12">
+      <Paper className="flex !flex-col justify-around py-10 px-5 space-y-10 h-full">
         {children}
       </Paper>
     </Grid>

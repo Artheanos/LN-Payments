@@ -14,6 +14,11 @@ describe('WalletPage', () => {
           bitcoinWalletBalance: {
             availableBalance: 21,
             unconfirmedBalance: 37
+          },
+          channelsBalance: {
+            totalBalance: 123,
+            openedChannels: 8,
+            autoChannelCloseLimit: 789
           }
         })
       )
@@ -34,6 +39,9 @@ describe('WalletPage', () => {
         expect(screen.getByText('Bitcoin Wallet')).toBeInTheDocument()
         expect(screen.getByText('21 sats')).toBeInTheDocument()
         expect(screen.getByText('37 sats unconfirmed')).toBeInTheDocument()
+        expect(screen.getByText('Channels Balance')).toBeInTheDocument()
+        expect(screen.getByText('8 open channels')).toBeInTheDocument()
+        expect(screen.getByText('789')).toBeInTheDocument()
       })
     })
   })
