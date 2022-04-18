@@ -19,6 +19,11 @@ describe('WalletPage', () => {
             totalBalance: 123,
             openedChannels: 8,
             autoChannelCloseLimit: 789
+          },
+          lightningWalletBalance: {
+            availableBalance: 147,
+            autoTransferLimit: 369,
+            unconfirmedBalance: 40
           }
         })
       )
@@ -42,6 +47,10 @@ describe('WalletPage', () => {
         expect(screen.getByText('Channels Balance')).toBeInTheDocument()
         expect(screen.getByText('8 open channels')).toBeInTheDocument()
         expect(screen.getByText('789')).toBeInTheDocument()
+        expect(screen.getByText('Lightning Wallet')).toBeInTheDocument()
+        expect(screen.getByText('147 sats')).toBeInTheDocument()
+        expect(screen.getByText('40 sats unconfirmed')).toBeInTheDocument()
+        expect(screen.getByText('369')).toBeInTheDocument()
       })
     })
   })
