@@ -8,7 +8,7 @@ import { WalletLoadingSkeleton } from './WalletLoadingSkeleton'
 import routesBuilder from 'routesBuilder'
 import { WalletCard } from 'components/Wallet/WalletCard'
 import { BitcoinWalletCard } from 'components/Wallet/BitcoinWalletCard'
-import {ChannelsBalanceCard} from "../../../components/Wallet/ChannelsBalanceCard";
+import { ChannelsBalanceCard } from 'components/Wallet/ChannelsBalanceCard'
 
 export const WalletPage: React.FC = () => {
   const navigate = useNavigate()
