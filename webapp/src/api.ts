@@ -95,6 +95,7 @@ export const api = {
       request(routesBuilder.api.admins.index, { data })
   },
   wallet: {
-    getInfo: () => request(routesBuilder.api.wallet.index, { method: 'get' })
+    getInfo: (): Promise<Response<WalletInfo>> =>
+      request(routesBuilder.api.wallet.index, { method: 'get' })
   }
 }
