@@ -8,4 +8,24 @@ include::chapters/01-wstep.adoc[]
 
 include::chapters/02-omowienie-problemu.adoc[]
 
+include::chapters/03-wizja.adoc[]
+
+include::chapters/04-plan.adoc[]
+
+include::chapters/05-analiza.adoc[]
+
+include::chapters/06-proces-realizacji.adoc[]
+
+include::chapters/07-opis-rozwiazania.adoc[]
+
+include::chapters/08-testy.adoc[]
+
+include::chapters/09-podsumowanie-realizacji.adoc[]
+
+include::chapters/10-wklad-wlasny.adoc[]
+
+include::chapters/11-dalsze-plany-rozwoju.adoc[]
+
 include::chapters/bibliografia.adoc[]
+
+include::chapters/zalaczniki.adoc[]
