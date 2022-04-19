@@ -1,7 +1,6 @@
 import React from 'react'
-import { WalletCard } from './WalletCard'
 import { useTranslation } from 'react-i18next'
-import { BalanceProgressBar } from './BalanceProgressBar'
+import { ProgressCard } from './ProgressCard'
 
 export const ChannelsBalanceCard: React.FC<ChannelsBalance> = ({
   totalBalance,
@@ -11,22 +10,14 @@ export const ChannelsBalanceCard: React.FC<ChannelsBalance> = ({
   const { t } = useTranslation('common')
 
   return (
-    <WalletCard standardSize={4}>
-      <span className="text-xl font-bold">
-        {t('wallet.channelsBalance.header')}
-      </span>
-      <span className="text-3xl font-extrabold text-pink-600">
-        {totalBalance.toLocaleString() + ' sats'}
-      </span>
-      <BalanceProgressBar
-        tooltipContent={t('wallet.channelsBalance.tooltipContent')}
-        maxValue={autoChannelCloseLimit}
-        color="secondary"
-        balance={totalBalance}
-      />
-      <span className="text-slate-500">
-        {openedChannels + t('wallet.channelsBalance.openChannels')}
-      </span>
-    </WalletCard>
+    <ProgressCard
+      headerText={t('wallet.channelsBalance.header')}
+      value={totalBalance}
+      maxValue={autoChannelCloseLimit}
+      tooltipContent={t('wallet.channelsBalance.tooltipContent')}
+      bottomText={openedChannels + t('wallet.channelsBalance.openChannels')}
+      unit="sats"
+      color="secondary"
+    />
   )
 }
