@@ -20,7 +20,7 @@ export const BitcoinWalletCard: React.FC<BitcoinWalletBalance> = ({
       <span className="text-slate-500">
         {unconfirmedBalance.toLocaleString() +
           ' sats' +
-          t('wallet.bitcoinWallet.unconfirmed')}
+          t('wallet.unconfirmed')}
       </span>
     </WalletCard>
   )

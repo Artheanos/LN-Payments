@@ -68,14 +68,18 @@
     "isAssignedToWallet": "Is assigned to a wallet?"
   },
   "wallet": {
+    "unconfirmed": " unconfirmed",
     "bitcoinWallet": {
-      "header": "Bitcoin Wallet",
-      "unconfirmed": " unconfirmed"
+      "header": "Bitcoin Wallet"
     },
     "channelsBalance": {
       "header": "Channels Balance",
       "openChannels": " open channels",
       "tooltipContent": "Progress to automatic channel close."
+    },
+    "lightningWallet": {
+      "header": "Lightning Wallet",
+      "tooltipContent": "Progress to automatic funds transfer."
     }
   }
 }
