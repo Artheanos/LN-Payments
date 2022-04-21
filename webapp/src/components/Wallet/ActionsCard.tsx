@@ -3,6 +3,7 @@ import { WalletCard } from './WalletCard'
 import { ActionButton } from './ActionButton'
 import { api } from 'api'
 import { useNotification } from '../Context/NotificationContext'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   lightningWalletBalance: number
@@ -13,14 +14,15 @@ export const ActionsCard: React.FC<Props> = ({
   lightningWalletBalance,
   channelsBalance
 }) => {
+  const { t } = useTranslation('common')
   const notify = useNotification()
 
   const closeChannels = (withForce = false) => {
     api.wallet.closeChannels(withForce).then(({ status }) => {
       if (status === 200) {
-        notify('Closing channels...', 'success')
+        notify(t('wallet.actions.closeChannels.success'), 'success')
       } else {
-        notify('Error while closing channels.', 'error')
+        notify(t('wallet.actions.closeChannels.failure'), 'error')
       }
     })
   }
@@ -28,9 +30,9 @@ export const ActionsCard: React.FC<Props> = ({
   const transfer = () => {
     api.wallet.transfer().then(({ status }) => {
       if (status === 200) {
-        notify('Transferring funds to BTC wallet...', 'success')
+        notify(t('wallet.actions.transfer.success'), 'success')
       } else {
-        notify('Error while transferring funds.', 'error')
+        notify(t('wallet.actions.transfer.failure'), 'error')
       }
     })
   }
@@ -38,18 +40,18 @@ export const ActionsCard: React.FC<Props> = ({
   return (
     <WalletCard standardSize={3}>
       <ActionButton
-        text="Close Channels"
+        text={t('wallet.actions.closeChannels.text')}
         action={() => closeChannels()}
         disabled={channelsBalance === 0}
       />
       <ActionButton
-        text="Force Close Channels"
+        text={t('wallet.actions.closeChannels.textWithForce')}
         action={() => closeChannels(true)}
-        modalMessage="Are you sure you want to close with force? It will lock you funds for around a week."
+        modalMessage={t('wallet.actions.closeChannels.forceConfirmationText')}
         disabled={channelsBalance === 0}
       />
       <ActionButton
-        text="Transfer Between Wallets"
+        text={t('wallet.actions.transfer.text')}
         action={() => transfer()}
         disabled={lightningWalletBalance === 0}
       />

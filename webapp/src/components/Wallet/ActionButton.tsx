@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { ConfirmationModal } from '../Modals/ConfirmationModal'
+import {useTranslation} from "react-i18next";
 
 type Props = {
   text: string
@@ -15,6 +16,7 @@ export const ActionButton: React.FC<Props> = ({
   modalMessage,
   disabled
 }) => {
+  const { t } = useTranslation('common')
   const [openModal, setOpenModal] = useState(false)
 
   return (
@@ -32,7 +34,7 @@ export const ActionButton: React.FC<Props> = ({
       </Button>
       {modalMessage && (
         <ConfirmationModal
-          confirmButtonContent="Yes"
+          confirmButtonContent={t('wallet.actions.yes')}
           message={modalMessage}
           onConfirm={action}
           open={openModal}

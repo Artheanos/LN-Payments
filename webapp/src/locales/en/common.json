@@ -68,6 +68,7 @@
     "isAssignedToWallet": "Is assigned to a wallet?"
   },
   "wallet": {
+    "title": "Wallet",
     "unconfirmed": " unconfirmed",
     "bitcoinWallet": {
       "header": "Bitcoin Wallet"
@@ -80,6 +81,21 @@
     "lightningWallet": {
       "header": "Lightning Wallet",
       "tooltipContent": "Progress to automatic funds transfer."
+    },
+    "actions": {
+      "yes": "Yes",
+      "closeChannels": {
+        "text": "Close Channels",
+        "textWithForce": "Force Close Channels",
+        "forceConfirmationText": "Are you sure you want to close with force? It will lock you funds for around a week.",
+        "success": "Closing channels...",
+        "failure": "Error while closing channels."
+      },
+      "transfer": {
+        "text": "Transfer Between Wallets",
+        "success": "Transferring funds to BTC wallet...",
+        "failure": "Error while transferring funds."
+      }
     }
   }
 }

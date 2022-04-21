@@ -11,9 +11,10 @@ import { BitcoinWalletCard } from 'components/Wallet/BitcoinWalletCard'
 import { ChannelsBalanceCard } from 'components/Wallet/ChannelsBalanceCard'
 import { LightningWalletCard } from 'components/Wallet/LightningWalletCard'
 import { ActionsCard } from 'components/Wallet/ActionsCard'
-import Panel from '../../../components/common/Panel'
+import { useTranslation } from 'react-i18next'
 
 export const WalletPage: React.FC = () => {
+  const { t } = useTranslation('common')
   const navigate = useNavigate()
   const notify = useNotification()
   const [loading, setLoading] = useState(true)
@@ -54,7 +55,7 @@ export const WalletPage: React.FC = () => {
     <Grid className="text-center" container spacing={3}>
       <WalletCard standardSize={12}>
         <Box className="flex justify-between items-baseline">
-          <span className="text-2xl font-bold">Wallet</span>
+          <span className="text-2xl font-bold">{t('wallet.title')}</span>
           <span>{walletInfo!.address}</span>
         </Box>
       </WalletCard>
