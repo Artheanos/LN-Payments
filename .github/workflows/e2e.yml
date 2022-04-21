@@ -23,7 +23,7 @@ jobs:
           node-version: '16'
           cache: 'yarn'
           cache-dependency-path: webapp/yarn.lock
-       name: Set up JDK
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           java-version: '17'
