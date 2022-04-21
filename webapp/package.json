@@ -12,10 +12,13 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test:unit": "jest",
-    "test:e2e": "yarn setup:frontend & cypress run",
+    "test:e2e": "setup:docker:regtest && setup:backend && setup:backend && cypress run && setup:clean",
     "lint": "eslint src --max-warnings=0",
     "cypress": "cypress open",
-    "setup:frontend": "yarn dev & wait-on http://localhost:3000"
+    "setup:frontend": "yarn dev & wait-on http://localhost:3000",
+    "setup:backend": "mvn spring-boot:run -f ../webservice/pom.xml & wait-on http://localhost:8080",
+    "setup:docker:regtest": "docker-compose -f devtools/docker/docker-compose.yaml -f devtools/docker/docker-compose-regtest.yaml up",
+    "setup:clean": "killall java && killall node && docker-compose down -v"
   },
 
   "dependencies": {

@@ -1,0 +1,37 @@
+name: E2E tests
+
+on:
+  push:
+  pull_request:
+    paths:
+      - 'webapp/**'
+      - 'webservice/**'
+
+defaults:
+  run:
+    working-directory: webapp
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+          cache-dependency-path: webapp/yarn.lock
+       name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Install node dependencies
+        run: yarn
+      - name: Install java dependencies
+        run: mvn install -f ../webservice/pom.xml
+      - name: Tests
+        run: yarn test:e2e
