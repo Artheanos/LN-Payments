@@ -30,7 +30,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Install node dependencies
-        run: yarn
+        run: yarn install
       - name: Install java dependencies
         run: mvn install -f ../webservice/pom.xml
       - name: Tests
