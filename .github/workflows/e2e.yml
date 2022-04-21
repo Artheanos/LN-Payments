@@ -17,21 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          cache: 'yarn'
-          cache-dependency-path: webapp/yarn.lock
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          java-version: '17'
-          distribution: 'adopt'
 
-      - name: Install node dependencies
-        run: yarn install
-      - name: Install java dependencies
-        run: mvn install -f ../webservice/pom.xml
-      - name: Tests
-        run: yarn test:e2e
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          start: yarn setup:docker:regtest, yarn setup:backend, yarn dev
+          wait-on: http://localhost:8080, http://localhost:3000
