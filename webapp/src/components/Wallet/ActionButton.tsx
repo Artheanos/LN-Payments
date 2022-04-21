@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { ConfirmationModal } from '../Modals/ConfirmationModal'
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
 type Props = {
   text: string
