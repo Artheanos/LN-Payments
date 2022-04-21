@@ -39,5 +39,5 @@ jobs:
         with:
           working-directory: webapp
           install: false
-          start: yarn setup:docker:regtest, yarn setup:backend, yarn dev
+          start: yarn setup:backend, yarn dev
           wait-on: http://localhost:8080, http://localhost:3000
