@@ -17,7 +17,7 @@
     "cypress": "cypress open",
     "setup:backend": "yarn setup:docker:regtest && mvn spring-boot:run -f ../webservice/pom.xml",
     "setup:docker:regtest": "docker-compose -f ../devtools/docker/docker-compose.yaml -f ../devtools/docker/docker-compose-regtest.yaml up -d && yarn setup:lnd",
-    "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert . && docker cp lnd:/root/.lnd/admin.macaroon ."
+    "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert ../webservice && docker cp lnd:/root/.lnd/admin.macaroon ../webservice"
   },
 
   "dependencies": {
