@@ -16,7 +16,7 @@
     "lint": "eslint src --max-warnings=0",
     "cypress": "cypress open",
     "setup:backend": "mvn spring-boot:run -f ../webservice/pom.xml",
-    "setup:docker:regtest": "docker-compose -f ../devtools/docker/docker-compose.yaml -f ../devtools/docker/docker-compose-regtest.yaml up -d",
+    "setup:docker:regtest": "docker-compose -f ../devtools/docker/docker-compose.yaml -f ../devtools/docker/docker-compose-regtest.yaml up -d"
   },
 
   "dependencies": {
