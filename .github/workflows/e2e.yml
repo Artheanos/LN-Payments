@@ -47,4 +47,4 @@ jobs:
           working-directory: webapp
           install: false
           start: yarn setup:backend, yarn dev
-          wait-on: http://localhost:8080, http://localhost:3000
+          wait-on: http://localhost:8080/api/payments/info, http://localhost:3000
