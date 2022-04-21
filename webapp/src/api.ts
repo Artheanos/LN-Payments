@@ -104,6 +104,14 @@ export const api = {
   },
   wallet: {
     getInfo: (): Promise<Response<WalletInfo>> =>
-      request(routesBuilder.api.wallet.index, { method: 'get' })
+      request(routesBuilder.api.wallet.index, { method: 'get' }),
+
+    closeChannels: (withForce: boolean): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.closeChannels, {
+        params: { withForce: withForce }
+      }),
+
+    transfer: (): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.transfer)
   }
 }
