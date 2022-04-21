@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Button, Grid, Paper } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { Box, Grid } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 import { api } from 'api'
 import { useNotification } from 'components/Context/NotificationContext'
