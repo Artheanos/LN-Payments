@@ -21,5 +21,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          install-command: yarn install
           start: yarn setup:docker:regtest, yarn setup:backend, yarn dev
           wait-on: http://localhost:8080, http://localhost:3000
