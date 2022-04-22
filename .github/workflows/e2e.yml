@@ -2,6 +2,7 @@ name: E2E tests
 
 on:
   push:
+    branches: [ dev ]
   pull_request:
     paths:
       - 'webapp/**'
