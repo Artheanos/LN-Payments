@@ -27,7 +27,7 @@ import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.ChannelsBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.LightningWalletBalance;
-import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetails;
 
 import javax.validation.ValidationException;
 import java.util.Collections;
@@ -148,7 +148,7 @@ class WalletServiceTest {
         when(bitcoinService.getBalance()).thenReturn(bitcoinWalletBalance);
         when(channelService.getChannelsBalance()).thenReturn(channelsBalance);
 
-        WalletDetailsResponse details = walletService.getDetails();
+        WalletDetails details = walletService.getDetails();
 
         assertThat(details.getAddress()).isEqualTo("2137");
         assertThat(details.getChannelsBalance()).isEqualTo(channelsBalance);
