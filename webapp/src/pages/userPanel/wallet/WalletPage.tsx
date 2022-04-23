@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { api } from 'api'
@@ -10,8 +10,11 @@ import { WalletCard } from 'components/Wallet/WalletCard'
 import { BitcoinWalletCard } from 'components/Wallet/BitcoinWalletCard'
 import { ChannelsBalanceCard } from 'components/Wallet/ChannelsBalanceCard'
 import { LightningWalletCard } from 'components/Wallet/LightningWalletCard'
+import { ActionsCard } from 'components/Wallet/ActionsCard'
+import { useTranslation } from 'react-i18next'
 
 export const WalletPage: React.FC = () => {
+  const { t } = useTranslation('common')
   const navigate = useNavigate()
   const notify = useNotification()
   const [loading, setLoading] = useState(true)
@@ -50,15 +53,28 @@ export const WalletPage: React.FC = () => {
 
   return (
     <Grid className="text-center" container spacing={3}>
+      <WalletCard standardSize={12}>
+        <Box className="flex justify-between items-baseline">
+          <span className="text-2xl font-bold">{t('wallet.title')}</span>
+          <span>{walletInfo!.address}</span>
+        </Box>
+      </WalletCard>
       <BitcoinWalletCard {...walletInfo!.bitcoinWalletBalance} />
       <ChannelsBalanceCard {...walletInfo!.channelsBalance} />
       <LightningWalletCard {...walletInfo!.lightningWalletBalance} />
       <WalletCard standardSize={9}>
         <img
+          className="h-60"
           src="https://peltiertech.com/images/2010-08/LineChart01.png"
           alt="chart"
         />
       </WalletCard>
+      <ActionsCard
+        channelsBalance={walletInfo!.channelsBalance.totalBalance}
+        lightningWalletBalance={
+          walletInfo!.lightningWalletBalance.availableBalance
+        }
+      />
     </Grid>
   )
 }

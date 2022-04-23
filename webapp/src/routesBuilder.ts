@@ -34,7 +34,9 @@ export default {
       index: '/api/admins'
     },
     wallet: {
-      index: '/api/wallet'
+      index: '/api/wallet',
+      closeChannels: '/api/wallet/closeChannels',
+      transfer: '/api/wallet/transfer'
     }
   }
 }
