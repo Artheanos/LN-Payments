@@ -32,7 +32,7 @@ jobs:
       - name: Eslint
         run: yarn lint
       - name: Tests
-        run: yarn test
+        run: yarn test:unit
       - name: Typescript and build
         run: yarn build
       - name: Test report

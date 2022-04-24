@@ -24,8 +24,12 @@ class WalletConfig {
     @Bean
     WalletAppKit walletAppKit() {
         String homePath = System.getProperty("user.home");
+        Network network = Network.valueOf(this.network.toUpperCase());
         WalletAppKit walletAppKit = new WalletAppKit(
-                Network.valueOf(network.toUpperCase()).getParameters(), new File(homePath + walletDirectory), fileName);
+                network.getParameters(), new File(homePath + walletDirectory), fileName);
+        if (network == Network.REGTEST) {
+            walletAppKit.connectToLocalHost();
+        }
         walletAppKit.startAsync();
         walletAppKit.awaitRunning();
         log.info("Bitcoin wallet started!");

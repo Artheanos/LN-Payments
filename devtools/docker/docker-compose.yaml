@@ -9,6 +9,7 @@ services:
       - "28333"
       - "28332"
       - "18333"
+      - "18444"
       - "18332"
       - "18532"
     ports:
@@ -18,6 +19,7 @@ services:
       - "18333:18333"
       - "18332:18332"
       - "18443:18443"
+      - "18444:18444"
     volumes:
       - ./bitcoind/bitcoin.conf:/home/bitcoin/.bitcoin/bitcoin.conf
       - bitcoin:/home/bitcoin/.bitcoin/ # data persistence
