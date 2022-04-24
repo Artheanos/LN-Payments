@@ -65,11 +65,9 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
         when(lndAPI.listChannels(any())).thenReturn(listChannelsResponse);
 
         Awaitility.await().atMost(1, TimeUnit.SECONDS).untilAsserted(() -> {
-
             verify(walletActionsScheduler, atLeastOnce()).scheduleAutoTransfer();
             verify(lndAPI).sendCoins(any());
         });
-
     }
 
     @Test
