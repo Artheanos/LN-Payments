@@ -49,6 +49,16 @@
       "name": "lnp.wallet.network",
       "type": "pl.edu.pjatk.lnpayments.webservice.wallet.config.Network",
       "description": "Description for lnp.wallet.network."
+    },
+    {
+      "name": "lnp.wallet.autoTransfer.frequency",
+      "type": "java.lang.Long",
+      "description": "Description for lnp.wallet.autoTransfer.frequency."
+    },
+    {
+      "name": "lnp.wallet.autoTransfer.initialDelay",
+      "type": "java.lang.Long",
+      "description": "Description for lnp.wallet.autoTransfer.initialDelay."
     }
   ]
 }

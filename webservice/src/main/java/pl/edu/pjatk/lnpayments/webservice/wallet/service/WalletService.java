@@ -11,7 +11,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
 import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
-import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetails;
 
 import javax.validation.ValidationException;
 import java.util.List;
@@ -56,7 +56,7 @@ public class WalletService {
     }
 
     public void transferToWallet() {
-        Wallet activeWallet = walletRepository.findFirstByStatus(WalletStatus.ON_DUTY).orElseThrow(NotFoundException::new);
+        Wallet activeWallet = getActiveWallet();
         String txId = lightningWalletService.transfer(activeWallet.getAddress());
         log.info("Funds were transferred in tx: {}", txId);
     }
@@ -65,14 +65,19 @@ public class WalletService {
         channelService.closeAllChannels(withForce);
     }
 
-    public WalletDetailsResponse getDetails() {
-        Wallet activeWallet = walletRepository.findFirstByStatus(WalletStatus.ON_DUTY).orElseThrow(NotFoundException::new);
-        return WalletDetailsResponse.builder()
+    public WalletDetails getDetails() {
+        Wallet activeWallet = getActiveWallet();
+        return WalletDetails.builder()
                 .address(activeWallet.getAddress())
                 .admins(adminConverter.convertAllToDto(activeWallet.getUsers()))
                 .bitcoinWalletBalance(bitcoinService.getBalance())
                 .channelsBalance(channelService.getChannelsBalance())
                 .lightningWalletBalance(lightningWalletService.getBalance())
                 .build();
+    }
+
+    private Wallet getActiveWallet() {
+        return walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)
+                .orElseThrow(() -> new NotFoundException("Active wallet not found"));
     }
 }

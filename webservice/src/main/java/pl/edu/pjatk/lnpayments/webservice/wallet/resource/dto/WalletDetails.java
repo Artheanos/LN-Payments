@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class WalletDetailsResponse {
+public class WalletDetails {
 
     private final String address;
     private final List<AdminResponse> admins;
