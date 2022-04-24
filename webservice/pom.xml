@@ -24,7 +24,7 @@
         <h2.version>2.1.210</h2.version>
         <jjwt.version>0.9.1</jjwt.version>
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
-        <hibernate-jpamodelgen.version>6.0.0.Final</hibernate-jpamodelgen.version>
+        <hibernate-jpamodelgen.version>5.6.5.Final</hibernate-jpamodelgen.version>
         <bitcoinj-core.version>0.16.1</bitcoinj-core.version>
         <awaitility.version>3.1.0</awaitility.version>
         <jaxb.version>3.0.1</jaxb.version>
@@ -115,7 +115,7 @@
             <version>${springfox-swagger.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>${hibernate-jpamodelgen.version}</version>
         </dependency>
