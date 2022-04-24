@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.wallet;
+package pl.edu.pjatk.lnpayments.webservice.wallet.scheduler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,6 @@ import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.LightningWalletBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
-
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
@@ -22,7 +20,8 @@ class WalletActionsScheduler {
         this.walletService = walletService;
     }
 
-    @Scheduled(initialDelay = 5, fixedDelay = 15, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(initialDelayString = "${lnp.wallet.autoTransfer.initialDelay}",
+            fixedDelayString = "${lnp.wallet.autoTransfer.frequency}")
     void scheduleAutoTransfer() {
         try {
             LightningWalletBalance balance = walletService.getDetails().getLightningWalletBalance();

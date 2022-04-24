@@ -52,12 +52,12 @@
     },
     {
       "name": "lnp.wallet.autoTransfer.frequency",
-      "type": "java.lang.Integer",
+      "type": "java.lang.Long",
       "description": "Description for lnp.wallet.autoTransfer.frequency."
     },
     {
       "name": "lnp.wallet.autoTransfer.initialDelay",
-      "type": "java.lang.Integer",
+      "type": "java.lang.Long",
       "description": "Description for lnp.wallet.autoTransfer.initialDelay."
     }
   ]
