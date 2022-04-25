@@ -1,0 +1,7 @@
+== Wizja
+
+=== Architektura Oprogramowania
+
+=== Użyte Technologie
+
+=== Wykorzystane Narzędzia

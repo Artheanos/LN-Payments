@@ -1,8 +1,22 @@
 == Proces realizacji
 
-=== pierwszy etap
+=== Model kaskadowy
+
+Opis tego, co i jak zrobiliśmy w pierwszym semestrze, między innymi krótki opis makiety interaktywnej oraz prototypu.
 
 === Sprint 1
+
+==== Cel
+
+Założenia na dany sprint, co chcemy osiągnąć.
+
+==== Wykonane Zadania
+
+Lista ukończonych zadań wraz z opisem rozwiązania.
+
+==== Podsumowanie
+
+Osiągnięte rezultaty, wykresy i statystki ze sprintu.
 
 === Sprint 2
 

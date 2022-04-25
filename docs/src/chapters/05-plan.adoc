@@ -1,0 +1,17 @@
+== Plan realizacji
+
+Opis tego, w jaki sposób zaplanowaliśmy sobie pracę.
+
+=== Analiza i prototyp
+
+Plany na pierwszy semestr, w którym nie implementowaliśmy samego projektu
+
+=== Realizacja projektu
+
+Plan na implementację projektu
+
+==== Dobór strategii
+
+==== Opis procesu
+
+==== Zmiany w trakcie realizacji

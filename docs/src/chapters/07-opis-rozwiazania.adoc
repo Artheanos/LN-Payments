@@ -1,7 +1,7 @@
 == Opis rozwiązania
 
-=== endpointy
+=== Struktura projektu
 
-=== jak popakowane sa pakiety itd.
+=== Opis API
 
-=== jaka nasza apka ładna
+=== Prezentacja systemu

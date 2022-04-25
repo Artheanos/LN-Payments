@@ -1,0 +1,23 @@
+== Analiza
+
+=== Przypadki użycia
+
+=== Udziałowcy
+
+=== Wymagania
+
+=== Architektura systemu
+
+Wysokopoziomowy opis architektury
+
+=== Wykorzystanie kryptowalut
+
+Opis zastosowanych technologii z zakresu kryptowalut np. Użycie sieci lightning czy opis transakcji multisig.
+
+=== Model domenowy
+
+=== Analiza Ryzyk
+
+=== Komercjalizacja projektu
+
+=== Społeczne aspekty projektu
