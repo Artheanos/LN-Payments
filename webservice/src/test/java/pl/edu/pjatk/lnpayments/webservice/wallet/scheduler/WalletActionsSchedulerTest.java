@@ -14,12 +14,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
-import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.ChannelsBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.LightningWalletBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetails;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -75,12 +74,58 @@ class WalletActionsSchedulerTest {
                 .contains(Tuple.tuple("Unable to transfer funds with scheduler: {}", Level.ERROR));
     }
 
+    @Test
+    void shouldCloseChannelsWhenThresholdExceeded() {
+        WalletDetails details = getDetailsWithChannelsBalance(100, 50);
+        when(walletService.getDetails()).thenReturn(details);
+
+        walletActionsScheduler.scheduleAutoChannelClose();
+
+        verify(walletService).closeAllChannels(false);
+        Assertions.assertThat(logAppender.list)
+                .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
+                .contains(Tuple.tuple("Closing channels with scheduler...", Level.INFO));
+    }
+
+    @Test
+    void shouldNotCloseChannelsWhenThresholdNotEsceeded() {
+        WalletDetails details = getDetailsWithChannelsBalance(10, 51);
+        when(walletService.getDetails()).thenReturn(details);
+
+        walletActionsScheduler.scheduleAutoChannelClose();
+
+        verify(walletService, never()).closeAllChannels(anyBoolean());
+        Assertions.assertThat(logAppender.list).isEmpty();
+    }
+
+    @Test
+    void shouldLogMessageWhenClosingChannelsFailed() {
+        when(walletService.getDetails()).thenThrow(NotFoundException.class);
+
+        walletActionsScheduler.scheduleAutoChannelClose();
+
+        Assertions.assertThat(logAppender.list)
+                .extracting(ILoggingEvent::getMessage, ILoggingEvent::getLevel)
+                .contains(Tuple.tuple("Unable to close channels with scheduler: {}", Level.ERROR));
+    }
+
     private WalletDetails getDetailsWithLightningBalance(long balance, long limit) {
         LightningWalletBalance lightningWalletBalance = LightningWalletBalance.builder()
                 .availableBalance(balance)
                 .autoTransferLimit(limit)
                 .build();
         return WalletDetails.builder()
-                .lightningWalletBalance(lightningWalletBalance).build();
+                .lightningWalletBalance(lightningWalletBalance)
+                .build();
+    }
+
+    private WalletDetails getDetailsWithChannelsBalance(long balance, long limit) {
+        ChannelsBalance channelsBalance = ChannelsBalance.builder()
+                .totalBalance(balance)
+                .autoChannelCloseLimit(limit)
+                .build();
+        return WalletDetails.builder()
+                .channelsBalance(channelsBalance)
+                .build();
     }
 }
