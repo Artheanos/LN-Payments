@@ -11,6 +11,14 @@ interface TempUserResponse {
   token: string
 }
 
+interface PublicPaymentDetails {
+  email: string
+  numberOfTokens: number
+  paymentStatus: PaymentStatus
+  price: number
+  timestamp: Date
+}
+
 interface PaymentDetails {
   expirationTimestamp: Date
   paymentRequest: string
@@ -47,6 +55,11 @@ interface User {
   email: string
   fullName: string
   role: string
+}
+
+interface AdminUser extends User {
+  hasKey: boolean
+  isAssignedToWallet: boolean
 }
 
 interface LoginForm {
@@ -90,4 +103,29 @@ interface PageInfo {
 interface PageRequest {
   page: number
   size: number
+}
+
+interface WalletInfo {
+  address: string
+  admins: AdminUser[]
+  channelsBalance: ChannelsBalance
+  lightningWalletBalance: LightningWalletBalance
+  bitcoinWalletBalance: BitcoinWalletBalance
+}
+
+interface ChannelsBalance {
+  totalBalance: number
+  openedChannels: number
+  autoChannelCloseLimit: number
+}
+
+interface LightningWalletBalance {
+  availableBalance: number
+  unconfirmedBalance: number
+  autoTransferLimit: number
+}
+
+interface BitcoinWalletBalance {
+  availableBalance: number
+  unconfirmedBalance: number
 }

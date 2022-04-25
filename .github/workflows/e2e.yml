@@ -1,0 +1,51 @@
+name: E2E tests
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    paths:
+      - 'webapp/**'
+      - 'webservice/**'
+
+defaults:
+  run:
+    working-directory: webapp
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+          cache-dependency-path: webapp/yarn.lock
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          working-directory: webapp
+          install: false
+          start: yarn setup:backend, yarn dev
+          wait-on: http://localhost:8080/api/payments/info, http://localhost:3000

@@ -8,11 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 
 import javax.validation.Valid;
 
+import java.security.Principal;
+
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.ADMIN_PATH;
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.KEYS_PATH;
 
 @RestController
 @RequestMapping(ADMIN_PATH)
@@ -35,5 +39,12 @@ class AdminResource {
     public ResponseEntity<Page<AdminResponse>> getAdmins(Pageable pageable) {
         Page<AdminResponse> admins = userService.findAllAdmins(pageable);
         return ResponseEntity.ok(admins);
+    }
+
+    @PatchMapping(KEYS_PATH)
+    public ResponseEntity<?> uploadPublicKey(@RequestBody @Valid KeyUploadRequest keyUploadRequest,
+                                             Principal principal) {
+        userService.uploadKey(principal.getName(), keyUploadRequest.getPublicKey());
+        return ResponseEntity.ok().build();
     }
 }

@@ -4,22 +4,23 @@ export default {
   logout: '/logout',
   quickBuy: '/quick-buy',
   register: '/register',
-  adminPanel: {
+  userPanel: {
     admins: {
       index: '/panel/admins',
       create: '/panel/admins/new'
     },
     history: '/panel/history',
     index: '/panel',
-    quickBuy: '/panel/quick-buy'
-  },
-  userPanel: {
-    history: '/panel/history',
-    index: '/panel',
-    quickBuy: '/panel/quick-buy'
+    payments: '/panel/payments',
+    quickBuy: '/panel/quick-buy',
+    wallet: {
+      index: '/panel/wallet',
+      new: '/panel/wallet/new'
+    }
   },
   api: {
     payments: {
+      all: '/api/payments/all',
       ws: () => `ws://${window.location.host}/api/payment`,
       index: '/api/payments',
       info: '/api/payments/info'
@@ -31,6 +32,11 @@ export default {
     },
     admins: {
       index: '/api/admins'
+    },
+    wallet: {
+      index: '/api/wallet',
+      closeChannels: '/api/wallet/closeChannels',
+      transfer: '/api/wallet/transfer'
     }
   }
 }

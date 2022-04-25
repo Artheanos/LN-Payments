@@ -11,15 +11,23 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "jest",
-    "lint": "eslint src --max-warnings=0"
+    "test:unit": "jest",
+    "test:e2e": "cypress run",
+    "lint": "eslint src --max-warnings=0",
+    "cypress": "cypress open",
+    "setup:backend": "yarn setup:docker:regtest && yarn setup:btc && mvn spring-boot:run -f ../webservice/pom.xml -Dspring-boot.run.arguments=\"--lnp.wallet.network=regtest\"",
+    "setup:docker:regtest": "docker-compose -f ../devtools/docker/docker-compose.yaml -f ../devtools/docker/docker-compose-regtest.yaml up -d && yarn setup:lnd",
+    "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert ../webservice && docker cp lnd:/root/.lnd/admin.macaroon ../webservice",
+    "setup:btc": "docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test createwallet test && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test getnewaddress && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test -generate 50"
   },
+
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.4.0",
     "@stomp/stompjs": "^6.1.2",
+    "cypress": "^9.5.4",
     "i18next": "^21.6.6",
     "msw": "^0.36.8",
     "qrcode.react": "^2.0.0",
@@ -51,8 +59,10 @@
     "autoprefixer": "^10.4.2",
     "axios": "^0.26.0",
     "babel-jest": "^27.4.6",
+    "cypress-cucumber-preprocessor": "^4.3.1",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
@@ -66,5 +76,9 @@
     "typescript": "^4.5.4",
     "vite": "^2.7.12",
     "vite-tsconfig-paths": "^3.3.17"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/integration",
+    "nonGlobalStepDefinitions": true
   }
 }

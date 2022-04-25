@@ -1,10 +1,11 @@
 import React from 'react'
-import { Sidebar } from '../common/Sidebar'
 import { Box, Container } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 
+import { Sidebar } from '../common/Sidebar'
+
 export const PanelLayout = () => (
-  <Box className="flex px-8 pt-8">
+  <Box className="flex p-8">
     <Sidebar />
     <Container>
       <Outlet />

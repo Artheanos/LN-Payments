@@ -1,8 +1,10 @@
 import React from 'react'
 import {
   AccessTime,
+  AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
-  ShoppingCartOutlined
+  ShoppingCartOutlined,
+  PaidOutlined
 } from '@mui/icons-material'
 import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
@@ -37,15 +39,27 @@ export const Sidebar: React.FC = () => {
           route={routesBuilder.userPanel.history}
         />
         <SidebarEntry
-          title="Logout"
-          icon={<MeetingRoomOutlined />}
-          route={routesBuilder.logout}
+          title="Wallet"
+          icon={<AccountBalanceWalletOutlined />}
+          route={routesBuilder.userPanel.wallet.index}
+          adminOnly
         />
         <SidebarEntry
           title="Admin Management"
           icon="AM"
-          route={routesBuilder.adminPanel.admins.index}
+          route={routesBuilder.userPanel.admins.index}
           adminOnly
+        />
+        <SidebarEntry
+          title="Payments"
+          icon={<PaidOutlined />}
+          route={routesBuilder.userPanel.payments}
+          adminOnly
+        />
+        <SidebarEntry
+          title="Logout"
+          icon={<MeetingRoomOutlined />}
+          route={routesBuilder.logout}
         />
       </List>
     </Drawer>

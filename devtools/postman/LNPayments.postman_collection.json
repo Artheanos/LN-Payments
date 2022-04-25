@@ -143,6 +143,42 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "upload_key",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"publicKey\": \"0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}admins/keys",
+							"host": [
+								"{{baseUrl}}admins"
+							],
+							"path": [
+								"keys"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -370,6 +406,83 @@
 							"raw": "{{baseUrl}}wallet",
 							"host": [
 								"{{baseUrl}}wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "status",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}wallet",
+							"host": [
+								"{{baseUrl}}wallet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "close_channels",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}wallet/closeChannels",
+							"host": [
+								"{{baseUrl}}wallet"
+							],
+							"path": [
+								"closeChannels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transfer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}wallet/transfer",
+							"host": [
+								"{{baseUrl}}wallet"
+							],
+							"path": [
+								"transfer"
 							]
 						}
 					},

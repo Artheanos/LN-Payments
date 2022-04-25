@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.CreateWalletRequest;
-import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetailsResponse;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetails;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
 import javax.validation.Valid;
@@ -30,8 +30,8 @@ class WalletResource {
     }
 
     @GetMapping
-    ResponseEntity<WalletDetailsResponse> getWalletDetails() {
-        WalletDetailsResponse walletDetails = walletService.getDetails();
+    ResponseEntity<WalletDetails> getWalletDetails() {
+        WalletDetails walletDetails = walletService.getDetails();
         return ResponseEntity.ok(walletDetails);
     }
 

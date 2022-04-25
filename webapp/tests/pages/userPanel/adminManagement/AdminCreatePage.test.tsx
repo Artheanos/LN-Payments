@@ -9,7 +9,7 @@ import {
   screen,
   waitFor
 } from 'tests/test-utils'
-import { AdminCreatePage } from 'pages/adminManagement/AdminCreatePage'
+import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage'
 
 describe('AdminCreatePage', () => {
   const server = setupServer(

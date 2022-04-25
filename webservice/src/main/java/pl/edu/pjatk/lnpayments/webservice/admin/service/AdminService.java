@@ -3,6 +3,7 @@ package pl.edu.pjatk.lnpayments.webservice.admin.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
@@ -48,5 +49,15 @@ public class AdminService {
             throw new InconsistentDataException("Not all users have uploaded their keys");
         }
         return adminUsers;
+    }
+
+    public void uploadKey(String email, String publicKey) {
+        AdminUser admin = adminUserRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException(email + " not found!"));
+        if (admin.hasKey()) {
+            throw new ValidationException("User has already uploaded his keys!");
+        }
+        admin.setPublicKey(publicKey);
+        adminUserRepository.save(admin);
     }
 }

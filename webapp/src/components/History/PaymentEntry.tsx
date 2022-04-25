@@ -3,33 +3,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-import { PaymentStatus } from '@constants'
+import { PaymentStatusCell } from './PaymentStatusCell'
 import { TokenPopup } from './TokenPopup'
 
 export const PaymentEntry: React.FC<PaymentDetails> = (
   payment: PaymentDetails
 ) => {
   const { t } = useTranslation('common')
-  const StatusColor: Record<
-    string,
-    {
-      primary: string
-      secondary: string
-    }
-  > = {
-    PENDING: {
-      primary: '#4fc3f7',
-      secondary: '#29b6f6'
-    },
-    COMPLETE: {
-      primary: '#81c784',
-      secondary: '#66bb6a'
-    },
-    CANCELLED: {
-      primary: '#e57373',
-      secondary: '#f44336'
-    }
-  }
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
@@ -39,14 +19,6 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
 
   const handleClose = () => {
     setAnchorEl(null)
-  }
-
-  const calculateColor = (paymentStatus: PaymentStatus) => {
-    const colors = StatusColor[paymentStatus]
-    return {
-      backgroundColor: colors.primary,
-      borderColor: colors.secondary
-    }
   }
 
   return (
@@ -61,22 +33,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
         <TableCell>{payment.price}</TableCell>
         <TableCell>{payment.numberOfTokens}</TableCell>
         <TableCell>
-          <Typography
-            align="center"
-            sx={{
-              borderRadius: 8,
-              fontWeight: 'bold',
-              display: 'inline-block',
-              fontSize: '0.75rem',
-              padding: '3px 10px',
-              borderStyle: 'solid',
-              borderWidth: '3px',
-              width: '100%',
-              ...calculateColor(payment.paymentStatus)
-            }}
-          >
-            {payment.paymentStatus}
-          </Typography>
+          <PaymentStatusCell paymentStatus={payment.paymentStatus} />
         </TableCell>
         <TableCell align="center">
           {payment.tokens.length ? (

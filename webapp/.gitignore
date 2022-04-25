@@ -39,3 +39,4 @@ yarn-error.log*
 .vscode/
 
 test-report.html
+reports/

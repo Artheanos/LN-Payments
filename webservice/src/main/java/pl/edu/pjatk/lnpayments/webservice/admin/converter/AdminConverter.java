@@ -33,6 +33,8 @@ public class AdminConverter {
         return AdminResponse.builder()
                 .fullName(adminUser.getFullName())
                 .email(adminUser.getEmail())
+                .hasKey(adminUser.hasKey())
+                .isAssignedToWallet(adminUser.isAssignedToWallet())
                 .build();
     }
 

@@ -36,6 +36,7 @@ describe('LoginPage', () => {
       screen.getByRole('button', { name: 'Login' }).click()
     })
   }
+
   beforeEach(() => {
     server.listen()
     render(<LoginPage />, { location: '/login' })

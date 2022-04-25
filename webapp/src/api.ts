@@ -81,15 +81,37 @@ export const api = {
     ): Promise<Response<Pageable<PaymentDetails>>> => {
       return request(routesBuilder.api.payments.index, {
         method: 'get',
-        params: params
+        params
+      })
+    },
+    historyAll: async (
+      params: PageRequest
+    ): Promise<Response<Pageable<PublicPaymentDetails>>> => {
+      return request(routesBuilder.api.payments.all, {
+        method: 'get',
+        params
       })
     }
   },
   admins: {
-    getAdmins: async (params: PageRequest): Promise<Response<Pageable<User>>> =>
+    getAdmins: async (
+      params: PageRequest
+    ): Promise<Response<Pageable<AdminUser>>> =>
       request(routesBuilder.api.admins.index, { method: 'get', params }),
 
-    createAdmin: async (data: RegisterForm): Promise<Response<unknown>> =>
+    createAdmin: (data: RegisterForm): Promise<Response<unknown>> =>
       request(routesBuilder.api.admins.index, { data })
+  },
+  wallet: {
+    getInfo: (): Promise<Response<WalletInfo>> =>
+      request(routesBuilder.api.wallet.index, { method: 'get' }),
+
+    closeChannels: (withForce: boolean): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.closeChannels, {
+        params: { withForce: withForce }
+      }),
+
+    transfer: (): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.transfer)
   }
 }

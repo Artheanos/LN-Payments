@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Panel from 'components/common/Panel'
 import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { PaymentEntry } from './PaymentEntry'
 import { api } from 'api'
@@ -19,17 +18,12 @@ export const History: React.FC = () => {
   ]
 
   return (
-    <Panel.Container>
-      <Panel.Header title="History" />
-      <Panel.Body table>
-        <PageableTable
-          apiRequest={api.payment.history}
-          mapper={(value: PaymentDetails, key: number) => (
-            <PaymentEntry {...value} key={key} />
-          )}
-          headers={headers}
-        />
-      </Panel.Body>
-    </Panel.Container>
+    <PageableTable
+      apiRequest={api.payment.history}
+      mapper={(value: PaymentDetails, key: number) => (
+        <PaymentEntry {...value} key={key} />
+      )}
+      headers={headers}
+    />
   )
 }

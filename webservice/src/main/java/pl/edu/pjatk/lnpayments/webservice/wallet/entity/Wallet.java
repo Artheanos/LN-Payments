@@ -28,8 +28,7 @@ public class Wallet {
     @Enumerated(EnumType.STRING)
     private WalletStatus status;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "wallet_id")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "wallet")
     private List<AdminUser> users;
 
     @Builder

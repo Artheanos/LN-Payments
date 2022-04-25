@@ -26,6 +26,8 @@
         <springfox-swagger.version>3.0.0</springfox-swagger.version>
         <hibernate-jpamodelgen.version>5.6.5.Final</hibernate-jpamodelgen.version>
         <bitcoinj-core.version>0.16.1</bitcoinj-core.version>
+        <awaitility.version>3.1.0</awaitility.version>
+        <jaxb.version>3.0.1</jaxb.version>
     </properties>
 
     <dependencies>
@@ -126,6 +128,22 @@
             <groupId>org.bitcoinj</groupId>
             <artifactId>bitcoinj-core</artifactId>
             <version>${bitcoinj-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxb.version}</version>
         </dependency>
     </dependencies>
 

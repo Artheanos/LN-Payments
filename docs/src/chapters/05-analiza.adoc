@@ -1,0 +1,19 @@
+== Analiza
+
+=== Przypadki użycia
+
+=== Udziałowcy
+
+=== Wymagania
+
+=== Zagrożenia
+
+=== Architektura systemu
+
+=== Wykorzystanie kryptowalut
+
+=== Model domenowy
+
+=== Komercjalizacja projektu?
+
+=== Społeczne aspekty?
