@@ -1,0 +1,9 @@
+== Wizja
+
+=== Architektura Oprogramowania
+
+=== CI/CD
+
+=== Użyte Technologie
+
+=== Wykorzystane Narzędzia

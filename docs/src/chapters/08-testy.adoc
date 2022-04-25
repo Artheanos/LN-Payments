@@ -4,7 +4,7 @@
 
 === Aplikacja webowa
 
-"ciężko stwierdzić granicę pomiędzy testami jednostkowymi a integracyjnymi"
+"ciężko stwierdzić granicę pomiędzy testami jednostkowymi a integracyjnymi" - autorzy react testing library
 
 === Aplikacja mobilna
 
