@@ -1,0 +1,12 @@
+{
+  "hasKey": "Has public key?",
+  "isAssignedToWallet": "Is assigned to a wallet?",
+  "remove": {
+    "confirmMessage": "Are you sure that you want to remove selected admin from admins? ",
+    "successful": " has been removed successfully from admins.",
+    "error": " cannot been removed from admins because he is assigned to wallet.",
+    "form": {
+      "confirmDeleteButton": "Yes"
+    }
+  }
+}

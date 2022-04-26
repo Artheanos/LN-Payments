@@ -11,7 +11,7 @@ export const TokensStage: React.FC<StageProps> = ({
   tokens,
   setTokens
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
   const [displayToken, setDisplayToken] = useState<string>()
 
   const closeTransaction = useCallback(() => {
@@ -24,7 +24,7 @@ export const TokensStage: React.FC<StageProps> = ({
   return (
     <div className="flex flex-col gap-10">
       <Alert variant="standard" severity="info" className="mx-auto">
-        {t('quickBuy.tokens.info')}
+        {t('tokens.info')}
       </Alert>
       <div className="mx-auto w-min">
         <Card>
@@ -36,14 +36,14 @@ export const TokensStage: React.FC<StageProps> = ({
             onClick={() => closeTransaction()}
             color="warning"
           >
-            {t('close')}
+            {t('common:close')}
           </Button>
         </div>
         <ConfirmationModal
           open={Boolean(displayToken)}
           message={displayToken || ''}
           setOpen={() => setDisplayToken(undefined)}
-          confirmButtonContent={t('close')}
+          confirmButtonContent={t('common:close')}
         />
       </div>
     </div>

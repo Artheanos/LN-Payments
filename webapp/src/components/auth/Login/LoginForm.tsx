@@ -1,15 +1,16 @@
 import React from 'react'
-import { Field, Form, Formik } from 'formik'
 import { Alert, Button, Grid } from '@mui/material'
-
-import { CardForm, CardFormButton } from 'components/Form/CardForm'
-import { TextInput } from 'components/Form/FormikInputs/TextInput'
+import { Field, Form, Formik } from 'formik'
 import { Link } from 'react-router-dom'
-import routesBuilder from 'routesBuilder'
 import { useTranslation } from 'react-i18next'
 
+import routesBuilder from 'routesBuilder'
+import { CardForm, CardFormButton } from 'components/Form/CardForm'
+import { LoginForm as ILoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
+import { TextInput } from 'components/Form/FormikInputs/TextInput'
+
 type Props = {
-  onSubmit: (form: LoginForm) => void
+  onSubmit: (form: ILoginForm) => void
   openAlert: boolean
   hideAlert: () => void
 }
@@ -20,7 +21,7 @@ export const LoginForm: React.FC<Props> = ({
   hideAlert
 }) => {
   const { t } = useTranslation('auth')
-  const initialValues: LoginForm = { email: '', password: '' }
+  const initialValues: ILoginForm = { email: '', password: '' }
 
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>

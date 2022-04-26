@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TableCell, TableRow } from '@mui/material'
-import { AdminStatusIndicator } from './AdminStatusIndicator'
-import { api } from 'api'
-import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
-import { useNotification } from 'components/Context/NotificationContext'
 import { useTranslation } from 'react-i18next'
+
+import { AdminStatusIndicator } from './AdminStatusIndicator'
+import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
+import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { api } from 'api'
+import { useNotification } from 'components/Context/NotificationContext'
 
 interface Props {
   user: AdminUser
@@ -30,7 +32,7 @@ export const AdminListItem: React.FC<Props> = ({ user, reloadList }) => {
     } else if (status === 409) {
       notification(user.fullName + t('remove.error'), 'error')
     } else {
-      notification(t('register.api.errors.default'), 'error')
+      notification(t('auth:register.api.errors.default'), 'error')
     }
     reloadList()
   }

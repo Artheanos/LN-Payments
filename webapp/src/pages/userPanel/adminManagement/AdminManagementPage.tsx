@@ -8,9 +8,10 @@ import routesBuilder from 'routesBuilder'
 import { AdminListItem } from 'components/adminPanel/AdminListItem'
 import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { api } from 'api'
+import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
 
 export const AdminManagementPage: React.FC = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('adminManagement')
   const [reloadDependency, setReloadDependency] = useState(0)
 
   return (
@@ -31,10 +32,10 @@ export const AdminManagementPage: React.FC = () => {
             />
           )}
           headers={[
-            t('email'),
-            t('name'),
-            t('adminManagement.hasKey'),
-            t('adminManagement.isAssignedToWallet'),
+            t('common:email'),
+            t('common:name'),
+            t('hasKey'),
+            t('isAssignedToWallet'),
             ''
           ]}
           reloadDependency={reloadDependency}

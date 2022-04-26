@@ -16,7 +16,7 @@ export const ActionButton: React.FC<Props> = ({
   modalMessage,
   disabled
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('wallet')
   const [openModal, setOpenModal] = useState(false)
 
   return (
@@ -34,7 +34,7 @@ export const ActionButton: React.FC<Props> = ({
       </Button>
       {modalMessage && (
         <ConfirmationModal
-          confirmButtonContent={t('wallet.actions.yes')}
+          confirmButtonContent={t('actions.yes')}
           message={modalMessage}
           onConfirm={action}
           open={openModal}

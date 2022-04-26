@@ -6,11 +6,11 @@ import { Action, BrowserHistory, createBrowserHistory } from 'history'
 
 import i18n from 'i18n'
 import { NotificationProvider } from 'components/Context/NotificationContext'
-import { Role } from '@constants'
 import {
-  UserContext,
-  defaultValue as defaultUserContextValue
+  defaultValue as defaultUserContextValue,
+  UserContext
 } from 'components/Context/UserContext'
+import { Role } from 'common-ts/dist/webServiceApi/interface/user'
 
 type CustomRenderProps = Partial<{
   location: string
@@ -26,7 +26,7 @@ const helpers: { history: BrowserHistory; initialLocation?: string } = {
 HTMLCanvasElement.prototype.getContext = () => null
 
 const AllTheProviders: React.FC<RenderWrapperProps> = ({ children, role }) => {
-  const user = { email: '', fullName: '', role: role || '' }
+  const user = { email: '', fullName: '', role: role || Role.USER }
 
   return (
     <Router

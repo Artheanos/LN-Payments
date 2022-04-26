@@ -4,16 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.NOTIFICATIONS_PATH;
@@ -43,4 +41,17 @@ class NotificationResource {
         ConfirmationDetails details = notificationService.getSignatureData(id);
         return ResponseEntity.ok(details);
     }
+
+    @PostMapping("{id}/confirm")
+    ResponseEntity<?> confirmNotification(@PathVariable String id, @Valid @RequestBody ConfirmationDetails body) {
+        notificationService.handleNotificationResponse(id, body);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("{id}/deny")
+    ResponseEntity<?> denyNotification(@PathVariable String id) {
+        notificationService.handleNotificationDenial(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

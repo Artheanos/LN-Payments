@@ -1,22 +1,24 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { ProgressCard } from './ProgressCard'
+import { LightningWalletBalance } from 'common-ts/dist/webServiceApi/interface/wallet'
 
 export const LightningWalletCard: React.FC<LightningWalletBalance> = ({
   availableBalance,
   unconfirmedBalance,
   autoTransferLimit
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('wallet')
 
   return (
     <ProgressCard
-      headerText={t('wallet.lightningWallet.header')}
+      headerText={t('lightningWallet.header')}
       value={availableBalance}
       maxValue={autoTransferLimit}
-      tooltipContent={t('wallet.lightningWallet.tooltipContent')}
+      tooltipContent={t('lightningWallet.tooltipContent')}
       bottomText={
-        unconfirmedBalance.toLocaleString() + ' sats' + t('wallet.unconfirmed')
+        unconfirmedBalance.toLocaleString() + ' sats' + t('unconfirmed')
       }
       unit="sats"
       color="primary"

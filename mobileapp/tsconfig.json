@@ -1,6 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
+    "allowSyntheticDefaultImports": true,
+    "target": "ESNext",
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "components/*": [
+        "components/*"
+      ],
+      "api": [
+        "api"
+      ]
+    }
   }
 }

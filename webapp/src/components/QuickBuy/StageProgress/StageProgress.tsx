@@ -8,11 +8,11 @@ interface Props {
 }
 
 export const StageProgress: React.FC<Props> = ({ currentStageIndex }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
   const stages = [
-    t('quickBuy.setup.header'),
-    t('quickBuy.transaction.header'),
-    t('quickBuy.tokens.header')
+    t('setup.header'),
+    t('transaction.header'),
+    t('tokens.header')
   ]
 
   return (

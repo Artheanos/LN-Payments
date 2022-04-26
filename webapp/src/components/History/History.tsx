@@ -4,17 +4,18 @@ import { useTranslation } from 'react-i18next'
 import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { PaymentEntry } from './PaymentEntry'
 import { api } from 'api'
+import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
 
 export const History: React.FC = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('history')
 
   const headers = [
-    t('history.paymentRequest'),
-    t('history.created'),
-    t('history.price'),
-    t('history.numberOfTokens'),
-    t('history.status'),
-    t('history.tokens')
+    t('paymentRequest'),
+    t('created'),
+    t('price'),
+    t('numberOfTokens'),
+    t('status'),
+    t('tokens')
   ]
 
   return (

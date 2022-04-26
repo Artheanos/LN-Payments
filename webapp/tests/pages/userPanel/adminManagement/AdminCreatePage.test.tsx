@@ -10,6 +10,7 @@ import {
   waitFor
 } from 'tests/test-utils'
 import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage'
+import { RegisterForm } from 'common-ts/dist/webServiceApi/interface/auth'
 
 describe('AdminCreatePage', () => {
   const server = setupServer(
