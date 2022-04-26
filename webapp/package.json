@@ -20,7 +20,6 @@
     "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert ../webservice && docker cp lnd:/root/.lnd/admin.macaroon ../webservice",
     "setup:btc": "docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test createwallet test && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test getnewaddress && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test -generate 50"
   },
-
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -47,6 +46,7 @@
     "@mui/lab": "^5.0.0-alpha.69",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^14.1.1",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.9",
     "@types/qrcode.react": "^1.0.2",

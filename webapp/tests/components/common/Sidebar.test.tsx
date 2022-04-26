@@ -1,6 +1,6 @@
-import { render, screen } from '../../test-utils'
+import { render, screen } from 'tests/test-utils'
 import React from 'react'
-import { Sidebar } from '../../../src/components/common/Sidebar'
+import { Sidebar } from 'components/common/Sidebar'
 
 describe('Sidebar', () => {
   it('renders proper values', () => {

@@ -1,5 +1,5 @@
 import { render, screen } from 'tests/test-utils'
-import { ChannelsBalanceCard } from 'components/Wallet/ChannelsBalanceCard'
+import { ChannelsBalanceCard } from 'components/wallet/ChannelsBalanceCard'
 
 describe('ChannelsBalanceCard', () => {
   it('should render children', () => {

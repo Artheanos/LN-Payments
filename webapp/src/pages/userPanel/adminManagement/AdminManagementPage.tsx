@@ -21,7 +21,7 @@ export const AdminManagementPage: React.FC = () => {
       </Panel.Header>
       <Panel.Body table>
         <PageableTable
-          apiRequest={api.admins.getAdmins}
+          apiRequest={api.admins.getAll}
           mapper={(user: AdminUser, key) => (
             <AdminListItem user={user} key={key} />
           )}

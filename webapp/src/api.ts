@@ -4,6 +4,7 @@ import routesBuilder from 'routesBuilder'
 import { datify } from 'utils/time'
 import { getLocalJson } from 'utils/persist'
 import { LocalKey } from '@constants'
+import { WalletForm } from './components/wallet/create/form'
 
 const defaultConfig: AxiosRequestConfig = {
   method: 'post'
@@ -94,12 +95,12 @@ export const api = {
     }
   },
   admins: {
-    getAdmins: async (
-      params: PageRequest
+    getAll: async (
+      params?: PageRequest
     ): Promise<Response<Pageable<AdminUser>>> =>
       request(routesBuilder.api.admins.index, { method: 'get', params }),
 
-    createAdmin: (data: RegisterForm): Promise<Response<unknown>> =>
+    create: (data: RegisterForm): Promise<Response<unknown>> =>
       request(routesBuilder.api.admins.index, { data })
   },
   wallet: {
@@ -112,6 +113,9 @@ export const api = {
       }),
 
     transfer: (): Promise<Response<unknown>> =>
-      request(routesBuilder.api.wallet.transfer)
+      request(routesBuilder.api.wallet.transfer),
+
+    create: (data: WalletForm): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.index, { data })
   }
 }

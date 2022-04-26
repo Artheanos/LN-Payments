@@ -1,5 +1,5 @@
 import { render, screen } from 'tests/test-utils'
-import { BitcoinWalletCard } from 'components/Wallet/BitcoinWalletCard'
+import { BitcoinWalletCard } from 'components/wallet/BitcoinWalletCard'
 
 describe('BitcoinWalletCard', () => {
   it('should render children', () => {
