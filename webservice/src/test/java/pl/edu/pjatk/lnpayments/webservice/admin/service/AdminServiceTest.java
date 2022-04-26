@@ -155,4 +155,19 @@ class AdminServiceTest {
                 .withMessage("User has already uploaded his keys!");
     }
 
+    @Test
+    void shouldRemoveUserCorrectly() {
+
+    }
+
+    @Test
+    void shouldRemoveUserWhoIsNotAddedToWallet() {
+
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserIsAddedToWallet() {
+
+    }
+
 }

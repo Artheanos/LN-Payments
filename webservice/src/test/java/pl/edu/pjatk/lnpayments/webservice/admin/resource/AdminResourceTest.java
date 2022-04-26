@@ -54,4 +54,9 @@ class AdminResourceTest {
         verify(adminService).uploadKey("email", "2137");
     }
 
+    @Test
+    void shouldReturnOkWhenUserRemoved() {
+
+    }
+
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminDeleteRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
@@ -46,5 +47,11 @@ class AdminResource {
                                              Principal principal) {
         userService.uploadKey(principal.getName(), keyUploadRequest.getPublicKey());
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteAdmin(@RequestBody @Valid AdminDeleteRequest adminDeleteRequest) {
+        userService.removeAdmin(adminDeleteRequest);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
