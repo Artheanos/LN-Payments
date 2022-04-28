@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminDeleteRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
@@ -56,7 +57,15 @@ class AdminResourceTest {
 
     @Test
     void shouldReturnOkWhenUserRemoved() {
+        AdminRequest request = new AdminRequest("test@test.pl", "test", "test");
+        AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
+        ResponseEntity<?> responseCreate = adminResource.addAdmin(request);
+        ResponseEntity<?> responseDelete = adminResource.deleteAdmin(getEmail);
+
+        assertThat(responseCreate.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(responseDelete.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(adminService).createAdmin(request);
     }
 
 }
