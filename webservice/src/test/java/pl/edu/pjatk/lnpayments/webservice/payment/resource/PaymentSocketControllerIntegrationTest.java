@@ -9,8 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.simp.stomp.StompFrameHandler;
-import org.springframework.messaging.simp.stomp.StompHeaders;
 import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.test.context.ActiveProfiles;
@@ -21,6 +19,7 @@ import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.JwtService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.helper.TestSocketFrameHandler;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
@@ -30,8 +29,6 @@ import pl.edu.pjatk.lnpayments.webservice.payment.observer.InvoiceObserver;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.TokenResponse;
 
-import java.lang.reflect.Type;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -63,13 +60,14 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
 
     private WebSocketStompClient webSocketStompClient;
 
-    private final CompletableFuture<TokenResponse> completableFuture = new CompletableFuture<>();
+    private TestSocketFrameHandler<TokenResponse> handler;
 
     @BeforeEach
     void setUp() {
         webSocketStompClient = new WebSocketStompClient(new StandardWebSocketClient());
         webSocketStompClient.setMessageConverter(new MappingJackson2MessageConverter());
         invoiceObserver = new InvoiceObserver(paymentFacade);
+        handler = TestSocketFrameHandler.of(TokenResponse.class);
     }
 
     @AfterEach
@@ -96,11 +94,11 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
                 new WebSocketHttpHeaders(httpHeaders),
                 new StompSessionHandlerAdapter() {
                 }).get(1, SECONDS);
-        stompSession.subscribe("/topic/34079ad7", new TokenResponseFrameHandler());
+        stompSession.subscribe("/topic/34079ad7", handler);
 
         invoiceObserver.onNext(invoice);
 
-        TokenResponse tokenResponse = completableFuture.get(5, SECONDS);
+        TokenResponse tokenResponse = handler.getResult();
         assertThat(tokenResponse.getTokens()).hasSize(1);
     }
 
@@ -119,17 +117,5 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         );
     }
 
-    private class TokenResponseFrameHandler implements StompFrameHandler {
-
-        @Override
-        public Type getPayloadType(StompHeaders stompHeaders) {
-            return TokenResponse.class;
-        }
-
-        @Override
-        public void handleFrame(StompHeaders stompHeaders, Object o) {
-            completableFuture.complete((TokenResponse) o);
-        }
-    }
 }
 

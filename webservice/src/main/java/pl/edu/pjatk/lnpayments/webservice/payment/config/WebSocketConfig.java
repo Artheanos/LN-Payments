@@ -8,6 +8,7 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import pl.edu.pjatk.lnpayments.webservice.auth.interceptor.AuthChannelInterceptor;
 
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.NOTIFICATION_WS_PATH;
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.PAYMENTS_WS_PATH;
 
 @Configuration
@@ -22,8 +23,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint(PAYMENTS_WS_PATH)
-                .setAllowedOriginPatterns("*");
+        registry.addEndpoint(PAYMENTS_WS_PATH).setAllowedOriginPatterns("*");
+        registry.addEndpoint(NOTIFICATION_WS_PATH).setAllowedOriginPatterns("*");
     }
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {

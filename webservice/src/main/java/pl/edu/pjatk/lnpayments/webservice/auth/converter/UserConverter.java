@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.model.UserDetailsImpl;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 
@@ -37,7 +38,13 @@ public class UserConverter {
     }
 
     public LoginResponse convertToLoginResponse(StandardUser user, String token) {
-        return new LoginResponse(user.getEmail(), user.getFullName(), user.getRole(), token);
+        return LoginResponse.builder()
+                .fullName(user.getFullName())
+                .email(user.getEmail())
+                .token(token)
+                .role(user.getRole())
+                .notificationChannelId(user instanceof AdminUser u ? u.notificationsChannelId() : null)
+                .build();
     }
 
 }

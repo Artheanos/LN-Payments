@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.annotations.DynamicUpdate;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 
@@ -33,6 +34,10 @@ public class AdminUser extends StandardUser {
 
     public boolean isAssignedToWallet() {
         return wallet != null;
+    }
+
+    public String notificationsChannelId() {
+        return DigestUtils.sha256Hex(email + this.getId()).substring(0, 10);
     }
 
     @Override
