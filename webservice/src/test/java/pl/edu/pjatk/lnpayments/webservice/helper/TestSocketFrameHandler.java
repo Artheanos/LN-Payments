@@ -31,7 +31,7 @@ public class TestSocketFrameHandler<T> implements StompFrameHandler {
     @Override
     @SuppressWarnings("unchecked")
     public void handleFrame(StompHeaders headers, Object payload) {
-        completableFuture.completeOnTimeout((T) payload, 2, SECONDS);
+        completableFuture.complete((T) payload);
     }
 
     public T getResult() throws ExecutionException, InterruptedException, TimeoutException {

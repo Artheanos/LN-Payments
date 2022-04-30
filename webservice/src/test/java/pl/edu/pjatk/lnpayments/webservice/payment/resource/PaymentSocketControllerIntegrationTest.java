@@ -74,6 +74,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
     void tearDown() {
         userRepository.deleteAll();
         paymentRepository.deleteAll();
+        webSocketStompClient.stop();
     }
 
     @Test
