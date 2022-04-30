@@ -96,6 +96,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
                 new StompSessionHandlerAdapter() {
                 }).get(1, SECONDS);
         stompSession.subscribe("/topic/34079ad7", handler);
+        SECONDS.sleep(1);
 
         invoiceObserver.onNext(invoice);
 

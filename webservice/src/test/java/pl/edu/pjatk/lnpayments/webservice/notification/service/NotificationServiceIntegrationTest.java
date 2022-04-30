@@ -96,6 +96,7 @@ class NotificationServiceIntegrationTest extends BaseIntegrationTest {
                 new StompSessionHandlerAdapter() {
                 }).get(1, SECONDS);
         stompSession.subscribe("/topic/" + user.notificationsChannelId(), handler);
+        SECONDS.sleep(1);
 
         notificationService.sendAllNotifications(List.of(notification));
 
