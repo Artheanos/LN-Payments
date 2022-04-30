@@ -11,6 +11,7 @@ public class Constants {
     public static final String REFRESH_PATH = "/refreshToken";
     public static final String TEMPORARY_PATH = "/temporary";
     public static final String PAYMENTS_WS_PATH = "/payment";
+    public static final String NOTIFICATION_WS_PATH = "/notification";
     public static final String ADMIN_PATH = "/admins";
     public static final String WALLET_PATH = "/wallet";
     public static final String CLOSE_CHANNELS_PATH = "/closeChannels";
