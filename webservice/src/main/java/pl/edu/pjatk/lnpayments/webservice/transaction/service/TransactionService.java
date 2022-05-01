@@ -49,6 +49,7 @@ public class TransactionService {
                 transactionRequest.getTargetAddress(),
                 transactionRequest.getAmount()
         );
+        transaction.setRequiredApprovals(wallet.getMinSignatures());
         transactionRepository.save(transaction);
         List<AdminUser> users = wallet.getUsers();
         List<Notification> notifications = users.stream()

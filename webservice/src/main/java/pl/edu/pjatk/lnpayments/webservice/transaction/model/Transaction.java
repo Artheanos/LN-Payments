@@ -19,12 +19,14 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 1024)
     private String rawTransaction;
     private String sourceAddress;
     private String targetAddress;
     private Long inputValue;
     private Long fee;
     private Integer requiredApprovals;
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
 
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)

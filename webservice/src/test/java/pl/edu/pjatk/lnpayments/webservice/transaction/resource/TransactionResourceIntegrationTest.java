@@ -71,6 +71,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         AdminUser user = createAdminUser("test@test.pl");
         Wallet wallet = Wallet.builder()
                 .users(List.of(user))
+                .minSignatures(1)
                 .address("2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4")
                 .build();
         user.setWallet(wallet);
@@ -93,6 +94,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         assertThat(transactions).hasSize(1);
         Transaction transaction = transactions.get(0);
         assertThat(transaction.getNotifications()).hasSize(1);
+        assertThat(transaction.getRequiredApprovals()).isEqualTo(1);
     }
 
     @Test

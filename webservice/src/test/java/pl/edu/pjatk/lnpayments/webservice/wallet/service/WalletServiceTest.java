@@ -92,6 +92,7 @@ class WalletServiceTest {
         verify(walletRepository).save(captor.capture());
         Wallet savedWallet = captor.getValue();
         assertThat(savedWallet.getAddress()).isEqualTo(wallet.getAddress());
+        assertThat(savedWallet.getMinSignatures()).isEqualTo(wallet.getMinSignatures());
         assertThat(savedWallet.getRedeemScript()).isEqualTo(wallet.getRedeemScript());
         assertThat(savedWallet.getScriptPubKey()).isEqualTo(wallet.getScriptPubKey());
         assertThat(savedWallet.getUsers()).isEqualTo(wallet.getUsers());
