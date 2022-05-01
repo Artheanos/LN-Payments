@@ -76,7 +76,7 @@ public class WalletService {
                 .build();
     }
 
-    private Wallet getActiveWallet() {
+    public Wallet getActiveWallet() {
         return walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)
                 .orElseThrow(() -> new NotFoundException("Active wallet not found"));
     }

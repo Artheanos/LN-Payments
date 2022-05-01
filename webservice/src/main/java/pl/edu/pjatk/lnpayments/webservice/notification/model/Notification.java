@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import javax.persistence.*;
 

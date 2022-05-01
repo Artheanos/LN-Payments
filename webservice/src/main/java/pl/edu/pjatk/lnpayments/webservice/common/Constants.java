@@ -14,6 +14,7 @@ public class Constants {
     public static final String NOTIFICATION_WS_PATH = "/notification";
     public static final String ADMIN_PATH = "/admins";
     public static final String WALLET_PATH = "/wallet";
+    public static final String TRANSACTIONS_PATH = "/transactions";
     public static final String CLOSE_CHANNELS_PATH = "/closeChannels";
     public static final String TRANSFER_PATH = "/transfer";
     public static final String KEYS_PATH = "/keys";

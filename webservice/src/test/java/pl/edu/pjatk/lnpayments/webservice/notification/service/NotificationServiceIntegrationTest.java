@@ -3,7 +3,6 @@ package pl.edu.pjatk.lnpayments.webservice.notification.service;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,8 +25,8 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Transaction;
-import pl.edu.pjatk.lnpayments.webservice.wallet.repository.TransactionRepository;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -80,12 +79,11 @@ class NotificationServiceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    @Disabled
     void shouldSendNotification() throws ExecutionException, InterruptedException, TimeoutException {
         AdminUser user = createAdminUser("test@test.pl");
         userRepository.save(user);
         String token = jwtService.generateToken(user.getEmail());
-        Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction("aaa", "bbb", "ccc", 1L, 1L, 1);
         transactionRepository.save(transaction);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
         HttpHeaders httpHeaders = new HttpHeaders();

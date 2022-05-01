@@ -6,7 +6,7 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;

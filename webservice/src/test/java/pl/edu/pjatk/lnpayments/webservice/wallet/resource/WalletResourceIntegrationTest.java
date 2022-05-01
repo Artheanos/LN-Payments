@@ -87,11 +87,12 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         assertThat(wallets.get(0).getRedeemScript()).isEqualTo("51210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52ae");
         assertThat(wallets.get(0).getScriptPubKey()).isEqualTo("a914fc375c082884b9d7575ac04102d11218406434d287");
         assertThat(wallets.get(0).getUsers().size()).isEqualTo(2);
+        assertThat(wallets.get(0).getMinSignatures()).isEqualTo(1);
     }
 
     @Test
     void shouldReturn409IfWalletAlreadyExists() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         CreateWalletRequest request = new CreateWalletRequest(1, List.of(EMAIL));
 
@@ -162,7 +163,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturn200ForTransfer() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         WalletBalanceResponse balanceRequest = new WalletBalanceResponse();
         balanceRequest.setConfirmedBalance(2137L);
@@ -176,7 +177,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturn200ForBalanceRequest() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(1000L));
@@ -212,7 +213,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturn500WhenThereIsLightningException() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         when(lndAPI.channelBalance()).thenThrow(ValidationException.class);
 

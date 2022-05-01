@@ -45,7 +45,7 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldPerformAutoTransfer() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         WalletBalanceResponse balanceRequest = new WalletBalanceResponse();
         balanceRequest.setConfirmedBalance(213700000L);
@@ -89,7 +89,7 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldCloseChannelsWhenThresholdExceeded() throws Exception {
-        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList());
+        Wallet wallet = new Wallet("123", "456", "789", Collections.emptyList(), 1);
         walletRepository.save(wallet);
         WalletBalanceResponse balanceRequest = new WalletBalanceResponse();
         balanceRequest.setConfirmedBalance(2137L);

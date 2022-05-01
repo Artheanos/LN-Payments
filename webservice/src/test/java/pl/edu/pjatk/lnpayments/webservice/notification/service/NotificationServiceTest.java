@@ -12,7 +12,7 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import java.util.List;
 

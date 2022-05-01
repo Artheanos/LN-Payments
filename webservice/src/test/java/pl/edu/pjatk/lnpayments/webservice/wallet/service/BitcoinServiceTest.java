@@ -11,13 +11,19 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
 
+import java.util.HexFormat;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.bitcoinj.core.Transaction.REFERENCE_DEFAULT_MIN_TX_FEE;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +52,7 @@ class BitcoinServiceTest {
         assertThat(wallet.getRedeemScript()).isEqualTo("52210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52ae");
         assertThat(wallet.getScriptPubKey()).isEqualTo("a9148c0b2c246ce6738f00f5dd47948966f791042ad887");
         assertThat(wallet.getUsers()).isEqualTo(adminUsers);
+        assertThat(wallet.getMinSignatures()).isEqualTo(2);
     }
 
     @Test
@@ -58,6 +65,47 @@ class BitcoinServiceTest {
         BitcoinWalletBalance balance = bitcoinService.getBalance();
         assertThat(balance.getAvailableBalance()).isEqualTo(1000L);
         assertThat(balance.getUnconfirmedBalance()).isEqualTo(100L);
+        assertThat(balance.getCurrentReferenceFee()).isEqualTo(REFERENCE_DEFAULT_MIN_TX_FEE.value);
     }
 
+    @Test
+    void shouldCreateTransaction() {
+        RegTestParams params = RegTestParams.get();
+        org.bitcoinj.core.Transaction transaction1 = new org.bitcoinj.core.Transaction(params, HexFormat.of().parseHex("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f300000000d9004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c260147304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000"));
+        String destinationAddress = "2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv";
+        String sourceAddress = "2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4";
+        org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
+        when(walletAppKit.wallet()).thenReturn(walletMock);
+        when(walletAppKit.params()).thenReturn(params);
+        when(walletMock.getWatchedOutputs(true)).thenReturn(transaction1.getOutputs());
+        when(walletMock.getBalance(BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(10000L));
+        when(walletMock.getBalance(BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
+
+        Transaction transaction = bitcoinService.createTransaction(sourceAddress, destinationAddress, 100L);
+
+        assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.PENDING);
+        assertThat(transaction.getFee()).isEqualTo(1000L);
+        assertThat(transaction.getInputValue()).isEqualTo(100L);
+        assertThat(transaction.getSourceAddress()).isEqualTo(sourceAddress);
+        assertThat(transaction.getTargetAddress()).isEqualTo(destinationAddress);
+        assertThat(transaction.getRawTransaction()).isEqualTo("0100000001102b444becb78e1fbb79d7fda0a42f78594ee5fd86a8ddf753a65ce5012787350100000000ffffffff02640000000000000017a9148c0b2c246ce6738f00f5dd47948966f791042ad887781e00000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenInvalidInputValueProvided() {
+        RegTestParams params = RegTestParams.get();
+        org.bitcoinj.core.Transaction transaction1 = new org.bitcoinj.core.Transaction(params, HexFormat.of().parseHex("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f300000000d9004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c260147304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000"));
+        String destinationAddress = "2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv";
+        String sourceAddress = "2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4";
+        org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
+        when(walletAppKit.wallet()).thenReturn(walletMock);
+        when(walletAppKit.params()).thenReturn(params);
+        when(walletMock.getWatchedOutputs(true)).thenReturn(transaction1.getOutputs());
+        when(walletMock.getBalance(BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(10L));
+        when(walletMock.getBalance(BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
+
+        assertThatExceptionOfType(InconsistentDataException.class)
+                .isThrownBy(() -> bitcoinService.createTransaction(sourceAddress, destinationAddress, 100L))
+                .withMessage("Transaction amount is higher than balance with fees");
+    }
 }

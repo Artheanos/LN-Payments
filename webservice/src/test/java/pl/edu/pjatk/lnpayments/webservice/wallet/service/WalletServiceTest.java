@@ -79,7 +79,7 @@ class WalletServiceTest {
         AdminUser admin2 = UserFactory.createAdminUser("admin2@test.pl");
         List<String> adminEmails = List.of(admin1.getEmail(), admin2.getEmail());
         List<AdminUser> adminUsers = List.of(admin1, admin2);
-        Wallet wallet = new Wallet("123", "456", "789", adminUsers);
+        Wallet wallet = new Wallet("123", "456", "789", adminUsers, 2);
         when(walletRepository.existsByStatus(any())).thenReturn(false);
         when(adminService.findAllWithKeys(adminEmails)).thenReturn(adminUsers);
         when(bitcoinService.createWallet(adminUsers, 2)).thenReturn(wallet);
@@ -162,6 +162,24 @@ class WalletServiceTest {
 
         assertThatExceptionOfType(NotFoundException.class)
                 .isThrownBy(() -> walletService.getDetails());
+    }
+
+    @Test
+    void shouldReturnActiveWallet() {
+        Wallet wallet = Wallet.builder().address("2137").build();
+        when(walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)).thenReturn(Optional.of(wallet));
+
+        Wallet actual = walletService.getActiveWallet();
+
+        assertThat(actual).isEqualTo(wallet);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenWalletDoesNotExist() {
+        when(walletRepository.findFirstByStatus(WalletStatus.ON_DUTY)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> walletService.getActiveWallet());
     }
 
 }
