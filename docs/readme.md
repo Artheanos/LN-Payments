@@ -14,3 +14,8 @@ gem install asciidoctor-diagram
 
 Makefile can generate PDF and HTML files. They will appear in _target_ directory. Simply type *make pdf*, *make html*. 
 By default it will generate both formats. There is also clean task to delete _target_ directory.
+
+### Thesis book
+
+You can build a book with command *make book*. Some parts of the book are linked
+at compile time, that is why you don't see them in src files (like title page and disclaimer).

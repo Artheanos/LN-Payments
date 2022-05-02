@@ -1,0 +1,8 @@
+extends: default
+base:
+  font:
+    size: 12
+heading:
+  align: center
+  h2-font-size: 24
+  h2-margin-bottom: 30

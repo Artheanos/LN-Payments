@@ -1,4 +1,4 @@
-:imagesdir: ../images/
+:imagesdir: images
 
 [.text-center]
 image:pjatk_logo.png[image]
