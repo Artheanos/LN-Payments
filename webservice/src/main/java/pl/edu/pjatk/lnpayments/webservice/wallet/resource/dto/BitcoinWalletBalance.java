@@ -9,4 +9,5 @@ public class BitcoinWalletBalance {
 
     private long availableBalance;
     private long unconfirmedBalance;
+    private long currentReferenceFee;
 }

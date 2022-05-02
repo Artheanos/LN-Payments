@@ -25,6 +25,8 @@ public class Wallet {
 
     private String address;
 
+    private Integer minSignatures;
+
     @Enumerated(EnumType.STRING)
     private WalletStatus status;
 
@@ -32,11 +34,16 @@ public class Wallet {
     private List<AdminUser> users;
 
     @Builder
-    public Wallet(String redeemScript, String scriptPubKey, String address, List<AdminUser> users) {
+    public Wallet(String redeemScript,
+                  String scriptPubKey,
+                  String address,
+                  List<AdminUser> users,
+                  Integer minSignatures) {
         this.redeemScript = redeemScript;
         this.scriptPubKey = scriptPubKey;
         this.address = address;
         this.users = users;
         this.status = WalletStatus.ON_DUTY;
+        this.minSignatures = minSignatures;
     }
 }
