@@ -9,6 +9,7 @@ gem install asciidoctor
 gem install asciidoctor-pdf
 gem install asciidoctor-diagram
 ```
+You will also need _make_ build tool and a program called _pdftk_. It can be found in any linux package manager repo.
 
 ## Building
 
