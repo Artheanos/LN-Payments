@@ -25,12 +25,15 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRe
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 
+import java.time.Instant;
 import java.util.HexFormat;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 
@@ -95,6 +98,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         Transaction transaction = transactions.get(0);
         assertThat(transaction.getNotifications()).hasSize(1);
         assertThat(transaction.getRequiredApprovals()).isEqualTo(1);
+        assertThat(transaction.getDateCreated()).isBefore(Instant.now());
     }
 
     @Test
@@ -143,4 +147,61 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    void shouldReturnOkAndListOfTransactions() throws Exception {
+        Transaction transaction1 = Transaction.builder()
+                .rawTransaction("abc")
+                .sourceAddress("qwe")
+                .targetAddress("asd")
+                .requiredApprovals(2)
+                .fee(100L)
+                .inputValue(100L)
+                .build();
+        Transaction transaction2 = Transaction.builder()
+                .rawTransaction("ewq")
+                .sourceAddress("dsa")
+                .targetAddress("czx")
+                .requiredApprovals(2)
+                .fee(101L)
+                .inputValue(99L)
+                .build();
+        transaction2.setStatus(TransactionStatus.APPROVED);
+        transactionRepository.save(transaction1);
+        transactionRepository.save(transaction2);
+        String jsonContent = getJsonResponse("integration/payment/response/transactions-GET.json");
+
+        mockMvc.perform(get("/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturnOkAndListOfTransactionsWhenNoPending() throws Exception {
+        Transaction transaction2 = Transaction.builder()
+                .rawTransaction("ewq")
+                .sourceAddress("dsa")
+                .targetAddress("czx")
+                .requiredApprovals(2)
+                .fee(101L)
+                .inputValue(99L)
+                .build();
+        transaction2.setStatus(TransactionStatus.APPROVED);
+        transactionRepository.save(transaction2);
+        String jsonContent = getJsonResponse("integration/payment/response/transactions-GET-no-pending.json");
+
+        mockMvc.perform(get("/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturnOkAndEmptyResponseWhenNoTransactions() throws Exception {
+        String jsonContent = getJsonResponse("integration/payment/response/transactions-GET-empty.json");
+
+        mockMvc.perform(get("/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
 }
