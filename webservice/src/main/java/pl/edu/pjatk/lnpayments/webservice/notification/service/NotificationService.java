@@ -6,9 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
+import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import java.util.List;
 
@@ -41,5 +44,14 @@ public class NotificationService {
 
     public Page<Notification> getNotificationsByEmail(String name, Pageable pageable) {
         return notificationRepository.findAllByAdminUserEmail(name, pageable);
+    }
+
+    public ConfirmationDetails getSignatureData(String id) {
+        Notification notification = notificationRepository.findByIdentifier(id)
+                .orElseThrow(() -> new NotFoundException("Notification not found: " + id));
+        Transaction transaction = notification.getTransaction();
+        String rawTransaction = transaction.getRawTransaction();
+        Long version = transaction.getVersion();
+        return new ConfirmationDetails(rawTransaction, version);
     }
 }

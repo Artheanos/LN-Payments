@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.notification.model.dto;
+package pl.edu.pjatk.lnpayments.webservice.notification.repository.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +13,7 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 @AllArgsConstructor
 public class NotificationResponse {
 
+    private String id;
     private String message;
     private NotificationStatus status;
     private NotificationType type;

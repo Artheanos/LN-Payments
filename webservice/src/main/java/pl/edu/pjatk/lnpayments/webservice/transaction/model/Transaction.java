@@ -33,6 +33,9 @@ public class Transaction {
 
     private Instant dateCreated;
 
+    @Version
+    private Long version;
+
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<Notification> notifications;
 
