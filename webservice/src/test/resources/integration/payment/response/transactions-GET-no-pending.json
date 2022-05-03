@@ -1,0 +1,40 @@
+{
+  "pendingTransaction": null,
+  "transactions": {
+    "content": [
+      {
+        "sourceAddress": "dsa",
+        "targetAddress": "czx",
+        "value": 200,
+        "approvals": 0,
+        "requiredApprovals": 2,
+        "status": "APPROVED"
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+      },
+      "offset": 0,
+      "pageNumber": 0,
+      "pageSize": 20,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 1,
+    "last": true,
+    "totalElements": 1,
+    "size": 20,
+    "number": 0,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "numberOfElements": 1,
+    "first": true,
+    "empty": false
+  }
+}

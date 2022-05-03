@@ -7,6 +7,7 @@ import lombok.Setter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
@@ -26,8 +27,11 @@ public class Transaction {
     private Long inputValue;
     private Long fee;
     private Integer requiredApprovals;
+
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
+
+    private Instant dateCreated;
 
     @OneToMany(mappedBy = "transaction", fetch = FetchType.EAGER)
     private List<Notification> notifications;
@@ -46,5 +50,6 @@ public class Transaction {
         this.fee = fee;
         this.requiredApprovals = requiredApprovals;
         this.status = TransactionStatus.PENDING;
+        this.dateCreated = Instant.now();
     }
 }

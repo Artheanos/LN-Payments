@@ -1,13 +1,12 @@
 package pl.edu.pjatk.lnpayments.webservice.transaction.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRequest;
+import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.transaction.service.TransactionService;
 
 import javax.validation.Valid;
@@ -29,5 +28,11 @@ class TransactionResource {
     ResponseEntity<?> createTransaction(@RequestBody @Valid TransactionRequest request) {
         transactionService.createTransaction(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping
+    ResponseEntity<TransactionResponse> getTransactions(Pageable pageable) {
+        TransactionResponse response = transactionService.findTransactions(pageable);
+        return ResponseEntity.ok(response);
     }
 }
