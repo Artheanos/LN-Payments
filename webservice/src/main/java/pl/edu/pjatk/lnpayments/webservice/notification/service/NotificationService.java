@@ -1,6 +1,8 @@
 package pl.edu.pjatk.lnpayments.webservice.notification.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
@@ -37,4 +39,7 @@ public class NotificationService {
                 notificationConverter.convertToDto(notification));
     }
 
+    public Page<Notification> getNotificationsByEmail(String name, Pageable pageable) {
+        return notificationRepository.findAllByAdminUserEmail(name, pageable);
+    }
 }

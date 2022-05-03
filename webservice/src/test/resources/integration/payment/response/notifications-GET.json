@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "message": "message1",
+      "status": "PENDING",
+      "type": "TRANSACTION",
+      "amount": 2,
+      "address": "123"
+    },
+    {
+      "message": "message2",
+      "status": "PENDING",
+      "type": "TRANSACTION",
+      "amount": 2,
+      "address": "123"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "pageSize": 20,
+    "pageNumber": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 2,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "first": true,
+  "numberOfElements": 2,
+  "empty": false
+}

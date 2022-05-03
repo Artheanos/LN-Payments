@@ -15,7 +15,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"let jsonData = JSON.parse(responseBody)",
+									"pm.collectionVariables.set(\"accessToken\", jsonData[\"token\"]);"
 								],
 								"type": "text/javascript"
 							}
@@ -555,6 +556,40 @@
 							"path": [
 								"api",
 								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notifications",
+			"item": [
+				{
+					"name": "get_user_notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/notifications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notifications"
 							]
 						}
 					},
