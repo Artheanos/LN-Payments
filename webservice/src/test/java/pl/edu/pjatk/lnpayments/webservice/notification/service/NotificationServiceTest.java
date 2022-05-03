@@ -10,16 +10,21 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
+import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
+import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
@@ -75,5 +80,34 @@ class NotificationServiceTest {
         Page<Notification> notificationPage = notificationService.getNotificationsByEmail(user.getEmail(), Pageable.ofSize(10));
 
         assertThat(notificationPage).isEqualTo(notifications);
+    }
+
+    @Test
+    void shouldReturnConfirmationDetails() {
+        Transaction transaction = new Transaction();
+        transaction.setRawTransaction("rawtx");
+        transaction.setVersion(5L);
+        transaction.setTargetAddress("123");
+        transaction.setInputValue(1L);
+        transaction.setFee(1L);
+        transaction.setId(1L);
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setId(1L);
+        Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        when(notificationRepository.findByIdentifier("d6b5915c46")).thenReturn(Optional.of(notification));
+
+        ConfirmationDetails data = notificationService.getSignatureData(notification.getIdentifier());
+
+        assertThat(data.getRawTransaction()).isEqualTo(transaction.getRawTransaction());
+        assertThat(data.getVersion()).isEqualTo(transaction.getVersion());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenNotificationWithIdDoesNotExists() {
+        when(notificationRepository.findByIdentifier(any())).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(NotFoundException.class)
+                .isThrownBy(() -> notificationService.getSignatureData("ddd"))
+                .withMessage("Notification not found: ddd");
     }
 }
