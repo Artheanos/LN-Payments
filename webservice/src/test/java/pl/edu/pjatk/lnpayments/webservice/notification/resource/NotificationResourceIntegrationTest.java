@@ -102,7 +102,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         notificationRepository.save(notification);
         String jsonContent = getJsonResponse("integration/payment/response/confirmation-details-GET.json");
 
-        mockMvc.perform(get("/notifications/d6b5915c46/transaction"))
+        mockMvc.perform(get("/notifications/" + notification.getIdentifier() + "/transaction"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }

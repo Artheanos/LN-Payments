@@ -37,7 +37,7 @@ class NotificationConverterTest {
         assertThat(response.getType()).isEqualTo(NotificationType.TRANSACTION);
         assertThat(response.getAmount()).isEqualTo(28L);
         assertThat(response.getAddress()).isEqualTo("ddd");
-        assertThat(response.getId()).isEqualTo(0);
+        assertThat(response.getId()).isEqualTo("d6b5915c46");
     }
 
     @Test
