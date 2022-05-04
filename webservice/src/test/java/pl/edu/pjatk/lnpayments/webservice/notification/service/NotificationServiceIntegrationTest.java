@@ -1,6 +1,5 @@
 package pl.edu.pjatk.lnpayments.webservice.notification.service;
 
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,7 +22,7 @@ import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
+import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;

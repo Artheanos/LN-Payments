@@ -7,7 +7,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.model.dto.NotificationResponse;
+import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import java.util.List;
@@ -37,6 +37,7 @@ class NotificationConverterTest {
         assertThat(response.getType()).isEqualTo(NotificationType.TRANSACTION);
         assertThat(response.getAmount()).isEqualTo(28L);
         assertThat(response.getAddress()).isEqualTo("ddd");
+        assertThat(response.getId()).isEqualTo("d6b5915c46");
     }
 
     @Test

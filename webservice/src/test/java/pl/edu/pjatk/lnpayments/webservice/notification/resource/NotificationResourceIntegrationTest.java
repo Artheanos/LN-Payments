@@ -87,4 +87,29 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
+
+    @Test
+    void shouldReturnOkAndConfirmationDetails() throws Exception {
+        Transaction transaction = new Transaction();
+        transaction.setRawTransaction("rawtx");
+        transaction.setTargetAddress("123");
+        transaction.setInputValue(1L);
+        transaction.setFee(1L);
+        transactionRepository.save(transaction);
+        AdminUser user = createAdminUser("user1@test.pl");
+        adminUserRepository.save(user);
+        Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        notificationRepository.save(notification);
+        String jsonContent = getJsonResponse("integration/payment/response/confirmation-details-GET.json");
+
+        mockMvc.perform(get("/notifications/" + notification.getIdentifier() + "/transaction"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturn404WhenNoNotification() throws Exception {
+        mockMvc.perform(get("/notifications/d6b5915c46/transaction"))
+                .andExpect(status().isNotFound());
+    }
 }

@@ -32,4 +32,12 @@ class NotificationResourceTest {
         assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(notificationService).getNotificationsByEmail("test", null);
     }
+
+    @Test
+    void shouldReturnOkForConfirmationRequest() {
+        ResponseEntity<?> notifications = notificationResource.getSignatureRequiredData("ddd");
+
+        assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(notificationService).getSignatureData("ddd");
+    }
 }
