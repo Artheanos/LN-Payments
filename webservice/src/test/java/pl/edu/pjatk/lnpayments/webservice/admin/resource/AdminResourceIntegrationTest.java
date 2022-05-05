@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminDeleteRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.KeyUploadRequest;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
@@ -20,6 +21,8 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.BaseIntegrationTest;
 import pl.edu.pjatk.lnpayments.webservice.helper.config.IntegrationTestConfiguration;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 
 import java.security.Principal;
 
@@ -42,6 +45,9 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private WalletRepository walletRepository;
 
     @MockBean
     private Principal principal;
@@ -102,6 +108,48 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
         mockMvc.perform(get("/admins"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturn404WhenAdminNotFound() throws Exception {
+        AdminDeleteRequest deleteRequest = new AdminDeleteRequest("test@test.pl");
+
+        mockMvc.perform(delete("/admins")
+                .content(new ObjectMapper().writeValueAsString(deleteRequest))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+        assertThat(adminUserRepository.existsByEmail("test@test.pl")).isFalse();
+    }
+
+    @Test
+    void shouldReturn200WhenAdminDeletedCorrectly() throws Exception {
+        AdminUser admin = AdminUser.adminBuilder().email("test@test.pl").build();
+        AdminDeleteRequest deleteRequest = new AdminDeleteRequest("test@test.pl");
+
+        adminUserRepository.save(admin);
+
+        mockMvc.perform(delete("/admins")
+                        .content(new ObjectMapper().writeValueAsString(deleteRequest))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        assertThat(adminUserRepository.existsByEmail("test@test.pl")).isFalse();
+    }
+
+    @Test
+    void shouldReturn409WhenAdminIsAddedToWallet() throws Exception {
+        AdminUser admin = AdminUser.adminBuilder().email("test@test.pl").build();
+        AdminDeleteRequest deleteRequest = new AdminDeleteRequest("test@test.pl");
+        Wallet wallet = new Wallet();
+
+        walletRepository.save(wallet);
+        admin.setWallet(wallet);
+        adminUserRepository.save(admin);
+
+        mockMvc.perform(delete("/admins")
+                        .content(new ObjectMapper().writeValueAsString(deleteRequest))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+        assertThat(adminUserRepository.existsByEmail("test@test.pl")).isTrue();
     }
 
     @Nested
