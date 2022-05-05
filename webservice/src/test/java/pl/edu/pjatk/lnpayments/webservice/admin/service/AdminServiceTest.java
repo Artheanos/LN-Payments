@@ -21,7 +21,6 @@ import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataExcep
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 
 import javax.validation.ValidationException;
-import javax.validation.constraints.AssertTrue;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -159,19 +159,6 @@ class AdminServiceTest {
     }
 
     @Test
-    void shouldRemoveUserCorrectly() {
-        AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
-        AdminUser expectedUser = new AdminUser("test@test.pl", "test", "pass");
-        AdminDeleteRequest getEmail = new AdminDeleteRequest("test@test.pl");
-
-        adminService.createAdmin(request);
-        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
-
-        adminService.removeAdmin(getEmail);
-        verify(adminUserRepository).delete(expectedUser);
-    }
-
-    @Test
     void shouldThrowExceptionWhenUserWithThatMailNotExist() {
         AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
@@ -179,6 +166,8 @@ class AdminServiceTest {
         assertThatExceptionOfType(UsernameNotFoundException.class)
                 .isThrownBy(() -> adminService.removeAdmin(getEmail))
                 .withMessage(getEmail.getEmail() + " not found!");
+
+        verify(adminUserRepository, never()).delete(any());
     }
 
     @Test
@@ -187,11 +176,11 @@ class AdminServiceTest {
         AdminUser expectedUser = new AdminUser("test@test.pl", "test", "pass");
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
-        adminService.createAdmin(request);
-        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
-
+        given(adminUserRepository.findByEmail(request.getEmail())).willReturn(Optional.of(expectedUser));
         assertThat(expectedUser.isAssignedToWallet()).isFalse();
+
         adminService.removeAdmin(getEmail);
+
         verify(adminUserRepository).delete(expectedUser);
     }
 
@@ -202,15 +191,15 @@ class AdminServiceTest {
         Wallet wallet = new Wallet();
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
-        adminService.createAdmin(request);
-
         expectedUser.setWallet(wallet);
+        given(adminUserRepository.findByEmail(request.getEmail())).willReturn(Optional.of(expectedUser));
         assertThat(expectedUser.isAssignedToWallet()).isTrue();
-        when(adminUserRepository.findByEmail(expectedUser.getEmail())).thenReturn(Optional.of(expectedUser));
 
         assertThatExceptionOfType(ValidationException.class)
                 .isThrownBy(() -> adminService.removeAdmin(getEmail))
                 .withMessage("Admin " + getEmail.getEmail() +" is already added to wallet");
+
+        verify(adminUserRepository, never()).delete(any());
     }
 
 }

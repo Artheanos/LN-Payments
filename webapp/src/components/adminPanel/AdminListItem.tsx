@@ -5,35 +5,27 @@ import { AdminStatusIndicator } from './AdminStatusIndicator'
 import { api } from 'api'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
 import { useNotification } from 'components/Context/NotificationContext'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   user: AdminUser
 }
 
 export const AdminListItem: React.FC<Props> = ({ user }) => {
+  const { t } = useTranslation('auth')
   const notification = useNotification()
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState('')
   const isDeleteConfirmed = () => {
     setShowSuccessModal(true)
-    setConfirmMessage(
-      'Are you sure that you want to remove ' + user.email + ' from admins?'
-    )
+    setConfirmMessage(t('remove.confirmMessage') + user.email)
   }
   const OnClickRemoveAdmin = async () => {
     const { status } = await api.admins.removeAdmin(user)
     if (status === 200) {
-      notification(
-        'Admin ' + user.fullName + ' has been removed successfully.',
-        'success'
-      )
+      notification(user.email + t('remove.successful'), 'success')
     } else if (status === 409) {
-      notification(
-        'Admin ' +
-          user.fullName +
-          ' cannot been removed because he is assigned to wallet.',
-        'error'
-      )
+      notification(user.fullName + t('remove.error'), 'error')
     }
   }
 
@@ -52,7 +44,7 @@ export const AdminListItem: React.FC<Props> = ({ user }) => {
         )}
       </TableCell>
       <ConfirmationModal
-        confirmButtonContent="Yes"
+        confirmButtonContent={t('remove.form.confirmDeleteButton')}
         message={confirmMessage}
         onConfirm={() => OnClickRemoveAdmin()}
         open={showSuccessModal}

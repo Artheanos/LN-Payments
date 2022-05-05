@@ -60,12 +60,11 @@ class AdminResourceTest {
         AdminRequest request = new AdminRequest("test@test.pl", "test", "test");
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
-        ResponseEntity<?> responseCreate = adminResource.addAdmin(request);
+        adminService.createAdmin(request);
         ResponseEntity<?> responseDelete = adminResource.deleteAdmin(getEmail);
 
-        assertThat(responseCreate.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(responseDelete.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(adminService).createAdmin(request);
+        verify(adminService).removeAdmin(getEmail);
     }
 
 }
