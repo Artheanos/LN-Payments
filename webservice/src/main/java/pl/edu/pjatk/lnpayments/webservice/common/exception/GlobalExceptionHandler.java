@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pl.edu.pjatk.lnpayments.webservice.payment.exception.LightningException;
 
+import javax.persistence.OptimisticLockException;
 import javax.validation.ValidationException;
 
 @Slf4j
@@ -39,6 +40,11 @@ class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UsernameNotFoundException.class)
     void handleUsernameNotFound() {
+    }
+
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    @ExceptionHandler(OptimisticLockException.class)
+    void handleLockException() {
     }
 
 }

@@ -48,4 +48,8 @@ public class Notification {
         this.type = notificationType;
         this.status = NotificationStatus.PENDING;
     }
+
+    public boolean isFinalized() {
+        return status != NotificationStatus.PENDING;
+    }
 }
