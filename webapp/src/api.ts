@@ -4,6 +4,7 @@ import routesBuilder from 'routesBuilder'
 import { datify } from 'utils/time'
 import { getLocalJson } from 'utils/persist'
 import { LocalKey } from '@constants'
+import { WalletForm } from './components/wallet/create/form'
 
 const defaultConfig: AxiosRequestConfig = {
   method: 'post'
@@ -115,6 +116,9 @@ export const api = {
       }),
 
     transfer: (): Promise<Response<unknown>> =>
-      request(routesBuilder.api.wallet.transfer)
+      request(routesBuilder.api.wallet.transfer),
+
+    create: (data: WalletForm): Promise<Response<unknown>> =>
+      request(routesBuilder.api.wallet.index, { data })
   }
 }

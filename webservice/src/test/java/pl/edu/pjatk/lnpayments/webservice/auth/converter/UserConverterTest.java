@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
-import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.entity.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -64,6 +61,20 @@ class UserConverterTest {
         assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());
         assertThat(loginResponse.getRole()).isEqualTo(user.getRole());
         assertThat(loginResponse.getToken()).isEqualTo("token");
+        assertThat(loginResponse.getNotificationChannelId()).isNull();
+    }
+
+    @Test
+    void shouldContainNotificationChannelIdWhenLoggingInAsAdmin() {
+        StandardUser user = new AdminUser("test@test.pl", "test", "pass");
+
+        LoginResponse loginResponse = userConverter.convertToLoginResponse(user, "token");
+
+        assertThat(loginResponse.getEmail()).isEqualTo(user.getEmail());
+        assertThat(loginResponse.getFullName()).isEqualTo(user.getFullName());
+        assertThat(loginResponse.getRole()).isEqualTo(user.getRole());
+        assertThat(loginResponse.getToken()).isEqualTo("token");
+        assertThat(loginResponse.getNotificationChannelId().length()).isEqualTo(10);
     }
 
     @Test

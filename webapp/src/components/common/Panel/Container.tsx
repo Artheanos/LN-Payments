@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const Container: React.FC<Props> = ({ children, className }) => (
-  <Paper className={className}>{children}</Paper>
+  <Paper className={`text-left ${className}`}>{children}</Paper>
 )

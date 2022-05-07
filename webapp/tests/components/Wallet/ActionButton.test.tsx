@@ -1,5 +1,5 @@
 import { render, screen } from 'tests/test-utils'
-import { ActionButton } from 'components/Wallet/ActionButton'
+import { ActionButton } from 'components/wallet/ActionButton'
 import React from 'react'
 import { waitFor } from '@testing-library/react'
 

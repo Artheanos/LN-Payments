@@ -13,6 +13,7 @@
   },
   "bitcoinWalletBalance": {
     "availableBalance": 1000,
-    "unconfirmedBalance": 100
+    "unconfirmedBalance": 100,
+    "currentReferenceFee": 1000
   }
 }

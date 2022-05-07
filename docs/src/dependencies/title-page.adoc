@@ -1,0 +1,53 @@
+:imagesdir: ../images
+:pdf-page-margin: [0.98in, 0.98in, 0.98in, 0.98in]
+:pdf-style: src/themes/title-page-theme.yml
+:nofooter:
+
+[.text-center]
+image:pjatk_logo.png[pdfwidth=75%]
+
+[cols="1,1",frame=none,grid=none]
+|===
+|*Kierunek Studiów:* Informatyka | *Rodzaj studiów:* Niestacjonarne
+|===
+
+== Praca dyplomowa
+
+[.text-left]
+--
+*Temat pracy:* Procesowanie mikropłatności w Bitcoinach za pomocą sieci Lightning
+
+*Temat w języku angielskim:* Bitcoin micropayments processing with Lightning Network
+
+*Opiekun pracy:* Dr Tadeusz Puźniakowski
+
+*Wykonawcy:*
+[cols="2,1",width=75%,align="right"]
+|===
+| *Nazwisko, Imię* | *Nr albumu*
+| Aleksander Konieczny | s19376
+| Jan Pieczul | s19496
+| Sebastian Lewandowski | s18000
+|===
+
+*Streszczenie:* +
+[cols="1",width=90%,align="right",frame=none,grid=none]
+|===
+| Opłaty transakcyjne w sieci Bitcoin jest drogie, a co za tym idzie nieopłacalne staja się mikropłatności.
+Aby obniżyć koszty, stworzono sieć Lightning, która umożliwia tworzenie kanałów płatności i wykonywanie tanich
+płatności. Tworzony system będzie serwerem do obsługi płatności w sieci Lightning wraz ze wbudowanym portfelem
+zabezpieczonym poprzez mobilną autoryzację. Wykorzystanie dochodu z transakcji wymagać będzie podpisania transakcji
+kluczami osób zarządzających serwerem. Rozwiązanie umożliwi tworzenie małych punktów sprzedaży operujących za pomocą
+Bitcoinów, oferujący w zamian jednorazowe tokeny.
+|===
+--
+
+=== Oświadczenie autorów pracy dyplomowej
+
+Świadomi odpowiedzialności prawnej oświadczamy, że niniejszą pracę dyplomową w zakresie przedstawionym przez nasz
+zespół projektowy wykonaliśmy
+samodzielnie i nie zawiera ona treści uzyskanych w sposób niezgodny z obowiązującymi przepisami.
+Oświadczamy również, że praca w przedstawionym przez nas zakresie nie
+była wcześniej przedmiotem procedur związanych z uzyskaniem tytułu ukończenia studiów wyższych.
+Oświadczamy ponadto, że niniejsza wersja pracy dyplomowej jest identyczna
+z załączoną wersją elektroniczną.

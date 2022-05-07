@@ -26,7 +26,8 @@ jobs:
           gem install asciidoctor
           gem install asciidoctor-pdf
           gem install asciidoctor-diagram
-
+      - name: Install pdftk
+        run: sudo apt-get install -y pdftk
       - name: Build files
         run: make
       - name: Line endings check

@@ -29,7 +29,7 @@ export const AdminCreatePage: React.FC = () => {
   ) => {
     setLoading(true)
     try {
-      const { status } = await api.admins.createAdmin(form)
+      const { status } = await api.admins.create(form)
       if (status === 201) {
         notification('New admin has been created', 'success')
         navigate(routesBuilder.userPanel.admins.index)
