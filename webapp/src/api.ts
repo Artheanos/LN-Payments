@@ -94,15 +94,15 @@ export const api = {
     }
   },
   admins: {
-    getAdmins: async (
-      params: PageRequest
+    getAll: async (
+      params?: PageRequest
     ): Promise<Response<Pageable<AdminUser>>> =>
       request(routesBuilder.api.admins.index, { method: 'get', params }),
 
-    createAdmin: (data: RegisterForm): Promise<Response<unknown>> =>
+    create: (data: RegisterForm): Promise<Response<unknown>> =>
       request(routesBuilder.api.admins.index, { data }),
 
-    removeAdmin: (data: AdminUser): Promise<Response<unknown>> =>
+    remove: (data: AdminUser): Promise<Response<unknown>> =>
       request(routesBuilder.api.admins.index, { method: 'delete', data })
   },
   wallet: {

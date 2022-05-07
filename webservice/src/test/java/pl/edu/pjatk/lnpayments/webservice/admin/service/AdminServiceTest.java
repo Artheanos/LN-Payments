@@ -29,7 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -176,7 +175,7 @@ class AdminServiceTest {
         AdminUser expectedUser = new AdminUser("test@test.pl", "test", "pass");
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
-        given(adminUserRepository.findByEmail(request.getEmail())).willReturn(Optional.of(expectedUser));
+        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
         assertThat(expectedUser.isAssignedToWallet()).isFalse();
 
         adminService.removeAdmin(getEmail);
@@ -192,7 +191,7 @@ class AdminServiceTest {
         AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
 
         expectedUser.setWallet(wallet);
-        given(adminUserRepository.findByEmail(request.getEmail())).willReturn(Optional.of(expectedUser));
+        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
         assertThat(expectedUser.isAssignedToWallet()).isTrue();
 
         assertThatExceptionOfType(ValidationException.class)

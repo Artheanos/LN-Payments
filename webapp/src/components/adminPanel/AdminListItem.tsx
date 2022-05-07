@@ -21,7 +21,7 @@ export const AdminListItem: React.FC<Props> = ({ user }) => {
     setConfirmMessage(t('remove.confirmMessage') + user.email)
   }
   const OnClickRemoveAdmin = async () => {
-    const { status } = await api.admins.removeAdmin(user)
+    const { status } = await api.admins.remove(user)
     if (status === 200) {
       notification(user.email + t('remove.successful'), 'success')
     } else if (status === 409) {
