@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import { Text } from 'native-base'
-import { UserContext } from '../../components/context/UserContext'
+import { UserContext } from '../../context/UserContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const LogoutPage: React.FC = () => {
+export const LogoutScreen: React.FC = () => {
   const { setToken } = useContext(UserContext)
 
   useEffect(() => {

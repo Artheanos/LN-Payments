@@ -1,7 +1,7 @@
 import React from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { MainPage } from '../../pages/MainPage'
-import { LogoutPage } from '../../pages/auth/LogoutPage'
+import { MainScreen } from '../screens/MainScreen'
+import { LogoutScreen } from '../screens/auth/LogoutScreen'
 
 const Drawer = createDrawerNavigator()
 
@@ -11,8 +11,8 @@ export const SignedInRouter: React.FC = () => {
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
       {/* @ts-ignore */}
       <Drawer.Navigator>
-        <Drawer.Screen name="MainPage" component={MainPage} />
-        <Drawer.Screen name="Logout" component={LogoutPage} />
+        <Drawer.Screen name="Home" component={MainScreen} />
+        <Drawer.Screen name="Logout" component={LogoutScreen} />
       </Drawer.Navigator>
     </>
   )
