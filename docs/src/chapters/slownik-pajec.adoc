@@ -1,2 +1,14 @@
 [glossary]
 == Słownik pojęć
+
+multisig::
+    Rozdaj adresu, który wymaga kilku podpisów cyfrowych, aby wykorzystać zapisane na nim środki. Jeżeli transakcja
+    nie będzie podpisana przez wymaganą liczbę użytkowników, zostanie ona odrzucona przez inne węzły Bitcoina.
+    <<btcbook>>
+
+macaroon::
+    Dane uwierzytelniające, które zapewniają elastyczne wsparcie dla kontrolowanego udostępniania w zdecentralizowanych
+    rozproszonych systemach, takich jak sieć Lightning. Może on łączyć się z usługami i umożliwiać wykonywanie działań
+    w imieniu węzła Lightning. Jest podobny do pliku cookie, ale w przeciwieństwie do tradycyjnego pliku cookie
+    przeglądarki, można utworzyć makaronik o ograniczonych możliwościach, a następnie wysłać go do innych użytkowników.
+    <<lnbook>>

@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+actor Administrator as admin
+
+package "Aplikacja mobilna" {
+    usecase Logowanie as MC1
+    usecase "Podanie adresu serwera" as MC2
+    usecase "Wysyłanie kluczy" as MC3
+    usecase "Przeglądanie powiadomień" as MC4
+    usecase "Wyświetlanie szczegółów powiadomień" as MC8
+    usecase "Potwierdzenie powiadomienia" as MC5
+    usecase "Odrzucenie powiadomienia" as MC6
+    usecase "Podpisanie transakcji" as MC7
+}
+
+MC5 -.> MC7 : <<extends>>
+MC1 -.> MC2 : <<includes>>
+MC1 -.> MC3 : <<includes>>
+MC4 -.> MC8 : <<includes>>
+MC8 -right-.> MC5 : <<includes>>
+MC8 -.> MC6 : <<includes>>
+
+admin --> MC1
+admin --> MC4
+
+@enduml

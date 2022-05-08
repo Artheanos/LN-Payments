@@ -1,5 +1,6 @@
 == Omówienie problemu
 
+[#_przedstawienie_problemu]
 === Przedstawienie problemu
 
 Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to

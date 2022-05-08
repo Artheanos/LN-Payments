@@ -73,11 +73,10 @@ projektowego, promotora Tadeusza Puźniakowskiego i dziekana PJATK Marka Bednarc
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: | _UOB 01_
 |Nazwa: | _Użytkownik_
-|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko_
+|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
 |Typ udziałowca: |_Ożywiony bezpośredni_
 |Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu_
 |Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących_
-|Wymagania: |_TBD_
 |===
 
 [cols="1h,4"]
@@ -85,25 +84,69 @@ projektowego, promotora Tadeusza Puźniakowskiego i dziekana PJATK Marka Bednarc
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: |_UOB 02_
 |Nazwa: |_Administrator_
-|Opis: |_Osoba mająca wgląd w ustawienia serwera, może inicjować przelewy z głównego portfela, podpisywać transakcje
-swoim kluczem i przeglądać historię wpłat_
+|Opis: |_Osoba mająca wgląd w ustawienia serwera, która może inicjować przelewy z głównego portfela, podpisywać transakcje
+swoim kluczem i przeglądać historię wpłat._
 |Typ udziałowca: |_Ożywiony bezpośredni_
-|Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu_
-|Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących_
-|Wymagania: |_TBD_
+|Punkt widzenia: |_Osoba będąca częściowo właścicielem serwera oraz zarządzająca nim._
+|Ograniczenia: |_Jeżeli nie jest dodany do portfela, nie może podpisywać transakcji._
 |===
 
 [cols="1h,4"]
 |===
 2+| *KARTA UDZIAŁOWCA*
-|Identyfikator: |_UNP 01_
+|Identyfikator: |_UNP 03_
 |Nazwa: |_Uczelnia_
-|Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu Ingenious_
+|Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu Ingenious._
 |Typ udziałowca: |_Nieożywiony pośredni_
-|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań
+|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań.
 biznesowych_
 |Ograniczenia: |_Nie ma wglądu w projekt, jedynie go nadzoruje_
-|Wymagania: |_TBD_
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP 04_
+|Nazwa: |_Promotor_
+|Opis: |_Osoba opiekująca się projektem oraz pomagająca w jego realizacji._
+|Typ udziałowca: |_Ożywiony pośredni_
+|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań
+biznesowych oraz realizacją zadań technicznych_
+|Ograniczenia: |_Ograniczona komunikacja, zjazdy raz na 2/3 tygodnie_
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP 05_
+|Nazwa: |_BitcoinJ_
+|Opis: |_Biblioteka umożliwiają operacje w sieci Bitcoin.
+|Typ udziałowca: |_Nieożywiony bezpośredni_
+|Punkt widzenia: |_Techniczny, umożliwia operacje na Bitcoinach_
+|Ograniczenia: |_Biblioteka nie posiada najnowszych funkcjonalności sieci Bitcoin, co stanowi dla nas
+spore utrudnienie._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP 06_
+|Nazwa: |_LightningJ_
+|Opis: |_Biblioteka pozwalająca na połączenie się z węzłem LND za pomocą kodu w Javie.
+|Typ udziałowca: |_Nieożywiony bezpośredni_
+|Punkt widzenia: |_Techniczny, umożliwia operacje w sieci Lightning_
+|Ograniczenia: |_Biblioteka jest mało popularna, a co za tym idzie ciężko szukać o niej informacji.
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP 07_
+|Nazwa: |_Zespół projektowy_
+|Opis: |_Tworzy system oraz dokumentację pod przewodnictwem promotora._
+|Typ udziałowca: |_Ożywiony bezpośredni_
+|Punkt widzenia: |_Twórcy rozwiązanie_
+|Ograniczenia: |_Czas, wiedza_
 |===
 
 === Klienci
