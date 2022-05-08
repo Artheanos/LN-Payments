@@ -1,14 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useState } from 'react'
-import axios from 'axios'
-import { Box, Button, Center, Flex, Heading, Text } from 'native-base'
-import { Field, Formik, FormikHelpers, FormikValues } from 'formik'
+import { Box, Button, Center, Flex, Heading } from 'native-base'
+import { Field, Formik, FormikHelpers } from 'formik'
 
-import { FormikInput } from '../../../form/FormikInput'
-import { UserContext } from '../../../context/UserContext'
+import { FormikInput } from 'components/form/FormikInput'
+import { UserContext } from 'components/context/UserContext'
 import { initialValues } from './loginForm'
-import { api } from '../../../../api'
-import { LoginForm } from 'common-ts/webServiceApi/interface/auth'
+import { api } from 'api'
+import { LoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
 
 export const LoginScreen: React.FC = () => {
   const { setToken } = useContext(UserContext)
@@ -32,7 +31,6 @@ export const LoginScreen: React.FC = () => {
     helpers: FormikHelpers<LoginForm>,
   ) => {
     setLoading(true)
-
     api.auth
       .login(values)
       .then(({ data }) => {
@@ -47,7 +45,6 @@ export const LoginScreen: React.FC = () => {
 
   return (
     <Center justifyContent="center" h="100%">
-      <Text>Login</Text>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <Flex py="10" w="75%" maxWidth="300px">

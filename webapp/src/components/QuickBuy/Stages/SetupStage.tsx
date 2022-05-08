@@ -50,7 +50,7 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
           {/*</Grid>*/}
 
           <Grid xs={12} item className="flex justify-end">
-            <CardFormButton content={t('next')} />
+            <CardFormButton content={t('common:next')} />
           </Grid>
         </CardForm>
       </Form>

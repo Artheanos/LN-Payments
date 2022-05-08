@@ -36,14 +36,14 @@ export const TokensStage: React.FC<StageProps> = ({
             onClick={() => closeTransaction()}
             color="warning"
           >
-            {t('close')}
+            {t('common:close')}
           </Button>
         </div>
         <ConfirmationModal
           open={Boolean(displayToken)}
           message={displayToken || ''}
           setOpen={() => setDisplayToken(undefined)}
-          confirmButtonContent={t('close')}
+          confirmButtonContent={t('common:close')}
         />
       </div>
     </div>

@@ -22,10 +22,10 @@ type RefreshTokenFactory = () => (string | Promise<string | null>)
 export class WebServiceApi {
     public authHeader: string | null = null
 
-    private readonly host: string
+    private readonly host?: string
     private readonly refreshTokenFactory: RefreshTokenFactory
 
-    constructor(host: string, refreshTokenFactory: RefreshTokenFactory) {
+    constructor(refreshTokenFactory: RefreshTokenFactory, host?: string) {
         this.host = host
         this.refreshTokenFactory = refreshTokenFactory
     }
@@ -126,6 +126,7 @@ export class WebServiceApi {
         config: AxiosRequestConfig<D> = {}
     ): Promise<Response<T>> {
         try {
+            url = this.resolveRoute(url)
             const response = await axios.request(await this.configFactory(url, config))
             return { data: response.data, status: response.status }
         } catch (e) {
@@ -137,4 +138,7 @@ export class WebServiceApi {
         }
     }
 
+    private resolveRoute(route: string) {
+        return this.host && route.startsWith('/') ? `${this.host}${route}` : route;
+    }
 }

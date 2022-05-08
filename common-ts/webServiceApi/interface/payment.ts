@@ -1,7 +1,7 @@
 export enum PaymentStatus {
-    PENDING,
-    CANCELED,
-    COMPLETE
+    PENDING = 'PENDING',
+    CANCELLED = 'CANCELLED',
+    COMPLETE = 'COMPLETE'
 }
 
 export interface PaymentForm {

@@ -7,9 +7,8 @@ export type Response<T> = {
   status: number
 }
 
-const webServiceApi = new WebServiceApi(window.location.host, () =>
-  getLocalJson(LocalKey.TOKEN)
-)
+export const refreshTokenFactory = () => getLocalJson(LocalKey.TOKEN)
 
-export const authHeader = webServiceApi.authHeader
+const webServiceApi = new WebServiceApi(refreshTokenFactory)
+
 export const api = webServiceApi.api

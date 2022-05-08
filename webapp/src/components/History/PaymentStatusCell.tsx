@@ -2,16 +2,19 @@ import React from 'react'
 import { Typography } from '@mui/material'
 import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
 
-const StatusColor: Record<string, { primary: string; secondary: string }> = {
-  PENDING: {
+const StatusColor: Record<
+  PaymentStatus,
+  { primary: string; secondary: string }
+> = {
+  [PaymentStatus.PENDING]: {
     primary: '#4fc3f7',
     secondary: '#29b6f6'
   },
-  COMPLETE: {
+  [PaymentStatus.COMPLETE]: {
     primary: '#81c784',
     secondary: '#66bb6a'
   },
-  CANCELLED: {
+  [PaymentStatus.CANCELLED]: {
     primary: '#e57373',
     secondary: '#f44336'
   }

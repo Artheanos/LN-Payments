@@ -5,18 +5,18 @@ import { Client as StompClient } from '@stomp/stompjs'
 
 import routesBuilder from 'routesBuilder'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
-import { PaymentInfo } from 'common-ts/webServiceApi/interface/payment'
+import { PaymentInfo } from 'common-ts/dist/webServiceApi/interface/payment'
 import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
-import { WsTransactionResponse } from 'common-ts/webServiceApi/interface/transaction'
-import { api, authHeader } from 'api'
+import { WsTransactionResponse } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { api, refreshTokenFactory } from 'api'
 import { millisecondsToClock, useCountdown } from 'utils/time'
 
 const websocketBuilder = (onConnect: () => void) => {
   return new StompClient({
     brokerURL: routesBuilder.api.payments.ws(),
     connectHeaders: {
-      Authorization: authHeader || ''
+      Authorization: `Bearer ${refreshTokenFactory()}`
     },
     onConnect,
     onStompError: console.error,
@@ -93,7 +93,7 @@ export const TransactionStage: React.FC<StageProps> = ({
             </Grid>
             <Grid xs={12} item>
               <Button variant="contained" onClick={cancelTransaction}>
-                {t('cancel')}
+                {t('common:cancel')}
               </Button>
               <Button color="warning" disabled variant="contained">
                 {millisecondsToClock(timeLeft)}
