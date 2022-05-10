@@ -1,0 +1,13 @@
+@startuml
+start
+:Uruchamia się zadanie zamykające kanały;
+:Pobranie danych o kanałach z węzła Lightning;
+while (Pozostają niesprawdzone kanały z listy)
+    if (kanał jest aktywny?) then (Tak)
+        :Zamknij kanał kooperacyjnie;
+    else if (kanał jest nieaktywny dłużej niż tydzień?) then (Tak)
+        :Zamknij kanał siłowo;
+    endif
+endwhile
+end
+@enduml

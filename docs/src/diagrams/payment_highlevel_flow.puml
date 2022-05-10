@@ -1,0 +1,18 @@
+@startuml
+start
+:Użytkownik chce kupić tokeny;
+if (Użytkownik jest zalogowany?) then (Tak)
+    :Przejście do ekranu sprzedaży z panelu użytkownika;
+else (Nie)
+    :Przejście do ekranu sprzedaży ze strony głównej;
+endif
+:Wypełnienie ilości tokenów w formularzu;
+if (Użytkownik nie jest zalogowany?) then (Tak)
+    :Wpisanie adresu email w formularzu;
+endif
+:Wysłanie formularza i przejście na ekran płatności;
+:Zeskanowanie kodu QR z żądaniem płatności Lightning\n i/lub zeskanowanie adresu węzła Lightning;
+:Po zaksięgowaniu płatności przekierowanie na ekran z podsumowaniem;
+:Użytkownik może wyświetlić i skopiować swoje tokeny;
+end
+@enduml
