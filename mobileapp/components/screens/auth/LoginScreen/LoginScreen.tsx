@@ -1,14 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
-import { Box, Button, Center, Flex, Heading } from 'native-base'
+import { Box, Button, Center, Flex, Heading, Text } from 'native-base'
 import { Field, Formik, FormikHelpers, FormikValues } from 'formik'
 
 import { FormikInput } from '../../../form/FormikInput'
 import { UserContext } from '../../../context/UserContext'
 import { initialValues } from './loginForm'
 
-const loginUrl = 'http://192.168.1.84:8080/api/auth/login'
+const loginUrl = 'http://192.168.8.112:8080/api/auth/login'
 
 export const LoginScreen: React.FC = () => {
   const { setToken } = useContext(UserContext)
@@ -42,6 +42,7 @@ export const LoginScreen: React.FC = () => {
 
   return (
     <Center justifyContent="center" h="100%">
+      <Text>Login</Text>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <Flex py="10" w="75%" maxWidth="300px">
