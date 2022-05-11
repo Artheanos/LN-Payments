@@ -6,15 +6,15 @@ import { PaymentEntry } from './PaymentEntry'
 import { api } from 'api'
 
 export const History: React.FC = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('history')
 
   const headers = [
-    t('history.paymentRequest'),
-    t('history.created'),
-    t('history.price'),
-    t('history.numberOfTokens'),
-    t('history.status'),
-    t('history.tokens')
+    t('paymentRequest'),
+    t('created'),
+    t('price'),
+    t('numberOfTokens'),
+    t('status'),
+    t('tokens')
   ]
 
   return (

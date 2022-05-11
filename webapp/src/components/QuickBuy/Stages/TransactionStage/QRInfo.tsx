@@ -10,7 +10,7 @@ interface PanelProps {
 }
 
 export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
   const [showInvoiceInfo, setShowInvoiceInfo] = useState(true)
   const switchPanel = () => setShowInvoiceInfo((prevState) => !prevState)
 
@@ -20,23 +20,23 @@ export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
         {showInvoiceInfo ? (
           <QRComponent
             value={details.paymentRequest}
-            onCopyMessage={t('quickBuy.transaction.invoicePanel.onCopyMessage')}
+            onCopyMessage={t('transaction.invoicePanel.onCopyMessage')}
           >
-            {t('quickBuy.transaction.invoicePanel.header')}
+            {t('transaction.invoicePanel.header')}
             <p className="text-2xl font-bold">
               <span className="font-extrabold text-purple-700">
                 {info.price}{' '}
               </span>
-              {t('quickBuy.transaction.invoicePanel.currency')}
+              {t('transaction.invoicePanel.currency')}
             </p>
           </QRComponent>
         ) : (
           <QRComponent
             value={info.nodeUrl}
-            onCopyMessage={t('quickBuy.transaction.nodePanel.onCopyMessage')}
+            onCopyMessage={t('transaction.nodePanel.onCopyMessage')}
           >
             <p className="text-2xl font-bold">
-              {t('quickBuy.transaction.nodePanel.header')}
+              {t('transaction.nodePanel.header')}
             </p>
           </QRComponent>
         )}

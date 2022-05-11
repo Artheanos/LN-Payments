@@ -14,15 +14,15 @@ export const ActionsCard: React.FC<Props> = ({
   lightningWalletBalance,
   channelsBalance
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('wallet')
   const notify = useNotification()
 
   const closeChannels = (withForce = false) => {
     api.wallet.closeChannels(withForce).then(({ status }) => {
       if (status === 200) {
-        notify(t('wallet.actions.closeChannels.success'), 'success')
+        notify(t('actions.closeChannels.success'), 'success')
       } else {
-        notify(t('wallet.actions.closeChannels.failure'), 'error')
+        notify(t('actions.closeChannels.failure'), 'error')
       }
     })
   }
@@ -30,9 +30,9 @@ export const ActionsCard: React.FC<Props> = ({
   const transfer = () => {
     api.wallet.transfer().then(({ status }) => {
       if (status === 200) {
-        notify(t('wallet.actions.transfer.success'), 'success')
+        notify(t('actions.transfer.success'), 'success')
       } else {
-        notify(t('wallet.actions.transfer.failure'), 'error')
+        notify(t('actions.transfer.failure'), 'error')
       }
     })
   }
@@ -40,18 +40,18 @@ export const ActionsCard: React.FC<Props> = ({
   return (
     <WalletCard standardSize={3}>
       <ActionButton
-        text={t('wallet.actions.closeChannels.text')}
+        text={t('actions.closeChannels.text')}
         action={() => closeChannels()}
         disabled={channelsBalance === 0}
       />
       <ActionButton
-        text={t('wallet.actions.closeChannels.textWithForce')}
+        text={t('actions.closeChannels.textWithForce')}
         action={() => closeChannels(true)}
-        modalMessage={t('wallet.actions.closeChannels.forceConfirmationText')}
+        modalMessage={t('actions.closeChannels.forceConfirmationText')}
         disabled={channelsBalance === 0}
       />
       <ActionButton
-        text={t('wallet.actions.transfer.text')}
+        text={t('actions.transfer.text')}
         action={() => transfer()}
         disabled={lightningWalletBalance === 0}
       />

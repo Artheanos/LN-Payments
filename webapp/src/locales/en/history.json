@@ -1,0 +1,11 @@
+{
+  "noPayments": "No payments found!",
+  "paymentRequest": "Payment Request",
+  "created": "Created",
+  "price": "Price",
+  "numberOfTokens": "Number of Tokens",
+  "status": "Status",
+  "tokens": "Tokens",
+  "none": "none",
+  "show": "Show"
+}

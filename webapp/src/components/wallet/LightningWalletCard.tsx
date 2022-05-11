@@ -7,16 +7,16 @@ export const LightningWalletCard: React.FC<LightningWalletBalance> = ({
   unconfirmedBalance,
   autoTransferLimit
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('wallet')
 
   return (
     <ProgressCard
-      headerText={t('wallet.lightningWallet.header')}
+      headerText={t('lightningWallet.header')}
       value={availableBalance}
       maxValue={autoTransferLimit}
-      tooltipContent={t('wallet.lightningWallet.tooltipContent')}
+      tooltipContent={t('lightningWallet.tooltipContent')}
       bottomText={
-        unconfirmedBalance.toLocaleString() + ' sats' + t('wallet.unconfirmed')
+        unconfirmedBalance.toLocaleString() + ' sats' + t('unconfirmed')
       }
       unit="sats"
       color="primary"

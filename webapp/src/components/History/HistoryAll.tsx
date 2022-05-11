@@ -7,14 +7,14 @@ import { TableCell, TableRow } from '@mui/material'
 import { PaymentStatusCell } from './PaymentStatusCell'
 
 export const HistoryAll: React.FC = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('history')
 
   const headers = [
     t('common:email'),
-    t('history.created'),
-    t('history.price'),
-    t('history.numberOfTokens'),
-    t('history.status')
+    t('created'),
+    t('price'),
+    t('numberOfTokens'),
+    t('status')
   ]
 
   return (

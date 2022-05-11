@@ -33,7 +33,7 @@ export const TransactionStage: React.FC<StageProps> = ({
   setPayment,
   setTokens
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>()
   const [modalVisible, setModalVisible] = useState(false)
   const [socket, setSocket] = useState<StompClient>()
@@ -77,8 +77,8 @@ export const TransactionStage: React.FC<StageProps> = ({
   return (
     <div>
       <ConfirmationModal
-        confirmButtonContent={t('quickBuy.transaction.modal.button')}
-        message={t('quickBuy.transaction.modal.timeoutMessage')}
+        confirmButtonContent={t('transaction.modal.button')}
+        message={t('transaction.modal.timeoutMessage')}
         onConfirm={() => setStageIndex?.(0)}
         open={modalVisible}
         setOpen={setModalVisible}

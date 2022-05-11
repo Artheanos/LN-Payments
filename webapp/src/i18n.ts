@@ -1,13 +1,21 @@
 import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 
+import adminManagement from 'locales/en/adminManagement.json'
 import auth from 'locales/en/auth.json'
 import common from 'locales/en/common.json'
+import history from 'locales/en/history.json'
+import wallet from 'locales/en/wallet.json'
+import quickBuy from 'locales/en/quickBuy.json'
 
 const resources = {
   en: {
+    adminManagement,
     auth,
-    common
+    common,
+    history,
+    wallet,
+    quickBuy
   }
 }
 

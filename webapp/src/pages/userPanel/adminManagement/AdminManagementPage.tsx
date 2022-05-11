@@ -10,7 +10,7 @@ import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { api } from 'api'
 
 export const AdminManagementPage: React.FC = () => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('adminManagement')
 
   return (
     <Panel.Container>
@@ -26,10 +26,10 @@ export const AdminManagementPage: React.FC = () => {
             <AdminListItem user={user} key={key} />
           )}
           headers={[
-            t('email'),
-            t('name'),
-            t('adminManagement.hasKey'),
-            t('adminManagement.isAssignedToWallet'),
+            t('common:email'),
+            t('common:name'),
+            t('hasKey'),
+            t('isAssignedToWallet'),
             ''
           ]}
         />
