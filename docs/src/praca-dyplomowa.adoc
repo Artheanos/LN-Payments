@@ -10,6 +10,9 @@ Aleksander Konieczny; Jan Pieczul; Sebastian Lewandowski
 :pdf-style: src/themes/book-theme.yml
 :figure-caption: Rysunek
 :table-caption: Tabela
+:listing-caption: Kod
+:source-highlighter: rouge
+:icons: font
 
 include::chapters/01-wstep.adoc[]
 

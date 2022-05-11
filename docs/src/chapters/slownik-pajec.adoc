@@ -12,3 +12,11 @@ macaroon::
     w imieniu węzła Lightning. Jest podobny do pliku cookie, ale w przeciwieństwie do tradycyjnego pliku cookie
     przeglądarki, można utworzyć makaronik o ograniczonych możliwościach, a następnie wysłać go do innych użytkowników.
     <<lnbook>>
+
+UTXO::
+    Jest to niewydane wyjście z transakcji Bitcoin. Suma wartości UTXO użytkownika mówi, ile posiada on Bitcoinów.
+
+satoshi::
+    Najmniejsza jednostka rozliczeniowa w ekosystemie Bitcoina. Można ją porównać do groszy w polskiej walucie.
+    Jeden satoshi jest równowarte 0,00000001 BTC. Wszystkie operacje w sieci takie jak transakcje operują właśnie
+    na wartości satoshi.

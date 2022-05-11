@@ -517,29 +517,30 @@ włączona do bloku. Zazwyczaj ten czas wynosi około 1 tydzień. Aby uniknąć 
 kooperacyjne zamykanie kanałów. Zamykanie siłowe należy traktować jako ostateczność w przypadku długiej nieaktywności
 jednej ze stron kanału.
 
-W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie. Niedostępne kanały będą tymczasowo
-pomijane. Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień. Administratorzy będą również
-mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo. Ręczne zamknięcie siłowe może być wymagane,
-kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach. Oczywiście blokuje to środki na dość
+W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie.Niedostępne kanały będą tymczasowo
+pomijane.Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień.Administratorzy będą również
+mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo.Ręczne zamknięcie siłowe może być wymagane,
+kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach.Oczywiście blokuje to środki na dość
 długi czas, aczkolwiek może to być i tak krótszy okres niż w przypadku oczekiwania na kooperacyjne zamknięcie.
 
 Po zamknięciu kanałów środki alokowane w nich będą trafiały na osobny portfel znajdujący się w węźle Lightning
-działający przy serwerze. Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki "macaroon",
-regulujące dostęp do węzła sieci lightning. Środki z regularnie zamykanych kanałów będą trafiały na portfel Lightning,
-z którego będą mogły zostać wysłane do portfela wbudowanego w serwer. Środki będą przelewane automatycznie po
-osiągnięciu limitu podanego w ustawieniach serwera. Dodatkowo administrator będzie mógł uruchomić transfer środków
-manualnie, jeżeli zajdzie taka potrzeba. Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
+działający przy serwerze.Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki "macaroon",
+regulujące dostęp do węzła sieci lightning.Środki z regularnie zamykanych kanałów będą trafiały na portfel Lightning,
+z którego będą mogły zostać wysłane do portfela wbudowanego w serwer.Środki będą przelewane automatycznie po
+osiągnięciu limitu podanego w ustawieniach serwera.Dodatkowo administrator będzie mógł uruchomić transfer środków
+manualnie, jeżeli zajdzie taka potrzeba.Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
 wbudowanego portfela.
 
+[#_adres_multisig]
 ==== Adres multisig
 
-Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść. Wyjście z transakcji zawiera skrypt blokujący,
+Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść.Wyjście z transakcji zawiera skrypt blokujący,
 który uruchomiony razem ze skryptem odblokowującym (zawierający podpis i klucz publiczny) musi zostać uruchomiony
-i zakończyć się poprawnie, aby dane wyjście mogło zostać użyte jako wejście do innej transakcji. Standardowo
-używanym skryptem jest P2PKH. Przy użyciu takiego skryptu wyjście transakcji zawierający klucz publiczny oraz kroki
-potrzebne do jego odblokowania. Aby wykorzystać takie wyjście, osoba będąca właścicielem klucza zawartego w wyjściu,
-musi utworzyć skrypt wydający transakcję, który zawiera podpis cyfrowy oraz klucz publiczny. Na koniec oba skrypty
-są łączone w jeden i uruchamiany. Jeżeli uruchomienie zakończy się sukcesem, użytkownik może rozpropagować transakcję,
+i zakończyć się poprawnie, aby dane wyjście mogło zostać użyte jako wejście do innej transakcji.Standardowo
+używanym skryptem jest P2PKH.Przy użyciu takiego skryptu wyjście transakcji zawierający klucz publiczny oraz kroki
+potrzebne do jego odblokowania.Aby wykorzystać takie wyjście, osoba będąca właścicielem klucza zawartego w wyjściu,
+musi utworzyć skrypt wydający transakcję, który zawiera podpis cyfrowy oraz klucz publiczny.Na koniec oba skrypty
+są łączone w jeden i uruchamiany.Jeżeli uruchomienie zakończy się sukcesem, użytkownik może rozpropagować transakcję,
 która zostanie zaakceptowana w sieci.
 
 Portfel wbudowany w serwer będzie używał adresu multisig, konkretnie skryptu P2SH.
@@ -777,9 +778,150 @@ _expired_.
 
 === Prototyp
 
+Tworzenie aplikacji z wykorzystaniem kryptowalut oraz nowoczesnych technologii z nimi związanych (jak sieć Lightning)
+wiąże ze sobą wiele niewiadomych. Zastosowaniu zaawansowanych technik jak niestandardowe płatności multisig dodatkowo
+utrudnia wykonanie zadania. Aby ułatwić późniejszą implementację projektu, zdecydowano się na stworzenie prototypu
+prezentującego wszystkie wymagane funkcjonalności związane z kryptowalutami oraz obsługujące je biblioteki.
+Prototyp serwera stworzony został w języku Java, natomiast aplikacji mobilnej w języku JavaScript.
+
+[NOTE]
+Załączone fragmentu kodu są wersją roboczą stworzoną na potrzeby prototypu. W trakcie implementacji zostaną przejrzane
+bądź napisane od nowa dla zwiększenia bezpieczeństwa i poprawności. Większość fragmentów jest skrócona, aby zwiększyć
+czytelność.
+
+==== Struktura
+
+Prototyp składa się z dwóch części. Jedna reprezentuje serwer, a druga aplikację mobilną do podpisywania transakcji.
+W przypadku prototypu serwera postanowiono stworzyć prostą aplikację konsolową zainspirowaną środowiskiem REPL. Po
+uruchomieniu aplikacji użytkownik może wpisywać polecenia, po czym natychmiastowo wynik zostaje wypisany na ekran.
+Cała aplikacja bazuje na wzorcu projektowym _Polecenie (Command)_<<gof>>. Po wpisaniu polecenia w konsoli tekst
+zamieniany jest na wartość typu wyliczeniowego.
+
+.Kod odpowiedzianly za tłumaczenie łańcucha znaków na wartość typu wyliczeniowego
+[source,java]
+----
+include::../snippets/prototype/StringToCommand.java[]
+----
+
+Wartość typu wyliczeniowego _ConsoleCommand_ odpowiada implementacjom interfejsu Command. Każde polecenie implementuje
+ten interfejs. Przyjmuje zmienną ilość argumentów, odpowiadającą wartościom parametrów.
+
+.Interfejs Command
+[source,java]
+----
+include::../snippets/prototype/Command.java[]
+----
+
+Wartość typu wyliczeniowego jest przekazywany do klasy _CommandExecutor_, która zawiera tablicę asocjacyjną
+mapującą typ wyliczeniowy na implementację interfejsu Command. Przy wywołaniu metody _execute_ pobierana jest
+odpowiednia instancja polecenia, które następnie wywoływane jest wraz z parametrami.
+
+.Skrócona klasa wywołująca polecenia
+[source,java]
+----
+include::../snippets/prototype/Executor.java[]
+----
+
+==== Polecenia
+
+Pierwszym poleceniem jest komenda _address_, zwracająca adres węzła Lightning. Wywołuje ona metodę zwracającą adres ip
+komputera, na którym kod jest uruchomiony oraz pobiera klucz publiczny węzła Lightning. Obie wartości łączone są
+zrozumiałe dla portfeli Bitcoin. Skanując taki kod bądź wpisując go ręcznie, można otworzyć kanał płatności.
+
+.Polecenie zwracające adres węzła Lightning
+[source,java]
+----
+include::../snippets/prototype/NodeAddress.java[]
+----
+
+Aby umożliwić płatności w sieci Lightning, należy wygenerować _invoice_, czyli wartość mówiąca, w jaki sposób i z
+jakimi parametrami wykonać płatność. Jako parametr metoda przyjmuję kwotę, na jaką zostanie wystawiony rachunek oraz
+tekst, który będzie wyświetlany podczas płatności w portfelu (można to również nazwać tytułem przelewu).
+
+.Polecenie zwracające żądanie zapłaty
+[source,java]
+----
+include::../snippets/prototype/CreateInvoice.java[]
+----
+
+Po zaksięgowaniu płatności, środki znajdują się w kanale płatności po stronie serwera. Aby przelać je na wbudowany
+portfel, należy zamknąć kanały. Tutaj są one zamykane tylko kooperacyjnie. Pobierane są wszystkie kanały z węzła
+Lightning, a następnie dla każdego z nich wywoływana jest metoda prywatna _closeChannels_. Metoda ta
+przekształca wartość identyfikatora kanału z wartości tekstowej na obiekt wymagany do wywołania metody _closeChannels_.
+W przypadku wyjątku przy jakiejkolwiek operacji kanał zostanie pominięty.
+
+.Polecenie zamykające kanały
+[source,java]
+----
+include::../snippets/prototype/CloseChannels.java[]
+----
+
+Środki z węzła można przelać na dowolny adres Bitcoin. Dla uproszczenia prototypu adres pobierany jest jako parametr
+polecenia. Pozwala to na szybkie testowanie wyłącznie tej funkcjonalności z pominięciem płatności multisig.
+Przelewane są wszystkie środki znajdujące sie w portfelu.
+
+.Polecenie transferujące środki z portfela w węźle Lightning
+[source,java]
+----
+include::../snippets/prototype/Transfer.java[]
+----
+
+Adres portfela tworzony jest na podstawie kluczy publicznych podanych jako parametr. Na potrzeby prototypu
+do odblokowania środków zawsze potrzebne będą 2 podpisy. Tworzony jest _redeem script_, z którego następnie
+wyprowadzony jest skrypt wyjściowy oraz adres. Proces ten został opisany w podrozdziale <<_adres_multisig>>.
+
+.Polecenie tworzące adres multisig
+[source,java]
+----
+include::../snippets/prototype/MultiWallet.java[]
+----
+
+Tworzenie transakcji rozpoczyna się zebrania wszystkich UTXO dostępnych dla adresu multisig. Przy okazji liczona jest
+też ich łączna wartość. Wyjścia UTXO są przypisywane jako wejścia do powstającej transakcji. Następnie tworzone są
+wyjścia, jedno na docelowy adres, a drugie zwracające resztę na adres multisig. Dodatkowo doliczana jest opłata
+transakcyjna. Dla uproszczenia przelewane jest zawsze 100 satoshi. Na koniec zwracana jest transakcja w systemie
+heksadecymalnym. Otrzymaną wartość należy przekazać odpowiednim użytkownikom do podpisania.
+
+.Polecenie tworzące transakcję
+[source,java]
+----
+include::../snippets/prototype/MultiTransfer.java[]
+----
+
+Gdy serwer otrzyma podpisaną transakcję, należy zweryfikować czy użytkownik na pewno podpisał transakcję poprawnie.
+Aby tego dokonać należy przejść przez wszystkie wejścia transakcji, aż nie znajdzie się wejście pasujące do
+klucza publicznego. W tym prototypie obsługiwane jest tylko pierwsze wejście. Następnie wyciągane są podpisy z danego
+wejścia, po czym są one sprawdzane wobec klucza publicznego podanego w parametrze wejściowym metody. Tylko jeżeli
+znaleziony zostanie podpis pasujący do klucza, metoda zwróci _true_.
+
+.Polecenie weryfikujące podpis
+[source,java]
+----
+include::../snippets/prototype/MultiVerify.java[]
+----
+
+Po uzbieraniu wymaganej ilości podpisów transakcja jest gotowa do wysłania do innych węzłów sieci Bitcoin.
+Wcześniej każde wejście transakcji jest weryfikowane poprzez uruchomienie testowe skryptu znajdującego się nim.
+Jeżeli wszystkie wejścia transakcji są poprawne, transakcja jest propagowana w sieci Bitcoin.
+
+.Polecenie propagujące transakcje
+[source,java]
+----
+include::../snippets/prototype/MultiBroadcast.java[]
+----
+
+Dodatkowo prototyp zawierał kilka mniej ważnych komend, które nie znalazły się w tej pracy. Mowa tu na przykład o
+komendach takich tak wyjście z aplikacji, ale też wyświetlenie balansu zablokowanego w kanałach, status portfela
+Lightning oraz środki dostępne w adresie multisig. Wszystkie te komendy zostaną omówione wraz z ich finalną
+implementacją w późniejszych rozdziałach.
+
+==== Prototyp aplikacji mobilnej
+
 === Makieta interaktywna
 
 === Analiza Ryzyk
+
+include::../sections/risk-analysis.adoc[]
 
 === Komercjalizacja projektu
 

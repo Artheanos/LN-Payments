@@ -14,3 +14,6 @@ https://ycharts.com/indicators/bitcoin_average_transaction_fee[]
 
 * [[[public_ln, 5]]] _ACINQ_, Lightning Network Explorer, [dostęp: 08.05.2022],
 https://explorer.acinq.co[]
+
+* [[[gof, 6]]] _Erich Gamma, Richard Heml, Ralph Johnson, John Vlissides_, Design Patterns, 1995,
+ISBN:{nbsp}978-8328333130
