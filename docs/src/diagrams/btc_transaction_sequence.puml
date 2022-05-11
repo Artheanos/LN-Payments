@@ -15,7 +15,7 @@ Webservice <-> btc : Pobranie danych o dostępnych UTXO
 Webservice -> Webservice : Zbudowanie transakcji
 Webservice -> Database : Zapisanie transakcji
 Webservice -> Database : Zapisanie powiadomień
-Webservice -> mapp : Wysłanie powiadomień
+Webservice [#blue]-> mapp : Wysłanie powiadomień
 mapp -> Admin : Administrator widzi powiadomienie
 Webservice -> Webapp : zwrócenie statusu "Created"
 deactivate Webservice
@@ -24,6 +24,11 @@ deactivate Webapp
 Admin -> mapp : Administrator podejmuje akcje
 activate mapp
 alt potwierdzenie
+    mapp -> Webservice : GET /notifications/{id}/transaction
+    activate Webservice
+    Webservice <-> Database : Pobranie wartości transakcji
+    Webservice -> mapp : zwrócenie aktualnej wartości transakcji
+    deactivate Webservice
     mapp -> mapp : Podpisanie transakcji
     mapp -> Webservice : POST /notifications/{id}/confirm
     activate Webservice

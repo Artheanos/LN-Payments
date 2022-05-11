@@ -746,12 +746,34 @@ sieci Bitcoin. Podczas czasu oczekiwania na podpisy nie będzie działać zadani
 
 ==== Podpisywanie transakcji
 
+Podczas inicjacji transakcji, serwer przypisze jej powiadomienia dla wszystkich użytkowników zarządzających
+portfelem. Suma podpisów będzie liczona właśnie na podstawie powiadomień i ich statusów. Powiadomienia będą wysyłane
+do użytkowników aplikacji mobilnych poprzez protokół _WebSocket_. W przypadku kiedy użytkownik nie zobaczy
+powiadomienia, bądź powiadomienie wygaśnie, przy uruchomieniu aplikacji mobilnej pobrane i wyświetlone zostaną
+wszystkie powiadomienia przypisane do danego administratora.
+
 .Diagram sekwencji dla procesu podpisywania transakcji
 [plantuml]
 ----
 include::../diagrams/btc_transaction_sequence.puml[]
 ----
 
+Administrator, otrzymując powiadomienie, będzie mógł je zatwierdzić, bądź odrzucić. Podczas procesu potwierdzania,
+aplikacja mobilna najpierw odpytuje serwer z prośbą o aktualną wartość transakcji. Serwer poza transakcją
+zapisaną w formacie szesnastkowym zwraca również wersję transakcji. Umożliwi to uniknięcie utraconych zapisów
+w bazie danych wynikającej z wielowątkowej charakterystyki działania serwera. Sytuacja, w której dwóch użytkowników
+próbuje podpisać transakcję, przez co jeden podpis zostaje utracony, jest niepożądana i stanowi poważne zagrożenie
+dla integralności danych. Po otrzymaniu transakcji jest ona podpisywana przy pomocy zapisanego lokalnie klucza
+prywatnego. Następnie podpisana transakcja oraz otrzymana wcześniej wartość wersji wysyłane są na punkt końcowy
+_confirm_, gdzie następuje walidacja podpisu kluczem publicznym administratora oraz zapisanie stanu transakcji
+w bazie danych. Jeżeli suma podpisów osiągnie numer wymagany przez transakcję, następuje propagacja podpisanej
+transakcji w sieci Bitcoin. Wszystkie powiadomienia, wobec których nie podjęto akcji, zmienią status na _expired_.
+Jeżeli propagacja transakcji nie powiedzie się, status zostanie zmieniony na _failed_.
+Proces wygląda podobnie w przypadku odrzucania transakcji, z pominięciem pobierania oraz podpisywania transakcji.
+Od razu wysyłane jest żądanie do serwera na punkt końcowy _deny_, po czym powiadomienie zmienia status na _denied_.
+Co więcej, jeżeli ilość odrzuconych powiadomień uniemożliwi propagację transakcji, automatycznie zostanie zmieniony
+status na _denied_. Tak samo, jak w przypadku potwierdzania wszystkie niepodpisane transakcje zmienią status na
+_expired_.
 
 === Prototyp
 
