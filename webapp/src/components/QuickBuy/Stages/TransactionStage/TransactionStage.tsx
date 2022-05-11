@@ -5,16 +5,18 @@ import { Client as StompClient } from '@stomp/stompjs'
 
 import routesBuilder from 'routesBuilder'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { PaymentInfo } from 'common-ts/dist/webServiceApi/interface/payment'
 import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
-import { api, getAuthHeader } from 'api'
+import { WsTransactionResponse } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { api, authHeader } from 'api'
 import { millisecondsToClock, useCountdown } from 'utils/time'
 
 const websocketBuilder = (onConnect: () => void) => {
   return new StompClient({
     brokerURL: routesBuilder.api.payments.ws(),
     connectHeaders: {
-      Authorization: getAuthHeader()
+      Authorization: authHeader || ''
     },
     onConnect,
     onStompError: console.error,

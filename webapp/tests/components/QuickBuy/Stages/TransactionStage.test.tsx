@@ -1,10 +1,11 @@
 import React from 'react'
 import { render, screen, waitFor } from 'tests/test-utils'
-import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage/TransactionStage'
-import { setupServer } from 'msw/node'
 import { rest } from 'msw'
+import { setupServer } from 'msw/node'
+
 import routesBuilder from 'routesBuilder'
-import { PaymentStatus } from '@constants'
+import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage/TransactionStage'
 
 jest.mock('@stomp/stompjs', () => {
   const originalModule = jest.requireActual('@stomp/stompjs')

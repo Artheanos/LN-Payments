@@ -3,6 +3,10 @@ import { Button, Grid } from '@mui/material'
 
 import { useTranslation } from 'react-i18next'
 import { QRComponent } from './QRComponent'
+import {
+  PaymentDetails,
+  PaymentInfo
+} from 'common-ts/dist/webServiceApi/interface/payment'
 
 interface PanelProps {
   details: PaymentDetails

@@ -1,1 +1,2 @@
-export {default as common} from './common.json'
+import common from './common.json'
+export { common }

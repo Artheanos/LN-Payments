@@ -1,3 +1,4 @@
+import { ChannelsBalance } from 'common-ts/dist/webServiceApi/interface/wallet'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ProgressCard } from './ProgressCard'

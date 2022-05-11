@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
 import { ProgressCard } from './ProgressCard'
+import { LightningWalletBalance } from 'common-ts/dist/webServiceApi/interface/wallet'
 
 export const LightningWalletCard: React.FC<LightningWalletBalance> = ({
   availableBalance,

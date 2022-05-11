@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { PaymentStatus } from '@constants'
+import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
 
 const StatusColor: Record<string, { primary: string; secondary: string }> = {
   PENDING: {

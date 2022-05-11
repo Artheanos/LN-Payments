@@ -20,6 +20,10 @@ import {
 import { useTranslation } from 'react-i18next'
 
 import { Response } from 'api'
+import {
+  PageRequest,
+  Pageable
+} from 'common-ts/dist/webServiceApi/interface/pageable'
 
 interface Props<T> {
   apiRequest: (params: PageRequest) => Promise<Response<Pageable<T>>>

@@ -26,6 +26,7 @@
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.4.0",
     "@stomp/stompjs": "^6.1.2",
+    "common-ts": "file:../common-ts",
     "cypress": "^9.5.4",
     "i18next": "^21.6.6",
     "msw": "^0.36.8",
