@@ -942,6 +942,52 @@ include::../snippets/prototype/SignTransaction.js[]
 
 === Makieta interaktywna
 
+Makieta interaktywna została stworzona w celu rozplanowania układu interfejsu użytkownika. Przedstawiono na niej
+najbardziej istotne ekrany w aplikacji webowej. Uznano, że nie ma potrzeby stworzenia makiety dla wszystkich ekranów.
+Makieta została wykonana przy użyciu narzędzia Figma. Pozwala ono na stworzenie ekranów, a następnie połączenie ich
+w makietę interaktywną. Pozwala to na spojrzenie na projektowaną aplikację z punktu widzenia użytkownika przed
+rozpoczęciem implementacji. Dzięki temu od samego początku prac nad projektem rozwiązane zostały wszystkie kwestie
+związane z interfejsem użytkownika.
+
+W przy wejściu do aplikacji użytkownik przekierowany jest na stronę główną. Jak każdy ekran, zawiera nagłówek strony
+wraz z nazwą aplikacji (początkowo _Token Network_, później nastąpiła zmiana na _LN Payments_). W centralnej części
+ekranu znajduje się tytuł strony oraz 3 guziki. _Login_ przekierowuje na podstronę logowania, natomiast _Register_
+na podstronę rejestracji użytkownika. Trzeci guzik _Quick buy_ pozwala na zakup tokenów bez rejestracji. Po kliknięciu
+użytkownik przekierowany jest do formularzu kupowania.
+
+.Makieta strony głównej
+image::../images/mockup/main_page.png[]
+
+Strona logowania jest prostym formularzem z dwoma polami tekstowymi, email i hasło,
+oraz przyciskiem wysyłającym formularz. Po zalogowaniu użytkownik zostaje przekierowany do ekranu sprzedaży.
+
+.Makieta podstrony logowania
+image::../images/mockup/login.png[]
+
+Tak samo, jak w przypadku podstrony logowania, podstrona rejestracji jest prostym formularzem z kilkoma polami
+tekstowymi. W przyszłości jest miejsce na dodanie dodatkowych pól formularza, jeżeli zajdzie taka potrzeba.
+Po wysłaniu formularza użytkownikowi wyświetlany jest komunikat o rezultacie żądania. W przypadku sukcesu następuje
+przekierowanie na stronę logowania.
+
+.Makieta podstrony rejestracji
+image::../images/mockup/register.png[]
+.Makieta formularza płatności
+image::../images/mockup/buy_1.png[]
+.Makieta ekranu płatności
+image::../images/mockup/buy_2.png[]
+.Makieta ekranu z podsumowaniem zakupu
+image::../images/mockup/buy_3.png[]
+.Makieta ekrany zarządzania administratorami
+image::../images/mockup/admin_management.png[]
+.Makieta strony z ustawieniami serwera
+image::../images/mockup/settings.png[]
+.Formularz tworzenia nowego portfela
+image::../images/mockup/wallet_setup.png[]
+.Makieta ekranu portfela
+image::../images/mockup/wallet.png[]
+.Ekran tworzenia i wyświetlania transakcji
+image::../images/mockup/transactions.png[]
+
 === Analiza Ryzyk
 
 include::../sections/risk-analysis.adoc[]
