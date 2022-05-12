@@ -917,6 +917,29 @@ implementacją w późniejszych rozdziałach.
 
 ==== Prototyp aplikacji mobilnej
 
+Prototyp aplikacji mobilnej również jest aplikacją konsolową. Implementacja nie jest przesadnie skomplikowana.
+Jako że obsługiwane są tylko 2 polecenia, obsługiwane są one w instrukcji _switch_.
+
+Pierwsze polecenie odpowiedzialne jest za wygenerowanie kluczy. W tym przypadku generowane
+są dla sieci _testnet_. Po wygenerowaniu oba klucze zostają wypisane na ekran.
+
+.Kod odpowiedzialny za generowanie kluczy
+[source,javascript]
+----
+include::../snippets/prototype/GenerateKeys.js[]
+----
+
+Drugie polecenie dotyczy podpisywania transakcji. Pierwszym parametrem jest transakcja w postaci heksadecymalnej, która
+konwertowana jest na obiekt transakcji. Następnie dla uproszczenia tego prototypu, każde wejście podpisywane
+jest kluczem prywatnym. Klucz prywatny podawany jest jako drugi parametr. Ostatnim parametrem jest _redeemScript_,
+który wymagany jest do podpisania transakcji. Następnie podpisana transakcja wypisywana jest na ekranie.
+
+.Kod podpisujący transakcję
+[source,javascript]
+----
+include::../snippets/prototype/SignTransaction.js[]
+----
+
 === Makieta interaktywna
 
 === Analiza Ryzyk
