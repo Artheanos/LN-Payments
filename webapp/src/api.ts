@@ -11,6 +11,5 @@ const webServiceApi = new WebServiceApi(window.location.host, () =>
   getLocalJson(LocalKey.TOKEN)
 )
 
-export const getAuthHeader = () => webServiceApi.authHeader()
-
+export const authHeader = webServiceApi.authHeader
 export const api = webServiceApi.api

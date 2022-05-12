@@ -5,20 +5,18 @@
     "axios": "^0.27.2"
   },
   "scripts": {
-    "clean-build": "rm -r dist && tsc"
+    "clean-build": "rm -r dist; tsc"
   },
   "exports": {
-    "./webServiceApi": "./dist/webServiceApi/webServiceApi.js",
-    "./webServiceApi/interface/*": "./dist/webServiceApi/interface/*.js",
-    "./i18n": "./dist/i18n/index.js"
+    "./dist/webServiceApi": "./dist/webServiceApi/webServiceApi.js",
+    "./dist/webServiceApi/interface/*": "./dist/webServiceApi/interface/*.js",
+    "./dist/i18n": "./dist/i18n/index.js"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
   },
   "types": "dist/index.d.ts",
   "files": [
-    "dist/webServiceApi/index.js",
-    "dist/webServiceApi/interface/",
-    "dist/i18n/index.js"
+    "dist/"
   ]
 }

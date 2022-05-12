@@ -7,8 +7,8 @@ import { Field, Formik, FormikHelpers, FormikValues } from 'formik'
 import { FormikInput } from '../../../form/FormikInput'
 import { UserContext } from '../../../context/UserContext'
 import { initialValues } from './loginForm'
-
-const loginUrl = 'http://192.168.8.112:8080/api/auth/login'
+import { api } from '../../../../api'
+import { LoginForm } from 'common-ts/webServiceApi/interface/auth'
 
 export const LoginScreen: React.FC = () => {
   const { setToken } = useContext(UserContext)
@@ -19,23 +19,28 @@ export const LoginScreen: React.FC = () => {
     setToken(token)
   }
 
+  const onFailure = ({ setFieldError }: FormikHelpers<LoginForm>) => {
+    setFieldError('email', 'Invalid credentials')
+  }
+
+  const onUnauthorized = ({ setFieldError }: FormikHelpers<LoginForm>) => {
+    setFieldError('email', 'This app is for admins only')
+  }
+
   const onSubmit = async (
-    values: FormikValues,
-    helpers: FormikHelpers<typeof initialValues>,
+    values: LoginForm,
+    helpers: FormikHelpers<LoginForm>,
   ) => {
     setLoading(true)
 
-    axios
-      .post(loginUrl, values)
+    api.auth
+      .login(values)
       .then(({ data }) => {
-        if (data.role === 'ROLE_ADMIN') {
-          onSuccess(data.token)
-        } else {
-          helpers.setFieldError('email', 'This app is for admins only')
-        }
-      })
-      .catch(() => {
-        helpers.setFieldError('email', 'Invalid credentials')
+        if (!data) return onFailure(helpers)
+
+        if (data.role === 'ROLE_ADMIN') return onSuccess(data.token)
+
+        onUnauthorized(helpers)
       })
       .finally(() => setLoading(false))
   }

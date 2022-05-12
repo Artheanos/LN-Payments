@@ -17,11 +17,15 @@ const defaultConfig: AxiosRequestConfig = {
     method: 'post'
 }
 
-export class WebServiceApi {
-    private readonly host: string
-    private readonly refreshTokenFactory: () => string
+type RefreshTokenFactory = () => (string | Promise<string | null>)
 
-    constructor(host: string, refreshTokenFactory: () => string) {
+export class WebServiceApi {
+    public authHeader: string | null = null
+
+    private readonly host: string
+    private readonly refreshTokenFactory: RefreshTokenFactory
+
+    constructor(host: string, refreshTokenFactory: RefreshTokenFactory) {
         this.host = host
         this.refreshTokenFactory = refreshTokenFactory
     }
@@ -97,18 +101,20 @@ export class WebServiceApi {
         }
     }
 
-    public authHeader = () => `Bearer ${this.refreshTokenFactory()}`
+    private async reloadAuthHeader() {
+        this.authHeader = `Bearer ${await this.refreshTokenFactory()}`
+    }
 
-    private configFactory (url: string, config: AxiosRequestConfig) {
+    private async configFactory (url: string, config: AxiosRequestConfig) {
         const result = { url, ...defaultConfig, ...config }
 
-        const authHeader = this.authHeader()
-        if (this.authHeader()) {
+        await this.reloadAuthHeader()
+        if (this.authHeader) {
             if (!result.headers) {
                 result.headers = {}
             }
             if (!result.headers.Authorization) {
-                result.headers.Authorization = this.authHeader()
+                result.headers.Authorization = this.authHeader
             }
         }
 
@@ -120,7 +126,7 @@ export class WebServiceApi {
         config: AxiosRequestConfig<D> = {}
     ): Promise<Response<T>> {
         try {
-            const response = await axios.request(this.configFactory(url, config))
+            const response = await axios.request(await this.configFactory(url, config))
             return { data: response.data, status: response.status }
         } catch (e) {
             if (axios.isAxiosError(e) && e.response?.status) {
