@@ -8,17 +8,19 @@ Możemy wyróżnić następujących aktorów:
 
 * Niezalogowany użytkownik → nie jest w danym momencie zalogowany.
 Może on zalogować się bądź zarejestrować, jeżeli nie posiada konta.
-Niezalogowany użytkownik może również kupować tokeny, aczkolwiek nie będzie on później miał dostępu do historii swoich transakcji.
+Niezalogowany użytkownik może również kupować tokeny, aczkolwiek nie będzie on później miał dostępu do historii swoich
+transakcji.
 * Użytkownik → po zalogowaniu ma on dodatkowo dostęp do historii swoich płatności.
 Może on tam przejrzeć wszystkie dotychczasowe zakupy oraz wyświetlić otrzymane tokeny.
 * Administrator → ma możliwość zarządzania serwerem oraz do przeglądania jego zasobów.
-Jeżeli wysłał on swój klucz publiczny na serwer, może też być członkiem portfela, a co za tym idzie zyskuje możliwość podpisywania transakcji w aplikacji mobilnej.
+Jeżeli wysłał on swój klucz publiczny na serwer, może też być członkiem portfela, a co za tym idzie zyskuje możliwość
+podpisywania transakcji w aplikacji mobilnej.
 Podobnie jak zwykły użytkownik, może on kupować tokeny oraz przeglądać swoją osobistą historię.
 
 ==== Przypadki użycia dla aplikacji webowej
 
-Jest to główna część systemy, w której użytkownicy, zarówno zalogowani, jak i niezalogowani, będą mogli kupować tokeny oraz zakładać konta.
-Administratorzy będą mieli możliwość zarządzania i przeglądania danych serwera.
+Jest to główna część systemy, w której użytkownicy, zarówno zalogowani, jak i niezalogowani, będą mogli kupować tokeny
+oraz zakładać konta. Administratorzy będą mieli możliwość zarządzania i przeglądania danych serwera.
 Warto zaznaczyć, że administratorzy mogą stworzyć innego administratora tylko w osobnym panelu do tego przeznaczonym.
 Strona rejestracji pozwala tylko i wyłącznie na tworzenie standardowych użytkowników.
 
@@ -32,7 +34,8 @@ include::../diagrams/use_case_webapp.puml[]
 
 Jest to dodatek do serwera pozwalający przede wszystkim na podpisywanie transakcji multisig.
 Każdy administrator może zalogować się do aplikacji, wygenerować klucz prywatny oraz wysłać klucz publiczny na serwer.
-Jeżeli zostanie on dodany do tworzonego portfela, administrator będzie mógł podpisywać transakcje za pomocą swojego klucza prywatnego bądź je odrzucać.
+Jeżeli zostanie on dodany do tworzonego portfela, administrator będzie mógł podpisywać transakcje za pomocą swojego
+klucza prywatnego bądź je odrzucać.
 
 .Diagram przypadków użycia dla aplikacji mobilnej.
 [plantuml]

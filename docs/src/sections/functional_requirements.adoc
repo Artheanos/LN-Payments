@@ -60,7 +60,8 @@ Podane parametry nie muszą być na jednym panelu, mogą znajdować się na osob
 |Nazwa 3+|Przeglądanie historii
 |Opis 3+|Użytkownicy i administratorzy mają wgląd do historii płatności. Użytkownicy oczywiście tylko do
 swojej własnej historii. Administratorzy mają mieć dodatkowy panel z danymi ze wszystkich płatności.
-|Kryteria akceptacji 3+| Dostępne są 2 panele, jeden dla indywidualnej historii, drugi dla wszystkich płatności dostępny tylko dla administratorów.
+|Kryteria akceptacji 3+| Dostępne są 2 panele, jeden dla indywidualnej historii, drugi dla wszystkich płatności
+dostępny tylko dla administratorów.
 |Udziałowiec 3+| _UOB01, UOB02_
 |Wymagania powiązane 3+| _F08, F09_
 |===
