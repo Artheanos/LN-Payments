@@ -1,0 +1,135 @@
+=== Wykorzystanie kryptowalut
+
+==== Sieć Lightning
+
+Sieci Lightning jest protokołem, który działa jako druga warstwa dla sieci Bitcoin <<btcbook>>, umożliwiająca tanie
+płatności przy pomocy kryptowalut z pominięciem rejestrowania ich na blockchainie. Więcej szczegółów na temat działania
+sieci zostało opisanych w podrozdziale <<_przedstawienie_problemu,"przedstawienie problemu">>. Różnego rodzaju
+mikropłatności z wykorzystaniem bitcoinów są problematyczne. Wraz ze wzrostem popularności kryptowalut, liczba
+transakcji gwałtownie wzrosła, a co za tym idzie wzrosły opłaty. Według danych z portalu "Ycharts" <<fee_chart>>,
+średni koszt pojedynczej transakcji w momencie pisania tej pracy wynosi 2 dolary amerykańskie. W szczytowym momencie
+(kwiecień 2021) opłaty wynosiły aż 62 dolary. Oczywiste jest, że płatność pokroju 1 dolar za kawę staje się kompletnie
+nieopłacalne. Dzięki sieci Lightning można utworzyć kanały płatności, płacąc opłatę transakcyjną raz, aby później móc
+dokonywać małych i natychmiastowych płatności.
+
+W kontekście tej pracy kupowanie tokenów będzie odbywało się tylko za pomocą sieci Lightning. Z założenia cena różnego
+rodzaju tokenów jest tak niska, że węzły sieci Bitcoin i tak by nie chciały wykopać takiej transakcji. Problematyczne
+może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z płatnościami w Bitcoinach. W przypadku
+głównego zastosowania, czyli wdrożenia projektu w ramach programu Ingenious, można założyć, że serwer będzie operowany
+w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,
+wystarczy jeden kanał, aby wszystkie osoby miały połączenie z serwerem. Mogą wtedy wykorzystać routing sieci lightning,
+który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż dotrze do odbiorcy. Tym sposobem niskim
+kosztem poprzez otwarcie jednego kanału z serwerem przyznać do niego dostęp wielu użytkownikom. Jeżeli dany klient nie
+będzie posiadał pośredniego połączenia z serwerem, będzie musiał on otworzyć i opłacić kanał bezpośredni. Aby
+rozwiązać problem zbyt częstego otwierania kanałów, istnieje również możliwość podłączenia się do jednej z globalnych
+sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>.
+
+.Schemat blokowy zarządzania kanałami ze strony użytkownika
+[plantuml]
+----
+include::../diagrams/ln_channels_flow.puml[]
+----
+
+==== Portfel Lightning
+
+Płatność w sieci Lightning polega na przeniesieniu części salda z jednego końca kanału na drugi. Żadna ze stron nie może
+za ich pomocą operować, tak długo, jak kanał jest otwarty. Aby móc skorzystać z tych środków, należy zamknąć kanał.
+Można to zrobić na 2 sposoby: kooperacyjnie bądź siłowo. Zamknięcie kooperacyjne polega na uzgodnieniu szczegółów
+pomiędzy stronami, a następnie rozpropagowanie transakcji zawierającą historię płatności w kanale. W przypadku
+gdy druga strona jest niedostępna bądź próbuje oszukiwać, można wymusić zamknięcie siłowe. Przy każdej płatności w
+kanale obie strony otrzymują podpisaną transakcję z historią płatności, którą mogą w każdej chwili rozpropagować.
+Ze względów bezpieczeństwa, ta transakcja ma czasową blokadę środków. Dzięki temu nieuczciwa osoba nie może
+rozpropagować fałszywej transakcji, gdyż druga strona może to zauważyć i rozpropagować poprawną transakcję bez
+blokady czasowej, która zostanie zaakceptowana w głównym blockchainie. Środki w takiej transakcji są blokowane na
+określoną ilość bloków w blockchainie. Dana liczba bloków musi zostać wykopana, aby dana transakcja mogła zostać
+włączona do bloku. Zazwyczaj ten czas wynosi około 1 tydzień. Aby uniknąć długiego czekania na środki, preferowane jest
+kooperacyjne zamykanie kanałów. Zamykanie siłowe należy traktować jako ostateczność w przypadku długiej nieaktywności
+jednej ze stron kanału.
+
+W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie.Niedostępne kanały będą tymczasowo
+pomijane.Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień.Administratorzy będą również
+mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo.Ręczne zamknięcie siłowe może być wymagane,
+kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach.Oczywiście blokuje to środki na dość
+długi czas, aczkolwiek może to być i tak krótszy okres niż w przypadku oczekiwania na kooperacyjne zamknięcie.
+
+Po zamknięciu kanałów środki alokowane w nich będą trafiały na osobny portfel znajdujący się w węźle Lightning
+działający przy serwerze.Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki "macaroon",
+regulujące dostęp do węzła sieci lightning.Środki z regularnie zamykanych kanałów będą trafiały na portfel Lightning,
+z którego będą mogły zostać wysłane do portfela wbudowanego w serwer.Środki będą przelewane automatycznie po
+osiągnięciu limitu podanego w ustawieniach serwera.Dodatkowo administrator będzie mógł uruchomić transfer środków
+manualnie, jeżeli zajdzie taka potrzeba.Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
+wbudowanego portfela.
+
+[#_adres_multisig]
+==== Adres multisig
+
+Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść.Wyjście z transakcji zawiera skrypt blokujący,
+który uruchomiony razem ze skryptem odblokowującym (zawierający podpis i klucz publiczny) musi zostać uruchomiony
+i zakończyć się poprawnie, aby dane wyjście mogło zostać użyte jako wejście do innej transakcji.Standardowo
+używanym skryptem jest P2PKH.Przy użyciu takiego skryptu wyjście transakcji zawierający klucz publiczny oraz kroki
+potrzebne do jego odblokowania.Aby wykorzystać takie wyjście, osoba będąca właścicielem klucza zawartego w wyjściu,
+musi utworzyć skrypt wydający transakcję, który zawiera podpis cyfrowy oraz klucz publiczny.Na koniec oba skrypty
+są łączone w jeden i uruchamiany.Jeżeli uruchomienie zakończy się sukcesem, użytkownik może rozpropagować transakcję,
+która zostanie zaakceptowana w sieci.
+
+Portfel wbudowany w serwer będzie używał adresu multisig, konkretnie skryptu P2SH.
+Skrypt ten charakteryzuje się tym, że pozwala na zakodowanie kilku kluczy w adresie. Dzięki temu można utworzyć
+skrypt, który do wydania środków będzie wymagał danej liczby kluczy np. 2 z 3, aby uznać transakcję za poprawną.
+Ten rodzaj transakcji wprowadza poza skryptem blokującym i odblokowującym trzeci skrypt, _redeem script_. Skrypt ten
+zawiera informacje wymaganą liczbę podpisów oraz wszystkie klucze publiczne. Problemem jest rozmiar takiego skryptu,
+jest on czasem 5 razy większy niż zwykły skrypt blokujący P2PKH. Aby temu zaradzić, skrypt blokujący zawiera hash
+skryptu w rozmiarze 20 bajtów oraz funkcję sprawdzającą skrypt, który zostanie podany w skrypcie odblokowującym.
+Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_.
+
+.Porównanie skryptów P2PKH i P2SH
+[cols="1h,2,2"]
+|===
+h| h|P2PKH h|P2SH
+| Redeem script | _brak_ | 2 PubKey1 PubKey2 PubKey3 PubKey4 PubKey5 5 CHECKMULTISIG
+| Locking script | OP_DUP OP_HASH160 <Public Key Hash> OP_EQUALVERIFY OP_CHECKSIG
+| HASH160 <20-byte hash of redeem script> EQUAL
+| Unlocking Script | <Signature> <Public Key> | 0 <Sig1> <Sig2> <redeem script>
+|===
+
+Adres w skrypcie P2SH jest wyprowadzony poprzez policzenie kilku wartości hash skryptu _redeem_. Dzięki temu osoba
+płacąca od razu wie, że dany adres jest adresem multisig. Problemem tego skryptu jest jego rozmiar. Opłaty za
+transakcje liczy się od rozmiaru transakcji w bajtach. Właściciel adresu P2SH musi liczyć się z dużymi kosztami wydania
+swoich środków, gdyż musi on dołączyć do skryptu cały _redeem script_, który może zawierać wiele bardzo długich
+kluczy publicznych. Kolejnym problemem jest wymóg posiadania skryptu _redeem_ poza samymi kluczami. W przypadku utraty
+tego skryptu środku mogą zostać utracone.
+
+Zdecydowano się na użycie adresu P2SH, gdyż jest to najprostszy w implementacji oraz idealnie pasuje do opisywanego
+przypadku użycia, czyli podpisywania transakcji przez kilku administratorów serwera. Rozwiązanie to można również
+stworzyć przy użyciu niestandardowych skryptów. Wiązałoby się to z dużym nakładem pracy na opracowanie takiego
+rozwiązania. Nie stwierdzono potrzeby nadkładania pracy, aby opracować własne rozwiązanie, skoro P2SH spełnia
+wszystkie wymagania.
+
+Przy tworzeniu portfela, wymagane będzie wybranie administratorów posiadających wygenerowane pary kluczy, oraz ilość
+podpisów wymaganych to rozpropagowania transakcji. Podczas procesowania żądania utworzenia portfela zostanie
+zbudowany _redeem script_, zawierający klucze publiczne wybranych administratorów. Następnie ze skryptu zostanie
+wyprowadzony adres, po czym wszystkie dane zostaną zapisane w bazie danych na potrzeby budowania transakcji w
+przyszłości.
+
+==== Transakcje
+
+Środki w portfelu znajdującym się na serwerze zablokowane są przy pomocy skryptu P2SH. Oznacza to, że do wydania
+jakichkolwiek środków wymagana jest pewna liczba podpisów od różnych administratorów zarządzających portfelem.
+Podpisywanie transakcji odbywać się będzie w dedykowanej do tego aplikacji mobilnej. Aby użytkownik został
+członkiem portfela, będzie musiał wcześniej zalogować się do aplikacji mobilnej. Przy pierwszym logowaniu zostanie
+wygenerowana para kluczy. Klucz publiczny zostanie wysłany na serwer i zapisany w bazie danych, a klucz prywatny
+zostanie zapisany w pamięci telefony i będzie używany do podpisywania transakcji.
+
+Aby wykonać transakcję, jeden z administratorów musi zainicjować transakcję w aplikacji webowej. Zostaną wtedy zebrane
+wszystkie wyjścia z transakcji, które wskazują na adres portfela. Później obliczana jest opłata transakcyjna i wyjścia
+transakcji. Na koniec transakcja zostanie zapisana w bazie danych i powiadomienia zostaną wysłane do wszystkich
+administratorów portfela. W aplikacji mobilnej administratorzy mogą zaakceptować bądź odrzucić transakcję. Proces
+akceptacji polega na pobraniu transakcji zapisanej w postaci szesnastkowej, podpisaniu transakcji oraz wysłaniu
+transakcji z powrotem na serwer. Gdy transakcja zostanie podpisana przez wymaganą ilość administratorów, każde
+wejście zostanie zweryfikowane poprzez testowe uruchomienie skryptu. Jeżeli wszystkie wykonania zakończą się sukcesem,
+transakcja zostanie rozpropagowana po całej sieci Bitcoin.
+
+.Schemat blokowy procesu tworzenia i podpisywania transakcji
+[plantuml]
+----
+include::../diagrams/btc_transaction_flow.puml[]
+----

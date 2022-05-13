@@ -1,0 +1,82 @@
+=== Udziałowcy
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: | _UOB01_
+|Nazwa: | _Użytkownik_
+|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
+|Typ udziałowca: |_Ożywiony bezpośredni_
+|Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu._
+|Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UOB02_
+|Nazwa: |_Administrator_
+|Opis: |_Osoba mająca wgląd w ustawienia serwera, która może inicjować przelewy z głównego portfela, podpisywać transakcje
+swoim kluczem i przeglądać historię wpłat._
+|Typ udziałowca: |_Ożywiony bezpośredni_
+|Punkt widzenia: |_Osoba będąca częściowo właścicielem serwera oraz zarządzająca nim._
+|Ograniczenia: |_Jeżeli nie jest dodany do portfela, nie może podpisywać transakcji._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP03_
+|Nazwa: |_Uczelnia_
+|Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu Ingenious._
+|Typ udziałowca: |_Nieożywiony pośredni_
+|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań.
+biznesowych_
+|Ograniczenia: |_Nie ma wglądu w projekt, jedynie go nadzoruje._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNP04_
+|Nazwa: |_Promotor_
+|Opis: |_Osoba opiekująca się projektem oraz pomagająca w jego realizacji._
+|Typ udziałowca: |_Ożywiony pośredni_
+|Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań
+biznesowych oraz realizacją zadań technicznych._
+|Ograniczenia: |_Ograniczona komunikacja, zjazdy raz na 2/3 tygodnie._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNB05_
+|Nazwa: |_BitcoinJ_
+|Opis: |_Biblioteka umożliwiają operacje w sieci Bitcoin._
+|Typ udziałowca: |_Nieożywiony bezpośredni_
+|Punkt widzenia: |_Techniczny, umożliwia operacje na Bitcoinach._
+|Ograniczenia: |_Biblioteka nie posiada najnowszych funkcjonalności sieci Bitcoin, co stanowi dla nas
+spore utrudnienie._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UNB06_
+|Nazwa: |_LightningJ_
+|Opis: |_Biblioteka pozwalająca na połączenie się z węzłem LND za pomocą kodu w Javie._
+|Typ udziałowca: |_Nieożywiony bezpośredni_
+|Punkt widzenia: |_Techniczny, umożliwia operacje w sieci Lightning._
+|Ograniczenia: |_Biblioteka jest mało popularna, a co za tym idzie ciężko szukać o niej informacji._
+|===
+
+[cols="1h,4"]
+|===
+2+| *KARTA UDZIAŁOWCA*
+|Identyfikator: |_UOB07_
+|Nazwa: |_Zespół projektowy_
+|Opis: |_Tworzy system oraz dokumentację pod przewodnictwem promotora._
+|Typ udziałowca: |_Ożywiony bezpośredni_
+|Punkt widzenia: |_Twórcy rozwiązania._
+|Ograniczenia: |_Czas, wiedza._
+|===

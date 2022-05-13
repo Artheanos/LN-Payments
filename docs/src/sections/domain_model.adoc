@@ -1,0 +1,58 @@
+=== Model domenowy
+
+Model domenowy reprezentuje nazwy oraz podstawową strukturę klas, która zostanie wykorzystana podczas tworzenia systemu.
+Diagram wprowadza pojęcia, które będą służyły do szczegółowego opisywania implementacji rozwiązania.
+
+.Diagram klas domenowych systemu
+[plantuml]
+----
+include::../diagrams/domain_class.puml[]
+----
+
+Hierarchia klas użytkowników składa się z kilku klas, aby odwzorować strukturę opisaną na diagramie przypadków użycia
+dla aplikacji internetowej. Jedyną wspólną cechą wszystkich użytkowników jest pole _email_, które jest ich
+identyfikatorem. Po tej klasie dziedziczą dwie następne klasy użytkowników: użytkownik niezalogowany _TemporaryUser_
+oraz standardowy użytkownik. Niezalogowany użytkownik nie będzie posiadać żadnych własnych pól. Z celu identyfikacji
+do jego adresu _email_ zostanie dodany specjalny identyfikator, oddzielający go od innych użytkowników. Dodatkowa
+klasa dla niezalogowanych użytkowników jest wymagana, aby umożliwić autoryzację do zasobów płatności. Standardowy
+użytkownik ma uprawnienia do logowania się, a co za tym idzie, będzie miał swój profil użytkownika. Pole _password_
+będzie zawierać zaszyfrowane hasło użytkownika, a pole _fullName_ imię i nazwisko użytkownika. Po klasie
+_StandardUser_ dziedziczy klasa opisująca administratora serwera _AdminUser_. Pojawia się w niej nowe pole _publicKey_,
+przechowujące klucz publiczny administratora przesłany z aplikacji mobilnej. Dodatkowo w klasie będą znajdować się
+dwie metody służące do weryfikacji danych przy tworzeniu portfela czy też usuwaniu administratorów.
+
+Płatności dokonywane w procesie kupowania tokenów reprezentowane są przez klasę _Payment_. Zawiera ona typowe pola dla
+każdego produktu bądź operacji finansowej takie jak cena, ilość data czy też jak długo system oczekuje na zaksięgowanie
+wpłaty. Przechowywany będzie również _invoice_ sieci Lightning w polu _paymentRequest_. Umożliwi to powrót do
+niedokończonej płatności po wygaśnięciu sesji bądź odświeżeniu strony. _Invoice_ można również zdekodować, aby
+otrzymać szczegółowe informacje o danej płatności. Status płatności jest przechowywany w polu _status_, który określony
+jest wartościami typu wyliczeniowego _PaymentStatus_. Kiedy status płatności zmieni się na _COMPLETED_, czyli
+zakończony, jeden z serwisów wygeneruje tokeny oraz przypisze je do płatności przy pomocy metody _assignTokens_.
+Jedna płatność może mieć od 1 do _N_ tokenów. Klasa _Token_ zawiera jedno pole _value_, które przechowuje wartość
+tokena. Klasa _Token_ jest zależna od klasy _Payment_ i nie może istnieć niezależnie.
+
+Portfel reprezentowany jest przez klasę _Wallet_. Posiada on ilość wymaganych podpisów, kolekcję administratorów oraz
+_redeem script_. Pierwsze dwa pola wymagane są do utworzenia skryptu _redeem_, z którego wyprowadzany jest adres
+portfela. Lista administratorów może zawierać tylko administratorów, którzy przesłali na serwer swoje klucze publiczne.
+Dla ułatwienia niektórych operacji klasa _AdminUser_ będzie posiadać referencję do portfela. Jeden administrator może
+mieć 0 bądź 1 portfel. Klasy _AdminUser_ i _Wallet_ są ze sobą powiązane, aczkolwiek są niezależne. Usunięcie jednej
+z nich nie wpłynie na cykl życia drugiej klasy.
+
+Transakcje wykonywane ze wbudowanego w serwer portfela Bitcoin reprezentowane będą przy pomocy klasy _Transaction_.
+Głównym polem tej klasy jest pole _rawTransaction_, przechowujące aktualny stan transakcji. Podczas procesu
+podpisywania w aplikacji mobilnej, to właśnie to pole będzie pobierane z bazy danych, a po podpisaniu transakcji
+przez administratora będzie aktualizowane o nową wartość. Dodatkowo klasa posiada szczegóły transakcji takie jak
+data utworzenia, wartość oraz suma opłat, adres docelowy i adres, z którego wykonywana jest transakcja, a także
+ilość podpisów wymaganych do rozpropagowania transakcji. Aktualny status transakcji będzie definiowany poprzez
+typ wyliczeniowy _TransactionStatus_. W celu poinformowania użytkowników o transakcji wymagającej podpisania dodana
+została klasa Notification. Obiekt tej klasy tworzony będzie dla każdego administratora będącego częścią portfela.
+Powiadomienia będą również miejscem, w którym przechowywana będzie akcja podjęta przez użytkownika wobec transakcji.
+Do tego służy pole status, którego wartości określa typ wyliczeniowy _NotificationStatus_. Transakcje będzie można uznać
+za zatwierdzoną, jeżeli liczba powiadomień ze statusem _CONFIRMED_ należących do danej transakcji będzie większa bądź
+równa od liczby określonej w polu _requiredApprovals_. Powiadomienie może dotyczyć standardowej transakcji, jak i
+również transakcji tworzącej nowy portfel, która przelewa środki ze starego adresu na nowy. Typ powiadomienia określany
+jest przy pomocy typu wyliczeniowego _NotificationType_. Dodatkowo klasa _Notification_ posiada pole _message_, dzięki
+któremu można dostosować wiadomość, która będzie wyświetlana użytkownikowi w aplikacji mobilnej. Powiadomienia są
+zależne od transakcji, przez co nie mogą istnieć niezależnie. Transakcja musi mieć przynajmniej jedno powiadomienie,
+tak samo, jak w przypadku administratorów.
+
