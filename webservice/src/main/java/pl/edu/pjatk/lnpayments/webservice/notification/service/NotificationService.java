@@ -6,13 +6,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
+import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandler;
+import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandlerFactory;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -21,14 +25,17 @@ public class NotificationService {
     private final SimpMessagingTemplate messagingTemplate;
     private final NotificationConverter notificationConverter;
     private final NotificationRepository notificationRepository;
+    private final NotificationHandlerFactory handlerFactory;
 
     @Autowired
     public NotificationService(SimpMessagingTemplate messagingTemplate,
                                NotificationConverter notificationConverter,
-                               NotificationRepository notificationRepository) {
+                               NotificationRepository notificationRepository,
+                               NotificationHandlerFactory handlerFactory) {
         this.messagingTemplate = messagingTemplate;
         this.notificationConverter = notificationConverter;
         this.notificationRepository = notificationRepository;
+        this.handlerFactory = handlerFactory;
     }
 
     public void sendAllNotifications(List<Notification> notifications) {
@@ -47,11 +54,36 @@ public class NotificationService {
     }
 
     public ConfirmationDetails getSignatureData(String id) {
-        Notification notification = notificationRepository.findByIdentifier(id)
-                .orElseThrow(() -> new NotFoundException("Notification not found: " + id));
+        Notification notification = findNotification(id);
         Transaction transaction = notification.getTransaction();
         String rawTransaction = transaction.getRawTransaction();
-        Long version = transaction.getVersion();
+        long version = transaction.getVersion();
         return new ConfirmationDetails(rawTransaction, version);
+    }
+
+    @Transactional
+    public void handleNotificationResponse(String id, ConfirmationDetails body) {
+        Notification notification = findNotification(id);
+        validateUnhandledNotification(id, notification);
+        NotificationHandler handler = handlerFactory.findHandler(notification.getType());
+        handler.confirm(notification, body);
+    }
+
+    @Transactional
+    public void handleNotificationDenial(String id) {
+        Notification notification = findNotification(id);
+        validateUnhandledNotification(id, notification);
+        NotificationHandler handler = handlerFactory.findHandler(notification.getType());
+        handler.deny(notification);
+    }
+
+    private Notification findNotification(String id) {
+        return notificationRepository.findByIdentifier(id)
+                .orElseThrow(() -> new NotFoundException("Notification not found: " + id));
+    }
+
+    private void validateUnhandledNotification(String id, Notification notification) {
+        if (notification.isFinalized())
+            throw new InconsistentDataException("Notification is already finalized: " + id);
     }
 }
