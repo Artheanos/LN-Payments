@@ -13,7 +13,6 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification_;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
-import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction_;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -35,8 +34,8 @@ class NotificationResource {
 
     @GetMapping
     ResponseEntity<Page<NotificationResponse>> getNotificationsByUser(
-            @SortDefault(sort = Notification_.DATE, direction = Sort.Direction.DESC) Principal principal,
-            Pageable pageable) {
+            Principal principal,
+            @SortDefault(sort = Notification_.DATE, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Notification> notifications = notificationService.getNotificationsByEmail(principal.getName(), pageable);
         Page<NotificationResponse> notificationResponses = notificationConverter.convertAllToDto(notifications);
         return ResponseEntity.ok(notificationResponses);
