@@ -3,11 +3,15 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment_;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentDetailsConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.converter.PaymentInfoConverter;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentAdminDetailsResponse;
@@ -55,13 +59,16 @@ public class PaymentResource {
     }
 
     @GetMapping
-    public ResponseEntity<Page<PaymentDetailsResponse>> getAllUserPayments(Principal principal, Pageable pageable) {
+    public ResponseEntity<Page<PaymentDetailsResponse>> getAllUserPayments(
+            Principal principal,
+            @SortDefault(sort = Payment_.DATE, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Payment> payments = paymentFacade.getPaymentsByEmail(principal.getName(), pageable);
         return ResponseEntity.ok(paymentDetailsConverter.convertPageToDto(payments));
     }
 
     @GetMapping(ALL_PATH)
-    public ResponseEntity<Page<PaymentAdminDetailsResponse>> getAllPayments(Pageable pageable) {
+    public ResponseEntity<Page<PaymentAdminDetailsResponse>> getAllPayments(
+            @SortDefault(sort = Payment_.DATE, direction = Sort.Direction.DESC) Pageable pageable) {
         Page<Payment> payments = paymentFacade.getAllPayments(pageable);
         return ResponseEntity.ok(paymentDetailsConverter.convertPageToAdminDto(payments));
     }

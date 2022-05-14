@@ -3,13 +3,17 @@ package pl.edu.pjatk.lnpayments.webservice.notification.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
+import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification_;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction_;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -30,7 +34,9 @@ class NotificationResource {
     }
 
     @GetMapping
-    ResponseEntity<Page<NotificationResponse>> getNotificationsByUser(Principal principal, Pageable pageable) {
+    ResponseEntity<Page<NotificationResponse>> getNotificationsByUser(
+            @SortDefault(sort = Notification_.DATE, direction = Sort.Direction.DESC) Principal principal,
+            Pageable pageable) {
         Page<Notification> notifications = notificationService.getNotificationsByEmail(principal.getName(), pageable);
         Page<NotificationResponse> notificationResponses = notificationConverter.convertAllToDto(notifications);
         return ResponseEntity.ok(notificationResponses);

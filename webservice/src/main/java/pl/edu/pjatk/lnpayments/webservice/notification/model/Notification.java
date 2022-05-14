@@ -8,6 +8,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -36,6 +37,8 @@ public class Notification {
     @Enumerated(EnumType.STRING)
     private NotificationType type;
 
+    private Instant date;
+
     public Notification(AdminUser adminUser,
                         Transaction transaction,
                         String message,
@@ -47,6 +50,7 @@ public class Notification {
         this.message = message;
         this.type = notificationType;
         this.status = NotificationStatus.PENDING;
+        this.date = Instant.now();
     }
 
     public boolean isFinalized() {
