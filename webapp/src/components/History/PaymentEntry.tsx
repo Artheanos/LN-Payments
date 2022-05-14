@@ -3,13 +3,14 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
+import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
 import { PaymentStatusCell } from './PaymentStatusCell'
 import { TokenPopup } from './TokenPopup'
 
 export const PaymentEntry: React.FC<PaymentDetails> = (
   payment: PaymentDetails
 ) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('history')
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
 
@@ -49,7 +50,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
               }}
             >
               <VisibilityIcon />
-              <span className="pl-1">{t('history.show')}</span>
+              <span className="pl-1">{t('show')}</span>
             </Typography>
           ) : (
             <Typography
@@ -59,7 +60,7 @@ export const PaymentEntry: React.FC<PaymentDetails> = (
                 color: 'darkgray'
               }}
             >
-              {t('history.none')}
+              {t('none')}
             </Typography>
           )}
         </TableCell>

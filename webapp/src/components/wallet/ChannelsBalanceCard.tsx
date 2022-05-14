@@ -1,3 +1,4 @@
+import { ChannelsBalance } from 'common-ts/dist/webServiceApi/interface/wallet'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ProgressCard } from './ProgressCard'
@@ -7,15 +8,15 @@ export const ChannelsBalanceCard: React.FC<ChannelsBalance> = ({
   openedChannels,
   autoChannelCloseLimit
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('wallet')
 
   return (
     <ProgressCard
-      headerText={t('wallet.channelsBalance.header')}
+      headerText={t('channelsBalance.header')}
       value={totalBalance}
       maxValue={autoChannelCloseLimit}
-      tooltipContent={t('wallet.channelsBalance.tooltipContent')}
-      bottomText={openedChannels + t('wallet.channelsBalance.openChannels')}
+      tooltipContent={t('channelsBalance.tooltipContent')}
+      bottomText={openedChannels + t('channelsBalance.openChannels')}
       unit="sats"
       color="secondary"
     />

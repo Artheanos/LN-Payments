@@ -1,20 +1,28 @@
 import { render, fireEvent, waitFor } from '../../../testUtils'
 
-import { LoginScreen } from '../../../../components/screens/auth/LoginScreen'
-import { UserContext } from '../../../../components/context/UserContext'
+import { LoginScreen } from 'components/screens/auth/LoginScreen'
+import { UserContext } from 'components/context/UserContext'
 import { RenderAPI } from '@testing-library/react-native'
 
-jest.mock('axios', () => ({
-  post: (_url: string, { email }: { email: string }) => {
-    return new Promise((resolve, reject) => {
-      if (email) {
-        const role = email.includes('admin') ? 'ROLE_ADMIN' : 'ROLE_USER'
-        return resolve({ data: { role } })
-      }
-      return reject()
-    })
+jest.mock('api', () => ({
+  api: {
+    auth: {
+      login: ({ email }: { email: string }) => {
+        return new Promise((resolve) => {
+          if (email) {
+            const role = email.includes('admin') ? 'ROLE_ADMIN' : 'ROLE_USER'
+            return resolve({ data: { role } })
+          }
+          return resolve({})
+        })
+      },
+    },
   },
 }))
+
+// jest.mock('common-ts/dist/webServiceApi/interface/auth', () => {
+//   return null
+// })
 
 describe('LoginScreen', () => {
   let setToken = jest.fn()

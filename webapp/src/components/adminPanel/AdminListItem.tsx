@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { TableCell, TableRow } from '@mui/material'
 import { AdminStatusIndicator } from './AdminStatusIndicator'
+import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
 
 interface Props {
   user: AdminUser

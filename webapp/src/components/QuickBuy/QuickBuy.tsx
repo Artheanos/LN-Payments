@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { CircularProgress } from '@mui/material'
 
-import { LocalKey } from '@constants'
+import { LocalKey } from 'constants/LocalKey'
+import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
 import { SetupStage } from './Stages/SetupStage'
 import { StageProgress } from './StageProgress/StageProgress'
 import { TokensStage } from './Stages/TokensStage/TokensStage'

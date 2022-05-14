@@ -1,6 +1,7 @@
 import { render, screen } from 'tests/test-utils'
 import { PaymentEntry } from 'components/History/PaymentEntry'
 import { waitFor } from '@testing-library/react'
+import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
 
 describe('PaymentEntry', () => {
   it('should properly render entry with no tokens', () => {
@@ -13,7 +14,7 @@ describe('PaymentEntry', () => {
             expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
             price={2137}
             numberOfTokens={1}
-            paymentStatus="CANCELLED"
+            paymentStatus={PaymentStatus.CANCELLED}
             tokens={[]}
             paymentTopic="ddd"
           />
@@ -40,7 +41,7 @@ describe('PaymentEntry', () => {
             expirationTimestamp={new Date('2022-03-21 18:23:34.543684')}
             price={2137}
             numberOfTokens={1}
-            paymentStatus="COMPLETE"
+            paymentStatus={PaymentStatus.COMPLETE}
             tokens={['ddd']}
             paymentTopic="ddd"
           />

@@ -12,19 +12,19 @@ interface Props {
 
 export const TokenItem: React.FC<Props> = ({ id, token, setDisplayToken }) => {
   const notification = useNotification()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
 
   const tokenId = id + 1
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(token)
-    notification(t('quickBuy.tokens.onCopyMessage', { tokenId }), 'success')
+    notification(t('tokens.onCopyMessage', { tokenId }), 'success')
   }
 
   return (
     <div className="flex gap-16 justify-between items-center w-full">
       <div className="whitespace-nowrap">
-        {t('quickBuy.tokens.listItemPrefix', { tokenId })}
+        {t('tokens.listItemPrefix', { tokenId })}
       </div>
       <div className="flex gap-2">
         <Button onClick={() => copyToClipboard()} variant="text">

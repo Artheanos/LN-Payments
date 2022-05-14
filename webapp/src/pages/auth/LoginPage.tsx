@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
 import { LoginForm } from 'components/auth/Login/LoginForm'
+import { LoginForm as ILoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
 import { api } from 'api'
 import { useNotification } from 'components/Context/NotificationContext'
 import { UserContext } from 'components/Context/UserContext'
@@ -15,7 +16,7 @@ export const LoginPage: React.FC = () => {
   const createSnackbar = useNotification()
   const [openAlert, setOpenAlert] = useState(false)
 
-  const onSubmit = async (form: LoginForm) => {
+  const onSubmit = async (form: ILoginForm) => {
     setOpenAlert(false)
     const { data } = await api.auth.login(form)
 

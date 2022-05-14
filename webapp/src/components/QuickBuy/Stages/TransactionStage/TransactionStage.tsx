@@ -5,16 +5,18 @@ import { Client as StompClient } from '@stomp/stompjs'
 
 import routesBuilder from 'routesBuilder'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { PaymentInfo } from 'common-ts/dist/webServiceApi/interface/payment'
 import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
-import { api, getAuthHeader } from 'api'
+import { WsTransactionResponse } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { api, refreshTokenFactory } from 'api'
 import { millisecondsToClock, useCountdown } from 'utils/time'
 
 const websocketBuilder = (onConnect: () => void) => {
   return new StompClient({
     brokerURL: routesBuilder.api.payments.ws(),
     connectHeaders: {
-      Authorization: getAuthHeader()
+      Authorization: `Bearer ${refreshTokenFactory()}`
     },
     onConnect,
     onStompError: console.error,
@@ -33,7 +35,7 @@ export const TransactionStage: React.FC<StageProps> = ({
   setPayment,
   setTokens
 }) => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('quickBuy')
   const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>()
   const [modalVisible, setModalVisible] = useState(false)
   const [socket, setSocket] = useState<StompClient>()
@@ -77,8 +79,8 @@ export const TransactionStage: React.FC<StageProps> = ({
   return (
     <div>
       <ConfirmationModal
-        confirmButtonContent={t('quickBuy.transaction.modal.button')}
-        message={t('quickBuy.transaction.modal.timeoutMessage')}
+        confirmButtonContent={t('transaction.modal.button')}
+        message={t('transaction.modal.timeoutMessage')}
         onConfirm={() => setStageIndex?.(0)}
         open={modalVisible}
         setOpen={setModalVisible}
@@ -91,7 +93,7 @@ export const TransactionStage: React.FC<StageProps> = ({
             </Grid>
             <Grid xs={12} item>
               <Button variant="contained" onClick={cancelTransaction}>
-                {t('cancel')}
+                {t('common:cancel')}
               </Button>
               <Button color="warning" disabled variant="contained">
                 {millisecondsToClock(timeLeft)}

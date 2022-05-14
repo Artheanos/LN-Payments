@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
-import { Role } from '@constants'
 import { UserContext } from '../Context/UserContext'
+import { Role } from 'common-ts/dist/webServiceApi/interface/user'
 
 export const Navbar: React.FC = () => {
   const { t } = useTranslation('common')

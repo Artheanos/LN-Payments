@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "paths": {
       "*": ["./*"],
-      "tests/*": ["../tests/*"],
+      "tests/*": ["../tests/*"]
     }
   },
   "exclude": ["node_modules"],

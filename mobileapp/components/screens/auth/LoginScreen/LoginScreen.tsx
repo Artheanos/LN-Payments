@@ -1,14 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useState } from 'react'
-import axios from 'axios'
-import { Box, Button, Center, Flex, Heading, Text } from 'native-base'
-import { Field, Formik, FormikHelpers, FormikValues } from 'formik'
+import { Box, Button, Center, Flex, Heading } from 'native-base'
+import { Field, Formik, FormikHelpers } from 'formik'
 
-import { FormikInput } from '../../../form/FormikInput'
-import { UserContext } from '../../../context/UserContext'
+import { FormikInput } from 'components/form/FormikInput'
+import { UserContext } from 'components/context/UserContext'
 import { initialValues } from './loginForm'
-
-const loginUrl = 'http://192.168.8.112:8080/api/auth/login'
+import { api } from 'api'
+import { LoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
 
 export const LoginScreen: React.FC = () => {
   const { setToken } = useContext(UserContext)
@@ -19,30 +18,33 @@ export const LoginScreen: React.FC = () => {
     setToken(token)
   }
 
+  const onFailure = ({ setFieldError }: FormikHelpers<LoginForm>) => {
+    setFieldError('email', 'Invalid credentials')
+  }
+
+  const onUnauthorized = ({ setFieldError }: FormikHelpers<LoginForm>) => {
+    setFieldError('email', 'This app is for admins only')
+  }
+
   const onSubmit = async (
-    values: FormikValues,
-    helpers: FormikHelpers<typeof initialValues>,
+    values: LoginForm,
+    helpers: FormikHelpers<LoginForm>,
   ) => {
     setLoading(true)
-
-    axios
-      .post(loginUrl, values)
+    api.auth
+      .login(values)
       .then(({ data }) => {
-        if (data.role === 'ROLE_ADMIN') {
-          onSuccess(data.token)
-        } else {
-          helpers.setFieldError('email', 'This app is for admins only')
-        }
-      })
-      .catch(() => {
-        helpers.setFieldError('email', 'Invalid credentials')
+        if (!data) return onFailure(helpers)
+
+        if (data.role === 'ROLE_ADMIN') return onSuccess(data.token)
+
+        onUnauthorized(helpers)
       })
       .finally(() => setLoading(false))
   }
 
   return (
     <Center justifyContent="center" h="100%">
-      <Text>Login</Text>
       <Formik initialValues={initialValues} onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <Flex py="10" w="75%" maxWidth="300px">
