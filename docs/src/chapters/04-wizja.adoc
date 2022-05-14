@@ -1,9 +1,41 @@
 == Wizja
 
-=== Architektura Oprogramowania
+Centralnym punktem rozwiązania jest serwer napisany w języku programowania Java wraz z użyciem frameworka Spring.
+Zdecydowaliśmy się na to rozwiązanie ze względu na duże doświadczenie członków zespołu w tej technologii. Java
+posiada również biblioteki do obsługi kryptowalut, które idealnie pasują do naszego przypadku użycia. Aplikacja
+została wykonana w warstwowej architekturze klient-serwer. Współcześnie popularnym trendem jest rozbicie aplikacji
+internetowych na część serwerową oraz część prezentacyjną, nie inaczej postanowiliśmy zrobić prezentowanym systemie.
+Aplikacja webowa została stworzona w technologi SPA przy użyciu języka programowania JavaScript oraz frameworka React.
+Podobnie jak w przypadku serwera wybór technologi podyktowany został przede wszystkim doświadczeniem członków zespołu
+projektowego. Przy pomocy Reacta można w łatwy i szybki sposób stworzyć profesjonalnie wyglądającą stronę internetową,
+co jest ogromną zaletą. Do stworzenia aplikacji mobilnej wykorzystano podobnie jak w przypadku aplikacji webowej
+język JavaScript oraz framework React Native, który jest mobilnym odpowiednikiem Reacta. Dzięki temu minimalizowany
+jest dodatkowy nakład na naukę nowych technologii. To rozwiązanie pozwana nam też na ponowne użycie niektórych
+komponentów i typów z aplikacji webowej. Komunikacja pomiędzy serwerem, aplikacją webową oraz aplikacją mobilną
+odbywa się z wykorzystaniem protokołów HTTP/HTTPS, oraz WebSocket. Dane w bazie danych są ustrukturyzowane, więc
+zdecydowaliśmy się na relacyjną bazę danych PostgreSQL. Dodatkowo razem z serwerem będzie działać węzeł sieci
+Lightning _LND_ oraz pełny węzeł sieci Bitcoin _bitcoind_.
 
-=== CI/CD
+Znaczna większość wykorzystywanych technologii oraz bibliotek opartych jets na licencjach open-source. Pozwala to na
+całkowicie darmowe tworzenie systemu. W przypadku niektórych programów użyto darmowych licencji studenckich.
+Wspieranymi przez nas środowiskami wdrożeniowymi są systemy operacyjne z rodziny POSIX. Rozwój aplikacji odbywał
+się na systemach MacOS oraz Linux. Aplikacja powinna również działać na systemach Windows, aczkolwiek nie zostało
+to przetestowane, a także takie wsparcie nie jest planowane.
 
-=== Użyte Technologie
+=== Infrastruktura
+
+=== Repozytorium oraz CI/CD
+
+=== Użyte Technologie i biblioteki
+
+==== Serwer
+
+==== Aplikacja webowa
+
+==== Aplikacja mobilna
+
+==== Dokumentacja
+
+==== Testy E2E
 
 === Wykorzystane Narzędzia
