@@ -48,7 +48,7 @@ za budowanie aplikacji, uruchomianie testów oraz w przypadku gałęzi master zb
 wdrożenia. Jak wspomniano wcześniej, nie jest planowana automatyzacja procesu ciągłego wdrażania, gdyż ze względów
 podejścia biznesowego nie ma takiej potrzeby.
 
-=== Użyte Technologie i biblioteki
+=== Użyte technologie i biblioteki
 
 ==== Serwer
 
