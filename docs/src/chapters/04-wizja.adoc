@@ -5,11 +5,11 @@ Zdecydowaliśmy się na to rozwiązanie ze względu na duże doświadczenie czł
 posiada również biblioteki do obsługi kryptowalut, które idealnie pasują do naszego przypadku użycia. Aplikacja
 została wykonana w warstwowej architekturze klient-serwer. Współcześnie popularnym trendem jest rozbicie aplikacji
 internetowych na część serwerową oraz część prezentacyjną, nie inaczej postanowiliśmy zrobić prezentowanym systemie.
-Aplikacja webowa została stworzona w technologi SPA przy użyciu języka programowania JavaScript oraz frameworka React.
+Aplikacja webowa została stworzona w technologi SPA przy użyciu języka programowania TypeScript oraz frameworka React.
 Podobnie jak w przypadku serwera wybór technologi podyktowany został przede wszystkim doświadczeniem członków zespołu
 projektowego. Przy pomocy Reacta można w łatwy i szybki sposób stworzyć profesjonalnie wyglądającą stronę internetową,
 co jest ogromną zaletą. Do stworzenia aplikacji mobilnej wykorzystano podobnie jak w przypadku aplikacji webowej
-język JavaScript oraz framework React Native, który jest mobilnym odpowiednikiem Reacta. Dzięki temu minimalizowany
+język TypeScript oraz framework React Native, który jest mobilnym odpowiednikiem Reacta. Dzięki temu minimalizowany
 jest dodatkowy nakład na naukę nowych technologii. To rozwiązanie pozwana nam też na ponowne użycie niektórych
 komponentów i typów z aplikacji webowej. Komunikacja pomiędzy serwerem, aplikacją webową oraz aplikacją mobilną
 odbywa się z wykorzystaniem protokołów HTTP/HTTPS, oraz WebSocket. Dane w bazie danych są ustrukturyzowane, więc
@@ -24,18 +24,277 @@ to przetestowane, a także takie wsparcie nie jest planowane.
 
 === Infrastruktura
 
-=== Repozytorium oraz CI/CD
+Zarówno środowisko wdrożeniowe, jak i deweloperskie oparte będą konteneryzacji z użyciem programu Docker. W przypadku
+lokalnego środowiska deweloperskiego zostały stworzone pliki dla programu orkiestrującego kontenery Dockera
+docker-compose. Pozwala to na utworzenie bazy danych oraz węzłów Lightning i Bitcoin w wybranej sieci Bitcoina.
+Lokalnie używany jest publiczny Testnet do prac nad projektem oraz Regtest do testów E2E.
+
+Nasz model biznesowy wyklucza samodzielne wdrażanie aplikacji. Klienci otrzymają obraz Dockera wraz z naszą aplikacją
+oraz plik docker-compose, za pomocą którego będzie można wdrożyć aplikację w kilkanaście minut. Klient będzie
+również miał możliwość samodzielnego wdrożenia aplikacji w wybrany przez siebie, jeżeli zajdzie taka potrzeba.
+Prawdopodobnie będzie to skrajny przypadek, wykorzystywany na przykład w przypadku personalizacji parametrów
+uruchomienia komponentów bądź z restrykcyjnych wymogów bezpieczeństwa. Aby to umożliwić do pobrania udostępnione będą
+zarówno obrazy Docker, jak i również standardowe pliki wykonywalne.
+
+=== Repozytorium oraz CI
+
+Kod wraz z automatyzacją procesu ciągłej integracji znajduje się w serwisie Github. Repozytorium prowadzone jest
+z wykorzystaniem strategii monorepo. Kod całego systemu przechowywany jest w jednym repozytorium, a każda aplikacja
+ma wydzielony swój własny folder. Do automatyzacji procesu ciągłej integracji został wykorzystany podsystem Githuba
+o nazwie Actions. Jest on zintegrowany z Githubem oraz jest całkowicie darmowy, dzięki czemu idealnie pasuje do
+przedstawionego przypadku użycia. Zespół projektowy nie musi przejmować się zewnętrznymi rozwiązaniami, gdyż cały
+proces widoczny jest bezpośrednio w repozytorium. Każda aplikacja w projekcie ma swój własny _pipeline_, odpowiedzialny
+za budowanie aplikacji, uruchomianie testów oraz w przypadku gałęzi master zbudowanie artefaktów gotowych do
+wdrożenia. Jak wspomniano wcześniej, nie jest planowana automatyzacja procesu ciągłego wdrażania, gdyż ze względów
+podejścia biznesowego nie ma takiej potrzeby.
 
 === Użyte Technologie i biblioteki
 
 ==== Serwer
 
+Java 17::
+Java jest obiektowym językiem programowania ogólnego zastosowania. Zdecydowano się na najnowszą wersję LTS, czyli z
+przedłużonym wsparciem. W momencie rozpoczęcia prac nad projektem była to najnowsza dostępna wersja w ogóle.
+Cały kod aplikacji oraz testy napisane są w tym języku.
+
+Spring::
+Spring jest szkieletem tworzenia aplikacji dla platformy Javy. Adaptuje on paradygmat IaC (inversion of control).
+Składa się z wielu modułów takich jak Core, MVC czy też AOP. Dzięki nim można szybko i łatwo tworzyć rozbudowane
+aplikacje webowe.
+
+Spring Boot::
+Spring boot jest szkieletem tworzenia aplikacji, składający się z samego Springa, kontenera zależności oraz
+domyślnej konfiguracji. Dzięki niemu nie trzeba męczyć się z konfiguracją aplikacji w Springu, wystarczy dodać
+zależność i nowe funkcjonalności powinny działać od razu. Upraszcza to znacznie konfigurację aplikacji oraz dodawanie
+nowych modułów.
+
+Spring Data JPA::
+Jest to moduł Springa ułatwiający komunikację z bazą danych. Dzięki niemu nie ma potrzeby pisania kodu dostępowego
+do bazy danych oraz znacząco ogranicza liczbę ręcznie pisanych zapytać do bazy danych. Jako że używamy relacyjnej
+bazy danych, wybrano wersję JPA, czyli specyfikacji API do obsługi relacyjnej bazy danych. Jako domyślna implementacja
+JPA używany jest Hibernate.
+
+Spring Security::
+Spring security jest modułem dostarczającym wiele gotowych mechanizmów do zabezpieczania aplikacji webowej.
+Pisząc minimalną ilość kodu, można stworzyć kompleksowe zabezpieczenia dla aplikacji. Spring Security użyto do
+zabezpieczenia API, zarówno REST, jak i WebSocket.
+
+Spring Messaging i Spring Websocket::
+Spring Messaging dodaje wsparcie dla systemów komunikacji poprzez wiadomości. Spring WebSocket dodatkowo umożliwia
+używanie Spring Messaging wraz z protokołem WebSocket.
+
+Lombok::
+Lombok jest biblioteką dodającą wiele adnotacji do Javy, które automatycznie generują potrzebny kod. Znacząco
+ogranicza to pisanie tzw. _boilerplate code_. Lombok eliminuje między innymi pisanie getterów, setterów, konstruktorów
+czy nawet metod _hashCode_ i _equals_.
+
+BitcoinJ::
+Jest to biblioteka dodająca obsługę protokołu Bitcoina. Pozwala między innymi na tworzenie portfeli, adresów czy też
+budowanie transakcji. W systemie użyta jest do budowania transakcji, obsługi portfela multisig oraz propagowania
+transakcji w sieci Bitcoin.
+
+LightningJ::
+LightningJ jest prostą biblioteką służącą jako API węzła Lightning LND w języku Java. Używana jest do komunikacji
+serwera z lokalnie działającym węzłem Lightning.
+
+jjwt::
+Jest to biblioteka do tworzenia oraz weryfikowania tokenów _Json Web Token (JWT)_. Te tokeny używane są do autoryzacji
+użytkownik w systemie.
+
+Swagger::
+Swagger jest narzędziem pozwalającym na automatycznego wygenerowania specyfikacji API serwera. Następnie
+specyfikacja API dostępna jest pod odpowiednim adresem HTTP. Ułatwia znacząco dokumentowanie API, dzięki czemu
+integracja frontendu i backendu staje się o wiele mniej problematyczna.
+
+Bean Validation::
+Jest to zestaw adnotacji dodający możliwość weryfikacji danych wejściowych pól obiektu. Wykorzystywany w systemie
+do weryfikacji parametrów wejściowych w żądaniach HTTP.
+
+Junit 5::
+Junit jest frameworkiem do tworzenia testów jednostkowych.
+
+Mockito::
+Mockito jest biblioteką do testowania umożliwiającą tworzenie atrap implementacji obiektów. Dzięki temu
+można dodawać sztuczną implementację obiektu zgodnie z wymaganiami testowanej klasy.
+
+Availability::
+Availability jest biblioteką do tworzenia asercji dla asynchronicznego kodu. Używana jest do testów wielowątkowych
+części aplikacji.
+
+H2 Database::
+Jest to baza danych, której dane znajdują się tylko w pamięci komputera. Wykorzystywana jest w systemie do
+przeprowadzania testów integracyjnych elementów wymagających operacji w bazie danych.
+
+Spring test::
+Spring test jest biblioteką dodającą funkcjonalności pozwalającej na testowanie aplikacji stworzonych z wykorzystaniem
+frameworka Spring. Pozwala na stworzenie całego kontekstu Springa wraz z testową konfiguracją. Wykorzystywana w
+projekcie do przeprowadzania testów integracyjnych.
+
+Wiremock::
+Jest to biblioteka pozwalająca tworzyć atrapy innych serwerów HTTP na potrzeby testów.
+
+jacoco::
+Jacoco jest biblioteką służącą do analizy pokrycia kodu testami. Pozwala również na generowanie raportów z testów.
+
+checkstyle::
+Jest to narzędzie służące do analizy kodu źródłowego. Pozwala na sprawdzenie, czy dany kod jest zgodny z ustalonymi
+wcześniej regułami.
+
 ==== Aplikacja webowa
+
+TypeScript::
+Jest to język programowania będący rozszerzeniem języka JavaScript. Dodaje on między innymi statyczne typowanie
+oraz programowanie obiektowe. Kod TypeScript kompilowany jest do kody JavaScript, dzięki czemu kod napisany w
+JavaScript jest poprawnym kodem w TypeScript.
+
+React::
+React jest jednym z najpopularniejszych frameworków do tworzenia stron internetowych w języku JavaScript. Dzięki niemu
+tworzony jest czytelny deklaratywny kod, który dodatkowo powstaje bardzo szybko. W projekcie również wykorzystano
+dodatkowe moduły, takie jak react-router dodający nawigację. Dodatkową zaletą jest wsparcie dla kompilatora Babel,
+pozwalającego na wykorzystywanie kodu HTML w kodzie JavaScript.
+
+MUI::
+Jest to biblioteka dodająca między innymi gotowe komponenty React oraz ikony. Większość interfejsu użytkownika
+aplikacji webowej oparta jest na komponentach z tej biblioteki.
+
+TailwindCSS::
+Jest to framework do CSS dodający dużą ilość predefiniowanych klas. Każda klasa posiada intuicyjne nazwy, co
+przyspiesza proces tworzenia stylu interfejsu użytkownika. Dzięki tej bibliotece udział kodu CSS w aplikacji
+ograniczony został do minimum.
+
+Stomp.js::
+Jest to biblioteka będąca klientem dla protokołu WebSocket.
+
+i18next::
+Jest to biblioteka dodająca do aplikacji internacjonalizację. Pomimo tego, że aplikacja jest tylko w języku angielskim,
+jest ona przydatna do przechowywania wartości tekstowych w osobnych plikach.
+
+Vite::
+Jest to narzędzie służące do uruchamiania aplikacji napisanych z frameworkiem React oraz do budowania
+zoptymalizowanych statycznych artefaktów gotowych do wdrożenia.
+
+qrcode.react::
+Jest to prosty komponent do generowania kodów QR.
+
+Axios::
+Jest to klient HTTP, używany do wykonywania żądań do serwera.
+
+Formik::
+Jest to biblioteka dla frameworka React znacząco ułatwiająca tworzenie formularzy. Ułatwia zarządzanie zawartością
+formularza oraz jego walidację.
+
+Yup::
+Yup jest biblioteką do tworzenia schematów służących do walidacji formularzy. Schematy te przekazywane są
+do komponentów Formik, na podstawie których odbywa się sprawdzanie danych wejściowych,
+
+Jest::
+Jest to framework do testowania aplikacji napisanych w języku JavaScript. Pozwala zarówno na pisanie standardowych
+testów jednostkowych z asercjami, jak i na tworzenie atrap i wykorzystywanie ich w testach.
+
+Testing-library::
+Testing-library jest rozwiązaniem pozwalającym na testowanie komponentów React. Pozwala między innymi na renderowanie
+drzewa ReactDOM w pamięci i wykonywanie na nim testów integracyjnych.
+
+MSW::
+Jest to biblioteka, która podobnie jak Wiremock po stronie serwera, umożliwia tworzenie atrap serwerów HTTP na
+potrzeby testów integracyjnych.
+
+Eslint::
+Eslint jest narzędziem do statycznej analizy kodu JavaScript i TypeScript. Posiada wiele wbudowanych reguł i
+umożliwia tworzenie niestandardowych.
+
+Prettier::
+Jest to narzędzie formatujące kod. Pozwala na wykrywanie oraz poprawianie kodu źródłowego o niskiej jakości.
+Posiada integrację z Eslint'em, dzięki czemu jest w stanie poprawić również błędy przez znalezione przez niego.
+Dzięki temu narzędziu kod zawsze sformatowany w ten sam sposób, co zwiększa jego czytelność.
 
 ==== Aplikacja mobilna
 
+Aplikacja mobilna jest wykonana praktycznie w tej samej technologii co aplikacja webowa. Dzięki temu użyto
+wiele takich samych bibliotek, między innymi:
+
+* TypeScript
+* Stomp.js
+* Axios
+* Formik
+* Jest
+* MSW
+* Eslint
+* Prettier
+
+Dodatkowo do aplikacji mobilnej dodano kilka bibliotek i frameworków potrzebnych tylko w aplikacji mobilnej:
+
+React native::
+dudu
+
+Expo::
+dudu
+
+BitcoinJS::
+dudu
+
 ==== Dokumentacja
+
+asciidoctor::
+dudu
+
+plantuml::
+dudu
 
 ==== Testy E2E
 
+Cypress::
+dudu
+
+Cucumber::
+dudu
+
+Gherkin::
+dudu
+
 === Wykorzystane Narzędzia
+
+Bitcoind::
+dd
+
+LND::
+dd
+
+IntelliJ IDEA Ultimate::
+dudu
+
+Docker::
+dudu
+
+Figma::
+dudu
+
+Maven::
+dudu
+
+draw.io::
+dudu
+
+make::
+dudu
+
+Yarn::
+dudu
+
+Github::
+dudu
+
+Github Actions::
+dudu
+
+Discord::
+dudu
+
+Jira::
+dudu
+
+Postman::
+dudu
+
+git::
+dudu
