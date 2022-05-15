@@ -133,10 +133,10 @@ projekcie do przeprowadzania testów integracyjnych.
 Wiremock::
 Jest to biblioteka pozwalająca tworzyć atrapy innych serwerów HTTP na potrzeby testów.
 
-jacoco::
+Jacoco::
 Jacoco jest biblioteką służącą do analizy pokrycia kodu testami. Pozwala również na generowanie raportów z testów.
 
-checkstyle::
+Checkstyle::
 Jest to narzędzie służące do analizy kodu źródłowego. Pozwala na sprawdzenie, czy dany kod jest zgodny z ustalonymi
 wcześniej regułami.
 
@@ -224,77 +224,104 @@ wiele takich samych bibliotek, między innymi:
 
 Dodatkowo do aplikacji mobilnej dodano kilka bibliotek i frameworków potrzebnych tylko w aplikacji mobilnej:
 
-React native::
-dudu
+React Native::
+Podobnie jak w przypadku standardowej wersji frameworku React służy on do tworzenia stron internetowych w JavaScript.
+Główną różnicą jest fakt, że zawiera on natywne komponenty natywne dla danego urządzenia. Dzięki temu można
+bezproblemowo tworzyć aplikacje mobilne czy też oprogramowanie na telewizory.
 
 Expo::
-dudu
+Jest to zestaw narzędzi ułatwiające proces tworzenia aplikacji z wykorzystaniem React Native. Pomaga między innymi w
+budowaniu aplikacji, uruchamianiu lokalnym czy też obsługą zaawansowanych funkcji telefonu.
 
 BitcoinJS::
-dudu
+BitcoinJS jest biblioteką zapewniającą obsługę protokołu Bitcoina. W aplikacji mobilnej jest używana do generowania
+kluczy prywatnych oraz podpisywania transakcji.
 
 ==== Dokumentacja
 
-asciidoctor::
-dudu
+Asciidoc::
+Jest to język znaczników służący do pisania dokumentów tekstowych. Dzięki użyciu tego języka można przechowywać całą
+dokumentację w zwykłych plikach tekstowych, a co za tym idzie przechowywać w systemie kontroli wersji tak samo jak
+kod źródłowy projektu.
 
-plantuml::
-dudu
+Asciidoctor::
+Asciidoctor jest parserem dla plików napisanych przy użyciu języka asciidoc. Domyślnie generuje pliki HTML. Jego
+funkcjonalność można rozwinąć dzięki rozszerzeniom. W projekcie używamy asciidoctor-pdf do generowania plików PDF oraz
+asciidoctor-diagram do wstawiania diagramów w plantuml.
+
+PlantUML::
+Jest to język oraz narzędzie o tej samej nazwie służące do tworzenia diagramów UML zapisanych w zwykłych plikach
+tekstowych. Tak samo, jak w przypadku dokumentacji pozwala to na trzymanie plików w systemie kontroli wersji.
 
 ==== Testy E2E
 
 Cypress::
-dudu
+Cypress to framework do tworzenia automatycznych testów E2E dla aplikacji webowych. Dostarcza on wszystkich narzędzi
+wymaganych do przeprowadzenia testów. Same testy pisane są w języku JavaScript.
 
 Cucumber::
-dudu
-
-Gherkin::
-dudu
+Jest to narzędzie programistyczne wspierające proces BDD. Pozwala na uruchamianie testów akceptacyjnych oraz E2E
+zapisanych przy pomocy specjalnego języka DSL Gherkin. Pozwala on na opisanie zachowania aplikacji ze strony biznesu
+bez zagłębiania się w szczegóły implementacji.
 
 === Wykorzystane Narzędzia
 
 Bitcoind::
-dd
+Jest to implementacja pełnego węzła sieci Bitcoin, wspierająca wszystkie funkcjonalności protokołu.
 
 LND::
-dd
+Jest to kompletna implementacja węzła sieci Lightning, w pełni kompatybilna ze specyfikacją BOLT.
 
 IntelliJ IDEA Ultimate::
-dudu
+Jest to zintegrowane środowisko programistyczne stworzone początkowo dla ekosystemu Javy. Współcześnie wspiera wiele
+języków, w tym JavaScript oraz TypeScript. Jest głównym narzędziem używanym do prac nad projektem. Wersja _ultimate_
+jest płatna, aczkolwiek cały zespół korzysta z bezpłatnych licencji studenckich zapewnionych przez uczelnię.
 
 Docker::
-dudu
+Docker jest oprogramowaniem służącym do konteneryzacji. Jest to platforma do uruchamiania i wdrażania aplikacji.
+W projekcie za pomocą Dockera przygotowywane jest środowisko deweloperskie w postaci bazy danych czy też węzłów
+Lightning i Bitcoin.
 
 Figma::
-dudu
+Figma jest aplikacją webową stworzoną do edycji grafiki wektorowej oraz tworzenia prototypów. Została wykorzystana do
+stworzenia makiety interaktywnej w ramach projektu interfejsu użytkownika.
 
 Maven::
-dudu
+Maven jest narzędziem do budowania aplikacji napisanych w Javie. Funkcjonalności można rozbudować poprzez rozmaite
+wtyczki. Użyty w projekcie do automatyzacji budowania, testowania oraz pakowania serwera.
 
-draw.io::
-dudu
+Draw.io::
+Jest to aplikacja webowa stworzona do rysowanie wszelkiego rodzaju diagramów. Została użyta do stworzenia diagramu
+architektury systemu.
 
-make::
-dudu
+Make::
+Make jest narzędziem do automatycznego budowania aplikacji i nie tylko. Używany jest w projekcie do budowania
+dokumentacji oraz książki projektowej.
+
+PostgreSQL::
+Jest to system zarządzania relacyjną bazą danych SQL.
 
 Yarn::
-dudu
+Jest to system budowania i pakowania aplikacji dla aplikacji napisanych w języku JavaScript na platformie _node.js_.
+Wykorzystywany zarówno w aplikacji mobilne, jak i aplikacji webowej.
+
+Git::
+Git jest systemem kontroli wersji stworzonym przez Linusa Torvaldsa.
 
 Github::
-dudu
+Jest to serwis internetowy hostujący repozytoria dla systemu Git. Został wybrany jako lokalizację dla repozytorium
+projektu.
 
 Github Actions::
-dudu
+Jeden z podsystemów Github'a pozwalający na tworzenie procesu automatyzacji CI/CD dla repozytoriów.
 
 Discord::
-dudu
+Discord jest aplikacją służącą do komunikacji głosowej oraz przy pomocy wiadomości tekstowej. Używany jako główne
+narzędzie do komunikacji w zespole oraz jako encyklopedia projektu.
 
 Jira::
-dudu
+Jest to aplikacja do zarządzania projektem dla zespołów pracujących zwinnie. Używany do śledzenia zadań wraz z ich
+postępem.
 
 Postman::
-dudu
-
-git::
-dudu
+Postman jest klientem służącym do testowania manualnego oraz automatycznego API HTTP.
