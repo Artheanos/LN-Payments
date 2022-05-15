@@ -39,6 +39,10 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Build common package
+        working-directory: common-ts
+        run: yarn && tsc
+
       - name: Install dependencies
         run: yarn install
 

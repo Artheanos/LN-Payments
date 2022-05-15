@@ -15,5 +15,5 @@ if (devHost) host = devHost
 
 export const { api } = new WebServiceApi(
   () => AsyncStorage.getItem('token'),
-  `http://${host}`,
+  host,
 )
