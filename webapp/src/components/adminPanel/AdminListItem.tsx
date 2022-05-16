@@ -9,24 +9,30 @@ import { useTranslation } from 'react-i18next'
 
 interface Props {
   user: AdminUser
+  reloadList: () => void
 }
 
-export const AdminListItem: React.FC<Props> = ({ user }) => {
+export const AdminListItem: React.FC<Props> = ({ user, reloadList }) => {
   const { t } = useTranslation('auth')
   const notification = useNotification()
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [confirmMessage, setConfirmMessage] = useState('')
+
   const isDeleteConfirmed = () => {
     setShowSuccessModal(true)
     setConfirmMessage(t('remove.confirmMessage') + user.email)
   }
-  const OnClickRemoveAdmin = async () => {
+
+  const onClickRemoveAdmin = async () => {
     const { status } = await api.admins.remove(user)
     if (status === 200) {
       notification(user.email + t('remove.successful'), 'success')
     } else if (status === 409) {
       notification(user.fullName + t('remove.error'), 'error')
+    } else {
+      notification(t('register.api.errors.default'), 'error')
     }
+    reloadList()
   }
 
   return (
@@ -46,7 +52,7 @@ export const AdminListItem: React.FC<Props> = ({ user }) => {
       <ConfirmationModal
         confirmButtonContent={t('remove.form.confirmDeleteButton')}
         message={confirmMessage}
-        onConfirm={() => OnClickRemoveAdmin()}
+        onConfirm={() => onClickRemoveAdmin()}
         open={showSuccessModal}
         setOpen={setShowSuccessModal}
       />

@@ -25,12 +25,14 @@ interface Props<T> {
   apiRequest: (params: PageRequest) => Promise<Response<Pageable<T>>>
   mapper: (value: T, key: number) => ReactElement
   headers: string[]
+  reloadDependency: unknown
 }
 
 export const PageableTable = <T,>({
   apiRequest,
   mapper,
-  headers
+  headers,
+  reloadDependency
 }: Props<T>) => {
   const { t } = useTranslation('common')
   const [elements, setElements] = useState<Pageable<T>>()
@@ -50,7 +52,7 @@ export const PageableTable = <T,>({
 
   useEffect(() => {
     queryElements()
-  }, [queryElements])
+  }, [queryElements, reloadDependency])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
