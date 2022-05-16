@@ -6,12 +6,11 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "components/*": [
-        "components/*"
-      ],
-      "api": [
-        "api"
-      ]
+      "api": ["api"],
+      "components/*": ["components/*"],
+      "constants/*": ["constants/*"],
+      "locales/*": ["locales/*"],
+      "utils/*": ["utils/*"],
     }
   }
 }

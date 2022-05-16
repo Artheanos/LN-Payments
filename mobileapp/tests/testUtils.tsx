@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react-native'
 import { NativeBaseProvider } from 'native-base'
 import { ReactElement } from 'react'
+import '../i18n'
 
 const inset = {
   frame: { x: 0, y: 0, width: 0, height: 0 },

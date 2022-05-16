@@ -21,8 +21,8 @@ type RefreshTokenFactory = () => (string | Promise<string | null>)
 
 export class WebServiceApi {
     public authHeader: string | null = null
+    public host?: string
 
-    private readonly host?: string
     private readonly refreshTokenFactory: RefreshTokenFactory
 
     constructor(refreshTokenFactory: RefreshTokenFactory, host?: string) {
@@ -33,13 +33,16 @@ export class WebServiceApi {
     public api = {
         auth: {
             login: async (data: LoginForm): Promise<Response<LoginResponse>> => {
-                return await this.request(routes.auth.login, {data})
+                return await this.request(routes.auth.login, {data}, false)
             },
             register: (data: RegisterForm): Promise<Response<number>> => {
-                return this.request(routes.auth.register, {data})
+                return this.request(routes.auth.register, {data}, false)
             },
             refreshToken: (): Promise<Response<RefreshTokenResponse>> => {
                 return this.request(routes.auth.refreshToken, {method: 'get'})
+            },
+            tryLogin: async (data: LoginForm, url: string, timeout: number): Promise<Response<LoginResponse>> => {
+                return this.request(new URL(routes.auth.login, url).href, { data, timeout }, false)
             }
         },
         payment: {
@@ -105,11 +108,11 @@ export class WebServiceApi {
         this.authHeader = `Bearer ${await this.refreshTokenFactory()}`
     }
 
-    private async configFactory (url: string, config: AxiosRequestConfig) {
+    private async configFactory (url: string, config: AxiosRequestConfig, authenticate: boolean) {
         const result = { url, ...defaultConfig, ...config }
 
         await this.reloadAuthHeader()
-        if (this.authHeader) {
+        if (this.authHeader && authenticate) {
             if (!result.headers) {
                 result.headers = {}
             }
@@ -123,18 +126,16 @@ export class WebServiceApi {
 
     private async request <D, T>(
         url: string,
-        config: AxiosRequestConfig<D> = {}
+        config: AxiosRequestConfig<D> = {},
+        authenticate = true
     ): Promise<Response<T>> {
         try {
             url = this.resolveRoute(url)
-            const response = await axios.request(await this.configFactory(url, config))
+            const response = await axios.request(await this.configFactory(url, config, authenticate))
             return { data: response.data, status: response.status }
         } catch (e) {
-            if (axios.isAxiosError(e) && e.response?.status) {
-                return { status: e.response.status }
-            } else {
-                throw e
-            }
+            if (axios.isAxiosError(e)) return { status: e.response?.status || 0 }
+            throw e
         }
     }
 

@@ -4,6 +4,9 @@ const moduleResolver = [
     alias: {
       api: './api',
       components: './components',
+      constants: './constants',
+      locales: './locales',
+      utils: './utils',
     },
   },
 ]

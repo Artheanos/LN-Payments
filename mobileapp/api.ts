@@ -13,7 +13,12 @@ const devHost =
 
 if (devHost) host = devHost
 
-export const { api } = new WebServiceApi(
+const webServiceApi = new WebServiceApi(
   () => AsyncStorage.getItem('token'),
-  host,
+  `http://${host}`,
 )
+
+export const { api } = webServiceApi
+export const setHost = (host: string) => {
+  webServiceApi.host = host
+}
