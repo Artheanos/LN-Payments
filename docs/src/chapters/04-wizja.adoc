@@ -16,7 +16,7 @@ odbywa się z wykorzystaniem protokołów HTTP/HTTPS, oraz WebSocket. Dane w baz
 zdecydowaliśmy się na relacyjną bazę danych PostgreSQL. Dodatkowo razem z serwerem będzie działać węzeł sieci
 Lightning _LND_ oraz pełny węzeł sieci Bitcoin _bitcoind_.
 
-Znaczna większość wykorzystywanych technologii oraz bibliotek opartych jets na licencjach open-source. Pozwala to na
+Znaczna większość wykorzystywanych technologii oraz bibliotek opartych jest na licencjach open-source. Pozwala to na
 całkowicie darmowe tworzenie systemu. W przypadku niektórych programów użyto darmowych licencji studenckich.
 Wspieranymi przez nas środowiskami wdrożeniowymi są systemy operacyjne z rodziny POSIX. Rozwój aplikacji odbywał
 się na systemach MacOS oraz Linux. Aplikacja powinna również działać na systemach Windows, aczkolwiek nie zostało
@@ -24,17 +24,17 @@ to przetestowane, a także takie wsparcie nie jest planowane.
 
 === Infrastruktura
 
-Zarówno środowisko wdrożeniowe, jak i deweloperskie oparte będą konteneryzacji z użyciem programu Docker. W przypadku
+Zarówno środowisko wdrożeniowe, jak i deweloperskie oparte będą na konteneryzacji z użyciem programu Docker. W przypadku
 lokalnego środowiska deweloperskiego zostały stworzone pliki dla programu orkiestrującego kontenery Dockera
 docker-compose. Pozwala to na utworzenie bazy danych oraz węzłów Lightning i Bitcoin w wybranej sieci Bitcoina.
 Lokalnie używany jest publiczny Testnet do prac nad projektem oraz Regtest do testów E2E.
 
 Nasz model biznesowy wyklucza samodzielne wdrażanie aplikacji. Klienci otrzymają obraz Dockera wraz z naszą aplikacją
 oraz plik docker-compose, za pomocą którego będzie można wdrożyć aplikację w kilkanaście minut. Klient będzie
-również miał możliwość samodzielnego wdrożenia aplikacji w wybrany przez siebie, jeżeli zajdzie taka potrzeba.
+również miał możliwość samodzielnego wdrożenia aplikacji w wybrany przez siebie sposób, jeżeli zajdzie taka potrzeba.
 Prawdopodobnie będzie to skrajny przypadek, wykorzystywany na przykład w przypadku personalizacji parametrów
-uruchomienia komponentów bądź z restrykcyjnych wymogów bezpieczeństwa. Aby to umożliwić do pobrania udostępnione będą
-zarówno obrazy Docker, jak i również standardowe pliki wykonywalne.
+uruchomienia komponentów bądź z powodu restrykcyjnych wymogów bezpieczeństwa. Aby to umożliwić, do pobrania udostępnione
+zostaną zarówno obrazy Docker, jak i również standardowe pliki wykonywalne.
 
 === Repozytorium oraz CI
 
@@ -89,9 +89,9 @@ ogranicza to pisanie tzw. _boilerplate code_. Lombok eliminuje między innymi pi
 czy nawet metod _hashCode_ i _equals_.
 
 BitcoinJ::
-Jest to biblioteka dodająca obsługę protokołu Bitcoina. Pozwala między innymi na tworzenie portfeli, adresów czy też
-budowanie transakcji. W systemie użyta jest do budowania transakcji, obsługi portfela multisig oraz propagowania
-transakcji w sieci Bitcoin.
+Jest to biblioteka dodająca obsługę protokołu Bitcoina dla języka Java. Pozwala między innymi na tworzenie portfeli,
+adresów czy też budowanie transakcji. W systemie użyta jest do budowania transakcji, obsługi portfela multisig oraz
+propagowania transakcji w sieci Bitcoin.
 
 LightningJ::
 LightningJ jest prostą biblioteką służącą jako API węzła Lightning LND w języku Java. Używana jest do komunikacji
@@ -226,7 +226,7 @@ Dodatkowo do aplikacji mobilnej dodano kilka bibliotek i frameworków potrzebnyc
 
 React Native::
 Podobnie jak w przypadku standardowej wersji frameworku React służy on do tworzenia stron internetowych w JavaScript.
-Główną różnicą jest fakt, że zawiera on natywne komponenty natywne dla danego urządzenia. Dzięki temu można
+Główną różnicą jest fakt, że zawiera on natywne komponenty dla danego urządzenia. Dzięki temu można
 bezproblemowo tworzyć aplikacje mobilne czy też oprogramowanie na telewizory.
 
 Expo::
@@ -316,8 +316,8 @@ Github Actions::
 Jeden z podsystemów Github'a pozwalający na tworzenie procesu automatyzacji CI/CD dla repozytoriów.
 
 Discord::
-Discord jest aplikacją służącą do komunikacji głosowej oraz przy pomocy wiadomości tekstowej. Używany jako główne
-narzędzie do komunikacji w zespole oraz jako encyklopedia projektu.
+Discord jest aplikacją służącą do komunikacji głosowej, wideokonferencji oraz przesyłania wiadomości tekstowych.
+Używany jako główne narzędzie do komunikacji w zespole oraz jako encyklopedia projektu.
 
 Jira::
 Jest to aplikacja do zarządzania projektem dla zespołów pracujących zwinnie. Używany do śledzenia zadań wraz z ich
