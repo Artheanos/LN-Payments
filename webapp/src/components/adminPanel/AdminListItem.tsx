@@ -1,15 +1,42 @@
+import React, { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
-import React from 'react'
-import { Link } from 'react-router-dom'
 import { TableCell, TableRow } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+
 import { AdminStatusIndicator } from './AdminStatusIndicator'
 import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
+import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { api } from 'api'
+import { useNotification } from 'components/Context/NotificationContext'
 
 interface Props {
   user: AdminUser
+  reloadList: () => void
 }
 
-export const AdminListItem: React.FC<Props> = ({ user }) => {
+export const AdminListItem: React.FC<Props> = ({ user, reloadList }) => {
+  const { t } = useTranslation('auth')
+  const notification = useNotification()
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [confirmMessage, setConfirmMessage] = useState('')
+
+  const isDeleteConfirmed = () => {
+    setShowSuccessModal(true)
+    setConfirmMessage(t('remove.confirmMessage') + user.email)
+  }
+
+  const onClickRemoveAdmin = async () => {
+    const { status } = await api.admins.remove(user)
+    if (status === 200) {
+      notification(user.email + t('remove.successful'), 'success')
+    } else if (status === 409) {
+      notification(user.fullName + t('remove.error'), 'error')
+    } else {
+      notification(t('auth:register.api.errors.default'), 'error')
+    }
+    reloadList()
+  }
+
   return (
     <TableRow>
       <TableCell>{user.email}</TableCell>
@@ -17,10 +44,20 @@ export const AdminListItem: React.FC<Props> = ({ user }) => {
       <AdminStatusIndicator isValid={user.hasKey} />
       <AdminStatusIndicator isValid={user.isAssignedToWallet} />
       <TableCell>
-        <Link to="delete">
-          <DeleteIcon className="rounded-md border-2 border-red-500 cursor-pointer" />
-        </Link>
+        {!user.isAssignedToWallet && (
+          <DeleteIcon
+            onClick={isDeleteConfirmed}
+            className="rounded-md border-2 border-red-500 cursor-pointer"
+          />
+        )}
       </TableCell>
+      <ConfirmationModal
+        confirmButtonContent={t('remove.form.confirmDeleteButton')}
+        message={confirmMessage}
+        onConfirm={() => onClickRemoveAdmin()}
+        open={showSuccessModal}
+        setOpen={setShowSuccessModal}
+      />
     </TableRow>
   )
 }

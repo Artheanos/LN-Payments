@@ -82,7 +82,10 @@ export class WebServiceApi {
                 this.request(routes.admins.index, {method: 'get', params}),
 
             create: (data: RegisterForm): Promise<Response<unknown>> =>
-                this.request(routes.admins.index, {data})
+                this.request(routes.admins.index, {data}),
+
+            remove: (data: AdminUser): Promise<Response<unknown>> =>
+                this.request(routes.admins.index, { method: 'delete', data })
         },
         wallet: {
             getInfo: (): Promise<Response<WalletInfo>> =>

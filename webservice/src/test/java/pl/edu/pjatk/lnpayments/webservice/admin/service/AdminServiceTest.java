@@ -12,11 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminDeleteRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 
 import javax.validation.ValidationException;
 import java.util.List;
@@ -153,6 +155,50 @@ class AdminServiceTest {
         assertThatExceptionOfType(ValidationException.class)
                 .isThrownBy(() -> adminService.uploadKey(email, "1"))
                 .withMessage("User has already uploaded his keys!");
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserWithThatMailNotExist() {
+        AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
+        AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> adminService.removeAdmin(getEmail))
+                .withMessage(getEmail.getEmail() + " not found!");
+
+        verify(adminUserRepository, never()).delete(any());
+    }
+
+    @Test
+    void shouldRemoveUserWhoIsNotAddedToWallet() {
+        AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
+        AdminUser expectedUser = new AdminUser("test@test.pl", "test", "pass");
+        AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
+
+        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
+        assertThat(expectedUser.isAssignedToWallet()).isFalse();
+
+        adminService.removeAdmin(getEmail);
+
+        verify(adminUserRepository).delete(expectedUser);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserIsAddedToWallet() {
+        AdminRequest request = new AdminRequest("test@test.pl", "test", "pass");
+        AdminUser expectedUser = new AdminUser("test@test.pl", "test", "pass");
+        Wallet wallet = new Wallet();
+        AdminDeleteRequest getEmail = new AdminDeleteRequest(request.getEmail());
+
+        expectedUser.setWallet(wallet);
+        when(adminUserRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(expectedUser));
+        assertThat(expectedUser.isAssignedToWallet()).isTrue();
+
+        assertThatExceptionOfType(ValidationException.class)
+                .isThrownBy(() -> adminService.removeAdmin(getEmail))
+                .withMessage("Admin " + getEmail.getEmail() +" is already added to wallet");
+
+        verify(adminUserRepository, never()).delete(any());
     }
 
 }

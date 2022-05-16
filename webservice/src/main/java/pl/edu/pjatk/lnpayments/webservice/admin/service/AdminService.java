@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
+import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminDeleteRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminRequest;
 import pl.edu.pjatk.lnpayments.webservice.admin.resource.dto.AdminResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.AdminUserRepository;
@@ -59,5 +60,15 @@ public class AdminService {
         }
         admin.setPublicKey(publicKey);
         adminUserRepository.save(admin);
+    }
+
+    public void removeAdmin(AdminDeleteRequest deleteRequest) {
+        String requestEmail = deleteRequest.getEmail();
+        AdminUser admin = adminUserRepository.findByEmail(requestEmail)
+                .orElseThrow(() -> new UsernameNotFoundException(requestEmail + " not found!"));
+        if (admin.isAssignedToWallet()) {
+            throw new ValidationException("Admin " + requestEmail +" is already added to wallet");
+        }
+        adminUserRepository.delete(admin);
     }
 }

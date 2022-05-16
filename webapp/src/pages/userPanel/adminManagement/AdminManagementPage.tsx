@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,7 @@ import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
 
 export const AdminManagementPage: React.FC = () => {
   const { t } = useTranslation('adminManagement')
+  const [reloadDependency, setReloadDependency] = useState(0)
 
   return (
     <Panel.Container>
@@ -24,7 +25,11 @@ export const AdminManagementPage: React.FC = () => {
         <PageableTable
           apiRequest={api.admins.getAll}
           mapper={(user: AdminUser, key) => (
-            <AdminListItem user={user} key={key} />
+            <AdminListItem
+              user={user}
+              key={key}
+              reloadList={() => setReloadDependency((i) => i + 1)}
+            />
           )}
           headers={[
             t('common:email'),
@@ -33,6 +38,7 @@ export const AdminManagementPage: React.FC = () => {
             t('isAssignedToWallet'),
             ''
           ]}
+          reloadDependency={reloadDependency}
         />
       </Panel.Body>
     </Panel.Container>
