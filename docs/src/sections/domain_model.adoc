@@ -12,7 +12,7 @@ include::../diagrams/domain_class.puml[]
 Hierarchia klas użytkowników składa się z kilku klas, aby odwzorować strukturę opisaną na diagramie przypadków użycia
 dla aplikacji internetowej. Jedyną wspólną cechą wszystkich użytkowników jest pole _email_, które jest ich
 identyfikatorem. Po tej klasie dziedziczą dwie następne klasy użytkowników: użytkownik niezalogowany _TemporaryUser_
-oraz standardowy użytkownik. Niezalogowany użytkownik nie będzie posiadać żadnych własnych pól. Z celu identyfikacji
+oraz standardowy użytkownik. Niezalogowany użytkownik nie będzie posiadać żadnych własnych pól. W celu identyfikacji
 do jego adresu _email_ zostanie dodany specjalny identyfikator, oddzielający go od innych użytkowników. Dodatkowa
 klasa dla niezalogowanych użytkowników jest wymagana, aby umożliwić autoryzację do zasobów płatności. Standardowy
 użytkownik ma uprawnienia do logowania się, a co za tym idzie, będzie miał swój profil użytkownika. Pole _password_
@@ -22,7 +22,7 @@ przechowujące klucz publiczny administratora przesłany z aplikacji mobilnej. D
 dwie metody służące do weryfikacji danych przy tworzeniu portfela czy też usuwaniu administratorów.
 
 Płatności dokonywane w procesie kupowania tokenów reprezentowane są przez klasę _Payment_. Zawiera ona typowe pola dla
-każdego produktu bądź operacji finansowej takie jak cena, ilość data czy też jak długo system oczekuje na zaksięgowanie
+każdego produktu bądź operacji finansowej takie jak cena, ilość, data czy też jak długo system oczekuje na zaksięgowanie
 wpłaty. Przechowywany będzie również _invoice_ sieci Lightning w polu _paymentRequest_. Umożliwi to powrót do
 niedokończonej płatności po wygaśnięciu sesji bądź odświeżeniu strony. _Invoice_ można również zdekodować, aby
 otrzymać szczegółowe informacje o danej płatności. Status płatności jest przechowywany w polu _status_, który określony
@@ -38,7 +38,7 @@ Dla ułatwienia niektórych operacji klasa _AdminUser_ będzie posiadać referen
 mieć 0 bądź 1 portfel. Klasy _AdminUser_ i _Wallet_ są ze sobą powiązane, aczkolwiek są niezależne. Usunięcie jednej
 z nich nie wpłynie na cykl życia drugiej klasy.
 
-Transakcje wykonywane ze wbudowanego w serwer portfela Bitcoin reprezentowane będą przy pomocy klasy _Transaction_.
+Transakcje wykonywane z wbudowanego w serwer portfela Bitcoin reprezentowane będą przy pomocy klasy _Transaction_.
 Głównym polem tej klasy jest pole _rawTransaction_, przechowujące aktualny stan transakcji. Podczas procesu
 podpisywania w aplikacji mobilnej, to właśnie to pole będzie pobierane z bazy danych, a po podpisaniu transakcji
 przez administratora będzie aktualizowane o nową wartość. Dodatkowo klasa posiada szczegóły transakcji takie jak

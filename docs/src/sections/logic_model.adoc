@@ -58,10 +58,10 @@ Po wygenerowaniu tokenów są one wysyłane użytkownikowi, a następnie mu wyś
 
 W momencie pierwszego uruchomienia serwera wbudowany portfel nie będzie skonfigurowany. Środki z płatności trafiać
 będą tylko do portfela w węźle Lightning. Aby regularnie zamykać kanały i uwalniać środki znajdujące się w nich na
-serwerze będzie co 15 minut uruchamiane zaplanowane zadanie, które będzie zamykać kanały. Standardowo kanały będą
-zamykane kooperacyjnie. Jeżeli kanał będzie nieaktywny dłużej niż tydzień, to dopiero wtedy dany kanał zamknięty
-zostanie siłowo. Dodatkowo administrator serwera będzie miał możliwość ręcznego zamknięcia kanałów, zarówno
-kooperacyjnie, jak i siłowo.
+serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie, którego celem będzie zamykanie kanałów.
+Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty siłowo, jeśli będzie nieaktywny
+dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego zamknięcia
+kanałów, zarówno kooperacyjnie, jak i siłowo.
 
 .Schemat blokowy dla automatycznego zamykania kanałów
 [plantuml]
@@ -71,14 +71,15 @@ include::../diagrams/channel_close_flow.puml[]
 
 Utworzenie portfela wymagać będzie wcześniejszego dodania administratorów oraz przesłania przez nich kluczy publicznych
 z aplikacji mobilnych. Przy pierwszym uruchomieniu zostanie utworzony domyślny administrator, przy pomocy którego
-należy dodać administratorów. Zalecane jest późniejsze usunięcie go. Po utworzeniu portfela aktywne będzie następne
-zaplanowane zadanie, automatycznie przelewające środki pomiędzy portfelami. Tak samo, jak w przypadku zamykania
+należy dodać własnych administratorów. Zalecane jest jego późniejsze usunięcie. Po utworzeniu portfela aktywne będzie
+następne zaplanowane zadanie, automatycznie przelewające środki pomiędzy portfelami. Tak samo, jak w przypadku zamykania
 kanałów, administrator będzie mógł manualnie uruchomić transfer środków z poziomu panelu portfela. Portfel będzie
-mógł zostać stworzony od nowa. Jest to zabezpieczenie na wypadek śmierci bądź braku uczciwości od jednego
-administratorów. Proces będzie wyglądać podobnie jak w przypadku transakcji. Po wypełnieniu odpowiedniego formularza
-oraz wybraniu nowych administratorów zarządzających portfelem utworzona zostanie specjalna transakcja przelewająca
-środki ze starego portfela na nowy. Zamiana portfeli nastąpi w momencie, kiedy transakcja zostanie rozpropagowana w
-sieci Bitcoin. Podczas czasu oczekiwania na podpisy nie będzie działać zadanie przelewające środki pomiędzy portfelami.
+mógł zostać stworzony od nowa. Jest to zabezpieczenie na wypadek śmierci  bądź nieuczciwości ze strony jednej z osób
+zarządzających portfelem. Proces będzie wyglądać podobnie jak w przypadku transakcji. Po wypełnieniu odpowiedniego
+formularza oraz wybraniu nowych administratorów zarządzających portfelem utworzona zostanie specjalna transakcja
+przelewająca środki ze starego portfela na nowy. Zamiana portfeli nastąpi w momencie, kiedy transakcja zostanie
+rozpropagowana w sieci Bitcoin. Podczas oczekiwania na podpisy, którego zadanie celem jest przelewanie środków pomiędzy
+portfelami, nie będzie działać.
 
 ==== Podpisywanie transakcji
 

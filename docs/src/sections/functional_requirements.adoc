@@ -96,7 +96,7 @@ poprawną. Kiedy zostaną uzbierane podpisy, transakcja powinna zostać rozpropa
 |Identyfikator: |F08 h|Priorytet: |*M* (musi być)
 |Nazwa 3+| Płatności oraz otrzymywanie tokenów
 |Opis 3+| Użytkownik musi mieć możliwość zakupu tokenów w odpowiednim do tego panelu. Powinien on składać się
-z formularza z ilością tokenów, ekranu z rachunkiem oraz adresem węzła, oraz ekranu z podsumowaniem i wypisanymi
+z formularza z ilością tokenów, ekranu z rachunkiem oraz adresem węzła, a także ekranu z podsumowaniem i wypisanymi
 tokenami.
 |Kryteria akceptacji 3+|Użytkownik może zapłacić i otrzymuje w zamian zakupione tokeny.
 |Udziałowiec 3+| _UOB01_
@@ -108,7 +108,7 @@ tokenami.
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F09 h|Priorytet: |*M* (musi być)
 |Nazwa 3+|Płatności bez logowania
-|Opis 3+|Użytkownik nawet niezalogowany ma dostęp do panelu płatności, na którym dostępne są dane potrzebne do
+|Opis 3+|Użytkownik, nawet niezalogowany ma dostęp do panelu płatności, na którym dostępne są dane potrzebne do
 zapłacenia w LN. Po zakończeniu płatności wyświetlane są tokeny, które może on skopiować.
 |Kryteria akceptacji 3+|Użytkownik niezalogowany ma dostęp do adresu węzła oraz kodu do transakcji i może
 dokonać płatności.
@@ -121,7 +121,7 @@ dokonać płatności.
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F10 h|Priorytet: |*M* (musi być)
 |Nazwa 3+|Utworzenie nowego portfelu
-|Opis 3+|Przykładowo w przypadku śmierci jednego z administratorów portfelu admini powinni mieć możliwość
+|Opis 3+|Przykładowo w przypadku śmierci jednego z administratorów portfela, admini powinni mieć możliwość
 utworzenia nowego portfelu z określonymi na nowo administratorami portfela. Utworzenie portfelu powinno też
 odbywać się przy pierwszym ustawieniu serwera (wtedy bez transferu środków).
 |Kryteria akceptacji 3+|Serwer posiada nowo utworzony portfel wraz ze środkami ze starego portfela.

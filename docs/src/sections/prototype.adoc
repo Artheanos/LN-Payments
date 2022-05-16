@@ -47,8 +47,9 @@ include::../snippets/prototype/Executor.java[]
 ==== Polecenia
 
 Pierwszym poleceniem jest komenda _address_, zwracająca adres węzła Lightning. Wywołuje ona metodę zwracającą adres ip
-komputera, na którym kod jest uruchomiony oraz pobiera klucz publiczny węzła Lightning. Obie wartości łączone są
-zrozumiałe dla portfeli Bitcoin. Skanując taki kod bądź wpisując go ręcznie, można otworzyć kanał płatności.
+komputera, na którym kod jest uruchomiony oraz pobiera klucz publiczny węzła Lightning. Po połączeniu obu wartości
+ciąg staje się zrozumiały dla portfeli Bitcoin. Skanując taki kod bądź wpisując go ręcznie, można otworzyć kanał
+płatności.
 
 .Polecenie zwracające adres węzła Lightning
 [source,java]
@@ -56,9 +57,9 @@ zrozumiałe dla portfeli Bitcoin. Skanując taki kod bądź wpisując go ręczni
 include::../snippets/prototype/NodeAddress.java[]
 ----
 
-Aby umożliwić płatności w sieci Lightning, należy wygenerować _invoice_, czyli wartość mówiąca, w jaki sposób i z
-jakimi parametrami wykonać płatność. Jako parametr metoda przyjmuję kwotę, na jaką zostanie wystawiony rachunek oraz
-tekst, który będzie wyświetlany podczas płatności w portfelu (można to również nazwać tytułem przelewu).
+Aby umożliwić płatności w sieci Lightning, należy wygenerować _invoice_, czyli wartość zawierająca informację, w jaki
+sposób i z jakimi parametrami wykonać płatność. Jako parametr metoda przyjmuję kwotę, na jaką zostanie wystawiony
+rachunek oraz tekst, który będzie wyświetlany podczas płatności w portfelu (można to również nazwać tytułem przelewu).
 
 .Polecenie zwracające żądanie zapłaty
 [source,java]
@@ -98,7 +99,7 @@ wyprowadzony jest skrypt wyjściowy oraz adres. Proces ten został opisany w pod
 include::../snippets/prototype/MultiWallet.java[]
 ----
 
-Tworzenie transakcji rozpoczyna się zebrania wszystkich UTXO dostępnych dla adresu multisig. Przy okazji liczona jest
+Tworzenie transakcji rozpoczyna się od zebrania wszystkich UTXO dostępnych dla adresu multisig. Przy okazji liczona jest
 też ich łączna wartość. Wyjścia UTXO są przypisywane jako wejścia do powstającej transakcji. Następnie tworzone są
 wyjścia, jedno na docelowy adres, a drugie zwracające resztę na adres multisig. Dodatkowo doliczana jest opłata
 transakcyjna. Dla uproszczenia przelewane jest zawsze 100 satoshi. Na koniec zwracana jest transakcja w systemie

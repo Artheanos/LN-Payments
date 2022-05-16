@@ -3,14 +3,13 @@
 ==== Sieć Lightning
 
 Sieci Lightning jest protokołem, który działa jako druga warstwa dla sieci Bitcoin <<btcbook>>, umożliwiająca tanie
-płatności przy pomocy kryptowalut z pominięciem rejestrowania ich na blockchainie. Więcej szczegółów na temat działania
-sieci zostało opisanych w podrozdziale <<_przedstawienie_problemu,"przedstawienie problemu">>. Różnego rodzaju
+płatności przy pomocy kryptowalut z pominięciem rejestrowania ich na blockchainie. Różnego rodzaju
 mikropłatności z wykorzystaniem bitcoinów są problematyczne. Wraz ze wzrostem popularności kryptowalut, liczba
-transakcji gwałtownie wzrosła, a co za tym idzie wzrosły opłaty. Według danych z portalu "Ycharts" <<fee_chart>>,
-średni koszt pojedynczej transakcji w momencie pisania tej pracy wynosi 2 dolary amerykańskie. W szczytowym momencie
-(kwiecień 2021) opłaty wynosiły aż 62 dolary. Oczywiste jest, że płatność pokroju 1 dolar za kawę staje się kompletnie
-nieopłacalne. Dzięki sieci Lightning można utworzyć kanały płatności, płacąc opłatę transakcyjną raz, aby później móc
-dokonywać małych i natychmiastowych płatności.
+transakcji gwałtownie wzrosła, a co za tym idzie wzrosły opłaty. W szczytowym momencie były to nawet 62 dolary
+<<fee_chart>>! Oczywiste jest, że płatność pokroju 1 dolar za kawę staje się kompletnie nieopłacalne.
+Dzięki sieci Lightning można utworzyć kanały płatności i zyskać możliwość dokonywania małych i natychmiastowych
+płatności, jeśli tylko uiszczona zostanie jednorazowa opłata transakcyjna. Więcej szczegółów na temat działania sieci
+oraz opłat transakcyjnych zostało już opisanych w podrozdziale <<_przedstawienie_problemu,"przedstawienie problemu">>.
 
 W kontekście tej pracy kupowanie tokenów będzie odbywało się tylko za pomocą sieci Lightning. Z założenia cena różnego
 rodzaju tokenów jest tak niska, że węzły sieci Bitcoin i tak by nie chciały wykopać takiej transakcji. Problematyczne
@@ -18,9 +17,9 @@ może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z
 głównego zastosowania, czyli wdrożenia projektu w ramach programu Ingenious, można założyć, że serwer będzie operowany
 w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,
 wystarczy jeden kanał, aby wszystkie osoby miały połączenie z serwerem. Mogą wtedy wykorzystać routing sieci lightning,
-który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż dotrze do odbiorcy. Tym sposobem niskim
-kosztem poprzez otwarcie jednego kanału z serwerem przyznać do niego dostęp wielu użytkownikom. Jeżeli dany klient nie
-będzie posiadał pośredniego połączenia z serwerem, będzie musiał on otworzyć i opłacić kanał bezpośredni. Aby
+który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż dotrze do odbiorcy. Tym sposobem, niskim
+kosztem poprzez otwarcie jednego kanału z serwerem, można przyznać do niego dostęp wielu użytkownikom. Jeżeli dany
+klient nie będzie posiadał pośredniego połączenia z serwerem, będzie musiał on otworzyć i opłacić kanał bezpośredni. Aby
 rozwiązać problem zbyt częstego otwierania kanałów, istnieje również możliwość podłączenia się do jednej z globalnych
 sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>.
 
@@ -42,44 +41,44 @@ Ze względów bezpieczeństwa, ta transakcja ma czasową blokadę środków. Dzi
 rozpropagować fałszywej transakcji, gdyż druga strona może to zauważyć i rozpropagować poprawną transakcję bez
 blokady czasowej, która zostanie zaakceptowana w głównym blockchainie. Środki w takiej transakcji są blokowane na
 określoną ilość bloków w blockchainie. Dana liczba bloków musi zostać wykopana, aby dana transakcja mogła zostać
-włączona do bloku. Zazwyczaj ten czas wynosi około 1 tydzień. Aby uniknąć długiego czekania na środki, preferowane jest
-kooperacyjne zamykanie kanałów. Zamykanie siłowe należy traktować jako ostateczność w przypadku długiej nieaktywności
-jednej ze stron kanału.
+włączona do bloku. Zazwyczaj ten czas wynosi około jednego tygodnia. Aby uniknąć długiego czekania na środki,
+preferowane jest kooperacyjne zamykanie kanałów. Zamykanie siłowe należy traktować jako ostateczność w przypadku
+długiej nieaktywności jednej ze stron kanału.
 
 W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie.Niedostępne kanały będą tymczasowo
 pomijane.Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień.Administratorzy będą również
-mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo.Ręczne zamknięcie siłowe może być wymagane,
-kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach.Oczywiście blokuje to środki na dość
+mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo. Ręczne zamknięcie siłowe może być wymagane,
+kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach. Oczywiście blokuje to środki na dość
 długi czas, aczkolwiek może to być i tak krótszy okres niż w przypadku oczekiwania na kooperacyjne zamknięcie.
 
-Po zamknięciu kanałów środki alokowane w nich będą trafiały na osobny portfel znajdujący się w węźle Lightning
-działający przy serwerze.Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki "macaroon",
-regulujące dostęp do węzła sieci lightning.Środki z regularnie zamykanych kanałów będą trafiały na portfel Lightning,
-z którego będą mogły zostać wysłane do portfela wbudowanego w serwer.Środki będą przelewane automatycznie po
-osiągnięciu limitu podanego w ustawieniach serwera.Dodatkowo administrator będzie mógł uruchomić transfer środków
-manualnie, jeżeli zajdzie taka potrzeba.Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
-wbudowanego portfela.
+Po zamknięciu kanałów, środki alokowane w nich będą trafiały na osobny portfel znajdujący się w węźle Lightning,
+działającym przy serwerze. Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki
+"macaroon", regulujące dostęp do węzła sieci lightning. Środki z regularnie zamykanych kanałów będą trafiały na portfel
+Lightning, z którego będą mogły zostać wysłane do portfela wbudowanego w serwer. Środki będą przelewane automatycznie po
+osiągnięciu limitu podanego w ustawieniach serwera. Dodatkowo administrator będzie mógł uruchomić transfer środków
+manualnie, jeżeli zajdzie taka potrzeba. Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
+ten, należący do wbudowanego portfela.
 
 [#_adres_multisig]
 ==== Adres multisig
 
-Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść.Wyjście z transakcji zawiera skrypt blokujący,
+Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść. Wyjście z transakcji zawiera skrypt blokujący,
 który uruchomiony razem ze skryptem odblokowującym (zawierający podpis i klucz publiczny) musi zostać uruchomiony
-i zakończyć się poprawnie, aby dane wyjście mogło zostać użyte jako wejście do innej transakcji.Standardowo
-używanym skryptem jest P2PKH.Przy użyciu takiego skryptu wyjście transakcji zawierający klucz publiczny oraz kroki
-potrzebne do jego odblokowania.Aby wykorzystać takie wyjście, osoba będąca właścicielem klucza zawartego w wyjściu,
-musi utworzyć skrypt wydający transakcję, który zawiera podpis cyfrowy oraz klucz publiczny.Na koniec oba skrypty
-są łączone w jeden i uruchamiany.Jeżeli uruchomienie zakończy się sukcesem, użytkownik może rozpropagować transakcję,
+i zakończyć się poprawnie, aby dane wyjście mogło zostać użyte jako wejście do innej transakcji. Standardowo
+używanym skryptem jest P2PKH. Przy użyciu takiego skryptu wyjście transakcji zawiera klucz publiczny oraz kroki
+potrzebne do jego odblokowania. Aby wykorzystać takie wyjście, osoba będąca właścicielem klucza w nim zawartego,
+musi utworzyć skrypt wydający transakcję, który zawiera podpis cyfrowy oraz klucz publiczny. Na koniec oba skrypty
+są łączone w jeden i uruchamiany. Jeżeli uruchomienie zakończy się sukcesem, użytkownik może rozpropagować transakcję,
 która zostanie zaakceptowana w sieci.
 
 Portfel wbudowany w serwer będzie używał adresu multisig, konkretnie skryptu P2SH.
 Skrypt ten charakteryzuje się tym, że pozwala na zakodowanie kilku kluczy w adresie. Dzięki temu można utworzyć
 skrypt, który do wydania środków będzie wymagał danej liczby kluczy np. 2 z 3, aby uznać transakcję za poprawną.
 Ten rodzaj transakcji wprowadza poza skryptem blokującym i odblokowującym trzeci skrypt, _redeem script_. Skrypt ten
-zawiera informacje wymaganą liczbę podpisów oraz wszystkie klucze publiczne. Problemem jest rozmiar takiego skryptu,
-jest on czasem 5 razy większy niż zwykły skrypt blokujący P2PKH. Aby temu zaradzić, skrypt blokujący zawiera hash
-skryptu w rozmiarze 20 bajtów oraz funkcję sprawdzającą skrypt, który zostanie podany w skrypcie odblokowującym.
-Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_.
+zawiera wszystkie klucze publiczne oraz minimalną, wymaganą liczbę podpisów do zatwierdzenia transakcji. Problemem jest
+rozmiar takiego skryptu, ponieważ jest on czasem 5 razy większy niż zwykły skrypt blokujący P2PKH. Aby temu zaradzić,
+skrypt blokujący zawiera hash skryptu w rozmiarze 20 bajtów oraz funkcję sprawdzającą skrypt, który zostanie podany w
+skrypcie odblokowującym. Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_.
 
 .Porównanie skryptów P2PKH i P2SH
 [cols="1h,2,2"]
@@ -98,7 +97,7 @@ swoich środków, gdyż musi on dołączyć do skryptu cały _redeem script_, kt
 kluczy publicznych. Kolejnym problemem jest wymóg posiadania skryptu _redeem_ poza samymi kluczami. W przypadku utraty
 tego skryptu środku mogą zostać utracone.
 
-Zdecydowano się na użycie adresu P2SH, gdyż jest to najprostszy w implementacji oraz idealnie pasuje do opisywanego
+Zdecydowano się na użycie adresu P2SH, gdyż jest on najprostszy w implementacji oraz idealnie pasuje do opisywanego
 przypadku użycia, czyli podpisywania transakcji przez kilku administratorów serwera. Rozwiązanie to można również
 stworzyć przy użyciu niestandardowych skryptów. Wiązałoby się to z dużym nakładem pracy na opracowanie takiego
 rozwiązania. Nie stwierdzono potrzeby nadkładania pracy, aby opracować własne rozwiązanie, skoro P2SH spełnia

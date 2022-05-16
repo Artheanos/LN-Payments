@@ -9,11 +9,11 @@ w makietę interaktywną. Pozwala to na spojrzenie na projektowaną aplikację z
 rozpoczęciem implementacji. Dzięki temu od samego początku prac nad projektem rozwiązane zostały wszystkie kwestie
 związane z interfejsem użytkownika.
 
-W przy wejściu do aplikacji użytkownik przekierowany jest na stronę główną. Jak każdy ekran, zawiera nagłówek strony
+Po wejściu do aplikacji użytkownik przekierowany jest na stronę główną. Tak jak każdy ekran, zawiera ona nagłówek strony
 wraz z nazwą aplikacji (początkowo _Token Network_, później nastąpiła zmiana na _LN Payments_). W centralnej części
 ekranu znajduje się tytuł strony oraz 3 guziki. _Login_ przekierowuje na podstronę logowania, natomiast _Register_
 na podstronę rejestracji użytkownika. Trzeci guzik _Quick buy_ pozwala na zakup tokenów bez rejestracji. Po kliknięciu
-użytkownik przekierowany jest do formularzu kupowania.
+użytkownik przekierowany jest do formularza kupowania.
 
 .Makieta strony głównej
 image::../images/mockup/main_page.png[{image-size}]
@@ -25,7 +25,7 @@ oraz przyciskiem wysyłającym formularz. Po zalogowaniu użytkownik zostaje prz
 image::../images/mockup/login.png[{image-size}]
 
 Tak samo, jak w przypadku podstrony logowania, podstrona rejestracji jest prostym formularzem z kilkoma polami
-tekstowymi. W przyszłości jest miejsce na dodanie dodatkowych pól formularza, jeżeli zajdzie taka potrzeba.
+tekstowymi. Jeżeli zajdzie taka potrzebna, istnieje możliwość dodania kolejnych pół formularza w przyszłości.
 Po wysłaniu formularza użytkownikowi wyświetlany jest komunikat o rezultacie żądania. W przypadku sukcesu następuje
 przekierowanie na stronę logowania.
 
@@ -68,7 +68,7 @@ przycisk przekierowujący do formularza pozwalającego na dodanie nowych adminis
 .Makieta ekrany zarządzania administratorami
 image::../images/mockup/admin_management.png[{image-size}]
 
-Aby uzyskać dostęp do portfela i wszystkich funkcjonalności z nim związanych należy go najpierw utworzyć z
+Aby uzyskać dostęp do portfela i wszystkich funkcjonalności z nim związanych, należy go najpierw utworzyć z
 wykorzystaniem specjalnego formularza. Wyświetlać się on będzie w miejscu portfela, gdy nie będzie on zainicjowany.
 Formularz składa się z pola liczbowego, określającego wymaganą liczbę podpisów do odblokowania środków na adresie
 multisig. Drugim polem będzie lista rozwijana, która pozwoli na wybranie z listy administratorów z wygenerowanymi
@@ -79,9 +79,10 @@ image::../images/mockup/wallet_setup.png[{image-size}]
 
 Ekran portfela składa się z kilku mniejszych komponentów wyświetlających informacje o stanie finansów serwera.
 Pierwszym komponentem jest stan portfela Bitcoin. Wyświetlana jest aktualnie posiadana kwota oraz kwota
-z niepotwierdzonych transakcji. Niepotwierdzona transakcja to taka, która została już wykopana przez kopacza,
-aczkolwiek nie zostało do danego bloku dołączonych następnych bloków. Zazwyczaj wymagane są 3 dołączone bloki, aby
-uznać transakcję za potwierdzoną, niemniej jednak jest to zależne od implementacji węzła bądź portfela.
+z niepotwierdzonych transakcji. Niepotwierdzona transakcja to taka, która pojawiła się w puli transakcji,
+ale nie została jeszcze wykopana. Jeżeli nie zostanie ona wykopana przez 72 godziny, jest usuwana z puli i nie
+zostanie uznana za potwierdzoną. Dodatkowo niektóre implementacje wymagają, aby transakcja nie znajdowała się w
+ostatnim bloku łańcucha.
 Drugim komponentem jest aktualny stan portfela znajdującego się w sieci Lightning. Tak samo, jak w przypadku
 poprzedniego komponentu, wyświetlane są środki znajdujące się w portfelu, jednakowo potwierdzone oraz niepotwierdzone.
 Ostatni komponent z pierwszego rzędu zawiera informację o środkach zablokowanych w kanałach płatności po stronie
@@ -94,15 +95,15 @@ odtworzenie portfela.
 .Makieta ekranu portfela
 image::../images/mockup/wallet.png[{image-size}]
 
-Ostatnim z głównych części aplikacji mobilnej jest ekran transakcji. Podobnie jak ekran zarządzania administratorami,
-zawierać będzie listę transakcji, z wyszczególnieniem transakcji aktualnie trwającej (planowany jest limit jednej
+Finalną częścią aplikacji webowej jest ekran transakcji. Podobnie jak ekran zarządzania administratorami,
+zawierać on będzie listę transakcji, z wyszczególnieniem transakcji aktualnie trwającej (planowany jest limit jednej
 aktualnie trwającej transakcji). Przycisk w górnej części komponentu pozwala na przejście do formularza służące do
 inicjacji transakcji. Przycisk ten będzie niedostępny, jeżeli już będzie przetwarzana transakcja w danym czasie.
 
 .Ekran tworzenia i wyświetlania transakcji
 image::../images/mockup/transactions.png[{image-size}]
 
-Makieta interaktywna nie uwzględnia wielu paneli, ponieważ zostały uznane za zbyt oczywiste do implementacji.
+Makieta interaktywna nie uwzględnia wielu paneli, ponieważ zostały one uznane za zbyt oczywiste do implementacji.
 Postanowiono skupić się przede wszystkim na tych ekranach, które nie są jasne, bądź na których było do uzgodnienia i
 rozplanowania więcej kwestii. Najważniejszym powodem utworzenia makiety było poznanie przyszłego układu aplikacji i to
 zadanie zostało wykonane.
