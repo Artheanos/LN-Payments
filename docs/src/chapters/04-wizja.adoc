@@ -4,7 +4,7 @@ Centralnym punktem rozwiązania jest serwer napisany w języku programowania Jav
 Zdecydowaliśmy się na to rozwiązanie ze względu na duże doświadczenie członków zespołu w tej technologii. Java
 posiada również biblioteki do obsługi kryptowalut, które idealnie pasują do naszego przypadku użycia. Aplikacja
 została wykonana w warstwowej architekturze klient-serwer. Współcześnie popularnym trendem jest rozbicie aplikacji
-internetowych na część serwerową oraz część prezentacyjną, nie inaczej postanowiliśmy zrobić prezentowanym systemie.
+internetowych na część serwerową oraz część prezentacyjną, nie inaczej postanowiliśmy zrobić w prezentowanym systemie.
 Aplikacja webowa została stworzona w technologi SPA przy użyciu języka programowania TypeScript oraz frameworka React.
 Podobnie jak w przypadku serwera wybór technologi podyktowany został przede wszystkim doświadczeniem członków zespołu
 projektowego. Przy pomocy Reacta można w łatwy i szybki sposób stworzyć profesjonalnie wyglądającą stronę internetową,
