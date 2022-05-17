@@ -78,8 +78,8 @@ mógł zostać stworzony od nowa. Jest to zabezpieczenie na wypadek śmierci  b�
 zarządzających portfelem. Proces będzie wyglądać podobnie jak w przypadku transakcji. Po wypełnieniu odpowiedniego
 formularza oraz wybraniu nowych administratorów zarządzających portfelem utworzona zostanie specjalna transakcja
 przelewająca środki ze starego portfela na nowy. Zamiana portfeli nastąpi w momencie, kiedy transakcja zostanie
-rozpropagowana w sieci Bitcoin. Podczas oczekiwania na podpisy, którego zadanie celem jest przelewanie środków pomiędzy
-portfelami, nie będzie działać.
+rozpropagowana w sieci Bitcoin. Zadanie, którego celem jest przelewanie środków pomiędzy portfelami, nie będzie działać
+podczas oczekiwania na podpisy.
 
 ==== Podpisywanie transakcji
 
