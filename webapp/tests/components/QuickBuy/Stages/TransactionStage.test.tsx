@@ -4,7 +4,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 import routesBuilder from 'routesBuilder'
-import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentStatus } from 'common-ts/webServiceApi/interface/payment'
 import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage/TransactionStage'
 
 jest.mock('@stomp/stompjs', () => {

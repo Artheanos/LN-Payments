@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import routesBuilder from 'routesBuilder'
 import { UserContext } from '../Context/UserContext'
 import { Navigate, Outlet } from 'react-router-dom'
-import { Role } from 'common-ts/dist/webServiceApi/interface/user'
+import { Role } from 'common-ts/webServiceApi/interface/user'
 
 export const PublicLayout: React.FC = () => {
   const { user, isLoggedIn } = useContext(UserContext)

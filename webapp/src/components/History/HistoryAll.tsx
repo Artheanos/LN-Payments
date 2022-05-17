@@ -5,7 +5,7 @@ import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { api } from 'api'
 import { TableCell, TableRow } from '@mui/material'
 import { PaymentStatusCell } from './PaymentStatusCell'
-import { PublicPaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PublicPaymentDetails } from 'common-ts/webServiceApi/interface/payment'
 
 export const HistoryAll: React.FC = () => {
   const { t } = useTranslation('history')

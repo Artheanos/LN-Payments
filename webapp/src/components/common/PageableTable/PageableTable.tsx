@@ -23,7 +23,7 @@ import { Response } from 'api'
 import {
   PageRequest,
   Pageable
-} from 'common-ts/dist/webServiceApi/interface/pageable'
+} from 'common-ts/webServiceApi/interface/pageable'
 
 interface Props<T> {
   apiRequest: (params: PageRequest) => Promise<Response<Pageable<T>>>

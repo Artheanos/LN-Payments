@@ -17,8 +17,12 @@
     "jsx": "react-jsx",
     "paths": {
       "*": ["./*"],
-      "tests/*": ["../tests/*"]
+      "tests/*": ["../tests/*"],
+      "common-ts/*": ["../../common-ts/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "references": [
+    { "path": "../common-ts" }
+  ],
+  "exclude": ["node_modules"]
 }

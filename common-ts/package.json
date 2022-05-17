@@ -17,6 +17,7 @@
   },
   "types": "dist/index.d.ts",
   "files": [
-    "dist/"
+    "dist/",
+    "i18n/common.json"
   ]
 }

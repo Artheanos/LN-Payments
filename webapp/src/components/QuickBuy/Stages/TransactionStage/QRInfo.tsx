@@ -6,7 +6,7 @@ import { QRComponent } from './QRComponent'
 import {
   PaymentDetails,
   PaymentInfo
-} from 'common-ts/dist/webServiceApi/interface/payment'
+} from 'common-ts/webServiceApi/interface/payment'
 
 interface PanelProps {
   details: PaymentDetails

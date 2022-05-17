@@ -5,10 +5,10 @@ import { Client as StompClient } from '@stomp/stompjs'
 
 import routesBuilder from 'routesBuilder'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
-import { PaymentInfo } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentInfo } from 'common-ts/webServiceApi/interface/payment'
 import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
-import { WsTransactionResponse } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { WsTransactionResponse } from 'common-ts/webServiceApi/interface/transaction'
 import { api, refreshTokenFactory } from 'api'
 import { millisecondsToClock, useCountdown } from 'utils/time'
 

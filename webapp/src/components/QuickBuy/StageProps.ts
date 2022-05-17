@@ -1,4 +1,4 @@
-import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentDetails } from 'common-ts/webServiceApi/interface/payment'
 
 export interface StageProps {
   onNext: () => void

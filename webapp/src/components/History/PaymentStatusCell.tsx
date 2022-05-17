@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentStatus } from 'common-ts/webServiceApi/interface/payment'
 
 const StatusColor: Record<
   PaymentStatus,

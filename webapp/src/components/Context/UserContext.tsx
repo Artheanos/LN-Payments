@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { api } from 'api'
 import { useLocalStorage } from 'utils/persist'
 import { LocalKey } from 'constants/LocalKey'
-import { User } from 'common-ts/dist/webServiceApi/interface/user'
+import { User } from 'common-ts/webServiceApi/interface/user'
 
 type ContextType = {
   user?: User

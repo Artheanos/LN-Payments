@@ -1,7 +1,7 @@
 import { initReactI18next } from 'react-i18next'
 import i18n from 'i18next'
 
-import { common } from 'common-ts/dist/i18n'
+import { common } from 'common-ts/i18n'
 
 import adminManagement from 'locales/en/adminManagement.json'
 import auth from 'locales/en/auth.json'

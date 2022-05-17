@@ -12,7 +12,7 @@ import { WalletCard } from 'components/wallet/WalletCard'
 import { WalletLoadingSkeleton } from 'components/wallet/WalletLoadingSkeleton'
 import { api } from 'api'
 import { useNotification } from 'components/Context/NotificationContext'
-import { WalletInfo } from 'common-ts/dist/webServiceApi/interface/wallet'
+import { WalletInfo } from 'common-ts/webServiceApi/interface/wallet'
 
 export const WalletPage: React.FC = () => {
   const { t } = useTranslation('wallet')

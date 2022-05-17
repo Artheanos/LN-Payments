@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
 import { CardForm, CardFormButton } from 'components/Form/CardForm'
-import { LoginForm as ILoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
+import { LoginForm as ILoginForm } from 'common-ts/webServiceApi/interface/auth'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
 
 type Props = {

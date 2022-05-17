@@ -1,6 +1,6 @@
 import { getLocalJson } from 'utils/persist'
 import { LocalKey } from 'constants/LocalKey'
-import { WebServiceApi } from 'common-ts/dist/webServiceApi'
+import { WebServiceApi } from 'common-ts/webServiceApi'
 
 export type Response<T> = {
   data?: T
