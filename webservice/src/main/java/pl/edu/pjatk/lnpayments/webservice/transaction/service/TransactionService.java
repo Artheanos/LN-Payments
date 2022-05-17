@@ -8,7 +8,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
+import pl.edu.pjatk.lnpayments.webservice.notification.resource.NotificationSocketController;
 import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConverter;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
@@ -31,19 +31,19 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final BitcoinService bitcoinService;
-    private final NotificationService notificationService;
+    private final NotificationSocketController notificationSocketController;
     private final WalletService walletService;
     private final TransactionConverter transactionConverter;
 
     @Autowired
     public TransactionService(TransactionRepository transactionRepository,
                               BitcoinService bitcoinService,
-                              NotificationService notificationService,
+                              NotificationSocketController notificationSocketController,
                               WalletService walletService,
                               TransactionConverter transactionConverter) {
         this.transactionRepository = transactionRepository;
         this.bitcoinService = bitcoinService;
-        this.notificationService = notificationService;
+        this.notificationSocketController = notificationSocketController;
         this.walletService = walletService;
         this.transactionConverter = transactionConverter;
     }
@@ -66,7 +66,7 @@ public class TransactionService {
                 .map(createNotificationFunction(transaction))
                 .collect(Collectors.toList());
         transaction.setNotifications(notifications);
-        notificationService.sendAllNotifications(notifications);
+        notificationSocketController.sendAllNotifications(notifications);
     }
 
     private Function<AdminUser, Notification> createNotificationFunction(Transaction transaction) {

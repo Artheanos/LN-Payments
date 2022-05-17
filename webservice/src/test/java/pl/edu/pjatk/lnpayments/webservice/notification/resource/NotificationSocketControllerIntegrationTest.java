@@ -1,4 +1,4 @@
-package pl.edu.pjatk.lnpayments.webservice.notification.service;
+package pl.edu.pjatk.lnpayments.webservice.notification.resource;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +38,7 @@ import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.crea
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = {IntegrationTestConfiguration.class}, webEnvironment = RANDOM_PORT)
-class NotificationServiceIntegrationTest extends BaseIntegrationTest {
+class NotificationSocketControllerIntegrationTest extends BaseIntegrationTest {
 
     @LocalServerPort
     private int port;
@@ -50,7 +50,7 @@ class NotificationServiceIntegrationTest extends BaseIntegrationTest {
     private JwtService jwtService;
 
     @Autowired
-    private NotificationService notificationService;
+    private NotificationSocketController socketController;
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -95,7 +95,7 @@ class NotificationServiceIntegrationTest extends BaseIntegrationTest {
         stompSession.subscribe("/topic/" + user.notificationsChannelId(), handler);
         SECONDS.sleep(1);
 
-        notificationService.sendAllNotifications(List.of(notification));
+        socketController.sendAllNotifications(List.of(notification));
 
         NotificationResponse response = handler.getResult();
         assertThat(response.getMessage()).isEqualTo("message");

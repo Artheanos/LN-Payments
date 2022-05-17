@@ -12,7 +12,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
+import pl.edu.pjatk.lnpayments.webservice.notification.resource.NotificationSocketController;
 import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConverter;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
@@ -45,7 +45,7 @@ class TransactionServiceTest {
     private BitcoinService bitcoinService;
 
     @Mock
-    private NotificationService notificationService;
+    private NotificationSocketController notificationSocketController;
 
     @Mock
     private WalletService walletService;
@@ -75,7 +75,7 @@ class TransactionServiceTest {
         transactionService.createTransaction(transactionRequest);
 
         verify(transactionRepository).save(any());
-        verify(notificationService).sendAllNotifications(notifications.capture());
+        verify(notificationSocketController).sendAllNotifications(notifications.capture());
         List<Notification> notificationsValue = notifications.getValue();
         assertThat(notificationsValue).hasSize(1);
         assertThat(notificationsValue.get(0).getAdminUser().getEmail()).isEqualTo("test@test.pl");
