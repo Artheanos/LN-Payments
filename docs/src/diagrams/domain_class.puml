@@ -1,0 +1,93 @@
+@startuml
+
+class Payment {
+    paymentRequest: String
+    date : Date
+    expiry : Date
+    numberOfTokens : Integer
+    price : Long
+
+    assignTokens(tokens: List<Token>) : void
+}
+
+class Token {
+    value : String
+}
+
+class Transaction {
+    rawTransaction: String
+    date : Date
+    fee : Long
+    inputValue : Long
+    requiredApprovals : Integer
+    sourceAddress : String
+    targetAddress : String
+}
+
+abstract class User {
+    email : String
+}
+
+class TemporaryUser extends User {
+}
+
+class StandardUser extends User{
+    fullName : String
+    password : String
+}
+
+class AdminUser extends StandardUser {
+    publicKey : String
+
+    hasKey() : Boolean
+    isAssignedToWallet() : Boolean
+}
+
+class Wallet {
+    address : String
+    requiredApprovals : Integer
+    redeemScript : String
+}
+
+class Notification {
+    message : String
+}
+
+enum PaymentStatus {
+    COMPLETED
+    PENDING
+    CANCELLED
+}
+
+enum TransactionStatus {
+    DENIED
+    APPROVED
+    PENDING
+}
+
+enum NotificationStatus {
+    CONFIRMED
+    DENIED
+    PENDING
+    EXPIRED
+}
+
+enum NotificationType {
+    TRANSACTION
+    WALLET_RECREATION
+}
+
+Notification --> NotificationType
+Notification --> NotificationStatus
+
+Transaction --> TransactionStatus
+Transaction "1..n" o-- AdminUser
+Transaction "1..n" *--* "1" Notification
+
+Payment --> PaymentStatus
+Payment "1" *-- "0..n" Token
+Payment "1" o-- User
+
+Wallet "1..n" o-- "0..1" AdminUser
+
+@enduml

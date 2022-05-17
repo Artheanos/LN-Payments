@@ -26,6 +26,7 @@ jobs:
           gem install asciidoctor
           gem install asciidoctor-pdf
           gem install asciidoctor-diagram
+          gem install rouge
       - name: Install pdftk
         run: sudo apt-get install -y pdftk
       - name: Build files

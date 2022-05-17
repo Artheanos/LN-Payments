@@ -1,0 +1,38 @@
+@startuml
+actor User
+boundary Webapp
+control Webservice
+participant LND
+database Database
+
+activate User
+User -> Webapp : Wejście na stronę sprzedaży
+activate Webapp
+Webapp -> Webservice : GET /payments/info
+activate Webservice
+Webservice -> Database : pobranie informacji o płatnościach w toku
+Webservice -> Webservice : zebranie informacji o cenie czy adresie węzła
+Webservice -> Webapp : zwrócenie informacje potrzebne przy sprzedaży
+deactivate Webservice
+
+User -> Webapp : Uzupełnia formularz
+Webapp -> Webservice : POST /payments
+activate Webservice
+Webservice <-> LND : wygenerowanie invoice
+Webservice -> Database : zapisanie płatności
+Webservice -> Webapp : zwrócenie invoice
+deactivate Webservice
+User -> Webapp : przejście na drugi ekran z kodami QR
+
+User -> User : Zapłacenie za tokeny
+LND -> Webservice : Zaksięgowanie płatności
+activate Webservice
+Webservice -> Database : Zmiana statusu płatności na zakończoną
+Webservice -> Webservice : Wygenerowanie tokenów
+Webservice [#blue]-> Webapp : Zwrócenie tokenów przez protoków Websocket
+deactivate Webservice
+Webapp -> User : Wyświetlenie tokenów
+deactivate Webapp
+deactivate User
+
+@enduml

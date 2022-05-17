@@ -1,0 +1,60 @@
+@startuml
+left to right direction
+actor Użytkownik as user
+actor "Niezalogowany użytkownik" as temporary_user
+actor Administrator as admin
+
+package "Aplikacja internetowa" {
+    usecase Logowanie as UC1
+    usecase Rejestracja as UC2
+    usecase "Przeglądanie historii swoich płatności" as UC3
+    usecase "Kupowanie tokenów" as UC4
+    usecase "Wybieranie danych do płatności" as P1
+    usecase "Płacenie/otwieranie kanału" as P2
+    usecase "Otrzymywanie tokenów" as P3
+    usecase "Przeglądanie historii wszystkich płatności" as UC5
+    usecase "Przeglądanie danych portfela" as UC6
+    usecase "Zamykanie kanałów płatności" as UC7
+    usecase "Wymuszone zamykanie kanałów płatności" as UC8
+    usecase "Uruchamianie transferu z portfela Lightning na Bitcoin" as UC9
+    usecase "Przeglądanie dodanych administratorów" as UC10
+    usecase "Dodawanie administratorów" as UC11
+    usecase "Usuwanie administratorów" as UC12
+    usecase "Przeglądanie transakcji" as UC13
+    usecase "Inicjowanie transakcji" as UC14
+    usecase "Konfiguracja ustawień serwera" as UC15
+    usecase "Tworzenie portfela" as UC16
+}
+
+UC6 -.> UC7 : <<includes>>
+UC6 -.> UC8 : <<includes>>
+UC6 .> UC9 : <<includes>>
+UC6 -.> UC16 : <<extends>>
+
+UC3 -.> P3 : <<includes>>
+
+UC4 -.> P1 : <<extends>>
+UC4 -.> P2 : <<extends>>
+UC4 -.> P3 : <<extends>>
+
+UC10 -.> UC11 : <<includes>>
+UC10 -.> UC12 : <<includes>>
+
+UC13 -.> UC14 : <<includes>>
+
+temporary_user <|- user
+user <|- admin
+
+temporary_user --> UC1
+temporary_user --> UC2
+temporary_user --> UC4
+
+user --> UC3
+
+admin --> UC15
+admin --> UC6
+admin --> UC5
+admin --> UC13
+admin --> UC10
+
+@enduml

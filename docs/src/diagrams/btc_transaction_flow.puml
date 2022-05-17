@@ -1,0 +1,20 @@
+@startuml
+start
+:Administrator inicjuje transakcje;
+:Zbudowanie wejść, ustanowienie wyjść i opłat;
+:Wysłanie powiadomień;
+repeat :Oczekiwanie na akcje;
+    group Aplikacja mobilna
+            :Otrzymanie powiadomienia;
+            :Pobranie transakcji z serwera;
+            :Podpisanie transakcji;
+            :Wysłanie podpisanej transakcji na serwer;
+    end group
+    :Walidacja podpisu;
+repeat while (Ilość podpisów jest wystarczająca?) is (Nie)
+-> Tak;
+
+:Walidacja transakcji;
+:Propagacja w sieci Bitcoin;
+end
+@enduml

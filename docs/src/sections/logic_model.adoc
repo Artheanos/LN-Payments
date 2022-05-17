@@ -1,0 +1,113 @@
+=== Model logiczny
+
+Model logiczny, jak również cały system podzielić można na trzy główne części:
+
+* Kupowanie jednorazowych tokenów przy pomocy sieci Lightning
+* Zarządzanie wbudowanych portfelem Bitcoin
+* Podpisywanie transakcji w aplikacji mobilnej
+
+Teoretycznie dwie pierwsze funkcjonalności są od siebie niezależne. Istnieje możliwość zaimplementowania ich jako dwie
+osobne aplikacje. Jedynym łącznikiem obu części (poza częścią związaną z kontami użytkowników) jest węzeł sieci
+Lightning. Środki pochodzące ze sprzedaży tokenów trafiają do portfela wbudowanego w węzeł, z którego później zostaną
+przelane do wbudowanego portfela Bitcoin. Podpisywanie transakcji jest ściśle powiązane z portfelem Bitcoin.
+W następnych rozdziałach zostanie opisany model logiczny poszczególnych części systemu.
+
+==== Sprzedaż tokenów
+
+Płatność dostępna będzie jednakowo dla zalogowanych i niezalogowanych użytkowników. Do widoku sprzedaży będzie można
+przejść z panelu użytkownika oraz ze strony głównej.
+
+.Schemat blokowy procesu sprzedaży tokenów
+[plantuml]
+----
+include::../diagrams/payment_highlevel_flow.puml[]
+----
+
+Gdy użytkownik znajdzie się już na pierwszej podstronie, pojawia się formularz, w którym można wybrać ilość tokenów
+do zakupu. Będzie tutaj również wyświetlana cena oraz krótki opis sprzedawanego produktu, który będzie można
+skonfigurować z poziomu ustawień. Użytkownik niezalogowany dodatkowo będzie musiał wypełnić pole z adresem email.
+W przyszłych wersjach systemu umożliwi to wysłanie zakupionych tokenów pocztą elektroniczną, aczkolwiek nie będzie to
+jednak częścią pierwszego wydania. Po wysłaniu formularza użytkownik zostanie przekierowany na drugi ekran, na którym
+wyświetlone będą dwa kody QR. Pierwszy kod będzie wyświetlał _invoice_ sieci Lightning. Kod ten można zeskanować
+przy pomocy portfela Bitcoin ze wsparciem dla sieci Lightning. Po zeskanowaniu w portfelu pojawi się komunikat ze
+szczegółami płatności takimi jak opis produktu czy też finalna cena. W przypadku gdy użytkownik nie ma otwartego
+kanału płatności, może on zeskanować drugi kod QR, zawierający adres węzła należącego do systemu. Po ustabilizowaniu
+kanału będzie można z sukcesem zeskanować pierwszy kod QR i dokonać płatności. Gdy węzeł Lightning serwera otrzyma
+informacje o zaksięgowanej płatności, użytkownikowi wyświetlony zostanie trzeci i ostatni ekran zawierający
+zakupione tokeny.
+
+.Wysokopoziomowy diagram sekwencji dla modułu sprzedaży
+[plantuml]
+----
+include::../diagrams/payment_highlevel_sequence.puml[]
+----
+
+Nie wliczając logowania, wszystkie punktu końcowe będą miały ścieżkę _/payments_. Gdy użytkownik znajdzie się na
+pierwszym ekranie, zostanie wysłane zapytanie do serwera o aktualne dane potrzebne do płatności. Będą to przykładowo
+cena, opis, a dla zalogowanych użytkowników również transakcje w trakcie. Pozwoli to na powrót do niedokończonej
+płatności przerwanej na przykład przez odświeżenie strony internetowej. Po uzupełnieniu formularza, do serwera zostanie
+wysłane żądanie _POST_ tworzące nowy zasób płatności. Przy pomocy lokalnego węzła Lightning utworzony zostanie
+_invoice_, dzięki któremu użytkownik będzie mógł zapłacić za swój zakup. W tym momencie użytkownikowi zostają
+wyświetlone kody QR, więc może on od razu zapłacić, bądź najpierw otworzyć kanał. Węzeł sieci Lightning nasłuchuje na
+nadchodzące płatności. Zaraz po zaksięgowaniu status płatności zostanie zaktualizowany oraz zostaną wygenerowane tokeny.
+Aplikacja webowa po zakończeniu ostatniego żądania nasłuchuje na odpowiednim kanale protokołu websocket za otrzymanie
+tokenów. Czas przedawnienia płatności będzie wynosił 15 minut. Po tym czasie płatność zmieni swój status na anulowany.
+Po wygenerowaniu tokenów są one wysyłane użytkownikowi, a następnie mu wyświetlane.
+
+==== Zarządzanie portfelem
+
+W momencie pierwszego uruchomienia serwera wbudowany portfel nie będzie skonfigurowany. Środki z płatności trafiać
+będą tylko do portfela w węźle Lightning. Aby regularnie zamykać kanały i uwalniać środki znajdujące się w nich na
+serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie, którego celem będzie zamykanie kanałów.
+Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty siłowo, jeśli będzie nieaktywny
+dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego zamknięcia
+kanałów, zarówno kooperacyjnie, jak i siłowo.
+
+.Schemat blokowy dla automatycznego zamykania kanałów
+[plantuml]
+----
+include::../diagrams/channel_close_flow.puml[]
+----
+
+Utworzenie portfela wymagać będzie wcześniejszego dodania administratorów oraz przesłania przez nich kluczy publicznych
+z aplikacji mobilnych. Przy pierwszym uruchomieniu zostanie utworzony domyślny administrator, przy pomocy którego
+należy dodać własnych administratorów. Zalecane jest jego późniejsze usunięcie. Po utworzeniu portfela aktywne będzie
+następne zaplanowane zadanie, automatycznie przelewające środki pomiędzy portfelami. Tak samo, jak w przypadku zamykania
+kanałów, administrator będzie mógł manualnie uruchomić transfer środków z poziomu panelu portfela. Portfel będzie
+mógł zostać stworzony od nowa. Jest to zabezpieczenie na wypadek śmierci  bądź nieuczciwości ze strony jednej z osób
+zarządzających portfelem. Proces będzie wyglądać podobnie jak w przypadku transakcji. Po wypełnieniu odpowiedniego
+formularza oraz wybraniu nowych administratorów zarządzających portfelem utworzona zostanie specjalna transakcja
+przelewająca środki ze starego portfela na nowy. Zamiana portfeli nastąpi w momencie, kiedy transakcja zostanie
+rozpropagowana w sieci Bitcoin. Zadanie, którego celem jest przelewanie środków pomiędzy portfelami, nie będzie działać
+podczas oczekiwania na podpisy.
+
+==== Podpisywanie transakcji
+
+Podczas inicjacji transakcji, serwer przypisze jej powiadomienia dla wszystkich użytkowników zarządzających
+portfelem. Suma podpisów będzie liczona właśnie na podstawie powiadomień i ich statusów. Powiadomienia będą wysyłane
+do użytkowników aplikacji mobilnych poprzez protokół _WebSocket_. W przypadku kiedy użytkownik nie zobaczy
+powiadomienia, bądź powiadomienie wygaśnie, przy uruchomieniu aplikacji mobilnej pobrane i wyświetlone zostaną
+wszystkie powiadomienia przypisane do danego administratora.
+
+.Diagram sekwencji dla procesu podpisywania transakcji
+[plantuml]
+----
+include::../diagrams/btc_transaction_sequence.puml[]
+----
+
+Administrator, otrzymując powiadomienie, będzie mógł je zatwierdzić, bądź odrzucić. Podczas procesu potwierdzania,
+aplikacja mobilna najpierw odpytuje serwer z prośbą o aktualną wartość transakcji. Serwer poza transakcją
+zapisaną w formacie szesnastkowym zwraca również wersję transakcji. Umożliwi to uniknięcie utraconych zapisów
+w bazie danych wynikającej z wielowątkowej charakterystyki działania serwera. Sytuacja, w której dwóch użytkowników
+próbuje podpisać transakcję, przez co jeden podpis zostaje utracony, jest niepożądana i stanowi poważne zagrożenie
+dla integralności danych. Po otrzymaniu transakcji jest ona podpisywana przy pomocy zapisanego lokalnie klucza
+prywatnego. Następnie podpisana transakcja oraz otrzymana wcześniej wartość wersji wysyłane są na punkt końcowy
+_confirm_, gdzie następuje walidacja podpisu kluczem publicznym administratora oraz zapisanie stanu transakcji
+w bazie danych. Jeżeli suma podpisów osiągnie numer wymagany przez transakcję, następuje propagacja podpisanej
+transakcji w sieci Bitcoin. Wszystkie powiadomienia, wobec których nie podjęto akcji, zmienią status na _expired_.
+Jeżeli propagacja transakcji nie powiedzie się, status zostanie zmieniony na _failed_.
+Proces wygląda podobnie w przypadku odrzucania transakcji, z pominięciem pobierania oraz podpisywania transakcji.
+Od razu wysyłane jest żądanie do serwera na punkt końcowy _deny_, po czym powiadomienie zmienia status na _denied_.
+Co więcej, jeżeli ilość odrzuconych powiadomień uniemożliwi propagację transakcji, automatycznie zostanie zmieniony
+status na _denied_. Tak samo, jak w przypadku potwierdzania wszystkie niepodpisane transakcje zmienią status na
+_expired_.

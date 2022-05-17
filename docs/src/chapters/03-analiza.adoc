@@ -1,23 +1,27 @@
 == Analiza
 
-=== Przypadki użycia
+include::../sections/use-cases.adoc[]
 
-=== Udziałowcy
+include::../sections/stakeholders.adoc[]
 
-=== Wymagania
+<<<
 
-=== Architektura systemu
+include::../sections/functional_requirements.adoc[]
 
-Wysokopoziomowy opis architektury
+include::../sections/architecture.adoc[]
 
-=== Wykorzystanie kryptowalut
+include::../sections/crypto_usage.adoc[]
 
-Opis zastosowanych technologii z zakresu kryptowalut np. Użycie sieci lightning czy opis transakcji multisig.
+include::../sections/domain_model.adoc[]
 
-=== Model domenowy
+include::../sections/logic_model.adoc[]
 
-=== Analiza Ryzyk
+include::../sections/prototype.adoc[]
 
-=== Komercjalizacja projektu
+include::../sections/mockup.adoc[]
 
-=== Społeczne aspekty projektu
+include::../sections/risk-analysis.adoc[]
+
+include::../sections/commercialization.adoc[]
+
+include::../sections/social_aspects.adoc[]

@@ -1,0 +1,328 @@
+=== Wymagania funkcjonalne
+
+==== Serwer i aplikacja webowa
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F01 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Konfiguracja serwera
+|Opis 3+a|
+Administrator powinien mieć możliwość skonfigurowania:
+
+* liczby osób, które podpiszą przelew, aby został wykonany
+* ceny tokenów
+* limity automatycznych transferów
+* inne ustawienia
+|Kryteria akceptacji 3+|Administrator ma możliwość edycji podanych ustawień i nie tylko.
+Podane parametry nie muszą być na jednym panelu, mogą znajdować się na osobnych.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F08, F09, F12, F13, F16, F17, F18_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F02 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Logowanie użytkownika / admina
+|Opis 3+|Użytkownik lub admin, po wypełnieniu danych logowania, powinien mieć dostęp do głównego panelu aplikacji.
+|Kryteria akceptacji 3+| Użytkownik jest w stanie poprawnie zalogować się do aplikacji.
+|Udziałowiec 3+| _UOB01, UOB02_
+|Wymagania powiązane 3+| _F03, F04_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F03 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Rejestracja użytkownika
+|Opis 3+|Nowy użytkownik ma mieć możliwość zarejestrowania się, aby móc korzystać ze wszystkich funkcjonalności.
+|Kryteria akceptacji 3+|Użytkownik może utworzyć konto w systemie.
+|Udziałowiec 3+|_UOB01_
+|Wymagania powiązane 3+|_F02_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F04 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Dodanie administratora
+|Opis 3+|Administrator ma mieć możliwość zarejestrowania nowego administratora.
+|Kryteria akceptacji 3+|Administrator może dodawać innych administratorów.
+|Udziałowiec 3+|_UOB02_
+|Wymagania powiązane 3+|_F02, F14, F15, FA01_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F05 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Przeglądanie historii
+|Opis 3+|Użytkownicy i administratorzy mają wgląd do historii płatności. Użytkownicy oczywiście tylko do
+swojej własnej historii. Administratorzy mają mieć dodatkowy panel z danymi ze wszystkich płatności.
+|Kryteria akceptacji 3+| Dostępne są 2 panele, jeden dla indywidualnej historii, drugi dla wszystkich płatności
+dostępny tylko dla administratorów.
+|Udziałowiec 3+| _UOB01, UOB02_
+|Wymagania powiązane 3+| _F08, F09_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F06 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Wysyłanie powiadomienia o bieżącej transakcji
+|Opis 3+|Kiedy jeden administrator chce dokonać transakcji, reszta administratorów musi otrzymać powiadomienie o
+potrzebnej akcji w aplikacji mobilnej.
+|Kryteria akceptacji 3+|Administratorzy dodani do portfela widzą powiadomienie o nowo utworzonej transakcji.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+|_F07, F12, FA03, FA04, FA05_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F07 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Wykonanie transakcji po uprzednim uzyskaniu wymaganej liczby podpisów
+|Opis 3+|Każdy portfel ma swoją wymaganą liczbę podpisów, którą musi mieć transakcja, aby została uznana za
+poprawną. Kiedy zostaną uzbierane podpisy, transakcja powinna zostać rozpropagowana w sieci Bitcoin.
+|Kryteria akceptacji 3+|Podpisana transakcja jest wysyłana i akceptowana przez inne węzły w sieci.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+|_F06, F12, FA03, FA04, FA05_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F08 h|Priorytet: |*M* (musi być)
+|Nazwa 3+| Płatności oraz otrzymywanie tokenów
+|Opis 3+| Użytkownik musi mieć możliwość zakupu tokenów w odpowiednim do tego panelu. Powinien on składać się
+z formularza z ilością tokenów, ekranu z rachunkiem oraz adresem węzła, a także ekranu z podsumowaniem i wypisanymi
+tokenami.
+|Kryteria akceptacji 3+|Użytkownik może zapłacić i otrzymuje w zamian zakupione tokeny.
+|Udziałowiec 3+| _UOB01_
+|Wymagania powiązane 3+| _F02, F05, F09, F18, F19_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F09 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Płatności bez logowania
+|Opis 3+|Użytkownik, nawet niezalogowany ma dostęp do panelu płatności, na którym dostępne są dane potrzebne do
+zapłacenia w LN. Po zakończeniu płatności wyświetlane są tokeny, które może on skopiować.
+|Kryteria akceptacji 3+|Użytkownik niezalogowany ma dostęp do adresu węzła oraz kodu do transakcji i może
+dokonać płatności.
+|Udziałowiec 3+| _UOB01_
+|Wymagania powiązane 3+| _F02, F05, F08, F18, F19_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F10 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Utworzenie nowego portfelu
+|Opis 3+|Przykładowo w przypadku śmierci jednego z administratorów portfela, admini powinni mieć możliwość
+utworzenia nowego portfelu z określonymi na nowo administratorami portfela. Utworzenie portfelu powinno też
+odbywać się przy pierwszym ustawieniu serwera (wtedy bez transferu środków).
+|Kryteria akceptacji 3+|Serwer posiada nowo utworzony portfel wraz ze środkami ze starego portfela.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F01, F04, F13, FA02_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F11 h|Priorytet: |*S* (powinno być)
+|Nazwa 3+|Użytkownicy i administratorzy mogą edytować swoje dane
+|Opis 3+|Każda osoba mająca konto w systemie powinna móc zmienić swoje hasło czy też email.
+|Kryteria akceptacji 3+|Użytkownik mogący edytować swoje dane.
+|Udziałowiec 3+| _UOB01, UOB02_
+|Wymagania powiązane 3+| _F03_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F12 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Przeglądanie i inicjowanie transakcji
+|Opis 3+|Administrator musi mieć dostęp do panelu z transakcjami, na którym będzie widoczna historia transakcji,
+status aktualnej transakcji w toku oraz guzik prowadzący do formularza tworzenia nowej transakcji.
+|Kryteria akceptacji 3+|Administrator ma dostęp do panelu z transakcjami oraz może inicjować nowe transakcje za pomocą
+specjalnego formularza.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F13, F07, F06, F03, F04, F05_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F13 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Przeglądanie danych portfela
+|Opis 3+|Administrator musi mieć możliwość przeglądania aktualnych statystyk i danych z portfela takich jak ilość
+środków w portfelach Bitcoin i Lightning oraz środków zablokowanych w kanałach. Powinien też posiadać kilka guzików
+z akcjami portfela jak utworzenie nowego czy zamknięcie kanałów.
+|Kryteria akceptacji 3+|Administrator ma dostęp do panelu z portfelem i jego akcjami.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F12, F16, F17_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F14 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Przeglądanie administratorów
+|Opis 3+|Panel powinien listować wszystkich administratorów serwera, wraz z informacją o wysłanych kluczach oraz
+przypisaniu do portfela.
+|Kryteria akceptacji 3+|Lista zawiera administratorów wraz z informacją o kluczach i przypisaniu do portfela.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F04, F15_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F15 h|Priorytet: |*S* (powinno być)
+|Nazwa 3+|Usuwanie administratorów
+|Opis 3+| Na panelu administratorów każdy element powinien mieć guzik pozwalający na usunięcie administratora.
+Administrator nie może zostać usunięty, gdy jest przypisany do portfela.
+|Kryteria akceptacji 3+|Administrator może usunąć innych administratorów.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F04, F14_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F16 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Zamykanie kanałów płatności
+|Opis 3+|Środki ze sprzedaży tokenów początkową będą rozlokowane w kanałach płatności. Jeżeli kwota osiągnie wyznaczony
+limit, kanały powinny zostać automatycznie zamknięte. Panel portfela również powinien posiadać guzik pozwalający na
+natychmiastowe zamknięcie kanałów.
+|Kryteria akceptacji 3+|Kanały są automatycznie zamykane po osiągnięciu limitu oraz istnieje guzik do manualnego
+zamknięcia kanałów.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F08, F09, F13_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F17 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Transfer środków z portfela w węźle lightning na portfel serwera
+|Opis 3+| Środku zakumulowane w węźle sieci Lightning powinny być automatycznie przelewane na adres wbudowanego
+portfela. Powinna też istnieć możliwość manualnego przelania środków poprzez panel portfela.
+|Kryteria akceptacji 3+|Środki z porfela Lightning są automatycznie przelewane po osiągnięciu limitu oraz istnieje
+guzik do manualnego transferu.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F13, F16_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F18 h|Priorytet: |*C* (może być)
+|Nazwa 3+|Wysyłanie zakupionych tokenów na wskazany serwer
+|Opis 3+|Tokeny zakupione przez użytkowników powinny być wysyłane na adres wskazany w ustawieniach, aby właściciel
+serwera mógł zaimplementować swoje rozwiązanie wykorzystujące generowane tokeny.
+|Kryteria akceptacji 3+|Tokeny są wysyłane po każdej transakcji na wskazany adres przy pomocy protokołu HTTP.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F08, F09_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |F19 h|Priorytet: |*W* (nie będzie)
+|Nazwa 3+|Wysyłanie podsumowania płatności pocztą elektroniczną
+|Opis 3+|Po każdej płatności i zakupie tokenów powinny być wysyłane wiadomości elektroniczne z podsumowanie zamówienia
+oraz tokenami. Umożliwiłoby to podgląd do tokenów przez niezarejestrowanych użytkowników po opuszczeniu aplikacji.
+|Kryteria akceptacji 3+| Użytkownik otrzymuje wiadomość email z tokenami po zakończeniu płatności.
+|Udziałowiec 3+| _UOB01_
+|Wymagania powiązane 3+| _F08, F09_
+|===
+
+==== Aplikacja mobilna
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA01 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Logowanie się danymi z serwera
+|Opis 3+|Nowy użytkownik ma mieć możliwość zalogowania się za pomocą danych z serwera.
+|Kryteria akceptacji 3+|Użytkownik może się poprawnie zalogować do aplikacji mobilnej.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F04_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA02 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Generowanie kluczy i wysyłanie klucza publicznego na serwer
+|Opis 3+|Aby użytkownik był w stanie podpisywać transakcje, musi najpierw zarejestrować swój klucz publiczny na
+serwerze, po wcześniejszym wygenerowaniu klucza publicznego i prywatnego.
+|Kryteria akceptacji 3+|Klucz jest rejestrowany poprawnie na serwerze.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F10_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA03 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Podpisywanie transakcji swoim kluczem prywatnym
+|Opis 3+|Kiedy ktoś zainicjuje przelew, wszyscy administratorzy powiązani z portfelem będą w stanie podpisać
+transakcje za pomocą odpowiedniego guzika.
+|Kryteria akceptacji 3+|Użytkownik jest w stanie podpisywać oczekujące transakcje.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F07, F12_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA04 h|Priorytet: |*S* (powinno być)
+|Nazwa 3+|Odbieranie powiadomień push o nowych transakcjach do podpisania
+|Opis 3+|Gdy aplikacja jest zminimalizowana, a pojawi się nowa transakcja do podpisania, użytkownik dostanie
+stosowne powiadomienie o nowej oczekującej transakcji do podpisania.
+|Kryteria akceptacji 3+|Użytkownik otrzymuje powiadomienia.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F06, F07_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA05 h|Priorytet: |*S* (powinno być)
+|Nazwa 3+|Odrzucanie transakcji
+|Opis 3+|W przypadku, w którym administrator nie zgadza się na podpisanie transakcji, może ją odrzucić i wysłać tę
+informację do serwera.
+|Kryteria akceptacji 3+|Użytkownik jest w stanie odrzucić oczekującą transakcję.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F06, F07, FA04_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA06 h|Priorytet: |*M* (musi być)
+|Nazwa 3+|Przeglądanie historii powiadomień
+|Opis 3+|Administrator po zalogowaniu do aplikacji mobilnej powinien zobaczyć listę wszystkich powiadomień, jakie
+kiedykolwiek otrzymał, podzielone na aktywne i zakończone.
+|Kryteria akceptacji 3+|Użytkownik widzi powiadomienia w postaci listy.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _F06_
+|===
+
+[cols="2h,2,1,3"]
+|===
+4+| *KARTA WYMAGANIA*
+|Identyfikator: |FA07 h|Priorytet: |*W* (nie będzie)
+|Nazwa 3+|Prosty dostęp do aplikacji po zalogowaniu
+|Opis 3+|Jeżeli użytkownik zalogował się do aplikacji, powinien on być w stanie w prosty sposób dostać się do
+aplikacji bez potrzeby ponownego logowania. Można to zrealizować na przykład za pomocą kodu PIN czy też czytnika
+linii papilarnych. Rozwiązania tego typu są powszechnie wykorzystywane w aplikacjach bankowych.
+|Kryteria akceptacji 3+|Użytkownik nie musi się logować do aplikacji przy użyciu hasła za każdym razem.
+|Udziałowiec 3+| _UOB02_
+|Wymagania powiązane 3+| _FA01_
+|===

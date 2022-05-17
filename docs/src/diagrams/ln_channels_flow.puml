@@ -1,0 +1,11 @@
+@startuml
+start
+:Użytkownik chce zapłacić za tokeny;
+:Skanuje 'invoice' sieci lightning;
+while (Nie istnieje pośrednie bądź bezpośrednie połączenie kanałami płatności?) is (tak)
+    :Skanuj adres węzła;
+    :Otwórz kanał;
+endwhile (nie)
+:Zapłać;
+end
+@enduml

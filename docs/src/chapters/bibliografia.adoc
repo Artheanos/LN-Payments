@@ -8,3 +8,12 @@ A{nbsp}Second Layer Blockchain Protocol for Instant Bitcoin Payments, 2022,
 ISBN:{nbsp}978-1492054863
 * [[[lndguide, 3]]] _Lightning Labs_, Builder's Guide to the LND Galaxy, [dostęp: 02.02.2022],
 https://docs.lightning.engineering[]
+
+* [[[fee_chart, 4]]] _ycharts.com_, Bitcoin Average Transaction Fee, [dostęp: 08.05.2022],
+https://ycharts.com/indicators/bitcoin_average_transaction_fee[]
+
+* [[[public_ln, 5]]] _ACINQ_, Lightning Network Explorer, [dostęp: 08.05.2022],
+https://explorer.acinq.co[]
+
+* [[[gof, 6]]] _Erich Gamma, Richard Heml, Ralph Johnson, John Vlissides_, Design Patterns, 1995,
+ISBN:{nbsp}978-8328333130

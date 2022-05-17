@@ -1,41 +1,44 @@
-[cols="1,6,2,4,2,8"]
+=== Analiza Ryzyk
+
+[cols="1,4,2,3,2,6",stripes=even]
 |===
-| ID | Ryzyko | Kategoria | Prawdopodobieństwo wystąpienia | Wpływ na projekt | Planowane działania
-| R1 | Brak doświadczenia z domeny projektu .4+| Zespół | Wysokie | Wysoki
+| ID | Ryzyko | Kategoria | Szansa na wystąpienie | Wpływ na projekt | Planowane działania
+| R1 | Brak doświadczenia z domeny projektu | Zespół | Wysokie | Wysoki
 | Przeczytanie książek polecanych przez promotora oraz dalsze dokształcanie się z zakresu kryptowalut.
-| R2 | Nie każdy członek zespołu ma doświadczenie z apkilacjami webowymi | Wysokie | Średni
+| R2 | Nie każdy członek zespołu ma doświadczenie z aplikacjami webowymi | Zespół | Wysokie | Średni
 | Należy okazać wsparcie i chęć pomocy niedoświadczonej osobie. Jeżeli ktoś ma problem ze swoim zadaniem, powinno się
 poprosić o pomoc kogoś z bardziej doświadczonych deweloperów.
-| R3 | Problemy z komunikacją | Niskie | Niski
+| R3 | Problemy z komunikacją | Zespół | Niskie | Niski
 | Regularne spotkania przynajmniej raz w tygodniu powinny umożliwić synchronizowanie bieżących prac zespołu. Członków
 zespołu na spotkaniach należy zachęcać do wzajemnego kontaktu i pomocy przy rozwiązywaniu problemów.
-| R4 | Niezależne od nas problemy z zewnętrznymi bibliotekami | Niskie | Wysoki
-| Staramy się używać bibliotek najwyższej jakości, aczkolwiek nie zawsze mają one wszyskie wymagane przez nas
-funkcjonalności. Należy uważnie przeglądać dostępne biblioteki i upewnić się że spełniają one wymagania projektu.
-| R5 | Krótki czas na realizację .6+| Harmonogram | Średnie | Średni
+| R4 | Niezależne od nas problemy z zewnętrznymi bibliotekami | Zespół | Niskie | Wysoki
+| Staramy się używać bibliotek najwyższej jakości, aczkolwiek nie zawsze mają one wszystkie wymagane przez nas
+funkcjonalności. Należy uważnie przeglądać dostępne biblioteki i upewnić się, że spełniają one wymagania projektu.
+| R5 | Krótki czas na realizację | Harmo-nogram | Średnie | Średni
 | Harmonogram pracy został dostosowany do czasu na jego realizację. W przypadku przekroczenia harmonogramu należy
 przeanalizować zakres projektu i dostosować go do zmian i opóźnień.
-| R6 | Niedoszacowanie wymaganych prac | Niskie | Wysoki | Dodanie nowego zadania do rejestru powinno być poprzedzone
-wcześniejszym jego zbadaniem oraz dyskusją z innymi członkami zespołu. W przypadku niedoszacowania należy rozbić
-zadanie na kilka mniejszych.
-| R7 | Brak elastyczności harmonogramu | Niskie | Niski | Należy dążyć do tego, aby elastyczność harmonogramu nie
-była potrzebna. W przypadku znaczych zmian istnieje możliwość przedłużenia terminu o dwa miesiące.
-| R8 | Opóźnienia w pracach nad badaniem technologii | Średnie | Wysoki | W tym przypadku należy zaangażować innych
-członków projektu w pracach na badaniem technologii. Są to zadania priorytetowe od których zależy późniejsza
+| R6 | Nieoszacowanie wymaganych prac | Harmo-nogram | Niskie | Wysoki | Dodanie nowego zadania do rejestru powinno
+być poprzedzone wcześniejszym jego zbadaniem oraz dyskusją z innymi członkami zespołu. W przypadku nieoszacowania
+należy rozbić zadanie na kilka mniejszych.
+| R7 | Brak elastyczności harmonogramu | Harmo-nogram | Niskie | Niski | Należy dążyć do tego, aby elastyczność
+harmonogramu nie była potrzebna. W przypadku znacznych zmian istnieje możliwość przedłużenia terminu o dwa miesiące.
+| R8 | Opóźnienia w pracach nad badaniem technologii | Harmo-nogram | Średnie | Wysoki | W tym przypadku należy
+zaangażować innych członków projektu w pracach nad badaniem technologii. Są to zadania priorytetowe, od których
+zależy późniejsza
 implementacja projektu.
-| R9 | Plan nie uwzględnia dyspozycyjności członków | Średnie | Średni
+| R9 | Plan nie uwzględnia dyspozycyjności członków | Harmo-nogram | Średnie | Średni
 | Podczas nieprzewidywalnej dyspozycyjności krytyczne zadania zostaną w miarę możliwości przypisane do pracowników o
 niższym obciążeniu.
-| R10 | Niedostarczanie funkcjonalnosci w terminie | Średnie | Wysoki | Jeżeli funkcjonalność nie będzie dostarczona
-do końca iteracji, zadanie musi mieć najwyższy priorytet w następnej iteracji. Musi ono zostać dostarczone w pierwszej
-kolejności nowo rozpoczętego sprintu.
-| R11 | Działanie w nowej i mało popularnej technologii .3+| Techniczne | Wysokie | Niski
+| R10 | Niedostarczanie funkcjonalności w terminie | Harmo-nogram | Średnie | Wysoki | Jeżeli funkcjonalność nie będzie
+dostarczona do końca iteracji, zadanie musi mieć najwyższy priorytet w następnej iteracji. Musi ono zostać dostarczone
+w pierwszej kolejności nowo rozpoczętego sprintu.
+| R11 | Działanie w nowej i mało popularnej technologii | Technicz-ne | Wysokie | Niski
 | Prace nad projektem zostaną poprzedzone dogłębną analizą domeny oraz utworzeniem prototypu,
 który będzie zawierał najważniejsze funkcjonalności projektu.
-| R12 | Mała wiedza z zakresu aplikacji mobilnych | Wysokie | Średni
+| R12 | Mała wiedza z zakresu aplikacji mobilnych | Technicz-ne | Wysokie | Średni
 | Każdy członek zespołu powinien przejść przez kurs tworzenia aplikacji w wybranej przez nas technologii. Dodatkową
 pomocą będzie przedmiot "Programowanie Aplikacji mobilnych", który realizujemy równolegle z implementacją projektu.
-| R13 | Problemy z konfiguracją środowiska | Średnie | Średni
-| Wszystkie kroki potrzebne do postawienia środowiska powinny być dobrze udokumentowane, oraz udostępnione członkom
+| R13 | Problemy z konfiguracją środowiska | Technicz-ne | Średnie | Średni
+| Wszystkie kroki potrzebne do postawienia środowiska powinny być dobrze udokumentowane oraz udostępnione członkom
 zespołu. W przypadku problemów z zewnętrzną zależnością należy utworzyć zadanie mające na celu zbadanie problemu.
 |===

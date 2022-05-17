@@ -1,0 +1,55 @@
+@startuml
+actor Admin
+boundary Webapp
+boundary "Mobile app" as mapp
+control Webservice
+database Database
+participant "Bitcoin network" as btc
+
+activate Admin
+Admin -> Webapp : Inicjacja transakcji
+activate Webapp
+Webapp -> Webservice : POST /transactions
+activate Webservice
+Webservice <-> btc : Pobranie danych o dostępnych UTXO
+Webservice -> Webservice : Zbudowanie transakcji
+Webservice -> Database : Zapisanie transakcji
+Webservice -> Database : Zapisanie powiadomień
+Webservice [#blue]-> mapp : Wysłanie powiadomień
+mapp -> Admin : Administrator widzi powiadomienie
+Webservice -> Webapp : zwrócenie statusu "Created"
+deactivate Webservice
+Webapp -> Admin : poinformowanie administratora o sukcesie
+deactivate Webapp
+Admin -> mapp : Administrator podejmuje akcje
+activate mapp
+alt potwierdzenie
+    mapp -> Webservice : GET /notifications/{id}/transaction
+    activate Webservice
+    Webservice <-> Database : Pobranie wartości transakcji
+    Webservice -> mapp : zwrócenie aktualnej wartości transakcji
+    deactivate Webservice
+    mapp -> mapp : Podpisanie transakcji
+    mapp -> Webservice : POST /notifications/{id}/confirm
+    activate Webservice
+    Webservice -> Webservice : Walidacja podpisu
+    Webservice -> Database : Zmiana statusu powiadomienia
+    opt Transakcja podpisana wymagana ilość razy
+        Webservice -> btc : Propagacja transakcji
+        Webservice -> Database : Zmiana statusu transakcji
+    end
+else odrzucenie
+    mapp -> Webservice : POST /notifications/{id}/deny
+    Webservice -> Database : Zmiana statusu powiadomienia
+    opt Transakcja odrzucona zbyt wiele razy
+        Webservice -> Database : Zmiana statusu transakcji
+    end
+end
+Webservice -> mapp : Zwrócenie statusu ok
+deactivate Webservice
+mapp -> Admin : Powiadomienie użytkownika o wyniku
+deactivate mapp
+
+deactivate Admin
+
+@enduml
