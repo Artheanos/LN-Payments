@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
+import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.resource.NotificationSocketController;
 import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConverter;
@@ -17,6 +18,7 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionDe
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRequest;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
@@ -69,19 +71,37 @@ public class TransactionService {
         notificationSocketController.sendAllNotifications(notifications);
     }
 
-    private Function<AdminUser, Notification> createNotificationFunction(Transaction transaction) {
-        return user -> new Notification(
-                user, transaction,
-                "Transaction confirmation",
-                NotificationType.TRANSACTION
-        );
-    }
-
     public TransactionResponse findTransactions(Pageable pageable) {
         Page<Transaction> transactions = transactionRepository.findAllByStatusNot(TransactionStatus.PENDING, pageable);
         Page<TransactionDetails> details = transactionConverter.convertAllToDto(transactions);
         Optional<Transaction> pendingTransaction = transactionRepository.findFirstByStatus(TransactionStatus.PENDING);
         TransactionDetails pendingDetails = pendingTransaction.map(transactionConverter::convertToDto).orElse(null);
         return new TransactionResponse(pendingDetails, details);
+    }
+
+    public void broadcastTransaction(Transaction transaction) {
+        Wallet wallet = walletService.getActiveWallet();
+        try {
+            bitcoinService.broadcast(transaction.getRawTransaction(), wallet.getRedeemScript());
+            transaction.setStatus(TransactionStatus.APPROVED);
+        } catch (BroadcastException e) {
+            transaction.setStatus(TransactionStatus.FAILED);
+        }
+    }
+
+    public void denyTransaction(Transaction transaction) {
+        transaction.setStatus(TransactionStatus.DENIED);
+        transaction.getNotifications()
+                .stream()
+                .filter(notification -> notification.getStatus() == NotificationStatus.PENDING)
+                .forEach(notification -> notification.setStatus(NotificationStatus.EXPIRED));
+    }
+
+    private Function<AdminUser, Notification> createNotificationFunction(Transaction transaction) {
+        return user -> new Notification(
+                user, transaction,
+                "Transaction confirmation",
+                NotificationType.TRANSACTION
+        );
     }
 }

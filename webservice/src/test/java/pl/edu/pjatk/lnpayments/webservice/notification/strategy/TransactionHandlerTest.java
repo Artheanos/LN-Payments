@@ -12,15 +12,18 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.service.TransactionService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 
 import javax.persistence.OptimisticLockException;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +31,9 @@ class TransactionHandlerTest {
 
     @Mock
     private BitcoinService bitcoinService;
+
+    @Mock
+    private TransactionService transactionService;
 
     @InjectMocks
     private TransactionHandler transactionHandler;
@@ -39,21 +45,79 @@ class TransactionHandlerTest {
     }
 
     @Test
-    void shouldConfirmTransaction() {
+    void shouldConfirmTransactionAndNotBroadcastIt() {
         Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(2);
         transaction.setId(1L);
         AdminUser user = createAdminUser("test@test.pl");
         user.setPublicKey("pub");
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification));
         ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
         when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(true);
 
         transactionHandler.confirm(notification, details);
 
         verify(bitcoinService).verifySignature("rawtx", "pub");
+        verify(transactionService, never()).broadcastTransaction(any());
         assertThat(notification.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
         assertThat(transaction.getRawTransaction()).isEqualTo("rawtx");
+    }
+
+    @Test
+    void shouldConfirmTransactionAndBroadcastIt() {
+        Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(1);
+        transaction.setId(1L);
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setPublicKey("pub");
+        user.setId(1L);
+        Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification));
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(true);
+
+        transactionHandler.confirm(notification, details);
+
+        verify(bitcoinService).verifySignature("rawtx", "pub");
+        verify(transactionService).broadcastTransaction(any());
+        assertThat(notification.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
+        assertThat(transaction.getRawTransaction()).isEqualTo("rawtx");
+    }
+
+    @Test
+    void shouldDenyNotificationButNotDenyTransaction() {
+        Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(2);
+        transaction.setId(1L);
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setPublicKey("pub");
+        user.setId(1L);
+        Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification));
+
+        transactionHandler.deny(notification);
+
+        verify(transactionService, never()).denyTransaction(any());
+        assertThat(notification.getStatus()).isEqualTo(NotificationStatus.DENIED);
+    }
+
+    @Test
+    void shouldDenyNotificationAndTransaction() {
+        Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(1);
+        transaction.setId(1L);
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setPublicKey("pub");
+        user.setId(1L);
+        Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification));
+
+        transactionHandler.deny(notification);
+
+        verify(transactionService).denyTransaction(transaction);
+        assertThat(notification.getStatus()).isEqualTo(NotificationStatus.DENIED);
     }
 
     @Test

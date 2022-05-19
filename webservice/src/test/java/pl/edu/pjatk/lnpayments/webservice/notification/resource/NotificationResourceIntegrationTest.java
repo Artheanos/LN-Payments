@@ -123,6 +123,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturnOkAndDenyNotification() throws Exception {
         Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(1);
         transactionRepository.save(transaction);
         AdminUser user = createAdminUser("user1@test.pl");
         adminUserRepository.save(user);
@@ -159,6 +160,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturnOkAndConfirmNotification() throws Exception {
         Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(2);
         transactionRepository.save(transaction);
         AdminUser user = createAdminUser("user1@test.pl");
         user.setPublicKey("0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb");

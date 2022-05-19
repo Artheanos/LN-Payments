@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
+import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.resource.NotificationSocketController;
 import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConverter;
@@ -21,6 +22,7 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionDe
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRequest;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
@@ -175,4 +177,51 @@ class TransactionServiceTest {
         assertThat(response.getTransactions().getTotalElements()).isEqualTo(1);
         assertThat(response.getTransactions().getContent().get(0)).isEqualTo(details);
     }
+
+    @Test
+    void shouldBroadcastTransactionAndSetApprovedStatus() {
+        Wallet wallet = Wallet.builder().redeemScript("2137").build();
+        Transaction transaction = new Transaction();
+        transaction.setRawTransaction("1234");
+        when(walletService.getActiveWallet()).thenReturn(wallet);
+
+        transactionService.broadcastTransaction(transaction);
+
+        verify(bitcoinService).broadcast("1234", "2137");
+        assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.APPROVED);
+    }
+
+    @Test
+    void shouldNotBroadcastAndSetStatusToFailed() {
+        Wallet wallet = Wallet.builder().redeemScript("2137").build();
+        Transaction transaction = new Transaction();
+        transaction.setRawTransaction("1234");
+        when(walletService.getActiveWallet()).thenReturn(wallet);
+        doThrow(BroadcastException.class).when(bitcoinService).broadcast("1234", "2137");
+
+        transactionService.broadcastTransaction(transaction);
+
+        assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.FAILED);
+    }
+
+    @Test
+    void shouldDenyTransactionAndExpireAllNotifications() {
+        Transaction transaction = new Transaction();
+        transaction.setId(2L);
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setId(1L);
+        transaction.setRawTransaction("1234");
+        Notification notification1 = new Notification(user, transaction, "message2", NotificationType.TRANSACTION);
+        notification1.setStatus(NotificationStatus.CONFIRMED);
+        Notification notification2 = new Notification(user, transaction, "message3", NotificationType.TRANSACTION);
+        Notification notification3 = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification1, notification2, notification3));
+
+        transactionService.denyTransaction(transaction);
+
+        assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.DENIED);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.EXPIRED).hasSize(2);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.CONFIRMED).hasSize(1);
+    }
+
 }

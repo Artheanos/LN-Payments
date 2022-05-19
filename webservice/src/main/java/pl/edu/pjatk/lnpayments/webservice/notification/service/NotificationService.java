@@ -3,11 +3,9 @@ package pl.edu.pjatk.lnpayments.webservice.notification.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
-import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
@@ -24,9 +22,7 @@ public class NotificationService {
     private final NotificationHandlerFactory handlerFactory;
 
     @Autowired
-    public NotificationService(SimpMessagingTemplate messagingTemplate,
-                               NotificationConverter notificationConverter,
-                               NotificationRepository notificationRepository,
+    public NotificationService(NotificationRepository notificationRepository,
                                NotificationHandlerFactory handlerFactory) {
         this.notificationRepository = notificationRepository;
         this.handlerFactory = handlerFactory;
