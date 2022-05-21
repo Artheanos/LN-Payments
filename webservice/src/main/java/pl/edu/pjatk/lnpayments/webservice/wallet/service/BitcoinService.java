@@ -7,17 +7,22 @@ import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.bitcoinj.script.ScriptChunk;
+import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
 
 import java.util.HexFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import static org.bitcoinj.core.Transaction.REFERENCE_DEFAULT_MIN_TX_FEE;
 
@@ -124,11 +129,30 @@ public class BitcoinService {
         return false;
     }
 
+    public void broadcast(String transactionHex, String redeemScriptHex) throws BroadcastException {
+        Transaction transaction = new Transaction(walletAppKit.params(), HexFormat.of().parseHex(transactionHex));
+        try {
+            List<TransactionInput> inputs = transaction.getInputs();
+            for (int index = 0; index < inputs.size(); index++) {
+                TransactionInput transactionInput = inputs.get(index);
+                Script scriptSig = transactionInput.getScriptSig();
+                Script redeemScript = new Script(HexFormat.of().parseHex(redeemScriptHex));
+                Script scriptPubKey = ScriptBuilder.createP2SHOutputScript(redeemScript);
+                scriptSig.correctlySpends(transaction, index, null,
+                        null, scriptPubKey, Script.ALL_VERIFY_FLAGS);
+            }
+            walletAppKit.peerGroup().broadcastTransaction(transaction).broadcast().get(1L, TimeUnit.MINUTES);
+        } catch (InterruptedException | ExecutionException | ScriptException | TimeoutException e) {
+            throw new BroadcastException("Failed to broadcast transaction!: " + transactionHex, e);
+        }
+    }
+
     private List<ECKey> mapToKeys(List<AdminUser> admins) {
         return admins.stream()
                 .map(AdminUser::getPublicKey)
                 .map(e -> ECKey.fromPublicOnly(HexFormat.of().parseHex(e)))
                 .sorted(ECKey.PUBKEY_COMPARATOR)
                 .toList();
+
     }
 }

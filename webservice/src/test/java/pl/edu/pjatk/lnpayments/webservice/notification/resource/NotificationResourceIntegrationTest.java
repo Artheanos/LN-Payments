@@ -1,9 +1,16 @@
 package pl.edu.pjatk.lnpayments.webservice.notification.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.util.concurrent.ListenableFutureTask;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.PeerGroup;
+import org.bitcoinj.core.TransactionBroadcast;
+import org.bitcoinj.kits.WalletAppKit;
+import org.bitcoinj.params.RegTestParams;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,11 +28,16 @@ import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
 import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 
 import java.security.Principal;
+import java.util.HexFormat;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -54,6 +66,12 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private AdminUserRepository adminUserRepository;
+
+    @Autowired
+    private WalletRepository walletRepository;
+
+    @Autowired
+    private WalletAppKit walletAppKit;
 
     @BeforeEach
     void setUp() {
@@ -121,8 +139,9 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturnOkAndDenyNotification() throws Exception {
+    void shouldReturnOkAndDenyNotificationAndTransaction() throws Exception {
         Transaction transaction = new Transaction();
+        transaction.setRequiredApprovals(1);
         transactionRepository.save(transaction);
         AdminUser user = createAdminUser("user1@test.pl");
         adminUserRepository.save(user);
@@ -132,8 +151,28 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
                 .andExpect(status().isOk());
 
-        Optional<Notification> saved = notificationRepository.findByIdentifier(notification.getIdentifier());
-        assertThat(saved.orElseThrow().getStatus()).isEqualTo(NotificationStatus.DENIED);
+        Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
+        assertThat(saved.getStatus()).isEqualTo(NotificationStatus.DENIED);
+        assertThat(saved.getTransaction().getStatus()).isEqualTo(TransactionStatus.DENIED);
+    }
+
+    @Test
+    void shouldReturnOkAndDenyNotificationAndNotDenyTransaction() throws Exception {
+        Transaction transaction = new Transaction();
+        transaction.setStatus(TransactionStatus.PENDING);
+        transaction.setRequiredApprovals(2);
+        transactionRepository.save(transaction);
+        AdminUser user = createAdminUser("user1@test.pl");
+        adminUserRepository.save(user);
+        Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        notificationRepository.save(notification);
+
+        mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
+                .andExpect(status().isOk());
+
+        Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
+        assertThat(saved.getStatus()).isEqualTo(NotificationStatus.DENIED);
+        assertThat(saved.getTransaction().getStatus()).isEqualTo(TransactionStatus.PENDING);
     }
 
     @Test
@@ -157,12 +196,86 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    void shouldReturnOkAndConfirmNotification() throws Exception {
+    void shouldReturnOkAndConfirmNotificationAndApproveTransaction() throws Exception {
+        AdminUser user = createAdminUser("user1@test.pl");
+        user.setPublicKey("02ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a");
+        AdminUser adminUser = adminUserRepository.save(user);
+        Wallet wallet = new Wallet("522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52ae", "456", "2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4", List.of(adminUser), 1);
+        walletRepository.save(wallet);
         Transaction transaction = new Transaction();
+        transaction.setStatus(TransactionStatus.PENDING);
+        transaction.setRequiredApprovals(1);
         transactionRepository.save(transaction);
+        Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        notificationRepository.save(notification);
+        ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f300000000d9004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c260147304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L);
+        RegTestParams params = RegTestParams.get();
+        org.bitcoinj.core.Transaction transaction1 = new org.bitcoinj.core.Transaction(params, HexFormat.of().parseHex(details.getRawTransaction()));
+        org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
+        PeerGroup peerGroup = Mockito.mock(PeerGroup.class);
+        TransactionBroadcast transactionBroadcast = Mockito.mock(TransactionBroadcast.class);
+        ListenableFutureTask<org.bitcoinj.core.Transaction> dumbTask = ListenableFutureTask.create(() -> transaction1);
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(dumbTask);
+        when(transactionBroadcast.broadcast()).thenReturn(dumbTask);
+        when(peerGroup.broadcastTransaction(transaction1)).thenReturn(transactionBroadcast);
+        when(walletAppKit.peerGroup()).thenReturn(peerGroup);
+        when(walletAppKit.wallet()).thenReturn(walletMock);
+        when(walletAppKit.params()).thenReturn(params);
+        when(walletMock.getWatchedOutputs(true)).thenReturn(transaction1.getOutputs());
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(100L));
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
+
+        mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+                        .content(new ObjectMapper().writeValueAsBytes(details))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
+        assertThat(saved.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
+        assertThat(saved.getTransaction().getRawTransaction()).isEqualTo(details.getRawTransaction());
+        assertThat(saved.getTransaction().getVersion()).isEqualTo(details.getVersion() + 1);
+        assertThat(saved.getTransaction().getStatus()).isEqualTo(TransactionStatus.APPROVED);
+    }
+
+    @Test
+    void shouldReturnOkAndConfirmNotificationAndNotConfirmTransaction() throws Exception {
+        AdminUser user = createAdminUser("user1@test.pl");
+        user.setPublicKey("02ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a");
+        AdminUser adminUser = adminUserRepository.save(user);
+        Wallet wallet = new Wallet("522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52ae", "456", "2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4", List.of(adminUser), 2);
+        walletRepository.save(wallet);
+        Transaction transaction = new Transaction();
+        transaction.setStatus(TransactionStatus.PENDING);
+        transaction.setRequiredApprovals(2);
+        transactionRepository.save(transaction);
+        Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        notificationRepository.save(notification);
+        ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f300000000d9004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c260147304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L);
+
+        mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+                        .content(new ObjectMapper().writeValueAsBytes(details))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
+        assertThat(saved.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
+        assertThat(saved.getTransaction().getRawTransaction()).isEqualTo(details.getRawTransaction());
+        assertThat(saved.getTransaction().getVersion()).isEqualTo(details.getVersion() + 1);
+        assertThat(saved.getTransaction().getStatus()).isEqualTo(TransactionStatus.PENDING);
+    }
+
+    @Test
+    void shouldReturnOkAndFailTransactionIfDataIsInvalid() throws Exception {
         AdminUser user = createAdminUser("user1@test.pl");
         user.setPublicKey("0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb");
-        adminUserRepository.save(user);
+        AdminUser adminUser = adminUserRepository.save(user);
+        Wallet wallet = new Wallet("522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52ae", "456", "2N9fb1HjNWYs77MHhvnWGHunDeFwMMeYxo4", List.of(adminUser), 1);
+        walletRepository.save(wallet);
+        Transaction transaction = new Transaction();
+        transaction.setStatus(TransactionStatus.PENDING);
+        transaction.setRequiredApprovals(1);
+        transactionRepository.save(transaction);
         Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
         notificationRepository.save(notification);
         ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092000047304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L);
@@ -176,6 +289,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         assertThat(saved.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
         assertThat(saved.getTransaction().getRawTransaction()).isEqualTo(details.getRawTransaction());
         assertThat(saved.getTransaction().getVersion()).isEqualTo(details.getVersion() + 1);
+        assertThat(saved.getTransaction().getStatus()).isEqualTo(TransactionStatus.FAILED);
     }
 
     @Test

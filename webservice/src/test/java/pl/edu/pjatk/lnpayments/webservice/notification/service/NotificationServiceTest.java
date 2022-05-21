@@ -9,17 +9,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.NotFoundException;
-import pl.edu.pjatk.lnpayments.webservice.notification.converter.NotificationConverter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.ConfirmationDetails;
-import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.NotificationResponse;
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandler;
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandlerFactory;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
@@ -35,12 +32,6 @@ import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.crea
 
 @ExtendWith(MockitoExtension.class)
 class NotificationServiceTest {
-
-    @Mock
-    private SimpMessagingTemplate messagingTemplate;
-
-    @Mock
-    private NotificationConverter notificationConverter;
 
     @Mock
     private NotificationRepository notificationRepository;
@@ -67,17 +58,6 @@ class NotificationServiceTest {
         testAdminUser = createAdminUser("test@test.pl");
         testAdminUser.setId(1L);
         testNotification = new Notification(testAdminUser, testTransaction, "message1", NotificationType.TRANSACTION);
-    }
-
-    @Test
-    void shouldSendNotifications() {
-        NotificationResponse response = NotificationResponse.builder().message("message").build();
-        when(notificationConverter.convertToDto(testNotification)).thenReturn(response);
-        when(notificationRepository.save(testNotification)).thenReturn(testNotification);
-
-        notificationService.sendAllNotifications(List.of(testNotification));
-
-        verify(messagingTemplate).convertAndSend("/topic/268697a5ad", response);
     }
 
     @Test

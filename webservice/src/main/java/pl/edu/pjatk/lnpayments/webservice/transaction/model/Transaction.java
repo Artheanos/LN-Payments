@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
+import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -54,5 +55,19 @@ public class Transaction {
         this.requiredApprovals = requiredApprovals;
         this.status = TransactionStatus.PENDING;
         this.dateCreated = Instant.now();
+    }
+
+    public boolean isConfirmed() {
+        return requiredApprovals <= countNotifications(NotificationStatus.CONFIRMED);
+    }
+
+    public boolean isDenied() {
+        return requiredApprovals <= countNotifications(NotificationStatus.DENIED);
+    }
+
+    private long countNotifications(NotificationStatus status) {
+        return notifications.stream()
+                .filter(notification -> notification.getStatus() == status)
+                .count();
     }
 }

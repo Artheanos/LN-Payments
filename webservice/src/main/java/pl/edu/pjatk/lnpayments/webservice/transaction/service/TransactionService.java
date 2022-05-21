@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
+import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationStatus;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
-import pl.edu.pjatk.lnpayments.webservice.notification.service.NotificationService;
+import pl.edu.pjatk.lnpayments.webservice.notification.resource.NotificationSocketController;
 import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConverter;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
@@ -17,6 +18,7 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionDe
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRequest;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletService;
 
@@ -31,19 +33,19 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final BitcoinService bitcoinService;
-    private final NotificationService notificationService;
+    private final NotificationSocketController notificationSocketController;
     private final WalletService walletService;
     private final TransactionConverter transactionConverter;
 
     @Autowired
     public TransactionService(TransactionRepository transactionRepository,
                               BitcoinService bitcoinService,
-                              NotificationService notificationService,
+                              NotificationSocketController notificationSocketController,
                               WalletService walletService,
                               TransactionConverter transactionConverter) {
         this.transactionRepository = transactionRepository;
         this.bitcoinService = bitcoinService;
-        this.notificationService = notificationService;
+        this.notificationSocketController = notificationSocketController;
         this.walletService = walletService;
         this.transactionConverter = transactionConverter;
     }
@@ -66,15 +68,7 @@ public class TransactionService {
                 .map(createNotificationFunction(transaction))
                 .collect(Collectors.toList());
         transaction.setNotifications(notifications);
-        notificationService.sendAllNotifications(notifications);
-    }
-
-    private Function<AdminUser, Notification> createNotificationFunction(Transaction transaction) {
-        return user -> new Notification(
-                user, transaction,
-                "Transaction confirmation",
-                NotificationType.TRANSACTION
-        );
+        notificationSocketController.sendAllNotifications(notifications);
     }
 
     public TransactionResponse findTransactions(Pageable pageable) {
@@ -83,5 +77,31 @@ public class TransactionService {
         Optional<Transaction> pendingTransaction = transactionRepository.findFirstByStatus(TransactionStatus.PENDING);
         TransactionDetails pendingDetails = pendingTransaction.map(transactionConverter::convertToDto).orElse(null);
         return new TransactionResponse(pendingDetails, details);
+    }
+
+    public void broadcastTransaction(Transaction transaction) {
+        Wallet wallet = walletService.getActiveWallet();
+        try {
+            bitcoinService.broadcast(transaction.getRawTransaction(), wallet.getRedeemScript());
+            transaction.setStatus(TransactionStatus.APPROVED);
+        } catch (BroadcastException e) {
+            transaction.setStatus(TransactionStatus.FAILED);
+        }
+    }
+
+    public void denyTransaction(Transaction transaction) {
+        transaction.setStatus(TransactionStatus.DENIED);
+        transaction.getNotifications()
+                .stream()
+                .filter(notification -> notification.getStatus() == NotificationStatus.PENDING)
+                .forEach(notification -> notification.setStatus(NotificationStatus.EXPIRED));
+    }
+
+    private Function<AdminUser, Notification> createNotificationFunction(Transaction transaction) {
+        return user -> new Notification(
+                user, transaction,
+                "Transaction confirmation",
+                NotificationType.TRANSACTION
+        );
     }
 }
