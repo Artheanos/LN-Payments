@@ -11,7 +11,8 @@ export const routes = {
             refreshToken: '/api/auth/refreshToken'
     },
     admins: {
-        index: '/api/admins'
+        index: '/api/admins',
+        keys: '/api/admins/keys'
     },
     wallet: {
         index: '/api/wallet',
