@@ -43,7 +43,6 @@ public class Wallet {
         this.scriptPubKey = scriptPubKey;
         this.address = address;
         this.users = users;
-        this.status = WalletStatus.ON_DUTY;
         this.minSignatures = minSignatures;
     }
 }

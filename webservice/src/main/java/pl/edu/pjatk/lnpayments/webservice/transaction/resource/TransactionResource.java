@@ -7,7 +7,6 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment_;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction_;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionRequest;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
@@ -30,7 +29,7 @@ class TransactionResource {
 
     @PostMapping
     ResponseEntity<?> createTransaction(@RequestBody @Valid TransactionRequest request) {
-        transactionService.createTransaction(request);
+        transactionService.createTransaction(request.getTargetAddress(), request.getAmount());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

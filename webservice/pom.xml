@@ -232,6 +232,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/*Config.*</exclude>
+                                <exclude>**/*config*/*</exclude>
                                 <exclude>**/*Application.*</exclude>
                                 <exclude>**/*Settings.*</exclude>
                                 <exclude>**/*_.*</exclude>

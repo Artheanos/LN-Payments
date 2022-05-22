@@ -89,6 +89,25 @@ public class BitcoinService {
                 .build();
     }
 
+    public pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction createTransaction(
+            String sourceAddress, String targetAddress) {
+        NetworkParameters params = walletAppKit.params();
+        Address fromAddress = Address.fromString(params, sourceAddress);
+        Address toAddress = Address.fromString(params, targetAddress);
+        Transaction payingToMultisigTx = buildTxWithInputs(params, fromAddress);
+        Coin inputSum = payingToMultisigTx.getInputSum();
+        Coin finalSum = inputSum.subtract(REFERENCE_DEFAULT_MIN_TX_FEE);
+        TransactionOutput output = new TransactionOutput(params, payingToMultisigTx, finalSum, toAddress);
+        payingToMultisigTx.addOutput(output);
+        return pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction.builder()
+                .rawTransaction(payingToMultisigTx.toHexString())
+                .sourceAddress(sourceAddress)
+                .targetAddress(targetAddress)
+                .fee(payingToMultisigTx.getFee().value)
+                .inputValue(finalSum.value)
+                .build();
+    }
+
     private Transaction buildTxWithInputs(NetworkParameters params, Address fromAddress) {
         Transaction payingToMultisigTx = new Transaction(params);
         walletAppKit.wallet()

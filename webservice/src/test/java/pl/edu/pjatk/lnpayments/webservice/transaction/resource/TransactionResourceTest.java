@@ -29,7 +29,7 @@ class TransactionResourceTest {
         ResponseEntity<?> transaction = transactionResource.createTransaction(request);
 
         assertThat(transaction.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        verify(transactionService).createTransaction(request);
+        verify(transactionService).createTransaction(request.getTargetAddress(), request.getAmount());
     }
 
     @Test
