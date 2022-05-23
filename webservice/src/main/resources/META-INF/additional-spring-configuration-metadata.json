@@ -69,6 +69,11 @@
       "name": "lnp.wallet.autoClose.initialDelay",
       "type": "java.lang.Long",
       "description": "Description for lnp.wallet.autoClose.initialDelay."
+    },
+    {
+      "name": "lnp.settings.fileName",
+      "type": "java.lang.String",
+      "description": "Description for lnp.settings.fileName."
     }
   ]
 }

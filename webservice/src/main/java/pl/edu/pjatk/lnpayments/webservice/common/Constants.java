@@ -19,11 +19,14 @@ public class Constants {
     public static final String TRANSFER_PATH = "/transfer";
     public static final String KEYS_PATH = "/keys";
     public static final String NOTIFICATIONS_PATH = "/notifications";
+    public static final String SETTINGS_PATH = "/settings";
 
     public static final int FORCE_CLOSE_INACTIVE_CHANNEL_DAYS = 7;
 
     public static final String ROOT_USER_EMAIL = "admin@admin.pl";
     public static final String ROOT_USER_PASSWORD = "admin";
+
+    public static final String USER_HOME = System.getProperty("user.home");
 
     private Constants() {}
 
