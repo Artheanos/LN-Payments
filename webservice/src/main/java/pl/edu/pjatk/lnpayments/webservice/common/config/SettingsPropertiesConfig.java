@@ -45,6 +45,7 @@ public class SettingsPropertiesConfig {
     }
 
     private void initializeProperties(String path) throws IOException {
+        log.info("Creating new settings file in " + path);
         InputStream defaultConfig = new ClassPathResource("/default/" + fileName).getInputStream();
         Files.copy(defaultConfig, Path.of(path));
     }
