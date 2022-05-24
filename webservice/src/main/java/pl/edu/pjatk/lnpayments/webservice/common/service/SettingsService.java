@@ -2,6 +2,7 @@ package pl.edu.pjatk.lnpayments.webservice.common.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,13 @@ import java.util.stream.StreamSupport;
 @Service
 public class SettingsService implements PropertyService {
 
-    private static final TypeReference<HashMap<String, Object>> PROPS_TYPE_REF = new TypeReference<>() {};
+    private static final TypeReference<Map<String, Object>> PROPS_TYPE_REF = new TypeReference<>() {};
 
-    private final PropertiesConfiguration propertiesConfiguration;
+    private final Configuration propertiesConfiguration;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public SettingsService(PropertiesConfiguration propertiesConfiguration, ObjectMapper objectMapper) {
+    public SettingsService(Configuration propertiesConfiguration, ObjectMapper objectMapper) {
         this.propertiesConfiguration = propertiesConfiguration;
         this.objectMapper = objectMapper;
     }
