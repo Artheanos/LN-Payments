@@ -1,6 +1,5 @@
 package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
-import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.BasicConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
@@ -16,7 +15,6 @@ import org.lightningj.lnd.wrapper.message.GetInfoResponse;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import pl.edu.pjatk.lnpayments.webservice.helper.SettingsHelper;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -52,8 +50,7 @@ public class IntegrationTestConfiguration {
     }
 
     @Bean
-    @Primary
-    Configuration testSettings() throws Exception {
+    PropertiesConfiguration propertiesConfig() throws Exception {
         BasicConfigurationBuilder<PropertiesConfiguration> builder =
                 new BasicConfigurationBuilder<>(PropertiesConfiguration.class)
                         .configure(new Parameters().properties()
