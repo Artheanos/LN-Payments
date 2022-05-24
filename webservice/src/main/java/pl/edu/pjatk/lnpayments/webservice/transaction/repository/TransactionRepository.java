@@ -12,6 +12,8 @@ import java.util.Optional;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
+    boolean existsByStatus(TransactionStatus status);
+
     Optional<Transaction> findFirstByStatus(TransactionStatus status);
 
     Page<Transaction> findAllByStatusNot(TransactionStatus status, Pageable pageable);

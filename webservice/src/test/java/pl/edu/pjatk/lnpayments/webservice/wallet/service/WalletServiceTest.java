@@ -200,7 +200,25 @@ class WalletServiceTest {
         when(walletDataService.existInCreation()).thenReturn(true);
 
         assertThatExceptionOfType(ValidationException.class)
-                .isThrownBy(() -> walletService.createWallet(adminEmails, 2));
+                .isThrownBy(() -> walletService.createWallet(adminEmails, 2))
+                .withMessage("There is already a wallet in creation process");
+        verify(walletDataService, never()).save(any());
+        verify(transactionService, never()).createTransaction(anyString());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenTransactionIsPending() {
+        AdminUser admin1 = UserFactory.createAdminUser("admin1@test.pl");
+        AdminUser admin2 = UserFactory.createAdminUser("admin2@test.pl");
+        List<String> adminEmails = List.of(admin1.getEmail(), admin2.getEmail());
+        when(walletDataService.existsActive()).thenReturn(true);
+        when(walletDataService.existInCreation()).thenReturn(false);
+        when(transactionService.isTransactionInProgress()).thenReturn(true);
+
+        assertThatExceptionOfType(ValidationException.class)
+                .isThrownBy(() -> walletService.createWallet(adminEmails, 1))
+                .withMessage("There is already a transaction in progress");
+
         verify(walletDataService, never()).save(any());
         verify(transactionService, never()).createTransaction(anyString());
     }

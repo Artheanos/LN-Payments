@@ -2,6 +2,8 @@ package pl.edu.pjatk.lnpayments.webservice.transaction.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
@@ -252,6 +254,16 @@ class TransactionServiceTest {
         assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.DENIED);
         assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.EXPIRED).hasSize(2);
         assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.CONFIRMED).hasSize(1);
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void shouldReturnBooleanIfTransactionIsInProgress(boolean expected) {
+        when(transactionRepository.existsByStatus(TransactionStatus.PENDING)).thenReturn(expected);
+
+        boolean inProgress = transactionService.isTransactionInProgress();
+
+        assertThat(inProgress).isEqualTo(expected);
     }
 
 }

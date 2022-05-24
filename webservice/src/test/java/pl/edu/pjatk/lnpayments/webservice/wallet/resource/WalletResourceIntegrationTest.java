@@ -169,6 +169,22 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    void shouldReturn409WhenTransactionIsInProgress() throws Exception {
+        Transaction transaction = new Transaction();
+        transaction.setStatus(TransactionStatus.PENDING);
+        transactionRepository.save(transaction);
+        Wallet oldWallet = new Wallet("123", "456", "789", Collections.emptyList(), 2);
+        oldWallet.setStatus(WalletStatus.ON_DUTY);
+        walletRepository.save(oldWallet);
+        List<String> adminEmails = List.of("dd@dd.pl", "ddd@dd.pl");
+        CreateWalletRequest request = new CreateWalletRequest(2, adminEmails);
+        mockMvc.perform(post("/wallet")
+                        .content(new ObjectMapper().writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
     void shouldReturn400WhenRecreatedWaletHasTheSameData() throws Exception {
         String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
         AdminUser admin1 = UserFactory.createAdminUser("admin1@test.pl");

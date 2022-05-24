@@ -95,6 +95,9 @@ public class WalletService {
         if (walletDataService.existInCreation()) {
             throw new ValidationException("There is already a wallet in creation process");
         }
+        if(transactionService.isTransactionInProgress()) {
+            throw new ValidationException("There is already a transaction in progress");
+        }
         List<AdminUser> adminUsers = adminService.findAllWithKeys(adminEmails);
         Wallet activeWallet = walletDataService.getActiveWallet();
         if (minSignatures == activeWallet.getMinSignatures() && adminUsers.containsAll(activeWallet.getUsers())) {

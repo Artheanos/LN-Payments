@@ -103,6 +103,10 @@ public class TransactionService {
                 .forEach(notification -> notification.setStatus(NotificationStatus.EXPIRED));
     }
 
+    public boolean isTransactionInProgress() {
+        return transactionRepository.existsByStatus(TransactionStatus.PENDING);
+    }
+
     private Function<AdminUser, Notification> createNotificationFunction(
             Transaction transaction, NotificationType notificationType) {
         return user -> new Notification(
