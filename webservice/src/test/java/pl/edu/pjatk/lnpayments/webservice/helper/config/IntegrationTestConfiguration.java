@@ -1,5 +1,9 @@
 package pl.edu.pjatk.lnpayments.webservice.helper.config;
 
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.BasicConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.RegTestParams;
 import org.bitcoinj.wallet.Wallet;
@@ -12,6 +16,10 @@ import org.lightningj.lnd.wrapper.message.GetInfoResponse;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
+
+import java.util.AbstractMap;
+import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -43,6 +51,25 @@ public class IntegrationTestConfiguration {
         when(walletAppKit.wallet()).thenReturn(Wallet.createBasic(RegTestParams.get()));
         when(walletAppKit.params()).thenReturn(RegTestParams.get());
         return walletAppKit;
+    }
+
+    @Bean
+    Configuration testSettings() throws Exception {
+        Map<String, Object> params = Map.ofEntries(
+                new AbstractMap.SimpleEntry<>("price", 100),
+                new AbstractMap.SimpleEntry<>("description", "Super opis"),
+                new AbstractMap.SimpleEntry<>("invoiceMemo", "memo"),
+                new AbstractMap.SimpleEntry<>("paymentExpiryInSeconds", 900),
+                new AbstractMap.SimpleEntry<>("autoChannelCloseLimit", 100000L),
+                new AbstractMap.SimpleEntry<>("autoTransferLimit", 100000L),
+                new AbstractMap.SimpleEntry<>("lastModification", 1));
+        BasicConfigurationBuilder<PropertiesConfiguration> builder =
+                new BasicConfigurationBuilder<>(PropertiesConfiguration.class)
+                        .configure(new Parameters().properties()
+                                .setThrowExceptionOnMissing(true));
+        PropertiesConfiguration configuration = builder.getConfiguration();
+        params.forEach(configuration::setProperty);
+        return configuration;
     }
 
 }
