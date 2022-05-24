@@ -46,12 +46,10 @@ public class SettingsPropertiesConfig {
 
     private void initializeProperties(String path) throws IOException {
         log.info("Creating new settings file in " + path);
-        try {
-            InputStream defaultConfig = new ClassPathResource("/default/" + fileName).getInputStream();
-            Files.copy(defaultConfig, Path.of(path));
-        } catch (Exception e) {
-            log.error("ERROR CREATING FILE", e);
-        }
+        InputStream defaultConfig = new ClassPathResource("/default/" + fileName).getInputStream();
+        Path settingsFilePath = Path.of(path);
+        Files.createDirectory(settingsFilePath.getParent());
+        Files.copy(defaultConfig, settingsFilePath);
     }
 
 }
