@@ -26,17 +26,21 @@ import {
 } from 'common-ts/dist/webServiceApi/interface/pageable'
 
 interface Props<T> {
-  apiRequest: (params: PageRequest) => Promise<Response<Pageable<T>>>
+  apiRequest?: (params: PageRequest) => Promise<Response<Pageable<T>>>
+  pageElements?: Pageable<T>
   mapper: (value: T, key: number) => ReactElement
   headers: string[]
   reloadDependency?: unknown
+  pageChange?: () => void
 }
 
 export const PageableTable = <T,>({
   apiRequest,
   mapper,
   headers,
-  reloadDependency
+  reloadDependency,
+  pageElements,
+  pageChange
 }: Props<T>) => {
   const { t } = useTranslation('common')
   const [elements, setElements] = useState<Pageable<T>>()
@@ -44,19 +48,27 @@ export const PageableTable = <T,>({
 
   const queryElements = useCallback(
     async (page = 0, size = 10) => {
-      setLoading(true)
-      const { data } = await apiRequest({ page, size })
-      if (data) {
-        setElements(data)
+      if (apiRequest) {
+        setLoading(true)
+        const { data } = await apiRequest!({ page, size })
+        if (data) {
+          setElements(data)
+        }
+        setLoading(false)
       }
-      setLoading(false)
     },
     [apiRequest]
   )
 
   useEffect(() => {
-    queryElements()
-  }, [queryElements, reloadDependency])
+    if (!pageElements) {
+      queryElements()
+    } else {
+      setElements(pageElements)
+      console.log(pageElements)
+      setLoading(false)
+    }
+  }, [pageElements, queryElements, reloadDependency])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -71,7 +83,9 @@ export const PageableTable = <T,>({
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     if (elements) {
-      queryElements(0, parseInt(event!.target.value))
+      pageElements
+        ? pageChange!()
+        : queryElements(0, parseInt(event!.target.value))
     }
   }
 

@@ -4,7 +4,7 @@ import {
   AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
   ShoppingCartOutlined,
-  PaidOutlined
+  PaidOutlined, CurrencyExchangeRounded, CurrencyExchange
 } from '@mui/icons-material'
 import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
@@ -42,6 +42,12 @@ export const Sidebar: React.FC = () => {
           title="Wallet"
           icon={<AccountBalanceWalletOutlined />}
           route={routesBuilder.userPanel.wallet.index}
+          adminOnly
+        />
+        <SidebarEntry
+          title="Transactions"
+          icon={<CurrencyExchange />}
+          route={routesBuilder.userPanel.transactions.index}
           adminOnly
         />
         <SidebarEntry

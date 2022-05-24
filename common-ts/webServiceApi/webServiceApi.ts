@@ -7,6 +7,7 @@ import {PaymentDetails, PaymentForm, PaymentInfo, PublicPaymentDetails} from "./
 import {LoginForm, LoginResponse, RefreshTokenResponse, RegisterForm} from "./interface/auth";
 import {WalletForm, WalletInfo} from "./interface/wallet";
 import {AdminUser} from "./interface/user";
+import {TransactionsResponse} from "./interface/transaction";
 
 export type Response<T> = {
     data?: T
@@ -101,6 +102,16 @@ export class WebServiceApi {
 
             create: (data: WalletForm): Promise<Response<unknown>> =>
                 this.request(routes.wallet.index, {data})
+        },
+        transactions: {
+            getTransactions: async (
+                params: PageRequest
+            ): Promise<Response<TransactionsResponse>> => {
+                return this.request(routes.transactions.index, {
+                    method: 'get',
+                    params
+                })
+            },
         }
     }
 
