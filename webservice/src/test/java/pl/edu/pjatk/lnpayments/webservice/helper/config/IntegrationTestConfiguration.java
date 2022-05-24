@@ -17,9 +17,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-
-import java.util.AbstractMap;
-import java.util.Map;
+import pl.edu.pjatk.lnpayments.webservice.helper.SettingsHelper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -54,21 +52,14 @@ public class IntegrationTestConfiguration {
     }
 
     @Bean
+    @Primary
     Configuration testSettings() throws Exception {
-        Map<String, Object> params = Map.ofEntries(
-                new AbstractMap.SimpleEntry<>("price", 100),
-                new AbstractMap.SimpleEntry<>("description", "Super opis"),
-                new AbstractMap.SimpleEntry<>("invoiceMemo", "memo"),
-                new AbstractMap.SimpleEntry<>("paymentExpiryInSeconds", 900),
-                new AbstractMap.SimpleEntry<>("autoChannelCloseLimit", 100000L),
-                new AbstractMap.SimpleEntry<>("autoTransferLimit", 100000L),
-                new AbstractMap.SimpleEntry<>("lastModification", 1));
         BasicConfigurationBuilder<PropertiesConfiguration> builder =
                 new BasicConfigurationBuilder<>(PropertiesConfiguration.class)
                         .configure(new Parameters().properties()
                                 .setThrowExceptionOnMissing(true));
         PropertiesConfiguration configuration = builder.getConfiguration();
-        params.forEach(configuration::setProperty);
+        SettingsHelper.resetSettings(configuration);
         return configuration;
     }
 

@@ -1,0 +1,9 @@
+{
+  "price": 2137,
+  "description": "Super opisddddd",
+  "invoiceMemo": "memodddddd",
+  "paymentExpiryInSeconds": 900,
+  "autoChannelCloseLimit": 100000,
+  "autoTransferLimit": 100000,
+  "lastModification": 0
+}
