@@ -94,7 +94,7 @@ export const PageableTable = <T,>({
       {loading ? (
         <CircularProgress />
       ) : !elements || elements.empty ? (
-        <p className="italic text-gray-500">{t('noEntries')}</p>
+        <p className="italic text-gray-500 pb-10">{t('noEntries')}</p>
       ) : (
         <TableContainer component={Box}>
           <Table>
