@@ -3,7 +3,7 @@ Feature: Register scenarios
   Background: I am on the "Register" Page
     Given I am on the site homepage
     When I click on "Register" button on the "Home" Page
-    Then I am reddirected to "Register" Page
+    Then I am redirected to "Register" Page
 
   Scenario: I am registered when I fill form correctly
     Given I enter "test@test.pl" into "Email" field on the "Register" Page
@@ -12,10 +12,10 @@ Feature: Register scenarios
     And I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page
     When I click on "Register" button on the "Register" Page
     Then Alert "You have been successfully registered. You can now log in!" is displayed on "Register" Page
-    And I am reddirected to "Login" Page after click "Ok" button from alert
+    And I am redirected to "Login" Page after click "Ok" button from alert
 
   Scenario: Alert is displayed when user with that email already exist
-    Given I enter "admin@admin.pl" into "Email" field on the "Register" Page
+    Given I enter "test@test.pl" into "Email" field on the "Register" Page
     And I enter "Test User" into "Full name" field on the "Register" Page
     And I enter "Pa$$word123@" into "Password" field on the "Register" Page
     And I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page
@@ -60,7 +60,7 @@ Feature: Register scenarios
     And I left empty "Password" field on the "Register" Page
     And I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page
     When I click on "Register" button on the "Register" Page
-    Then Alert "Password is required!" should be displayed under "Password" field on the "Register" Page
+    Then Alert "Password is required!" is displayed under "Password" field on the "Register" Page
     And Alert "Passwords does not match!" is displayed under "Repeat your password" field on the "Register" Page
 
   Scenario: Alerts is displayed when I left password and repeat your password forms empty
@@ -86,13 +86,8 @@ Feature: Register scenarios
     And I enter "password" into "Password" field on the "Register" Page
     And I enter "password" into "Repeat your password" field on the "Register" Page
     When I click on "Register" button on the "Register" Page
-    Then Alert:
-        """
-        "Password must contain 8 characters, one uppercase, one lowercase, one number and one special case character!"
-         is displayed under "Password" field on the "Register" Page
-        """
+    Then Alert "Password must contain 8 characters, one uppercase, one lowercase, one number and one special case character!"is displayed under "Password" field on the "Register" Page
 
   Scenario: I am redirected to Login Page
-    Given I am on the "Register" Page
     When I click on "Login instead" button on "Register" Page
-    Then I am reddirected to "Login" Page
+    Then I am redirected to "Login" Page

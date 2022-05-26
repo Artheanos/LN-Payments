@@ -3,13 +3,13 @@ Feature: Login scenarios
   Background: I am on the "Register" Page
     Given I am on the site homepage
     When I click on "Login" button on the "Home" Page
-    Then I am reddirected to "Login" Page
+    Then I am redirected to "Login" Page
 
   Scenario: I am logged in when I enter correct email and password credentials
     Given I enter "admin@admin.pl" into "Email" field on the "Login" Page
     And I enter "admin" into "Password" field on the "Login" Page
     When I click on "Login" button on the "Login" Page
-    Then I am reddirected to "History" Page of "admin@admin.pl" User
+    Then I am redirected to "History" Page of "admin@admin.pl" User
     And Alert "Login successful" is displayed on "History" Page of "admin@admin.pl" User
 
   Scenario: Alert is displayed when I did not enter email and password credentials
@@ -49,6 +49,5 @@ Feature: Login scenarios
     Then Alert "Email or password is invalid" is displayed on "Login" Page
 
   Scenario: I am redirected to Register Page
-    Given I am on the "Login" Page
     When I click on "Register instead" button on "Login" Page
-    Then I am reddirected to "Register" Page
+    Then I am redirected to "Register" Page
