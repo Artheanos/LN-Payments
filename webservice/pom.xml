@@ -28,6 +28,8 @@
         <bitcoinj-core.version>0.16.1</bitcoinj-core.version>
         <awaitility.version>3.1.0</awaitility.version>
         <jaxb.version>3.0.1</jaxb.version>
+        <commons-configuration2.version>2.7</commons-configuration2.version>
+        <commons-beanutils.version>1.9.4</commons-beanutils.version>
     </properties>
 
     <dependencies>
@@ -144,6 +146,16 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>${jaxb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>${commons-configuration2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>${commons-beanutils.version}</version>
         </dependency>
     </dependencies>
 

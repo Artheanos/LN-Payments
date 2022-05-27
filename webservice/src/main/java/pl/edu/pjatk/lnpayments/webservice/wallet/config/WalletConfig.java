@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.io.File;
 
+import static pl.edu.pjatk.lnpayments.webservice.common.Constants.USER_HOME;
+
 @Slf4j
 @Configuration
 class WalletConfig {
@@ -23,10 +25,9 @@ class WalletConfig {
 
     @Bean
     WalletAppKit walletAppKit() {
-        String homePath = System.getProperty("user.home");
         Network network = Network.valueOf(this.network.toUpperCase());
         WalletAppKit walletAppKit = new WalletAppKit(
-                network.getParameters(), new File(homePath + walletDirectory), fileName);
+                network.getParameters(), new File(USER_HOME + walletDirectory), fileName);
         if (network == Network.REGTEST) {
             walletAppKit.connectToLocalHost();
         }

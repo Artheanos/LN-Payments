@@ -41,7 +41,8 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             PAYMENTS_PATH + ALL_PATH,
             WALLET_PATH,
             TRANSACTIONS_PATH,
-            NOTIFICATIONS_PATH
+            NOTIFICATIONS_PATH,
+            SETTINGS_PATH
     };
 
     private final UserDetailsService userDetailsService;

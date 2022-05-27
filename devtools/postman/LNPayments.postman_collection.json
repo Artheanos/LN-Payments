@@ -709,6 +709,78 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "settings",
+			"item": [
+				{
+					"name": "get_settings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/settings",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_settings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 100,\n    \"description\": \"a1sdaaaaaaa\",\n    \"invoiceMemo\": \"dsaaaaaaaaaaaa\",\n    \"paymentExpiryInSeconds\": 900,\n    \"autoChannelCloseLimit\": 10000,\n    \"autoTransferLimit\": 10000,\n    \"lastModification\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/settings",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
