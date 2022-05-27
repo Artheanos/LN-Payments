@@ -13,4 +13,6 @@ public interface WalletRepository extends JpaRepository<Wallet, Long> {
     boolean existsByStatus(WalletStatus status);
 
     Optional<Wallet> findFirstByStatus(WalletStatus status);
+
+    void deleteByStatus(WalletStatus status);
 }
