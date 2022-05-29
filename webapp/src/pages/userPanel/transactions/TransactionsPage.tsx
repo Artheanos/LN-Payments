@@ -7,8 +7,10 @@ import {
   TransactionDetails,
   TransactionsResponse
 } from 'common-ts/dist/webServiceApi/interface/transaction'
-import {Box, Grid} from "@mui/material";
+import {Box, Button, Grid} from "@mui/material";
 import {WalletCard} from "../../../components/wallet/WalletCard";
+import {Link} from "react-router-dom";
+import routesBuilder from "../../../routesBuilder";
 
 export const TransactionsPage: React.FC = () => {
   const [elements, setElements] = useState<TransactionsResponse>()
@@ -27,32 +29,22 @@ export const TransactionsPage: React.FC = () => {
     queryElements()
   }, [queryElements])
   return (
-    <Grid className="text-center" container spacing={3}>
-      <WalletCard standardSize={12}>
-        <Box className="flex justify-between items-baseline">
-          <span className="text-2xl font-bold">{'Transactions'}</span>
-        </Box>
-      </WalletCard>
-      <WalletCard standardSize={12}>
-        <Box className="flex justify-between items-baseline">
-          <span className="text-2xl font-bold">{'Transactions'}</span>
-        </Box>
-      </WalletCard>
-      <Grid item md={12}>
-        <Box className={"flex !flex-col justify-around space-y-10 h-full"}>
-          <Panel.Container className={"pt-7"}>
-            <Panel.Body table>
-              <PageableTable
-                pageElements={elements?.transactions}
-                mapper={(transaction: TransactionDetails, key) => (
-                  <TransactionListItem {...transaction} key={key}/>
-                )}
-                headers={['Date', 'Value', 'Source', 'Target', 'Status', 'Approvals']}
-              />
-            </Panel.Body>
-          </Panel.Container>
-        </Box>
-      </Grid>
-    </Grid>
+    <Panel.Container>
+      <Panel.Header title="Transactions">
+        <Link to={routesBuilder.userPanel.transactions.new}>
+          <Button variant="contained">Create transaction</Button>
+        </Link>
+      </Panel.Header>
+      <Panel.Body table>
+        <PageableTable
+          pageElements={elements?.transactions}
+          distinguishedRow={<TransactionListItem {...elements?.pendingTransaction!}/>}
+          mapper={(transaction: TransactionDetails, key) => (
+            <TransactionListItem {...transaction} key={key}/>
+          )}
+          headers={['Date', 'Value', 'Source', 'Target', 'Status', 'Approvals']}
+        />
+      </Panel.Body>
+    </Panel.Container>
   )
 }

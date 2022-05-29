@@ -12,7 +12,7 @@ export const TransactionListItem: React.FC<TransactionDetails> = ({
                                                                     value
                                                                   }) => {
   return (
-    <TableRow>
+    <TableRow className="bg-yellow-100">
       <TableCell>{dateCreated}</TableCell>
       <TableCell>{value} sat</TableCell>
       <TableCell>{sourceAddress}</TableCell>

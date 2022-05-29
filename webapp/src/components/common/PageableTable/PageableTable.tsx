@@ -28,6 +28,7 @@ import {
 interface Props<T> {
   apiRequest?: (params: PageRequest) => Promise<Response<Pageable<T>>>
   pageElements?: Pageable<T>
+  distinguishedRow?: ReactElement
   mapper: (value: T, key: number) => ReactElement
   headers: string[]
   reloadDependency?: unknown
@@ -40,7 +41,8 @@ export const PageableTable = <T,>({
   headers,
   reloadDependency,
   pageElements,
-  pageChange
+  pageChange,
+  distinguishedRow
 }: Props<T>) => {
   const { t } = useTranslation('common')
   const [elements, setElements] = useState<Pageable<T>>()
@@ -111,6 +113,7 @@ export const PageableTable = <T,>({
               </TableRow>
             </TableHead>
             <TableBody>
+              {distinguishedRow}
               {elements?.content.map((element: T, key: number) =>
                 mapper(element, key)
               )}
