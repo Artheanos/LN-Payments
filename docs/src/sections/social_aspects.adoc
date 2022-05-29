@@ -5,8 +5,8 @@ istnieje szansa, że mogą stać się alternatywnym środkiem płatniczym wobec 
 może wspomóc obrót Bitcoin'em, czyli najdroższą i najpopularniejszą z kryptowalut. Kryptowaluty z założenia nie
 podlegają kontroli żadnych instytucji, gdyż wykorzystywana przez nie technologia Blockchain jest niczym innym jak
 zdecentralizowaną bazą danych. Dowód pracy oraz system emisji środków poprzez wykopywanie nowych bloków z
-transakcjami sprawia, że jest to niezwykle bezpieczny środek płatniczy. Atak na całą sieć jest praktycznie
-niemożliwy poprzez ilość mocy obliczeniowej aktualnie z nią związanej. Hakerom bardziej opłaca się wykopywać bloki
+transakcjami sprawia, że jest to niezwykle bezpieczny środek płatniczy. Aktualnie moc obliczeniowa związana z siecią
+jest tak duża, że atak na nią jest praktycznie niemożliwy. Hakerom bardziej opłaca się wykopywać bloki
 w normalny sposób, niż marnować prąd na próby ataków siłowych. Jedynym zagrożeniem jest utrata bądź kradzież kluczy
 prywatnych użytkownika, ale tak samo, jak w przypadku tradycyjnych pieniędzy użytkownik powinien zadbać o ich
 bezpieczeństwo samemu, bądź ze wsparciem specjalnych rozwiązań oferowanych przez firmy. Bitcoin jest również wolny od
