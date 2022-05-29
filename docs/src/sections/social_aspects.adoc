@@ -1,10 +1,10 @@
 === Społeczne i etyczne aspekty projektu
 
 Kryptowaluty są technologią rewolucjonizującą rynek finansowy. Patrząc na wartość giełdową niektórych z nich,
-można domniemywać, że mogą stanąć się alternatywnym środkiem płatniczym wobec tradycyjnych walut. Tworzony system
+istnieje szansa, że mogą stać się alternatywnym środkiem płatniczym wobec tradycyjnych walut. Tworzony system
 może wspomóc obrót Bitcoin'em, czyli najdroższą i najpopularniejszą z kryptowalut. Kryptowaluty z założenia nie
 podlegają kontroli żadnych instytucji, gdyż wykorzystywana przez nie technologia Blockchain jest niczym innym jak
-zdecentralizowaną bazą danych. Dowód pracy oraz system imisji środków poprzez wykopywanie nowych bloków z
+zdecentralizowaną bazą danych. Dowód pracy oraz system emisji środków poprzez wykopywanie nowych bloków z
 transakcjami sprawia, że jest to niezwykle bezpieczny środek płatniczy. Atak na całą sieć jest praktycznie
 niemożliwy poprzez ilość mocy obliczeniowej aktualnie z nią związanej. Hakerom bardziej opłaca się wykopywać bloki
 w normalny sposób, niż marnować prąd na próby ataków siłowych. Jedynym zagrożeniem jest utrata bądź kradzież kluczy
@@ -14,7 +14,7 @@ inflacji. Emisja środków odbywa się poprzez nagradzanie osób, którym uda si
 możliwości włączenia środków do sieci. Istnieje odgórny limit ilości Bitcoin'ów, które kiedykolwiek zostaną wyemitowane
 i wynosi 21 milionów. Żaden bank ani żadna organizacja nie będzie mogła manipulować wartością i ilością pieniędzy w
 obiegu, co czyni je stabilnym środkiem płatniczym.footnote:[Odnosząc się do wartości dóbr w relacji do Bitcoina, a nie
-do wartości giełdowej kryptowalut, która bywa bardzo zmienna] Transakcje są jedynie podpisane kluczami prywatnymi,
+do wartości giełdowej kryptowalut, która bywa bardzo zmienna] Transakcje są jedynie podpisywane kluczami prywatnymi,
 a nie danymi osobowymi jak w przypadku normalnych walut. Zapewnia to pełną anonimowość transakcji.
 
 Powyższe zalety Bitcoina, jak i kryptowalut w ogóle rodzą również wiele zagrożeń. Anonimowość transakcji może okazać
@@ -22,24 +22,24 @@ się idealnym rozwiązaniem dla wszelkiego rodzaju przestępców. Można sobie w
 wykorzystywane są do nielegalnych płatności za broń czy narkotyki. Jest to poważny argument przeciwko cyfrowym
 pieniądzom, aczkolwiek jest to cena, jaką trzeba zapłacić za pełną anonimowość. Zyskują zarówno osoby z dobrymi, jak
 i złymi intencjami. Kolejnym problemem jest decentralizacja systemu. Nie ma żadnej instytucji nadzorującej, a co
-za tym idzie, nie ma do kogo się zgłosić w przypadku problemów. W przypadku niezrozumiałej utraty środków nie ma
-nikogo, kto może spróbować odzyskać te środki. Decentralizacja może też być uciążliwa dla polityki monetarnej państw.
-Nie ma możliwości nałożenia podatków ani żadnej kontroli nad walutą. Salwador, kraj w Ameryce Łacińskiej postanowił
-wprowadzić Bitcoina jako walutę obowiązującą w państwie. Spowodowało to problemy z polityką pieniężną kraju oraz
-ryzyko jego niewypłacalności. Prawdopodobnie z tych powodów nie ma szans, aby kryptowaluty miały szybko być
-respektowanym w kwestiach prawnych.
+za tym idzie, nie ma do kogo się zgłosić w przypadku problemów. W przypadku utraty środków wynikającej na przykład
+z niewiedzy czy też pomyłki nie ma nikogo, kto może spróbować odzyskać te środki. Decentralizacja może też być
+uciążliwa dla polityki monetarnej państw. Nie ma możliwości nałożenia podatków ani żadnej kontroli nad walutą.
+Salwador, kraj w Ameryce Środkowej postanowił wprowadzić Bitcoina jako walutę obowiązującą w państwie. Spowodowało to
+problemy z polityką pieniężną kraju oraz ryzyko jego niewypłacalności. Prawdopodobnie z tych powodów nie ma szans, aby
+kryptowaluty miały szybko być prawnie uregulowanym środkiem płatniczym.
 
 Społeczne możliwości i ryzyka wpisują się w kwestie opisane w poprzednich akapitach. System dzięki sieci Lightning
 umożliwi mikropłatności przy pomocy Bitcoinów, co może pomóc w ich popularyzacji. Jest to dobra rzecz dla
 użytkowników ceniących sobie anonimowość i bezpieczeństwo, a pewnym odsetkiem tych osób są ludzie o złych zamiarach.
 Nasz projekt może również przyczynić się do generowania szarej strefy. Według polskiego prawa właściciel serwera
-powinien opłacić podatek dochodowy od przychodów uzyskanych na sprzedaży tokenów, aczkolwiek nie ma możliwości
+powinien opłacić podatek dochodowy od przychodów uzyskanych ze sprzedaży tokenów, aczkolwiek nie ma możliwości
 udokumentowania tego przez osoby trzecie. W sieci Bitcoina nie ma żadnego powiązania pomiędzy transakcjami a
 danymi płatnika, więc urząd skarbowy nie będzie miał możliwości przeprowadzenia kontroli z niezapłaconych podatków.
 
 Ważnym aspektem jest również integracja w ramach programu _Ingenious IoC_. Projekt ten wykorzystuje transakcje zapisane
 na blockchainie Bitcoina do podpisania wydarzenia w czasie. Tokeny generowane podczas płatności będą mogły zostać
-wysłane do innego serwisu, który będzie mógł wykorzystać je w wybrany przez siebie sposób. W ramach projektu osoby
+wysłane do innego serwisu, który będzie w stanie wykorzystać je w wybrany przez siebie sposób. W ramach projektu osoby
 kupujące tokeny będą mogły przy ich pomocy podpisać wydarzenia, który wydarzyły się w ich firmach. Token jest powiązany
 z transakcją Bitcoin, więc dzięki temu uzyskuje się niezaprzeczalny dowód potwierdzający autentyczność. Tworzone
 rozwiązanie ma wkład w tworzenie tego innowacyjnego rozwiązania poprzez finansowanie transakcji służących do
