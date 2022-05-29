@@ -20,8 +20,8 @@ export interface TransactionDetails {
 }
 
 export enum TransactionStatus {
-    DENIED,
-    APPROVED,
-    PENDING,
-    FAILED
+    DENIED = 'DENIED',
+    APPROVED = 'APPROVED',
+    PENDING = 'PENDING',
+    FAILED = 'FAILED'
 }

@@ -28,8 +28,8 @@ import {
 interface Props<T> {
   apiRequest?: (params: PageRequest) => Promise<Response<Pageable<T>>>
   pageElements?: Pageable<T>
-  distinguishedRow?: ReactElement
-  mapper: (value: T, key: number) => ReactElement
+  distinguishedData?: T
+  mapper: (value: T, key: number, highlighted?: boolean) => ReactElement
   headers: string[]
   reloadDependency?: unknown
   pageChange?: () => void
@@ -42,7 +42,7 @@ export const PageableTable = <T,>({
   reloadDependency,
   pageElements,
   pageChange,
-  distinguishedRow
+  distinguishedData
 }: Props<T>) => {
   const { t } = useTranslation('common')
   const [elements, setElements] = useState<Pageable<T>>()
@@ -67,7 +67,6 @@ export const PageableTable = <T,>({
       queryElements()
     } else {
       setElements(pageElements)
-      console.log(pageElements)
       setLoading(false)
     }
   }, [pageElements, queryElements, reloadDependency])
@@ -96,7 +95,7 @@ export const PageableTable = <T,>({
       {loading ? (
         <CircularProgress />
       ) : !elements || elements.empty ? (
-        <p className="italic text-gray-500 pb-10">{t('noEntries')}</p>
+        <p className="pb-10 italic text-gray-500">{t('noEntries')}</p>
       ) : (
         <TableContainer component={Box}>
           <Table>
@@ -113,7 +112,7 @@ export const PageableTable = <T,>({
               </TableRow>
             </TableHead>
             <TableBody>
-              {distinguishedRow}
+              {distinguishedData && mapper(distinguishedData, 0, true)}
               {elements?.content.map((element: T, key: number) =>
                 mapper(element, key)
               )}

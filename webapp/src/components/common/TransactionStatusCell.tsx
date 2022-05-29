@@ -1,28 +1,34 @@
-import React from 'react'
+import { TransactionStatus } from 'common-ts/dist/webServiceApi/interface/transaction'
 import { Typography } from '@mui/material'
-import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import React from 'react'
 
 const StatusColor: Record<
-  PaymentStatus,
+  TransactionStatus,
   { primary: string; secondary: string }
 > = {
-  [PaymentStatus.PENDING]: {
+  [TransactionStatus.PENDING]: {
     primary: '#4fc3f7',
     secondary: '#29b6f6'
   },
-  [PaymentStatus.COMPLETE]: {
+  [TransactionStatus.APPROVED]: {
     primary: '#81c784',
     secondary: '#66bb6a'
   },
-  [PaymentStatus.CANCELLED]: {
+  [TransactionStatus.FAILED]: {
+    primary: '#e57373',
+    secondary: '#f44336'
+  },
+  [TransactionStatus.DENIED]: {
     primary: '#e57373',
     secondary: '#f44336'
   }
 }
 
-const calculateColor = (paymentStatus: PaymentStatus) => {
-  const colors = StatusColor[paymentStatus]
+const calculateColor = (transactionStatus: TransactionStatus) => {
+  console.log(transactionStatus)
   console.log(StatusColor)
+  const colors = StatusColor[transactionStatus]
+  console.log(colors)
   return {
     backgroundColor: colors.primary,
     borderColor: colors.secondary
@@ -30,10 +36,10 @@ const calculateColor = (paymentStatus: PaymentStatus) => {
 }
 
 interface Props {
-  paymentStatus: PaymentStatus
+  paymentStatus: TransactionStatus
 }
 
-export const PaymentStatusCell: React.FC<Props> = ({ paymentStatus }) => {
+export const TransactionStatusCell: React.FC<Props> = ({ paymentStatus }) => {
   return (
     <Typography
       align="center"
