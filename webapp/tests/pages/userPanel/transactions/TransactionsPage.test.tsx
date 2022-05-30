@@ -70,14 +70,14 @@ describe('TransactionsPage', () => {
 
   it('should display create button when no transactions pending', async () => {
     init(emptyResponse)
-    waitFor(() => {
+    await waitFor(() => {
       expect(screen.getByText('Create transaction')).toBeInTheDocument()
     })
   })
 
-  it('should not display create button when transactions is pending', () => {
+  it('should not display create button when transactions is pending', async () => {
     init(transactionsPageMock)
-    waitFor(() => {
+    await waitFor(() => {
       expect(screen.queryByText('Create transaction')).not.toBeInTheDocument()
     })
   })
