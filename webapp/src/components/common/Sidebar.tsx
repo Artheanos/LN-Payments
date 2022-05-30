@@ -4,7 +4,8 @@ import {
   AccountBalanceWalletOutlined,
   MeetingRoomOutlined,
   ShoppingCartOutlined,
-  PaidOutlined, CurrencyExchangeRounded, CurrencyExchange
+  PaidOutlined,
+  CurrencyExchange
 } from '@mui/icons-material'
 import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
