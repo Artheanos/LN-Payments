@@ -36,6 +36,8 @@ export const TransactionsPage: React.FC = () => {
       </Panel.Header>
       <Panel.Body table>
         <PageableTable
+          queryElements={queryElements}
+          loading={loading}
           pageElements={elements?.transactions}
           distinguishedData={elements?.pendingTransaction}
           mapper={(
