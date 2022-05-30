@@ -78,9 +78,7 @@ describe('TransactionsPage', () => {
   it('should not display create button when transactions is pending', async () => {
     init(transactionsPageMock)
     await waitFor(() => {
-      expect(
-        screen.getByText('2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv')
-      ).toBeInTheDocument()
+      expect(screen.getByText('PENDING')).toBeInTheDocument()
       expect(screen.queryByText('Create transaction')).toBeNull()
     })
   })
