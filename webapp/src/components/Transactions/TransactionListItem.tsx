@@ -22,7 +22,7 @@ export const TransactionListItem: React.FC<
       <TableCell>{sourceAddress}</TableCell>
       <TableCell>{targetAddress}</TableCell>
       <TableCell>
-        <TransactionStatusCell paymentStatus={status} />
+        <TransactionStatusCell transactionStatus={status} />
       </TableCell>
       <TableCell className="font-bold">
         <Typography
