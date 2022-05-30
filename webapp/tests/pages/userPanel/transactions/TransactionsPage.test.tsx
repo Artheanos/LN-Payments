@@ -75,8 +75,8 @@ describe('TransactionsPage', () => {
     })
   })
 
-  // it('should not display create button when transactions is pending', () => {
-  //   init(transactionsPageMock)
-  //   expect(screen.queryByText('Create transaction')).toBeFalsy()
-  // })
+  it('should not display create button when transactions is pending', () => {
+    init(transactionsPageMock)
+    expect(screen.queryByText('Create transaction')).toBeNull()
+  })
 })
