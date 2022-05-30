@@ -30,9 +30,11 @@ export const TransactionsPage: React.FC = () => {
   return (
     <Panel.Container>
       <Panel.Header title="Transactions">
-        <Link to={routesBuilder.userPanel.transactions.new}>
-          <Button variant="contained">Create transaction</Button>
-        </Link>
+        {!elements?.pendingTransaction && (
+          <Link to={routesBuilder.userPanel.transactions.new}>
+            <Button variant="contained">Create transaction</Button>
+          </Link>
+        )}
       </Panel.Header>
       <Panel.Body table>
         <PageableTable
