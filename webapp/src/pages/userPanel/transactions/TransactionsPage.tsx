@@ -10,8 +10,10 @@ import {
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import routesBuilder from 'routesBuilder'
+import { useTranslation } from 'react-i18next'
 
 export const TransactionsPage: React.FC = () => {
+  const { t } = useTranslation('transactions')
   const [elements, setElements] = useState<TransactionsResponse>()
   const [loading, setLoading] = useState(true)
 
@@ -29,10 +31,10 @@ export const TransactionsPage: React.FC = () => {
   }, [queryElements])
   return (
     <Panel.Container>
-      <Panel.Header title="Transactions">
+      <Panel.Header title={t('header')}>
         {!elements?.pendingTransaction && (
           <Link to={routesBuilder.userPanel.transactions.new}>
-            <Button variant="contained">Create transaction</Button>
+            <Button variant="contained">{t('newButton')}</Button>
           </Link>
         )}
       </Panel.Header>
@@ -53,7 +55,14 @@ export const TransactionsPage: React.FC = () => {
               highlighted={highlighted}
             />
           )}
-          headers={['Date', 'Value', 'Source', 'Target', 'Status', 'Approvals']}
+          headers={[
+            t('date'),
+            t('value'),
+            t('sourceAddress'),
+            t('targetAddress'),
+            t('status'),
+            t('approvals')
+          ]}
         />
       </Panel.Body>
     </Panel.Container>
