@@ -1,0 +1,19 @@
+.Lista zadań w Sprincie 1
+[cols="1,1,3,3,1,1"]
+|===
+|Klucz|Typ zadania|Nazwa|Osoba przypisana|Story points|Status
+
+|LP-29|Zadanie|Set up java project|Aleksander Konieczny|3|Gotowe
+|LP-30|Zadanie|Set up react project|Jan Pieczul|3|Gotowe
+|LP-33|Zadanie|Set up mobile app project|Jan Pieczul|5|Gotowe
+|LP-34|Spike|Research CI available options|Jan Pieczul|-|Gotowe
+|LP-35|Zadanie|Create makefile for documents|Aleksander Konieczny|5|Gotowe
+|LP-36|Zadanie|Create pipeline for Java webservice|Aleksander Konieczny|2|Gotowe
+|LP-37|Zadanie|Create pipeline for React webapp|Jan Pieczul|3|Gotowe
+|LP-38|Zadanie|Create pipeline for mobile app|Jan Pieczul|5|Gotowe
+|LP-39|Zadanie|Pipeline for documents|Aleksander Konieczny|5|Gotowe
+|LP-40|Zadanie|Add git hooks|-|3|Usunięte
+|LP-41|Zadanie|Prepare docker-compose for lnd and bitcoind|Aleksander Konieczny|3|Gotowe
+|LP-43|Zadanie|Migrate documents to asciidoc|Aleksander Konieczny|2|Gotowe
+|LP-44|Zadanie|Configure container for PostgreSQL|Jan Pieczul|1|Gotowe
+|===
