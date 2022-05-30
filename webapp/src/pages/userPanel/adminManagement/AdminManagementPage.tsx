@@ -8,7 +8,7 @@ import routesBuilder from 'routesBuilder'
 import { AdminListItem } from 'components/adminPanel/AdminListItem'
 import { api } from 'api'
 import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
-import { ApiPageableTable } from 'components/common/PageableTable/ApiPabeableTable'
+import { ApiPageableTable } from 'components/common/PageableTable/ApiPageableTable'
 
 export const AdminManagementPage: React.FC = () => {
   const { t } = useTranslation('adminManagement')

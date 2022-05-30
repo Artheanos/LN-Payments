@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { PaymentEntry } from './PaymentEntry'
 import { api } from 'api'
 import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
-import { ApiPageableTable } from '../common/PageableTable/ApiPabeableTable'
+import { ApiPageableTable } from '../common/PageableTable/ApiPageableTable'
 
 export const History: React.FC = () => {
   const { t } = useTranslation('history')

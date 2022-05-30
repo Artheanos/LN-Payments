@@ -6,7 +6,7 @@ import {
   PendingColor,
   StatusCell,
   SuccessColor
-} from './StatusCell'
+} from '../common/PageableTable/StatusCell'
 
 const StatusColor: Record<TransactionStatus, Color> = {
   [TransactionStatus.PENDING]: PendingColor,

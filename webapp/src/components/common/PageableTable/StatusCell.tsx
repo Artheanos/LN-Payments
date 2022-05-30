@@ -10,10 +10,12 @@ export const SuccessColor: Color = {
   primary: '#81c784',
   secondary: '#66bb6a'
 }
+
 export const FailColor: Color = {
   primary: '#e57373',
   secondary: '#f44336'
 }
+
 export const PendingColor: Color = {
   primary: '#4fc3f7',
   secondary: '#29b6f6'

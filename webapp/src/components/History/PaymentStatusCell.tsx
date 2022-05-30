@@ -1,5 +1,4 @@
 import React from 'react'
-import { Typography } from '@mui/material'
 import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
 import {
   Color,
@@ -7,7 +6,7 @@ import {
   PendingColor,
   StatusCell,
   SuccessColor
-} from '../common/StatusCell'
+} from '../common/PageableTable/StatusCell'
 
 const StatusColor: Record<PaymentStatus, Color> = {
   [PaymentStatus.PENDING]: PendingColor,

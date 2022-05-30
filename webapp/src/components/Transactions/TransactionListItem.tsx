@@ -1,7 +1,7 @@
 import React from 'react'
 import { TableCell, TableRow, Typography } from '@mui/material'
 import { TransactionDetails } from 'common-ts/dist/webServiceApi/interface/transaction'
-import { TransactionStatusCell } from '../common/TransactionStatusCell'
+import { TransactionStatusCell } from './TransactionStatusCell'
 
 export const TransactionListItem: React.FC<
   TransactionDetails & { highlighted?: boolean }
@@ -24,7 +24,7 @@ export const TransactionListItem: React.FC<
       <TableCell>
         <TransactionStatusCell transactionStatus={status} />
       </TableCell>
-      <TableCell className="font-bold">
+      <TableCell>
         <Typography
           sx={{
             fontStyle: 'italic',
