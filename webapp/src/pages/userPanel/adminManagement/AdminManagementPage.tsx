@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next'
 import Panel from 'components/common/Panel'
 import routesBuilder from 'routesBuilder'
 import { AdminListItem } from 'components/adminPanel/AdminListItem'
-import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { api } from 'api'
 import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
+import { ApiPageableTable } from 'components/common/PageableTable/ApiPageableTable'
 
 export const AdminManagementPage: React.FC = () => {
   const { t } = useTranslation('adminManagement')
@@ -22,7 +22,7 @@ export const AdminManagementPage: React.FC = () => {
         </Link>
       </Panel.Header>
       <Panel.Body table>
-        <PageableTable
+        <ApiPageableTable
           apiRequest={api.admins.getAll}
           mapper={(user: AdminUser, key) => (
             <AdminListItem

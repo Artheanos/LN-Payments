@@ -1,10 +1,4 @@
-import React, {
-  ChangeEvent,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useState
-} from 'react'
+import React, { ChangeEvent, ReactElement } from 'react'
 import {
   Box,
   CircularProgress,
@@ -19,58 +13,40 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-import { Response } from 'api'
-import {
-  PageRequest,
-  Pageable
-} from 'common-ts/dist/webServiceApi/interface/pageable'
+import { Pageable } from 'common-ts/dist/webServiceApi/interface/pageable'
 
 interface Props<T> {
-  apiRequest: (params: PageRequest) => Promise<Response<Pageable<T>>>
-  mapper: (value: T, key: number) => ReactElement
+  pageElements: Pageable<T> | undefined
+  distinguishedData?: T
+  mapper: (value: T, key: number, highlighted?: boolean) => ReactElement
   headers: string[]
-  reloadDependency?: unknown
+  queryElements: (page?: number, size?: number) => void
+  loading: boolean
 }
 
 export const PageableTable = <T,>({
-  apiRequest,
   mapper,
+  pageElements,
+  queryElements,
+  distinguishedData,
   headers,
-  reloadDependency
+  loading
 }: Props<T>) => {
   const { t } = useTranslation('common')
-  const [elements, setElements] = useState<Pageable<T>>()
-  const [loading, setLoading] = useState(true)
-
-  const queryElements = useCallback(
-    async (page = 0, size = 10) => {
-      setLoading(true)
-      const { data } = await apiRequest({ page, size })
-      if (data) {
-        setElements(data)
-      }
-      setLoading(false)
-    },
-    [apiRequest]
-  )
-
-  useEffect(() => {
-    queryElements()
-  }, [queryElements, reloadDependency])
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
     newPage: number
   ) => {
-    if (elements) {
-      queryElements(newPage, elements?.pageable.pageSize)
+    if (pageElements) {
+      queryElements(newPage, pageElements?.pageable.pageSize)
     }
   }
 
   const handleChangeRowsPerPage = (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (elements) {
+    if (pageElements) {
       queryElements(0, parseInt(event!.target.value))
     }
   }
@@ -79,8 +55,8 @@ export const PageableTable = <T,>({
     <div className="overflow-y-auto grow text-center">
       {loading ? (
         <CircularProgress />
-      ) : !elements || elements.empty ? (
-        <p className="italic text-gray-500">{t('noEntries')}</p>
+      ) : !pageElements || pageElements.empty ? (
+        <p className="pb-10 italic text-gray-500">{t('noEntries')}</p>
       ) : (
         <TableContainer component={Box}>
           <Table>
@@ -97,11 +73,12 @@ export const PageableTable = <T,>({
               </TableRow>
             </TableHead>
             <TableBody>
-              {elements?.content.map((element: T, key: number) =>
+              {distinguishedData && mapper(distinguishedData, 0, true)}
+              {pageElements?.content.map((element: T, key: number) =>
                 mapper(element, key)
               )}
             </TableBody>
-            {elements && (
+            {pageElements && (
               <TableFooter>
                 <TableRow>
                   <TablePagination
@@ -111,9 +88,9 @@ export const PageableTable = <T,>({
                       20,
                       { label: 'All', value: -1 }
                     ]}
-                    count={elements!.totalElements}
-                    rowsPerPage={elements!.pageable.pageSize}
-                    page={elements!.pageable.pageNumber}
+                    count={pageElements!.totalElements}
+                    rowsPerPage={pageElements!.pageable.pageSize}
+                    page={pageElements!.pageable.pageNumber}
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                   />

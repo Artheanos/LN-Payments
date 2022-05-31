@@ -1,0 +1,10 @@
+{
+  "header": "Transactions",
+  "date": "Date",
+  "value": "Value",
+  "sourceAddress": "Source",
+  "targetAddress": "Target",
+  "status": "Status",
+  "approvals": "Approvals",
+  "newButton": "Create transaction"
+}

@@ -8,6 +8,7 @@ import auth from 'locales/en/auth.json'
 import history from 'locales/en/history.json'
 import wallet from 'locales/en/wallet.json'
 import quickBuy from 'locales/en/quickBuy.json'
+import transactions from 'locales/en/transactions.json'
 
 const resources = {
   en: {
@@ -16,7 +17,8 @@ const resources = {
     common,
     history,
     wallet,
-    quickBuy
+    quickBuy,
+    transactions
   }
 }
 

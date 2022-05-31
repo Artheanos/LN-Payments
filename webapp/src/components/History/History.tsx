@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { PageableTable } from 'components/common/PageableTable/PageableTable'
 import { PaymentEntry } from './PaymentEntry'
 import { api } from 'api'
 import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
+import { ApiPageableTable } from '../common/PageableTable/ApiPageableTable'
 
 export const History: React.FC = () => {
   const { t } = useTranslation('history')
@@ -19,7 +19,7 @@ export const History: React.FC = () => {
   ]
 
   return (
-    <PageableTable
+    <ApiPageableTable
       apiRequest={api.payment.history}
       mapper={(value: PaymentDetails, key: number) => (
         <PaymentEntry {...value} key={key} />

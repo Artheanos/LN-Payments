@@ -16,6 +16,10 @@ export default {
     wallet: {
       index: '/panel/wallet',
       new: '/panel/wallet/new'
+    },
+    transactions: {
+      index: '/panel/transactions',
+      new: '/panel/transactions/new'
     }
   },
   api: {
