@@ -10,6 +10,7 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
 @Service
 public class UserConverter {
@@ -47,4 +48,10 @@ public class UserConverter {
                 .build();
     }
 
+    public UserDto convertToDto(StandardUser user) {
+        return UserDto.builder()
+                .email(user.getEmail())
+                .fullName(user.getFullName())
+                .build();
+    }
 }

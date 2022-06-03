@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
@@ -13,6 +14,9 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.PasswordUpdateRequest;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -23,14 +27,17 @@ public class UserService implements UserDetailsService {
     private final StandardUserRepository standardUserRepository;
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserService(StandardUserRepository standardUserRepository,
                        UserRepository userRepository,
-                       UserConverter userConverter) {
+                       UserConverter userConverter,
+                       PasswordEncoder passwordEncoder) {
         this.standardUserRepository = standardUserRepository;
         this.userRepository = userRepository;
         this.userConverter = userConverter;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -48,8 +55,7 @@ public class UserService implements UserDetailsService {
     }
 
     public LoginResponse findAndConvertLoggedUser(String username, String jwtToken) {
-        StandardUser user = standardUserRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
+        StandardUser user = getStandardUser(username);
         return userConverter.convertToLoginResponse(user, jwtToken);
     }
 
@@ -62,6 +68,25 @@ public class UserService implements UserDetailsService {
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email + " not found!"));
+    }
+
+    public void updatePassword(String username, PasswordUpdateRequest passwordUpdateRequest) {
+        StandardUser user = getStandardUser(username);
+        if (!passwordEncoder.matches(passwordUpdateRequest.getCurrentPassword(), user.getPassword())) {
+            throw new InconsistentDataException("Wrong current password provided");
+        }
+        user.setPassword(passwordEncoder.encode(passwordUpdateRequest.getNewPassword()));
+        standardUserRepository.save(user);
+    }
+
+    public UserDto getUserDetails(String username) {
+        StandardUser user = getStandardUser(username);
+        return userConverter.convertToDto(user);
+    }
+
+    private StandardUser getStandardUser(String username) {
+        return standardUserRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username + " not found!"));
     }
 
     private void validateEmail(String email) {

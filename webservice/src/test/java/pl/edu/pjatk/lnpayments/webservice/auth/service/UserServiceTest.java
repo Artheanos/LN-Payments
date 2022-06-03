@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.edu.pjatk.lnpayments.webservice.auth.converter.UserConverter;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.StandardUserRepository;
 import pl.edu.pjatk.lnpayments.webservice.auth.repository.UserRepository;
@@ -16,6 +17,9 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
+import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.PasswordUpdateRequest;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
 import javax.validation.ValidationException;
 import java.util.Collection;
@@ -39,6 +43,9 @@ class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private UserService userService;
@@ -140,6 +147,75 @@ class UserServiceTest {
                 .isThrownBy(() -> userService.loadUserByUsername(email))
                 .withMessage(email + " not found!");
         verify(userConverter, never()).convertToLoginResponse(any(), anyString());
+    }
+
+    @Test
+    void shouldGetUserDetails() {
+        String email = "test@test.pl";
+        String name = "test";
+        String pass = "pass";
+        StandardUser user = new StandardUser(email, name, pass);
+        UserDto dto = new UserDto(email, pass);
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        when(userConverter.convertToDto(user)).thenReturn(dto);
+
+        UserDto userDetails = userService.getUserDetails(email);
+
+        assertThat(userDetails).isEqualTo(dto);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserFromGetRequest() {
+        String email = "test@test.pl";
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userService.getUserDetails(email))
+                .withMessage(email + " not found!");
+        verify(userConverter, never()).convertToDto(any());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUserForPasswordChangeNotFound() {
+        String email = "test@test.pl";
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        assertThatExceptionOfType(UsernameNotFoundException.class)
+                .isThrownBy(() -> userService.updatePassword(email, new PasswordUpdateRequest()))
+                .withMessage(email + " not found!");
+        verify(standardUserRepository, never()).save(any());
+    }
+
+    @Test
+    void shouldThrowExceptionWhenPasswordsDoesNotMatch() {
+        String email = "test@test.pl";
+        String name = "test";
+        String pass = "pass";
+        StandardUser user = new StandardUser(email, name, pass);
+        PasswordUpdateRequest updateRequest = new PasswordUpdateRequest("ddudu", "dududu");
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
+
+        assertThatExceptionOfType(InconsistentDataException.class)
+                .isThrownBy(() -> userService.updatePassword(email, updateRequest))
+                .withMessage("Wrong current password provided");
+        verify(standardUserRepository, never()).save(any());
+    }
+
+    @Test
+    void shouldUpdatePasswordForCorrectData() {
+        String email = "test@test.pl";
+        String name = "test";
+        String pass = "pass";
+        String newPass = "dududu";
+        StandardUser user = new StandardUser(email, name, pass);
+        PasswordUpdateRequest updateRequest = new PasswordUpdateRequest(pass, newPass);
+        when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        when(passwordEncoder.matches(pass, pass)).thenReturn(true);
+
+        userService.updatePassword(email, updateRequest);
+
+        verify(passwordEncoder).encode(newPass);
+        verify(standardUserRepository).save(any());
     }
 
     private UserDetails mockUserDetails(String email, String pass, Role role) {

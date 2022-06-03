@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.LoginResponse;
 import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.*;
+import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -87,6 +88,16 @@ class UserConverterTest {
         assertThat(userDetails.getPassword()).isEqualTo(null);
         assertThat(userDetails.getAuthorities()).hasSize(1);
         assertThat(userDetails.getAuthorities().contains(Role.ROLE_TEMPORARY)).isTrue();
+    }
+
+    @Test
+    void shouldConvertUserToUserDto() {
+        StandardUser user = new StandardUser("test@test.pl", "test", "pass");
+
+        UserDto dto = userConverter.convertToDto(user);
+
+        assertThat(dto.getFullName()).isEqualTo(user.getFullName());
+        assertThat(dto.getEmail()).isEqualTo(user.getEmail());
     }
 
 }
