@@ -2,16 +2,15 @@ const moduleResolver = [
   'module-resolver',
   {
     alias: {
-      api: './api',
-      components: './components',
+      api: './src/api',
+      bitcoin: './src/bitcoin',
+      components: './src/components',
+      utils: './src/utils',
     },
   },
 ]
 
-module.exports = (api) => {
-  api.cache(true)
-  return {
-    presets: ['babel-preset-expo'],
-    plugins: ['react-native-reanimated/plugin', moduleResolver],
-  }
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: [moduleResolver, 'react-native-reanimated/plugin'],
 }
