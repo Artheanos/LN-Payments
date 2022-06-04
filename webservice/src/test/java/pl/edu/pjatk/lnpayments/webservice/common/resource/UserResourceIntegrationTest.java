@@ -46,7 +46,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        user = new StandardUser("test@test.pl", "test", passwordEncoder.encode("asd"));
+        user = new StandardUser("test@test.pl", "asd", passwordEncoder.encode("asd"));
         when(principal.getName()).thenReturn(user.getEmail());
         userRepository.save(user);
     }
