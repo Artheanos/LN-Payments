@@ -1,5 +1,5 @@
 ## Development
-#### (Android supported only)
+#### (Android only)
 
 ### Installation
 Prepare the environment according to the React Native docs, except:
@@ -10,6 +10,7 @@ Prepare the environment according to the React Native docs, except:
 https://reactnative.dev/docs/environment-setup
 
 ### Running the app
-Use `yarn android` when you initialize the project, make Java changes or want to turn on the emulator
 
-For other cases use `yarn start`
+`yarn android` compiles the java code, opens android emulator (if you have set up env paths according to the docs) and runs the metro server
+
+`yarn start` only runs the metro server
