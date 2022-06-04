@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.RegTestParams;
+import org.bitcoinj.params.TestNet3Params;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -204,6 +205,20 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         String jsonContent = getJsonResponse("integration/payment/response/transactions-GET-empty.json");
 
         mockMvc.perform(get("/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent));
+    }
+
+    @Test
+    void shouldReturnOkForNewTransactionInfoData() throws Exception {
+        String jsonContent = getJsonResponse("integration/payment/response/new-transaction-info-GET.json");
+        org.bitcoinj.wallet.Wallet walletMock = Mockito.mock(org.bitcoinj.wallet.Wallet.class);
+        when(walletAppKit.wallet()).thenReturn(walletMock);
+        when(walletAppKit.params()).thenReturn(TestNet3Params.get());
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(1000L));
+        when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
+
+        mockMvc.perform(get("/transactions/info"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }

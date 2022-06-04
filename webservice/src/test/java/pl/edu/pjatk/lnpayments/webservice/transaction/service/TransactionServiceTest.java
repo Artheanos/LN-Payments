@@ -20,10 +20,12 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConve
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
 import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;
+import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.NewTransactionDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletDataService;
 
@@ -264,6 +266,18 @@ class TransactionServiceTest {
         boolean inProgress = transactionService.isTransactionInProgress();
 
         assertThat(inProgress).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldReturnNewTransactionInfo() {
+        BitcoinWalletBalance bitcoinWalletBalance = BitcoinWalletBalance.builder().availableBalance(100L).unconfirmedBalance(100L).build();
+        when(bitcoinService.getBalance()).thenReturn(bitcoinWalletBalance);
+        when(transactionRepository.existsByStatus(TransactionStatus.PENDING)).thenReturn(true);
+
+        NewTransactionDetails newTransactionDetails = transactionService.getNewTransactionDetails();
+
+        assertThat(newTransactionDetails.getBitcoinWalletBalance()).isEqualTo(bitcoinWalletBalance);
+        assertThat(newTransactionDetails.isPendingExists()).isTrue();
     }
 
 }
