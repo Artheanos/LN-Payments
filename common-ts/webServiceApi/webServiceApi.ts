@@ -1,13 +1,13 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, {AxiosRequestConfig} from 'axios'
 
 import {routes} from './routes'
-import { datify } from '../utils/time'
+import {datify} from '../utils/time'
 import {Pageable, PageRequest} from "./interface/pageable";
 import {PaymentDetails, PaymentForm, PaymentInfo, PublicPaymentDetails} from "./interface/payment";
 import {LoginForm, LoginResponse, RefreshTokenResponse, RegisterForm} from "./interface/auth";
 import {WalletForm, WalletInfo} from "./interface/wallet";
 import {AdminUser} from "./interface/user";
-import {TransactionsResponse} from "./interface/transaction";
+import {NewTransactionInfo, TransactionForm, TransactionsResponse} from "./interface/transaction";
 
 export type Response<T> = {
     data?: T
@@ -86,7 +86,7 @@ export class WebServiceApi {
                 this.request(routes.admins.index, {data}),
 
             remove: (data: AdminUser): Promise<Response<unknown>> =>
-                this.request(routes.admins.index, { method: 'delete', data })
+                this.request(routes.admins.index, {method: 'delete', data})
         },
         wallet: {
             getInfo: (): Promise<Response<WalletInfo>> =>
@@ -112,6 +112,13 @@ export class WebServiceApi {
                     params
                 })
             },
+            getNewTransactionInfo: async (): Promise<Response<NewTransactionInfo>> => {
+                return this.request(routes.transactions.newInfo, {
+                    method: 'get',
+                })
+            },
+            createTransaction: (data: TransactionForm): Promise<Response<unknown>> =>
+                this.request(routes.transactions.index, {data})
         }
     }
 
@@ -119,8 +126,8 @@ export class WebServiceApi {
         this.authHeader = `Bearer ${await this.refreshTokenFactory()}`
     }
 
-    private async configFactory (url: string, config: AxiosRequestConfig) {
-        const result = { url, ...defaultConfig, ...config }
+    private async configFactory(url: string, config: AxiosRequestConfig) {
+        const result = {url, ...defaultConfig, ...config}
 
         await this.reloadAuthHeader()
         if (this.authHeader) {
@@ -135,17 +142,17 @@ export class WebServiceApi {
         return result
     }
 
-    private async request <D, T>(
+    private async request<D, T>(
         url: string,
         config: AxiosRequestConfig<D> = {}
     ): Promise<Response<T>> {
         try {
             url = this.resolveRoute(url)
             const response = await axios.request(await this.configFactory(url, config))
-            return { data: response.data, status: response.status }
+            return {data: response.data, status: response.status}
         } catch (e) {
             if (axios.isAxiosError(e) && e.response?.status) {
-                return { status: e.response.status }
+                return {status: e.response.status}
             } else {
                 throw e
             }

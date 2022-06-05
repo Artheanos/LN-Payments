@@ -6,5 +6,16 @@
   "targetAddress": "Target",
   "status": "Status",
   "approvals": "Approvals",
-  "newButton": "Create transaction"
+  "createHeader": "Create transaction",
+  "amount": "Amount",
+  "address": "Address",
+  "submit": "Submit",
+  "availableBalance": "Available balance",
+  "estimatedFee": "Current estimated fee",
+  "feeInfo": "Current fee value will be added to amount inserted by you.",
+  "onSubmit": {
+    "on200": "New transaction has been created",
+    "on400": "Invalid input parameters provided",
+    "onOthers": "Exception occurred during your request, try again later"
+  }
 }

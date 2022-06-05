@@ -35,7 +35,7 @@ export const TransactionsPage: React.FC = () => {
         {!elements ||
           (!elements?.pendingTransaction && (
             <Link to={routesBuilder.userPanel.transactions.new}>
-              <Button variant="contained">{t('newButton')}</Button>
+              <Button variant="contained">{t('createHeader')}</Button>
             </Link>
           ))}
       </Panel.Header>

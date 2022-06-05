@@ -14,7 +14,8 @@ export interface LightningWalletBalance {
 
 export interface BitcoinWalletBalance {
     availableBalance: number
-    unconfirmedBalance: number
+    unconfirmedBalance: number,
+    currentReferenceFee: number
 }
 
 export interface WalletInfo {

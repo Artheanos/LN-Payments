@@ -1,5 +1,6 @@
 import * as Yup from 'yup'
 import { t } from 'i18next'
+import { isValidBitcoinAddress } from 'bitcoin-address-soft-regex-validation'
 
 export const RegisterSchema = Yup.object()
   .shape({
@@ -32,4 +33,27 @@ export const RegisterInitialValue = {
   fullName: '',
   password: '',
   passwordConfirmation: ''
+}
+
+export const TransactionSchema = Yup.object().shape({
+  amount: Yup.number()
+    .min(1, 'Amount must be larger that 1')
+    .required('Amount must not be null'),
+  targetAddress: Yup.string()
+    .required('Address is required')
+    .test(
+      'Validate bitcoin address',
+      'Value is not a bitcoin address',
+      (value) =>
+        ['mainnet', 'testnet'].includes(
+          <string>isValidBitcoinAddress(value as string)
+        )
+    )
+})
+
+export type TransactionProps = typeof TransactionInitialValue
+
+export const TransactionInitialValue = {
+  amount: undefined,
+  targetAddress: ''
 }

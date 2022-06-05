@@ -1,4 +1,5 @@
 import {Pageable} from "./pageable";
+import {BitcoinWalletBalance} from "./wallet";
 
 export interface WsTransactionResponse {
     tokens: string[]
@@ -24,4 +25,14 @@ export enum TransactionStatus {
     APPROVED = 'APPROVED',
     PENDING = 'PENDING',
     FAILED = 'FAILED'
+}
+
+export interface NewTransactionInfo {
+    bitcoinWalletBalance: BitcoinWalletBalance,
+    pendingExists: boolean
+}
+
+export interface TransactionForm {
+    amount: number | undefined,
+    targetAddress: string
 }

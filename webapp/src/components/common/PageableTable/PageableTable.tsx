@@ -55,7 +55,7 @@ export const PageableTable = <T,>({
     <div className="overflow-y-auto grow text-center">
       {loading ? (
         <CircularProgress />
-      ) : !pageElements || pageElements.empty ? (
+      ) : (!pageElements || pageElements.empty) && !distinguishedData ? (
         <p className="pb-10 italic text-gray-500">{t('noEntries')}</p>
       ) : (
         <TableContainer component={Box}>

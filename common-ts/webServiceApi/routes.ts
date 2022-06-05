@@ -19,6 +19,7 @@ export const routes = {
         transfer: '/api/wallet/transfer'
     },
     transactions: {
-        index: '/api/transactions'
+        index: '/api/transactions',
+        newInfo: '/api/transactions/info'
     }
 }
