@@ -1,0 +1,56 @@
+# Webservice
+
+It is a server used in the whole LN Payments system. Consists of several HTTP and websocket endpoints that manage
+payments, wallet actions, transactions and much more. Server is not intended to be used independently, just acts as a
+backend for web and mobile applications. Communicates directly with _bitcoind_ and _LND_ for bitcoin and lightning 
+related operations.
+
+## API specification
+
+There are two ways to check the api specification of the webservice. In _devtools/postman_ you can find the
+postman collection containing examples for all the endpoints with example values. Collection can be imported by 
+any postman version that supports v2.1 format. Other option is to check the specification using Swagger. In order
+to do that you must have webservice running. You can access the openApi specification by entering
+[api-docs url](http://localhost:8080/api/v2/api-docs). There is also a Swagger UI running that can be accessed
+with [this url](http://localhost:8080/api/swagger-ui/index.html).
+
+## Local environment setup
+
+### Pre-requirements
+* docker
+* docker-compose
+* Java 17 JDK
+* Maven
+
+### Set up
+
+Firstly you must set up bitcoind lightning node and a PostgreSQL database instance. You can do it automatically 
+using docker-compose files from _devtools/docker_ folder. You can start it either in testnet or in regtest networks.
+Instructions on starting all the infrastructure for both networks can be found in README file of _devtools/docker_
+directory.
+ 
+Initial launch of _bitcoind_ in Testnet will require around an hour and will take up to 30 GB of disk space. When
+the blockchain is fully downloaded, you must obtain tls certificate and macaroon from lightning node. You can do it by
+executing the following commands in a root project directory (or the directory containing server executable file):
+```bash
+docker cp lnd:/root/.lnd/tls.cert .
+docker cp lnd:/root/.lnd/admin.macaroon .
+```
+
+Right now you should be up and ready to boot up the server. Find Application.java class and launch the _main_ method.
+Initially there is an admin user created, so you can authenticate and test the application with postman for instance.
+You can access the server by localhost address and 8080 port.
+
+### Testing
+
+Unit and integration tests are mixed together. It is currently not possible to launch them separately. To execute them
+from command line type:
+```bash
+mvn test
+```
+
+You can also run unit test coverage checks with the following command. Report can we found in _target/site/jacoco_
+folder.
+```bash
+mvn verify -P test-coverage
+```
