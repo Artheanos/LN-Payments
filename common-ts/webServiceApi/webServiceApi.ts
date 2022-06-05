@@ -88,7 +88,7 @@ export class WebServiceApi {
                 this.request(routes.admins.index, {method: 'delete', data}),
 
             uploadKeys: (data: KeyUploadForm): Promise<Response<unknown>> =>
-                this.request(routes.admins.index, {method: 'patch', data})
+                this.request(routes.admins.keys, {method: 'patch', data})
         },
         wallet: {
             getInfo: (): Promise<Response<WalletInfo>> =>
