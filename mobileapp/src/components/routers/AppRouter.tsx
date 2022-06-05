@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Spinner } from 'native-base'
 
@@ -7,24 +7,54 @@ import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
 
 export const AppRouter: React.FC = () => {
-  const { token, setToken, privateKey, setPrivateKey, setPublicKey } =
-    useContext(UserContext)
+  const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(true)
 
+  const loadUserFromStorage = useCallback(async () => {
+    const keys = ['token', 'email']
+
+    const keyValues = await AsyncStorage.multiGet(keys)
+    for (const [key, value] of keyValues) {
+      const partialUser: Record<string, unknown> = {}
+      if (key === 'token') {
+        partialUser.token = value
+      } else if (key === 'email') {
+        partialUser.email = value
+      }
+      updateUser(partialUser)
+    }
+  }, [updateUser])
+
+  const loadKeysFromStorage = useCallback(
+    async (email: string) => {
+      const value = await AsyncStorage.getItem(email)
+      if (!value) {
+        updateUser({ uploadKeys: true })
+        return
+      }
+
+      const keyPair = JSON.parse(value)
+      updateUser(keyPair)
+    },
+    [updateUser],
+  )
+
   useEffect(() => {
-    AsyncStorage.multiGet(['token', 'privateKey', 'publicKey']).then(
-      (pairs) => {
-        for (const [key, value] of pairs) {
-          if (key === 'token') setToken(value)
-          else if (key === 'privateKey') setPrivateKey(value)
-          else if (key === 'publicKey') setPublicKey(value)
-        }
-        setLoading(false)
-      },
-    )
-  }, [setPrivateKey, setPublicKey, setToken])
+    loadUserFromStorage().then(() => setLoading(false))
+  }, [loadUserFromStorage])
+
+  useEffect(() => {
+    if (user.email) {
+      setLoading(true)
+      loadKeysFromStorage(user.email).then(() => setLoading(false))
+    }
+  }, [loadKeysFromStorage, user.email])
 
   if (loading) return <Spinner />
 
-  return token && privateKey ? <SignedInRouter /> : <SingedOutRouter />
+  return user.token && user.privateKey ? (
+    <SignedInRouter />
+  ) : (
+    <SingedOutRouter />
+  )
 }

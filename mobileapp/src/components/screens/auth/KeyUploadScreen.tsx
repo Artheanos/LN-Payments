@@ -3,17 +3,11 @@ import { Box, Center, Heading, Spinner } from 'native-base'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import bitcoin from 'bitcoin'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { ParamListBase } from '@react-navigation/native'
 import { UserContext } from 'components/context/UserContext'
 import { api } from 'api'
 
-interface Props {
-  navigation: NativeStackNavigationProp<ParamListBase>
-}
-
-export const KeyUploadScreen: React.FC<Props> = ({ navigation }) => {
-  const { setPublicKey, setPrivateKey } = useContext(UserContext)
+export const KeyUploadScreen: React.FC = () => {
+  const { user, updateUser } = useContext(UserContext)
 
   const [generated, setGenerated] = useState(false)
   const [uploaded, setUploaded] = useState(false)
@@ -32,20 +26,19 @@ export const KeyUploadScreen: React.FC<Props> = ({ navigation }) => {
     if (response.status !== 200) {
       if (response.status === 409) alert('Key already uploaded')
       else alert('Error while uploading keys')
-      navigation.navigate('Login')
+      updateUser({ token: null, email: null, uploadKeys: false })
       return
     }
 
     setUploaded(true)
 
-    await AsyncStorage.multiSet([
-      ['privateKey', toHexString(privateKey)],
-      ['publicKey', toHexString(publicKey)],
-    ])
+    await AsyncStorage.setItem(
+      user.email!,
+      JSON.stringify({ publicKey, privateKey }),
+    )
     setSaved(true)
 
-    setPublicKey(publicKey)
-    setPrivateKey(privateKey)
+    updateUser({ publicKey, privateKey, uploadKeys: false })
   }
 
   useEffect(() => {

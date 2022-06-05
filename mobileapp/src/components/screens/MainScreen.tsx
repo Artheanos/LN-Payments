@@ -1,6 +1,13 @@
-import React from 'react'
-import { Heading } from 'native-base'
+import React, { useContext } from 'react'
+import { Box, Heading } from 'native-base'
+import { UserContext } from 'components/context/UserContext'
 
 export const MainScreen: React.FC = () => {
-  return <Heading>MAIN PAGE</Heading>
+  const { user } = useContext(UserContext)
+
+  return (
+    <Box>
+      <Heading>{JSON.stringify(user.publicKey)}</Heading>
+    </Box>
+  )
 }

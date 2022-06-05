@@ -1,37 +1,44 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import React, { createContext, useState } from 'react'
+import React, { createContext, useCallback, useState } from 'react'
 
-export const UserContext = createContext<{
+interface UserI {
+  email: string | null
   token: string | null
-  privateKey: string | null
-  publicKey: string | null
-  setToken: (value: string | null) => void
-  setPrivateKey: (value: string | null) => void
-  setPublicKey: (value: string | null) => void
-}>({
+  privateKey: Buffer | null
+  publicKey: Buffer | null
+  uploadKeys: boolean | null
+}
+
+export const EMPTY_USER = Object.freeze({
+  email: null,
   token: null,
   privateKey: null,
   publicKey: null,
-  setPublicKey: () => {},
-  setPrivateKey: () => {},
-  setToken: () => {},
+  uploadKeys: false,
 })
 
+export const UserContext = createContext<{
+  user: UserI
+  setUser: (user: UserI) => void
+  updateUser: (params: Partial<UserI>) => void
+}>({ user: EMPTY_USER, setUser: () => {}, updateUser: () => {} })
+
 export const UserContextProvider: React.FC = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null)
-  const [publicKey, setPublicKey] = useState<string | null>(null)
-  const [privateKey, setPrivateKey] = useState<string | null>(null)
+  const [user, setUser] = useState<UserI>(EMPTY_USER)
+  const updateUser = useCallback(
+    (params: Partial<UserI>) => {
+      setUser((prevUser) => ({ ...prevUser, ...params }))
+    },
+    [setUser],
+  )
 
   return (
     <UserContext.Provider
       value={{
-        token,
-        setToken,
-        publicKey,
-        setPublicKey,
-        privateKey,
-        setPrivateKey,
+        user,
+        setUser,
+        updateUser,
       }}
     >
       {children}
