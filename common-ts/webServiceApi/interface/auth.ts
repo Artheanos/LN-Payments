@@ -11,6 +11,10 @@ export interface LoginForm {
     password: string
 }
 
+export interface KeyUploadForm {
+    publicKey: string
+}
+
 export interface RefreshTokenResponse {
     token: string
 }

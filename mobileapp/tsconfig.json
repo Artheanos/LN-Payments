@@ -1,17 +1,36 @@
+// prettier-ignore
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "baseUrl": ".",
+    "target": "esnext",
+    "lib": [
+      "es2017", "dom"
+    ],
+    "jsx": "react-native",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "noEmit": true,
+    "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "baseUrl": "./",
+    "skipLibCheck": true,
     "paths": {
-      "components/*": [
-        "components/*"
+      "*": [
+        "src/*"
       ],
-      "api": [
-        "api"
+      "bitcoin": [
+        "src/bitcoin"
       ]
     }
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ]
 }
