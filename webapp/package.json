@@ -12,7 +12,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "test:unit": "jest",
-    "test:e2e": "cypress run -e TAGS=not @ignore",
+    "test:e2e": "cypress run -e TAGS='not @ignore'",
     "lint": "eslint src --max-warnings=0",
     "cypress": "cypress open",
     "setup:backend": " mkdir -p ~/.lnpayments && yarn setup:docker:regtest && yarn setup:btc && mvn spring-boot:run -f ../webservice/pom.xml -Dspring-boot.run.arguments=\"--lnp.wallet.network=regtest\"",
