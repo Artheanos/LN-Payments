@@ -29,7 +29,7 @@ using docker-compose files from _devtools/docker_ folder. You can start it eithe
 Instructions on starting all the infrastructure for both networks can be found in README file of _devtools/docker_
 directory.
  
-Initial launch of _bitcoind_ in Testnet will require around an hour and will take up to 30 GB of disk space. When
+Initial launch of _bitcoind_ on Testnet will require around an hour and will take up to 30 GB of disk space. When
 the blockchain is fully downloaded, you must obtain a tls certificate and macaroon from lightning node. You can do it by
 executing the following commands in the project root directory (or the directory containing server executable file):
 ```bash
