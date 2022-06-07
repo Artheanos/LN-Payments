@@ -31,7 +31,7 @@ directory.
  
 Initial launch of _bitcoind_ in Testnet will require around an hour and will take up to 30 GB of disk space. When
 the blockchain is fully downloaded, you must obtain tls certificate and macaroon from lightning node. You can do it by
-executing the following commands in a root project directory (or the directory containing server executable file):
+executing the following commands in the project root directory (or the directory containing server executable file):
 ```bash
 docker cp lnd:/root/.lnd/tls.cert .
 docker cp lnd:/root/.lnd/admin.macaroon .
