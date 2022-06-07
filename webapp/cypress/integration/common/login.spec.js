@@ -4,8 +4,8 @@ beforeEach(() => {
   Given('I am on the site homepage', () => {
     cy.visit('http://localhost:3000/')
   })
-  When('I click on "Login" button on the "Home" Page', () => {
-    cy.get('button').contains('Login').click()
+  When('I click on {string} button on the "Home" Page', (login_button) => {
+    cy.get('button').contains(login_button).click()
   })
   Then('I am redirected to "Login" Page', () => {
     cy.location().should((loc) => {
@@ -14,14 +14,20 @@ beforeEach(() => {
   })
 })
 
-Given('I enter "admin@admin.pl" into "Email" field on the "Login" Page', () => {
-  cy.get('input[name=email]').type('admin@admin.pl')
-})
-And('I enter "admin" into "Password" field on the "Login" Page', () => {
-  cy.get('input[name=password').type('admin')
-})
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
+Given(
+  'I enter {string} into "Email" field on the "Login" Page',
+  (correct_login) => {
+    cy.get('input[name=email]').type(correct_login)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Login" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
 })
 Then('I am redirected to "History" Page of "admin@admin.pl" User', () => {
   cy.location().should((loc) => {
@@ -29,120 +35,122 @@ Then('I am redirected to "History" Page of "admin@admin.pl" User', () => {
   })
 })
 And(
-  'Alert "Login successful" is displayed on "History" Page of "admin@admin.pl" User',
-  () => {
+  'Alert {string} is displayed on "History" Page of "admin@admin.pl" User',
+  (login_success_alert) => {
     cy.on('window:alert', (str) => {
-      expect(str).to.equal('Login successful')
+      expect(str).to.equal(login_success_alert)
     })
   }
 )
 
-Given('I left empty "Email" field on the "Login" Page', () => {})
-And('I left empty "Password" field on the "Login" Page', () => {})
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
 })
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
-  }
-)
-
-Given('I left empty "Email" field on the "Login" Page', () => {})
-And('I enter "admin" into "Password" field on the "Login" Page', () => {
-  cy.get('input[name=password').type('admin')
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
 })
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
-})
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
-  }
-)
-
-Given('I enter "admin@admin.pl" into "Email" field on the "Login" Page', () => {
-  cy.get('input[name=email]').type('admin@admin.pl')
-})
-And('I left empty "Password" field on the "Login" Page', () => {})
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
-})
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
-  }
-)
-
-Given('I enter "test@test.pl" into "Email" field on the "Login" Page', () => {
-  cy.get('input[name=email]').type('test@test.pl')
-})
-And('I enter "test" into "Password" field on the "Login" Page', () => {
-  cy.get('input[name=password').type('test')
-})
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
-})
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
-  }
-)
 
 Given(
-  'I enter "adminzzz@admin.pl" into "Email" field on the "Login" Page',
-  () => {
-    cy.get('input[name=email]').type('adminzzz@admin.pl')
+  'I enter {string} into "Password" field on the "Login" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
   }
 )
-And('I enter "admin" into "Password" field on the "Login" Page', () => {
-  cy.get('input[name=password').type('admin')
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
 })
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
 })
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
-  }
-)
 
-Given('I enter "admin@admin.pl" into "Email" field on the "Login" Page', () => {
-  cy.get('input[name=email]').type('admin@admin.pl')
-})
-And('I enter "adminzzz" into "Password" field on the "Login" Page', () => {
-  cy.get('input[name=password').type('adminzzz')
-})
-When('I click on "Login" button on the "Login" Page', () => {
-  cy.get('button').contains('Login').click()
-})
-Then(
-  'Alert "Email or password is invalid" is displayed on "Login" Page',
-  () => {
-    cy.on('window:alert', (str) => {
-      expect(str).to.equal('Email or password is invalid')
-    })
+Given(
+  'I enter {string} into "Email" field on the "Login" Page',
+  (correct_login) => {
+    cy.get('input[name=email]').type(correct_login)
   }
 )
-
-When('I click on "Register instead" button on "Login" Page', () => {
-  cy.get('button').contains('Register instead').click()
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
 })
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
+})
+
+Given(
+  'I enter {string} into "Email" field on the "Login" Page',
+  (incorrect_login) => {
+    cy.get('input[name=email]').type(incorrect_login)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Login" Page',
+  (incorrect_password) => {
+    cy.get('input[name=password').type(incorrect_password)
+  }
+)
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
+})
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
+})
+
+Given(
+  'I enter {string} into "Email" field on the "Login" Page',
+  (incorrect_login) => {
+    cy.get('input[name=email]').type(incorrect_login)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Login" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
+})
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
+})
+
+Given(
+  'I enter {string} into "Email" field on the "Login" Page',
+  (correct_login) => {
+    cy.get('input[name=email]').type(correct_login)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Login" Page',
+  (incorrect_password) => {
+    cy.get('input[name=password').type(incorrect_password)
+  }
+)
+When('I click on {string} button on the "Login" Page', (login_button) => {
+  cy.get('button').contains(login_button).click()
+})
+Then('Alert {string} is displayed on "Login" Page', (email_password_alert) => {
+  cy.on('window:alert', (str) => {
+    expect(str).to.equal(email_password_alert)
+  })
+})
+
+When(
+  'I click on {string} button on "Login" Page',
+  (register_instead_button) => {
+    cy.get('button').contains(register_instead_button).click()
+  }
+)
 Then('I am redirected to "Register" Page', () => {
   cy.location().should((loc) => {
     expect(loc.pathname).to.eq('/register')

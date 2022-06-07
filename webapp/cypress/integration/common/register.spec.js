@@ -4,8 +4,8 @@ beforeEach(() => {
   Given('I am on the site homepage', () => {
     cy.visit('http://localhost:3000/')
   })
-  When('I click on "Register" button on the "Home" Page', () => {
-    cy.get('button').contains('Register').click()
+  When('I click on {string} button on the "Home" Page', (register_button) => {
+    cy.get('button').contains(register_button).click()
   })
   Then('I am redirected to "Register" Page', () => {
     cy.location().should((loc) => {
@@ -15,43 +15,41 @@ beforeEach(() => {
 })
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
+And(
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
+})
+Then('Alert {string} is displayed on "Register" Page', (successful_msg) => {
+  cy.on('window:confirm', (text) => {
+    expect(text).to.eq(successful_msg)
+  })
 })
 And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
-  }
-)
-And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
-  }
-)
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
-})
-Then(
-  'Alert "You have been successfully registered. You can now log in!" is displayed on "Register" Page',
-  () => {
-    cy.on('window:confirm', (text) => {
-      expect(text).to.eq(
-        'You have been successfully registered. You can now log in!'
-      )
-    })
-  }
-)
-And(
-  'I am redirected to "Login" Page after click "Ok" button from alert',
-  () => {
-    cy.contains('Ok').click()
+  'I am redirected to "Login" Page after click {string} button from alert',
+  (confirm_button) => {
+    cy.contains(confirm_button).click()
     cy.location().should((loc) => {
       expect(loc.pathname).to.eq('/login')
     })
@@ -59,272 +57,293 @@ And(
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
-  }
-)
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
 And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=fullName').type(correct_password)
   }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Given email is already in use" is displayed under "Email" field on the "Register" Page',
-  () => {
-    cy.contains('Given email is already in use').should('exist')
-  }
-)
-
-Given('I enter "test123.pl" into "Email" field on the "Register" Page', () => {
-  cy.get('input[name=email]').type('test123.pl')
-})
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
-  }
-)
-And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
-  }
-)
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
-})
-Then(
-  'Alert "Email not valid!" is displayed under "Email" field on the "Register" Page',
-  () => {
-    cy.contains('Email not valid!').should('exist')
-  }
-)
-
-Given('I left empty "Email" field on the "Register" Page', () => {})
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
-  }
-)
-And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
-  }
-)
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
-})
-Then(
-  'Alert "Email is required!" is displayed under "Email" field on the "Register" Page',
-  () => {
-    cy.contains('Email is required!').should('exist')
+  'Alert {string} is displayed under "Email" field on the "Register" Page',
+  (alert_email) => {
+    cy.contains(alert_email).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
-  }
-)
-And('I left empty "Full name" field on the "Register" Page', () => {})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (incorrect_email) => {
+    cy.get('input[name=email]').type(incorrect_email)
   }
 )
 And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
   }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Full name is required!" is displayed under "Full name" field on the "Register" Page',
-  () => {
-    cy.contains('Full name is required!').should('exist')
+  'Alert {string} is displayed under "Email" field on the "Register" Page',
+  (alert_email_not_valid) => {
+    cy.contains(alert_email_not_valid).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
-  }
-)
-And('I enter "NaMe@123&" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('NaMe@123&')
-})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
   }
 )
 And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
   }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Full name is required!" is displayed under "Full name" field on the "Register" Page',
-  () => {
-    cy.contains('Full name not valid!').should('exist')
+  'Alert {string} is displayed under "Email" field on the "Register" Page',
+  (alert_email_required) => {
+    cy.contains(alert_email_required).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And('I left empty "Password" field on the "Register" Page', () => {})
 And(
-  'I enter "Pa$$word123@" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('Pa$$word123@')
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
   }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Password is required!" is displayed under "Password" field on the "Register" Page',
-  () => {
-    cy.contains('Password is required!').should('exist')
-  }
-)
-And(
-  'Alert "Passwords does not match!" is displayed under "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.contains('Passwords does not match!').should('exist')
+  'Alert {string} is displayed under "Full name" field on the "Register" Page',
+  (alert_name_required) => {
+    cy.contains(alert_name_required).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And('I left empty "Password" field on the "Register" Page', () => {})
 And(
-  'I left empty "Repeat your password" field on the "Register" Page',
-  () => {}
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (incorrect_username) => {
+    cy.get('input[name=fullName').type(incorrect_username)
+  }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Password is required!" is displayed under "Password" field on the "Register" Page',
-  () => {
-    cy.contains('Password is required!').should('exist')
-  }
-)
-And(
-  'Alert "Passwords does not match!" is displayed under "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.contains('Passwords does not match!').should('exist')
+  'Alert {string} is displayed under "Full name" field on the "Register" Page',
+  (alert_name_not_valid) => {
+    cy.contains(alert_name_not_valid).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
-  }
-)
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And(
-  'I enter "Pa$$word123@" into "Password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=password').type('Pa$$word123@')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
 And(
-  'I left empty "Repeat your password" field on the "Register" Page',
-  () => {}
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
+  }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=passwordConfirmation').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Passwords does not match!" is displayed under "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.contains('Passwords does not match!').should('exist')
+  'Alert {string} is displayed under "Password" field on the "Register" Page',
+  (alert_password_required) => {
+    cy.contains(alert_password_required).should('exist')
+  }
+)
+And(
+  'Alert {string} is displayed under "Repeat your password" field on the "Register" Page',
+  (alert_password_not_match) => {
+    cy.contains(alert_password_not_match).should('exist')
   }
 )
 
 Given(
-  'I enter "test@test.pl" into "Email" field on the "Register" Page',
-  () => {
-    cy.get('input[name=email]').type('test@test.pl')
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
   }
 )
-And('I enter "Test User" into "Full name" field on the "Register" Page', () => {
-  cy.get('input[name=fullName').type('Test User')
-})
-And('I enter "password" into "Password" field on the "Register" Page', () => {
-  cy.get('input[name=password').type('password')
-})
 And(
-  'I enter "password" into "Repeat your password" field on the "Register" Page',
-  () => {
-    cy.get('input[name=passwordConfirmation').type('password')
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
   }
 )
-When('I click on "Register" button on the "Register" Page', () => {
-  cy.get('button').contains('Register').click()
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
 Then(
-  'Alert "Password must contain 8 characters, one uppercase, one lowercase, one number and one special case character!"is displayed under "Password" field on the "Register" Page',
-  () => {
-    cy.contains('Password must contain 8 characters').should('exist')
+  'Alert {string} is displayed under "Password" field on the "Register" Page',
+  (alert_password_required) => {
+    cy.contains(alert_password_required).should('exist')
+  }
+)
+And(
+  'Alert {string} is displayed under "Repeat your password" field on the "Register" Page',
+  (alert_password_not_match) => {
+    cy.contains(alert_password_not_match).should('exist')
   }
 )
 
-When('I click on "Login instead" button on "Register" Page', () => {
-  cy.get('button').contains('Login instead').click()
+Given(
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
+  }
+)
+And(
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (correct_password) => {
+    cy.get('input[name=password').type(correct_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
 })
+Then(
+  'Alert {string} is displayed under "Repeat your password" field on the "Register" Page',
+  (alert_password_not_match) => {
+    cy.contains(alert_password_not_match).should('exist')
+  }
+)
+
+Given(
+  'I enter {string} into "Email" field on the "Register" Page',
+  (correct_email) => {
+    cy.get('input[name=email]').type(correct_email)
+  }
+)
+And(
+  'I enter {string} into "Full name" field on the "Register" Page',
+  (correct_username) => {
+    cy.get('input[name=fullName').type(correct_username)
+  }
+)
+And(
+  'I enter {string} into "Password" field on the "Register" Page',
+  (incorrect_password) => {
+    cy.get('input[name=password').type(incorrect_password)
+  }
+)
+And(
+  'I enter {string} into "Repeat your password" field on the "Register" Page',
+  (incorrect_password) => {
+    cy.get('input[name=passwordConfirmation').type(incorrect_password)
+  }
+)
+When('I click on {string} button on the "Register" Page', (register_button) => {
+  cy.get('button').contains(register_button).click()
+})
+Then(
+  'Alert {string} is displayed under "Password" field on the "Register" Pages',
+  (alert_incorrect_password) => {
+    cy.contains(alert_incorrect_password).should('exist')
+  }
+)
+
+When(
+  'I click on {string} button on "Register" Page',
+  (login_instead_button) => {
+    cy.get('button').contains(login_instead_button).click()
+  }
+)
 Then('I am redirected to "Login" Page', () => {
   cy.location().should((loc) => {
     expect(loc.pathname).to.eq('/login')

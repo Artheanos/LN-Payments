@@ -13,20 +13,16 @@ Feature: Login scenarios
     And Alert "Login successful" is displayed on "History" Page of "admin@admin.pl" User
 
   Scenario: Alert is displayed when I did not enter email and password credentials
-    Given I left empty "Email" field on the "Login" Page
-    And I left empty "Password" field on the "Login" Page
     When I click on "Login" button on the "Login" Page
     Then Alert "Email or password is invalid" is displayed on "Login" Page
 
   Scenario: Alert is displayed when I did not enter email credential
-    Given I left empty "Email" field on the "Login" Page
-    And I enter "admin" into "Password" field on the "Login" Page
+    Given I enter "admin" into "Password" field on the "Login" Page
     When I click on "Login" button on the "Login" Page
     Then Alert "Email or password is invalid" is displayed on "Login" Page
 
   Scenario: Alert is displayed when I did not enter password credential
     Given I enter "admin@admin.pl" into "Email" field on the "Login" Page
-    And I left empty "Password" field on the "Login" Page
     When I click on "Login" button on the "Login" Page
     Then Alert "Email or password is invalid" is displayed on "Login" Page
 
