@@ -37,7 +37,10 @@ docker cp lnd:/root/.lnd/tls.cert .
 docker cp lnd:/root/.lnd/admin.macaroon .
 ```
 
-Right now you should be up and ready to boot up the server. Find Application.java class and launch the _main_ method.
+Right now you should be up and ready to boot up the server. Find Application.java class and launch the _main_ method. You can also run the application without any IDE by running:
+```bash
+mvn spring-boot:run
+```
 Initially there is an admin user created, so you can authenticate and test the application with postman for instance.
 You can access the server by localhost address and 8080 port.
 
@@ -53,4 +56,16 @@ You can also run unit test coverage checks with the following command. Report ca
 folder.
 ```bash
 mvn verify -P test-coverage
+```
+
+## Building executable file
+
+Server can be build into the executable JAR file with the command:
+```bash
+mvn package
+```
+File will be generated inside _target_ directory with the name _webservice-X.jar_, where X is a version number. 
+Generated executable can be run with:
+```bash
+java -jar target/webservice-X.jar
 ```
