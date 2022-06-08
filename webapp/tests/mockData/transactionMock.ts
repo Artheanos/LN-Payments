@@ -1,4 +1,4 @@
-import { TransactionStatus } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { TransactionStatus } from 'webService/interface/transaction'
 
 export const transactionMock = (status: TransactionStatus) => {
   return {

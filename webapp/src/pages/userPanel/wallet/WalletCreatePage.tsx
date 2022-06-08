@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Panel from 'components/common/Panel'
 import { MultiSelectInput } from 'components/Form/FormikInputs/MultiSelectInput'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import {
   walletCreateSchema,
   initialValues,

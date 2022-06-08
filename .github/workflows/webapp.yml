@@ -27,9 +27,6 @@ jobs:
           cache: 'yarn'
           cache-dependency-path: webapp/yarn.lock
 
-      - name: Build common package
-        working-directory: common-ts
-        run: yarn && tsc
       - name: Install dependencies
         run: yarn
       - name: Eslint

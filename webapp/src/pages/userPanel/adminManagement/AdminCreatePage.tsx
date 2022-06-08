@@ -8,7 +8,7 @@ import { TextInput } from 'components/Form/FormikInputs/TextInput'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
-import { api } from 'api'
+import { api } from 'webService/requests'
 import routesBuilder from 'routesBuilder'
 import { useNotification } from 'components/Context/NotificationContext'
 import {

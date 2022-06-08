@@ -10,7 +10,7 @@ import {
   defaultValue as defaultUserContextValue,
   UserContext
 } from 'components/Context/UserContext'
-import { Role } from 'common-ts/dist/webServiceApi/interface/user'
+import { Role } from 'webService/interface/user'
 
 type CustomRenderProps = Partial<{
   location: string

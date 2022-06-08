@@ -6,8 +6,8 @@ import { Formik, Field, Form } from 'formik'
 import { CardForm, CardFormButton } from 'components/Form/CardForm'
 import { StageProps } from 'components/QuickBuy/StageProps'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
-import { api } from 'api'
-import { PaymentForm } from 'common-ts/dist/webServiceApi/interface/payment'
+import { api } from 'webService/requests'
+import { PaymentForm } from 'webService/interface/payment'
 
 export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   const { t } = useTranslation('quickBuy')
