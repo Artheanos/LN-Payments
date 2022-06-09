@@ -1,34 +1,16 @@
-# Mobile app
+## Development
+#### (Android only)
 
-## What is inside?
+### Installation
+Prepare the environment according to the React Native docs, except:
 
-- [ReactNative](https://reactjs.org)
-- [TypeScript](https://www.typescriptlang.org)
+* Use `yarn` instead of `npx`
+* Skip the "Creating a new application" part
 
-## Getting Started
+https://reactnative.dev/docs/environment-setup
 
-### Install
+### Running the app
 
-Install dependencies.
+`yarn android` compiles the java code, opens android emulator (if you have set up env paths according to the docs) and runs the metro server
 
-```bash
-yarn install
-```
-
-### Developing
-
-Start expo
-
-```bash
-yarn start
-```
-
-You will be prompted a QR code and a URL which you can go to and open the app in the browser. Or you can install Expo, scan the QR code from the terminal and run the code on your phone.
- * Android - https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pl&gl=US
- * iOS - https://apps.apple.com/us/app/expo-go/id982107779
-
-### Lint
-
-```bash
-yarn lint
-```
+`yarn start` only runs the metro server

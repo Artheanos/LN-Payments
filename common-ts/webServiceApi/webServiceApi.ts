@@ -4,7 +4,7 @@ import {routes} from './routes'
 import {datify} from '../utils/time'
 import {Pageable, PageRequest} from "./interface/pageable";
 import {PaymentDetails, PaymentForm, PaymentInfo, PublicPaymentDetails} from "./interface/payment";
-import {LoginForm, LoginResponse, RefreshTokenResponse, RegisterForm} from "./interface/auth";
+import {KeyUploadForm, LoginForm, LoginResponse, RefreshTokenResponse, RegisterForm} from "./interface/auth";
 import {WalletForm, WalletInfo} from "./interface/wallet";
 import {AdminUser} from "./interface/user";
 import {NewTransactionInfo, TransactionForm, TransactionsResponse} from "./interface/transaction";
@@ -86,7 +86,10 @@ export class WebServiceApi {
                 this.request(routes.admins.index, {data}),
 
             remove: (data: AdminUser): Promise<Response<unknown>> =>
-                this.request(routes.admins.index, {method: 'delete', data})
+                this.request(routes.admins.index, {method: 'delete', data}),
+
+            uploadKeys: (data: KeyUploadForm): Promise<Response<unknown>> =>
+                this.request(routes.admins.keys, {method: 'patch', data})
         },
         wallet: {
             getInfo: (): Promise<Response<WalletInfo>> =>

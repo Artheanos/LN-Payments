@@ -1,4 +1,4 @@
-import { capitalize } from '../../utils/strings'
+import { capitalize } from 'utils/strings'
 
 describe('capitalize', () => {
   const cases = [
