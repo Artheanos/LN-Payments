@@ -2,16 +2,24 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useEffect } from 'react'
 import { Text } from 'native-base'
 
-import { EMPTY_USER, UserContext } from 'components/context/UserContext'
+import { UserContext } from 'components/context/UserContext'
+import { LocalKey } from 'constants/LocalKey'
 
 export const LogoutScreen: React.FC = () => {
   const { updateUser } = useContext(UserContext)
 
   useEffect(() => {
     AsyncStorage.multiSet([
-      ['token', ''],
-      ['email', ''],
-    ]).then(() => updateUser(EMPTY_USER))
+      [LocalKey.TOKEN, ''],
+      [LocalKey.EMAIL, ''],
+    ]).then(() =>
+      updateUser({
+        email: null,
+        token: null,
+        privateKey: null,
+        publicKey: null,
+      }),
+    )
   }, [updateUser])
 
   return <Text>Logging out...</Text>

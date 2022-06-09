@@ -2,27 +2,40 @@ import React, { useCallback, useContext, useEffect, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Spinner } from 'native-base'
 
-import { UserContext } from 'components/context/UserContext'
+import { LocalKey } from 'constants/LocalKey'
 import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
+import { UserContext } from 'components/context/UserContext'
+import { requests } from 'webService/requests'
 
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(true)
 
   const loadUserFromStorage = useCallback(async () => {
-    const keys = ['token', 'email']
+    const keys = [LocalKey.TOKEN, LocalKey.EMAIL, LocalKey.HOST_URL]
 
-    const keyValues = await AsyncStorage.multiGet(keys)
-    for (const [key, value] of keyValues) {
-      const partialUser: Record<string, unknown> = {}
-      if (key === 'token') {
-        partialUser.token = value
-      } else if (key === 'email') {
-        partialUser.email = value
+    const partialUser: Record<string, unknown> = {}
+    const storageKeyValues = await AsyncStorage.multiGet(keys)
+
+    for (const [key, value] of storageKeyValues) {
+      if (value === null) continue
+
+      switch (key) {
+        case LocalKey.TOKEN:
+          partialUser.token = value
+          break
+        case LocalKey.EMAIL:
+          partialUser.email = value
+          break
+        case LocalKey.HOST_URL:
+          partialUser.hostUrl = value
+          requests.host = value
+          break
       }
-      updateUser(partialUser)
     }
+
+    updateUser(partialUser)
   }, [updateUser])
 
   const loadKeysFromStorage = useCallback(

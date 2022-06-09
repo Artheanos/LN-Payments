@@ -1,8 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { routes } from './routes'
 import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
+import { LocalKey } from 'constants/LocalKey'
+import { routes } from './routes'
 
 export type Response<T> = {
   data?: T
@@ -17,8 +18,8 @@ type RefreshTokenFactory = () => Promise<string | null>
 
 class Requests {
   public authHeader: string | null = null
+  public host?: string
 
-  private readonly host?: string
   private readonly refreshTokenFactory: RefreshTokenFactory
 
   constructor(refreshTokenFactory: RefreshTokenFactory, host?: string) {
@@ -28,8 +29,16 @@ class Requests {
 
   public api = {
     auth: {
-      login: async (data: LoginForm): Promise<Response<LoginResponse>> => {
-        return await this.request(routes.auth.login, { data })
+      tryLogin: async (
+        { hostUrl, ...data }: LoginForm,
+        timeout = 3000,
+      ): Promise<Response<LoginResponse>> => {
+        console.log(new URL(routes.auth.login, hostUrl).href)
+        return this.request(
+          new URL(routes.auth.login, hostUrl).href,
+          { data, timeout },
+          false,
+        )
       },
     },
     admins: {
@@ -42,11 +51,15 @@ class Requests {
     this.authHeader = `Bearer ${await this.refreshTokenFactory()}`
   }
 
-  private async configFactory(url: string, config: AxiosRequestConfig) {
+  private async configFactory(
+    url: string,
+    config: AxiosRequestConfig,
+    authenticate: boolean,
+  ) {
     const result = { url, ...defaultConfig, ...config }
 
     await this.reloadAuthHeader()
-    if (this.authHeader) {
+    if (this.authHeader && authenticate) {
       if (!result.headers) {
         result.headers = {}
       }
@@ -61,11 +74,12 @@ class Requests {
   private async request<D, T>(
     url: string,
     config: AxiosRequestConfig<D> = {},
+    authenticate = true,
   ): Promise<Response<T>> {
     try {
       url = this.resolveRoute(url)
       const response = await axios.request(
-        await this.configFactory(url, config),
+        await this.configFactory(url, config, authenticate),
       )
       return { data: response.data, status: response.status }
     } catch (e) {
@@ -86,10 +100,7 @@ class Requests {
 }
 
 export const refreshTokenFactory = async () =>
-  await AsyncStorage.getItem('token')
+  await AsyncStorage.getItem(LocalKey.TOKEN)
 
-export const requests = new Requests(
-  refreshTokenFactory,
-  'http://192.168.8.112:8080',
-)
+export const requests = new Requests(refreshTokenFactory)
 export const api = requests.api

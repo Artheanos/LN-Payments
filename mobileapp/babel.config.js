@@ -5,6 +5,7 @@ const moduleResolver = [
       api: './src/api',
       bitcoin: './src/bitcoin',
       components: './src/components',
+      constants: './src/constants',
       utils: './src/utils',
       webService: './src/webService',
     },
