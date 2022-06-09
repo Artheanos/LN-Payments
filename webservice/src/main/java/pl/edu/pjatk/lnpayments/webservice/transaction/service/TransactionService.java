@@ -14,10 +14,12 @@ import pl.edu.pjatk.lnpayments.webservice.transaction.converter.TransactionConve
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
 import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;
+import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.NewTransactionDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionDetails;
 import pl.edu.pjatk.lnpayments.webservice.transaction.resource.dto.TransactionResponse;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.exception.BroadcastException;
+import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.BitcoinWalletBalance;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.BitcoinService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletDataService;
 
@@ -132,5 +134,17 @@ public class TransactionService {
                 .collect(Collectors.toList());
         transaction.setNotifications(notifications);
         notificationSocketController.sendAllNotifications(notifications);
+    }
+
+    /**
+     * This method in the future will return current fee estimations, so user well be able to choose between
+     * instant or delayed transaction confirmation on blockchain. Right now we only need balance and estimated fee
+     * (which is a wrong assumption, but for now will do the job)
+     *
+     * @return Details required for new transaction creation
+     */
+    public NewTransactionDetails getNewTransactionDetails() {
+        BitcoinWalletBalance balance = bitcoinService.getBalance();
+        return new NewTransactionDetails(balance, isTransactionInProgress());
     }
 }

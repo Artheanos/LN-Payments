@@ -1,0 +1,8 @@
+{
+  "bitcoinWalletBalance": {
+    "availableBalance": 1000,
+    "unconfirmedBalance": 1000,
+    "currentReferenceFee": 1000
+  },
+  "pendingExists": false
+}

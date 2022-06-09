@@ -39,4 +39,12 @@ class TransactionResourceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(transactionService).findTransactions(null);
     }
+
+    @Test
+    void shouldReturnOkForNewTransactionsGetResponse() {
+        ResponseEntity<?> response = transactionResource.getNewTransactionDetails();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(transactionService).getNewTransactionDetails();
+    }
 }

@@ -18,7 +18,11 @@ import {
 } from './interface/auth'
 import { WalletForm, WalletInfo } from './interface/wallet'
 import { AdminUser } from './interface/user'
-import { TransactionsResponse } from './interface/transaction'
+import {
+  NewTransactionInfo,
+  TransactionForm,
+  TransactionsResponse
+} from './interface/transaction'
 import { getLocalJson } from '../utils/persist'
 import { LocalKey } from '../constants/LocalKey'
 
@@ -127,7 +131,16 @@ class Requests {
           method: 'get',
           params
         })
-      }
+      },
+      getNewTransactionInfo: async (): Promise<
+        Response<NewTransactionInfo>
+      > => {
+        return this.request(routes.transactions.newInfo, {
+          method: 'get'
+        })
+      },
+      createTransaction: (data: TransactionForm): Promise<Response<unknown>> =>
+        this.request(routes.transactions.index, { data })
     }
   }
 
