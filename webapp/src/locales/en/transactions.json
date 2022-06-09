@@ -15,7 +15,8 @@
   "feeInfo": "Current fee value will be added to amount inserted by you.",
   "onSubmit": {
     "on200": "New transaction has been created",
-    "on400": "Invalid input parameters provided",
-    "onOthers": "Exception occurred during your request, try again later"
+    "on400": "Invalid input parameters provided, might not be enough funds for fee",
+    "onOthers": "Exception occurred during your request, try again later",
+    "wrongBalance": "Value cannot exceed the available balance"
   }
 }

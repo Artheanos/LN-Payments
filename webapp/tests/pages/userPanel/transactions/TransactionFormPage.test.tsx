@@ -82,6 +82,16 @@ describe('TransactionFormPage', () => {
     expect(currentPath()).toBe('/panel/transactions/new')
   })
 
+  it('should display proper message when input is higher than balance', async () => {
+    await fillForm(10001516, '2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv')
+    await waitFor(() => {
+      expect(
+        screen.getByText('Value cannot exceed the available balance')
+      ).toBeInTheDocument()
+    })
+    expect(currentPath()).toBe('/panel/transactions/new')
+  })
+
   it('redirects to transactions list and shows success message', async () => {
     await fillForm(100, '2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv')
     await waitFor(() => {

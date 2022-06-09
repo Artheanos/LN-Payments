@@ -32,12 +32,14 @@ export const TransactionsPage: React.FC = () => {
   return (
     <Panel.Container>
       <Panel.Header title={t('header')}>
-        {!elements ||
-          (!elements?.pendingTransaction && (
-            <Link to={routesBuilder.userPanel.transactions.new}>
-              <Button variant="contained">{t('createHeader')}</Button>
-            </Link>
-          ))}
+        <div>
+          {!elements ||
+            (!elements?.pendingTransaction && (
+              <Link to={routesBuilder.userPanel.transactions.new}>
+                <Button variant="contained">{t('createHeader')}</Button>
+              </Link>
+            ))}
+        </div>
       </Panel.Header>
       <Panel.Body table>
         <PageableTable

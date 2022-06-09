@@ -54,6 +54,6 @@ export const TransactionSchema = Yup.object().shape({
 export type TransactionProps = typeof TransactionInitialValue
 
 export const TransactionInitialValue = {
-  amount: undefined,
+  amount: '',
   targetAddress: ''
 }

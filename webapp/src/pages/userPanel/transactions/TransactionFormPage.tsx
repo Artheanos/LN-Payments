@@ -1,23 +1,24 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import Panel from 'components/common/Panel'
+import { Alert, CircularProgress, Grid } from '@mui/material'
 import { Field, Form, Formik, FormikHelpers } from 'formik'
+import { LoadingButton } from '@mui/lab'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
+import Panel from 'components/common/Panel'
+import routesBuilder from 'routesBuilder'
+import { NewTransactionInfo } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { TextInput } from 'components/Form/FormikInputs/TextInput'
+import { api } from 'api'
+import { useNotification } from 'components/Context/NotificationContext'
 import {
   TransactionInitialValue,
   TransactionProps,
   TransactionSchema
 } from 'components/auth/Register/form'
-import { Alert, CircularProgress, Grid } from '@mui/material'
-import { TextInput } from 'components/Form/FormikInputs/TextInput'
-import { LoadingButton } from '@mui/lab'
-import { api } from 'api'
-import { NewTransactionInfo } from 'common-ts/dist/webServiceApi/interface/transaction'
-import { useNotification } from 'components/Context/NotificationContext'
-import { Navigate, useNavigate } from 'react-router-dom'
-import routesBuilder from 'routesBuilder'
-import { useTranslation } from 'react-i18next'
 
 export const TransactionFormPage: React.FC = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [info, setInfo] = useState<NewTransactionInfo>()
   const notification = useNotification()
   const navigate = useNavigate()
@@ -40,6 +41,10 @@ export const TransactionFormPage: React.FC = () => {
     form: TransactionProps,
     { setFieldError }: FormikHelpers<TransactionProps>
   ) => {
+    if (form.amount! > info!.bitcoinWalletBalance.availableBalance) {
+      setFieldError('amount', t('onSubmit.wrongBalance'))
+      return
+    }
     const { status } = await api.transactions.createTransaction(form)
     if (status === 201) {
       notification(t('onSubmit.on200'), 'success')
