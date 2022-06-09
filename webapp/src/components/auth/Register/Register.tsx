@@ -9,7 +9,7 @@ import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
 import { Link, useNavigate } from 'react-router-dom'
 import { RegisterInitialValue, RegisterProps, RegisterSchema } from './form'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
-import { api } from 'api'
+import { api } from 'webService/requests'
 
 export const Register: React.FC = () => {
   const { t } = useTranslation('auth')

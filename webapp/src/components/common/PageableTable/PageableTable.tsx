@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-import { Pageable } from 'common-ts/dist/webServiceApi/interface/pageable'
+import { Pageable } from 'webService/interface/pageable'
 
 interface Props<T> {
   pageElements: Pageable<T> | undefined

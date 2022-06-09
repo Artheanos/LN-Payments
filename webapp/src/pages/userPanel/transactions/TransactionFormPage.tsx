@@ -7,9 +7,9 @@ import { useTranslation } from 'react-i18next'
 
 import Panel from 'components/common/Panel'
 import routesBuilder from 'routesBuilder'
-import { NewTransactionInfo } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { NewTransactionInfo } from 'webService/interface/transaction'
 import { TextInput } from 'components/Form/FormikInputs/TextInput'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
 import {
   TransactionInitialValue,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { TableCell, TableRow, Typography } from '@mui/material'
-import { TransactionDetails } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { TransactionDetails } from 'webService/interface/transaction'
 import { TransactionStatusCell } from './TransactionStatusCell'
 
 export const TransactionListItem: React.FC<

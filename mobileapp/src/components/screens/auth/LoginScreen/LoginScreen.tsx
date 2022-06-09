@@ -3,11 +3,12 @@ import React, { useContext, useState } from 'react'
 import { Box, Button, Center, Flex, Heading } from 'native-base'
 import { Field, Formik, FormikHelpers } from 'formik'
 
-import { api } from 'api'
-import { initialValues } from './loginForm'
 import { FormikInput } from 'components/form/FormikInput'
-import { LoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
+import { LoginForm } from 'webService/interface/auth'
+import { Role } from 'webService/interface/user'
 import { UserContext } from 'components/context/UserContext'
+import { api } from 'webService/requests'
+import { initialValues } from './loginForm'
 
 export const LoginScreen: React.FC = () => {
   const { updateUser } = useContext(UserContext)
@@ -34,15 +35,17 @@ export const LoginScreen: React.FC = () => {
     helpers: FormikHelpers<LoginForm>,
   ) => {
     setLoading(true)
-    api.auth.login(values).then(({ data }) => {
-      setLoading(false)
-      if (data?.role === 'ROLE_ADMIN')
-        return onSuccess(values.email, data.token)
+    api.auth
+      .login(values)
+      .then(({ data }) => {
+        if (data?.role === Role.ADMIN)
+          return onSuccess(values.email, data.token)
 
-      if (!data) return onFailure(helpers)
+        if (!data) return onFailure(helpers)
 
-      onUnauthorized(helpers)
-    })
+        onUnauthorized(helpers)
+      })
+      .finally(() => setLoading(false))
   }
 
   return (

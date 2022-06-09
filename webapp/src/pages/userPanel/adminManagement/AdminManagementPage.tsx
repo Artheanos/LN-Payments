@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import Panel from 'components/common/Panel'
 import routesBuilder from 'routesBuilder'
 import { AdminListItem } from 'components/adminPanel/AdminListItem'
-import { api } from 'api'
-import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
+import { api } from 'webService/requests'
+import { AdminUser } from 'webService/interface/user'
 import { ApiPageableTable } from 'components/common/PageableTable/ApiPageableTable'
 
 export const AdminManagementPage: React.FC = () => {

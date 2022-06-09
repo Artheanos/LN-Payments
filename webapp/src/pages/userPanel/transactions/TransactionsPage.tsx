@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Panel from 'components/common/Panel'
 import { PageableTable } from 'components/common/PageableTable/PageableTable'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { TransactionListItem } from 'components/Transactions/TransactionListItem'
 import {
   TransactionDetails,
   TransactionsResponse
-} from 'common-ts/dist/webServiceApi/interface/transaction'
+} from 'webService/interface/transaction'
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import routesBuilder from 'routesBuilder'

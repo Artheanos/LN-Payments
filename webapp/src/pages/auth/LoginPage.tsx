@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
 import { LoginForm } from 'components/auth/Login/LoginForm'
-import { LoginForm as ILoginForm } from 'common-ts/dist/webServiceApi/interface/auth'
-import { api } from 'api'
+import { LoginForm as ILoginForm } from 'webService/interface/auth'
+import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
 import { UserContext } from 'components/Context/UserContext'
 

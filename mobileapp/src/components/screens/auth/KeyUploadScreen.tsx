@@ -4,7 +4,7 @@ import { Box, Center, Heading, Spinner } from 'native-base'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import bitcoin from 'bitcoin'
 import { UserContext } from 'components/context/UserContext'
-import { api } from 'api'
+import { api } from 'webService/requests'
 
 export const KeyUploadScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)

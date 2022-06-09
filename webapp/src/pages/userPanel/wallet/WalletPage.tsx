@@ -10,9 +10,9 @@ import { ChannelsBalanceCard } from 'components/wallet/ChannelsBalanceCard'
 import { LightningWalletCard } from 'components/wallet/LightningWalletCard'
 import { WalletCard } from 'components/wallet/WalletCard'
 import { WalletLoadingSkeleton } from 'components/wallet/WalletLoadingSkeleton'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
-import { WalletInfo } from 'common-ts/dist/webServiceApi/interface/wallet'
+import { WalletInfo } from 'webService/interface/wallet'
 
 export const WalletPage: React.FC = () => {
   const { t } = useTranslation('wallet')

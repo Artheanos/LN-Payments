@@ -1,10 +1,7 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 
-import { Response } from 'api'
-import {
-  PageRequest,
-  Pageable
-} from 'common-ts/dist/webServiceApi/interface/pageable'
+import { Response } from 'webService/requests'
+import { PageRequest, Pageable } from 'webService/interface/pageable'
 import { PageableTable } from './PageableTable'
 
 interface Props<T> {

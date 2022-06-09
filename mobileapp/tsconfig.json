@@ -21,9 +21,6 @@
     "paths": {
       "*": [
         "src/*"
-      ],
-      "bitcoin": [
-        "src/bitcoin"
       ]
     }
   },
