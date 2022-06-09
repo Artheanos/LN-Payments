@@ -7,8 +7,8 @@ import {
   screen,
   waitFor
 } from 'tests/test-utils'
-import { routes } from 'common-ts/dist/webServiceApi/routes'
-import { NewTransactionInfo } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { routes } from 'webService/routes'
+import { NewTransactionInfo } from 'webService/interface/transaction'
 import { TransactionFormPage } from 'pages/userPanel/transactions/TransactionFormPage'
 
 describe('TransactionFormPage', () => {
