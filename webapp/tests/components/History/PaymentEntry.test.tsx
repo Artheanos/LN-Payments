@@ -1,7 +1,7 @@
 import { render, screen } from 'tests/test-utils'
 import { PaymentEntry } from 'components/History/PaymentEntry'
 import { waitFor } from '@testing-library/react'
-import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentStatus } from 'webService/interface/payment'
 
 describe('PaymentEntry', () => {
   it('should properly render entry with no tokens', () => {

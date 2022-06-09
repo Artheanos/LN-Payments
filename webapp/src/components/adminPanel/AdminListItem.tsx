@@ -4,9 +4,9 @@ import { TableCell, TableRow } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import { AdminStatusIndicator } from './AdminStatusIndicator'
-import { AdminUser } from 'common-ts/dist/webServiceApi/interface/user'
+import { AdminUser } from 'webService/interface/user'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
 
 interface Props {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { TableCell, TableRow } from '@mui/material'
 import { PaymentStatusCell } from './PaymentStatusCell'
-import { PublicPaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PublicPaymentDetails } from 'webService/interface/payment'
 import { ApiPageableTable } from '../common/PageableTable/ApiPageableTable'
 
 export const HistoryAll: React.FC = () => {

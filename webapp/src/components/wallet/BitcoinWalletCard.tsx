@@ -2,7 +2,7 @@ import { WalletCard } from './WalletCard'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Typography } from '@mui/material'
-import { BitcoinWalletBalance } from 'common-ts/dist/webServiceApi/interface/wallet'
+import { BitcoinWalletBalance } from 'webService/interface/wallet'
 
 export const BitcoinWalletCard: React.FC<BitcoinWalletBalance> = ({
   availableBalance,

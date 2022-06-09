@@ -1,5 +1,5 @@
 import React from 'react'
-import { PaymentStatus } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentStatus } from 'webService/interface/payment'
 import {
   Color,
   FailColor,

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { PaymentEntry } from './PaymentEntry'
-import { api } from 'api'
-import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
 import { ApiPageableTable } from '../common/PageableTable/ApiPageableTable'
+import { PaymentDetails } from 'webService/interface/payment'
+import { PaymentEntry } from './PaymentEntry'
+import { api } from 'webService/requests'
 
 export const History: React.FC = () => {
   const { t } = useTranslation('history')

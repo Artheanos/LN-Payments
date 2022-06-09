@@ -1,7 +1,7 @@
 import React from 'react'
 import { WalletCard } from './WalletCard'
 import { ActionButton } from './ActionButton'
-import { api } from 'api'
+import { api } from 'webService/requests'
 import { useNotification } from '../Context/NotificationContext'
 import { useTranslation } from 'react-i18next'
 

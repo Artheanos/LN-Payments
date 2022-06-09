@@ -3,8 +3,8 @@ import { rest } from 'msw'
 
 import { render, screen, waitFor } from 'tests/test-utils'
 import { transactionMock } from 'tests/mockData/transactionMock'
-import { routes } from 'common-ts/dist/webServiceApi/routes'
-import { TransactionStatus } from 'common-ts/dist/webServiceApi/interface/transaction'
+import { routes } from 'webService/routes'
+import { TransactionStatus } from 'webService/interface/transaction'
 import { TransactionsPage } from 'pages/userPanel/transactions/TransactionsPage'
 
 const transactionsPageMock = {

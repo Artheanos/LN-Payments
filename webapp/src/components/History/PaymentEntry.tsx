@@ -3,7 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import { TableCell, TableRow, Tooltip, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
-import { PaymentDetails } from 'common-ts/dist/webServiceApi/interface/payment'
+import { PaymentDetails } from 'webService/interface/payment'
 import { PaymentStatusCell } from './PaymentStatusCell'
 import { TokenPopup } from './TokenPopup'
 

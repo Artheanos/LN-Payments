@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { api } from 'api'
-import { useLocalStorage } from 'utils/persist'
 import { LocalKey } from 'constants/LocalKey'
-import { User } from 'common-ts/dist/webServiceApi/interface/user'
+import { User } from 'webService/interface/user'
+import { api } from 'webService/requests'
+import { useLocalStorage } from 'utils/persist'
 
 type ContextType = {
   user?: User

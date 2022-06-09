@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom'
 import routesBuilder from 'routesBuilder'
 import { UserContext } from 'components/Context/UserContext'
 import { PanelLayout } from './PanelLayout'
-import { Role } from 'common-ts/dist/webServiceApi/interface/user'
+import { Role } from 'webService/interface/user'
 
 export const UserLayout: React.FC = () => {
   const { isLoggedIn, loading, user } = useContext(UserContext)
