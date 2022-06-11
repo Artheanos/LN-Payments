@@ -44,9 +44,10 @@ jobs:
 
       - name: Cypress run
         uses: cypress-io/github-action@v2
+        env:
+          TAGS: not @ignore
         with:
           working-directory: webapp
           install: false
           start: yarn setup:backend, yarn dev
           wait-on: http://localhost:8080/api/payments/info, http://localhost:3000
-          command: npm run test:e2e
