@@ -45,7 +45,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         env:
-          TAGS: 'not @ignore'
+          CYPRESS_tags: not @ignore
         with:
           working-directory: webapp
           install: false
