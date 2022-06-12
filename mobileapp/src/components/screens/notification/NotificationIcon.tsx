@@ -12,11 +12,15 @@ export const NotificationIcon: React.FC<Props> = ({ status }) => {
   switch (status) {
     case NotificationStatus.CONFIRMED:
       return (
-        <Icon name="check-circle-outline" color={'FF0000'} size={size}></Icon>
+        <Icon name="check-circle-outline" color={'#FF0000'} size={size}></Icon>
       )
     case NotificationStatus.PENDING:
-      return <Icon name="check-circle-outline" size={size}></Icon>
+      return (
+        <Icon name="check-circle-outline" color={'#00FF00'} size={size}></Icon>
+      )
     default:
-      return <Icon name="check-circle-outline" size={size}></Icon>
+      return (
+        <Icon name="check-circle-outline" color={'#0000FF'} size={size}></Icon>
+      )
   }
 }

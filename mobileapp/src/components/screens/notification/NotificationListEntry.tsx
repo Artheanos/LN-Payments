@@ -4,6 +4,7 @@ import { NotificationDetails } from 'webService/interface/notification'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { NotificationIcon } from 'components/screens/notification/NotificationIcon'
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
@@ -19,7 +20,7 @@ export const NotificationsListEntry: React.FC<Props> = ({
       onPress={() => navigation.navigate('Notification details', item)}
     >
       <HStack space={3} alignItems="center" py={5} px={2}>
-        <Icon name="check-circle-outline" size={75}></Icon>
+        <NotificationIcon status={item.status} />
         <Box>
           <Text bold fontSize="20">
             {item.message}
