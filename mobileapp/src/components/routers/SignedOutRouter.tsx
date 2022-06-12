@@ -3,7 +3,7 @@ import { LoginScreen } from 'components/screens/auth/LoginScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { KeyUploadScreen } from 'components/screens/auth/KeyUploadScreen'
 import { UserContext } from 'components/context/UserContext'
-import R from "res/R";
+import R from 'res/R'
 
 const Stack = createNativeStackNavigator()
 

@@ -11,4 +11,9 @@ export const routes = {
     confirm: (id: string) => `/api/notifications/${id}/confirm`,
     deny: (id: string) => `/api/notifications/${id}/deny`,
   },
+  transactions: {
+    index: '/api/transactions',
+    ws: (hostUrl: string) =>
+      new URL('/api/notification', hostUrl).href?.replace('http://', 'ws://'),
+  },
 }

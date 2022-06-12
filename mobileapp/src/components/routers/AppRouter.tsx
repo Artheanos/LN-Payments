@@ -7,13 +7,21 @@ import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
 import { UserContext } from 'components/context/UserContext'
 import { requests } from 'webService/requests'
+import { Notifications } from 'react-native-notifications'
+import { Linking } from 'react-native'
+import R from 'res/R'
 
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(true)
 
   const loadUserFromStorage = useCallback(async () => {
-    const keys = [LocalKey.TOKEN, LocalKey.EMAIL, LocalKey.HOST_URL]
+    const keys = [
+      LocalKey.TOKEN,
+      LocalKey.EMAIL,
+      LocalKey.HOST_URL,
+      LocalKey.NOTIFICATION_CHANNEL,
+    ]
 
     const partialUser: Record<string, unknown> = {}
     const storageKeyValues = await AsyncStorage.multiGet(keys)
@@ -23,6 +31,7 @@ export const AppRouter: React.FC = () => {
 
       switch (key) {
         case LocalKey.TOKEN:
+          requests.setToken(value)
           partialUser.token = value
           break
         case LocalKey.EMAIL:
@@ -31,6 +40,9 @@ export const AppRouter: React.FC = () => {
         case LocalKey.HOST_URL:
           partialUser.hostUrl = value
           requests.host = value
+          break
+        case LocalKey.NOTIFICATION_CHANNEL:
+          partialUser.notificationChannelId = value
           break
       }
     }
@@ -62,6 +74,19 @@ export const AppRouter: React.FC = () => {
       loadKeysFromStorage(user.email).then(() => setLoading(false))
     }
   }, [loadKeysFromStorage, user.email])
+
+  useEffect(() => {
+    Notifications.events().registerNotificationOpened(
+      (notification, completion) => {
+        Linking.openURL(
+          R.linking.screens.NotificationDetails(
+            notification.payload.identifier,
+          ),
+        )
+        completion()
+      },
+    )
+  }, [])
 
   if (loading) return <Spinner />
 

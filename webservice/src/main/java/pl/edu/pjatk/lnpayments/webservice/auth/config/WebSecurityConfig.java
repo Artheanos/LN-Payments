@@ -31,6 +31,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             AUTH_PATH + TEMPORARY_PATH,
             PAYMENTS_PATH + INFO_PATH,
             PAYMENTS_WS_PATH,
+            NOTIFICATION_WS_PATH,
             "/v2/api-docs",
             "/swagger-ui/**",
             "/swagger-resources/**"

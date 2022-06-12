@@ -5,7 +5,7 @@ const routes = {
   home: 'Home',
   logout: 'Logout',
   drawer: 'Drawer',
-  notificationDetails: 'Notification details',
+  notificationDetails: 'NotificationDetails',
   keys: 'Keys',
   login: 'Login',
   outcome: 'Confirmation outcome',

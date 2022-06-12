@@ -14,7 +14,7 @@ const Stack = createStackNavigator<SignInRouterProps>()
  */
 export const SignedInRouter: React.FC = () => {
   return (
-    <Stack.Navigator>
+    <SignedInContextProvider>
       <Stack.Screen
         name={R.routes.drawer}
         component={DrawerRouter}
@@ -32,6 +32,6 @@ export const SignedInRouter: React.FC = () => {
           headerShown: false,
         }}
       />
-    </Stack.Navigator>
+    </SignedInContextProvider>
   )
 }

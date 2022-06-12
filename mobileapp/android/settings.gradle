@@ -8,4 +8,6 @@ includeBuild('../node_modules/react-native-gradle-plugin')
 if (settings.hasProperty("newArchEnabled") && settings.newArchEnabled == "true") {
     include(":ReactAndroid")
     project(":ReactAndroid").projectDir = file('../node_modules/react-native/ReactAndroid')
+    include("react-native-notifications")
+    project(":react-native-notifications").projectDir = file('../node_modules/react-native-notifications/lib/android/app')
 }

@@ -11,5 +11,6 @@ export interface KeyUploadForm {
 }
 
 export interface LoginResponse extends User {
+  notificationChannelId: string
   token: string
 }

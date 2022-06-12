@@ -4,6 +4,9 @@
 const strings = {
   common: {
     ok: 'OK',
+    currency: {
+      satoshi: 'SAT',
+    },
   },
   notifications: {
     header: 'Notifications',
