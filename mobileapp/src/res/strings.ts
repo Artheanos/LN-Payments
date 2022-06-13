@@ -11,6 +11,7 @@ const strings = {
     submit: 'Login',
     invalidCredentials: 'Invalid credentials',
     unauthorized: 'This app is for admins only',
+    invalidUrl: 'Invalid url',
   },
   logout: {
     action: 'Logging out...',

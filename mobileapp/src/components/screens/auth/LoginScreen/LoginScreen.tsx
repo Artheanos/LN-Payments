@@ -41,7 +41,7 @@ export const LoginScreen: React.FC = () => {
     setLoading(true)
     if (!isValidUrl(formValues.hostUrl)) {
       setLoading(false)
-      helpers.setFieldError('hostUrl', 'Invalid url')
+      helpers.setFieldError('hostUrl', R.strings.login.invalidUrl)
       return
     }
     api.auth
