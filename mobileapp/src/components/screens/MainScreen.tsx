@@ -1,7 +1,7 @@
 import React from 'react'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
-import { NotificationsListScreen } from 'components/screens/notification/NotificationsListScreen'
+import { NotificationListScreen } from 'components/screens/notification/NotificationListScreen/NotificationListScreen'
 
 /**
  * Functional component responsible for main screen of the application. Intended to be used only from navigators.
@@ -11,5 +11,5 @@ import { NotificationsListScreen } from 'components/screens/notification/Notific
 export const MainScreen: React.FC<{
   navigation: StackNavigationProp<SignInRouterProps>
 }> = ({ navigation }) => {
-  return <NotificationsListScreen navigation={navigation} />
+  return <NotificationListScreen navigation={navigation} />
 }

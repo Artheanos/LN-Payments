@@ -5,7 +5,7 @@ import { api } from 'webService/requests'
 import { FlatList } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
-import { NotificationsListEntry } from 'components/screens/notification/NotificationListEntry'
+import { NotificationsListEntry } from 'components/screens/notification/NotificationListScreen/NotificationListEntry'
 import R from 'res/R'
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
  *
  * @param navigation  Navigation prop for sign in stack
  */
-export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
+export const NotificationListScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [pageNumber, setPageNumber] = useState(0)
