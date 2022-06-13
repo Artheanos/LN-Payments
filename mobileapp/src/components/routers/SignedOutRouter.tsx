@@ -3,6 +3,7 @@ import { LoginScreen } from 'components/screens/auth/LoginScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { KeyUploadScreen } from 'components/screens/auth/KeyUploadScreen'
 import { UserContext } from 'components/context/UserContext'
+import R from "res/R";
 
 const Stack = createNativeStackNavigator()
 
@@ -15,9 +16,9 @@ export const SingedOutRouter: React.FC = () => {
       {/* @ts-ignore */}
       <Stack.Navigator>
         {user.uploadKeys ? (
-          <Stack.Screen name="Keys" component={KeyUploadScreen} />
+          <Stack.Screen name={R.routes.keys} component={KeyUploadScreen} />
         ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name={R.routes.login} component={LoginScreen} />
         )}
       </Stack.Navigator>
     </>

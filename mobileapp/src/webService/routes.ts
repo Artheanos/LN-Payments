@@ -5,4 +5,7 @@ export const routes = {
   admins: {
     keys: '/api/admins/keys',
   },
+  notifications: {
+    index: '/api/notifications',
+  },
 }

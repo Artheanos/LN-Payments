@@ -1,19 +1,28 @@
 import React from 'react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { MainScreen } from '../screens/MainScreen'
-import { LogoutScreen } from '../screens/auth/LogoutScreen'
+import { NotificationDetailScreen } from 'components/screens/notification/NotificationDetailScreen'
+import { DrawerRouter } from 'components/routers/DrawerRouter'
+import { createStackNavigator } from '@react-navigation/stack'
+import { SignInRouterProps } from 'components/routers/RouterPropTypes'
+import R from 'res/R'
 
-const Drawer = createDrawerNavigator()
+const Stack = createStackNavigator<SignInRouterProps>()
 
+/**
+ * Main application router for logged users. Includes drawer and other screens that must be
+ * always on top when invoked.
+ */
 export const SignedInRouter: React.FC = () => {
   return (
-    <>
-      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-      {/* @ts-ignore */}
-      <Drawer.Navigator>
-        <Drawer.Screen name="Home" component={MainScreen} />
-        <Drawer.Screen name="Logout" component={LogoutScreen} />
-      </Drawer.Navigator>
-    </>
+    <Stack.Navigator>
+      <Stack.Screen
+        name={R.routes.drawer}
+        component={DrawerRouter}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name={R.routes.notificationDetails}
+        component={NotificationDetailScreen}
+      />
+    </Stack.Navigator>
   )
 }

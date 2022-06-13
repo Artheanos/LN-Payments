@@ -11,6 +11,7 @@ import { UserContext } from 'components/context/UserContext'
 import { api } from 'webService/requests'
 import { initialValues } from './loginForm'
 import { isValidUrl } from 'utils/strings'
+import R from 'res/R'
 
 export const LoginScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
@@ -26,11 +27,11 @@ export const LoginScreen: React.FC = () => {
   }
 
   const onFailure = ({ setFieldError }: FormikHelpers<LoginForm>) => {
-    setFieldError('email', 'Invalid credentials')
+    setFieldError('email', R.strings.login.invalidCredentials)
   }
 
   const onUnauthorized = ({ setFieldError }: FormikHelpers<LoginForm>) => {
-    setFieldError('email', 'This app is for admins only')
+    setFieldError('email', R.strings.login.unauthorized)
   }
 
   const onSubmit = async (
@@ -40,7 +41,7 @@ export const LoginScreen: React.FC = () => {
     setLoading(true)
     if (!isValidUrl(formValues.hostUrl)) {
       setLoading(false)
-      helpers.setFieldError('hostUrl', 'Invalid url')
+      helpers.setFieldError('hostUrl', R.strings.login.invalidUrl)
       return
     }
     api.auth
@@ -60,7 +61,7 @@ export const LoginScreen: React.FC = () => {
       <Formik initialValues={initialValues(user.hostUrl)} onSubmit={onSubmit}>
         {({ handleSubmit }) => (
           <Flex py="10" w="75%" maxWidth="300px">
-            <Heading>Login</Heading>
+            <Heading>{R.strings.login.header}</Heading>
             <Box h={10} />
             <Field
               name="email"
@@ -78,7 +79,7 @@ export const LoginScreen: React.FC = () => {
             />
             <Box h={10} />
             <Button isLoading={loading} onPress={() => handleSubmit()}>
-              Login
+              {R.strings.login.submit}
             </Button>
           </Flex>
         )}

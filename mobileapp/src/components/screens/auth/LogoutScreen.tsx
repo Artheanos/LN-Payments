@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useContext, useEffect } from 'react'
 import { Text } from 'native-base'
 
-import { UserContext } from 'components/context/UserContext'
 import { LocalKey } from 'constants/LocalKey'
+import { UserContext } from 'components/context/UserContext'
+import R from 'res/R'
 
 export const LogoutScreen: React.FC = () => {
   const { updateUser } = useContext(UserContext)
@@ -22,5 +23,5 @@ export const LogoutScreen: React.FC = () => {
     )
   }, [updateUser])
 
-  return <Text>Logging out...</Text>
+  return <Text>{R.strings.logout.action}</Text>
 }

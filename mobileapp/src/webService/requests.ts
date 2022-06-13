@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
 import { LocalKey } from 'constants/LocalKey'
 import { routes } from './routes'
+import { Pageable, PageRequest } from 'webService/interface/pageable'
+import { NotificationDetails } from 'webService/interface/notification'
 
 export type Response<T> = {
   data?: T
@@ -44,6 +46,16 @@ class Requests {
     admins: {
       uploadKeys: (data: KeyUploadForm): Promise<Response<unknown>> =>
         this.request(routes.admins.keys, { method: 'patch', data }),
+    },
+    notifications: {
+      getUserNotifications: async (
+        params: PageRequest,
+      ): Promise<Response<Pageable<NotificationDetails>>> => {
+        return this.request(routes.notifications.index, {
+          method: 'get',
+          params,
+        })
+      },
     },
   }
 

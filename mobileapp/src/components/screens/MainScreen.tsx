@@ -1,13 +1,15 @@
-import React, { useContext } from 'react'
-import { Box, Heading } from 'native-base'
-import { UserContext } from 'components/context/UserContext'
+import React from 'react'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { SignInRouterProps } from 'components/routers/RouterPropTypes'
+import { NotificationListScreen } from 'components/screens/notification/NotificationListScreen/NotificationListScreen'
 
-export const MainScreen: React.FC = () => {
-  const { user } = useContext(UserContext)
-
-  return (
-    <Box>
-      <Heading>{JSON.stringify(user.publicKey)}</Heading>
-    </Box>
-  )
+/**
+ * Functional component responsible for main screen of the application. Intended to be used only from navigators.
+ *
+ * @param navigation  Navigation prop passed from router
+ */
+export const MainScreen: React.FC<{
+  navigation: StackNavigationProp<SignInRouterProps>
+}> = ({ navigation }) => {
+  return <NotificationListScreen navigation={navigation} />
 }
