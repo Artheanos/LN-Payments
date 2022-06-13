@@ -15,9 +15,7 @@ export const NotificationIcon: React.FC<Props> = ({ status }) => {
         <Icon name="check-circle-outline" color={'#66bb6a'} size={size}></Icon>
       )
     case NotificationStatus.PENDING:
-      return (
-        <Icon name="play-circle-outline" color={'#ffc107'} size={size}></Icon>
-      )
+      return <Icon name="help-outline" color={'#ffc107'} size={size}></Icon>
     default:
       return <Icon name="highlight-off" color={'#f44336'} size={size}></Icon>
   }

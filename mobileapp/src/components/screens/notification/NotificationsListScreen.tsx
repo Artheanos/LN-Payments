@@ -63,7 +63,7 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
     <Box flex={1}>
       <Box height={16} justifyContent={'center'} px={2}>
         <Text fontSize={28} fontWeight={'600'} color={'primary.500'}>
-          Notifications: {notifications.length}
+          Notifications
         </Text>
       </Box>
       <Divider thickness={2} />
@@ -73,15 +73,15 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
         </CenterText>
       ) : (
         <Box px={2} flex={1}>
-          {!!notifications && (
-            <CenterText>
-              <Text italic fontSize={15}>
-                Nothing there yet
-              </Text>
-            </CenterText>
-          )}
           <FlatList
             onEndReached={loadElements}
+            ListEmptyComponent={
+              <CenterText>
+                <Text italic fontSize={15} color={'gray.500'}>
+                  Nothing there yet
+                </Text>
+              </CenterText>
+            }
             data={notifications}
             onRefresh={onRefresh}
             refreshing={isRefreshing}

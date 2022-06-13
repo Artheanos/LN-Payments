@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { Box, Divider, HStack, Pressable, Spinner, Text } from 'native-base'
+import React from 'react'
+import { Box, Divider, HStack, Pressable, Text } from 'native-base'
 import { NotificationDetails } from 'webService/interface/notification'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import { NotificationIcon } from 'components/screens/notification/NotificationIcon'
 
 type Props = {
