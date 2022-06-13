@@ -5,6 +5,7 @@ import React, { createContext, useCallback, useState } from 'react'
 interface UserI {
   email: string | null
   token: string | null
+  hostUrl: string | null
   privateKey: Buffer | null
   publicKey: Buffer | null
   uploadKeys: boolean | null
@@ -12,6 +13,7 @@ interface UserI {
 
 export const EMPTY_USER = Object.freeze({
   email: null,
+  hostUrl: null,
   token: null,
   privateKey: null,
   publicKey: null,

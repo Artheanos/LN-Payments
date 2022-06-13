@@ -3,6 +3,7 @@ import { User } from './user'
 export interface LoginForm {
   email: string
   password: string
+  hostUrl: string
 }
 
 export interface KeyUploadForm {
