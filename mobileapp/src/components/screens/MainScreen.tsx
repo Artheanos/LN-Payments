@@ -6,7 +6,7 @@ import { NotificationsListScreen } from 'components/screens/notification/Notific
 /**
  * Functional component responsible for main screen of the application. Intended to be used only from navigators.
  *
- * @param navigation Nagivation prop passed from router
+ * @param navigation  Navigation prop passed from router
  */
 export const MainScreen: React.FC<{
   navigation: StackNavigationProp<SignInRouterProps>
