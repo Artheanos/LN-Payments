@@ -1,10 +1,14 @@
 import React from 'react'
-import { Center, Spinner, Text } from 'native-base'
+import { Center, Text } from 'native-base'
 import { StackScreenProps } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
+import R from 'res/R'
 
+/**
+ * Displays details of the clicked notification.
+ */
 export const NotificationDetailScreen: React.FC<
-  StackScreenProps<SignInRouterProps, 'Notification details'>
+  StackScreenProps<SignInRouterProps, typeof R.routes.notificationDetails>
 > = ({
   route: {
     params: { id, type, message, address, amount, status },

@@ -1,3 +1,6 @@
+/**
+ * Routes used in the application.
+ */
 const routes = {
   home: 'Home',
   logout: 'Logout',

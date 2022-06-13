@@ -6,6 +6,9 @@ import R from 'res/R'
 
 const Drawer = createDrawerNavigator()
 
+/**
+ * Router responsible for drawer routes.
+ */
 export const DrawerRouter: React.FC = () => {
   return (
     <Drawer.Navigator>

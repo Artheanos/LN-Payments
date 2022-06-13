@@ -7,6 +7,10 @@ import R from 'res/R'
 
 const Stack = createStackNavigator<SignInRouterProps>()
 
+/**
+ * Main application router for logged users. Includes drawer and other screens that must be
+ * always on top when invoked.
+ */
 export const SignedInRouter: React.FC = () => {
   return (
     <Stack.Navigator>

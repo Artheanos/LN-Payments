@@ -1,3 +1,6 @@
+/**
+ * Object containing all strings used throughout the application.
+ */
 const strings = {
   notifications: {
     header: 'Notifications',

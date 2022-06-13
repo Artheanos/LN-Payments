@@ -8,6 +8,11 @@ type Props = {
 
 const size = 75
 
+/**
+ * Based on notification status returns a proper icon with associated color.
+ *
+ * @param status  Notification status {@see NotificationStatus}
+ */
 export const NotificationIcon: React.FC<Props> = ({ status }) => {
   switch (status) {
     case NotificationStatus.CONFIRMED:

@@ -4,13 +4,20 @@ import { NotificationDetails } from 'webService/interface/notification'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import { NotificationIcon } from 'components/screens/notification/NotificationIcon'
-import R from "res/R";
+import R from 'res/R'
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
   item: NotificationDetails
 }
 
+/**
+ * Single notification component displayed in notifications list. Should not be used anywhere else. Displays
+ * status icon, message and type. On user's click redirects to notification details page.
+ *
+ * @param navigation  Navigation prop for sign in stack
+ * @param item  Single notification object
+ */
 export const NotificationsListEntry: React.FC<Props> = ({
   navigation,
   item,

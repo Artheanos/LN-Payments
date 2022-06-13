@@ -12,6 +12,11 @@ type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
 }
 
+/**
+ * Renders a list of notifications fetched from the backend.
+ *
+ * @param navigation  Navigation prop for sign in stack
+ */
 export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const [isRefreshing, setIsRefreshing] = useState(false)
@@ -19,6 +24,13 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
   const [hasMore, setHasMore] = useState(false)
   const [notifications, setNotifications] = useState<NotificationDetails[]>([])
 
+  /**
+   * Responsible for calling backend to obtain credentials. It calls the backend and extracts the content
+   * from pageable object.
+   *
+   * @param page  Page number that you want to request. Default value is 0.
+   * @param size  Page size that will be requested. Default value is 10.
+   */
   const queryElements = useCallback(async (page = 0, size = 10) => {
     setPageNumber(page)
     const { data } = await api.notifications.getUserNotifications({
@@ -32,18 +44,29 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
     setLoading(false)
   }, [])
 
+  /**
+   * Effect responsible for loading notification data. Invoked whenever queryElements is invoked.
+   */
   useEffect(() => {
     setLoading(true)
     setNotifications([])
     queryElements()
   }, [queryElements])
 
+  /**
+   * Loads additional data, when user scrolls to the bottom of the page. Doesn't do anything when
+   * no more pages are available.
+   */
   const loadElements = () => {
     if (hasMore) {
       queryElements(pageNumber + 1)
     }
   }
 
+  /**
+   * Invoked by {@link FlatList} when tries to refresh the list (gesture of pulling the list up). Sets correct
+   * flags, reset content and call backend the same way as on the page load.
+   */
   const onRefresh = async () => {
     setIsRefreshing(true)
     setLoading(true)
@@ -52,6 +75,10 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
     setIsRefreshing(false)
   }
 
+  /**
+   * Small component used to center elements within the screen. In order to use it every parent component must
+   * have flex parameter set to 1.
+   */
   const CenterText: React.FC = ({ children }) => {
     return (
       <Box flex={1} alignItems="center" justifyContent="center">
