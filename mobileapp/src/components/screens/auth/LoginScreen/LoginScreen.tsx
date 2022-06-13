@@ -46,7 +46,6 @@ export const LoginScreen: React.FC = () => {
     api.auth
       .tryLogin(formValues)
       .then(({ data }) => {
-        console.log(data)
         if (data?.role === Role.ADMIN) return onSuccess(formValues, data.token)
 
         if (!data) return onFailure(helpers)
