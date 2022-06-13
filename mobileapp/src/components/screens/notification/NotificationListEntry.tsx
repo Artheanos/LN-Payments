@@ -4,6 +4,7 @@ import { NotificationDetails } from 'webService/interface/notification'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import { NotificationIcon } from 'components/screens/notification/NotificationIcon'
+import R from "res/R";
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
@@ -16,7 +17,7 @@ export const NotificationsListEntry: React.FC<Props> = ({
 }) => {
   return (
     <Pressable
-      onPress={() => navigation.navigate('Notification details', item)}
+      onPress={() => navigation.navigate(R.routes.notificationDetails, item)}
     >
       <HStack space={3} alignItems="center" py={5} px={2}>
         <NotificationIcon status={item.status} />

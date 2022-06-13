@@ -6,6 +6,7 @@ import { FlatList } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import { NotificationsListEntry } from 'components/screens/notification/NotificationListEntry'
+import R from 'res/R'
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
@@ -63,7 +64,7 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
     <Box flex={1}>
       <Box height={16} justifyContent={'center'} px={2}>
         <Text fontSize={28} fontWeight={'600'} color={'primary.500'}>
-          Notifications
+          {R.strings.notifications.header}
         </Text>
       </Box>
       <Divider thickness={2} />
@@ -78,7 +79,7 @@ export const NotificationsListScreen: React.FC<Props> = ({ navigation }) => {
             ListEmptyComponent={
               <CenterText>
                 <Text italic fontSize={15} color={'gray.500'}>
-                  Nothing there yet
+                  {R.strings.notifications.emptyList}
                 </Text>
               </CenterText>
             }

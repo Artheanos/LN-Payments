@@ -1,6 +1,7 @@
+import R from 'res/R'
 import { NotificationDetails } from 'webService/interface/notification'
 
 export type SignInRouterProps = {
-  Drawer: undefined
-  'Notification details': NotificationDetails
+  [R.routes.drawer]: undefined
+  [R.routes.notificationDetails]: NotificationDetails
 }

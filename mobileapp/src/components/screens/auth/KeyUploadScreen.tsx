@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import bitcoin from 'bitcoin'
 import { UserContext } from 'components/context/UserContext'
 import { api } from 'webService/requests'
+import R from 'res/R'
 
 export const KeyUploadScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
@@ -24,8 +25,8 @@ export const KeyUploadScreen: React.FC = () => {
     })
 
     if (response.status !== 200) {
-      if (response.status === 409) alert('Key already uploaded')
-      else alert('Error while uploading keys')
+      if (response.status === 409) alert(R.strings.keyUpload.alreadyUploaded)
+      else alert(R.strings.keyUpload.error)
       updateUser({ token: null, email: null, uploadKeys: false })
       return
     }
@@ -49,10 +50,10 @@ export const KeyUploadScreen: React.FC = () => {
   const message = generated
     ? uploaded
       ? saved
-        ? 'Redirecting'
-        : 'Saving keys'
-      : 'Uploading keys'
-    : 'Generating keys'
+        ? R.strings.keyUpload.redirecting
+        : R.strings.keyUpload.saving
+      : R.strings.keyUpload.uploading
+    : R.strings.keyUpload.generating
 
   return (
     <Center justifyContent="center" h="100%">

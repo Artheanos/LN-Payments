@@ -2,13 +2,10 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
-<<<<<<< HEAD
 import { LocalKey } from 'constants/LocalKey'
 import { routes } from './routes'
-=======
 import { Pageable, PageRequest } from 'webService/interface/pageable'
 import { NotificationDetails } from 'webService/interface/notification'
->>>>>>> d46f81c (LP-126 Display monitifacions on the main screen)
 
 export type Response<T> = {
   data?: T
