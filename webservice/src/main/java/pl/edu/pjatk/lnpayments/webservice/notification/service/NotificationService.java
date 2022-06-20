@@ -12,6 +12,8 @@ import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.Confirmati
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandler;
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandlerFactory;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletDataService;
 
 import javax.transaction.Transactional;
 
@@ -20,12 +22,15 @@ public class NotificationService {
 
     private final NotificationRepository notificationRepository;
     private final NotificationHandlerFactory handlerFactory;
+    private final WalletDataService walletDataService;
 
     @Autowired
     public NotificationService(NotificationRepository notificationRepository,
-                               NotificationHandlerFactory handlerFactory) {
+                               NotificationHandlerFactory handlerFactory,
+                               WalletDataService walletDataService) {
         this.notificationRepository = notificationRepository;
         this.handlerFactory = handlerFactory;
+        this.walletDataService = walletDataService;
     }
 
     public Page<Notification> getNotificationsByEmail(String name, Pageable pageable) {
@@ -35,9 +40,10 @@ public class NotificationService {
     public ConfirmationDetails getSignatureData(String id) {
         Notification notification = findNotification(id);
         Transaction transaction = notification.getTransaction();
+        Wallet wallet = walletDataService.getActiveWallet();
         String rawTransaction = transaction.getRawTransaction();
         long version = transaction.getVersion();
-        return new ConfirmationDetails(rawTransaction, version);
+        return new ConfirmationDetails(rawTransaction, version, wallet.getRedeemScript());
     }
 
     @Transactional

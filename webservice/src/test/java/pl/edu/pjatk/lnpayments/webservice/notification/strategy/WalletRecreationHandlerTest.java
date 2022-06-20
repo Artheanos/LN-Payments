@@ -42,7 +42,7 @@ class WalletRecreationHandlerTest {
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.WALLET_RECREATION);
         transaction.setNotifications(List.of(notification));
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         doAnswer(a -> {
             notification.setStatus(NotificationStatus.CONFIRMED);
             transaction.setStatus(TransactionStatus.APPROVED);
@@ -65,7 +65,7 @@ class WalletRecreationHandlerTest {
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.WALLET_RECREATION);
         transaction.setNotifications(List.of(notification));
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         doAnswer(a -> {
             notification.setStatus(NotificationStatus.CONFIRMED);
             return null;
@@ -129,7 +129,7 @@ class WalletRecreationHandlerTest {
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.WALLET_RECREATION);
         transaction.setNotifications(List.of(notification));
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         doAnswer(a -> {
             notification.setStatus(NotificationStatus.CONFIRMED);
             transaction.setStatus(TransactionStatus.FAILED);

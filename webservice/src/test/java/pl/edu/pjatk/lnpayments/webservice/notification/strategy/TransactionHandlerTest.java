@@ -54,7 +54,7 @@ class TransactionHandlerTest {
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
         transaction.setNotifications(List.of(notification));
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(true);
 
         transactionHandler.confirm(notification, details);
@@ -75,7 +75,7 @@ class TransactionHandlerTest {
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
         transaction.setNotifications(List.of(notification));
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(true);
 
         transactionHandler.confirm(notification, details);
@@ -83,6 +83,7 @@ class TransactionHandlerTest {
         verify(bitcoinService).verifySignature("rawtx", "pub");
         verify(transactionService).broadcastTransaction(any());
         assertThat(notification.getStatus()).isEqualTo(NotificationStatus.CONFIRMED);
+        assertThat(transaction.getRawTransaction()).isEqualTo("rawtx");
         assertThat(transaction.getRawTransaction()).isEqualTo("rawtx");
     }
 
@@ -128,7 +129,7 @@ class TransactionHandlerTest {
         user.setPublicKey("pub");
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 1L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 1L, null);
         when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(true);
 
         assertThatExceptionOfType(OptimisticLockException.class)
@@ -143,7 +144,7 @@ class TransactionHandlerTest {
         user.setPublicKey("pub");
         user.setId(1L);
         Notification notification = new Notification(user, transaction, "message", NotificationType.TRANSACTION);
-        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L);
+        ConfirmationDetails details = new ConfirmationDetails("rawtx", 0L, null);
         when(bitcoinService.verifySignature(anyString(), anyString())).thenReturn(false);
 
         assertThatExceptionOfType(InconsistentDataException.class)
