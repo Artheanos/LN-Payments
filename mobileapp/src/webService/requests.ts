@@ -5,7 +5,10 @@ import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
 import { LocalKey } from 'constants/LocalKey'
 import { routes } from './routes'
 import { Pageable, PageRequest } from 'webService/interface/pageable'
-import { NotificationDetails } from 'webService/interface/notification'
+import {
+  ConfirmationDetails,
+  NotificationDetails,
+} from 'webService/interface/notification'
 
 export type Response<T> = {
   data?: T
@@ -56,6 +59,20 @@ class Requests {
           params,
         })
       },
+      getConfirmationDetails: async (
+        notificationId: string,
+      ): Promise<Response<ConfirmationDetails>> => {
+        return this.request(routes.notifications.transaction(notificationId))
+      },
+      confirmNotification: (
+        notificationId: string,
+        data: ConfirmationDetails,
+      ): Promise<Response<unknown>> =>
+        this.request(routes.notifications.confirm(notificationId), {
+          data,
+        }),
+      denyNotification: (notificationId: string): Promise<Response<unknown>> =>
+        this.request(routes.notifications.deny(notificationId)),
     },
   }
 
