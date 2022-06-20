@@ -62,7 +62,9 @@ class Requests {
       getConfirmationDetails: async (
         notificationId: string,
       ): Promise<Response<ConfirmationDetails>> => {
-        return this.request(routes.notifications.transaction(notificationId))
+        return this.request(routes.notifications.transaction(notificationId), {
+          method: 'get',
+        })
       },
       confirmNotification: (
         notificationId: string,

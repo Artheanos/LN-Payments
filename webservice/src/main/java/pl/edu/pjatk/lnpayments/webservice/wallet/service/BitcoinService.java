@@ -131,7 +131,7 @@ public class BitcoinService {
                 Script redeemScript = new Script(Objects.requireNonNull(scriptChunk.data));
                 List<ECKey> keys = redeemScript.getPubKeys();
                 Sha256Hash msg = transaction.hashForSignature(index, redeemScript, Transaction.SigHash.ALL, false);
-                if (keys.size() == chunks.size() - 2 && keys.contains(key)) {
+                if (keys.contains(key)) {
                     for (int chunkIndex = 1; chunkIndex < chunks.size() - 1; chunkIndex++) {
                         try {
                             byte[] signature = chunks.get(chunkIndex).data;

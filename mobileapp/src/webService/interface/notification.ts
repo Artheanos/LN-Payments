@@ -20,7 +20,7 @@ export enum NotificationType {
 }
 
 export interface ConfirmationDetails {
-  rawTx: string
+  rawTransaction: string
   version: number
-  redeemScript: string
+  redeemScript?: string
 }

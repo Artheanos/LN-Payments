@@ -2,6 +2,7 @@ import bitcoin from 'bitcoin'
 import { ECPair } from 'bitcoinjs-lib'
 import { toHexBytes } from 'utils/hex'
 import { Input } from 'bitcoinjs-lib/types/transaction'
+import { Buffer } from 'buffer'
 
 const network = bitcoin.networks.testnet
 
@@ -16,7 +17,7 @@ const network = bitcoin.networks.testnet
  */
 export const signTx = (
   rawTx: string,
-  privateKey: string,
+  privateKey: Buffer,
   redeemScript: string,
 ): string => {
   const tx = bitcoin.Transaction.fromHex(rawTx)
@@ -24,13 +25,17 @@ export const signTx = (
   tx.ins.forEach((input: Input, index: number) => {
     builder.sign(
       index,
-      ECPair.fromPrivateKey(toHexBytes(privateKey), {
+      ECPair.fromPrivateKey(privateKey, {
         network: network,
       }),
       toHexBytes(redeemScript),
     )
   })
-  return builder.buildIncomplete().toHex()
+  try {
+    return builder.build().toHex()
+  } catch (e) {
+    return builder.buildIncomplete().toHex()
+  }
 }
 
 /**
