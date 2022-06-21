@@ -2,6 +2,9 @@
  * Object containing all strings used throughout the application.
  */
 const strings = {
+  common: {
+    ok: 'OK',
+  },
   notifications: {
     header: 'Notifications',
     emptyList: 'Nothing there yet',
@@ -23,6 +26,19 @@ const strings = {
     saving: 'Saving keys',
     uploading: 'Uploading keys',
     generating: 'Generating keys',
+  },
+  details: {
+    loading: {
+      text: 'Processing request...',
+    },
+    error: {
+      header: 'Error occurred!',
+      text: 'An error occurred when processing your request, please try again later.',
+    },
+    result: {
+      confirmationText: 'Transaction confirmed successfully!',
+      denialText: 'Transaction has been denied!',
+    },
   },
 }
 

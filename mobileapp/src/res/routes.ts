@@ -8,6 +8,7 @@ const routes = {
   notificationDetails: 'Notification details',
   keys: 'Keys',
   login: 'Login',
+  outcome: 'Confirmation outcome',
 } as const
 
 export default routes

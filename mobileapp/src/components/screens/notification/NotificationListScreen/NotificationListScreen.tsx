@@ -7,6 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import { NotificationsListEntry } from 'components/screens/notification/NotificationListScreen/NotificationListEntry'
 import R from 'res/R'
+import { useIsFocused } from '@react-navigation/native'
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
@@ -23,6 +24,7 @@ export const NotificationListScreen: React.FC<Props> = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState(0)
   const [hasMore, setHasMore] = useState(false)
   const [notifications, setNotifications] = useState<NotificationDetails[]>([])
+  const isFocused = useIsFocused()
 
   /**
    * Responsible for calling backend to obtain credentials. It calls the backend and extracts the content
@@ -45,13 +47,14 @@ export const NotificationListScreen: React.FC<Props> = ({ navigation }) => {
   }, [])
 
   /**
-   * Effect responsible for loading notification data. Invoked whenever queryElements is invoked.
+   * Effect responsible for loading notification data. Invoked whenever queryElements is invoked, or screen is back
+   * in focus
    */
   useEffect(() => {
     setLoading(true)
     setNotifications([])
     queryElements()
-  }, [queryElements])
+  }, [queryElements, isFocused])
 
   /**
    * Loads additional data, when user scrolls to the bottom of the page. Doesn't do anything when

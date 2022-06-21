@@ -1,6 +1,7 @@
 import React from 'react'
 import { NotificationStatus } from 'webService/interface/notification'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import R from 'res/R'
 
 type Props = {
   status: NotificationStatus
@@ -17,11 +18,17 @@ export const NotificationIcon: React.FC<Props> = ({ status }) => {
   switch (status) {
     case NotificationStatus.CONFIRMED:
       return (
-        <Icon name="check-circle-outline" color={'#66bb6a'} size={size}></Icon>
+        <Icon
+          name="check-circle-outline"
+          color={R.colors.green}
+          size={size}
+        ></Icon>
       )
     case NotificationStatus.PENDING:
-      return <Icon name="help-outline" color={'#ffc107'} size={size}></Icon>
+      return (
+        <Icon name="help-outline" color={R.colors.yellow} size={size}></Icon>
+      )
     default:
-      return <Icon name="highlight-off" color={'#f44336'} size={size}></Icon>
+      return <Icon name="highlight-off" color={R.colors.red} size={size}></Icon>
   }
 }
