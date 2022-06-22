@@ -7,12 +7,12 @@ import { UserContext } from 'components/context/UserContext'
 import { Notification, Notifications } from 'react-native-notifications'
 import R from 'res/R'
 
-interface SignedInContextI {
+interface SignedInContextValue {
   socket: StompClient | null
   setSocket: (client: StompClient) => void
 }
 
-export const SignedInContext = createContext<SignedInContextI>({
+export const SignedInContext = createContext<SignedInContextValue>({
   socket: null,
   setSocket: () => {},
 })

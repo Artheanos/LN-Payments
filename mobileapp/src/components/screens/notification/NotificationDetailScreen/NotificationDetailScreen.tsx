@@ -17,7 +17,7 @@ export const NotificationDetailScreen: React.FC<
 > = ({
   navigation,
   route: {
-    params: { id, type, message, address, amount, status },
+    params: { notificationId },
   },
 }) => {
   const [processing, setProcessing] = useState(false)
@@ -31,7 +31,7 @@ export const NotificationDetailScreen: React.FC<
   const confirm = () => {
     setProcessing(true)
     api.notifications
-      .getConfirmationDetails(id)
+      .getConfirmationDetails(notificationId)
       .then(({ data }) => {
         if (data) {
           const signedTx = signTx(
@@ -40,7 +40,7 @@ export const NotificationDetailScreen: React.FC<
             data.redeemScript!,
           )
           api.notifications
-            .confirmNotification(id, {
+            .confirmNotification(notificationId, {
               rawTransaction: signedTx,
               version: data.version,
             })
@@ -61,7 +61,7 @@ export const NotificationDetailScreen: React.FC<
    */
   const deny = async () => {
     setProcessing(true)
-    const { status } = await api.notifications.denyNotification(id)
+    const { status } = await api.notifications.denyNotification(notificationId)
     if (status === 200) {
       setProcessing(false)
       navigation.navigate(R.routes.outcome, { isConfirmation: false })
@@ -89,7 +89,7 @@ export const NotificationDetailScreen: React.FC<
     <Center justifyContent="center" h="100%">
       <LoadingModal processing={processing} />
       <ErrorAlert isOpen={errorDialog} close={alertClose} />
-      <Text>{id}</Text>
+      <Text>{notificationId}</Text>
       <Button onPress={confirm}>confirm</Button>
       <Button onPress={deny}>deny</Button>
     </Center>

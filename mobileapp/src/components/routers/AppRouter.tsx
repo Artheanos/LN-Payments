@@ -79,7 +79,7 @@ export const AppRouter: React.FC = () => {
     Notifications.events().registerNotificationOpened(
       (notification, completion) => {
         Linking.openURL(
-          R.linking.screens.NotificationDetails(
+          R.linking.screens[R.routes.notificationDetails](
             notification.payload.identifier,
           ),
         )
