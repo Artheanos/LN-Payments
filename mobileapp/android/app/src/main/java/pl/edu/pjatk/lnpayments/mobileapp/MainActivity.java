@@ -1,4 +1,4 @@
-package com.mobileapp;
+package pl.edu.pjatk.lnpayments.mobileapp;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
