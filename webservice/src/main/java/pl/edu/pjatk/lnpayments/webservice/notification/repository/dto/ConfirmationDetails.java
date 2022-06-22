@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.Nullable;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
@@ -17,5 +18,8 @@ public class ConfirmationDetails {
 
     @Min(0)
     private long version;
+
+    @Nullable
+    private String redeemScript;
 
 }

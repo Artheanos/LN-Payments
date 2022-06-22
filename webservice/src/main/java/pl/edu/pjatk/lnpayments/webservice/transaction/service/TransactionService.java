@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.transaction.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class TransactionService {
 
@@ -93,6 +95,7 @@ public class TransactionService {
             bitcoinService.broadcast(transaction.getRawTransaction(), wallet.getRedeemScript());
             transaction.setStatus(TransactionStatus.APPROVED);
         } catch (BroadcastException e) {
+            log.error("Unable to broadcast transaction", e);
             transaction.setStatus(TransactionStatus.FAILED);
         }
     }

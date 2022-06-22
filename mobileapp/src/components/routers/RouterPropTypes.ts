@@ -7,4 +7,7 @@ import { NotificationDetails } from 'webService/interface/notification'
 export type SignInRouterProps = {
   [R.routes.drawer]: undefined
   [R.routes.notificationDetails]: NotificationDetails
+  [R.routes.outcome]: {
+    isConfirmation: boolean
+  }
 }

@@ -18,3 +18,9 @@ export enum NotificationType {
   TRANSACTION = 'TRANSACTION',
   WALLET_RECREATION = 'WALLET_RECREATION',
 }
+
+export interface ConfirmationDetails {
+  rawTransaction: string
+  version: number
+  redeemScript?: string
+}

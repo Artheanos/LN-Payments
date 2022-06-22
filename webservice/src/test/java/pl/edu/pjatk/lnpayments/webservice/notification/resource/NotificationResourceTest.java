@@ -44,7 +44,7 @@ class NotificationResourceTest {
 
     @Test
     void shouldReturnOkForConfirmationRequest() {
-        ConfirmationDetails details = new ConfirmationDetails("ddd", 1L);
+        ConfirmationDetails details = new ConfirmationDetails("ddd", 1L, null);
 
         ResponseEntity<?> response = notificationResource.confirmNotification("aaa", details);
 

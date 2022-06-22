@@ -7,5 +7,8 @@ export const routes = {
   },
   notifications: {
     index: '/api/notifications',
+    transaction: (id: string) => `/api/notifications/${id}/transaction`,
+    confirm: (id: string) => `/api/notifications/${id}/confirm`,
+    deny: (id: string) => `/api/notifications/${id}/deny`,
   },
 }

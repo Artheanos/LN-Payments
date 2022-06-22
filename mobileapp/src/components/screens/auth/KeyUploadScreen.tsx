@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Box, Center, Heading, Spinner } from 'native-base'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import bitcoin from 'bitcoin'
 import { UserContext } from 'components/context/UserContext'
 import { api } from 'webService/requests'
 import R from 'res/R'
+import { toHexString } from 'utils/hex'
+import { generateKeyPair } from 'utils/bitcoin'
 
 export const KeyUploadScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
@@ -15,9 +16,7 @@ export const KeyUploadScreen: React.FC = () => {
   const [saved, setSaved] = useState(false)
 
   const generateKeys = async () => {
-    const { publicKey, privateKey } = bitcoin.ECPair.makeRandom({
-      network: bitcoin.networks.testnet,
-    })
+    const { publicKey, privateKey } = generateKeyPair()
     setGenerated(true)
 
     const response = await api.admins.uploadKeys({
@@ -64,10 +63,4 @@ export const KeyUploadScreen: React.FC = () => {
       </Heading>
     </Center>
   )
-}
-
-const toHexString = (byteArray: Buffer) => {
-  return Array.from(byteArray, function (byte) {
-    return ('0' + (byte & 0xff).toString(16)).slice(-2)
-  }).join('')
 }

@@ -20,6 +20,8 @@ import pl.edu.pjatk.lnpayments.webservice.notification.repository.dto.Confirmati
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandler;
 import pl.edu.pjatk.lnpayments.webservice.notification.strategy.NotificationHandlerFactory;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
+import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
+import pl.edu.pjatk.lnpayments.webservice.wallet.service.WalletDataService;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +40,9 @@ class NotificationServiceTest {
 
     @Mock
     private NotificationHandlerFactory handlerFactory;
+
+    @Mock
+    private WalletDataService walletDataService;
 
     @InjectMocks
     private NotificationService notificationService;
@@ -78,12 +83,16 @@ class NotificationServiceTest {
 
     @Test
     void shouldReturnConfirmationDetails() {
+        Wallet wallet = new Wallet();
+        wallet.setRedeemScript("redeem");
+        when(walletDataService.getActiveWallet()).thenReturn(wallet);
         when(notificationRepository.findByIdentifier("d6b5915c46")).thenReturn(Optional.of(testNotification));
 
         ConfirmationDetails data = notificationService.getSignatureData(testNotification.getIdentifier());
 
         assertThat(data.getRawTransaction()).isEqualTo(testTransaction.getRawTransaction());
         assertThat(data.getVersion()).isEqualTo(testTransaction.getVersion());
+        assertThat(data.getRedeemScript()).isEqualTo(wallet.getRedeemScript());
     }
 
     @Test
