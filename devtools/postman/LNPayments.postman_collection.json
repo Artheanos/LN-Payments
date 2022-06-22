@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "61419ec3-18d6-48ba-bc5a-98ff1ce89a63",
+		"_postman_id": "00adbda1-cf25-46fd-95fb-b6c17ee9e01a",
 		"name": "LNPayments",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9378981"
 	},
 	"item": [
 		{
@@ -665,6 +666,48 @@
 				},
 				{
 					"name": "get_confirmation_details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/notifications/01e6a16c92/transaction",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"notifications",
+								"01e6a16c92",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_user_notification",
 					"event": [
 						{
 							"listen": "test",
