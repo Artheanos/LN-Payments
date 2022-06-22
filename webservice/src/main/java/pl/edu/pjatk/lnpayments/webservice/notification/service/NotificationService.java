@@ -62,7 +62,7 @@ public class NotificationService {
         handler.deny(notification);
     }
 
-    private Notification findNotification(String id) {
+    public Notification findNotification(String id) {
         return notificationRepository.findByIdentifier(id)
                 .orElseThrow(() -> new NotFoundException("Notification not found: " + id));
     }
