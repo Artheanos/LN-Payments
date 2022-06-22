@@ -1,0 +1,7 @@
+{
+  "message": "message1",
+  "status": "PENDING",
+  "type": "TRANSACTION",
+  "amount": 2,
+  "address": "123"
+}

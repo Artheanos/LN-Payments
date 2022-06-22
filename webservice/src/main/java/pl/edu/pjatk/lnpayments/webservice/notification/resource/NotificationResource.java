@@ -41,6 +41,14 @@ class NotificationResource {
         return ResponseEntity.ok(notificationResponses);
     }
 
+    @GetMapping("{id}")
+    ResponseEntity<NotificationResponse> getNotification(@PathVariable String id) {
+        Notification notification = notificationService.findNotification(id);
+        NotificationResponse response = notificationConverter.convertToDto(notification);
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("{id}/transaction")
     ResponseEntity<ConfirmationDetails> getSignatureRequiredData(@PathVariable String id) {
         ConfirmationDetails details = notificationService.getSignatureData(id);

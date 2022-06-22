@@ -1,5 +1,6 @@
 package pl.edu.pjatk.lnpayments.webservice.notification.resource;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,37 +27,60 @@ class NotificationResourceTest {
     @InjectMocks
     private NotificationResource notificationResource;
 
-    @Test
-    void shouldReturnOkForAllNotifications() {
-        ResponseEntity<?> notifications = notificationResource.getNotificationsByUser(() -> "test", null);
+    @Nested
+    class AllNotifications {
+        @Test
+        void shouldReturnOk() {
+            ResponseEntity<?> notifications = notificationResource.getNotificationsByUser(() -> "test", null);
 
-        assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(notificationService).getNotificationsByEmail("test", null);
+            assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).getNotificationsByEmail("test", null);
+        }
     }
 
-    @Test
-    void shouldReturnOkForConfirmationDataRequest() {
-        ResponseEntity<?> notifications = notificationResource.getSignatureRequiredData("ddd");
+    @Nested
+    class ConfirmationDataRequest {
+        @Test
+        void shouldReturnOk() {
+            ResponseEntity<?> notifications = notificationResource.getSignatureRequiredData("ddd");
 
-        assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(notificationService).getSignatureData("ddd");
+            assertThat(notifications.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).getSignatureData("ddd");
+        }
     }
 
-    @Test
-    void shouldReturnOkForConfirmationRequest() {
-        ConfirmationDetails details = new ConfirmationDetails("ddd", 1L, null);
+    @Nested
+    class ConfirmationRequest {
+        @Test
+        void shouldReturnOk() {
+            ConfirmationDetails details = new ConfirmationDetails("ddd", 1L, null);
 
-        ResponseEntity<?> response = notificationResource.confirmNotification("aaa", details);
+            ResponseEntity<?> response = notificationResource.confirmNotification("aaa", details);
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(notificationService).handleNotificationResponse("aaa", details);
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).handleNotificationResponse("aaa", details);
+        }
     }
 
-    @Test
-    void shouldReturnOkForDenialRequest() {
-        ResponseEntity<?> response = notificationResource.denyNotification("aaa");
+    @Nested
+    class DenialRequest {
+        @Test
+        void shouldReturnOk() {
+            ResponseEntity<?> response = notificationResource.denyNotification("aaa");
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        verify(notificationService).handleNotificationDenial("aaa");
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).handleNotificationDenial("aaa");
+        }
+    }
+
+    @Nested
+    class GetNotification {
+        @Test
+        void shouldReturnOk() {
+            ResponseEntity<?> response = notificationResource.getNotification("123");
+
+            assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+            verify(notificationService).findNotification("123");
+        }
     }
 }
