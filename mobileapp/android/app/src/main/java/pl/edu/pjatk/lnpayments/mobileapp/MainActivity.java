@@ -1,4 +1,4 @@
-package com.mobileapp;
+package pl.edu.pjatk.lnpayments.mobileapp;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "mobileapp";
+    return "LNPaymentsMobile";
   }
 
   /**

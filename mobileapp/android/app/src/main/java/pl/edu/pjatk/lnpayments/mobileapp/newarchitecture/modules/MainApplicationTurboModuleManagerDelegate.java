@@ -1,4 +1,4 @@
-package com.mobileapp.newarchitecture.modules;
+package pl.edu.pjatk.lnpayments.mobileapp.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
