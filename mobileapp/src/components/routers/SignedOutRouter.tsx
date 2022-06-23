@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
  * Application router for non-logged users. Automatically navigates the user between login and key upload
  * screens.
  */
-export const SingedOutRouter: React.FC = () => {
+export const SignedOutRouter: React.FC = () => {
   const { user } = useContext(UserContext)
 
   return (

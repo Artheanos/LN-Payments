@@ -43,7 +43,6 @@ class Requests {
         { hostUrl, ...data }: LoginForm,
         timeout = 3000,
       ): Promise<Response<LoginResponse>> => {
-        console.log(new URL(routes.auth.login, hostUrl).href)
         return this.request(
           new URL(routes.auth.login, hostUrl).href,
           { data, timeout },
