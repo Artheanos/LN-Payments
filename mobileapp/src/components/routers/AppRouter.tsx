@@ -7,6 +7,9 @@ import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
 import { UserContext } from 'components/context/UserContext'
 import { requests } from 'webService/requests'
+import notifee, { EventType, Event } from '@notifee/react-native'
+import { Linking } from 'react-native'
+import linking from 'res/linking'
 
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
@@ -71,6 +74,19 @@ export const AppRouter: React.FC = () => {
       loadKeysFromStorage(user.email).then(() => setLoading(false))
     }
   }, [loadKeysFromStorage, user.email])
+
+  useEffect(() => {
+    const notificationListener = async ({ type, detail }: Event) => {
+      if (type === EventType.PRESS) {
+        await Linking.openURL(
+          linking.screens['Notification Details'](detail.notification?.id),
+        )
+      }
+    }
+
+    notifee.onForegroundEvent(notificationListener)
+    notifee.onBackgroundEvent(notificationListener)
+  }, [])
 
   if (loading) return <Spinner />
 

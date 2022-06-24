@@ -5,6 +5,7 @@ import { routes } from 'webService/routes'
 import { NotificationDetails } from 'webService/interface/notification'
 import { UserContext } from 'components/context/UserContext'
 import R from 'res/R'
+import notifee from '@notifee/react-native'
 
 interface SignedInContextValue {
   socket: StompClient | null
@@ -58,10 +59,13 @@ const websocketBuilder = (authorization: string, onConnect: () => void) => {
   })
 }
 
-const showNotification = (notification: NotificationDetails) => {
-  console.log({
+const showNotification = async (notification: NotificationDetails) => {
+  const channelId = await notifee.createChannel(R.notifications)
+
+  await notifee.displayNotification({
     body: `${notification.amount} ${R.strings.common.currency.satoshi}`,
     title: notification.message,
-    identifier: notification.id,
+    id: notification.id,
+    android: { channelId },
   })
 }

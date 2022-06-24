@@ -1139,6 +1139,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@notifee/react-native@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@notifee/react-native/-/react-native-5.3.0.tgz#79d20e2d9d383d45de3efd12f616606ac7a31229"
+  integrity sha512-P8uj/Ar4sAJ9sq+1W6qklQ2yw66GBTYD3qgKXoD6sJihoCVbniQ2A8xMYIPG1Y/To/DcbPouc9lsNm2XrxQQXA==
+
 "@react-aria/checkbox@^3.2.1":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@react-aria/checkbox/-/checkbox-3.3.4.tgz#f59a65bdc41894d47717ede7b31f49a29f539ba7"
