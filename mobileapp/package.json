@@ -30,7 +30,6 @@
     "react-native": "0.68.2",
     "react-native-crypto": "^2.2.0",
     "react-native-gesture-handler": "^2.4.2",
-    "react-native-notifications": "^4.3.1",
     "react-native-randombytes": "^3.6.1",
     "react-native-reanimated": "^2.8.0",
     "react-native-safe-area-context": "^4.2.5",

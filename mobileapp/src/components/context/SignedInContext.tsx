@@ -4,7 +4,6 @@ import { requests } from 'webService/requests'
 import { routes } from 'webService/routes'
 import { NotificationDetails } from 'webService/interface/notification'
 import { UserContext } from 'components/context/UserContext'
-import { Notification, Notifications } from 'react-native-notifications'
 import R from 'res/R'
 
 interface SignedInContextValue {
@@ -60,9 +59,9 @@ const websocketBuilder = (authorization: string, onConnect: () => void) => {
 }
 
 const showNotification = (notification: NotificationDetails) => {
-  Notifications.postLocalNotification({
+  console.log({
     body: `${notification.amount} ${R.strings.common.currency.satoshi}`,
     title: notification.message,
     identifier: notification.id,
-  } as Notification)
+  })
 }

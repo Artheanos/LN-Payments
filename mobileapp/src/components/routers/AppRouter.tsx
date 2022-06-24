@@ -7,9 +7,6 @@ import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
 import { UserContext } from 'components/context/UserContext'
 import { requests } from 'webService/requests'
-import { Notifications } from 'react-native-notifications'
-import { Linking } from 'react-native'
-import R from 'res/R'
 
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
@@ -74,19 +71,6 @@ export const AppRouter: React.FC = () => {
       loadKeysFromStorage(user.email).then(() => setLoading(false))
     }
   }, [loadKeysFromStorage, user.email])
-
-  useEffect(() => {
-    Notifications.events().registerNotificationOpened(
-      (notification, completion) => {
-        Linking.openURL(
-          R.linking.screens[R.routes.notificationDetails](
-            notification.payload.identifier,
-          ),
-        )
-        completion()
-      },
-    )
-  }, [])
 
   if (loading) return <Spinner />
 
