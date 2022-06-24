@@ -4,19 +4,21 @@ import React, { createContext, useCallback, useState } from 'react'
 
 interface UserI {
   email: string | null
-  token: string | null
   hostUrl: string | null
+  notificationChannelId: string | null
   privateKey: Buffer | null
   publicKey: Buffer | null
+  token: string | null
   uploadKeys: boolean | null
 }
 
 export const EMPTY_USER = Object.freeze({
   email: null,
   hostUrl: null,
-  token: null,
+  notificationChannelId: null,
   privateKey: null,
   publicKey: null,
+  token: null,
   uploadKeys: false,
 })
 

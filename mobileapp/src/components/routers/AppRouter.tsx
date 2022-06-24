@@ -7,13 +7,21 @@ import { SignedInRouter } from './SignedInRouter'
 import { SingedOutRouter } from './SignedOutRouter'
 import { UserContext } from 'components/context/UserContext'
 import { requests } from 'webService/requests'
+import notifee, { EventType, Event } from '@notifee/react-native'
+import { Linking } from 'react-native'
+import linking from 'res/linking'
 
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(true)
 
   const loadUserFromStorage = useCallback(async () => {
-    const keys = [LocalKey.TOKEN, LocalKey.EMAIL, LocalKey.HOST_URL]
+    const keys = [
+      LocalKey.TOKEN,
+      LocalKey.EMAIL,
+      LocalKey.HOST_URL,
+      LocalKey.NOTIFICATION_CHANNEL,
+    ]
 
     const partialUser: Record<string, unknown> = {}
     const storageKeyValues = await AsyncStorage.multiGet(keys)
@@ -23,6 +31,7 @@ export const AppRouter: React.FC = () => {
 
       switch (key) {
         case LocalKey.TOKEN:
+          requests.setToken(value)
           partialUser.token = value
           break
         case LocalKey.EMAIL:
@@ -31,6 +40,9 @@ export const AppRouter: React.FC = () => {
         case LocalKey.HOST_URL:
           partialUser.hostUrl = value
           requests.host = value
+          break
+        case LocalKey.NOTIFICATION_CHANNEL:
+          partialUser.notificationChannelId = value
           break
       }
     }
@@ -62,6 +74,19 @@ export const AppRouter: React.FC = () => {
       loadKeysFromStorage(user.email).then(() => setLoading(false))
     }
   }, [loadKeysFromStorage, user.email])
+
+  useEffect(() => {
+    const notificationListener = async ({ type, detail }: Event) => {
+      if (type === EventType.PRESS) {
+        await Linking.openURL(
+          linking.screens['Notification Details'](detail.notification?.id),
+        )
+      }
+    }
+
+    notifee.onForegroundEvent(notificationListener)
+    notifee.onBackgroundEvent(notificationListener)
+  }, [])
 
   if (loading) return <Spinner />
 

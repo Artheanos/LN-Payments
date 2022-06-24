@@ -19,17 +19,18 @@ const defaultConfig: AxiosRequestConfig = {
   method: 'post',
 }
 
-type RefreshTokenFactory = () => Promise<string | null>
-
 class Requests {
   public authHeader: string | null = null
   public host?: string
+  public token?: string
 
-  private readonly refreshTokenFactory: RefreshTokenFactory
-
-  constructor(refreshTokenFactory: RefreshTokenFactory, host?: string) {
+  constructor(host?: string) {
     this.host = host
-    this.refreshTokenFactory = refreshTokenFactory
+  }
+
+  public setToken(token: string) {
+    this.token = token
+    this.authHeader = `Bearer ${token}`
   }
 
   public api = {
@@ -78,10 +79,6 @@ class Requests {
     },
   }
 
-  private async reloadAuthHeader() {
-    this.authHeader = `Bearer ${await this.refreshTokenFactory()}`
-  }
-
   private async configFactory(
     url: string,
     config: AxiosRequestConfig,
@@ -89,7 +86,6 @@ class Requests {
   ) {
     const result = { url, ...defaultConfig, ...config }
 
-    await this.reloadAuthHeader()
     if (this.authHeader && authenticate) {
       if (!result.headers) {
         result.headers = {}
@@ -133,5 +129,5 @@ class Requests {
 export const refreshTokenFactory = async () =>
   await AsyncStorage.getItem(LocalKey.TOKEN)
 
-export const requests = new Requests(refreshTokenFactory)
+export const requests = new Requests()
 export const api = requests.api

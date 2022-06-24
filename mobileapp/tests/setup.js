@@ -10,5 +10,11 @@ import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/asy
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
+// THEMES
+
 jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon')
 jest.mock('native-base/src/theme/base/colors', () => 'colors')
+
+// NOTIFEE
+
+jest.mock('@notifee/react-native', () => {})

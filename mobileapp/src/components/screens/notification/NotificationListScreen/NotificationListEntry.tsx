@@ -24,7 +24,11 @@ export const NotificationsListEntry: React.FC<Props> = ({
 }) => {
   return (
     <Pressable
-      onPress={() => navigation.navigate(R.routes.notificationDetails, item)}
+      onPress={() =>
+        navigation.navigate(R.routes.notificationDetails, {
+          notificationId: item.id,
+        })
+      }
     >
       <HStack space={3} alignItems="center" py={5} px={2}>
         <NotificationIcon status={item.status} />
