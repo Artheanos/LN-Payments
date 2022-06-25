@@ -8,6 +8,7 @@ import { UserContext } from 'components/context/UserContext'
 import { signTx } from 'utils/bitcoin'
 import { LoadingModal } from 'components/screens/notification/NotificationDetailScreen/LoadingModal'
 import { ErrorAlert } from 'components/screens/notification/NotificationDetailScreen/ErrorAlert'
+import { Alert } from 'react-native'
 
 /**
  * Displays details of the clicked notification.
@@ -22,7 +23,7 @@ export const NotificationDetailScreen: React.FC<
 }) => {
   const [processing, setProcessing] = useState(false)
   const [errorDialog, setErrorDialog] = useState(false)
-  const { user } = useContext(UserContext)
+  const { user, logoutUser } = useContext(UserContext)
 
   /**
    * Processes with the confirmation flow. Obtains transaction details, signs the transaction and sends it back.
@@ -32,7 +33,11 @@ export const NotificationDetailScreen: React.FC<
     setProcessing(true)
     api.notifications
       .getConfirmationDetails(notificationId)
-      .then(({ data }) => {
+      .then(({ data, status }) => {
+        if (status == 401) {
+          logoutUser()
+          Alert.alert(R.strings.logout.timeout)
+        }
         if (data) {
           const signedTx = signTx(
             data.rawTransaction,
@@ -53,7 +58,9 @@ export const NotificationDetailScreen: React.FC<
             .catch(showAlert)
         }
       })
-      .catch(showAlert)
+      .catch(() => {
+        logoutUser()
+      })
   }
 
   /**

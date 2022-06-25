@@ -1,13 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Box, Divider, Spinner, Text } from 'native-base'
 import { NotificationDetails } from 'webService/interface/notification'
 import { api } from 'webService/requests'
-import { FlatList } from 'react-native'
+import { Alert, FlatList } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import { NotificationsListEntry } from 'components/screens/notification/NotificationListScreen/NotificationListEntry'
 import R from 'res/R'
 import { useIsFocused } from '@react-navigation/native'
+import { UserContext } from 'components/context/UserContext'
 
 type Props = {
   navigation: StackNavigationProp<SignInRouterProps>
@@ -24,6 +25,7 @@ export const NotificationListScreen: React.FC<Props> = ({ navigation }) => {
   const [pageNumber, setPageNumber] = useState(0)
   const [hasMore, setHasMore] = useState(false)
   const [notifications, setNotifications] = useState<NotificationDetails[]>([])
+  const { logoutUser } = useContext(UserContext)
   const isFocused = useIsFocused()
 
   /**
@@ -33,18 +35,34 @@ export const NotificationListScreen: React.FC<Props> = ({ navigation }) => {
    * @param page  Page number that you want to request. Default value is 0.
    * @param size  Page size that will be requested. Default value is 10.
    */
-  const queryElements = useCallback(async (page = 0, size = 10) => {
-    setPageNumber(page)
-    const { data } = await api.notifications.getUserNotifications({
-      page,
-      size,
-    })
-    if (data) {
-      setHasMore(!data.last)
-      setNotifications((notifications) => [...notifications, ...data.content])
-    }
-    setLoading(false)
-  }, [])
+  const queryElements = useCallback(
+    async (page = 0, size = 10) => {
+      setPageNumber(page)
+      api.notifications
+        .getUserNotifications({
+          page,
+          size,
+        })
+        .then(({ data, status }) => {
+          if (status === 401) {
+            logoutUser()
+            Alert.alert(R.strings.logout.timeout)
+          }
+          if (data) {
+            setHasMore(!data.last)
+            setNotifications((notifications) => [
+              ...notifications,
+              ...data.content,
+            ])
+          }
+          setLoading(false)
+        })
+        .catch(() => {
+          logoutUser()
+        })
+    },
+    [logoutUser],
+  )
 
   /**
    * Effect responsible for loading notification data. Invoked whenever queryElements is invoked, or screen is back

@@ -1,8 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
-import { LocalKey } from 'constants/LocalKey'
 import { routes } from './routes'
 import { Pageable, PageRequest } from 'webService/interface/pageable'
 import {
@@ -145,9 +143,6 @@ class Requests {
     return this.host && route.startsWith('/') ? `${this.host}${route}` : route
   }
 }
-
-export const refreshTokenFactory = async () =>
-  await AsyncStorage.getItem(LocalKey.TOKEN)
 
 export const requests = new Requests()
 export const api = requests.api
