@@ -2,6 +2,9 @@
 
 import React, { createContext, useCallback, useState } from 'react'
 
+/**
+ * Interface defining types for user context.
+ */
 interface UserI {
   email: string | null
   hostUrl: string | null
@@ -12,6 +15,9 @@ interface UserI {
   uploadKeys: boolean | null
 }
 
+/**
+ * Defined empty user, used as the initial state value.
+ */
 export const EMPTY_USER = Object.freeze({
   email: null,
   hostUrl: null,
@@ -22,12 +28,19 @@ export const EMPTY_USER = Object.freeze({
   uploadKeys: false,
 })
 
+/**
+ * Context containing details about the current user. Data is updated on log in. By default,
+ * initialized with {@see EMPTY_USER}.
+ */
 export const UserContext = createContext<{
   user: UserI
   setUser: (user: UserI) => void
   updateUser: (params: Partial<UserI>) => void
 }>({ user: EMPTY_USER, setUser: () => {}, updateUser: () => {} })
 
+/**
+ * Provides an user context.
+ */
 export const UserContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserI>(EMPTY_USER)
   const updateUser = useCallback(

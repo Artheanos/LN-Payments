@@ -11,10 +11,18 @@ import notifee, { EventType, Event } from '@notifee/react-native'
 import { Linking } from 'react-native'
 import linking from 'res/linking'
 
+/**
+ * Main application router, that determines between Signed in and Signed out flows. It also handles
+ * the initial setup of the application.
+ */
 export const AppRouter: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(true)
 
+  /**
+   * Obtains user data from the local storage. When the user is turns on the application, and he was already
+   * logged in, his data will be loaded from the memory.
+   */
   const loadUserFromStorage = useCallback(async () => {
     const keys = [
       LocalKey.TOKEN,
@@ -50,6 +58,9 @@ export const AppRouter: React.FC = () => {
     updateUser(partialUser)
   }, [updateUser])
 
+  /**
+   * Loads from the memory users' private key.
+   */
   const loadKeysFromStorage = useCallback(
     async (email: string) => {
       const value = await AsyncStorage.getItem(email)
@@ -64,10 +75,16 @@ export const AppRouter: React.FC = () => {
     [updateUser],
   )
 
+  /**
+   * Listens for the invocation of load user method invocation. Then invocation is done, sets loading flag to false.
+   */
   useEffect(() => {
     loadUserFromStorage().then(() => setLoading(false))
   }, [loadUserFromStorage])
 
+  /**
+   * Invokes load keys method, when user is logged in.
+   */
   useEffect(() => {
     if (user.email) {
       setLoading(true)
@@ -75,6 +92,9 @@ export const AppRouter: React.FC = () => {
     }
   }, [loadKeysFromStorage, user.email])
 
+  /**
+   * Sets up push notification listener, when application is launched.
+   */
   useEffect(() => {
     const notificationListener = async ({ type, detail }: Event) => {
       if (type === EventType.PRESS) {
@@ -88,8 +108,14 @@ export const AppRouter: React.FC = () => {
     notifee.onBackgroundEvent(notificationListener)
   }, [])
 
+  /**
+   * When data is being loaded, display a spinner.
+   */
   if (loading) return <Spinner />
 
+  /**
+   * Returns router for proper flow, based on user log in status,
+   */
   return user.token && user.privateKey ? (
     <SignedInRouter />
   ) : (

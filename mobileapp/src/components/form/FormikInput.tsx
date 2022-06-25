@@ -6,6 +6,12 @@ import { capitalize } from 'utils/strings'
 
 type Props = FieldProps & InterfaceInputProps
 
+/**
+ * Component for standard text input that is integrated with formik. Includes all necessary methods, styling
+ * and error handling.
+ *
+ * @param props  Formik input properties {@see FieldProps}
+ */
 export const FormikInput: React.FC<Props> = (props) => {
   const {
     field: { name, onBlur, onChange, value },

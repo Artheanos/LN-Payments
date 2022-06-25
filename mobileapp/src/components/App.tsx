@@ -9,12 +9,19 @@ import { UserContextProvider } from 'components/context/UserContext'
 import { AppRouter } from 'components/routers/AppRouter'
 import R from 'res/R'
 
+/**
+ * Defines the color scheme used in the application.
+ */
 const theme = extendTheme({
   colors: {
     primary: colors.purple,
   },
 })
 
+/**
+ * Main component that is the entry point to the application.
+ * Contains all context providers and navigation utilities.
+ */
 export default function App() {
   return (
     <NativeBaseProvider theme={theme}>
@@ -27,6 +34,9 @@ export default function App() {
   )
 }
 
+/**
+ * Defines screen linking in the application navigation.
+ */
 const linking = {
   prefixes: [R.linking.prefix],
   config: {
