@@ -19,6 +19,9 @@ const defaultConfig: AxiosRequestConfig = {
   method: 'post',
 }
 
+/**
+ * Handles all API calls. Contains all the methods required for request processing and error handling.
+ */
 class Requests {
   public authHeader: string | null = null
   public host?: string
@@ -33,6 +36,9 @@ class Requests {
     this.authHeader = `Bearer ${token}`
   }
 
+  /**
+   * Object containing methods for all required api calls. Client can leverage this object for any endpoint call.
+   */
   public api = {
     auth: {
       tryLogin: async (
@@ -79,6 +85,13 @@ class Requests {
     },
   }
 
+  /**
+   * Created config for the HTTP request
+   *
+   * @param url Server URL
+   * @param config Axios config object
+   * @param authenticate boolean flag determining whether user needs authentication for the given endpoint.
+   */
   private async configFactory(
     url: string,
     config: AxiosRequestConfig,
@@ -98,6 +111,13 @@ class Requests {
     return result
   }
 
+  /**
+   * Handles single HTTP request.
+   *
+   * @param url  Server url
+   * @param config  Request details like headers and other data.
+   * @param authenticate boolean flag determining whether user needs authentication for the given endpoint.
+   */
   private async request<D, T>(
     url: string,
     config: AxiosRequestConfig<D> = {},

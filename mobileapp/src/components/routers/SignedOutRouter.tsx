@@ -7,6 +7,10 @@ import R from 'res/R'
 
 const Stack = createNativeStackNavigator()
 
+/**
+ * Application router for non-logged users. Automatically navigates the user between login and key upload
+ * screens.
+ */
 export const SingedOutRouter: React.FC = () => {
   const { user } = useContext(UserContext)
 

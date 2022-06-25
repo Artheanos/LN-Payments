@@ -13,10 +13,21 @@ import { initialValues } from './loginForm'
 import { isValidUrl } from 'utils/strings'
 import R from 'res/R'
 
+/**
+ * Component displaying login screen.
+ */
 export const LoginScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
   const [loading, setLoading] = useState(false)
 
+  /**
+   * Callback invoked on api call success.
+   *
+   * @param email  User email
+   * @param hostUrl  Backend URL
+   * @param token  JWT token required to authorize.
+   * @param notificationChannelId  Topic id what is a source of push notifications.
+   */
   const onSuccess = async (
     { email, hostUrl }: LoginForm,
     { token, notificationChannelId }: LoginResponse,
@@ -31,14 +42,30 @@ export const LoginScreen: React.FC = () => {
     updateUser({ email, token, hostUrl, notificationChannelId })
   }
 
+  /**
+   * Callback invoked on request failure.
+   *
+   * @param setFieldError  Method that sets field errors.
+   */
   const onFailure = ({ setFieldError }: FormikHelpers<LoginForm>) => {
     setFieldError('email', R.strings.login.invalidCredentials)
   }
 
+  /**
+   * Callback invoked when user is unauthorized.
+   *
+   * @param setFieldError  Method that sets field errors.
+   */
   const onUnauthorized = ({ setFieldError }: FormikHelpers<LoginForm>) => {
     setFieldError('email', R.strings.login.unauthorized)
   }
 
+  /**
+   * Invoked when login from is submitted. Handles the backend part of the logging process.
+   *
+   * @param formValues  Form data
+   * @param helpers  Set of helper methods for formik forms.
+   */
   const onSubmit = async (
     formValues: LoginForm,
     helpers: FormikHelpers<LoginForm>,

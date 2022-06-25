@@ -8,6 +8,9 @@ import R from 'res/R'
 import { toHexString } from 'utils/hex'
 import { generateKeyPair } from 'utils/bitcoin'
 
+/**
+ * Screen handling key pair generation and public key upload to the backend.
+ */
 export const KeyUploadScreen: React.FC = () => {
   const { user, updateUser } = useContext(UserContext)
 
@@ -15,6 +18,9 @@ export const KeyUploadScreen: React.FC = () => {
   const [uploaded, setUploaded] = useState(false)
   const [saved, setSaved] = useState(false)
 
+  /**
+   * Generated public and private key pair, uploads it to the backend and saves the private key in local storage.
+   */
   const generateKeys = async () => {
     const { publicKey, privateKey } = generateKeyPair()
     setGenerated(true)
@@ -41,11 +47,17 @@ export const KeyUploadScreen: React.FC = () => {
     updateUser({ publicKey, privateKey, uploadKeys: false })
   }
 
+  /**
+   * Invoked on screen load, invokes key generation method.
+   */
   useEffect(() => {
     generateKeys()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  /**
+   * Determines the messaged displayed under the spinner.
+   */
   const message = generated
     ? uploaded
       ? saved

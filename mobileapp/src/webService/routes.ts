@@ -1,3 +1,6 @@
+/**
+ * Contains router for backend API calls.
+ */
 export const routes = {
   auth: {
     login: '/api/auth/login',
