@@ -23,9 +23,17 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.temporal.Temporal;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentFacade {
@@ -101,6 +109,16 @@ public class PaymentFacade {
         payment.setStatus(PaymentStatus.COMPLETE);
         String paymentTopic = DigestUtils.sha256Hex(paymentRequest).substring(0, 8);
         paymentSocketController.sendTokens(paymentTopic, payment.getTokens());
+    }
+
+    public Map<Temporal, Long> aggregateTotalIncomeData() {
+        return paymentDataService.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Payment::getDate))
+                .collect(Collectors.groupingBy(payment ->
+                        YearMonth.from(LocalDate.ofInstant(payment.getDate(), ZoneId.systemDefault())),
+                        TreeMap::new,
+                        Collectors.summingLong(Payment::getPrice)));
     }
 
     public Page<Payment> getPaymentsByEmail(String email, Pageable pageable) {

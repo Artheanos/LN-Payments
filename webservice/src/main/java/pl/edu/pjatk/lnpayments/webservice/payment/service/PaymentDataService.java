@@ -43,4 +43,8 @@ public class PaymentDataService {
     public Page<Payment> findAll(Pageable pageable) {
         return paymentRepository.findAll(pageable);
     }
+
+    public Collection<Payment> findAll() {
+        return paymentRepository.findAll();
+    }
 }
