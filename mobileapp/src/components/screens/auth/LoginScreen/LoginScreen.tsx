@@ -33,6 +33,7 @@ export const LoginScreen: React.FC = () => {
     { token, notificationChannelId }: LoginResponse,
   ) => {
     requests.setToken(token)
+    requests.host = hostUrl
     await AsyncStorage.multiSet([
       [LocalKey.TOKEN, token],
       [LocalKey.EMAIL, email],

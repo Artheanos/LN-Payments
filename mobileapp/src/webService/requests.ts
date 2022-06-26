@@ -140,7 +140,7 @@ class Requests {
   }
 
   private resolveRoute(route: string) {
-    return this.host && route.startsWith('/') ? `${this.host}${route}` : route
+    return route.startsWith('/') ? `${this.host!}${route}` : route
   }
 }
 
