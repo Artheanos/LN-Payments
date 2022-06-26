@@ -87,6 +87,9 @@ export const LoginScreen: React.FC = () => {
 
         onUnauthorized(helpers)
       })
+      .catch(() => {
+        alert(R.strings.login.error)
+      })
       .finally(() => setLoading(false))
   }
 
