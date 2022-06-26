@@ -34,6 +34,14 @@ const strings = {
     generating: 'Generating keys',
   },
   details: {
+    id: 'ID',
+    type: 'Type',
+    message: 'Message',
+    address: 'Address',
+    amount: 'Amount',
+    status: 'Status',
+    btnConfirm: 'confirm',
+    btnDeny: 'deny',
     loading: {
       text: 'Processing request...',
     },
