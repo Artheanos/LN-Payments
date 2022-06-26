@@ -20,8 +20,9 @@
     "skipLibCheck": true,
     "paths": {
       "*": [
-        "src/*"
-      ]
+        "src/*",
+      ],
+      "tests/*": ["tests/*"]
     }
   },
   "exclude": [

@@ -1,14 +1,14 @@
+import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
+import { Alert } from 'react-native'
 import { Box, Center, Heading, Spinner } from 'native-base'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { UserContext } from 'components/context/UserContext'
 import { api } from 'webService/requests'
 import R from 'res/R'
 import { toHexString } from 'utils/hex'
 import { generateKeyPair } from 'utils/bitcoin'
-import { Alert } from 'react-native'
-import axios from 'axios'
 
 /**
  * Screen handling key pair generation and public key upload to the backend.
@@ -37,9 +37,9 @@ export const KeyUploadScreen: React.FC = () => {
           logoutUser()
           Alert.alert(R.strings.logout.timeout)
         } else if (response.status === 409) {
-          alert(R.strings.keyUpload.alreadyUploaded)
+          Alert.alert(R.strings.keyUpload.alreadyUploaded)
         } else {
-          alert(R.strings.keyUpload.error)
+          Alert.alert(R.strings.keyUpload.error)
         }
         updateUser({ token: null, email: null, uploadKeys: false })
         return
