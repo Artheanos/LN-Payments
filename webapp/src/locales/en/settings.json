@@ -1,23 +1,24 @@
 {
   "form": {
     "title": "Server settings",
+    "success": "Settings have been saved",
     "autoChannelCloseLimit": {
-      "label": "Channel Close Limit"
+      "label": "Channel close limit"
     },
     "autoTransferLimit": {
-      "label": "Auto Transfer Limit"
+      "label": "Auto transfer limit"
     },
     "description": {
       "label": "Description"
     },
     "invoiceMemo": {
-      "label": "Invoice Memo"
+      "label": "Invoice memo"
     },
     "lastModification": {
       "label": "Last modification"
     },
     "paymentExpiryInSeconds": {
-      "label": "Payment Expiry"
+      "label": "Payment expiry"
     },
     "price": {
       "label": "Price"

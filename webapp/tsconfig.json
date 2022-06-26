@@ -19,6 +19,7 @@
       "*": ["./*"],
       "components/*": ["./components/*"],
       "webService/*": ["./webService/*"],
+      "pages/*": ["./pages/*"],
       "tests/*": ["../tests/*"]
     }
   },

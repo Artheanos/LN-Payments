@@ -37,10 +37,10 @@ export const ServerSettingsPage: React.FC = () => {
       .updateSettings(form)
       .then(({ status }) => {
         if (status === 200) {
-          notification('Settings have been updated', 'success')
+          notification(t('form.success'), 'success')
           getSettings()
         } else {
-          notification('Something went wrong', 'error')
+          notification(t('common:error.generic'), 'error')
         }
       })
       .finally(() => setUploading(false))
@@ -54,7 +54,7 @@ export const ServerSettingsPage: React.FC = () => {
 
   return (
     <Panel.Container>
-      <Panel.Header title="Settings" />
+      <Panel.Header title={t('form.title')} />
       <Panel.Body>
         <Formik
           initialValues={settings}
@@ -122,7 +122,7 @@ export const ServerSettingsPage: React.FC = () => {
                   variant="contained"
                   loading={uploading || getting}
                 >
-                  Submit
+                  {t('common:submit')}
                 </LoadingButton>
               </Grid>
             </Grid>
