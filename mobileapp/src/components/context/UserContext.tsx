@@ -67,6 +67,7 @@ export const UserContextProvider: React.FC = ({ children }) => {
         token: null,
         privateKey: null,
         publicKey: null,
+        uploadKeys: false,
       })
     })
   }, [updateUser])
