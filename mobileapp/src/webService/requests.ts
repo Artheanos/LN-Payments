@@ -1,12 +1,14 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios'
+import { Alert } from 'react-native'
 
-import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
-import { routes } from './routes'
-import { Pageable, PageRequest } from 'webService/interface/pageable'
 import {
   ConfirmationDetails,
   NotificationDetails,
 } from 'webService/interface/notification'
+import { KeyUploadForm, LoginForm, LoginResponse } from './interface/auth'
+import { Pageable, PageRequest } from 'webService/interface/pageable'
+import { routes } from './routes'
+import R from 'res/R'
 
 export type Response<T> = {
   data?: T
@@ -131,7 +133,7 @@ class Requests {
         return { status: e.response.status }
       } else {
         if ((e as AxiosError)?.response?.status === 0) {
-          alert('Could not connect to the server')
+          Alert.alert(R.strings.logout.connectionError)
         }
         throw e
       }
