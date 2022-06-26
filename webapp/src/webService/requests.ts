@@ -10,7 +10,6 @@ import {
   PublicPaymentDetails
 } from './interface/payment'
 import {
-  KeyUploadForm,
   LoginForm,
   LoginResponse,
   RefreshTokenResponse,
@@ -25,6 +24,7 @@ import {
 } from './interface/transaction'
 import { getLocalJson } from '../utils/persist'
 import { LocalKey } from '../constants/LocalKey'
+import { Settings } from 'webService/interface/settings'
 
 export type Response<T> = {
   data?: T
@@ -56,8 +56,13 @@ class Requests {
       register: (data: RegisterForm): Promise<Response<number>> => {
         return this.request(routes.auth.register, { data })
       },
-      refreshToken: (): Promise<Response<RefreshTokenResponse>> => {
-        return this.request(routes.auth.refreshToken, { method: 'get' })
+      refreshToken: (
+        timeout: number
+      ): Promise<Response<RefreshTokenResponse>> => {
+        return this.request(routes.auth.refreshToken, {
+          method: 'get',
+          timeout
+        })
       }
     },
     payment: {
@@ -103,10 +108,7 @@ class Requests {
         this.request(routes.admins.index, { data }),
 
       remove: (data: AdminUser): Promise<Response<unknown>> =>
-        this.request(routes.admins.index, { method: 'delete', data }),
-
-      uploadKeys: (data: KeyUploadForm): Promise<Response<unknown>> =>
-        this.request(routes.admins.keys, { method: 'patch', data })
+        this.request(routes.admins.index, { method: 'delete', data })
     },
     wallet: {
       getInfo: (): Promise<Response<WalletInfo>> =>
@@ -141,6 +143,12 @@ class Requests {
       },
       createTransaction: (data: TransactionForm): Promise<Response<unknown>> =>
         this.request(routes.transactions.index, { data })
+    },
+    settings: {
+      getSettings: async (): Promise<Response<Settings>> =>
+        this.request(routes.settings.index, { method: 'get' }),
+      updateSettings: async (data: Settings) =>
+        this.request(routes.settings.index, { method: 'put', data })
     }
   }
 

@@ -1,0 +1,26 @@
+{
+  "form": {
+    "title": "Server settings",
+    "autoChannelCloseLimit": {
+      "label": "Channel Close Limit"
+    },
+    "autoTransferLimit": {
+      "label": "Auto Transfer Limit"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "invoiceMemo": {
+      "label": "Invoice Memo"
+    },
+    "lastModification": {
+      "label": "Last modification"
+    },
+    "paymentExpiryInSeconds": {
+      "label": "Payment Expiry"
+    },
+    "price": {
+      "label": "Price"
+    }
+  }
+}

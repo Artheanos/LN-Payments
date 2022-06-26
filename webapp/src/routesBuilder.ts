@@ -20,6 +20,9 @@ export default {
     transactions: {
       index: '/panel/transactions',
       new: '/panel/transactions/new'
+    },
+    serverSettings: {
+      index: '/panel/settings'
     }
   },
   api: {

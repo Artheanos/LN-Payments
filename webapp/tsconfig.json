@@ -17,6 +17,8 @@
     "jsx": "react-jsx",
     "paths": {
       "*": ["./*"],
+      "components/*": ["./components/*"],
+      "webService/*": ["./webService/*"],
       "tests/*": ["../tests/*"]
     }
   },

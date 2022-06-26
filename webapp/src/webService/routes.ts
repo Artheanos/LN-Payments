@@ -22,5 +22,8 @@ export const routes = {
   transactions: {
     index: '/api/transactions',
     newInfo: '/api/transactions/info'
+  },
+  settings: {
+    index: '/api/settings'
   }
 }
