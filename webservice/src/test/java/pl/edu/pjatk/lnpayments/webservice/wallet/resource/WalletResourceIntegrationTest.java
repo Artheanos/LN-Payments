@@ -27,6 +27,9 @@ import pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.Notification;
 import pl.edu.pjatk.lnpayments.webservice.notification.model.NotificationType;
 import pl.edu.pjatk.lnpayments.webservice.notification.repository.NotificationRepository;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
+import pl.edu.pjatk.lnpayments.webservice.payment.repository.PaymentRepository;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.Transaction;
 import pl.edu.pjatk.lnpayments.webservice.transaction.model.TransactionStatus;
 import pl.edu.pjatk.lnpayments.webservice.transaction.repository.TransactionRepository;
@@ -35,6 +38,7 @@ import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
 import pl.edu.pjatk.lnpayments.webservice.wallet.repository.WalletRepository;
 import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.CreateWalletRequest;
 
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HexFormat;
 import java.util.List;
@@ -69,6 +73,9 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private WalletAppKit walletAppKit;
+
+    @Autowired
+    private PaymentRepository paymentRepository;
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -293,6 +300,14 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         walletBalanceResponse.setUnconfirmedBalance(100L);
         walletBalanceResponse.setConfirmedBalance(1000L);
         when(lndAPI.walletBalance()).thenReturn(walletBalanceResponse);
+        Instant date = Instant.ofEpochSecond(1656272934);
+        Payment payment1 = new Payment("123", 1, 1, 123, PaymentStatus.COMPLETE, null);
+        payment1.setDate(date);
+        Payment payment2 = new Payment("125", 1, 2, 123, PaymentStatus.COMPLETE, null);
+        payment2.setDate(date.minusSeconds(3_000_000));
+        Payment payment3 = new Payment("124", 1, 3, 123, PaymentStatus.COMPLETE, null);
+        payment3.setDate(date.minusSeconds(6_000_000));
+        paymentRepository.saveAll(List.of(payment1, payment2, payment3));
 
         String jsonContent = getJsonResponse("integration/wallet/response/balance-GET.json");
 

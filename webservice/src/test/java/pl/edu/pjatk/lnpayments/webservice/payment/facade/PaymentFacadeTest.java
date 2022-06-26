@@ -25,8 +25,12 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
+import java.time.Instant;
+import java.time.YearMonth;
+import java.time.temporal.Temporal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -158,4 +162,22 @@ class PaymentFacadeTest {
         verify(paymentDataService).findAll(any());
     }
 
+    @Test
+    void shouldAggregateHistoricPaymentData() {
+        Instant date = Instant.ofEpochSecond(1656272934);
+        Payment payment1 = new Payment("123", 1, 1, 123, PaymentStatus.COMPLETE, null);
+        payment1.setDate(date);
+        Payment payment2 = new Payment("125", 1, 2, 123, PaymentStatus.COMPLETE, null);
+        payment2.setDate(date.minusSeconds(3_000_000));
+        Payment payment3 = new Payment("124", 1, 3, 123, PaymentStatus.COMPLETE, null);
+        payment3.setDate(date.minusSeconds(6_000_000));
+        when(paymentDataService.findAll()).thenReturn(List.of(payment1, payment2, payment3));
+
+        Map<Temporal, Long> result = paymentFacade.aggregateTotalIncomeData();
+
+        assertThat(result.size()).isEqualTo(3);
+        assertThat(result.get(YearMonth.of(2022, 4))).isEqualTo(3);
+        assertThat(result.get(YearMonth.of(2022, 5))).isEqualTo(2);
+        assertThat(result.get(YearMonth.of(2022, 6))).isEqualTo(1);
+    }
 }

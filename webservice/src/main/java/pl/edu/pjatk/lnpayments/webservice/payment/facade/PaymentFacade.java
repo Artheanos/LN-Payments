@@ -114,6 +114,7 @@ public class PaymentFacade {
     public Map<Temporal, Long> aggregateTotalIncomeData() {
         return paymentDataService.findAll()
                 .stream()
+                .filter(payment -> payment.getStatus() == PaymentStatus.COMPLETE)
                 .sorted(Comparator.comparing(Payment::getDate))
                 .collect(Collectors.groupingBy(payment ->
                         YearMonth.from(LocalDate.ofInstant(payment.getDate(), ZoneId.systemDefault())),

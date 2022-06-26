@@ -15,5 +15,10 @@
     "availableBalance": 1000,
     "unconfirmedBalance": 100,
     "currentReferenceFee": 1000
+  },
+  "totalIncomeData": {
+    "2022-04": 3,
+    "2022-05": 2,
+    "2022-06": 1
   }
 }
