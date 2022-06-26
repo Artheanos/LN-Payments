@@ -18,9 +18,12 @@ const strings = {
     invalidCredentials: 'Invalid credentials',
     unauthorized: 'This app is for admins only',
     invalidUrl: 'Invalid url',
+    error: 'Exception occurred when logging in, try again later',
   },
   logout: {
     action: 'Logging out...',
+    connectionError: 'Could not connect to the server',
+    timeout: "Timeout, you've been logged out",
   },
   keyUpload: {
     alreadyUploaded: 'Key already uploaded',

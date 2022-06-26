@@ -4,10 +4,13 @@ import * as React from 'react'
 import { extendTheme, NativeBaseProvider } from 'native-base'
 import { NavigationContainer } from '@react-navigation/native'
 import colors from 'native-base/src/theme/base/colors'
+import { LogBox } from 'react-native'
 
 import { UserContextProvider } from 'components/context/UserContext'
 import { AppRouter } from 'components/routers/AppRouter'
 import R from 'res/R'
+
+LogBox.ignoreAllLogs()
 
 /**
  * Defines the color scheme used in the application.

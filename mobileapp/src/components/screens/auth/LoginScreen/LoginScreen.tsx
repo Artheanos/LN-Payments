@@ -33,6 +33,7 @@ export const LoginScreen: React.FC = () => {
     { token, notificationChannelId }: LoginResponse,
   ) => {
     requests.setToken(token)
+    requests.host = hostUrl
     await AsyncStorage.multiSet([
       [LocalKey.TOKEN, token],
       [LocalKey.EMAIL, email],
@@ -86,6 +87,9 @@ export const LoginScreen: React.FC = () => {
         if (!data) return onFailure(helpers)
 
         onUnauthorized(helpers)
+      })
+      .catch(() => {
+        alert(R.strings.login.error)
       })
       .finally(() => setLoading(false))
   }
