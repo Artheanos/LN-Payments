@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, Center, HStack, Stack, Text } from 'native-base'
+import { Button, Center, Stack, Text } from 'native-base'
 import { StackScreenProps } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import R from 'res/R'
@@ -30,7 +30,7 @@ export const NotificationDetailScreen: React.FC<
   /**
    * Method to get data from API
    */
-  const notificatDetails = async () => {
+  const notificationDetails = async () => {
     const { data } = await api.notifications.getNotificationDetails(
       notificationId,
     )
@@ -41,7 +41,7 @@ export const NotificationDetailScreen: React.FC<
    * Hook. Call method to get data from API
    */
   useEffect(() => {
-    notificatDetails()
+    notificationDetails()
   }, [])
   /**
    * Processes with the confirmation flow. Obtains transaction details, signs the transaction and sends it back.
@@ -114,26 +114,58 @@ export const NotificationDetailScreen: React.FC<
    * Return View with data from NotificationDetails
    */
   return (
-    <Center justifyContent="center" h="100%">
+    <Center justifyContent="flex-start" h="100%">
       <LoadingModal processing={processing} />
       <ErrorAlert isOpen={errorDialog} close={alertClose} />
-      <Text fontSize={16}>{R.strings.details.id}</Text>
-      <Text>{details?.id}</Text>
-      <Text fontSize={16}>{R.strings.details.type}</Text>
-      <Text>{details?.type}</Text>
-      <Text fontSize={16}>{R.strings.details.message}</Text>
-      <Text>{details?.message}</Text>
-      <Text fontSize={16}>{R.strings.details.address}</Text>
-      <Text>{details?.address}</Text>
-      <Text fontSize={16}>{R.strings.details.amount}</Text>
-      <Text>{details?.amount}</Text>
-      <Text fontSize={16}>{R.strings.details.status}</Text>
-      <Text>{details?.status}</Text>
-      <Stack space={10} alignItems="center">
-        <HStack space={20} alignItems="center">
-          <Button onPress={confirm}>{R.strings.details.btnConfirm}</Button>
-          <Button onPress={deny}>{R.strings.details.btnDeny}</Button>
-        </HStack>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.id}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.id}
+      </Text>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.type}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.type}
+      </Text>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.message}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.message}
+      </Text>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.address}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.address}
+      </Text>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.amount}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.amount}
+      </Text>
+      <Text fontSize={20} fontWeight="bold">
+        {R.strings.details.status}
+      </Text>
+      <Text italic fontSize={17}>
+        {details?.status}
+      </Text>
+      <Stack direction="row" padding="15%" space="20">
+        <Button
+          size="lg"
+          w="50%"
+          bg="success.600"
+          variant="solid"
+          onPress={confirm}
+        >
+          {R.strings.details.btnConfirm}
+        </Button>
+        <Button size="lg" w="50%" bg="error.600" variant="solid" onPress={deny}>
+          {R.strings.details.btnDeny}
+        </Button>
       </Stack>
     </Center>
   )
