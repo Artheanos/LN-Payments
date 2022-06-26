@@ -1,11 +1,9 @@
 import React from 'react'
+import { render } from '@testing-library/react-native'
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer'
-
+import { HelperComponent } from 'tests/concern/HelperComponent'
 import { MainScreen } from 'components/screens/MainScreen'
 import { NotificationListScreen } from 'components/screens/notification/NotificationListScreen/NotificationListScreen'
-import { HelperComponent } from '../../concern/HelperComponent'
 
 jest.mock(
   'components/screens/notification/NotificationListScreen/NotificationListScreen',
@@ -21,7 +19,7 @@ jest.mock(
 
 describe('MainScreen', () => {
   it('calls NotificationListScreen', () => {
-    renderer.create(
+    render(
       <HelperComponent>
         <MainScreen navigation={null as never} />
       </HelperComponent>,
