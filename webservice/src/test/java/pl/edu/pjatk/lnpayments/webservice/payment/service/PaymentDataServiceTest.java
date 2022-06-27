@@ -96,7 +96,7 @@ class PaymentDataServiceTest {
     }
 
     @Test
-    void shouldReturnAllPayments() {
+    void shouldReturnAllPaymentsInPage() {
         List<Payment> payments = List.of(
                 new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
                 new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
@@ -116,5 +116,19 @@ class PaymentDataServiceTest {
         Page<Payment> response = paymentDataService.findAll(PageRequest.ofSize(3));
 
         assertThat(response).isEmpty();
+    }
+
+    @Test
+    void shouldReturnAllPayments() {
+        List<Payment> payments = List.of(
+                new Payment("123", 1, 1, 123, PaymentStatus.PENDING, null),
+                new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, null),
+                new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null)
+        );
+        when(paymentRepository.findAll()).thenReturn(payments);
+
+        Collection<Payment> response = paymentDataService.findAll();
+
+        assertThat(response).hasSize(3);
     }
 }

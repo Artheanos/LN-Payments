@@ -7,6 +7,7 @@ import pl.edu.pjatk.lnpayments.webservice.admin.converter.AdminConverter;
 import pl.edu.pjatk.lnpayments.webservice.admin.service.AdminService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
+import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
 import pl.edu.pjatk.lnpayments.webservice.transaction.service.TransactionService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
@@ -27,6 +28,7 @@ public class WalletService {
     private final AdminConverter adminConverter;
     private final TransactionService transactionService;
     private final WalletDataService walletDataService;
+    private final PaymentFacade paymentFacade;
 
     @Autowired
     public WalletService(BitcoinService bitcoinService,
@@ -35,7 +37,7 @@ public class WalletService {
                          ChannelService channelService,
                          AdminConverter adminConverter,
                          TransactionService transactionService,
-                         WalletDataService walletDataService) {
+                         WalletDataService walletDataService, PaymentFacade paymentFacade) {
         this.bitcoinService = bitcoinService;
         this.adminService = adminService;
         this.lightningWalletService = lightningWalletService;
@@ -43,6 +45,7 @@ public class WalletService {
         this.adminConverter = adminConverter;
         this.transactionService = transactionService;
         this.walletDataService = walletDataService;
+        this.paymentFacade = paymentFacade;
     }
 
     @Transactional
@@ -75,6 +78,7 @@ public class WalletService {
                 .bitcoinWalletBalance(bitcoinService.getBalance())
                 .channelsBalance(channelService.getChannelsBalance())
                 .lightningWalletBalance(lightningWalletService.getBalance())
+                .totalIncomeData(paymentFacade.aggregateTotalIncomeData())
                 .build();
     }
 
