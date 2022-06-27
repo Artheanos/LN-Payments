@@ -22,6 +22,7 @@ import { WalletPage } from '../pages/userPanel/wallet/WalletPage'
 import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
 import { TransactionsPage } from '../pages/userPanel/transactions/TransactionsPage'
 import { TransactionFormPage } from '../pages/userPanel/transactions/TransactionFormPage'
+import { ServerSettingsPage } from '../pages/userPanel/serverSettings/ServerSettingsPage'
 
 const theme = createTheme({
   palette: {
@@ -88,6 +89,10 @@ const App = () => (
                 <Route
                   path={routesBuilder.userPanel.transactions.new}
                   element={<TransactionFormPage />}
+                />
+                <Route
+                  path={routesBuilder.userPanel.serverSettings.index}
+                  element={<ServerSettingsPage />}
                 />
                 <Route
                   path={routesBuilder.userPanel.index}

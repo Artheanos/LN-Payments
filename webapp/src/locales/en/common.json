@@ -7,11 +7,15 @@
   "invoice": "Invoice",
   "name": "Name",
   "next": "Next",
-  "noEntries": "No entries",
   "node": "Node",
   "ok": "Ok",
   "title": "LN Payments",
   "view": "View",
+  "submit": "Submit",
+  "error": {
+    "generic": "Something went wrong",
+    "noEntries": "No entries"
+  },
   "sidebar" : {
     "quickBuy": "Quick Buy",
     "history": "History"

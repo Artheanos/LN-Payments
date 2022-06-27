@@ -43,7 +43,7 @@ export const UserProvider: React.FC = ({ children }) => {
   const tryRefreshingToken = useCallback(() => {
     setLoading(true)
     api.auth
-      .refreshToken()
+      .refreshToken(5000)
       .then(({ data }) => {
         if (data) {
           setToken(data.token)

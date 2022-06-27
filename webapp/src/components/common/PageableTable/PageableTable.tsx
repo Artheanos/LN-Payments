@@ -56,7 +56,7 @@ export const PageableTable = <T,>({
       {loading ? (
         <CircularProgress />
       ) : (!pageElements || pageElements.empty) && !distinguishedData ? (
-        <p className="pb-10 italic text-gray-500">{t('noEntries')}</p>
+        <p className="pb-10 italic text-gray-500">{t('error.noEntries')}</p>
       ) : (
         <TableContainer component={Box}>
           <Table>
