@@ -4,12 +4,16 @@
 === Przedstawienie problemu
 
 Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to
-struktura danych gwarantująca niezmienność danych historycznych. Składa się on z bloków połączonych ze sobą, w
+struktura danych gwarantująca niezmienność danych historycznych, która wynika z zastosowanej metody konsensusu, która
+pozwala określić, który blockchain jest uznawany za prawdziwy. Składa się on z bloków połączonych ze sobą, w
 których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
 Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
-możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jego transakcja jest
-zapisywana na 80 bajtach, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
-zwanym kopaniem. Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich bloki. Następnie _kopacz_ stara się
+możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jest ona budowana z
+na podstawie danych użytkownika, takich jak jego poprzednie niewykorzystane wyjścia z transakcje oraz adresy
+docelowe, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
+zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
+szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
+bloki. Następnie _kopacz_ stara się
 zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
 wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi posiadać
 określoną liczbę zer na początku. Liczba zer jest ustalana w taki sposób, aby blok był wykopywany co ok. 10 minut.
@@ -31,9 +35,9 @@ wykonywanie płatności z pominięciem księgowania ich w blockchainie Bitcoina.
 mogą przelewać nawet najmniejsze kwoty. Płatności te mogą nie mieć żadnych opłat oraz są natychmiastowe. Sieć posiada
 również opcję "routowania". Jeżeli kilka węzłów jest ze sobą połączonych kanałami płatności, sieć jest w stanie tak
 pokierować płatnością, aby znaleźć odbiorcę bez otwartego bezpośredniego kanału. Każda osoba, która ma otwarty kanał
-może go w każdej chwili zamknąć, a cała historia transakcji w kanale zostaje wysłana jako jedna transakcja do innych
-węzłów sieci Bitcoin. Dzięki sieci Lightning możliwe jest realizowanie szybkich i małych mikropłatności, co jest
-niemożliwe przy użyciu podstawowej sieci Bitcoin.
+może go w każdej chwili zamknąć, a ostatni stan kanału reprezentowany przez transakcję zamykającą kanał zostaje
+wysłany do innych węzłów sieci Bitcoin. Dzięki sieci Lightning możliwe jest realizowanie szybkich i małych
+mikropłatności, co jest niemożliwe przy użyciu podstawowej sieci Bitcoin.
 
 === Kontekst problemu
 
@@ -58,17 +62,21 @@ zapisywaniem danych. System jest przeznaczony przede wszystkim dla osób chcący
 przy pomocy bitcoinów. Może być używany również jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji.
 Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu Ingenious.
 
-Chcemy stworzyć serwer pozwalający na przyjmowanie płatności, zwracając w zamian token, który będzie pozwalał na
-zarejestrowanie wydarzeń w zewnętrznym systemie. Serwer po wygenerowaniu tokena będzie wysyłał go na serwer klienta,
-rejestrując token w swojej bazie danych. Baza danych po naszej stronie będzie służyła do rejestrowania historii
-transakcji. Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie
+Chcemy stworzyć serwer pozwalający na przyjmowanie płatności, zwracając w zamian token. Serwer po wygenerowaniu
+tokena będzie wysyłał go na serwer klienta, jednocześnie rejestrując go w bazie danych.
+Dzięki temu tokeny nie będą przypisane do konkretnego zastosowania, a klient będzie mógł samemu wybrać sposób ich
+przetwarzania po swojej stronie. Mogą one zostać zastosowane do zakupu produktów cyfrowych, jednorazowego dostępu
+do treści internetowych typu _paywall_, czy też jak w przypadku projektu _Ingenious_ do podpisywania zdarzeń w czasie.
+Baza danych po naszej stronie będzie służyła do rejestrowania historii transakcji.
+Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie
 automatycznie przy pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie
 będą musieli posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony
 pozwalającej na wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupili. System
 będzie posiadał wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew z wbudowanego portfela,
-wymagane będą podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji
-mobilnej, służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej
-użytkownik będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina.
+wymagane będą podpisy od określonej liczby wszystkich administratorów (może to być przykładowo ⅔ administratorów).
+Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej, służącej tylko do przechowywania kluczy
+prywatnych i podpisywania transakcji. Do aplikacji mobilnej użytkownik będzie logował się przy pomocy tych samych
+referencji jak w przypadku konsoli admina.
 
 === Konkurencyjne rozwiązania
 
