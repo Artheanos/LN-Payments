@@ -13,14 +13,14 @@ na podstawie danych użytkownika, takich jak jego poprzednie niewykorzystane wyj
 docelowe, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
 zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
 szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
-bloki. Następnie _kopacz_ stara się
+bloki. Następnie górnik stara się
 zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
 wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi posiadać
 określoną liczbę zer na początku. Liczba zer jest ustalana w taki sposób, aby blok był wykopywany co ok. 10 minut.
 
 Pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin jest aktualnie
 na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby zmniejszyć ruch oraz nie
-zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować kopaczowi, aby
+zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować górnikowi, aby
 ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10
 minut i maksymalnie może pomieścić kilka tysięcy transakcji, to opłaty transakcyjne są bardzo wysokie. Według danych z
 portalu "Ycharts" <<fee_chart>>, średni koszt pojedynczej transakcji w momencie pisania tej pracy wynosi 2 dolary
@@ -111,7 +111,8 @@ przy użyciu Bitrefill jest możliwe, aczkolwiek mocno różniłoby się od nasz
 
 === Cele systemu
 
-System ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci Bitcoin. Wdrożenie
+System ma na celu umożliwić sprzedaż jednorazowych tokenów za pomocą bitcoinów w sieci Lightning, które będzie można
+wykorzystać do podpisywania wydarzeń w sieci Bitcoin, jak i do innych celów takich jak sklepy internetowe. Wdrożenie
 tego systemu rozwiąże problem pozyskiwania środków do korzystania z funkcjonalności związanych z zapisywaniem danych.
 Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _Ingenious_. System jest przeznaczony
 przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również

@@ -10,8 +10,6 @@ include::../sections/functional_requirements.adoc[]
 
 include::../sections/architecture.adoc[]
 
-include::../sections/crypto_usage.adoc[]
-
 include::../sections/domain_model.adoc[]
 
 include::../sections/logic_model.adoc[]

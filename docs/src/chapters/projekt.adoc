@@ -1,4 +1,4 @@
-== Wizja
+== Projekt systemu
 
 Centralnym punktem rozwiązania jest serwer napisany w języku programowania Java wraz z użyciem frameworka Spring.
 Zdecydowaliśmy się na to rozwiązanie ze względu na duże doświadczenie członków zespołu w tej technologii. Java
