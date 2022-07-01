@@ -21,6 +21,7 @@ import pl.edu.pjatk.lnpayments.webservice.common.entity.AdminUser;
 import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory;
 import pl.edu.pjatk.lnpayments.webservice.payment.facade.PaymentFacade;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.AggregatedData;
 import pl.edu.pjatk.lnpayments.webservice.transaction.service.TransactionService;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.Wallet;
 import pl.edu.pjatk.lnpayments.webservice.wallet.entity.WalletStatus;
@@ -31,9 +32,7 @@ import pl.edu.pjatk.lnpayments.webservice.wallet.resource.dto.WalletDetails;
 
 import javax.validation.ValidationException;
 import java.time.LocalDate;
-import java.time.temporal.Temporal;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -180,7 +179,7 @@ class WalletServiceTest {
 
     @Test
     void shouldReturnWalletBalance() {
-        Map<Temporal, Long> balanceHistoricData = Map.of(LocalDate.now(), 12L);
+        List<AggregatedData> balanceHistoricData = List.of(new AggregatedData(LocalDate.now().toString(), 12L));
         BitcoinWalletBalance bitcoinWalletBalance = BitcoinWalletBalance.builder().availableBalance(100L).unconfirmedBalance(100L).build();
         ChannelsBalance channelsBalance = ChannelsBalance.builder().openedChannels(1).totalBalance(100L).autoChannelCloseLimit(100L).build();
         LightningWalletBalance lightningWalletBalance = LightningWalletBalance.builder().availableBalance(100L).unconfirmedBalance(100L).autoTransferLimit(100L).build();

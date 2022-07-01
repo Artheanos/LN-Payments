@@ -3,6 +3,7 @@ import { setupServer } from 'msw/node'
 
 import { currentPath, render, screen, waitFor } from 'tests/test-utils'
 import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
+import React from 'react'
 
 describe('WalletPage', () => {
   let responseStatus: number
@@ -24,11 +25,33 @@ describe('WalletPage', () => {
             availableBalance: 147,
             autoTransferLimit: 369,
             unconfirmedBalance: 40
-          }
+          },
+          totalIncomeData: [
+            {
+              key: '2022-04',
+              value: 3
+            },
+            {
+              key: '2022-05',
+              value: 2
+            },
+            {
+              key: '2022-06',
+              value: 1
+            }
+          ]
         })
       )
     })
   )
+
+  beforeAll(() => {
+    window.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn()
+    }))
+  })
 
   const init = async (_responseStatus: number) => {
     responseStatus = _responseStatus
@@ -51,6 +74,7 @@ describe('WalletPage', () => {
         expect(screen.getByText('147 sats')).toBeInTheDocument()
         expect(screen.getByText('40 sats unconfirmed')).toBeInTheDocument()
         expect(screen.getByText('369')).toBeInTheDocument()
+        expect(screen.getByText('Total income')).toBeInTheDocument()
       })
     })
   })

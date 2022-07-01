@@ -24,9 +24,15 @@ export interface WalletInfo {
   channelsBalance: ChannelsBalance
   lightningWalletBalance: LightningWalletBalance
   bitcoinWalletBalance: BitcoinWalletBalance
+  totalIncomeData: ChartData[]
 }
 
 export interface WalletForm {
   adminEmails: string[]
   minSignatures: number
+}
+
+export interface ChartData {
+  key: string
+  value: number
 }

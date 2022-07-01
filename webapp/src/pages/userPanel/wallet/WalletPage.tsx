@@ -13,6 +13,7 @@ import { WalletLoadingSkeleton } from 'components/wallet/WalletLoadingSkeleton'
 import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
 import { WalletInfo } from 'webService/interface/wallet'
+import { TotalIncomeChart } from 'components/wallet/TotalIncomeChart'
 
 export const WalletPage: React.FC = () => {
   const { t } = useTranslation('wallet')
@@ -63,13 +64,7 @@ export const WalletPage: React.FC = () => {
       <BitcoinWalletCard {...walletInfo!.bitcoinWalletBalance} />
       <ChannelsBalanceCard {...walletInfo!.channelsBalance} />
       <LightningWalletCard {...walletInfo!.lightningWalletBalance} />
-      <WalletCard standardSize={9}>
-        <img
-          className="h-60"
-          src="https://peltiertech.com/images/2010-08/LineChart01.png"
-          alt="chart"
-        />
-      </WalletCard>
+      <TotalIncomeChart chartData={walletInfo?.totalIncomeData || []} />
       <ActionsCard
         channelsBalance={walletInfo!.channelsBalance.totalBalance}
         lightningWalletBalance={

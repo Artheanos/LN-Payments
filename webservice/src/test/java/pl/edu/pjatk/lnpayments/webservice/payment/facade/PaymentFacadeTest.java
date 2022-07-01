@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.scheduling.TaskScheduler;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.AggregatedData;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
@@ -26,11 +27,8 @@ import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
 import java.time.Instant;
-import java.time.YearMonth;
-import java.time.temporal.Temporal;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -173,11 +171,11 @@ class PaymentFacadeTest {
         payment3.setDate(date.minusSeconds(6_000_000));
         when(paymentDataService.findAll()).thenReturn(List.of(payment1, payment2, payment3));
 
-        Map<Temporal, Long> result = paymentFacade.aggregateTotalIncomeData();
+        List<AggregatedData> result = paymentFacade.aggregateTotalIncomeData();
 
         assertThat(result.size()).isEqualTo(3);
-        assertThat(result.get(YearMonth.of(2022, 4))).isEqualTo(3);
-        assertThat(result.get(YearMonth.of(2022, 5))).isEqualTo(2);
-        assertThat(result.get(YearMonth.of(2022, 6))).isEqualTo(1);
+        assertThat(result.get(0).value()).isEqualTo(3);
+        assertThat(result.get(1).value()).isEqualTo(2);
+        assertThat(result.get(2).value()).isEqualTo(1);
     }
 }

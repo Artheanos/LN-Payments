@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.AggregatedData;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
@@ -26,13 +27,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.ZoneId;
-import java.time.temporal.Temporal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -111,7 +106,7 @@ public class PaymentFacade {
         paymentSocketController.sendTokens(paymentTopic, payment.getTokens());
     }
 
-    public Map<Temporal, Long> aggregateTotalIncomeData() {
+    public List<AggregatedData> aggregateTotalIncomeData() {
         return paymentDataService.findAll()
                 .stream()
                 .filter(payment -> payment.getStatus() == PaymentStatus.COMPLETE)
@@ -119,7 +114,11 @@ public class PaymentFacade {
                 .collect(Collectors.groupingBy(payment ->
                         YearMonth.from(LocalDate.ofInstant(payment.getDate(), ZoneId.systemDefault())),
                         TreeMap::new,
-                        Collectors.summingLong(Payment::getPrice)));
+                        Collectors.summingLong(Payment::getPrice)))
+                .entrySet()
+                .stream()
+                .map(entry -> new AggregatedData(entry.getKey().toString(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     public Page<Payment> getPaymentsByEmail(String email, Pageable pageable) {
