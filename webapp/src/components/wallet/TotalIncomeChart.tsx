@@ -25,7 +25,7 @@ export const TotalIncomeChart: React.FC<Props> = ({ chartData }) => {
   return (
     <WalletCard standardSize={9}>
       <span className="text-xl font-bold">{t('chart.header')}</span>
-      {[0, 1].includes(chartData.length) ? (
+      { chartData.length < 2 ? (
         <p className="pb-10 italic text-gray-500">{t('chart.noData')}</p>
       ) : (
         <ResponsiveContainer width="100%" height={185}>
