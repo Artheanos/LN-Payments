@@ -4,6 +4,10 @@
   "bitcoinWallet": {
     "header": "Bitcoin Wallet"
   },
+  "chart": {
+    "header": "Total income",
+    "noData": "No data to show"
+  },
   "channelsBalance": {
     "header": "Channels Balance",
     "openChannels": " open channels",
