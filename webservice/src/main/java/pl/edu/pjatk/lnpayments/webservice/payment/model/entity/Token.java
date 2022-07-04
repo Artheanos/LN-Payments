@@ -22,6 +22,8 @@ public class Token {
 
     private String sequence;
 
+    private boolean delivered;
+
     public Token(String sequence) {
         this.sequence = sequence;
     }

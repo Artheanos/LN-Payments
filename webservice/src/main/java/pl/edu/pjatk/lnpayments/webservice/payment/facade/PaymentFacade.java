@@ -14,12 +14,14 @@ import pl.edu.pjatk.lnpayments.webservice.payment.model.AggregatedData;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.PaymentInfo;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Payment;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.PaymentStatus;
+import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
 import pl.edu.pjatk.lnpayments.webservice.payment.repository.enums.SearchableField;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.PaymentSocketController;
 import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.PaymentDetailsRequest;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.InvoiceService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.NodeDetailsService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.PaymentDataService;
+import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenDeliveryService;
 import pl.edu.pjatk.lnpayments.webservice.payment.service.TokenService;
 import pl.edu.pjatk.lnpayments.webservice.payment.task.PaymentStatusUpdateTask;
 
@@ -38,6 +40,7 @@ public class PaymentFacade {
     private final PaymentDataService paymentDataService;
     private final NodeDetailsService nodeDetailsService;
     private final TokenService tokenService;
+    private final TokenDeliveryService tokenDeliveryService;
     private final PaymentSocketController paymentSocketController;
     private final UserService userService;
     private final TaskScheduler scheduler;
@@ -48,6 +51,7 @@ public class PaymentFacade {
                   PaymentDataService paymentDataService,
                   NodeDetailsService nodeDetailsService,
                   TokenService tokenService,
+                  TokenDeliveryService tokenDeliveryService,
                   PaymentSocketController paymentSocketController,
                   UserService userService,
                   @Qualifier("threadPoolTaskScheduler") TaskScheduler scheduler) {
@@ -56,6 +60,7 @@ public class PaymentFacade {
         this.paymentDataService = paymentDataService;
         this.nodeDetailsService = nodeDetailsService;
         this.tokenService = tokenService;
+        this.tokenDeliveryService = tokenDeliveryService;
         this.paymentSocketController = paymentSocketController;
         this.userService = userService;
         this.scheduler = scheduler;
@@ -102,8 +107,11 @@ public class PaymentFacade {
         Payment payment = paymentDataService.findPaymentByRequest(paymentRequest);
         payment.assignTokens(tokenService.generateTokens(payment));
         payment.setStatus(PaymentStatus.COMPLETE);
+
         String paymentTopic = DigestUtils.sha256Hex(paymentRequest).substring(0, 8);
-        paymentSocketController.sendTokens(paymentTopic, payment.getTokens());
+        Collection<Token> tokens = payment.getTokens();
+        tokenDeliveryService.send(tokens);
+        paymentSocketController.sendTokens(paymentTopic, tokens);
     }
 
     public List<AggregatedData> aggregateTotalIncomeData() {

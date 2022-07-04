@@ -13,4 +13,6 @@ public interface PropertyService {
     long getAutoChannelCloseLimit();
 
     long getAutoTransferLimit();
+
+    String getTokenDeliveryUrl();
 }
