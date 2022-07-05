@@ -20,3 +20,15 @@ satoshi::
     Najmniejsza jednostka rozliczeniowa w ekosystemie Bitcoina. Można ją porównać do groszy w polskiej walucie.
     Jeden satoshi jest równowarte 0,00000001 BTC. Wszystkie operacje w sieci takie jak transakcje operują właśnie
     na wartości satoshi.
+
+Węzeł sieci Bitcoin::
+    Jest to program działający w sieci Bitcoina, który przechowuje, synchronizuje oraz sprawdza konsensus blockchaina.
+    Wyróżniamy kilka rodzajów węzłów. Najczęściej spotyka się węzły pełne oraz niepełne (lekkie). Węzły pełne
+    wyróżniają się tym, że przechowują kopię całego blockchaina.
+
+Górnik::
+    W kontekście sieci Bitcoin jest to program zajmujący się zbieraniem i walidacją transakcji, budowaniem bloków oraz
+    liczeniem dla nich dowodu pracy. Za wykopanie bloku górnik otrzymuje nagrodę w postaci określonej liczby Bitcoinów.
+    W tak zwanym "Bitcoin whitepaper <<whitepaper>>", słowo węzeł używane było jako synonim górnika, aczkolwiek
+    współcześnie do kopania Bitcoinów używa się specjalistycznego sprzętu i oprogramowania, które zazwyczaj nie są
+    pełnymi węzłami sieci.

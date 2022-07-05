@@ -1,6 +1,16 @@
-=== Wykorzystanie kryptowalut
+== Wizja rozwiązania w kontekście kryptowalut
 
-==== Sieć Lightning
+U podstaw rozwiązania leży zaawansowane wykorzystanie technologii Bitcoin wraz ze wsparciem sieci Lightning.
+System w kontekście kryptowalut podzielić można na cztery części. Środki będą sekwencyjnie przychodzić przez wszystkie
+z nim. Cykl życia środków w systemie zacznie się od sieci Lightning. Użytkownik będzie musiał utworzyć kanał płatności
+z tworzonym serwerem, dzięki czemu będzie mógł zakupić tokeny. Środki ze sprzedaży początkowo zablokowane będą w
+kanale płatności, które będą musiały być regularnie zamykane, aby móc wykorzystać zebrane bitcoiny. Następnie fundusze
+będą musiały zostać przelane na adres multisig, który utworzony będzie z kilku kluczy publicznych osób zarządzających
+serwerem. Cały proces kończy się na transakcjach, które pozwalają na wykorzystanie środków zgromadzonych w portfelu
+poprzez mechanizm podpisywania transakcji w aplikacji mobilnej. Poniżej przedstawiony został szczegółowy opis każdej z
+czterech części.
+
+=== Sieć Lightning
 
 Sieci Lightning jest protokołem, który działa jako druga warstwa dla sieci Bitcoin <<btcbook>>, umożliwiająca tanie
 płatności przy pomocy kryptowalut z pominięciem rejestrowania ich na blockchainie. Różnego rodzaju
@@ -12,7 +22,7 @@ płatności, jeśli tylko uiszczona zostanie jednorazowa opłata transakcyjna. W
 oraz opłat transakcyjnych zostało już opisanych w podrozdziale <<_przedstawienie_problemu,"przedstawienie problemu">>.
 
 W kontekście tej pracy kupowanie tokenów będzie odbywało się tylko za pomocą sieci Lightning. Z założenia cena różnego
-rodzaju tokenów jest tak niska, że węzły sieci Bitcoin i tak by nie chciały wykopać takiej transakcji. Problematyczne
+rodzaju tokenów jest tak niska, że górnicy i tak by nie chciały wykopać takiej transakcji. Problematyczne
 może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z płatnościami w Bitcoinach. W przypadku
 głównego zastosowania, czyli wdrożenia projektu w ramach programu Ingenious, można założyć, że serwer będzie operowany
 w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,
@@ -29,24 +39,24 @@ sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>.
 include::../diagrams/ln_channels_flow.puml[]
 ----
 
-==== Portfel Lightning
+=== Portfel Lightning
 
 Płatność w sieci Lightning polega na przeniesieniu części salda z jednego końca kanału na drugi. Żadna ze stron nie może
 za ich pomocą operować, tak długo, jak kanał jest otwarty. Aby móc skorzystać z tych środków, należy zamknąć kanał.
 Można to zrobić na 2 sposoby: kooperacyjnie bądź siłowo. Zamknięcie kooperacyjne polega na uzgodnieniu szczegółów
-pomiędzy stronami, a następnie rozpropagowanie transakcji zawierającą historię płatności w kanale. W przypadku
-gdy druga strona jest niedostępna bądź próbuje oszukiwać, można wymusić zamknięcie siłowe. Przy każdej płatności w
-kanale obie strony otrzymują podpisaną transakcję z historią płatności, którą mogą w każdej chwili rozpropagować.
-Ze względów bezpieczeństwa, ta transakcja ma czasową blokadę środków. Dzięki temu nieuczciwa osoba nie może
-rozpropagować fałszywej transakcji, gdyż druga strona może to zauważyć i rozpropagować poprawną transakcję bez
+pomiędzy stronami, a następnie rozpropagowanie ostatniej transakcji zawierającą aktualny stan środków kanału.
+W przypadku gdy druga strona jest niedostępna bądź próbuje oszukiwać, można wymusić zamknięcie siłowe. Przy każdej
+płatności w kanale obie strony otrzymują podpisaną transakcję z historią płatności, którą mogą w każdej chwili
+rozpropagować. Ze względów bezpieczeństwa, ta transakcja ma czasową blokadę środków. Dzięki temu nieuczciwa osoba nie
+może rozpropagować fałszywej transakcji, gdyż druga strona może to zauważyć i rozpropagować poprawną transakcję bez
 blokady czasowej, która zostanie zaakceptowana w głównym blockchainie. Środki w takiej transakcji są blokowane na
 określoną ilość bloków w blockchainie. Dana liczba bloków musi zostać wykopana, aby dana transakcja mogła zostać
 włączona do bloku. Zazwyczaj ten czas wynosi około jednego tygodnia. Aby uniknąć długiego czekania na środki,
 preferowane jest kooperacyjne zamykanie kanałów. Zamykanie siłowe należy traktować jako ostateczność w przypadku
 długiej nieaktywności jednej ze stron kanału.
 
-W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie.Niedostępne kanały będą tymczasowo
-pomijane.Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień.Administratorzy będą również
+W budowanym systemie przyjęto założenie, że kanały będą zamykane kooperacyjnie. Niedostępne kanały będą tymczasowo
+pomijane. Zamykanie siłowe będzie odbywało się, gdy kanał będzie nieaktywny przez tydzień. Administratorzy będą również
 mieli możliwość ręcznego zamknięcia kanałów, kooperacyjnie bądź siłowo. Ręczne zamknięcie siłowe może być wymagane,
 kiedy administratorzy pilnie potrzebują środków, które są ulokowane w kanałach. Oczywiście blokuje to środki na dość
 długi czas, aczkolwiek może to być i tak krótszy okres niż w przypadku oczekiwania na kooperacyjne zamknięcie.
@@ -60,7 +70,7 @@ manualnie, jeżeli zajdzie taka potrzeba. Nie będzie możliwości transferu śr
 ten, należący do wbudowanego portfela.
 
 [#_adres_multisig]
-==== Adres multisig
+=== Adres multisig
 
 Transakcje w sieci Bitcoin składają się między innymi z wejść i wyjść. Wyjście z transakcji zawiera skrypt blokujący,
 który uruchomiony razem ze skryptem odblokowującym (zawierający podpis i klucz publiczny) musi zostać uruchomiony
@@ -109,7 +119,7 @@ zbudowany _redeem script_, zawierający klucze publiczne wybranych administrator
 wyprowadzony adres, po czym wszystkie dane zostaną zapisane w bazie danych na potrzeby budowania transakcji w
 przyszłości.
 
-==== Transakcje
+=== Transakcje
 
 Środki w portfelu znajdującym się na serwerze zablokowane są przy pomocy skryptu P2SH. Oznacza to, że do wydania
 jakichkolwiek środków wymagana jest pewna liczba podpisów od różnych administratorów zarządzających portfelem.

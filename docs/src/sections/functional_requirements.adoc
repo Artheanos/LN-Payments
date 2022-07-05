@@ -58,7 +58,7 @@ Podane parametry nie muszą być na jednym panelu, mogą znajdować się na osob
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F05 h|Priorytet: |*M* (musi być)
 |Nazwa 3+|Przeglądanie historii
-|Opis 3+|Użytkownicy i administratorzy mają wgląd do historii płatności. Użytkownicy oczywiście tylko do
+|Opis 3+|Użytkownicy i administratorzy mają wgląd do historii płatności. Użytkownicy tylko do
 swojej własnej historii. Administratorzy mają mieć dodatkowy panel z danymi ze wszystkich płatności.
 |Kryteria akceptacji 3+| Dostępne są 2 panele, jeden dla indywidualnej historii, drugi dla wszystkich płatności
 dostępny tylko dla administratorów.
@@ -120,7 +120,7 @@ dokonać płatności.
 |===
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F10 h|Priorytet: |*M* (musi być)
-|Nazwa 3+|Utworzenie nowego portfelu
+|Nazwa 3+|Utworzenie nowego portfela
 |Opis 3+|Przykładowo w przypadku śmierci jednego z administratorów portfela, admini powinni mieć możliwość
 utworzenia nowego portfelu z określonymi na nowo administratorami portfela. Utworzenie portfelu powinno też
 odbywać się przy pierwszym ustawieniu serwera (wtedy bez transferu środków).

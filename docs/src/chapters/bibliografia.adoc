@@ -17,3 +17,6 @@ https://explorer.acinq.co[]
 
 * [[[gof, 6]]] _Erich Gamma, Richard Heml, Ralph Johnson, John Vlissides_, Design Patterns, 1995,
 ISBN:{nbsp}978-8328333130
+
+* [[[whitepaper, 7]]] _Satoshi Nakamoto__, Bitcoin: A Peer-to-Peer Electronic Cash System, [dostęp: 29.06.2022]
+https://bitcoin.org/bitcoin.pdf[]

@@ -33,10 +33,10 @@ image:pjatk_logo.png[pdfwidth=75%]
 *Streszczenie:* +
 [cols="1",width=90%,align="right",frame=none,grid=none]
 |===
-| Opłaty transakcyjne w sieci Bitcoin jest drogie, a co za tym idzie nieopłacalne staja się mikropłatności.
+| Opłaty transakcyjne w sieci Bitcoin są drogie, a co za tym idzie nieopłacalne staja się mikropłatności.
 Aby obniżyć koszty, stworzono sieć Lightning, która umożliwia tworzenie kanałów płatności i wykonywanie tanich
 płatności. Tworzony system będzie serwerem do obsługi płatności w sieci Lightning wraz ze wbudowanym portfelem
-zabezpieczonym poprzez mobilną autoryzację. Wykorzystanie dochodu z transakcji wymagać będzie podpisania transakcji
+zabezpieczonym poprzez mobilną autoryzację. Wykorzystanie zebranych środków wymagać będzie podpisania transakcji
 kluczami osób zarządzających serwerem. Rozwiązanie umożliwi tworzenie małych punktów sprzedaży operujących za pomocą
 Bitcoinów, oferujący w zamian jednorazowe tokeny.
 |===
