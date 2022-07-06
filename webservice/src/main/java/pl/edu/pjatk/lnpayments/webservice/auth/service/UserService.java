@@ -14,7 +14,6 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
-import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.PasswordUpdateRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
@@ -73,7 +72,7 @@ public class UserService implements UserDetailsService {
     public void updatePassword(String username, PasswordUpdateRequest passwordUpdateRequest) {
         StandardUser user = getStandardUser(username);
         if (!passwordEncoder.matches(passwordUpdateRequest.getCurrentPassword(), user.getPassword())) {
-            throw new InconsistentDataException("Wrong current password provided");
+            throw new ValidationException("Wrong current password provided");
         }
         user.setPassword(passwordEncoder.encode(passwordUpdateRequest.getNewPassword()));
         standardUserRepository.save(user);

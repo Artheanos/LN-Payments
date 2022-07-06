@@ -17,11 +17,11 @@ import pl.edu.pjatk.lnpayments.webservice.auth.resource.dto.RegisterRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.StandardUser;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.TemporaryUser;
-import pl.edu.pjatk.lnpayments.webservice.common.exception.InconsistentDataException;
 import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.PasswordUpdateRequest;
 import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.UserDto;
 
 import javax.validation.ValidationException;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -155,7 +155,7 @@ class UserServiceTest {
         String name = "test";
         String pass = "pass";
         StandardUser user = new StandardUser(email, name, pass);
-        UserDto dto = new UserDto(email, pass);
+        UserDto dto = new UserDto(email, pass, Role.ROLE_USER, Instant.now());
         when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
         when(userConverter.convertToDto(user)).thenReturn(dto);
 
@@ -195,7 +195,7 @@ class UserServiceTest {
         PasswordUpdateRequest updateRequest = new PasswordUpdateRequest("ddudu", "dududu");
         when(standardUserRepository.findByEmail(email)).thenReturn(Optional.of(user));
 
-        assertThatExceptionOfType(InconsistentDataException.class)
+        assertThatExceptionOfType(ValidationException.class)
                 .isThrownBy(() -> userService.updatePassword(email, updateRequest))
                 .withMessage("Wrong current password provided");
         verify(standardUserRepository, never()).save(any());
