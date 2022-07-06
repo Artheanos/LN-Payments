@@ -6,6 +6,7 @@
   "email": "Email",
   "invoice": "Invoice",
   "name": "Name",
+  "role": "Role",
   "next": "Next",
   "node": "Node",
   "ok": "Ok",
@@ -14,7 +15,8 @@
   "submit": "Submit",
   "error": {
     "generic": "Something went wrong",
-    "noEntries": "No entries"
+    "noEntries": "No entries",
+    "message": "Error, please try again later."
   },
   "sidebar" : {
     "quickBuy": "Quick Buy",

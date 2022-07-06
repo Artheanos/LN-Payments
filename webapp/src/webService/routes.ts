@@ -25,5 +25,9 @@ export const routes = {
   },
   settings: {
     index: '/api/settings'
+  },
+  users: {
+    index: '/api/users',
+    password: '/api/users/password'
   }
 }
