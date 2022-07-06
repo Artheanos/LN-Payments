@@ -19,6 +19,8 @@ export const AccountPage: React.FC = () => {
       .then(({ data }) => {
         if (data) {
           setUser(data)
+        } else {
+          setLoading(false)
         }
       })
       .catch(() => {
@@ -42,7 +44,7 @@ export const AccountPage: React.FC = () => {
   }) => (
     <Grid xs={10} item>
       <TextField
-        id="outlined-read-only-input"
+        id={name}
         label={name}
         className="w-full"
         defaultValue={value}
