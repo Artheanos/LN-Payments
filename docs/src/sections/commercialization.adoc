@@ -1,3 +1,26 @@
 === Komercjalizacja projektu
 
-TODO
+Projekt w swoim założeniu jest dosyć specyficzny. Posiada zaawansowane funkcjonalności takie jak płatność w sieci
+Lightning, generowanie tokenów czy też podpisywanie transakcji w multisig w aplikacji mobilnej. Nie będzie on
+natomiast posiadać wielu podstawowych, o wiele prostszych rozwiązań. Przykładowo nie będzie możliwości standardowych
+płatności w Bitcoinach, a jedynie poprzez sieć Lightning. Na rynku jest również dostępnych wiele innych kryptowalut
+innych niż sam Bitcoin, co również stawia nas na przegranej pozycji. Produkt skierowany jest do bardzo wąskiej grupy
+odbiorców (przede wszystkim projekt _Ingenious_), dlatego zdecydowano się na wydanie projektu w modelu open-source na
+licencji MIT. Zainteresowana osoba będzie mogła sprawdzić projekt, a także wpływać na jego rozwój za darmo. Jedynym
+sposobem do komercjalizacji jest oferowanie klientom biznesowym płatnego wsparcia technicznego. Obejmować ono może
+pomoc przy wdrożeniu oraz utrzymanie w środowisku produkcyjnym. Licencja MIT pozwala w razie potrzeby na rozwój
+projektu przy zmianie licencji, więc drzwi do szerszej komercjalizacji zostaną otwarte.
+
+[NOTE]
+Dane bazują przede wszystkim na dwóch raportach firmy _crypto.com_: _Overview of crypto payment_
+<<crypro_payment_raport>> oraz _Crypto market sizing_ <<crypto_market_sizing>>.
+Wykresy znajdujące się w następnych podrozdziałach pochodzą również z tychże raportów.
+
+==== Analiza rynku
+
+Proponowane rozwiązanie najbardziej pasuje do rynku płatności w kryptowalutach (_Crypto payments_ bądź _Crypto payment
+gateways/processors_).
+
+==== Zainteresowanie technologią
+
+==== Potencjalni użytkownicy
