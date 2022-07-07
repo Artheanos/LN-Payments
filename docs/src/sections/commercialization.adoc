@@ -19,8 +19,33 @@ Wykresy znajdujące się w następnych podrozdziałach pochodzą również z tyc
 ==== Analiza rynku
 
 Proponowane rozwiązanie najbardziej pasuje do rynku płatności w kryptowalutach (_Crypto payments_ bądź _Crypto payment
-gateways/processors_).
+gateways/processors_). Jest to stosunkowo nowy rynek, który dynamicznie się rozwija. Na rynku jest wiele komercyjnych
+rozwiązań takich jak opisane wcześnie _Coinbase Commerce_ i _Bitrefill_, ale również popularne są _BitPay_ czy
+_Coingate_. Z rozwiązań open-source najpopularniejszy jest natomiast BTCPayServer. Ze zgromadzonych przez zespół
+projektowy danych wynika, że rozwiązanie _Coinbase_ ma największy udział na rynku na poziomie 90%. Wynika to z
+ogólnodostępnych danych dostępnych na stronach internetowych poszczególnych rozwiązań. Tych informacji nie należy
+traktować bardzo poważnie, gdyż każda firma może dowolnie manipulować prezentowanymi informacjami.
+
+Według raportu wykonanego przez serwis _crypto.com_ suma płatności w roku 2020 przy pomocy kryptowalutach wyniosła od
+15,66 do 16,52 miliardów dolarów. Daje to aktualnie 0.4% wszystkich przychodów z branży _ecommerce_. Może się to
+wydawać małą kwotą, natomiast trzeba pamiętać o nowości i innowacyjności kryptowalut. Jest to stosunkowo młoda
+technologia, podczas gdy sprzedaż internetowa jest już ugruntowana na rynku od wielu lat. Szacuje się, że rynek
+płatności w kryptowalutach będzie rósł o 22,8 do 23,4 procent rok do roku. Znajduje to potwierdzenie w danych
+historycznych oraz w przewidywaniach serwisu _crypt.com_, co widoczne jest na poniższym wykresie.
+
+.Łączna wartość transakcji w kryptowalutach (w miliardach dolarów).
+image::../images/total_btc_tx_value.png[]
+
+==== Potencjalni użytkownicy
+
+Z końcem 2021 roku było prawie 300 milionów użytkowników kryptowalut. Daje to obecnie blisko 4% ogółu społeczeństwa.
+Liczba ta stale rośnie, a według analityków może osiągnąć nawet 1 miliard do końca 2022 roku. Przy tak dużym napływie
+użytkowników będzie prawdopodobnie rosło zainteresowanie technologiami operującymi na kryptowalutach. Dzięki temu jest
+szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za tym idzie potencjalnych klientów.
+
+.Użytkownicy kryptowalut w ciągu ostatnich lat wraz ze współczynnikiem adaptacji.
+image::../images/crypto_users.png[]
 
 ==== Zainteresowanie technologią
 
-==== Potencjalni użytkownicy
+==== Podsumowanie
