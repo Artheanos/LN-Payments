@@ -1,8 +1,7 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import org.junit.jupiter.api.*;
 import org.lightningj.lnd.wrapper.message.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,6 +31,7 @@ import pl.edu.pjatk.lnpayments.webservice.payment.resource.dto.TokenResponse;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -40,6 +40,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ActiveProfiles("test")
 @SpringBootTest(classes = {IntegrationTestConfiguration.class}, webEnvironment = RANDOM_PORT)
 class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
+
+    protected static WireMockServer mockExternalServer = new WireMockServer(9000);
 
     @LocalServerPort
     private int port;
@@ -77,6 +79,18 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         webSocketStompClient.stop();
     }
 
+    @BeforeAll
+    static void setUpBeforeAll() {
+        mockExternalServer.start();
+        configureFor("localhost", 9000);
+        stubFor(post(urlEqualTo("/tokens")).willReturn(aResponse().withStatus(200)));
+    }
+
+    @AfterAll
+    static void tearDownAfterAll() {
+        mockExternalServer.stop();
+    }
+
     @Test
     void shouldSendStompMessageWhenInvoiceIsSettled() throws ExecutionException, InterruptedException, TimeoutException {
         String paymentRequest = "dududu";
@@ -102,6 +116,10 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
 
         TokenResponse tokenResponse = handler.getResult();
         assertThat(tokenResponse.getTokens()).hasSize(1);
+
+        String expectedRequestBody = String.format("{\"tokens\":[{\"id\":1,\"sequence\":\"%s\",\"delivered\":false}]}", tokenResponse.getTokens().stream().findFirst().get());
+        SECONDS.sleep(1);
+        verify(postRequestedFor(urlEqualTo("/tokens")).withRequestBody(containing(expectedRequestBody)));
     }
 
     @Test

@@ -4,23 +4,26 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 import lombok.SneakyThrows;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -30,43 +33,37 @@ class TokenDeliveryServiceTest {
     @Mock
     private PropertyService propertyService;
 
+    @Mock
+    private RestTemplate restTemplate;
+
     @InjectMocks
     private TokenDeliveryService tokenDeliveryService;
 
-    public static MockWebServer mockWebServer;
     public static Collection<Token> tokens;
 
     @BeforeEach
     void setUpEach() {
-        Logger logger = (Logger) LoggerFactory.getLogger(InvoiceService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(TokenDeliveryService.class);
         logAppender = new ListAppender<>();
         logAppender.start();
         logger.addAppender(logAppender);
 
-        when(propertyService.getTokenDeliveryUrl()).thenReturn("http://localhost:" + mockWebServer.getPort());
+        when(propertyService.getTokenDeliveryUrl()).thenReturn("http://localhost:8080");
         tokens = Collections.singleton(new Token("aaa"));
-    }
-
-    @BeforeAll
-    static void setUp() throws IOException {
-        mockWebServer = new MockWebServer();
-        mockWebServer.start();
-    }
-
-    @AfterAll
-    static void tearDown() throws IOException {
-        mockWebServer.shutdown();
     }
 
     @Test
     @SneakyThrows
     void shouldSendProperRequest() {
-        mockWebServer.enqueue(new MockResponse());
-        tokenDeliveryService.send(tokens);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-        RecordedRequest recordedRequest = mockWebServer.takeRequest();
-        assertEquals("POST", recordedRequest.getMethod());
-        assertEquals("{\"tokens\":[{\"id\":null,\"sequence\":\"aaa\",\"delivered\":false}]}", recordedRequest.getBody().readUtf8());
+        Map<String, Object> map = new HashMap<>();
+        map.put("tokens", tokens);
+
+        when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
+        tokenDeliveryService.send(tokens);
+        verify(restTemplate).postForEntity(eq("http://localhost:8080"), eq(new HttpEntity<>(map, headers)), eq(String.class));
     }
 
     @Nested
@@ -74,11 +71,9 @@ class TokenDeliveryServiceTest {
         @Test
         @SneakyThrows
         void shouldUpdateTokens() {
-            mockWebServer.enqueue(new MockResponse());
+            when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
             assertTrue(tokens.stream().noneMatch(Token::isDelivered));
-
             tokenDeliveryService.send(tokens);
-            mockWebServer.takeRequest();
             assertTrue(tokens.stream().allMatch(Token::isDelivered));
         }
     }
@@ -88,14 +83,13 @@ class TokenDeliveryServiceTest {
         @Test
         @SneakyThrows
         void shouldNotUpdateTokens() {
-            MockResponse response = new MockResponse();
-            response.setResponseCode(401);
-
-            mockWebServer.enqueue(response);
+            when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("not ok", HttpStatus.BAD_REQUEST));
             tokenDeliveryService.send(tokens);
-            mockWebServer.takeRequest();
 
             assertTrue(tokens.stream().noneMatch(Token::isDelivered));
+
+            assertEquals("Tokens were not delivered: {}", logAppender.list.get(0).getMessage());
+            assertEquals("aaa", logAppender.list.get(0).getArgumentArray()[0]);
         }
     }
 }

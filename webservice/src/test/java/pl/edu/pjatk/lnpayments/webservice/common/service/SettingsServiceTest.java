@@ -126,4 +126,14 @@ class SettingsServiceTest {
 
         assertThat(value).isEqualTo(initialValue);
     }
+
+    @Test
+    void shouldGetTokenDeliveryUrl() {
+        String initialValue = "https://127.0.0.1";
+        when(propertiesConfiguration.getString("tokenDeliveryUrl")).thenReturn(initialValue);
+
+        String value = settingsService.getTokenDeliveryUrl();
+
+        assertThat(value).isEqualTo(initialValue);
+    }
 }
