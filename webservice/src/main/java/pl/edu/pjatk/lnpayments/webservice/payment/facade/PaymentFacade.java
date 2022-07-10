@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.auth.service.UserService;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.User;
@@ -63,7 +64,7 @@ public class PaymentFacade {
 
     public PaymentInfo buildInfoResponse(Optional<String> email) {
         Collection<Payment> pendingPayments = email.isPresent() ?
-                paymentDataService.findPendingPaymentsByUser(email.get()):
+                paymentDataService.findPendingPaymentsByUser(email.get()) :
                 Collections.emptyList();
         return PaymentInfo.builder()
                 .nodeUrl(nodeDetailsService.getNodeUrl())
@@ -73,11 +74,15 @@ public class PaymentFacade {
                 .build();
     }
 
-    public Payment createNewPayment(PaymentDetailsRequest paymentDetailsRequest, String email) {
+    public Payment createNewPayment(PaymentDetailsRequest paymentDetailsRequest) {
         int paymentExpiryInSeconds = propertyService.getPaymentExpiryInSeconds();
         int price = propertyService.getPrice();
         int numberOfTokens = paymentDetailsRequest.getNumberOfTokens();
-        User user = userService.findUserByEmail(email);
+        User user = null;
+        try {
+            user = userService.findUserByEmail(paymentDetailsRequest.getEmail());
+        } catch (UsernameNotFoundException ignored) {
+        }
         String paymentRequest = invoiceService.createInvoice(
                 numberOfTokens,
                 price,
@@ -112,7 +117,7 @@ public class PaymentFacade {
                 .filter(payment -> payment.getStatus() == PaymentStatus.COMPLETE)
                 .sorted(Comparator.comparing(Payment::getDate))
                 .collect(Collectors.groupingBy(payment ->
-                        YearMonth.from(LocalDate.ofInstant(payment.getDate(), ZoneId.systemDefault())),
+                                YearMonth.from(LocalDate.ofInstant(payment.getDate(), ZoneId.systemDefault())),
                         TreeMap::new,
                         Collectors.summingLong(Payment::getPrice)))
                 .entrySet()

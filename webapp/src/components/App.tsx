@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import routesBuilder from 'routesBuilder'
+import { AccountPage } from 'pages/userPanel/account/AccountPage'
 import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage'
 import { AdminLayout } from './Layouts/AdminLayout'
 import { AdminManagementPage } from 'pages/userPanel/adminManagement/AdminManagementPage'
@@ -12,19 +13,19 @@ import { LoginPage } from 'pages/auth/LoginPage'
 import { LogoutPage } from 'pages/auth/LogoutPage'
 import { NavbarLayout } from 'components/Layouts/NavbarLayout'
 import { NotificationProvider } from './Context/NotificationContext'
+import { PasswordChangePage } from 'pages/userPanel/account/PasswordChangePage'
 import { PaymentsPage } from 'pages/userPanel/PaymentsPage'
 import { PublicLayout } from './Layouts/PublicLayout'
 import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
+import { QuickBuyPanelPage } from 'pages/quickBuy/QuickBuyPanelPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
+import { ServerSettingsPage } from 'pages/userPanel/serverSettings/ServerSettingsPage'
+import { TransactionFormPage } from 'pages/userPanel/transactions/TransactionFormPage'
+import { TransactionsPage } from 'pages/userPanel/transactions/TransactionsPage'
 import { UserLayout } from './Layouts/UserLayout'
 import { UserProvider } from './Context/UserContext'
-import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
 import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
-import { TransactionsPage } from 'pages/userPanel/transactions/TransactionsPage'
-import { TransactionFormPage } from 'pages/userPanel/transactions/TransactionFormPage'
-import { ServerSettingsPage } from 'pages/userPanel/serverSettings/ServerSettingsPage'
-import { AccountPage } from 'pages/userPanel/account/AccountPage'
-import { PasswordChangePage } from 'pages/userPanel/account/PasswordChangePage'
+import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
 
 const theme = createTheme({
   palette: {
@@ -50,7 +51,7 @@ const App = () => (
               >
                 <Route
                   path={routesBuilder.userPanel.quickBuy}
-                  element={<QuickBuyPage />}
+                  element={<QuickBuyPanelPage />}
                 />
                 <Route
                   path={routesBuilder.userPanel.history}

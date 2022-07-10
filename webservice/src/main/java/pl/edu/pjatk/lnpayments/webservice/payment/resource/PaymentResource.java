@@ -51,9 +51,8 @@ public class PaymentResource {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentDetailsResponse> createPayment(
-            @RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest, Principal principal) {
-        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest, principal.getName());
+    public ResponseEntity<PaymentDetailsResponse> createPayment(@RequestBody @Valid PaymentDetailsRequest paymentDetailsRequest) {
+        Payment payment = paymentFacade.createNewPayment(paymentDetailsRequest);
         PaymentDetailsResponse response = paymentDetailsConverter.convertToDto(payment);
         return ResponseEntity.ok(response);
     }

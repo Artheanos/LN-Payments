@@ -68,9 +68,11 @@ class Requests {
     },
     payment: {
       create: async (data: PaymentForm): Promise<Response<PaymentDetails>> => {
+        const skipAuthentication = Boolean(data.email)
         const response: Response<PaymentDetails> = await this.request(
           routes.payments.index,
-          { data }
+          { data },
+          skipAuthentication
         )
 
         if (response.data) {
@@ -166,11 +168,15 @@ class Requests {
     this.authHeader = `Bearer ${this.refreshTokenFactory()}`
   }
 
-  private configFactory(url: string, config: AxiosRequestConfig) {
+  private configFactory(
+    url: string,
+    config: AxiosRequestConfig,
+    skipAuthentication: boolean
+  ) {
     const result = { url, ...defaultConfig, ...config }
 
     this.reloadAuthHeader()
-    if (this.authHeader) {
+    if (!skipAuthentication && this.authHeader) {
       if (!result.headers) {
         result.headers = {}
       }
@@ -184,11 +190,14 @@ class Requests {
 
   private async request<D, T>(
     url: string,
-    config: AxiosRequestConfig<D> = {}
+    config: AxiosRequestConfig<D> = {},
+    skipAuthentication = false
   ): Promise<Response<T>> {
     try {
       url = this.resolveRoute(url)
-      const response = await axios.request(this.configFactory(url, config))
+      const response = await axios.request(
+        this.configFactory(url, config, skipAuthentication)
+      )
       return { data: response.data, status: response.status }
     } catch (e) {
       if (axios.isAxiosError(e) && e.response?.status) {

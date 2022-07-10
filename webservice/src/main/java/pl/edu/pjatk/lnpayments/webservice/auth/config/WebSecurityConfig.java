@@ -29,6 +29,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             AUTH_PATH + REGISTER_PATH,
             AUTH_PATH + LOGIN_PATH,
             AUTH_PATH + TEMPORARY_PATH,
+            PAYMENTS_PATH,
             PAYMENTS_PATH + INFO_PATH,
             PAYMENTS_WS_PATH,
             NOTIFICATION_WS_PATH,

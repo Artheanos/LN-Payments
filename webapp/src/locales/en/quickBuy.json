@@ -2,7 +2,7 @@
   "setup": {
     "header": "Setup",
     "form": {
-      "tokenCount": {
+      "numberOfTokens": {
         "label": "Number of tokens"
       },
       "email": {
