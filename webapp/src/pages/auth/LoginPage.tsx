@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
 import routesBuilder from 'routesBuilder'
-import { LoginForm } from 'components/auth/Login/LoginForm'
+import { LocalKey } from 'constants/LocalKey'
 import { LoginForm as ILoginForm } from 'webService/interface/auth'
+import { LoginForm } from 'components/auth/Login/LoginForm'
+import { UserContext } from 'components/Context/UserContext'
 import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
-import { UserContext } from 'components/Context/UserContext'
 
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation('auth')
@@ -21,6 +22,7 @@ export const LoginPage: React.FC = () => {
     const { data } = await api.auth.login(form)
 
     if (data) {
+      localStorage.setItem(LocalKey.TRANSACTION_TOKENS, '')
       setUser(data)
       setToken(data.token)
       createSnackbar(t('login.form.successMessage'), 'success')

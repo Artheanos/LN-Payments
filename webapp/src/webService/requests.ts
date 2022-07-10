@@ -13,7 +13,8 @@ import {
   LoginForm,
   LoginResponse,
   RefreshTokenResponse,
-  RegisterForm
+  RegisterForm,
+  TemporaryForm
 } from './interface/auth'
 import { WalletForm, WalletInfo } from './interface/wallet'
 import { AdminUser, User } from './interface/user'
@@ -64,6 +65,11 @@ class Requests {
           method: 'get',
           timeout
         })
+      },
+      temporary: (
+        data: TemporaryForm
+      ): Promise<Response<RefreshTokenResponse>> => {
+        return this.request(routes.auth.temporary, { data })
       }
     },
     payment: {
@@ -166,11 +172,15 @@ class Requests {
     this.authHeader = `Bearer ${this.refreshTokenFactory()}`
   }
 
-  private configFactory(url: string, config: AxiosRequestConfig) {
+  private configFactory(
+    url: string,
+    config: AxiosRequestConfig,
+    skipAuthentication: boolean
+  ) {
     const result = { url, ...defaultConfig, ...config }
 
     this.reloadAuthHeader()
-    if (this.authHeader) {
+    if (!skipAuthentication && this.authHeader) {
       if (!result.headers) {
         result.headers = {}
       }
@@ -184,11 +194,14 @@ class Requests {
 
   private async request<D, T>(
     url: string,
-    config: AxiosRequestConfig<D> = {}
+    config: AxiosRequestConfig<D> = {},
+    skipAuthentication = false
   ): Promise<Response<T>> {
     try {
       url = this.resolveRoute(url)
-      const response = await axios.request(this.configFactory(url, config))
+      const response = await axios.request(
+        this.configFactory(url, config, skipAuthentication)
+      )
       return { data: response.data, status: response.status }
     } catch (e) {
       if (axios.isAxiosError(e) && e.response?.status) {
