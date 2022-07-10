@@ -20,3 +20,9 @@ ISBN:{nbsp}978-8328333130
 
 * [[[whitepaper, 7]]] _Satoshi Nakamoto__, Bitcoin: A Peer-to-Peer Electronic Cash System, [dostęp: 29.06.2022]
 https://bitcoin.org/bitcoin.pdf[]
+
+* [[[crypro_payment_raport, 8]]] _crypto.com_, Overview of Crypto Payment, [dostęp: 07.07.2022],
+https://t.ly/G-Zo[]
+
+* [[[crypto_market_sizing, 9]]] _crypto.com_, Crypto Market Sizing, [dostęp: 07.07.2022],
+https://t.ly/_-8M[]
