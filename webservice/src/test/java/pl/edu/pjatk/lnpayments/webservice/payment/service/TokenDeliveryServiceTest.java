@@ -48,48 +48,69 @@ class TokenDeliveryServiceTest {
         logAppender.start();
         logger.addAppender(logAppender);
 
-        when(propertyService.getTokenDeliveryUrl()).thenReturn("http://localhost:8080");
         tokens = Collections.singleton(new Token("aaa"));
     }
 
-    @Test
-    @SneakyThrows
-    void shouldSendProperRequest() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("tokens", tokens);
-
-        when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
-        tokenDeliveryService.send(tokens);
-        verify(restTemplate).postForEntity(eq("http://localhost:8080"), eq(new HttpEntity<>(map, headers)), eq(String.class));
-    }
-
     @Nested
-    class WhenResponseHasOkStatus {
+    class WhenDestinationUrlIsEmpty {
+        @BeforeEach
+        void setUp() {
+            when(propertyService.getTokenDeliveryUrl()).thenReturn("");
+        }
+
         @Test
-        @SneakyThrows
-        void shouldUpdateTokens() {
-            when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
-            assertTrue(tokens.stream().noneMatch(Token::isDelivered));
+        void shouldLogWarning() {
             tokenDeliveryService.send(tokens);
-            assertTrue(tokens.stream().allMatch(Token::isDelivered));
+            assertEquals("Destination URL not set", logAppender.list.get(0).getMessage());
         }
     }
 
     @Nested
-    class WhenResponseDoesNotHaveOkStatus {
+    class WhenConfigurationIsValid {
+        @BeforeEach
+        void setUp() {
+            when(propertyService.getTokenDeliveryUrl()).thenReturn("http://localhost:8080");
+        }
+
         @Test
         @SneakyThrows
-        void shouldNotUpdateTokens() {
-            when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("not ok", HttpStatus.BAD_REQUEST));
+        void shouldSendProperRequest() {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("tokens", tokens);
+
+            when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
             tokenDeliveryService.send(tokens);
+            verify(restTemplate).postForEntity(eq("http://localhost:8080"), eq(new HttpEntity<>(map, headers)), eq(String.class));
+        }
 
-            assertTrue(tokens.stream().noneMatch(Token::isDelivered));
+        @Nested
+        class WhenResponseHasOkStatus {
+            @Test
+            @SneakyThrows
+            void shouldUpdateTokens() {
+                when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("ok", HttpStatus.OK));
+                assertTrue(tokens.stream().noneMatch(Token::isDelivered));
+                tokenDeliveryService.send(tokens);
+                assertTrue(tokens.stream().allMatch(Token::isDelivered));
+            }
+        }
 
-            assertEquals("Tokens were not delivered: {}", logAppender.list.get(0).getMessage());
-            assertEquals("aaa", logAppender.list.get(0).getArgumentArray()[0]);
+        @Nested
+        class WhenResponseDoesNotHaveOkStatus {
+            @Test
+            @SneakyThrows
+            void shouldNotUpdateTokens() {
+                when(restTemplate.postForEntity(any(String.class), any(), any())).thenReturn(new ResponseEntity<>("not ok", HttpStatus.BAD_REQUEST));
+                tokenDeliveryService.send(tokens);
+
+                assertTrue(tokens.stream().noneMatch(Token::isDelivered));
+
+                assertEquals("Tokens were not delivered: {}", logAppender.list.get(0).getMessage());
+                assertEquals("aaa", logAppender.list.get(0).getArgumentArray()[0]);
+            }
         }
     }
 }

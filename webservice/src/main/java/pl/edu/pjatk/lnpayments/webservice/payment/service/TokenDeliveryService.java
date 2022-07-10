@@ -1,6 +1,8 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.internal.constraintvalidators.hv.URLValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +16,8 @@ import org.springframework.web.client.RestTemplate;
 import pl.edu.pjatk.lnpayments.webservice.common.service.PropertyService;
 import pl.edu.pjatk.lnpayments.webservice.payment.model.entity.Token;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +46,11 @@ public class TokenDeliveryService {
     }
 
     private boolean tryDeliveringTokens(Collection<Token> tokens) {
+        if (StringUtils.isEmpty(propertyService.getTokenDeliveryUrl())) {
+            log.warn("Destination URL not set");
+            return false;
+        }
+
         try {
             ResponseEntity<String> response = sendRequest(tokens);
             return response.getStatusCodeValue() == 200;
