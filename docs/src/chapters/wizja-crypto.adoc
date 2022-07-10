@@ -151,18 +151,18 @@ osób. Nic nie stoi na przeszkodzie nieuczciwej osobie posiadającej dostęp do 
 rozdysponowania środków. Ten sam problem dotyczy sklepów internetowych, zarówno przyjmujących płatności w
 tradycyjnych walutach, jak i w kryptowalutach. Środki często trafiają na wspólne konto bankowe bądź na adresy
 kryptowalut zabezpieczone jednym kluczem prywatnym. Powoduje to dokładnie takie same zagrożenia jak w przypadku sklepu
-z sejfem. Każda uprawniona osoba może samodzielnie rozdysponować środki bez wiedzy współpracowników.
+z sejfem. Każda uprawniona osoba może samodzielnie rozdysponować środki bez zgody współpracowników.
 
 Adres multisig w proponowanym rozwiązaniu ma na celu rozwiązanie tego problemu. Rozdysponowanie środków wymaga
-podpisów kluczami prywatnymi określonej liczby administratorów serwera. Dzięki temu jedna uprawniona osoba nie ma
-możliwości samodzielnego decydowania o dyspozycji środków. Musi to być zawsze decyzja kolektywna. Dodatkowym
+podpisów kluczami prywatnymi określonej liczby administratorów serwera. Dzięki temu jedna uprawniona osoba nie
+może samodzielnie dysponować środkami. Musi to być zawsze decyzja kolektywna. Dodatkowym
 zabezpieczeniem jest aplikacja mobilna do podpisywania transakcji, która przechowuje jednocześnie klucze prywatne.
 Dzięki temu proces podpisywania nie odbywa się w jednym centralnym miejscu, co znacząco zmniejszałoby bezpieczeństwo.
 Atak hakerski na serwer mógłby spowodować utratę środków. Haker do rozdysponowania środków znajdujących się na
 serwerze będzie musiał poza serwerem uzyskać dostęp do kilkunastu urządzeń mobilnych przechowujących klucze.
 Atak na tak wiele urządzeń jest niezwykle trudny, prawie niewykonalny bez posiadania odpowiedniej wiedzy o lokalizacji
 urządzeń. Proponowane rozwiązanie sprawia, że środki znajdujące się na serwerze są niezwykle bezpieczne, a
-prawdopodobieństwo utraty środków w niekontrolowany sposób jest zerowe.
+prawdopodobieństwo utraty środków w niekontrolowany sposób jest prawie zerowe.
 
 W przyszłości możliwe jest dalsze zwiększanie bezpieczeństwa. W pierwszym wydaniu zabraknie mechanizmów odzyskiwania
 kluczy z _mnemonic phrase_, czy też możliwości eksportu kluczy. Dzięki temu rozwiązaniu administrator serwera będzie
