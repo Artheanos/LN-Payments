@@ -31,5 +31,11 @@
       "success": "Transferring funds to BTC wallet...",
       "failure": "Error while transferring funds."
     }
+  },
+  "createForm": {
+    "header": "Create wallet",
+    "admins": "Admins",
+    "numSignatures": "Minimum number of signatures",
+    "noAdmins": "There are no admins with assigned keys, please add them in the Admin management panel."
   }
 }

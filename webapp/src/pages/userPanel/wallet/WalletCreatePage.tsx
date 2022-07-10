@@ -13,8 +13,10 @@ import {
   WalletForm
 } from 'components/wallet/create/form'
 import routesBuilder from 'routesBuilder'
+import { useTranslation } from 'react-i18next'
 
 export const WalletCreatePage: React.FC = () => {
+  const { t } = useTranslation('wallet')
   const [admins, setAdmins] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const navigate = useNavigate()
@@ -38,7 +40,7 @@ export const WalletCreatePage: React.FC = () => {
     if (status === 201) {
       navigate(routesBuilder.userPanel.wallet.index)
     } else {
-      alert('Error')
+      alert(t('common:error.generic'))
     }
   }
 
@@ -46,7 +48,7 @@ export const WalletCreatePage: React.FC = () => {
 
   return (
     <Panel.Container>
-      <Panel.Header title="Create wallet" />
+      <Panel.Header title={t('createForm.header')} />
       <Panel.Body>
         <Formik
           initialValues={initialValues}
@@ -55,35 +57,38 @@ export const WalletCreatePage: React.FC = () => {
         >
           <Form>
             <Grid container item gap={3} md={6}>
-              <Grid item xs={12}>
-                <Field
-                  name="minSignatures"
-                  label="Minimum number of signatures"
-                  component={TextInput}
-                  className="w-full"
-                  type="number"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="adminEmails"
-                  options={admins}
-                  component={MultiSelectInput}
-                  className="w-full"
-                  label="Admins"
-                  multiple
-                />
-                {!admins.length && (
-                  <Alert color="error">
-                    There are no admins with assigned keys
-                  </Alert>
-                )}
-              </Grid>
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained">
-                  Submit
-                </Button>
-              </Grid>
+              {!admins.length ? (
+                <Grid item xs={12}>
+                  <Alert color="error">{t('createForm.noAdmins')}</Alert>
+                </Grid>
+              ) : (
+                <>
+                  <Grid item xs={12}>
+                    <Field
+                      name="minSignatures"
+                      label={t('createForm.numSignatures')}
+                      component={TextInput}
+                      className="w-full"
+                      type="number"
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Field
+                      name="adminEmails"
+                      options={admins}
+                      component={MultiSelectInput}
+                      className="w-full"
+                      label={t('createForm.admins')}
+                      multiple
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button type="submit" variant="contained">
+                      {t('common:submit')}
+                    </Button>
+                  </Grid>
+                </>
+              )}
             </Grid>
           </Form>
         </Formik>
