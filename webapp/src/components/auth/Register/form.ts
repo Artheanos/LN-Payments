@@ -10,6 +10,10 @@ export const RegisterSchema = Yup.object()
     fullName: Yup.string()
       .min(3, t('auth:register.form.fullName.errors.min'))
       .max(50, t('auth:register.form.fullName.errors.max'))
+      .matches(
+        /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆŠŽ∂ð ,.'-]+$/,
+        t('auth:register.form.fullName.errors.specialCharacters')
+      )
       .required(t('auth:register.form.fullName.errors.required')),
     password: Yup.string()
       .matches(
