@@ -72,7 +72,7 @@ export const AccountPage: React.FC = () => {
           </div>
         ) : (
           <Grid container>
-            <Grid item xs={6} container gap={3}>
+            <Grid item xs={12} md={6} container gap={3}>
               <AccountRow name={t('common:name')} value={user!.fullName} />
               <AccountRow name={t('common:email')} value={user!.email} />
               <AccountRow name={t('common:role')} value={user!.role} />
@@ -83,7 +83,10 @@ export const AccountPage: React.FC = () => {
             </Grid>
             <Grid
               item
-              xs={6}
+              xs={12}
+              md={6}
+              gap={3}
+              my={3}
               container
               justifyContent="center"
               alignItems="center"
