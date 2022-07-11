@@ -98,6 +98,7 @@ class UserConverterTest {
 
         assertThat(dto.getFullName()).isEqualTo(user.getFullName());
         assertThat(dto.getEmail()).isEqualTo(user.getEmail());
+        assertThat(dto.getCreatedAt()).isNotNull();
     }
 
 }

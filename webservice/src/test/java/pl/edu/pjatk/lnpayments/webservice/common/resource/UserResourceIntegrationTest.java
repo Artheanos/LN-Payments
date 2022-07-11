@@ -102,7 +102,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .principal(principal))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isConflict());
     }
 
 }

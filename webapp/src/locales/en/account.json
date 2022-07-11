@@ -1,0 +1,22 @@
+{
+  "header": "Account details",
+  "creationDate": "Creation date",
+  "changePassword": "Change password",
+  "noEditAlert": "Modification of account details is currently available only for the password. We apologize for the inconvenience.",
+  "passwordChange": {
+    "header": "Change password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "success": "Password updated!",
+    "error": {
+      "generic": "Error while updating password.",
+      "409": "Current password does not match your password."
+    },
+    "validation": {
+      "reuse": "You can not reuse the old password",
+      "newRequired": "Current password is required",
+      "currentRequired": "New password is required"
+    }
+  }
+}

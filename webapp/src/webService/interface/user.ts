@@ -8,6 +8,7 @@ export interface User {
   email: string
   fullName: string
   role: Role
+  createdAt?: Date
 }
 
 export interface AdminUser extends User {

@@ -6,23 +6,25 @@ import { AdminCreatePage } from 'pages/userPanel/adminManagement/AdminCreatePage
 import { AdminLayout } from './Layouts/AdminLayout'
 import { AdminManagementPage } from 'pages/userPanel/adminManagement/AdminManagementPage'
 import { Error404Page } from 'pages/errors/Error404Page'
-import { HistoryPage } from '../pages/userPanel/HistoryPage'
+import { HistoryPage } from 'pages/userPanel/HistoryPage'
 import { LandingPage } from 'pages/LandingPage'
 import { LoginPage } from 'pages/auth/LoginPage'
 import { LogoutPage } from 'pages/auth/LogoutPage'
 import { NavbarLayout } from 'components/Layouts/NavbarLayout'
 import { NotificationProvider } from './Context/NotificationContext'
-import { PaymentsPage } from '../pages/userPanel/PaymentsPage'
+import { PaymentsPage } from 'pages/userPanel/PaymentsPage'
 import { PublicLayout } from './Layouts/PublicLayout'
 import { QuickBuyPage } from 'pages/quickBuy/QuickBuyPage'
 import { RegisterPage } from 'pages/auth/RegisterPage'
 import { UserLayout } from './Layouts/UserLayout'
 import { UserProvider } from './Context/UserContext'
-import { WalletPage } from '../pages/userPanel/wallet/WalletPage'
+import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
 import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
-import { TransactionsPage } from '../pages/userPanel/transactions/TransactionsPage'
-import { TransactionFormPage } from '../pages/userPanel/transactions/TransactionFormPage'
-import { ServerSettingsPage } from '../pages/userPanel/serverSettings/ServerSettingsPage'
+import { TransactionsPage } from 'pages/userPanel/transactions/TransactionsPage'
+import { TransactionFormPage } from 'pages/userPanel/transactions/TransactionFormPage'
+import { ServerSettingsPage } from 'pages/userPanel/serverSettings/ServerSettingsPage'
+import { AccountPage } from 'pages/userPanel/account/AccountPage'
+import { PasswordChangePage } from 'pages/userPanel/account/PasswordChangePage'
 
 const theme = createTheme({
   palette: {
@@ -59,6 +61,14 @@ const App = () => (
                   element={
                     <Navigate replace to={routesBuilder.userPanel.history} />
                   }
+                />
+                <Route
+                  path={routesBuilder.userPanel.account.index}
+                  element={<AccountPage />}
+                />
+                <Route
+                  path={routesBuilder.userPanel.account.password}
+                  element={<PasswordChangePage />}
                 />
               </Route>
 

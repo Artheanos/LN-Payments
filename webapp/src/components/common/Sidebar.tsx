@@ -6,7 +6,8 @@ import {
   MeetingRoomOutlined,
   PaidOutlined,
   ShoppingCartOutlined,
-  SettingsOutlined
+  SettingsOutlined,
+  AccountCircleOutlined
 } from '@mui/icons-material'
 import { Drawer, List, Toolbar } from '@mui/material'
 import { useTranslation } from 'react-i18next'
@@ -69,6 +70,11 @@ export const Sidebar: React.FC = () => {
           icon={<SettingsOutlined />}
           route={routesBuilder.userPanel.serverSettings.index}
           adminOnly
+        />
+        <SidebarEntry
+          title="Account"
+          icon={<AccountCircleOutlined />}
+          route={routesBuilder.userPanel.account.index}
         />
         <SidebarEntry
           title="Logout"

@@ -23,6 +23,10 @@ export default {
     },
     serverSettings: {
       index: '/panel/settings'
+    },
+    account: {
+      index: '/panel/account',
+      password: '/panel/account/password'
     }
   },
   api: {

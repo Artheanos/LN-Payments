@@ -52,6 +52,8 @@ public class UserConverter {
         return UserDto.builder()
                 .email(user.getEmail())
                 .fullName(user.getFullName())
+                .role(user.getRole())
+                .createdAt(user.getCreatedAt())
                 .build();
     }
 }

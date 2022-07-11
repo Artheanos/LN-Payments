@@ -16,7 +16,7 @@ import {
   RegisterForm
 } from './interface/auth'
 import { WalletForm, WalletInfo } from './interface/wallet'
-import { AdminUser } from './interface/user'
+import { AdminUser, User } from './interface/user'
 import {
   NewTransactionInfo,
   TransactionForm,
@@ -25,6 +25,7 @@ import {
 import { getLocalJson } from '../utils/persist'
 import { LocalKey } from '../constants/LocalKey'
 import { Settings } from 'webService/interface/settings'
+import { PasswordChangeProps } from 'pages/userPanel/account/form'
 
 export type Response<T> = {
   data?: T
@@ -149,6 +150,15 @@ class Requests {
         this.request(routes.settings.index, { method: 'get' }),
       updateSettings: async (data: Settings) =>
         this.request(routes.settings.index, { method: 'put', data })
+    },
+    users: {
+      getUserDetails: async (): Promise<Response<User>> =>
+        this.request(routes.users.index, { method: 'get' }),
+      changePassword: (
+        data: PasswordChangeProps
+      ): Promise<Response<number>> => {
+        return this.request(routes.users.password, { method: 'put', data })
+      }
     }
   }
 
