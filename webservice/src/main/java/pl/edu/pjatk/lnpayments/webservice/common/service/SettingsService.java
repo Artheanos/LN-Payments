@@ -77,4 +77,7 @@ public class SettingsService implements PropertyService {
     public long getAutoTransferLimit() {
         return propertiesConfiguration.getLong("autoTransferLimit");
     }
+
+    @Override
+    public String getTokenDeliveryUrl() { return propertiesConfiguration.getString("tokenDeliveryUrl"); }
 }

@@ -25,4 +25,5 @@ public class PropertyValues {
     @Min(100)
     private long autoTransferLimit;
     private long lastModification;
+    private String tokenDeliveryUrl;
 }

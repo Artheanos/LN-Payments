@@ -19,7 +19,8 @@ public class SettingsHelper {
                 new AbstractMap.SimpleEntry<>("paymentExpiryInSeconds", 900),
                 new AbstractMap.SimpleEntry<>("autoChannelCloseLimit", 100000L),
                 new AbstractMap.SimpleEntry<>("autoTransferLimit", 100000L),
-                new AbstractMap.SimpleEntry<>("lastModification", 1));
+                new AbstractMap.SimpleEntry<>("lastModification", 1),
+                new AbstractMap.SimpleEntry<>("tokenDeliveryUrl", "http://localhost:9000/tokens"));
         configuration.clear();
         params.forEach(configuration::setProperty);
     }
