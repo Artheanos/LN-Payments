@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button, Center, Stack, Text } from 'native-base'
+import { Box, Button, Center, HStack, Text, VStack } from 'native-base'
 import { StackScreenProps } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import R from 'res/R'
@@ -31,10 +31,18 @@ export const NotificationDetailScreen: React.FC<
    * Method to get data from API
    */
   const notificationDetails = async () => {
-    const { data } = await api.notifications.getNotificationDetails(
-      notificationId,
-    )
-    setDetails(data)
+    setProcessing(true)
+    try {
+      const { data } = await api.notifications.getNotificationDetails(
+        notificationId,
+      )
+      setDetails(data)
+    } catch (error) {
+      showAlert()
+      console.log(error)
+    } finally {
+      setProcessing(false)
+    }
   }
 
   /**
@@ -110,6 +118,103 @@ export const NotificationDetailScreen: React.FC<
     setErrorDialog(false)
   }
 
+  const DetailsNotificationId = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.id}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.id}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsNotificationType = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.type}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.type}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsNotificationMessage = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.message}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.message}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsDestinationAddress = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.address}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.address}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsTransactionAmount = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.amount}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.amount}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsNotificationStatus = () => {
+    return (
+      <Box alignItems="center">
+        <Text fontSize={20} fontWeight="bold">
+          {R.strings.details.status}
+        </Text>
+        <Text italic fontSize={17}>
+          {details?.status}
+        </Text>
+      </Box>
+    )
+  }
+
+  const DetailsScreenButtons = () => {
+    return (
+      <HStack space={10}>
+        <Button size="lg" w="40%" bg="error.600" variant="solid" onPress={deny}>
+          {R.strings.details.btnDeny}
+        </Button>
+        <Button
+          size="lg"
+          w="40%"
+          bg="success.600"
+          variant="solid"
+          onPress={confirm}
+        >
+          {R.strings.details.btnConfirm}
+        </Button>
+      </HStack>
+    )
+  }
+
   /**
    * Return View with data from NotificationDetails
    */
@@ -117,56 +222,17 @@ export const NotificationDetailScreen: React.FC<
     <Center justifyContent="flex-start" h="100%">
       <LoadingModal processing={processing} />
       <ErrorAlert isOpen={errorDialog} close={alertClose} />
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.id}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.id}
-      </Text>
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.type}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.type}
-      </Text>
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.message}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.message}
-      </Text>
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.address}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.address}
-      </Text>
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.amount}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.amount}
-      </Text>
-      <Text fontSize={20} fontWeight="bold">
-        {R.strings.details.status}
-      </Text>
-      <Text italic fontSize={17}>
-        {details?.status}
-      </Text>
-      <Stack direction="row" padding="15%" space="20">
-        <Button
-          size="lg"
-          w="50%"
-          bg="success.600"
-          variant="solid"
-          onPress={confirm}
-        >
-          {R.strings.details.btnConfirm}
-        </Button>
-        <Button size="lg" w="50%" bg="error.600" variant="solid" onPress={deny}>
-          {R.strings.details.btnDeny}
-        </Button>
-      </Stack>
+      <VStack space={3} marginTop={5}>
+        <DetailsNotificationId />
+        <DetailsNotificationType />
+        <DetailsNotificationMessage />
+        <DetailsDestinationAddress />
+        <DetailsTransactionAmount />
+        <DetailsNotificationStatus />
+      </VStack>
+      <Box alignItems="center" position="absolute" bottom="5">
+        {details?.status === 'PENDING' ? <DetailsScreenButtons /> : null}
+      </Box>
     </Center>
   )
 }
