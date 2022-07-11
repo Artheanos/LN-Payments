@@ -92,7 +92,7 @@ Pomimo tego, że na rynku jest dużo miejsca dla nowej konkurencji, tworzone roz
 udziału wśród procesorów płatności. Wynika to z faktu krótkiej i bardzo wyspecjalizowanej listy funkcjonalności.
 Obsługa Bitcoina tylko przez sieć Lightning sprawia, że potencjalny rynek bardzo się kurczy. Skoro 38% użytkowników
 używa Bitcoinów, odsetek użytkowników sieci Lightning jest małym procentem tej liczby. Nie każdy również będzie
-potrzebować portfela multisig oraz generowania tokenów. Rozwiązanie jest dedykowane bardzo wąskiego grona
+potrzebować portfela multisig oraz generowania tokenów. Rozwiązanie jest dedykowane dla bardzo wąskiego grona
 użytkowników, którzy poszukują produktu zawierającego wyłącznie proponowane przez projekt funkcjonalności.
 Z tych powodów wydanie projektu w pierwszym wydaniu jako open-source z ewentualnym płatnym wsparciem ma najwięcej
 sensu. Komercjalizacja na większą skalę będzie wymagała dodania bardzo wielu funkcjonalności, które posiada obecnie
