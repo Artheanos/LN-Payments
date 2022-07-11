@@ -147,8 +147,8 @@ include::../diagrams/btc_transaction_flow.puml[]
 
 Problemem wielu sklepów jest zarządzanie zebranymi środkami. Często nie ma poważnej ochrony przed oszustwem ze strony
 pracowników. W przypadku wielu tradycyjnych sklepów zebrana gotówka trafia do sejfu, do którego dostęp posiada kilka
-osób. Nic nie stoi na przeszkodzie nieuczciwej osobie posiadającej dostęp do kradzieży bądź nieuczciwego
-rozdysponowania środków. Ten sam problem dotyczy sklepów internetowych, zarówno przyjmujących płatności w
+osób. Nic nie stoi na przeszkodzie, aby nieuczciwa osoba dokonała kradzieży bądź defraudacji środków.
+Ten sam problem dotyczy sklepów internetowych, zarówno przyjmujących płatności w
 tradycyjnych walutach, jak i w kryptowalutach. Środki często trafiają na wspólne konto bankowe bądź na adresy
 kryptowalut zabezpieczone jednym kluczem prywatnym. Powoduje to dokładnie takie same zagrożenia jak w przypadku sklepu
 z sejfem. Każda uprawniona osoba może samodzielnie rozdysponować środki bez zgody współpracowników.
@@ -166,7 +166,7 @@ prawdopodobieństwo utraty środków w niekontrolowany sposób jest prawie zerow
 
 W przyszłości możliwe jest dalsze zwiększanie bezpieczeństwa. W pierwszym wydaniu zabraknie mechanizmów odzyskiwania
 kluczy z _mnemonic phrase_, czy też możliwości eksportu kluczy. Dzięki temu rozwiązaniu administrator serwera będzie
-zabezpieczony na możliwość utraty, bądź uszkodzenia urządzenia zawierającego klucze. Dzięki _mnemonic phrase_ będzie
+zabezpieczony na wypadek utraty, bądź uszkodzenia urządzenia zawierającego klucze. Dzięki _mnemonic phrase_ będzie
 w stanie odtworzyć klucze na nowym urządzeniu przy pomocy losowo wygenerowanego przy generowaniu par kluczy zbioru
 słów w języku angielskim. Planowana jest również w przyszłości migracja używanego typy transakcji z P2SH na P2WSH,
 który rozdziela podpisy od transakcji i dodaje do każdego wejścia i wyjścia transakcji dodatkowe zaszyfrowane pole.
