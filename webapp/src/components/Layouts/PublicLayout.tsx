@@ -8,7 +8,7 @@ import { Role } from 'webService/interface/user'
 export const PublicLayout: React.FC = () => {
   const { user, isLoggedIn } = useContext(UserContext)
 
-  if (!isLoggedIn) return <Outlet />
+  if (!isLoggedIn || user?.role === Role.TEMPORARY) return <Outlet />
   if (user?.role === Role.ADMIN) {
     return <Navigate to={routesBuilder.userPanel.index} />
   }

@@ -99,14 +99,14 @@ class PaymentFacadeTest {
 
     @Test
     void shouldCreatePaymentForValidRequest() {
-        PaymentDetailsRequest request = new PaymentDetailsRequest(1, "admin@admin.pl");
+        PaymentDetailsRequest request = new PaymentDetailsRequest(1);
         when(propertyService.getPrice()).thenReturn(1);
         when(propertyService.getInvoiceMemo()).thenReturn("memo");
         when(propertyService.getPaymentExpiryInSeconds()).thenReturn(100);
         when(paymentDataService.savePayment(any(Payment.class))).then(AdditionalAnswers.returnsFirstArg());
         when(invoiceService.createInvoice(anyInt(), anyInt(), anyInt(), any())).thenReturn("invoice");
 
-        Payment response = paymentFacade.createNewPayment(request);
+        Payment response = paymentFacade.createNewPayment(request, "test");
 
         assertThat(response.getPaymentRequest()).isEqualTo("invoice");
         assertThat(response.getStatus()).isEqualTo(PaymentStatus.PENDING);

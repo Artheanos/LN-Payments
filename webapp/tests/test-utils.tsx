@@ -15,9 +15,10 @@ import { Role } from 'webService/interface/user'
 type CustomRenderProps = Partial<{
   location: string
   role: Role
+  isLoggedIn: boolean
 }>
 
-type RenderWrapperProps = Pick<CustomRenderProps, 'role'>
+type RenderWrapperProps = Omit<CustomRenderProps, 'location'>
 
 const helpers: { history: BrowserHistory; initialLocation?: string } = {
   history: createBrowserHistory()
@@ -25,8 +26,13 @@ const helpers: { history: BrowserHistory; initialLocation?: string } = {
 
 HTMLCanvasElement.prototype.getContext = () => null
 
-const AllTheProviders: React.FC<RenderWrapperProps> = ({ children, role }) => {
-  const user = { email: '', fullName: '', role: role || Role.USER }
+const AllTheProviders: React.FC<RenderWrapperProps> = ({
+  children,
+  role = Role.USER,
+  isLoggedIn = false
+}) => {
+  const user = { email: '', fullName: '', role: role }
+  const token = '123'
 
   return (
     <Router
@@ -34,7 +40,9 @@ const AllTheProviders: React.FC<RenderWrapperProps> = ({ children, role }) => {
       navigationType={Action.Push}
       location={{ pathname: '/' }}
     >
-      <UserContext.Provider value={{ ...defaultUserContextValue, user }}>
+      <UserContext.Provider
+        value={{ ...defaultUserContextValue, user, token, isLoggedIn }}
+      >
         <NotificationProvider>
           <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
         </NotificationProvider>

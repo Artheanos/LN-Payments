@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 
 @Valid
@@ -17,6 +16,4 @@ public class PaymentDetailsRequest {
     @Min(1)
     private int numberOfTokens;
 
-    @Email
-    private String email;
 }

@@ -115,7 +115,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
 
         @Test
         void shouldReturn404WhenInvalidTokenNumberProvided() throws Exception {
-            PaymentDetailsRequest request = new PaymentDetailsRequest(-1, "admin@admin.pl");
+            PaymentDetailsRequest request = new PaymentDetailsRequest(-1);
             mockMvc.perform(post("/payments")
                             .content(new ObjectMapper().writeValueAsString(request))
                             .principal(principal)

@@ -35,9 +35,9 @@ class PaymentResourceTest {
 
         @Test
         void shouldReturnStatusOkWhenProperDataPassed() {
-            PaymentDetailsRequest request = new PaymentDetailsRequest(1, "admin@admin.pl");
+            PaymentDetailsRequest request = new PaymentDetailsRequest(1);
 
-            ResponseEntity<?> payment = paymentResource.createPayment(request);
+            ResponseEntity<?> payment = paymentResource.createPayment(request, () -> null);
 
             assertThat(payment.getStatusCode()).isEqualTo(HttpStatus.OK);
         }

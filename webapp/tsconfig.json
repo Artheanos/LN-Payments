@@ -20,7 +20,8 @@
       "components/*": ["./components/*"],
       "webService/*": ["./webService/*"],
       "pages/*": ["./pages/*"],
-      "tests/*": ["../tests/*"]
+      "tests/*": ["../tests/*"],
+      "constants/*": ["./constants/*"]
     }
   },
   "exclude": ["node_modules"],

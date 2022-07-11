@@ -13,7 +13,8 @@ import {
   LoginForm,
   LoginResponse,
   RefreshTokenResponse,
-  RegisterForm
+  RegisterForm,
+  TemporaryForm
 } from './interface/auth'
 import { WalletForm, WalletInfo } from './interface/wallet'
 import { AdminUser, User } from './interface/user'
@@ -64,15 +65,18 @@ class Requests {
           method: 'get',
           timeout
         })
+      },
+      temporary: (
+        data: TemporaryForm
+      ): Promise<Response<RefreshTokenResponse>> => {
+        return this.request(routes.auth.temporary, { data })
       }
     },
     payment: {
       create: async (data: PaymentForm): Promise<Response<PaymentDetails>> => {
-        const skipAuthentication = Boolean(data.email)
         const response: Response<PaymentDetails> = await this.request(
           routes.payments.index,
-          { data },
-          skipAuthentication
+          { data }
         )
 
         if (response.data) {

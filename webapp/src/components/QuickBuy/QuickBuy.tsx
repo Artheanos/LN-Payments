@@ -54,7 +54,6 @@ export const QuickBuy: React.FC = () => {
     [stageIndex]
   )
 
-  console.log(stageIndex, CurrentStage)
   if (stageIndex === undefined || !CurrentStage) {
     return (
       <div className="pt-10 w-full text-center">

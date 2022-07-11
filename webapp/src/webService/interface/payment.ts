@@ -5,7 +5,6 @@ export enum PaymentStatus {
 }
 
 export interface PaymentForm {
-  email: string
   numberOfTokens: number
 }
 
