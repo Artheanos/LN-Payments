@@ -142,3 +142,35 @@ transakcja zostanie rozpropagowana po całej sieci Bitcoin.
 ----
 include::../diagrams/btc_transaction_flow.puml[]
 ----
+
+=== Bezpieczeństwo
+
+Problemem wielu sklepów jest zarządzanie zebranymi środkami. Często nie ma poważnej ochrony przed oszustwem ze strony
+pracowników. W przypadku wielu tradycyjnych sklepów zebrana gotówka trafia do sejfu, do którego dostęp posiada kilka
+osób. Nic nie stoi na przeszkodzie, aby nieuczciwa osoba dokonała kradzieży bądź defraudacji środków.
+Ten sam problem dotyczy sklepów internetowych, zarówno przyjmujących płatności w
+tradycyjnych walutach, jak i w kryptowalutach. Środki często trafiają na wspólne konto bankowe bądź na adresy
+kryptowalut zabezpieczone jednym kluczem prywatnym. Powoduje to dokładnie takie same zagrożenia jak w przypadku sklepu
+z sejfem. Każda uprawniona osoba może samodzielnie rozdysponować środki bez zgody współpracowników.
+
+Adres multisig w proponowanym rozwiązaniu ma na celu rozwiązanie tego problemu. Rozdysponowanie środków wymaga
+podpisów kluczami prywatnymi określonej liczby administratorów serwera. Dzięki temu jedna uprawniona osoba nie
+może samodzielnie dysponować środkami. Musi to być zawsze decyzja kolektywna. Dodatkowym
+zabezpieczeniem jest aplikacja mobilna do podpisywania transakcji, która przechowuje jednocześnie klucze prywatne.
+Dzięki temu proces podpisywania nie odbywa się w jednym centralnym miejscu, co znacząco zmniejszałoby bezpieczeństwo.
+Atak hakerski na serwer mógłby spowodować utratę środków. Haker do rozdysponowania środków znajdujących się na
+serwerze będzie musiał poza serwerem uzyskać dostęp do kilkunastu urządzeń mobilnych przechowujących klucze.
+Atak na tak wiele urządzeń jest niezwykle trudny, prawie niewykonalny bez posiadania odpowiedniej wiedzy o lokalizacji
+urządzeń. Proponowane rozwiązanie sprawia, że środki znajdujące się na serwerze są niezwykle bezpieczne, a
+prawdopodobieństwo utraty środków w niekontrolowany sposób jest prawie zerowe.
+
+W przyszłości możliwe jest dalsze zwiększanie bezpieczeństwa. W pierwszym wydaniu zabraknie mechanizmów odzyskiwania
+kluczy z _mnemonic phrase_, czy też możliwości eksportu kluczy. Dzięki temu rozwiązaniu administrator serwera będzie
+zabezpieczony na wypadek utraty, bądź uszkodzenia urządzenia zawierającego klucze. Dzięki _mnemonic phrase_ będzie
+w stanie odtworzyć klucze na nowym urządzeniu przy pomocy losowo wygenerowanego przy generowaniu par kluczy zbioru
+słów w języku angielskim. Planowana jest również w przyszłości migracja używanego typy transakcji z P2SH na P2WSH,
+który rozdziela podpisy od transakcji i dodaje do każdego wejścia i wyjścia transakcji dodatkowe zaszyfrowane pole.
+Tym sposobem został naprawiony błąd w protokole Bitcoina, przez który w określonych przypadkach możliwa była
+modyfikacja podpisanej już transakcji. Aktualizacja typu transakcji pozwoli naprawić drobną lukę w zabezpieczeniach,
+która nie powinna wpłynąć pod tym kontem na użytkowników, aczkolwiek dodatkowo zwiększy już i tak wysoki poziom
+bezpieczeństwa rozwiązania.
