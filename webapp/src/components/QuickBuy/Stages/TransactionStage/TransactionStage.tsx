@@ -5,11 +5,10 @@ import { Client as StompClient } from '@stomp/stompjs'
 
 import routesBuilder from 'routesBuilder'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
-import { PaymentInfo } from 'webService/interface/payment'
 import { QRInfo } from './QRInfo'
 import { StageProps } from 'components/QuickBuy/StageProps'
 import { WsTransactionResponse } from 'webService/interface/transaction'
-import { api, refreshTokenFactory } from 'webService/requests'
+import { refreshTokenFactory } from 'webService/requests'
 import { millisecondsToClock, useCountdown } from 'utils/time'
 
 const websocketBuilder = (onConnect: () => void) => {
@@ -32,17 +31,13 @@ export const TransactionStage: React.FC<StageProps> = ({
   onNext,
   setStageIndex,
   payment,
+  paymentInfo,
   setPayment,
   setTokens
 }) => {
   const { t } = useTranslation('quickBuy')
-  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>()
   const [modalVisible, setModalVisible] = useState(false)
   const [socket, setSocket] = useState<StompClient>()
-
-  useEffect(() => {
-    api.payment.info().then(({ data }) => setPaymentInfo(data))
-  }, [])
 
   const timeLeft = useCountdown(payment?.expirationTimestamp, () => {
     setModalVisible(true)

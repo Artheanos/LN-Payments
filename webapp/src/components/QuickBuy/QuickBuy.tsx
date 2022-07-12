@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { CircularProgress } from '@mui/material'
 
 import { LocalKey } from 'constants/LocalKey'
-import { PaymentDetails } from 'webService/interface/payment'
-import { SetupStage } from './Stages/SetupStage/SetupStage'
-import { StageProgress } from './StageProgress/StageProgress'
-import { TokensStage } from './Stages/TokensStage/TokensStage'
-import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
+import { PaymentDetails, PaymentInfo } from 'webService/interface/payment'
+import { SetupStage } from './Stages/SetupStage'
+import { StageProgress } from './StageProgress'
+import { TokensStage } from './Stages/TokensStage'
+import { TransactionStage } from './Stages/TransactionStage'
 import { UserContext } from 'components/Context/UserContext'
 import { useLocalStorage } from 'utils/persist'
+import { api } from 'webService/requests'
 
 const STAGE_COMPONENTS = [SetupStage, TransactionStage, TokensStage]
 
@@ -27,6 +28,7 @@ export const QuickBuy: React.FC = () => {
   const [stageIndex, setStageIndex] = useState<StageIndex | undefined>(
     undefined
   )
+  const [paymentInfo, setPaymentInfo] = useState<PaymentInfo>()
   const [payment, setPayment] = useLocalStorage<PaymentDetails>(
     LocalKey.PAYMENT
   )
@@ -36,7 +38,7 @@ export const QuickBuy: React.FC = () => {
   const { isLoggedIn } = useContext(UserContext)
 
   useEffect(() => {
-    let redirectTo: StageIndex | undefined = undefined
+    let redirectTo: StageIndex | undefined
 
     if (tokens) {
       redirectTo = StageIndex.Tokens
@@ -49,12 +51,16 @@ export const QuickBuy: React.FC = () => {
     setStageIndex(redirectTo)
   }, [tokens, payment, isLoggedIn])
 
+  useEffect(() => {
+    api.payment.info().then(({ data }) => setPaymentInfo(data))
+  }, [])
+
   const CurrentStage = useMemo(
     () => (stageIndex !== undefined ? STAGE_COMPONENTS[stageIndex] : undefined),
     [stageIndex]
   )
 
-  if (stageIndex === undefined || !CurrentStage) {
+  if (stageIndex === undefined || !CurrentStage || !paymentInfo) {
     return (
       <div className="pt-10 w-full text-center">
         <CircularProgress />
@@ -73,7 +79,14 @@ export const QuickBuy: React.FC = () => {
           onPrevious={() =>
             setStageIndex((prev) => zeroIfNotInRange(prev! - 1))
           }
-          {...{ payment, setPayment, setStageIndex, tokens, setTokens }}
+          {...{
+            payment,
+            setPayment,
+            paymentInfo,
+            setStageIndex,
+            tokens,
+            setTokens
+          }}
         />
       </div>
     </div>

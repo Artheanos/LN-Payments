@@ -4,7 +4,8 @@ import { setupServer } from 'msw/node'
 
 import routesBuilder from 'routesBuilder'
 import { Role } from 'webService/interface/user'
-import { SetupStage } from 'components/QuickBuy/Stages/SetupStage/SetupStage'
+import { SetupStage } from 'components/QuickBuy/Stages/SetupStage'
+import { paymentInfoMock } from 'tests/mockData/paymentInfoMock'
 import { render, screen, waitFor, fireEvent } from 'tests/test-utils'
 
 describe('SetupStage', () => {
@@ -36,21 +37,47 @@ describe('SetupStage', () => {
     onNext = jest.fn(() => {})
     setPayment = jest.fn(() => {})
     setTokens = jest.fn(() => {})
-    render(<SetupStage {...{ onPrevious, onNext, setTokens, setPayment }} />, {
-      role,
-      isLoggedIn: true
-    })
+    render(
+      <SetupStage
+        {...{
+          onPrevious,
+          onNext,
+          setTokens,
+          setPayment,
+          paymentInfo: paymentInfoMock
+        }}
+      />,
+      {
+        role,
+        isLoggedIn: true
+      }
+    )
   })
 
-  it('renders info', () => {
-    expect(
-      screen.getByText('Tokens are very cool things', { exact: false })
-    ).toBeInTheDocument()
+  it('calls setPayment when pressing Next', async () => {
+    expect(onPrevious).not.toHaveBeenCalled()
+    expect(setPayment).not.toHaveBeenCalled()
+    expect(onNext).not.toHaveBeenCalled()
+
+    screen.getByText('Next').click()
+    await waitFor(() => expect(onNext).toHaveBeenCalled())
+
+    expect(onPrevious).not.toHaveBeenCalled()
+    expect(setPayment).toHaveBeenCalledWith(fakePaymentDetails)
+    expect(onNext).toHaveBeenCalledTimes(1)
   })
 
   describe('when user has temporary role', () => {
     beforeAll(() => {
       role = Role.TEMPORARY
+    })
+
+    it('renders correct info', () => {
+      expect(
+        screen.getByText(
+          'Purchased tokens will be shown at the last screen. Make sure to save them before closing or else they will be gone forever.'
+        )
+      ).toBeInTheDocument()
     })
 
     it('calls setPayment when data is valid', async () => {
@@ -97,6 +124,14 @@ describe('SetupStage', () => {
   describe('when user has admin role', () => {
     beforeAll(() => {
       role = Role.ADMIN
+    })
+
+    it('renders correct info', () => {
+      expect(
+        screen.getByText(
+          'After purchase tokens will be saved to your account. You can view them anytime.'
+        )
+      ).toBeInTheDocument()
     })
 
     it('does not show or require email', async () => {

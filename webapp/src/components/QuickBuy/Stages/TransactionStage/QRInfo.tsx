@@ -14,6 +14,7 @@ export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
   const { t } = useTranslation('quickBuy')
   const [showInvoiceInfo, setShowInvoiceInfo] = useState(true)
   const switchPanel = () => setShowInvoiceInfo((prevState) => !prevState)
+  const price = info.price * details.numberOfTokens
 
   return (
     <div className="p-10 m-10 bg-purple-200 rounded-3xl">
@@ -25,9 +26,7 @@ export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
           >
             {t('transaction.invoicePanel.header')}
             <p className="text-2xl font-bold">
-              <span className="font-extrabold text-purple-700">
-                {info.price}{' '}
-              </span>
+              <span className="font-extrabold text-purple-700">{price} </span>
               {t('transaction.invoicePanel.currency')}
             </p>
           </QRComponent>

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { LocalKey } from 'constants/LocalKey'
-import { User } from 'webService/interface/user'
+import { Role, User } from 'webService/interface/user'
 import { api } from 'webService/requests'
 import { useLocalStorage } from 'utils/persist'
 
@@ -12,6 +12,7 @@ type ContextType = {
   setToken: (token: string) => void
   loading: boolean
   isLoggedIn: boolean
+  hasAccount: boolean
   logout: () => void
   tryRefreshingToken: () => void
 }
@@ -24,6 +25,7 @@ export const defaultValue: ContextType = {
   loading: true,
   isLoggedIn: false,
   logout: () => {},
+  hasAccount: false,
   tryRefreshingToken: () => {}
 }
 
@@ -34,6 +36,10 @@ export const UserProvider: React.FC = ({ children }) => {
   const [token, setToken] = useLocalStorage<string>(LocalKey.TOKEN)
   const [loading, setLoading] = useState(true)
   const isLoggedIn = useMemo(() => Boolean(user && token), [user, token])
+  const hasAccount = useMemo(
+    () => isLoggedIn && user?.role !== Role.TEMPORARY,
+    [isLoggedIn, user?.role]
+  )
 
   const logout = useCallback(() => {
     setToken(undefined)
@@ -68,7 +74,8 @@ export const UserProvider: React.FC = ({ children }) => {
         loading,
         isLoggedIn,
         logout,
-        tryRefreshingToken
+        tryRefreshingToken,
+        hasAccount
       }}
     >
       {children}
