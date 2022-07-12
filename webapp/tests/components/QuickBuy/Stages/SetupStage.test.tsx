@@ -37,20 +37,21 @@ describe('SetupStage', () => {
     setPayment = jest.fn(() => {})
     setTokens = jest.fn(() => {})
     render(<SetupStage {...{ onPrevious, onNext, setTokens, setPayment }} />, {
-      role,
-      isLoggedIn: true
+      role
     })
-  })
-
-  it('renders info', () => {
-    expect(
-      screen.getByText('Tokens are very cool things', { exact: false })
-    ).toBeInTheDocument()
   })
 
   describe('when user has temporary role', () => {
     beforeAll(() => {
       role = Role.TEMPORARY
+    })
+
+    it('renders correct info', () => {
+      expect(
+        screen.getByText(
+          'Purchased tokens will be shown at the last screen. Make sure to save them before closing or else they will be gone forever.'
+        )
+      ).toBeInTheDocument()
     })
 
     it('calls setPayment when data is valid', async () => {
@@ -97,6 +98,14 @@ describe('SetupStage', () => {
   describe('when user has admin role', () => {
     beforeAll(() => {
       role = Role.ADMIN
+    })
+
+    it('renders correct info', () => {
+      expect(
+        screen.getByText(
+          'After purchase. Tokens will be saved to your account. You can view them anytime.'
+        )
+      ).toBeInTheDocument()
     })
 
     it('does not show or require email', async () => {
