@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Alert, Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form } from 'formik'
@@ -15,19 +15,16 @@ import { initialValues, PaymentLocalForm, schemaFactory } from './form'
 export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   const { t } = useTranslation('quickBuy')
   const { user, isLoggedIn, setToken, setUser } = useContext(UserContext)
-  const [form, setForm] = useState<PaymentLocalForm>()
   const showEmailInput = !isLoggedIn || user?.role === Role.TEMPORARY
 
-  const createPayment = useCallback(
-    async (form: PaymentLocalForm) => {
-      const { data } = await api.payment.create(form)
-      if (data) {
-        setPayment(data!)
-        onNext()
-      }
-    },
-    [onNext, setPayment]
-  )
+  const createPayment = async (form: PaymentLocalForm) => {
+    console.log('CREATE PAYMENT')
+    const { data } = await api.payment.create(form)
+    if (data) {
+      setPayment(data!)
+      onNext()
+    }
+  }
 
   const logInTemporaryUser = async (form: PaymentLocalForm) => {
     const response = await api.auth.temporary(form)
@@ -38,17 +35,12 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   }
 
   const onSubmit = (form: PaymentLocalForm) => {
-    if (!isLoggedIn) {
+    if (isLoggedIn) {
+      createPayment(form)
+    } else {
       logInTemporaryUser(form)
     }
-    setForm(form)
   }
-
-  useEffect(() => {
-    if (form && isLoggedIn) {
-      createPayment(form)
-    }
-  }, [isLoggedIn, form, createPayment])
 
   return (
     <Formik
