@@ -13,26 +13,25 @@ export const BalanceProgressBar: React.FC<Props> = ({
   color,
   tooltipContent,
   balance
-}) => {
-  const normalise = (value: number): number => (value * 100) / maxValue
-
-  return (
-    <Tooltip title={tooltipContent}>
-      <Box>
-        <LinearProgress
-          value={normalise(balance)}
-          variant="determinate"
-          color={color}
-          sx={{
-            height: 16,
-            borderRadius: 5
-          }}
-        />
-        <Box className="flex justify-between text-slate-500">
-          <span>0</span>
-          <span>{maxValue.toLocaleString()}</span>
-        </Box>
+}) => (
+  <Tooltip title={tooltipContent}>
+    <Box>
+      <LinearProgress
+        value={normalise(balance, maxValue)}
+        variant="determinate"
+        color={color}
+        sx={{
+          height: 16,
+          borderRadius: 5
+        }}
+      />
+      <Box className="flex justify-between text-slate-500">
+        <span>0</span>
+        <span>{maxValue.toLocaleString()}</span>
       </Box>
-    </Tooltip>
-  )
-}
+    </Box>
+  </Tooltip>
+)
+
+const normalise = (value: number, maxValue: number) =>
+  Math.min((value * 100) / maxValue, 100)
