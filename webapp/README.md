@@ -1,8 +1,12 @@
 # Frontend app
 
-## What is inside?
+Client for the webservice made with `React` on `Vite`.
 
-This project uses many tools like:
+## Requirements
+* NodeJS > 14 https://nodejs.org/en/
+* Yarn > 1.22 https://yarnpkg.com/
+
+## Tools used
 
 - [ReactJS](https://reactjs.org)
 - [Vite](https://vitejs.dev)
@@ -13,9 +17,7 @@ This project uses many tools like:
 - [Eslint](https://eslint.org)
 - [Prettier](https://prettier.io)
 
-## Getting Started
-
-### Install
+## Setup
 
 Install dependencies.
 
@@ -23,28 +25,37 @@ Install dependencies.
 yarn install
 ```
 
+## Development
+Before running the client make sure the `webservice` is running.
+
 Serve with hot reload at http://localhost:3000.
 
 ```bash
 yarn dev
 ```
 
-### Lint
+## Testing
 
+### Unit testing
+```bash
+yarn test:unit
+```
+
+### Checking for syntax errors
+(Add `--fix` to fix errors which can be automatically fixed)
 ```bash
 yarn lint
 ```
 
-### Build
-
+## Building
+To build for production run
 ```bash
 yarn build
 ```
-
-### Test
-
+This step also runs TypeScript because `Vite` does not check for type errors.
+To serve the compiled files run
 ```bash
-yarn test
+yarn serve
 ```
 
 ## License
