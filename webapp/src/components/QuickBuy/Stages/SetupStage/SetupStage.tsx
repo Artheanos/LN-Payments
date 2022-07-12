@@ -14,9 +14,9 @@ import { initialValues, PaymentLocalForm, schemaFactory } from './form'
 
 export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   const { t } = useTranslation('quickBuy')
-  const { user, isLoggedIn, setToken, setUser } = useContext(UserContext)
+  const { user, isLoggedIn, hasAccount, setToken, setUser } =
+    useContext(UserContext)
   const [form, setForm] = useState<PaymentLocalForm>()
-  const showEmailInput = !isLoggedIn || user?.role === Role.TEMPORARY
 
   const createPayment = useCallback(
     async (form: PaymentLocalForm) => {
@@ -56,11 +56,11 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
         user?.role === Role.TEMPORARY ? user.email : ''
       )}
       onSubmit={onSubmit}
-      validationSchema={schemaFactory(showEmailInput)}
+      validationSchema={schemaFactory(!hasAccount)}
     >
       <Form className="flex flex-col gap-10">
         <Alert variant="standard" severity="info" className="mx-auto">
-          {t('setup.info')}
+          {t(`setup.${hasAccount ? 'infoWithAccount' : 'infoWithoutAccount'}`)}
         </Alert>
         <CardForm className="mx-auto w-96" submitButtonContent="Next">
           <Grid xs={12} item>
@@ -74,7 +74,7 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
             />
           </Grid>
 
-          {showEmailInput && (
+          {!hasAccount && (
             <Grid xs={12} item className="pb-5">
               <Field
                 name="email"

@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { Alert, Button, Card } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 
 import { StageProps } from 'components/QuickBuy/StageProps'
 import { TokenList } from './TokenList'
 import { ConfirmationModal } from 'components/Modals/ConfirmationModal'
+import { UserContext } from 'components/Context/UserContext'
 
 export const TokensStage: React.FC<StageProps> = ({
   onNext,
@@ -13,6 +14,7 @@ export const TokensStage: React.FC<StageProps> = ({
 }) => {
   const { t } = useTranslation('quickBuy')
   const [displayToken, setDisplayToken] = useState<string>()
+  const { hasAccount } = useContext(UserContext)
 
   const closeTransaction = useCallback(() => {
     setTokens(undefined)
@@ -23,9 +25,11 @@ export const TokensStage: React.FC<StageProps> = ({
 
   return (
     <div className="flex flex-col gap-10">
-      <Alert variant="standard" severity="info" className="mx-auto">
-        {t('tokens.info')}
-      </Alert>
+      {!hasAccount && (
+        <Alert variant="standard" severity="warning" className="mx-auto">
+          {t('tokens.infoWithoutAccount')}
+        </Alert>
+      )}
       <div className="mx-auto w-min">
         <Card>
           <TokenList tokens={tokens} setDisplayToken={setDisplayToken} />

@@ -4,7 +4,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 import routesBuilder from 'routesBuilder'
-import { PaymentStatus } from 'webService/interface/payment'
+import { PaymentDetails, PaymentInfo } from 'webService/interface/payment'
 import { TransactionStage } from 'components/QuickBuy/Stages/TransactionStage/TransactionStage'
 
 jest.mock('@stomp/stompjs', () => {
@@ -33,7 +33,11 @@ jest.mock('@stomp/stompjs', () => {
 
 const server = setupServer(
   rest.get(routesBuilder.api.payments.info, (req, res, ctx) => {
-    return res(ctx.json({ price: 100 }))
+    const response: Partial<PaymentInfo> = {
+      price: 100,
+      pendingPayments: [{ numberOfTokens: 2 }] as never
+    }
+    return res(ctx.json(response))
   })
 )
 
@@ -41,13 +45,8 @@ describe('TransactionStage', () => {
   const fakePaymentDetails = {
     paymentTopic: '/topic/123',
     paymentRequest: '123',
-    timestamp: new Date(),
-    expirationTimestamp: new Date(new Date().valueOf() + 4_000),
-    price: 1,
-    numberOfTokens: 1,
-    paymentStatus: PaymentStatus.PENDING,
-    tokens: []
-  }
+    expirationTimestamp: new Date(new Date().valueOf() + 4_000)
+  } as PaymentDetails
 
   let onPrevious: jest.Mock
   let onNext: jest.Mock
@@ -87,6 +86,21 @@ describe('TransactionStage', () => {
     await waitFor(() => screen.getByText('00:02'))
   })
 
+  it('calls onPrevious when pressing Cancel', async () => {
+    expect(onPrevious).not.toHaveBeenCalled()
+    expect(onNext).not.toHaveBeenCalled()
+
+    screen.getByText('Cancel').click()
+
+    expect(onPrevious).toHaveBeenCalledTimes(1)
+    expect(onNext).not.toHaveBeenCalled()
+  })
+
+  it('displays proper price', () => {
+    expect(screen.getByText('200')).toBeInTheDocument()
+    expect(screen.getByText('SAT')).toBeInTheDocument()
+  })
+
   describe('timeout', () => {
     beforeEach(async () => {
       await waitFor(() => screen.getByText('Go to setup'), { timeout: 5000 })
@@ -100,15 +114,5 @@ describe('TransactionStage', () => {
       screen.getByText('Go to setup').click()
       expect(setStageIndex).toHaveBeenCalledTimes(1)
     })
-  })
-
-  it('calls onPrevious when pressing Cancel', async () => {
-    expect(onPrevious).not.toHaveBeenCalled()
-    expect(onNext).not.toHaveBeenCalled()
-
-    screen.getByText('Cancel').click()
-
-    expect(onPrevious).toHaveBeenCalledTimes(1)
-    expect(onNext).not.toHaveBeenCalled()
   })
 })
