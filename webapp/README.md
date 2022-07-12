@@ -1,8 +1,6 @@
 # Frontend app
 
-## What is inside?
-
-This project uses many tools like:
+## Tools used
 
 - [ReactJS](https://reactjs.org)
 - [Vite](https://vitejs.dev)
@@ -29,22 +27,16 @@ Serve with hot reload at http://localhost:3000.
 yarn dev
 ```
 
-### Lint
+### Testing
 
+#### Unit
 ```bash
-yarn lint
+yarn test:unit
 ```
 
-### Build
-
+#### E2E
 ```bash
-yarn build
-```
-
-### Test
-
-```bash
-yarn test
+yarn test:e2e
 ```
 
 ## License
