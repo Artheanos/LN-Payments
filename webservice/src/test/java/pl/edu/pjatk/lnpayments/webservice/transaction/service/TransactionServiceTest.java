@@ -214,28 +214,48 @@ class TransactionServiceTest {
 
     @Test
     void shouldBroadcastTransactionAndSetApprovedStatus() {
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setId(1L);
         Wallet wallet = Wallet.builder().redeemScript("2137").build();
         Transaction transaction = new Transaction();
+        transaction.setId(1L);
         transaction.setRawTransaction("1234");
+        Notification notification1 = new Notification(user, transaction, "message2", NotificationType.TRANSACTION);
+        notification1.setStatus(NotificationStatus.CONFIRMED);
+        Notification notification2 = new Notification(user, transaction, "message3", NotificationType.TRANSACTION);
+        Notification notification3 = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification1, notification2, notification3));
         when(walletDataService.getActiveWallet()).thenReturn(wallet);
 
         transactionService.broadcastTransaction(transaction);
 
         verify(bitcoinService).broadcast("1234", "2137");
         assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.APPROVED);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.EXPIRED).hasSize(2);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.CONFIRMED).hasSize(1);
     }
 
     @Test
     void shouldNotBroadcastAndSetStatusToFailed() {
+        AdminUser user = createAdminUser("test@test.pl");
+        user.setId(1L);
         Wallet wallet = Wallet.builder().redeemScript("2137").build();
         Transaction transaction = new Transaction();
+        transaction.setId(1L);
         transaction.setRawTransaction("1234");
+        Notification notification1 = new Notification(user, transaction, "message2", NotificationType.TRANSACTION);
+        notification1.setStatus(NotificationStatus.CONFIRMED);
+        Notification notification2 = new Notification(user, transaction, "message3", NotificationType.TRANSACTION);
+        Notification notification3 = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
+        transaction.setNotifications(List.of(notification1, notification2, notification3));
         when(walletDataService.getActiveWallet()).thenReturn(wallet);
         doThrow(BroadcastException.class).when(bitcoinService).broadcast("1234", "2137");
 
         transactionService.broadcastTransaction(transaction);
 
         assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.FAILED);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.EXPIRED).hasSize(2);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.CONFIRMED).hasSize(1);
     }
 
     @Test
@@ -246,7 +266,7 @@ class TransactionServiceTest {
         user.setId(1L);
         transaction.setRawTransaction("1234");
         Notification notification1 = new Notification(user, transaction, "message2", NotificationType.TRANSACTION);
-        notification1.setStatus(NotificationStatus.CONFIRMED);
+        notification1.setStatus(NotificationStatus.DENIED);
         Notification notification2 = new Notification(user, transaction, "message3", NotificationType.TRANSACTION);
         Notification notification3 = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
         transaction.setNotifications(List.of(notification1, notification2, notification3));
@@ -255,7 +275,7 @@ class TransactionServiceTest {
 
         assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.DENIED);
         assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.EXPIRED).hasSize(2);
-        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.CONFIRMED).hasSize(1);
+        assertThat(transaction.getNotifications()).extracting(Notification::getStatus).filteredOn(status -> status == NotificationStatus.DENIED).hasSize(1);
     }
 
     @ParameterizedTest

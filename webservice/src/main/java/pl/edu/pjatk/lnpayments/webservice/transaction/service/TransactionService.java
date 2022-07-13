@@ -98,14 +98,12 @@ public class TransactionService {
             log.error("Unable to broadcast transaction", e);
             transaction.setStatus(TransactionStatus.FAILED);
         }
+        expirePendingNotifications(transaction);
     }
 
     public void denyTransaction(Transaction transaction) {
         transaction.setStatus(TransactionStatus.DENIED);
-        transaction.getNotifications()
-                .stream()
-                .filter(notification -> notification.getStatus() == NotificationStatus.PENDING)
-                .forEach(notification -> notification.setStatus(NotificationStatus.EXPIRED));
+        expirePendingNotifications(transaction);
     }
 
     public boolean isTransactionInProgress() {
@@ -149,5 +147,12 @@ public class TransactionService {
     public NewTransactionDetails getNewTransactionDetails() {
         BitcoinWalletBalance balance = bitcoinService.getBalance();
         return new NewTransactionDetails(balance, isTransactionInProgress());
+    }
+
+    private void expirePendingNotifications(Transaction transaction) {
+        transaction.getNotifications()
+                .stream()
+                .filter(notification -> notification.getStatus() == NotificationStatus.PENDING)
+                .forEach(notification -> notification.setStatus(NotificationStatus.EXPIRED));
     }
 }
