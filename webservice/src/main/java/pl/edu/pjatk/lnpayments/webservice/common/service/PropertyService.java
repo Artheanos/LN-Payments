@@ -15,4 +15,6 @@ public interface PropertyService {
     long getAutoTransferLimit();
 
     String getTokenDeliveryUrl();
+
+    String getServerIpAddress();
 }

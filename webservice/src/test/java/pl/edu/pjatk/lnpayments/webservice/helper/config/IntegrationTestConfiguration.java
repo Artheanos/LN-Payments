@@ -57,6 +57,7 @@ public class IntegrationTestConfiguration {
                                 .setThrowExceptionOnMissing(true));
         PropertiesConfiguration configuration = builder.getConfiguration();
         SettingsHelper.resetSettings(configuration);
+        configuration.setProperty("serverIpAddress", "1.2.3.4");
         return configuration;
     }
 
