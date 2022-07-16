@@ -48,7 +48,9 @@ public class SettingsPropertiesConfig {
         log.info("Creating new settings file in " + path);
         InputStream defaultConfig = new ClassPathResource("/default/" + fileName).getInputStream();
         Path settingsFilePath = Path.of(path);
-        Files.createDirectories(settingsFilePath.getParent());
+        if (!settingsFilePath.getParent().toFile().exists()) {
+            Files.createDirectory(settingsFilePath.getParent());
+        }
         Files.copy(defaultConfig, settingsFilePath);
     }
 
