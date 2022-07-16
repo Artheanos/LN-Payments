@@ -1,7 +1,39 @@
 == Opis rozwiązania
 
-=== Struktura projektu
+=== Struktura repozytorium
 
-=== Opis API
+=== Serwer
 
-=== Prezentacja systemu
+==== Opis API
+
+==== Struktura i pakiety
+
+==== Baza danych
+
+==== Uwierzytelnianie i autoryzacja
+
+==== Płatności
+
+==== Zarządzanie administratorami
+
+==== Portfel
+
+==== Transakcje
+
+==== Powiadomienia mobilne
+
+==== Pakiet wspólny
+
+==== Zasoby
+
+=== Aplikacja webowa
+
+=== Aplikacja mobilna
+
+=== Dokumentacja
+
+=== Pozostałe <- lepsza nazwa
+
+==== Postman
+
+==== Docker
