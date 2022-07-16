@@ -15,9 +15,9 @@
     "test:e2e": "cypress run",
     "lint": "eslint src --max-warnings=0",
     "cypress": "cypress open",
-    "setup:backend": "yarn setup:docker:regtest && yarn setup:btc && mvn spring-boot:run -f ../webservice/pom.xml -Dspring-boot.run.arguments=\"--lnp.wallet.network=regtest\"",
+    "setup:backend": " mkdir -p ~/.lnpayments && yarn setup:docker:regtest && yarn setup:btc && mvn spring-boot:run -f ../webservice/pom.xml -Dspring-boot.run.arguments=\"--lnp.wallet.network=regtest\"",
     "setup:docker:regtest": "docker-compose -f ../devtools/docker/docker-compose.yaml -f ../devtools/docker/docker-compose-regtest.yaml up -d && yarn setup:lnd",
-    "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert ../webservice && docker cp lnd:/root/.lnd/admin.macaroon ../webservice",
+    "setup:lnd": "docker cp lnd:/root/.lnd/tls.cert ~/.lnpayments && docker cp lnd:/root/.lnd/admin.macaroon ~/.lnpayments",
     "setup:btc": "docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test createwallet test && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test getnewaddress && docker exec btc bitcoin-cli -regtest -rpcpassword=test -rpcuser=test -generate 50"
   },
   "dependencies": {
