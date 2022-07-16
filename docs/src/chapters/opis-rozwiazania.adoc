@@ -1,6 +1,40 @@
 == Opis rozwiązania
 
+Rozdział opisuje zawartość repozytorium, w którym przechowywany jest między innymi kod źródłowy wszystkich komponentów
+aplikacji oraz dokumentacja. Każdy podrozdział opisuje jeden z przechowywanych komponentów, wraz z omówieniem kodu
+i samego rozwiązania od strony technicznej.
+
 === Struktura repozytorium
+
+Wszystkie pliki związane z projektem znajdują się w jednym repozytorium zgodnie z podejściem _monorepo_. Oznacza
+to, że każda część systemu znajduje się w osobnym folderze wewnątrz jednego repozytorium. Aplikacja nie składa się z
+wielu komponentów oraz nie pracuje nad nim dużo osób, więc rozwiązanie sprawdza się tutaj perfekcyjnie. Wszystko,
+łącznie z dokumentacją i diagramami znajduje się w jednym miejscu. Ułatwia to wprowadzanie zmian do kilku
+komponentów jednocześnie, a także usprawnia proces _code review_, ponieważ zadanie będzie zawsze zawarte w jednym
+_pull requeście_. Repozytorium przechowywane w serwisie Github, z którego wykorzystywane są również wbudowane narzędzia
+do CI/CD. Główny folder projektu prezentuje się następująco:
+
+.Zawartość folderu głównego w programie Intellij IDEA.
+image::../images/root_dir_tree.png[]
+
+Poszczególne komponenty i zależności mają swoje foldery:
+
+* .github → Zawiera pliki konfiguracyjne dla repozytorium w serwisie _Github_. Znajdują się tam pliki konfigurujące
+CI/CD przy pomocy _Github Actions_, a także szablon i konfiguracja dla _pull requestów_.
+* devtools → Projekt polega na kilku programach, które wspomagają i ułatwiają proces tworzenia oprogramowania.
+W tym folderze znajdują się ich pliki konfiguracyjne oraz dokumentacja użytkowania w kontekście tworzonego systemu.
+* docs → Przechowuje większość dokumentacji stworzonej przez cały okres tworzenia projektu. Zawiera między innymi
+dokumenty KP, DZW i SWS, a także wszystkie rozdziały i pliki budujące pracę dyplomową. W poszczególnych folderach
+znajdują się również diagramy, fragmenty kodu i zdjęcia.
+* mobileapp → Znajduje się w nim kod źródłowy aplikacji mobilnej dla systemu Android.
+* webapp → Zawiera kod źródłowy aplikacji internetowej oraz kod testów E2E. Plik obsługujący proces budowania tego
+komponentu zawiera ustawienia do uruchomienia same aplikacji webowej oraz uruchomienia testów E2E dla całego serwisu
+(z wyłączeniem testów dla aplikacji mobilnej).
+* webservice → Przechowuje kod źródłowy dla serwera.
+
+Pozostałe pliki znajdujące się w tym folderze to _.gitignore_, zawierające ścieżki i pliki, które będą ignorowane przez
+system kontroli wersji _Git_, oraz _README.md_, które zawiera informacje o aplikacji oraz instrukcje potrzeba do jej
+uruchomienia.
 
 === Serwer
 
@@ -9,6 +43,34 @@
 ==== Struktura i pakiety
 
 ==== Baza danych
+
+Zdecydowano się na użycie relacyjnej bazy danych PostgreSQL, gdyż dane przechowywane w bazie danych są wyraźnie
+ustrukturyzowane. Ze względu na charakter przechowywanych danych ważna jest również obsługa transakcji na poziomie
+bazy danych. W tym komponencie wykorzystujemy do obsługi bazy danych framework Spring Data JPA oraz Hibernate.
+Pozwoliło to na znaczne ułatwienie procesu tworzenia bazy danych. JPA pozwala na mapowanie relacyjnej bazy danych na
+zwykłe klasy Java z wykorzystaniem specjalnych adnotacji. Hibernate natomiast oferuje funkcjonalność automatycznego
+tworzenia bazy danych na podstawie mapowań w JPA. Dzięki temu nie było potrzeby ręcznego pisania kwerend SQL, a baza
+danych była tworzona w ramach zwykłych zadań dodających nowe funkcjonalności. Na początku prac wykonana została
+konfiguracja połączenia z bazą danych oraz wymaganych bibliotek i frameworków. Cała reszta działa się automatycznie na
+podstawie kodu tworzonego w Javie.
+
+Schemat bazy danych nie różni się znacząco od diagramu domenowego prezentowanego w rozdziale Analiza.
+Znajduje się tam opis każdej z tabeli, jak i relacje pomiędzy nimi. Główne różnice to przede wszystkim nazwy oraz ilość
+pól w poszczególnych tabelach. Oczywiście prawie każda z tabel zawiera kolumny _id_, która służy jako klucz publiczny,
+a także odpowiednie pola, które są kluczami obcymi.
+
+.Schemat bazy danych wygenerowany przez plugin JPA Buddy dla programu IntelliJ IDEA.
+image::../images/database.png[]
+
+Niektóre z pól zostały wymuszone przez względy techniczne, na przykład pole _version_ w tabeli _Transaction_.
+Zapobiega ono problemowi utraconych zapisów przy podpisywaniu transakcji. W przypadku tabeli _Notification_
+zdecydowano się na wykorzystanie złożonego klucza publicznego składającego się z ID pochodzącego z tabel _Notification_
+oraz _User_ (technicznie tylko dla AdminUser, gdyż tylko administrator może otrzymywać powiadomienia o
+nowej transakcji). Dzięki temu dla jednego użytkownika oraz jednej transakcji w bazie danych może powstać tylko jedno
+powiadomienie. Tabela _Notification_ zawiera również pole identifier, które wyliczane jest na podstawie klucza
+złożonego. Wykorzystywane jest do odnoszenia się do rekordu danych podczas wysyłania żądań do API powiadomień.
+Reszta kolumn została dodana, aby ułatwić pracę niektórych algorytmów bądź uatrakcyjnić widok danych prezentowany
+użytkownikowi. Wszystkie relacje pomiędzy tabelami zostały bez zmian względem diagramu domenowego.
 
 ==== Uwierzytelnianie i autoryzacja
 
@@ -33,6 +95,8 @@
 === Dokumentacja
 
 === Pozostałe <- lepsza nazwa
+
+=== .github
 
 ==== Postman
 
