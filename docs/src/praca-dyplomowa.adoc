@@ -28,6 +28,8 @@ include::chapters/plan.adoc[]
 
 include::chapters/proces-realizacji.adoc[]
 
+include::chapters/prezentacja.adoc[]
+
 include::chapters/opis-rozwiazania.adoc[]
 
 include::chapters/testy.adoc[]
