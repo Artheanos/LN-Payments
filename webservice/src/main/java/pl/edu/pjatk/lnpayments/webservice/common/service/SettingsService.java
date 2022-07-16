@@ -3,13 +3,11 @@ package pl.edu.pjatk.lnpayments.webservice.common.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.edu.pjatk.lnpayments.webservice.common.resource.dto.PropertyValues;
 
 import javax.persistence.OptimisticLockException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -80,4 +78,9 @@ public class SettingsService implements PropertyService {
 
     @Override
     public String getTokenDeliveryUrl() { return propertiesConfiguration.getString("tokenDeliveryUrl"); }
+
+    @Override
+    public String getServerIpAddress() {
+        return propertiesConfiguration.getString("serverIpAddress");
+    }
 }

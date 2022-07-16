@@ -136,4 +136,14 @@ class SettingsServiceTest {
 
         assertThat(value).isEqualTo(initialValue);
     }
+
+    @Test
+    void shouldGetIpAddress() {
+        String initialValue = "127.0.0.1";
+        when(propertiesConfiguration.getString("serverIpAddress")).thenReturn(initialValue);
+
+        String value = settingsService.getServerIpAddress();
+
+        assertThat(value).isEqualTo(initialValue);
+    }
 }
