@@ -8,12 +8,12 @@ import { ActionsCard } from 'components/wallet/ActionsCard'
 import { BitcoinWalletCard } from 'components/wallet/BitcoinWalletCard'
 import { ChannelsBalanceCard } from 'components/wallet/ChannelsBalanceCard'
 import { LightningWalletCard } from 'components/wallet/LightningWalletCard'
+import { TotalIncomeChart } from 'components/wallet/TotalIncomeChart'
 import { WalletCard } from 'components/wallet/WalletCard'
+import { WalletInfo } from 'webService/interface/wallet'
 import { WalletLoadingSkeleton } from 'components/wallet/WalletLoadingSkeleton'
 import { api } from 'webService/requests'
 import { useNotification } from 'components/Context/NotificationContext'
-import { WalletInfo } from 'webService/interface/wallet'
-import { TotalIncomeChart } from 'components/wallet/TotalIncomeChart'
 
 export const WalletPage: React.FC = () => {
   const { t } = useTranslation('wallet')
