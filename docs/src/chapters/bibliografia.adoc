@@ -26,3 +26,6 @@ https://t.ly/G-Zo[]
 
 * [[[crypto_market_sizing, 9]]] _crypto.com_, Crypto Market Sizing, [dostęp: 07.07.2022],
 https://t.ly/_-8M[]
+
+* [[[maven_directories, 10]]] _apache.maven.com_, Introduction to standard directory layout, [dostęp: 17.07.2022],
+https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html[]
