@@ -29,3 +29,6 @@ https://t.ly/_-8M[]
 
 * [[[maven_directories, 10]]] _apache.maven.com_, Introduction to standard directory layout, [dostęp: 17.07.2022],
 https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html[]
+
+* [[[rest_tutorial_stateless, 11]]] _REST API Tutorial_, Stateless in REST API, [dostęp: 18.07.2022],
+https://restfulapi.net/statelessness[]
