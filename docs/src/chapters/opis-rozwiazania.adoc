@@ -432,18 +432,204 @@ jest token, po czym następuje walidacja oraz zalogowanie użytkownika. W tym pr
 bezpieczeństwa, tylko w obiekcie klasy StompHeaderAccessor, który zarządza dostępem do przechwyconej przez interceptor
 wiadomości.
 
-Pakiet _auth_ obsługuje również funkcjonalności.
+Pakiet _auth_ obsługuje również część API odpowiedzialną za uwierzytelnianie. Dostępne są 4 punkty końcowe: _login_
+służący do logowania, _register_ służący do rejestracji, _refreshToken_ służący do odświeżenia tokena JWT oraz
+_temporary_ pozwalający na pozyskanie tokena przez niezalogowanego użytkownika.
 
 .API służące do uwierzytelniania.
 image::../images/webservice_auth_api.png[]
 
+Obsługa powyższego API znajduje się w klasie _AuthResource_. Spora część logiki znajduje się bezpośrednio w
+kontrolerze, gdyż kodu jest często zbyt mało do wyodrębnienia do osobnego serwisu. Łamana jest przez to zasada
+_Single Responsibility Principle_ z akronimu SOLID, aczkolwiek dzięki temu uniknięto tworzenia kolejnego niepotrzebnego
+serwisu.
+
+.Metoda login klasy _UserResource_.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/resource/AuthResource.java[lines=39..48]
+----
+
+Omówienie zaczniemy od metody _login_, pozwalającej na logowanie użytkownika. Do uwierzytelniania wykorzystana
+została klasa _AuthenticationManager_ pochodząca ze Spring Security. Jej konfiguracja znajduje się w klasie
+konfiguracyjnej _WebSecurityConfig_. Pozwala ona na automatyczne przeprowadzenie logowania przy pomocy tego samego
+tokena uwierzytelniającego, który użyty został wcześniej przy logowaniu w filtrze HTTP. Po udanym logowaniu
+generowany jest token JWT przy pomocy _JwtService_, który zwracany jest użytkownikowi wraz z podstawowymi danymi
+o użytkowniku, takimi jak ważność tokena czy posiadana rola. W przypadku nieudanego logowania Spring automatycznie
+zwraca kod HTTP 403, oznaczający zabroniony dostęp do zasobu. Na uwagę zasługuje również metoda _obtainTemporaryToken_,
+generująca token przeznaczony dla tymczasowego użytkownika.
+
+.Metoda obtainTemporaryToken klasy _UserResource_.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/resource/AuthResource.java[lines=56..63]
+----
+
+Na początku tworzony jest nowy użytkownik tymczasowy w bazie danych. Jest to obiekt klasy _TemporaryUser_, więc
+do adresu email będzie miał dołączoną specjalną wartość zapewniającą unikatowość użytkowników z tym samym adresem email.
+Następnie generowany jest token JWT i zwracany użytkownikowi. Dzięki temu rozwiązaniu nawet użytkownik nieposiadający
+konta ma tworzony obiekt w bazie danych na potrzeby śledzenia zamówienia. Będzie on ważny tak długo, jak ważny będzie
+token JWT. Po wygaśnięciu tokena użytkownik tymczasowy będzie musiał poprosić o nowy token, a co za tym idzie o
+nowego użytkownika.
+
+Pozostałe metody klasy _UserResource_ nie mają interesującej logiki. Delegują one wywołania do odpowiednich serwisów.
+Metoda _refreshToken_ przekazuje dane do serwisu _JwtService_, gdzie na podstawie danych z otrzymanego tokena
+generowany jest nowy token ze zaktualizowaną datą ważności. W przypadku metody _register_ wywołanie delegowane jest
+do metody tworzącej użytkownika w klasie _UserService_. Serwis ten zajmuje się obsługą wszystkich typów użytkowników.
+Posiada metody pozwalające na tworzenie zarówno tymczasowych, jak i standardowych użytkowników oraz posiada metody
+operujące na abstrakcyjnej klasie _User_. Wracając do rejestracji, odbywa się ona poprzez wywołanie metody
+_createUser_.
+
+.Metoda createUser klasy _UserService_.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/service/UserService.java[lines=42..47]
+----
+
+Metoda oznaczona jest jako @Transactional, co zapobiega jednoczesnemu dodaniu tego samego użytkownika przez kilka
+wątków. Na początku wywołanie poddany walidacji zostaje adres email, czyli wykonywane jest sprawdzenie, czy dany email
+jest wolny. Następnie model parametru konwertowany jest na klasę User (a konkretnie StandardUser) i zapisywany jest
+przy pomocy klasy repozytorium. Sama hierarchia klas repozytorium użytkowników jest dosyć ciekawa. Zaczyna się
+od generycznego interfejsu _BaseUserRepository_.
+
+.Interfejs BaseUserRepository.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/repository/BaseUserRepository.java[lines=9..15]
+----
+
+Adnotacja _NoRepositoryBean_ sprawia, że pomimo dziedziczenia po _JpaRepository_, interfejs nie zostanie zainicjowany
+jako komponent w kontenerze Springa. Dzięki zastosowaniu typów generycznych można utworzyć interfejsy dla każdego z
+typów użytkowników, bez większego nakładu pracy dodając metody pozwalające na operacje na każdym modelu hierarchii.
+
+.Interfejsy UserRepository, StandardUserRepository i AdminUserRepository.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/repository/UserRepository.java[lines=6..8]
+
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/repository/StandardUserRepository.java[lines=6..8]
+
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/repository/AdminUserRepository.java[lines=8..13]
+----
+
+Repozytorium administratorów posiada dodatkową metodę, która pozwala na wyszukanie administratorów, którzy posiadają
+klucze publiczne. Dzieje się to za pomocą specjalnej składni metod Spring Data, dzięki której kwerendy można pisać
+przy pomocy słów kluczowych w nazwie metody. Ogranicza to potrzebę pisania zapytań SQL, gdyż zostaną one wygenerowane
+automatycznie w czasie wykonania. Jak już zostało wspomniane, obecnie najlepszym miejscem dla klas repozytorium, a
+także dla klas _UserService_ i _UserConverter_ jest pakiet _common_, gdyż są one wykorzystywane w wielu różnych
+pakietach. Jest plan na uporządkowanie tych klas w odpowiednich pakietach, niestety odbędzie się to dopiero w następnych
+wydaniach projektu.
+
 ==== Płatności
+
+Pakiet payment oferuje jedną z głównych funkcjonalności projektu, czyli sprzedaż tokenów za Bitcoiny w sieci
+Lightning. Obsługuje również funkcje związane z pobieraniem historii płatności czy też z agregowaniem danych
+statystycznych.
 
 .Zawartość pakietu _payment_.
 image::../images/webservice_payment_content.png[]
 
+Aby płatności były w ogóle możliwe, należy ustanowić połączenie z węzłem sieci Lightning. W projekcie zdecydowano
+się na wykorzystanie węzła o nazwie _LND_, który działa w kontenerze obok aplikacji. Do poprawnego działania wymagany
+jest jeszcze drugi kontener, który zawiera pełny węzeł sieci Bitcoin. Teoretycznie istnieje możliwość uruchomienia
+_LND_, wykorzystując jeden publicznych węzłów Bitcoin, aczkolwiek własna instancja daje większą niezależność oraz
+ułatwia rozwój projektu. Do obsługi węzła w kodzie Java wykorzystana została biblioteka _LightningJ_. Jej
+konfiguracja odbywa się w klasie _LndConfig_, która standardowo znajduje się w pakiecie _config_.
+
+.Metody klasy konfiguracyjna LndConfig.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/config/LndConfig.java[lines=41..57]
+----
+
+Do kontenera Springa wprowadzone zostają dwie nowe zależności obsługujące komunikację z _LND_. Różnią się tym, że
+jedna z nich jest synchroniczna, a druga asynchroniczna. W obu przypadkach konfiguracja odbywa się poprzez podanie
+portu, na którym działa węzeł, oraz przez podanie plików zawierających certyfikat TSL, oraz plik _macaroon_.
+Dodatkowo w przypadku asynchronicznego obiektu dodany został subskrybent, który jest aktywowany przy zmianie statusu
+_invoice_ w węźle Lightning. Klasa _InvoiceObserver_ zostanie umówiona w dalszej części podrozdziału.
+
+Funkcjonalności pakietu _payment_ udostępnione poprzez API dotyczą obsługi płatności. Użytkownicy mogą tworzyć nowe
+płatności, co wiąże się z generowaniem _invoice_ przez węzeł sieci Lightning. Pozwala także na pobieranie danych
+o płatnościach z bazy danych, zarówno dla zalogowanego użytkownika, jak i wszystkich płatności. Oczywiście dane
+zwracane przez punkty końcowe różnią się, aby zapobiec nieautoryzowanemu udostępnianiu danych poufnych. Dodatkowo
+dostępna jest ścieżka _/payments/info_, zwracająca informacje o aktualnych szczegółach płatności takich jak cena czy
+opis. Dane te są wyświetlane na powitalnej stronie modułu płatności w aplikacji mobilnej. Warto wspomnieć, że jest to
+jedyny niezabezpieczony punkt końcowy poza tymi związanymi z uwierzytelnianiem.
+
 .API dostępne dla płatności.
 image::../images/webservice_payment_api.png[]
+
+Omówienie zawartości klas polegać będzie tym razem na przejście przez cały proces płatności, w przeciwieństwie do
+omawiania zawartości poszczególnych klas. Proces jest dosyć skomplikowany, dlatego też podczas implementacji powstał
+diagram sekwencji obrazujący cały przepływ danych.
+
+.Diagram sekwencji dla implementacji procesu płatności.
+[plantuml]
+----
+include::../diagrams/payment_sequence.puml[]
+----
+
+Diagram powstał przed implementacją rozwiązania, dlatego niektóre nazwy i drobne szczegóły mogą się różnic ze stanem
+faktycznym. Aby ukazać proces rozwoju aplikacji, zdecydowano się na pokazanie go w niezmienionej formie.
+Jak widać na diagramie, proces zaczyna się od żądania na adres _/payments/info_. Wszystkie żądania HTTP obsługiwane są
+w klasie _PaymentResource_.
+
+.Metoda paymentInfo klasy PaymentResource.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/resource/PaymentResource.java[lines=45..51]
+----
+
+Dostęp do tej ścieżki nie wymaga żadnej autoryzacji, dlatego w pierwszej linijce następuje próba pozyskania adresu
+email. Zostaje on opakowany w obiekt klasy _Optional_, gdyż wartość obiektu _Principal_ będzie nieobecna w przypadku
+nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade. Przyrostek
+_Facade_ miał początkowo oznaczać odrębną warstwę w architekturze aplikacji, zbierającą w sobie wszystkie serwisy. Miała
+być dostępna tylko dla klas kontrolerów. Model ten się nie przyjął w innych pakietach, gdyż zysk z tego rozwiązania był
+niewielki, a generował dużo nadmiarowego kodu.
+
+.Metoda buildInfoResponse klasy PaymentFacade.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/facade/PaymentFacade.java[lines=69..79]
+----
+
+W przypadku kiedy parametr email zawiera w sobie wartość, następuje zapytanie do bazy danych o aktualnie trwającą
+płatność. Dzięki temu użytkownik po ponownym zalogowaniu będzie mógł wznowić swoją płatność. Klasa
+_PaymentDataService_ jest tylko serwisem opakowującym metody z repozytorium. W przypadku metody
+_findPendingPaymentsByUser_ następuje tylko zwykłe wywołanie odpowiedniej metody z repozytorium płatności.
+Wartością zwracaną przez metodę _buildInfoResponse_ jest obiekt klasy _PaymentInfo_. Tworzony jest on przy
+pomocy wzorca projektowego budowniczy (builder), zaimplementowanego przy pomocy biblioteki _Lombok_. Cena oraz
+opis pobierane są z serwisu _PropertyService_. Jest to interfejs, którego jedyną implementacją jest _SettingsService_.
+Został on już omówiony przy okazji pakietu _common_. Jak już zostało powiedziane, oczekujące płatności pochodzą z
+bazy danych. Adres węzła Lightning pochodzi z osobnego serwisu _NodeDetailsService_. Zajmuje się on tylko i wyłącznie
+tworzeniem adresu węzła.
+
+.Metoda buildInfoResponse klasy PaymentFacade.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/service/NodeDetailsService.java[lines=26..59]
+----
+
+Adres węzła składa się z dwóch części: klucza publicznego węzła oraz jego adresu IP. Pełny adres tworzony jest w
+konstruktorze. Adres raczej nie zmieni się w trakcie działania serwera, więc obliczanie go przy każdym żądaniu jest
+niepotrzebną stratą mocy obliczeniowej. Klucz publiczny pobierany jest bezpośrednio z węzła sieci Lightning poprzez
+wywołanie `synchronousLndAPI.getInfo().getIdentityPubKey()`. Adres IP węzła można uzyskać na dwa sposoby. Pierwszy i
+zarazem domyślny sposób to pozyskanie go z zewnętrznego serwisu. Wykorzystywany jest do tego serwis AWS o nazwie
+_checkIp_. Drugą opcją jest ręczne podanie adresu przez użytkownika. Adres IP serwera jest jednym z pól znajdujących
+się w ustawieniach serwera. Można je ustawić poprzez plik konfiguracyjny bądź w aplikacji internetowej. Jeżeli
+adres w ustawieniach nie jest pusty, to zostanie on użyty do budowania adresu węzła. Adres ten zapisany jest finalnie
+jako pole klasy, więc _PaymentFacade_ wykorzystuje zwykłą metodę dostępową _getNodeUrl_. Na koniec procesu pozyskiwania
+szczegółów potrzebnych do płatności obiekt PaymentInfo zwracany jest do kontrolera, po czym przekazany jest dalej do
+użytkownika. Przykładowa odpowiedź ze ścieżki _/payments/info_ prezentuje się następująco:
+
+.Przykładowa odpowiedź z punktu /payments/info.
+[source, json]
+----
+include::../../../webservice/src/test/resources/integration/payment/response/profileinfo-GET-valid.json[]
+----
+
+Następnym elementem procesu jest utworzenie nowej płatności. Dzieje się to poprzez żądanie POST na ścieżkę _/payments_.
+
 
 ==== Zarządzanie administratorami
 
