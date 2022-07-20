@@ -32,3 +32,9 @@ https://maven.apache.org/guides/introduction/introduction-to-the-standard-direct
 
 * [[[rest_tutorial_stateless, 11]]] _REST API Tutorial_, Stateless in REST API, [dostęp: 18.07.2022],
 https://restfulapi.net/statelessness[]
+
+* [[[hortsmann, 12]]] _Cay S. Horstmann_, Java. Podstawy. , 2019,
+ISBN:{nbsp}978-8328357785
+
+* [[[persistence_context, 13]]] _Baeldung_, JPA/Hibernate Persistence Context, [dostęp: 20.07.2022],
+https://www.baeldung.com/jpa-hibernate-persistence-context[]

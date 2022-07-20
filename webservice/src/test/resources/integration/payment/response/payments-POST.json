@@ -1,0 +1,10 @@
+{
+  "paymentRequest": "lntb3u1p3ds5mhpp56kkj25pghxkwjqw76wxvgv42mmxd0eq3dh67dgl6urplq8s4ahpqdq5dacxjumywaskgamyv9mscqzpgxqzuysp5kez569vwxh6ea7juc0usshyjf33g44yeg9h8wdrzxqwsv6mjeues9qyyssqguf6kmh4pgrs536225kpe7v00e0rtewkwr5wrmpd3dveh6qwc33s9vpwxmz6283xv09g4qgccvs8h9v63c4y4f3tnp94ndgr9d88qfcpsl4vf3",
+  "paymentTopic": "cae8f2d6",
+  "timestamp": "2022-07-20T19:11:51.801139481Z",
+  "expirationTimestamp": "2022-07-20T19:26:51.801139481Z",
+  "price": 150,
+  "numberOfTokens": 2,
+  "paymentStatus": "PENDING",
+  "tokens": []
+}
