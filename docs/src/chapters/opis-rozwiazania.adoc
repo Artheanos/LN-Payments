@@ -877,8 +877,25 @@ serwera. W przyszłości planowane jest uruchamianie jej tylko przy pierwszym ur
 
 ==== Portfel
 
+Pakiet _wallet_ obsługuje funkcjonalność portfela. Nie jest to portfel w rozumieniu ekosystemu Bitcoina. W tworzonym
+systemie jest to parę adresów Bitcoin, połączonych w jedną przejrzystą dla użytkownika funkcję systemu. Portfel w
+kontekście systemu zawiera w sobie obsługę kanałów Lightning, portfel w węźle Lightning, na który początkowo trafiają
+fundusze oraz adres multisig, z którego administratorzy mogą tworzyć transakcje. Przepływ środków jest kaskadowy:
+środki z płatności zablokowane są w kanałach, po ich zamknięciu trafiają do portfela Lightning, skąd trafiają na
+adres multisig, gdzie użytkownicy mogą dopiero samemu dysponować środkami. Pakiet ten zawiera klasy służące
+do operowania we wszystkich trzech częściach portfela, a także umożliwia wyświetlanie zebranych danych użytkownikowi w
+aplikacji webowej.
+
 .Zawartość pakietu _wallet_
 image::../images/webservice_wallet_content.png[]
+
+Pakiet posiada kilka funkcjonalności, które są dostępne z odpowiedniego panelu w aplikacji webowej. Dostępna jest
+ścieżka _/wallet_, przy pomocy której dzięki metodzie GET można pobrać wszystkie dane o portfelu. Metoda POST pozwala
+na utworzenie nowego portfela, a w przypadku gdy takowy już istnieje, uruchomi proces rekreacji portfela. Dzieje się
+tak, ponieważ istnieje limit jednego aktywnego portfela. Przepływ środków odbywa się automatycznie, przy osiągnięciu
+odpowiednich limitów zgromadzonych środków, natomiast użytkownik w kryzysowych sytuacjach może zrobić to manualnie
+z wykorzystaniem punktów końcowych /wallet/closeChannels i /wallet/transfer. Pierwszy z nich służy do zamykania
+kanałów Lightning, a drugi wykonuje przelew funduszy z portfela Lightning na adres multisig.
 
 .API dostępne do zarządzania portfelem.
 image::../images/webservice_wallet_api.png[]
