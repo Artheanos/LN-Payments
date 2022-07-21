@@ -3,7 +3,6 @@ package pl.edu.pjatk.lnpayments.webservice.wallet.service;
 import org.bitcoinj.core.*;
 import org.bitcoinj.crypto.TransactionSignature;
 import org.bitcoinj.kits.WalletAppKit;
-import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.bitcoinj.script.ScriptChunk;
@@ -120,7 +119,7 @@ public class BitcoinService {
 
     public boolean verifySignature(String transactionHex, String keyHex) {
         ECKey key = ECKey.fromPublicOnly(HexFormat.of().parseHex(keyHex));
-        Transaction transaction = new Transaction(new TestNet3Params(), HexFormat.of().parseHex(transactionHex));
+        Transaction transaction = new Transaction(walletAppKit.params(), HexFormat.of().parseHex(transactionHex));
         List<TransactionInput> inputs = transaction.getInputs();
         for (int index = 0; index < inputs.size(); index++) {
             TransactionInput transactionInput = inputs.get(index);
