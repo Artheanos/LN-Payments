@@ -1,0 +1,237 @@
+==== Portfel
+
+Pakiet _wallet_ obsługuje funkcjonalność portfela. Nie jest to portfel w rozumieniu ekosystemu Bitcoina. W tworzonym
+systemie jest to parę adresów Bitcoin, połączonych w jedną przejrzystą dla użytkownika funkcję systemu. Portfel w
+kontekście systemu zawiera w sobie obsługę kanałów Lightning, portfel w węźle Lightning, na który początkowo trafiają
+fundusze oraz adres multisig, z którego administratorzy mogą tworzyć transakcje. Przepływ środków jest kaskadowy:
+środki z płatności zablokowane są w kanałach, po ich zamknięciu trafiają do portfela Lightning, skąd trafiają na
+adres multisig, gdzie użytkownicy mogą dopiero samemu dysponować środkami. Pakiet ten zawiera klasy służące
+do operowania we wszystkich trzech częściach portfela, a także umożliwia wyświetlanie zebranych danych użytkownikowi w
+aplikacji webowej.
+
+.Zawartość pakietu _wallet_
+image::../images/webservice_wallet_content.png[]
+
+Pakiet posiada kilka funkcjonalności, które są dostępne z odpowiedniego panelu w aplikacji webowej. Dostępna jest
+ścieżka _/wallet_, przy pomocy której dzięki metodzie GET można pobrać wszystkie dane o portfelu. Metoda POST pozwala
+na utworzenie nowego portfela, a w przypadku gdy takowy już istnieje, uruchomi proces rekreacji portfela. Dzieje się
+tak, ponieważ istnieje limit jednego aktywnego portfela. Przepływ środków odbywa się automatycznie, przy osiągnięciu
+odpowiednich limitów zgromadzonych środków, natomiast użytkownik w kryzysowych sytuacjach może zrobić to manualnie
+z wykorzystaniem punktów końcowych _/wallet/closeChannels_ i _/wallet/transfer_. Pierwszy z nich służy do zamykania
+kanałów Lightning, a drugi wykonuje przelew funduszy z portfela Lightning na adres multisig.
+
+.API dostępne do zarządzania portfelem.
+image::../images/webservice_wallet_api.png[]
+
+Aby rozpocząć operacje związane z portfelem, należy najpierw skonfigurować bibliotekę BitcoinJ. Służy ona do
+obsługi różnych aspektów protokołu Bitcoin. Konfiguracja odbywa się w klasie _WalletConfig_.
+
+.Metoda konfigurująca obiekt WalletAppKit
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/config/WalletConfig.java[lines=26..38]
+----
+
+Konfiguracja polega na utworzeniu obiektu klasy _WalletAppKit_. Zawiera ona wszystkie zasoby potrzebne do operowania
+na portfelach Bitcoin oraz pozwala na pozyskanie obiektów do operowania na innych aspektach protokołu. Do konfiguracji
+wymagana jest nazwa sieci Bitcoin, do której podłączy się biblioteka. Pochodzi ona aktualnie uruchomionego profilu
+aplikacji. Drugim parametrem jest ścieżka do pliku, który przechowywać będzie szczegóły portfela. Następnie
+portfel jest uruchamiany, co powoduje połączenie się z innymi węzłami Bitcoin i rozpoczęcie pracy przy synchronizacji
+i aktualizacji łańcucha bloków. W przypadku sieci _regtest_ biblioteka połączy się tylko i wyłącznie z węzłem
+działającym lokalnie.
+
+Mając skonfigurowaną bibliotekę obsługującą protokół Bitcoin, można przystąpić do operacji na portfelu, które należy
+zacząć od jego utworzenia z pomocą ścieżki _/wallet_. Proces rozpoczyna się w _WalletResource_, skąd wywoływana
+jest metoda  _createWallet_ klasy _WalletService_.
+
+.Metoda createWallet klasy WalletService
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/WalletService.java[lines=51..58]
+----
+
+W zależności od tego, czy portfel już istnieje, wywoływana jest odpowiednia metoda prywatna. W przypadku odtwarzania
+portfela jest to metoda _recreateWallet_. Wywołuje ona w swoim czasie metodę _buildNewWallet_, dlatego zostaną omówione
+po kolei.
+
+.Metoda prywatna recreateWallet klasy WalletService
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/WalletService.java[lines=98..112]
+----
+
+Metoda ta dokonuje wielu walidacji przed właściwym utworzeniem portfela. Najpierw sprawdzane jest, czy istnieje już
+portfel w procesie tworzenia. Sytuacja, w której tworzone byłyby dwa portfele jednocześnie, nie jest możliwa, ponieważ
+proces odtwarzania wymaga utworzenia transakcji, która również może być tylko jedna w tym samym czasie. Jest to również
+sprawdzane w następnej walidacji. Transakcja nie musi być przypisana do odtwarzania portfela, więc musi to zostać
+wcześniej sprawdzone, aby uniknąć konfliktów. Ostatnim sprawdzeniem danych jest weryfikacja, czy użytkownik
+przypadkiem nie podał tym samych danych, z którymi został stworzony obecny portfel. Nie ma to żadnego sensu, ponieważ
+utworzony adres będzie dokładnie taki sam, a administratorzy poniosą koszty transakcyjne z przelania środków na ten
+sam adres. Po zakończeniu walidacji wywoływana jest metoda _buildNewWallet_, po czym tworzona jest transakcja
+przelewająca wszystkie pozostałe środki ze starego na nowy adres. Klasa _TransactionService_ zostanie omówiona przy
+okazji pakietu _transaction_.
+
+.Metoda prywatna buildNewWallet klasy WalletService
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/WalletService.java[lines=114..123]
+----
+
+W pierwszej kolejności poddawana walidacji jest liczba użytkowników. Nie może ona przekroczyć minimalnej ilości
+wymaganych podpisów. Następnie administratorzy wybrani do portfela pobierani są z bazy danych. Obiekt portfela
+generowany jest w klasie _BitcoinService_, gdyż wiąże się to z utworzeniem skryptów i adresu. Następnie
+administratorom przypisywany jest portfel, po czym obiekt zostaje zwrócony. Wartość zwracana potrzebna jest na użytek
+metody _recreateWallet_.
+
+_BitcoinService_ jest bardzo rozbudowaną klasą, oferującą wszystkie zaawansowane operacje na Bitcoinach
+wykorzystywane w projekcie. Można dzięki niej tworzyć adresy i transakcje, weryfikować podpisy czy też propagować
+transakcje po sieci. Część z tych metod może być podobna do tych stworzonych na potrzeby prototypu, aczkolwiek
+zostały poprawione i zmodyfikowane. A aktualnie omawianym procesie wykorzystana została metoda _createWallet_:
+
+.Metoda createWallet klasy BitcoinService
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/BitcoinService.java[lines=39..52]
+----
+
+Na początku lista administratorów mapowana jest na listę kluczy publicznych. Są one potrzebne do stworzenia
+_redeem script_. Następnie wykorzystując _redeem script_, tworzony jest skrypt blokujący, z którego można wyprowadzić
+adres. Utworzony adres zostaje dodany do obiektu portfela biblioteki _BitcoinJ_, aby nasłuchiwać na operacje związane z
+nim. Na koniec nowo utworzony obiekt portfela zwracany jest do _WalletService_, gdzie zostaje zapisany w bazie danych.
+Aby zwiększyć czytelność, pozostałe metody tego serwisu opisane przy okazji następnych funkcjonalności, które go
+wykorzystują.
+
+Następną funkcjonalnością obsługiwaną przez pakiet jest pobieranie aktualnych informacji. Są one wyświetlane w
+panelu portfela w aplikacji internetowej. Proces standardowo zaczyna się w _WalletResource_, skąd wywoływana jest
+metoda _getDetails_ klasy _WalletService_.
+
+.Metoda getDetails klasy WalletService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/WalletService.java[lines=73..83]
+----
+
+Działanie metody polega na pobraniu portfela z bazy danych, a następnie odwołaniu się do wielu serwisów w celu pobrania
+wszystkich wymaganych danych. Adres portfela oraz lista administratorów pobierani są bezpośrednio z obiektu klasy
+_Wallet_. Następne dane dotyczą środków znajdujących się na adresie multisig. Pobraniem tych informacji zajmuje się
+_BitcoinService_.
+
+.Metoda getBalance klasy BitcoinService
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/BitcoinService.java[lines=53..63]
+----
+
+Wszystkie dane dostępne są w obiekcie _Wallet_, który pochodzi z biblioteki BitcoinJ. Aby uniknąć konfliktów nazw
+musiano użyć pełnej kwalifikowanej nazwy klasy. Wyliczane są wszystkie potrzebne kwoty oraz budowany jest obiekt
+zawierający informacje o balansie. Warto wspomnieć, że obliczanie aktualnej opłaty transakcyjnej jest zaimplementowane
+w naiwny sposób. Za każdym razem brana jest minimalna kwota opłaty akceptowana przez węzły sieci Bitcoin. W przyszłości
+planowana jest poprawna implementacja, polegająca na pobranie średniej aktualnej kwoty transakcji z zewnętrznego,
+serwisu. W przypadku tworzenia transakcji ta wartość będzie przeliczona przez rozmiar transakcji w bajtach. Niestety
+ta funkcjonalność planowana jest dopiero w następnych wydaniach.
+
+Następną częścią informacji o portfelu jest aktualny stan środków, które zablokowane są w kanałach płatności.
+Obsługą tych danych zajmuje się _ChannelService_. Za kanały płatności odpowiedzialna jest biblioteka LightningJ. Przy
+pomocy odpowiednich funkcji tej biblioteki pobierane są informacje o zablokowanym balansie oraz o sumie otwartych
+kanałów.
+
+.Metoda getChannelsBalance klasy ChannelService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/ChannelService.java[lines=57..67]
+----
+
+Kolejne dane dotyczą środków pochodzących z portfela znajdującego się w węźle Lightning, na które trafiają środki
+po zamknięciu kanałów płatności. Zajmuje się tym _LightningWalletService_, a konkretnie metoda _getBalance_. Tak samo,
+jak w przypadku balansu adresu multisig, pobierane informacje dotyczą dostępnego i niepotwierdzonego balansu.
+Dodatkowo zwracana jest wartość wymagana do automatycznego transferu środków pomiędzy adresami.
+
+.Metoda getBalance klasy LightningWalletService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/LightningWalletService.java[lines=43..54]
+----
+
+Ostatnie informacje pochodzą już z omawianej wcześniej klasy _PaymentFacade_. Są to dane o przychodach z płatności na
+pogrupowane według miesięcy. Dane te są później wyświetlane na wykresie w aplikacji internetowej. Tak zbudowana
+odpowiedź przesyłana jest użytkownikowi.
+
+Kolejne dwie funkcjonalności pakietu _wallet_ dotyczą kaskadowego transferu środków. Tak jak to zostało wcześniej
+omówione, środki z kanałów trafiają do portfela Lightning, z którego trafiają na adres multisig. Domyślnym
+sposobem obsługi tych transferów są automatyczne zaplanowane zadania, które co 15 minut sprawdzają, czy osiągnięto
+limit potrzebny do danej operacji. Oba zadania zdefiniowane są w klasie _WalletActionsScheduler_.
+
+.Metody odpowiedzialne za zaplanowane cyklicznie zadania do obsługi portfela.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/scheduler/WalletActionsScheduler.java[lines=24..50]
+----
+
+Obie metody działają dzięki modułowi Spring Scheduling. Pozwala to na uruchamianie cyklicznych zadań bez pisania
+własnego wielowątkowego kodu. Wystarczy dodać adnotację _@Scheduled_ i podać parametry, aby stworzyć zadanie. Metody
+są do siebie bardzo podobne, operują tylko na innych polach i metodach klasy _WalletService_. W obu przypadkach
+odpowiednia metoda jest wywoływana, kiedy balans w odpowiednim miejscu osiągnął limit ustawiony przez użytkownika.
+W rozdziale _Analiza_ omówiona została zasada działania zamykania kanałów. Można je zamknąć kooperacyjnie i siłowo.
+W przypadku automatycznego zamykania odbywa się to zawsze z kooperacyjnie, chyba że kanał jest nieaktywny dłużej
+niż tydzień. Powyższe operacje można również uruchomić ręcznie. Dostępne są dwie metody w API HTTP:
+_/wallet/closeChannels_ oraz _/wallet/transfer_. W przypadku tej pierwszej użytkownik może samemu wybrać, czy chce
+zamknąć kanały kooperacyjnie, czy siłowo.
+
+.Metoda closeAllChannels klasy WalletResource.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/resource/WalletResource.java[lines=38..42]
+----
+
+Informacje o zamknięciu siłowym przekazać można w parametrze zapytania. W przypadku braku tego parametru domyślną
+wartością będzie fałsz. Zamknięcie siłowe blokuje środki na około tydzień, co nie jest pożądane w większości
+przypadków. Będąc przy zamykaniu kanałów, omówiona zostanie teraz logika stojąca za tą funkcjonalnością.
+Wywołania metod w zaplanowanym zadaniu i w kontrolerze są przekazywane przez _WalletService_ do klasy _ChannelService_.
+
+.Metoda closeAllChannels klasy ChannelService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/ChannelService.java[lines=46..55]
+----
+
+Najpierw pobrana zostaje lista otwartych kanałów, a następnie na każdym jej obiekcie wywoływana jest metoda prywatna
+_closeChannel_.
+
+.Metoda closeAllChannels klasy ChannelService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/ChannelService.java[lines=69..86]
+----
+
+Do zamknięcia każdego kanału płatności wymagany jest _channel point_, który jest swojego rodzaju adresem kanału w
+sieci Lightning. Niestety twórcy biblioteki LightningJ nie pomyśleli o tym przypadku użycia, gdyż metoda
+_getChannelPoint_ zwraca łańcuch znaków, a metoda _closeChannel_ wymaga obiektu klasy _ChannelPoint_. Co więcej,
+klasa _ChannelPoint_ nie posiada przeciążonego konstruktora, aby utworzyć obiekt z wartości tekstowej zwróconej
+z metody _getChannelPoint_. Z tego powodu pierwszą częścią metody jest manualna transformacja wartości tekstowej na
+obiekt. Następnie sprawdzane są warunki dotyczące siłowego zamknięcia kanałów. Jeżeli kanał jest nieaktywny
+dłużej niż tydzień bądź podana wartość flagi _withForce_ wynosi prawda, to nastąpi zamknięcie siłowe. Na koniec
+żądanie zamknięcia kanału wysyłane jest do węzła Lightning.
+
+Drugą funkcjonalnością dotyczącą przepływu funduszy są transfery z portfela przy węźle Lightning na adres multisig.
+Zaczyna się od wywołania metody _transferToWallet_ w klasie _WalletService_.
+
+.Metoda transferToWallet klasy WalletService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/WalletService.java[lines=60..67]
+----
+
+Transfery funduszy są zablokowane podczas procesu odtwarzania portfela. Przy obsłudze żądania nowego portfela tworzona
+jest transakcja przesyłająca środki, natomiast stary portfel dalej pozostaje aktywny na wypadek odrzucenia transakcji.
+Z tego powodu nie sposób przewidzieć, który portfel powinien być tym docelowym. Następnym krokiem jest pobranie
+aktywnego portfela oraz przekazanie jego adresu do metody _transfer_ w klasie _LightningWalletService_.
+
+.Metoda transfer klasy LightningWalletService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/LightningWalletService.java[lines=28..41]
+----
+
+Pierwszym krokiem jest sprawdzenie, czy portfel Lightning posiada środki, które można przesłać. Jeżeli tak,
+to do węzła Lightning wysyłane jest żądanie wysłania wszystkich znajdujących się tam środków.
+
