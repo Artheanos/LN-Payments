@@ -44,9 +44,9 @@ moduły ułatwiają między innymi komunikację z bazą danych czy obsługę kol
 wykorzystywane jest narzędzie Maven, które wymusza określoną hierarchię katalogów w projekcie. Wykorzystano również
 wiele narzędzi wspomagających pracę jak CheckStyle, wspomagający utrzymanie jednolitego stylu kodu w projekcie.
 
-==== Opis API
-
-czy na pewno?
+W projekcie wykorzystywanych jest wiele mechanizmów Springa takich jak kontener IoC czy też wstrzykiwanie zależności.
+Wiele adnotacji i konfiguracji z tym związanych nie będzie tłumaczonych w tym rozdziale. Od czytelnika wymagana jest
+podstawowa znajomość Javy 17 oraz frameworków Spring i Spring Boot.
 
 ==== Struktura i pakiety
 
@@ -162,6 +162,7 @@ _@Bean_, co sprawia, że zwracany przez metodę obiekt będzie zainicjowany w ko
 _PropertiesConfiguration_ z biblioteki _Apache Commons Configuration2_, która używana jest do automatycznego
 zarządzania plikami konfiguracyjnymi.
 
+.Metoda konfiguracyjna propertiesConfig klasy SettingsPropertiesConfig.
 [source, java]
 ----
 include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/common/config/SettingsPropertiesConfig.java[lines=31..45]
@@ -171,6 +172,7 @@ Metoda ta konfiguruje obiekt klasy _PropertiesConfiguration_, aby automatycznie 
 dokonywała zapisu przy każdej modyfikacji obiektu. Jeżeli plik konfiguracyjny (bądź folder) nie istnieje, jest tworzony
 przez prywatną metodę _initializeProperties_.
 
+.Metoda prywatna initializeProperties klasy SettingsPropertiesConfig.
 [source, java]
 ----
 include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/common/config/SettingsPropertiesConfig.java[lines=47..55]
@@ -183,6 +185,7 @@ Klasa _SettingsService_ implementuje interfejs PropertyService, definiujący met
 poszczególnych ustawień wspieranych przez aplikację. Dodatkowo posiada dwie metody odpowiadające obsługiwanym
 funkcjonalnością, czyli zapisywaniem i pobieraniem ustawień.
 
+.Klasa SettingsService.
 [source, java]
 ----
 include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/common/service/SettingsService.java[lines=18..47]
@@ -1219,16 +1222,194 @@ konwertowane są na obiekty DTO, po czym gotowy obiekt zwracany jest użytkownik
 
 ==== Powiadomienia mobilne
 
+Powiadomienia mobilne obsługiwane są w pakiecie _notifications_. Obecnie służą one do podpisywania bądź odrzucania
+transakcji, zarówno standardowych, jak i tych odtwarzających portfel. Rozwiązanie zostało zaprojektowane w taki
+sposób, aby w przyszłości istniała możliwość wysyłania powiadomień niepowiązanych w żaden sposób z transakcjami.
+Z tego powodu funkcjonalność otrzymała swój własny pakiet.
+
 .Zawartość pakietu _notification_
 image::../images/webservice_notification_content.png[]
+
+Pakiet poza standardowymi klasami różnych warstw aplikacji zawiera również obsługę potwierdzania i odrzucania
+powiadomień oraz specjalny kontroler wysyłający je z wykorzystaniem protokołu Websocket. Został on już opisany
+przy okazji pakietu _transaction_. Standardowo wszystkie funkcjonalności obsługiwane przez API obsługiwane są
+początkowo przez metody kontrolera _NotificationResource_, skąd wywołania są delegowane do serwisu
+_NotificationService_.
 
 .API dostępne dla powiadomień mobilnych
 image::../images/webservice_notification_api.png[]
 
+Dostępnych jest kilka punktów końcowych API. Metoda GET _/notifications_ pozwala na pobranie wszystkich powiadomień
+użytkownika. Druga wersja, z parametrem _id_, pozwala na pobranie danych tylko dla jednego wybranego powiadomienia.
+Ścieżka _/notifications/\{id\}/transaction_ pozwala na pobranie danych o transakcji powiązanej z powiadomieniem.
+Jest to wymagane do procesu potwierdzania oraz odrzucania transakcji. Odpowiedź zawiera między innymi
+surową transakcję z postaci szesnastkowej, która po podpisaniu musi zostać odesłana na serwer. Ostatnie dwa
+punkty służą do podpisywania i odrzucania powiadomień. Są to _/notifications/\{id\}/confirm_ oraz
+_/notifications/\{id\}/deny_. Warto wspomnieć że wszystkie powyższe metody używane są tylko w aplikacji mobilnej.
+
+Pierwsze dwie metody API powiadomień ma bardzo prostą zasadę działania. A obu przypadkach wszystko sprowadza się do
+wywołania odpowiedniej metody repozytorium, która pobierze z bazy danych pożądane dane. Następnie konwerter
+przekształca dane, po czym zwraca je. Następną metodą w procesie będzie pobieranie informacji o transakcji. Dzieje się
+to już po tym, jak użytkownik kliknął guzik potwierdzający transakcję w aplikacji mobilnej. Następuje wtedy
+zebranie danych potrzebnych do podpisania transakcji. Odbywa się to w metodzie _getSignatureData_ klasy
+_NotificationService_.
+
+.Metoda getSignatureData klasy NotificationService.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/service/NotificationService.java[lines=40..47]
+----
+
+Na podstawie ID powiadomienia pobierany jest odpowiedni obiekt z bazy danych. Dzięki mapowaniu obiektowo-relacyjnemu,
+zawiera on już w sobie pasujący obiekt transakcji. Dodatkowo pobierany jest też aktualny adres portfela. Na podstawie
+tych klas budowana jest odpowiedź zawierająca surową transakcję, _redeem script_ oraz wersję obiektu _Transaction_ w
+bazie danych. Jest to zabezpieczenie przed problemem straconych zapisów. W tym przypadku jest to niezwykle ważne,
+ponieważ stracona podpisana transakcja może prowadzić do utraty środków.
+
+Następnymi i najważniejszymi funkcjonalnościami pakietu są potwierdzanie i odrzucania transakcji. Zajmują się tym metody
+_handleNotificationResponse_ oraz _handleNotificationDenial_ klasy _NotificationService.
+
+.Metoda getSignatureData klasy NotificationService.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/service/NotificationService.java[lines=49..63]
+----
+
+Metody są do siebie podobne. W obu przypadkach pobierane jest powiadomienie z bazy danych. Następna jest walidacja,
+która sprawdza, czy wobec powiadomienia została podjęta już jakaś akcja. Następnie pobierana jest klasa obsługująca
+otrzymany typ powiadomienia, wobec której wywoływana jest odpowiednia metoda _confirm_ bądź _deny_. Pomimo tego,
+że metody się dużo nie różnią, wydzielenie wspólnej części do osobnej metody było problematyczne, ponieważ Java nie
+wspiera zwracania kilku wartości z jednej metody. Przy tak małej ilości kodu zdecydowano się na pozostawienie
+duplikatów, aby nie stracić na czytelności kodu.
+
+Powiadomienia obsługiwane są przez implementacje interfejsu _NotificationHandler_. Został do tego zaimplementowany
+wzorzec projektowy strategia (_strategy_)<<gof>>. Dzięki temu każdy tym powiadomienia ma swoją własną klasę
+odpowiedzialną za jego obsługę.
+
+.Interfejs NotificationHandler.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/NotificationHandler.java[lines=7..14]
+----
+
+Odpowiednia implementacja interfejsu dla typu powiadomienia pozyskiwana jest z użyciem klasy
+_NotificationHandlerFactory_. Jest to implementacja wzorca projektowego fabryka (_factory_)<<gof>>. Pozwala ona
+na pobranie implementacji na podstawie wartości typu wyliczeniowego _NotificationType_.
+
+.Klasa NotificationHandlerFactory.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/NotificationHandlerFactory.java[lines=11..28]
+----
+
+W momencie, kiedy Spring inicjuje powyższy serwis, wstrzykuje on do konstruktora wszystkie implementacje
+interfejsu _NotificationHandler_. Na tej podstawie tworzona jest tablica asocjacyjna, łącząca typ powiadomienia
+z jego klasą obsługującą. Jest to bardzo przyszłościowe rozwiązanie. Aby dodać nowy typ powiadomienia, wystarczy
+dodać nową wartość typu wyliczeniowego oraz odpowiednią implementację _NotificationHandler_. Kod ten spełnia dzięki temu
+zasadę _open-closed principle_ akronimu SOLID. Pobieranie implementacji przez metodę _findHandler_ polega tylko na
+pobraniu odpowiedniej wartości z tablicy asocjacyjnej. Zastosowana implementacja _EnumMap_ jest zoptymalizowana pod
+działanie z typami wyliczeniowymi, dzięki czemu rozwiązanie to jest bardzo szybkie. Złożoność obliczeniowa metody _get_
+wynosi stem:[O(1)].
+
+Obsługa powiadomień transakcji znajduje się w klasie _TransactionHandler_. Potwierdzanie odbywa się poprzez
+zaimplementowaną metodę _confirm_.
+
+.Metoda confirm klasy TransactionHandler.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/TransactionHandler.java[lines=27..40]
+----
+
+Na początku pobrane z obiektu powiadomienia zostają wymagane obiekty. Są to _AdminUser_ oraz _Transaction_.
+Następnie wywoływana jest prywatna metoda _updateRawTransaction_, odpowiedzialna za aktualizację transakcji.
+
+.Metoda prywatna updateRawTransaction klasy TransactionHandler.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/TransactionHandler.java[lines=56..61]
+----
+
+Przy pomocy metody _verifySignature_ klasy _BitcoinService_. Weryfikowane jest, czy transakcja została rzeczywiście
+podpisana przez danego użytkownika. Kod metody zostanie pominięty, gdyż algorytm jest bardzo duży i skomplikowany.
+Metoda ta zajmuje się przejściem przez każde wejście transakcji. Analizie poddany zostaje każdy skrypt
+odblokowujący. Jeżeli skrypt jednego z wejść zawiera podpis zweryfikowany przez jego klucz publiczny, to transakcję
+można uznać za podpisaną poprawnie. Potem następuje kontrola wersji transakcji, zabezpieczająca przed straconymi
+zapisami. Jeżeli wersja otrzymana w żądaniu różni się od tej w bazie danych, potwierdzanie zakończy się niepowodzeniem.
+Na koniec transakcja zostaje zaktualizowana w bazie danych. Wracając do metody _confirm_, po udanej aktualizacji
+transakcji następuje zmiana statusu powiadomienia. Finalnie sprawdzane jest, czy transakcja osiągnęła minimalną liczbę
+podpisów. Jeżeli tak, to wywoływana jest metoda _broadcastTransaction_ klasy TransactionService z pakietu _transaction_.
+
+.Metoda broadcastTransaction klasy TransactionService.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=92..102]
+----
+
+Wywoływana jest metoda _broadcast_ klasy BitcoinService. Jeżeli wywołanie się powiedzie, to transakcję można
+uznać za zakończoną. W przypadku otrzymania wyjątku transakcja zmienia status na nieudany. Ostatnim krokiem jest
+zmiana statusu wszystkich oczekujących powiadomień dotyczących danej transakcji na wygasły. Metoda _broadcast_
+zajmuje się już przesłaniem transakcji do innych węzłów w sieci Bitcoin.
+
+.Metoda broadcast klasy BitcoinService.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/BitcoinService.java[lines=150..166]
+----
+
+Przed próbą propagacji transakcja poddawana jest ostatniemu sprawdzeniu. Odbywa się to przez próbne uruchomienie
+skryptu, które sprawdza, czy środki z danego wejścia mogą zostać wydane. Jeżeli wszystkie wejścia transakcji mają
+poprawne skrypty, to transakcję można uznać za ważną. Następnie dzięki obiektowi klasy WalletAppKit wywoływany jest
+szereg komend służących do propagacji transakcji. Wywołanie jest wielowątkowe, a w przypadku porażki może trwać wiele
+minut. Z tego powodu ustawiony został limit jednej minuty na zakończenie żądania. Jeżeli w tym czasie transakcji nie
+uda się rozpropagować bądź wystąpi po drodze inny błąd, to rzucany jest wyjątek _BroadcastException_. Jest on później
+przechwytywany w _TransactionService_ w celu zmiany statusu transakcji na nieudaną. Nieudana propagacja nie oznacza
+również nieudanego żądania HTTP, ponieważ dotyczyło ono potwierdzenia transakcji, a nie jej rozpropagowania. Poza
+potwierdzaniem transakcji można ją również odrzucić. Wykonuje to metoda _deny_ klasy _TransactionHandler_.
+
+.Metoda deny klasy TransactionHandler.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/TransactionHandler.java[lines=42..49]
+----
+
+Zasada działania jest taka jak w przypadku potwierdzania, z wyłączeniem aktualizacji samej transakcji. Aktualizowany
+jest status powiadomienia na odrzucone. Jeżeli minimalna ilość podpisów stanie się nieosiągalna, to transakcja zostanie
+anulowana. Status zmieni się na anulowany, a wszystkie oczekujące powiadomienia zmienią status na wygasły.
+
+Drugim obsługiwanym typem powiadomień są odtworzenia portfela. Jest to tylko specjalny typ potwierdzenia transakcji,
+dlatego też klasa obsługująca _WalletRecreationHandler_ wykorzystuje w procesie klasę _TransactionHandler_ przy użyciu
+kompozycji. Metoda _deny_ jedyne co robi to wywołanie równoważnika z _TransactionHandler_, a jeżeli limit stanie się
+nieosiągalny, to oczekujący portfel zostanie usunięty. W przypadku metody _confirm_ logika prezentuje się następująco:
+
+.Metoda confirm klasy WalletRecreationHandler.
+[source, java]
+----
+include::../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/strategy/WalletRecreationHandler.java[lines=23..32]
+----
+
+Na początku wywoływana jest metoda _confirm_ z klasy _TransactionHandler_. Następne kroki podejmowane są w zależności
+od wyniku jej wywołania. Jeżeli transakcja jest potwierdzona, następuje zamiana portfeli. Polega ona na
+zmianie statusu aktywnego portfela na emerytowany, a oczekującego na aktywny. W przypadku nieudanej propagacji
+transakcji oczekujący portfel jest usuwany. Dzięki temu administratorzy mogą spróbować stworzyć nowy portfel jeszcze
+raz.
+
 ==== Zasoby
 
-.Zawartość folderu _resources.
+Folder _resources_ przechowuje pliki, które podczas pakowania aplikacji zostaną dołączone w folderze docelowym, bądź
+pliku wykonywalnym.
+
+.Zawartość folderu resources.
 image::../images/webservice_resources.png[]
+
+Zawiera on tylko 3 pliki. Najważniejszym jest _application.properties_, który zawiera wartości konfiguracyjne
+aplikacji. Ustawione w nim są różne wartości takie jak operowana sieć Bitcoina, poziomy logowania czy też czas ważności
+tokena JWT. Folder _default_ zawiera kolejny plik _application.properties_, natomiast ten nie jest konfiguracją
+aplikacji, tylko plikiem zawierającym domyślne wartości dla ustawień użytkownika. Jak już zostało opisane wcześniej,
+jest ona przechowywana w katalogu domowym użytkownika i może być modyfikowana z poziomu komputera, bądź aplikacji
+webowej. Plik ten kopiowany jest do docelowego katalogu, gdy nie znajduje się tam już istniejąca konfiguracja.
+Ostatnim folderem jest _META-INF_, zawierający dodatkowe pliki konfiguracyjne interpretowane przez Javę.
+W przypadku aplikacji folder zawiera dodatkową konfigurację metadanych wartości w pliku konfiguracyjnym. Dzięki
+temu Spring otrzymuje informację o typach i opis poszczególnych własności konfiguracyjnych.
 
 === Aplikacja webowa
 
