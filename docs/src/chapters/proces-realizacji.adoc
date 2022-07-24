@@ -1,6 +1,6 @@
 == Proces realizacji
 
-=== Model kaskadowy
+=== Model kaskadowy (10.10.2021 - 16.01.2022)
 
 W związku ze zbyt małą wiedzą członków zespołu na temat kryptowalut zdecydowano, aby pracę nad projektem rozpocząć w
 modelu kaskadowym. Na początku, w celu zrozumienia tematu i poszerzenia swojej wiedzy każda z osób miała za zadanie
@@ -23,33 +23,30 @@ Puźniakowskiemu.
 Dzięki podjętym krokom wyklarowała się finalna wizja aplikacji, dlatego zespół zdecydował o przejściu do metodyki
 SCRUM i rozpoczęciu pracy w dwutygodniowych Sprintach.
 
-=== Sprint 1
-
-==== Cel
+=== Sprint 1 (17.01.2022 - 31.01.2022)
 
 Głównym celem tego Sprintu było utworzenie projektów oraz konfiguracja środowisk, tak aby powstała niezbędna baza do
 rozbudowy aplikacji.
 
 ==== Zadania
 
-.Lista zadań w Sprincie 1
-[cols="1,1,3,3,1,1"]
+.Lista zadań w Sprincie pierwszym.
+[cols="1,5,3,1,2"]
 |===
-|Klucz|Typ zadania|Nazwa|Osoba przypisana|Story points|Status
-
-|LP-29|Zadanie|Set up java project|Aleksander Konieczny|3|Gotowe
-|LP-30|Zadanie|Set up react project|Jan Pieczul|3|Gotowe
-|LP-33|Zadanie|Set up mobile app project|Jan Pieczul|5|Gotowe
-|LP-34|Spike|Research CI available options|Jan Pieczul|-|Gotowe
-|LP-35|Zadanie|Create makefile for documents|Aleksander Konieczny|5|Gotowe
-|LP-36|Zadanie|Create pipeline for Java webservice|Aleksander Konieczny|2|Gotowe
-|LP-37|Zadanie|Create pipeline for React webapp|Jan Pieczul|3|Gotowe
-|LP-38|Zadanie|Create pipeline for mobile app|Jan Pieczul|5|Gotowe
-|LP-39|Zadanie|Pipeline for documents|Aleksander Konieczny|5|Gotowe
-|LP-40|Zadanie|Add git hooks|-|3|Usunięte
-|LP-41|Zadanie|Prepare docker-compose for lnd and bitcoind|Aleksander Konieczny|3|Gotowe
-|LP-43|Zadanie|Migrate documents to asciidoc|Aleksander Konieczny|2|Gotowe
-|LP-44|Zadanie|Configure container for PostgreSQL|Jan Pieczul|1|Gotowe
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-29|Set up java project|Aleksander Konieczny|3|Ukończone
+|LP-30|Set up react project|Jan Pieczul|3|Ukończone
+|LP-33|Set up mobile app project|Jan Pieczul|5|Ukończone
+|LP-34|Research CI available options|Jan Pieczul|-|Ukończone
+|LP-35|Create makefile for documents|Aleksander Konieczny|5|Ukończone
+|LP-36|Create pipeline for Java webservice|Aleksander Konieczny|2|Ukończone
+|LP-37|Create pipeline for React webapp|Jan Pieczul|3|Ukończone
+|LP-38|Create pipeline for mobile app|Jan Pieczul|5|Ukończone
+|LP-39|Pipeline for documents|Aleksander Konieczny|5|Ukończone
+|LP-40|Add git hooks|-|3|Anulowane
+|LP-41|Prepare docker-compose for lnd and bitcoind|Aleksander Konieczny|3|Ukończone
+|LP-43|Migrate documents to asciidoc|Aleksander Konieczny|2|Ukończone
+|LP-44|Configure container for PostgreSQL|Jan Pieczul|1|Ukończone
 |===
 
 ==== Przebieg pracy
@@ -123,33 +120,105 @@ Wstępnie w Sprincie znalazło się 13 zadań wycenionych na 40 story pointów. 
 usunięte), co złożyło się na uzyskanie 37 story pointów na koniec pierwszej iteracji. Na poniższych wykresach można
 zauważyć, jak prezentował się postęp prac w Sprincie 1.
 
-.Wykres spalania sprintu(story pointy)
-image::../images/sprints_raports/s_1/wykres_spalania_lz.png[]
+.Wykres spalania sprintu pierwszego.
+image::../images/sprints_raports/burndown_sprint1.png[]
 
-=== Sprint 2
-
-==== Cel
+=== Sprint 2 (31.01.2022 - 14.02.2022)
 
 ==== Zadania
 
+.Lista zadań w Sprincie drugim.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-38|Create pipeline for mobile app|Jan Pieczul|5|Ukończone
+|LP-48|Run pipelines in PR when there are changes|Aleksander Konieczny|2|Ukończone
+|LP-52|Set up document and write introduction|Aleksander Konieczny|3|Ukończone
+|LP-53|Write 'Problem description' chapter|Aleksander Konieczny|3|Ukończone
+|LP-55|Create landing page|Jan Pieczul|2|Ukończone
+|LP-56|Update quick buy page mockup|Jan Pieczul|3|Ukończone
+|LP-57|Create quick buy page|Jan Pieczul|3|Ukończone
+|LP-58|Create service that generates tokens|Aleksander Konieczny|3|Ukończone
+|LP-59|Create invoice service|Aleksander Konieczny|3|Ukończone
+|LP-60|Implement payment process|Aleksander Konieczny|5|Ukończone
+|LP-67|Implement websocket endpoint for payment processing|Aleksander Konieczny|5|Ukończone
+|LP-61|Connect backend with database|Aleksander Konieczny|5|Ukończone
+|LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Nieukończone
+|===
+
 ==== Przebieg pracy
 
-==== Testy??
+==== Podsumowanie
 
-=== Sprint 3
+brak wykresu :(
 
-=== Sprint 4
+=== Sprint 3 (14.02.2022 - 07.03.2022)
 
-=== Sprint 5
+.Lista zadań w Sprincie trzecim.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-64|Polish form carousel view|Jan Pieczul|3|Ukończone
+|LP-69|Set up swagger|Jan Pieczul|1|Ukończone
+|LP-70|Create services for JWT|Aleksander Konieczny|2|Ukończone
+|LP-71|Integrate JWT with spring security|Aleksander Konieczny|3|Ukończone
+|LP-72|Create endpoint for JWT renewal|Jan Pieczul|2|Ukończone
+|LP-73|Create endpoint for logging in|Aleksander Konieczny|3|Ukończone
+|LP-74|Create endpoint for user registration|Aleksander Konieczny|3|Ukończone
+|LP-75|Handle temporary users|Aleksander Konieczny|5|Ukończone
+|LP-78|Integrate authorization|Jan Pieczul|3|Ukończone
+|LP-76|Create login page|Jan Pieczul|2|Ukończone
+|LP-77|Create registration page|Aleksander Konieczny|2|Ukończone
+|LP-84|Integrate user authorization with payments|Aleksander Konieczny|3|Ukończone
+|LP-88|Automatically change expired payments status|Aleksander Konieczny|2|Ukończone
+|LP-66|Polish payment summary view|Jan Pieczul|2|Nieukończone
+|LP-65|Polish checkout carousel view|Jan Pieczul|5|Nieukończone
+|LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Nieukończone
+|===
 
-=== Sprint 6
+.Wykres spalania sprintu trzeciego.
+image::../images/sprints_raports/burndown_sprint3.png[]
 
-=== Sprint 7
+=== Sprint 4 (07.03.2022 - 28.03.2022)
 
-=== Sprint 8
+.Lista zadań w sprincie czwartego.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-81|Create user side panel|Aleksander Konieczny|2|Ukończone
+|LP-82|Add endpoint for querying user payments|Aleksander Konieczny|2|Ukończone
+|LP-83|Create history panel|Aleksander Konieczny|3|Ukończone
+|LP-89|Add root admin at server startup|Aleksander Konieczny|2|Ukończone
+|LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Ukończone
+|LP-66|Polish payment summary view|Jan Pieczul|2|Ukończone
+|LP-65|Polish checkout carousel view|Jan Pieczul|5|Ukończone
+|LP-90|Create endpoints for admin creation and querying|Aleksander Konieczny|2|Ukończone
+|LP-63|Update DZW after review|Aleksander Konieczny|1|Ukończone
+|LP-93|Secure and authenticate ws connections|Aleksander Konieczny|2|Ukończone
+|LP-95|Research E2E tests|Aleksander Konieczny|-|Ukończone
+|LP-91|Create panel for admin management|Jan Pieczul|3|Nieukończone
+|LP-92|Add admin creation form|Jan Pieczul|2|Nieukończone
+|===
 
-=== Sprint 9
+.Wykres spalania sprintu czwartego.
+image::../images/sprints_raports/burndown_sprint4.png[]
 
-=== Sprint 10
+=== Sprint 5 (28.03.2022 - 11.04.2022)
 
-=== Sprint 11
+=== Sprint 6 (11.04.2022 - 25.04.2022)
+
+=== Sprint 7 (25.04.2022 - 16.05.2022)
+
+=== Sprint 8 (16.05.2022 - 30.05.2022)
+
+=== Sprint 9 (30.05.2022 - 13.06.2022)
+
+=== Sprint 10 (13.06.2022 - 27.06.2022)
+
+=== Sprint 11 (27.06.2022 - 11.07.2022)
+
+=== Sprint 12 (11.07.2022 - 25.07.2022)
+
+=== Sprint 13 (25.07.2022 - 08.08.2022)
+
+=== Sprint 14 (08.08.2022 - 22.08.2022)
