@@ -74,7 +74,7 @@ poprawna konfiguracja zajęła aż 2 tygodnie. Następnie opracowano interfejs C
 generowanie i płacenie żądań płatności oraz sprawdzanie salda w poszczególnych elementach. Przy dwóch ostatnich
 zadania pojawił się problem z dostępnością osoby odpowiedzialnej. Zadania od Sebastiana Lewandowskiego przejął
 Aleksander Konieczny. Spowodowało to kolejne opóźnienia, przez co nie ukończono prototypu do końca grudnia, co było
-początkowym planem.
+początkowym planem. Prezentacja prototypu została już opisana w podrozdziale <<_prototyp,"Prototyp">>.
 
 ==== Podsumowanie
 
@@ -85,8 +85,9 @@ przed pierwotnie planowanym terminem, co jest sukcesem.
 
 === Sprint 1 (17.01.2022 - 31.01.2022)
 
-Głównym celem tego Sprintu było utworzenie projektów oraz konfiguracja środowisk, tak aby powstała niezbędna baza do
-rozbudowy aplikacji.
+Pierwszym sprintem jest tak zwany sprint zero. Polega on na przygotowaniu infrastruktury oraz środowiska, aby móc
+rozpocząć implementację już w następnym sprincie. Głównym celem tej iteracji było utworzenie projektów oraz
+konfiguracja środowisk, tak aby powstała niezbędna baza do rozbudowy aplikacji.
 
 ==== Zadania
 
@@ -109,7 +110,7 @@ rozbudowy aplikacji.
 |LP-44|Configure container for PostgreSQL|Jan Pieczul|1|Ukończone
 |===
 
-==== Przebieg pracy
+==== Przebieg prac
 
 *Set up java project*
 Celem tego zadania było utworzenie projektu w Springu, który korzysta z Javy 17. Jako narzędzie do budowania oraz
