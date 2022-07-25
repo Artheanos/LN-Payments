@@ -3,9 +3,11 @@
 
 * [[[btcbook, 1]]] _Andreas M. Antonopoulos_, Mastering Bitcoin: Programming the Open Blockchain, 2017,
 ISBN:{nbsp}978-1491954386
+
 * [[[lnbook, 2]]] _Andreas M. Antonopoulos, Olaoluwa Osuntokun, René Pickhardt_, Mastering the Lightning Network:
 A{nbsp}Second Layer Blockchain Protocol for Instant Bitcoin Payments, 2022,
 ISBN:{nbsp}978-1492054863
+
 * [[[lndguide, 3]]] _Lightning Labs_, Builder's Guide to the LND Galaxy, [dostęp: 02.02.2022],
 https://docs.lightning.engineering[]
 
@@ -26,3 +28,6 @@ https://t.ly/G-Zo[]
 
 * [[[crypto_market_sizing, 9]]] _crypto.com_, Crypto Market Sizing, [dostęp: 07.07.2022],
 https://t.ly/_-8M[]
+
+* [[[blockchain_size, 10]]] _ycharts.com_, Bitcoin Blockchain Size, [dostęp: 25.07.2022],
+https://ycharts.com/indicators/bitcoin_blockchain_size[]
