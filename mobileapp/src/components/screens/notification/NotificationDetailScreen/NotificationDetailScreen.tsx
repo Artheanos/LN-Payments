@@ -1,15 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Box, Button, Center, HStack, Text, VStack } from 'native-base'
+import { Box, Button, Center, HStack, Spinner, VStack } from 'native-base'
 import { StackScreenProps } from '@react-navigation/stack'
 import { SignInRouterProps } from 'components/routers/RouterPropTypes'
 import R from 'res/R'
 import { api } from 'webService/requests'
 import { UserContext } from 'components/context/UserContext'
 import { signTx } from 'utils/bitcoin'
-import { LoadingModal } from 'components/screens/notification/NotificationDetailScreen/LoadingModal'
 import { ErrorAlert } from 'components/screens/notification/NotificationDetailScreen/ErrorAlert'
 import { Alert } from 'react-native'
 import { NotificationDetails } from 'webService/interface/notification'
+import { NotificationDetailsElement } from './NotificationDetailsElement'
 
 /**
  * Displays details of the clicked notification.
@@ -23,6 +23,7 @@ export const NotificationDetailScreen: React.FC<
   },
 }) => {
   const [processing, setProcessing] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [errorDialog, setErrorDialog] = useState(false)
   const { user, logoutUser } = useContext(UserContext)
   const [details, setDetails] = useState<NotificationDetails>()
@@ -31,7 +32,7 @@ export const NotificationDetailScreen: React.FC<
    * Method to get data from API
    */
   const notificationDetails = async () => {
-    setProcessing(true)
+    setLoading(true)
     try {
       const { data } = await api.notifications.getNotificationDetails(
         notificationId,
@@ -39,9 +40,8 @@ export const NotificationDetailScreen: React.FC<
       setDetails(data)
     } catch (error) {
       showAlert()
-      console.log(error)
     } finally {
-      setProcessing(false)
+      setLoading(false)
     }
   }
 
@@ -118,84 +118,6 @@ export const NotificationDetailScreen: React.FC<
     setErrorDialog(false)
   }
 
-  const DetailsNotificationId = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.id}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.id}
-        </Text>
-      </Box>
-    )
-  }
-
-  const DetailsNotificationType = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.type}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.type}
-        </Text>
-      </Box>
-    )
-  }
-
-  const DetailsNotificationMessage = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.message}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.message}
-        </Text>
-      </Box>
-    )
-  }
-
-  const DetailsDestinationAddress = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.address}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.address}
-        </Text>
-      </Box>
-    )
-  }
-
-  const DetailsTransactionAmount = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.amount}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.amount}
-        </Text>
-      </Box>
-    )
-  }
-
-  const DetailsNotificationStatus = () => {
-    return (
-      <Box alignItems="center">
-        <Text fontSize={20} fontWeight="bold">
-          {R.strings.details.status}
-        </Text>
-        <Text italic fontSize={17}>
-          {details?.status}
-        </Text>
-      </Box>
-    )
-  }
-
   const DetailsScreenButtons = () => {
     return (
       <HStack space={10}>
@@ -220,18 +142,41 @@ export const NotificationDetailScreen: React.FC<
    */
   return (
     <Center justifyContent="flex-start" h="100%">
-      <LoadingModal processing={processing} />
       <ErrorAlert isOpen={errorDialog} close={alertClose} />
-      <VStack space={3} marginTop={5}>
-        <DetailsNotificationId />
-        <DetailsNotificationType />
-        <DetailsNotificationMessage />
-        <DetailsDestinationAddress />
-        <DetailsTransactionAmount />
-        <DetailsNotificationStatus />
-      </VStack>
+      {loading ? (
+        <Center>
+          <Spinner color="primary.500" size="lg" />
+        </Center>
+      ) : (
+        <VStack space={3} marginTop={5}>
+          <NotificationDetailsElement
+            title={R.strings.details.id}
+            data={details?.id}
+          />
+          <NotificationDetailsElement
+            title={R.strings.details.type}
+            data={details?.type}
+          />
+          <NotificationDetailsElement
+            title={R.strings.details.message}
+            data={details?.message}
+          />
+          <NotificationDetailsElement
+            title={R.strings.details.address}
+            data={details?.address}
+          />
+          <NotificationDetailsElement
+            title={R.strings.details.amount}
+            data={details?.amount}
+          />
+          <NotificationDetailsElement
+            title={R.strings.details.status}
+            data={details?.status}
+          />
+        </VStack>
+      )}
       <Box alignItems="center" position="absolute" bottom="5">
-        {details?.status === 'PENDING' ? <DetailsScreenButtons /> : null}
+        {details?.status === 'PENDING' && <DetailsScreenButtons />}
       </Box>
     </Center>
   )
