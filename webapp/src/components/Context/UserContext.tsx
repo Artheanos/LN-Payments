@@ -38,6 +38,7 @@ export const UserProvider: React.FC = ({ children }) => {
   const logout = useCallback(() => {
     setToken(undefined)
     setUser(undefined)
+    localStorage.setItem(LocalKey.TRANSACTION_TOKENS, '')
   }, [setToken, setUser])
 
   const tryRefreshingToken = useCallback(() => {
