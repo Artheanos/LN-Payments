@@ -1,3 +1,4 @@
+[#_wstep]
 == Wstęp
 
 W ostatnich kilkunastu latach technologie blockchain i kryptowaluty zaliczyły ogromny wzrost
