@@ -262,30 +262,99 @@ nieosiągnięcia wszystkich celów sprintu, udało się poczynić duże postępy
 
 === Sprint 3 (14.02.2022 - 07.03.2022)
 
+Założeniem na tę iterację było dokończenie płatności. Zaplanowano również prace nad procesem uwierzytelniania i
+autoryzacji, łącznie z integracją jej z procesem płatności.
+
 .Lista zadań w Sprincie trzecim.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status
 |LP-64|Polish form carousel view|Jan Pieczul|3|Ukończone
-|LP-69|Set up swagger|Jan Pieczul|1|Ukończone
+|LP-65|Polish checkout carousel view|Jan Pieczul|5|Nieukończone
+|LP-66|Polish payment summary view|Jan Pieczul|2|Nieukończone
 |LP-70|Create services for JWT|Aleksander Konieczny|2|Ukończone
 |LP-71|Integrate JWT with spring security|Aleksander Konieczny|3|Ukończone
 |LP-72|Create endpoint for JWT renewal|Jan Pieczul|2|Ukończone
 |LP-73|Create endpoint for logging in|Aleksander Konieczny|3|Ukończone
 |LP-74|Create endpoint for user registration|Aleksander Konieczny|3|Ukończone
-|LP-75|Handle temporary users|Aleksander Konieczny|5|Ukończone
 |LP-78|Integrate authorization|Jan Pieczul|3|Ukończone
 |LP-76|Create login page|Jan Pieczul|2|Ukończone
 |LP-77|Create registration page|Aleksander Konieczny|2|Ukończone
+|LP-75|Handle temporary users|Aleksander Konieczny|5|Ukończone
 |LP-84|Integrate user authorization with payments|Aleksander Konieczny|3|Ukończone
 |LP-88|Automatically change expired payments status|Aleksander Konieczny|2|Ukończone
-|LP-66|Polish payment summary view|Jan Pieczul|2|Nieukończone
-|LP-65|Polish checkout carousel view|Jan Pieczul|5|Nieukończone
+|LP-69|Set up swagger|Jan Pieczul|1|Ukończone
 |LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Nieukończone
 |===
 
+Iterację początkowo zaplanowano na 15 zadań o łącznej wartości 38 punktów. Jedno zadanie było nieukończone w poprzednim
+sprincie, więc zostało przeniesione dalej. Dodatkowo w trakcie sprintu dodano zadanie LP-88, warte 2 punkty historii.
+Finalnie zakres planowanych prac wyniósł 16 zadań oraz 40 punktów.
+
+==== Przebieg prac
+
+Pierwszymi zadaniami są implementacje wszystkich trzech ekranów procesu płatności, czyli formularz, płatność oraz
+podsumowanie. Niestety udało się zrealizować tylko zadanie dotyczące formularza płatności. Na tym etapie prac użytkownik
+mógł wypełnić formularz oraz go wysłać, natomiast późniejsze przekierowanie prowadziło na pustą stronę. Zadania
+LP-65 oraz LP-66 zostały później przeniesione do następnego sprintu.
+
+Następna grupa zadań dotyczyła implementacji uwierzytelniania przy pomocy tokena JWT. Pierwsze zadanie polegało
+na stworzeniu serwisu, który odpowiada za generowanie, walidację oraz pobieranie danych tokena. Następnie token JWT
+został zintegrowany z aplikacją przy pomocy _Spring Security_. Stworzono do tego odpowiednią konfigurację oraz filtr
+żądań HTTP kontrolujący token. Następnie zajęto się API HTTP odpowiedzialnym za cały proces. Stworzono punkty
+końcowe pozwalające na logowanie i rejestrację użytkowników. Dodano także możliwość odświeżenia tokena, gdyż ustawiono
+jego ważność na 15 min. Aby sesja użytkownika w aplikacji internetowej nie wygasła w trakcie korzystania z aplikacji,
+mechanizm ten musiał zostać zaimplementowany.
+
+Po zakończeniu prac nad częścią serwerową uwierzytelniania rozpoczęto integrację w aplikacji internetowej. Stworzone
+zostały strony logowania oraz rejestracji, a także zintegrowano istniejący już kod z systemem autoryzacji. Przy
+logowaniu zwracana jest rola użytkownika, która wskazuje, do jakich podstron użytkownik ma dostęp z otrzymanym tokenem.
+Integracja okazała się dosyć problematyczna, ponieważ modyfikacji wymagała spora ilość napisanego już kodu. Udało się
+zadanie ukończyć, dzięki czemu dostęp do płatności był tylko dla zalogowanych użytkowników. Użytkownicy niezalogowani
+mieli dostęp do strony głównej, rejestracji oraz logowania. W tamtym momencie istniała tylko jedna rola użytkownika,
+czyli zwykły użytkownik.
+
+Kolejnym zadaniem było opracowanie rozwiązania pozwalającego na obsłudze płatności od niezalogowanych użytkowników
+po stronie serwera. Było to problematyczne, ponieważ chciano zapisywać wszystkie płatności w bazie danych. Wymagane
+to było do przeglądania historii przed administratorów w przyszłości oraz do przesłania tokenów konkretnej osobie.
+Zdecydowano się wtedy na stworzenie hierarchii użytkowników z wykorzystaniem klasy abstrakcyjnej _User_. Dzięki
+temu udało się wydzielić klasę dla niezalogowanego użytkownika i dwie klasy dla zalogowanych użytkowników. Dodatkowo
+stworzono generyczne repozytoria dla różnych typów użytkowników, a także serwisy odpowiedzialne za zarządzanie nimi.
+Na koniec dodano punkt końcowy HTTP, pozwalający na uzyskanie tokena JWT bez wcześniejszego logowania. Token ten ma
+uprawienia tylko do procesu płatności (poza punktami ogólnodostępnymi). Szczegóły tego, jak i innych rozwiązań znajduje
+się w rozdziale <<_opis_rozwiazania,"Opis rozwiązania">>.
+
+Następnie należało zintegrować proces płatności z uwierzytelnianiem. Punkty końcowe zostały odpowiednio zabezpieczone,
+a encje płatności powiązano z użytkownikami. Dzięki temu każda płatność ma przypisanego użytkownika, co pozwala na
+późniejszą identyfikację. Drugim zadaniem powiązanym z płatnościami było stworzenie nowego wątku podczas tworzenia
+płatności, który w razie nieopłacenia przez 15 minut żądania zapłaty zmieni automatycznie jej status. Zadanie zostało
+dodane w trakcie sprintu, ponieważ pojawiły się problemy podczas testowania. Aplikacja internetowa nie pozwalała wówczas
+na tworzenie nowej płatności, kiedy poprzednia była aktywna. Brak tej funkcjonalności skutkował utkwieniem płatność
+w staniu oczekującym, dlatego zdecydowano się na jak najszybsze naprawienie tego błędu.
+
+Zadanie LP-69 dotyczy integracji serwera z biblioteką _Swagger_, pozwalającą na automatyczne generowanie dokumentacji
+dla API HTTP. Zdecydowano się na dodanie jej dla poprawienia komunikacji przy integracji backend'u z frontend'em.
+Całe API było automatycznie udokumentowane wraz z przykładami użycia, co ułatwiało implementację aplikacji internetowej.
+
+Ostatnim zadanie uwzględnionym w tym sprincie jest LP-62. Zadanie to nie zostało ukończone w poprzednim sprincie.
+Niestety jego realizacja ponownie się nie powiodła, więc zespół zmuszony został na przeniesienie go do następnego
+sprintu.
+
+==== Podsumowanie
+
+Zespołowi udało się dodać do aplikacji uwierzytelnianie, a także ją poprawnie zabezpieczyć. Proces ten został również
+z integrowany z płatnościami, które zostały dokończone po stronie serwera. Integracja uwierzytelniania powiodła się
+również po stronie aplikacji internetowej, niestety nie udało się ukończyć procesu płatności. Zbadanie płatności
+multisig niestety również zakończyło się porażką, a zadanie przeniesione zostało ponownie do następnego sprintu.
+
 .Wykres spalania sprintu trzeciego.
 image::../images/sprints_raports/burndown_sprint3.png[]
+
+Sprint rozpoczęto z 15 zadaniami i 38 punktami historii. W trakcie sprintu dodali jedno zadanie warte 2 punktu.
+Nie udało się ukończyć trzech zadań wartych 7 punktów. Finalnie spring udało się ukończyć zakres prac warty 33 punkty
+w postaci 13 zadań. Nie jest to wciąż zły wynik. Udało się zamknąć większość zadań, a prawie wszystkie cele zostały
+osiągnięte. Zadania polegające na dokończeniu karuzeli płatności oraz zbadanie płatności multisig zostały przeniesione
+do następnego sprintu.
 
 === Sprint 4 (07.03.2022 - 28.03.2022)
 
@@ -308,25 +377,69 @@ image::../images/sprints_raports/burndown_sprint3.png[]
 |LP-92|Add admin creation form|Jan Pieczul|2|Nieukończone
 |===
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 .Wykres spalania sprintu czwartego.
 image::../images/sprints_raports/burndown_sprint4.png[]
 
 === Sprint 5 (28.03.2022 - 11.04.2022)
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 === Sprint 6 (11.04.2022 - 25.04.2022)
+
+==== Przebieg prac
+
+==== Podsumowanie
 
 === Sprint 7 (25.04.2022 - 16.05.2022)
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 === Sprint 8 (16.05.2022 - 30.05.2022)
+
+==== Przebieg prac
+
+==== Podsumowanie
 
 === Sprint 9 (30.05.2022 - 13.06.2022)
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 === Sprint 10 (13.06.2022 - 27.06.2022)
+
+==== Przebieg prac
+
+==== Podsumowanie
 
 === Sprint 11 (27.06.2022 - 11.07.2022)
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 === Sprint 12 (11.07.2022 - 01.08.2022)
+
+==== Przebieg prac
+
+==== Podsumowanie
 
 === Sprint 13 (01.08.2022 - 15.08.2022)
 
+==== Przebieg prac
+
+==== Podsumowanie
+
 === Sprint 14 (15.08.2022 - 29.08.2022)
+
+==== Przebieg prac
+
+==== Podsumowanie

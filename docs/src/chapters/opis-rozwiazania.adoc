@@ -1,3 +1,4 @@
+[#_opis_rozwiazania]
 == Opis rozwiązania
 
 === Struktura projektu
