@@ -198,7 +198,7 @@ pracy dyplomowej.
 Sprint zaplanowano na 37 punkty historii. W trakcie trwania nie dodano żadnych nowych zadań, a także nie anulowano.
 Jedyne modyfikacje dotyczyły zmiany kryteriów akceptacji niektórych z zadań.
 
-==== Przebieg pracy
+==== Przebieg prac
 
 Pierwsze trzy zadania były pozostałością po poprzednim sprincie, ponieważ dotyczą one konfiguracji repozytorium
 projektu. Należało stworzyć konfigurację procesu automatycznego budowania dla aplikacji mobilnej. Tak samo, jak w
