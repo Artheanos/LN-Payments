@@ -1,0 +1,83 @@
+=== Model kaskadowy (10.10.2021 - 16.01.2022)
+
+Pierwszy etap realizacji rozpoczął się w październiku 2022, razem z przedmiotem "Projekt Zespołowy". Etap ten
+polegał na zbieraniu wiedzy domenowej oraz wypracowaniu finalnego kształtu aplikacji. Metodyki zwinne
+nie miały racji bytu z powodu braku zdefiniowanych celów do implementacji. Podczas wybierania
+tematu projektu, nie istniała wizja działania projektu. Z tego powodu zdecydowano się na pracę w modelu kaskadowym.
+W terminie do końca pierwszego semestru realizacji projektu celem było pozbycie się wszystkich niewiadomych przed
+implementacją projektu. Zdecydowano się zakończyć, dopiero gdy zespół będzie miał wymaganą wiedzę i działający prototyp
+finalnego rozwiązania. Większość zadań w tym okresie nie była śledzonych w żadnych narzędziu. Podstawą była
+komunikacja poprzez program _Discord_ oraz spotkania z promotorem. Tylko cześć zadań dotyczących analizy
+technologii była śledzona na tablicy Kanban.
+
+==== Przebieg prac
+
+Po pierwszym spotkaniu z promotorem zakres projektu obejmował tylko przyjmowanie płatności w sieci Lightning. Przez
+następne półtora miesiąca zespół dokształcał się zarówno z dziedziny kryptowalut, jak i architektury oprogramowania.
+Członkowie zespołu projektowego przeczytali wiele książek i artykułów, z których wiele zawartych jest w bibliografii.
+W międzyczasie trwały prace nad samą wizją i kształtem projektu. Co dwa tygodnie zespół spotykał się z promotorem,
+aby omówić wiele znaczących kwestii. Zajmowano się między innymi analizą konkurencyjnych rozwiązań. Do analizy
+płatności skonfigurowano _BTCPayServer_, dzięki czemu można było samemu wypróbować płatności przez sieć Lightning.
+Wraz ze wzrostem wiedzy domenowej odkryto, że zakres projektu obejmujący tylko płatności w sieci Lightning może
+okazać się niewystarczający. Z tego powodu zdecydowano się na połączenie ówczesnego tematu z drugim projektem
+opracowywanym w ramach projektu _Ingenious_, czyli zarządzania portfelem multisig oraz podpisywania transakcji
+poprzez aplikację mobilną. Na podstawie tam wybranego tematu pracy kontynuowano naukę oraz wypracowywanie wymagań.
+Zmieniały się one wielokrotnie, aż do końca listopada, gdy wizja projektu przybrała obecną formę. W międzyczasie
+wybrano również większość używanych technologii i bibliotek.
+
+Mając ustalony kształt finalnego rozwiązania oraz solidną wiedzę z zakresu kryptowalut, rozpoczęto przygotowywanie
+dokumentacji wstępnej. Stworzono w tym czasie dokumenty KP, DZW oraz SWS. Znajdują się one w załącznikach pracy.
+Opracowano również wstępne schematy blokowe dla niektórych procesów, a także diagram architektury systemu.
+Dodatkowo w tym czasie stworzono repozytorium dla właściwej części projektu w serwisie _Github.
+
+Po ukończeniu wymaganej dokumentacji rozpoczęło się opracowywanie ostatnich produktów dostarczanych tej fazy, czyli
+prototypu oraz makiety interaktywnej. Za wykonanie makiety odpowiedzialny był Jan Pieczul, a Aleksander Konieczny
+pełnił w procesie rolę konsultanta. Wówczas nie wykonano całej pracy związanej z makietą. Zawierała ona widoki
+niezbędne do zrealizowania zakresu płatności w sieci Lightning. Reszta paneli była dodawana do makiety na bieżąco
+podczas implementacji projektu. Zdecydowano się na ten krok ze względu na opóźnienia powstawania odpowiedniej części
+po stronie prototypu, która również powstała już w czasie implementacji. Na początku prac nad prototypem zdecydowano
+się na równy podział zadań pomiędzy członków zespołu.
+
+.Lista zadań podczas implementacji prototypu.
+[cols="1,7,3"]
+|===
+|Numer|Nazwa|Osoba przypisana
+|1|Konfiguracja środowiska i stworzenie projektu|Aleksander Konieczny
+|2|Implementacja interfejsu CLI|Aleksander Konieczny
+|3|Wyświetlanie adresu węzła Lightning|Aleksander Konieczny
+|4|Generowanie _invoice_ i informowanie jego opłaceniu|Jan Pieczul
+|5|Sprawdzanie salda w portfelu Lightning i Bitcoin|Jan Pieczul
+|6|Zamykanie kanałów i przesyłanie środków pomiędzy portfelami|Sebastian Lewandowski
+|7|Wysyłanie transakcji w Bitcoinach (w pierwszej wersji tylko ze zwykłego portfela)|Sebastian Lewandowski
+|===
+
+Prototyp postanowiono opracować z użyciem tych samych technologii, co rzeczywistą implementację. Pozwoliło to na
+późniejsze użycie części napisanego już kodu. Pierwszym, a jak się okazało najtrudniejszym zadaniem, była konfiguracja
+projektu i środowiska. Utworzenie projektu odbyło się bez problemowo. Stworzony nowy projekt Java wykorzystujący
+narzędzie do budowania _Maven_, a także dodano zależności _LightningJ_ oraz _BitcoinJ_. Problematyczna okazała się
+konfiguracja węzłów sieci Bitcoin oraz Lightning. Zdecydowano się na użycie kontenerów _Docker_ oraz programu
+orkiestrującego kontenery _docket-compose_. Stworzony został plik _docker-compose_ uruchamiający oba węzły
+w osobnych kontenerach, skonfigurowane w taki sposób, aby węzeł Lightning mógł komunikować się z węzłem Bitcoin.
+Pierwszym problemem była konfiguracja węzła Bitcoin w testowej sieci _testnet3_. Węzeł stale próbował
+pobierać pełną historię głównej sieci, co zajmuje w dniu pisania tego rozdziału 418 GB na dysku <<blockchain_size>>.
+Sieć testowa zajmuje tylko około 30 GB, a także środki do testowania można pozyskiwać za darmo, więc wybór sieci
+testowej jest oczywisty. Po uporaniu się z konfiguracją sieci wystąpił problem z czasem pobieranie blockchaina.
+Czas pobierania powinien wynosić około godzinę, w zależności od prędkości internetu. W przypadku prototypu
+szacowany czas wynosił 10 godzin. Oba problemy z węzłem Bitcoin rozwiązano poprzez dostosowanie parametrów
+konfiguracyjnych węzła. Następne napotkane problemy dotyczyły komunikacji obu węzłów, które również naprawiono
+poprzez odpowiednią konfigurację, tym razem węzła Lightning. Ostatnim problemem było ustanowienie połączenia
+biblioteki _LightningJ_ z węzłem sieci Lightning. Konfiguracja ta mocno różniła się do tej, która znajdowała się
+w analizowanym rozwiązaniu _BTCPayServer_. Po serii prób i błędów udało się skonfigurować wszystkie komponenty
+prototypu i można było przystąpić do realizacji zadań. Problemy te spowodowały spore opóźnienia, ponieważ
+poprawna konfiguracja zajęła aż 2 tygodnie. Następnie opracowano interfejs CLI, pobieranie i wyświetlanie adresów,
+generowanie i płacenie żądań płatności oraz sprawdzanie salda w poszczególnych elementach. Przy dwóch ostatnich
+zadania pojawił się problem z dostępnością osoby odpowiedzialnej. Zadania od Sebastiana Lewandowskiego przejął
+Aleksander Konieczny. Spowodowało to kolejne opóźnienia, przez co nie ukończono prototypu do końca grudnia, co było
+początkowym planem. Prezentacja prototypu została już opisana w podrozdziale <<_prototyp,"Prototyp">>.
+
+==== Podsumowanie
+
+Finalnie prototyp, a także wszystkie inne cele związane z pierwszym etapem rozwoju osiągnięte zostały w połowie
+stycznia 2022 roku. Po zaprezentowaniu osiągniętych rezultatów promotorowi postanowiono o przejściu do następnej fazy
+projektu, czyli implementacji rozwiązania. Pomimo wielu przeciwności udało się zakończyć pierwszy etap dwa tygodnie
+przed pierwotnie planowanym terminem, co jest sukcesem.

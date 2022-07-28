@@ -1,0 +1,90 @@
+=== Sprint 2 (31.01.2022 - 14.02.2022)
+
+Jest to pierwszy sprint, w którym implementowano właściwe funkcjonalności aplikacji. Celem było dostarczenie modułu
+płatności w pierwszej działającej wersji oraz dodanie podstawowych komponentów aplikacji internetowej.
+Zostało również kilka zadań związanych z konfiguracją projektu. Zaplanowano również rozpoczęcie prac nad dokumentem
+pracy dyplomowej.
+
+.Lista zadań w Sprincie drugim.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-38|Create pipeline for mobile app|Jan Pieczul|5|Ukończone
+|LP-48|Run pipelines in PR when there are changes|Aleksander Konieczny|2|Ukończone
+|LP-61|Connect backend with database|Aleksander Konieczny|1|Ukończone
+|LP-52|Set up document and write introduction|Aleksander Konieczny|3|Ukończone
+|LP-53|Write 'Problem description' chapter|Aleksander Konieczny|3|Ukończone
+|LP-55|Create landing page|Jan Pieczul|2|Ukończone
+|LP-56|Update quick buy page mockup|Jan Pieczul|3|Ukończone
+|LP-57|Create quick buy page|Jan Pieczul|3|Ukończone
+|LP-58|Create service that generates tokens|Aleksander Konieczny|3|Ukończone
+|LP-59|Create invoice service|Aleksander Konieczny|3|Ukończone
+|LP-60|Implement payment process|Aleksander Konieczny|5|Ukończone
+|LP-67|Implement websocket endpoint for payment processing|Aleksander Konieczny|5|Ukończone
+|LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Nieukończone
+|===
+
+Sprint zaplanowano na 37 punkty historii. W trakcie trwania nie dodano żadnych nowych zadań, a także nie anulowano.
+Jedyne modyfikacje dotyczyły zmiany kryteriów akceptacji niektórych z zadań.
+
+==== Przebieg prac
+
+Pierwsze trzy zadania były pozostałością po poprzednim sprincie, ponieważ dotyczą one konfiguracji repozytorium
+projektu. Należało stworzyć konfigurację procesu automatycznego budowania dla aplikacji mobilnej. Tak samo, jak w
+przypadku dwóch poprzednich zadań z poprzedniego sprintu, wymagano od procesu automatycznego budowania aplikacji,
+uruchamiania testów jednostkowych oraz sprawdzania stylu kodu źródłowego. W pierwszej wersji wszystkich konfiguracji
+proces uruchamiał się tylko przy tworzeniu prośby o dołączenie kodu w serwisie Github. Spowodowało to, że przy
+późniejszych zmianach kodu proces nie był uruchamiany, a co za tym idzie, nie były przykładowo sprawdzane testy
+jednostkowe. Z tego powodu zdecydowano się na modyfikacje wszystkich konfiguracji, aby proces uruchamiał się
+przy każdej zmianie kodu w utworzonej już prośbie o dołączenie. Ostatnim z tych zadań było konfiguracja połączenia z
+bazą danych po stronie serwera. Wykonano niezbędną konfigurację połączenia oraz ustawień _Hibernate_, tak aby
+tabele bazy danych były automatycznie tworzone na podstawie odpowiadających im obiektów modelowych aplikacji.
+
+Następne zadania dotyczyły dokumentacji pracy dyplomowej. Należało rozpocząć pracę od utworzenia głównego pliku
+tekstowego zawierającego odniesienia do przyszłych rozdziałów. Zostały napisane także dwa pierwsze rozdziały, czyli
+<<_wstep,"Wstęp">> oraz <<_omowienie_problemu,"Omówienie problemu">>.
+
+Kolejne trzy zadania dotyczyły prac nad aplikacją internetową. Pierwszym krokiem było stworzenie strony głównej
+aplikacji. Zawiera ona odniesienia do stron logowania, rejestracji oraz płatności dla niezalogowanych użytkowników.
+Kolejne dwa zadania dotyczą ekranu płatności. W pierwszej planowej wersji miał to być jeden ekran, na którym będą
+wyświetlane wszystkie dane. W trakcie planowania iteracji zdecydowano się na zmianę podejścia do tego ekranu.
+Wzorem innym popularnych sklepów internetowych, funkcjonalność rozbito na kilka ekranów. Miały one reprezentować
+wstępny formularz, ekran płatności oraz podsumowanie zakupu. Zmiana ta wymagała aktualizacji makiety interaktywnej,
+aby osoba odpowiedzialna miała już gotowy do zaimplementowania styl i układ komponentów. Zadanie poskutkowało
+dodaniem wielu nowych zadań polegających na stworzeniu stylów dla każdego komponentu. Aby nie zmieniać zakresu
+iteracji, zadania te zdecydowano się zaimplementować w następnych iteracjach. A ramach zadania LP-61 postanowiono
+stworzyć cały mechanizm karuzeli ekranów. Utworzone zostały stosowne podstrony, a także została zaimplementowana część
+logiki odpowiedzialnej za przechodzenie pomiędzy nimi. Resztę funkcjonalności zdecydowano się rozdzielić na zadania
+dedykowane osobno każdej podstronie.
+
+W sprincie znajdowała się również seria zadań dotycząca implementacji części serwerowej płatności. Zadania te
+dotyczyły implementacji procesu płatności. Pierwsze dwa zadnia obejmowały stworzenie odpowiednich serwisów.
+Pierwszy z nich zajmować się miał generowaniem jednorazowych tokenów. Drugim serwis odpowiedzialny jest za
+generowanie _invoice_ przy użyciu węzła sieci Lightning oraz zwracania żądania zapłaty. Było to proste zadanie,
+gdyż ta część nie różniła się mocno od kodu stworzonego na potrzeby prototypu. Następne zadanie polegało na
+implementacji serwerowej części procesu z wyłączeniem zwracania tokenów po zakupie. Stworzone zostały dodatkowe serwisy,
+tworzący adres węzła sieci Lightning oraz odpowiedzialny za obsługę repozytorium bazy danych. Dodane zostały dwa
+punkty końcowe API, jeden zwracający aktualne dane potrzebne do utworzenie płatności, takie jak cena czy adres węzła,
+a drugi pozwalający na stworzenie nowej płatności. Dodatkowo dodano klasę obserwującą na przychodzące zmiany statusu
+_invoice_ w węźle Sieci Lightning. Przy opłaceniu transakcji, w konsoli wyświetlana była odpowiednia wiadomość. Kolejne
+zadanie dotyczyło dokończenia tego procesu, czyli zwracania tokenów przez kanał Websocket przy opłaceniu żądania
+zapłaty. W tym celu stworzono odpowiednią konfigurację dla protokołu Websocket, a następnie dodano kontroler wysyłający
+wiadomości na odpowiedni kanał. Generowanie oraz wysyłanie tokenów uruchamiane jest poprzez informację o opłaconym
+rachunków pochodzącą z węzła Lightning. Tym sposobem zaimplementowano pierwszą działającą obsługę płatności w aplikacji.
+
+Ostatnie zadanie w iteracji było typu _spike_. Jest to zadanie wydzielone z zakresu iteracji i nie ma przydzielonych
+punktów historii. Polega na zbadaniu zagadnienia oraz zdobyciu wiedzy potrzebnej do wykonania zadania. W tym przypadku
+należało zbadać wykonywanie z adresu multisig. Nie zostało to wykonane w pierwszym etapie realizacji projektu,
+ponieważ plan zakładał implementacje tej funkcjonalności dopiero za kilka miesięcy. Niestety tego zadania nie udało
+się ukończyć w tej iteracji.
+
+==== Podsumowanie
+
+Większość celów tej iteracji została osiągnięta. Udało się dokończyć konfigurację projektu, stworzono pierwszą wersję
+obsługi płatności po stronie serwera. Nie udało się zrealizować płatności po stronie aplikacji internetowej, ponieważ
+w trakcie sprintu zdecydowano się dodać trzy nowe zadania polegające na implementacji każdego z ekranów płatności.
+Zrealizowano natomiast stronę główną oraz szablon dla karuzeli ekranów w procesie płatności. Nie udało się zrealizować
+zadania polegającego na zbadaniu płatności multisig oraz dodania ich do prototypu. Zadanie to zostało przeniesione
+do następnej iteracji. Finalnie udało się ukończyć wszystkie 37 punktów historii.footnote:[Niestety nie udało
+się tym razem pobrać diagramu spalania dla tego sprintu przez złe ustawienia oprogramowania Jira] Pomimo
+nieosiągnięcia wszystkich celów sprintu, udało się poczynić duże postępy w implementacji procesu płatności.

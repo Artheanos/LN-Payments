@@ -1,0 +1,90 @@
+=== Sprint 4 (07.03.2022 - 28.03.2022)
+
+W tej iteracji planowano dodać przeglądanie historii płatności przez użytkowników oraz rozpocząć pracę nad kontami
+administratorów i ich zarządzaniem. W ramach dodatkowych prac zaplanowano również poprawki do dokumentacji oraz
+dokończenie procesu płatności, co było początkowo zaplanowane na poprzedni sprint.
+
+.Lista zadań w sprincie czwartego.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-65|Polish checkout carousel view|Jan Pieczul|5|Ukończone
+|LP-66|Polish payment summary view|Jan Pieczul|2|Ukończone
+|LP-93|Secure and authenticate ws connections|Aleksander Konieczny|2|Ukończone
+|LP-81|Create user side panel|Aleksander Konieczny|2|Ukończone
+|LP-82|Add endpoint for querying user payments|Aleksander Konieczny|2|Ukończone
+|LP-83|Create history panel|Aleksander Konieczny|3|Ukończone
+|LP-90|Create endpoints for admin creation and querying|Aleksander Konieczny|2|Ukończone
+|LP-89|Add root admin at server startup|Aleksander Konieczny|2|Ukończone
+|LP-91|Create panel for admin management|Jan Pieczul|3|Nieukończone
+|LP-92|Add admin creation form|Jan Pieczul|2|Nieukończone
+|LP-63|Update DZW after review|Aleksander Konieczny|1|Ukończone
+|LP-95|Research E2E tests|Aleksander Konieczny|-|Ukończone
+|LP-62|Investigate and implement multisig wallet in prototype|Sebastian Lewandowski|-|Ukończone
+|===
+
+Zaplanowane zostało 11 zadań, a zakres ich prac oceniono na 24 punkty historii. Trzy z tych zadań nie zostały ukończone
+w poprzednim sprincie i zostały przeniesione dalej. W trakcie sprintu dodano kolejne 2 zadania, jedno polegające
+na zbadaniu technologii, a drugie techniczne warte 2 punktu historii. Finalnie planowany zakres prac objął 13 zadań
+o wartości 26 punktów. Jest to zdecydowanie mniej niż w poprzednich iteracjach. Nie wszystkie zadania były dostarczane
+na czas, więc bazując na wynikach poprzednich sprintów, zmniejszono odpowiednio zakres prac.
+
+==== Przebieg prac
+
+Priorytetem prac z powodów opóźnienia było zdecydowanie ukończenie procesu płatności. Dwa zadania LP-65 oraz LP-66
+polegały na dokończeniu odpowiadających im ekranów karuzeli płatności. Podczas implementacji zadania dotyczącego
+ekranu podsumowania odkryto, że po stronie serwera nie zostały zabezpieczenia kanałów Websocket. Spowodowało to, że
+domyślne ustawienia blokowały dostęp do kanałów. Część płatności aplikacji była zaimplementowana przed
+uwierzytelnianiem, przez co przeoczone ten aspekt wcześniej. Z tego powodu do sprintu dodano zadanie LP-93, polegające
+na integracji kanałów Websocket z autoryzacją. Prace rozpoczęte zostały natychmiast, aczkolwiek spowodowały kolejne
+opóźnienia. Na szczęście udało się ukończyć cały proces płatności w tej iteracji.
+
+Kolejne zadanie dotyczyło rozwoju aplikacji internetowej. Aby dodać następne panele dostępne dla użytkowników, należało
+zaimplementować komponent gromadzący linki do nich. Zostało dodane boczne menu zawierające linki. Napotkany został
+problem z wyświetlaniem aktualnie stworzonych już komponentów. Musiano zmodyfikować kod _CSS_ odpowiadający za
+pozycjonowanie elementów prawie na całej stronie internetowej. Był to większy wysiłek, niż początkowo zaplanowano, ale
+pozwoliło to na zbudowanie solidnego szablonu do dodawania następnych podstron.
+
+Zrealizowanie menu bocznego pozwoliło na kontynuację rozwoju aplikacji. Rozpoczęto implementację historii płatności.
+Najpierw dodano tę funkcjonalność do części serwerowe. Rozwiązanie zaimplementowano w taki sposób, aby w przyszłości
+istniała możliwość sortowania oraz wyszukiwania płatności po wszystkich dostępnych polach. Następnie został dodany
+ekran wyświetlający płatności w tabeli, włącznie z paginacją.
+
+Następna seria zadań dotyczy kont administratorów. Do tego momentu administrator nie różnił się niczym od zwykłego
+użytkownika. Nie można było go również stworzyć. Implementację rozpoczęto od stworzenia API pozwalającego na dodawanie
+oraz pobieranie administratorów. Zgodnie z wymaganiami, zarządzanie administratorami miało odbywać się z poziomu panela
+administratora. Aby umożliwić wstępną konfigurację serwera i dodanie administratorów, postanowiono automatycznie
+tworzyć administratora z predefiniowanymi danymi logowania. Jest to rozwiązanie znane z wielu systemów istniejących już
+na rynku, takich jak _Jenkins_ czy _Sonarqube_. W tej wersji aplikacji próba dodania administratora odbywała się
+przy każdym uruchomieniu aplikacji. Oczywiście adres email jest polem unikatowym, więc zawsze był stworzony maksymalnie
+jeden administrator domyślny. Planowano również dodać część aplikacji internetowej odpowiedzialnej za zarządzanie
+administratorami. W sprincie znalazły się zadania LP-91, dodające ekran z tabelą zawierającą administratorów, oraz
+LP-92, implementujące formularz ich dodawania. Niestety obu zadań nie udało się ukończyć w tej iteracji.
+
+Ostatnie trzy zadania dotyczyły zadań mniejszej wagi jak poprawek w dokumentacji oraz badania technologii. Pierwszym
+zadaniem było naniesienie poprawek do dokumentu DZW zgłoszonych przez promotora. Następne zadanie zostało dodane
+w trakcie sprintu. Dotyczyło ono zbadania implementacji testów E2E obejmujących serwer oraz aplikację mobilną.
+Zadanie to zostało dodane dopiero teraz, ponieważ początkowo tego typu testy nie były planowane. Jak rezultat tego
+zadania zdecydowano, że najlepiej będzie je zrealizować przy pomocy oprogramowania _Cypress_. Scenariusze testowe
+miały natomiast zostać wykonane z pomocą biblioteki _Cucumber_ oraz specjalnego języka _Gherkin_. Te narzędzia
+pozwalają na pisanie bardzo czytelnych scenariuszy zgodnie z procesem wytwórczym _BDD_. W tym sprincie udało się także
+nareszcie ukończyć badanie płatności z adresu multisig. Zmiany zostały naniesione w prototypie. Niestety badania te
+okazały się niewystarczające i zdecydowano się na utworzenie kolejnego zadania badającego to zagadnienie.
+
+==== Podsumowanie
+
+Udało się osiągnąć część początkowo planowanych celów. Zaimplementowana została historia płatności oraz część serwerowa
+zarządzania administratorami. Ukończono również proces płatności, a także zdobyto wiedzę pozwalającą na implementację
+adresów multisig i testów E2E. Zaimplementowanie komponentów zarządzania administratorami w aplikacji internetowej
+zakończyło się niepowodzeniem.
+
+.Wykres spalania sprintu czwartego.
+image::../images/sprints_raports/burndown_sprint4.png[]
+
+Podczas tworzenia wykresu wdarł się błąd, przez który wszystkie zadania z poprzedniego sprintu znalazły się w tym
+sprincie. Z tego powodu od wartości na wykresie należy odjąć około 30 punktów historii.
+
+Ukończone zostało 11 zadań, czyli tyle ile zaplanowano. Niestety wartość dostarczonych punktów historii wyniosła 19,
+czyli o 5 mniej niż zakładano. Wynikło to z przeniesienia dwóch zadań do następnego sprintu, a także dodania dwóch
+innych zadań w trakcie iteracji. Niestety dostarczono mniej funkcjonalności względem planu, a opóźnienie w realizacji
+projektu cały czas rosło.
