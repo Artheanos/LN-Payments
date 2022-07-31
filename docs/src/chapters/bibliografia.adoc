@@ -29,5 +29,17 @@ https://t.ly/G-Zo[]
 * [[[crypto_market_sizing, 9]]] _crypto.com_, Crypto Market Sizing, [dostęp: 07.07.2022],
 https://t.ly/_-8M[]
 
-* [[[blockchain_size, 10]]] _ycharts.com_, Bitcoin Blockchain Size, [dostęp: 25.07.2022],
+* [[[maven_directories, 10]]] _apache.maven.com_, Introduction to standard directory layout, [dostęp: 17.07.2022],
+https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html[]
+
+* [[[rest_tutorial_stateless, 11]]] _REST API Tutorial_, Stateless in REST API, [dostęp: 18.07.2022],
+https://restfulapi.net/statelessness[]
+
+* [[[hortsmann, 12]]] _Cay S. Horstmann_, Java. Podstawy. , 2019,
+ISBN:{nbsp}978-8328357785
+
+* [[[persistence_context, 13]]] _Baeldung_, JPA/Hibernate Persistence Context, [dostęp: 20.07.2022],
+https://www.baeldung.com/jpa-hibernate-persistence-context[]
+
+* [[[blockchain_size, 14]]] _ycharts.com_, Bitcoin Blockchain Size, [dostęp: 25.07.2022],
 https://ycharts.com/indicators/bitcoin_blockchain_size[]
