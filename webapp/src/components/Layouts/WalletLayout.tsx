@@ -39,6 +39,7 @@ export const WalletLayout: React.FC = () => {
     return () => {
       isMounted = false
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWalletCreated])
 
   const onSubmit = async (values: FormikValues) => {
