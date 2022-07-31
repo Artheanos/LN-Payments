@@ -3,9 +3,11 @@
 
 * [[[btcbook, 1]]] _Andreas M. Antonopoulos_, Mastering Bitcoin: Programming the Open Blockchain, 2017,
 ISBN:{nbsp}978-1491954386
+
 * [[[lnbook, 2]]] _Andreas M. Antonopoulos, Olaoluwa Osuntokun, René Pickhardt_, Mastering the Lightning Network:
 A{nbsp}Second Layer Blockchain Protocol for Instant Bitcoin Payments, 2022,
 ISBN:{nbsp}978-1492054863
+
 * [[[lndguide, 3]]] _Lightning Labs_, Builder's Guide to the LND Galaxy, [dostęp: 02.02.2022],
 https://docs.lightning.engineering[]
 
@@ -38,3 +40,6 @@ ISBN:{nbsp}978-8328357785
 
 * [[[persistence_context, 13]]] _Baeldung_, JPA/Hibernate Persistence Context, [dostęp: 20.07.2022],
 https://www.baeldung.com/jpa-hibernate-persistence-context[]
+
+* [[[blockchain_size, 14]]] _ycharts.com_, Bitcoin Blockchain Size, [dostęp: 25.07.2022],
+https://ycharts.com/indicators/bitcoin_blockchain_size[]

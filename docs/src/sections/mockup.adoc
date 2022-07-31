@@ -1,5 +1,6 @@
 :image-size: pdfwidth=75%
 
+[#_makieta_interaktywna]
 === Makieta interaktywna
 
 Makieta interaktywna została stworzona w celu rozplanowania układu interfejsu użytkownika. Przedstawiono na niej

@@ -1,39 +1,31 @@
 == Proces realizacji
 
-=== Model kaskadowy
+include::../sections/sprints/analysis_phase.adoc[]
 
-Opis tego, co i jak zrobiliśmy w pierwszym semestrze, między innymi krótki opis makiety interaktywnej oraz prototypu.
+include::../sections/sprints/sprint_1.adoc[]
 
-=== Sprint 1
+include::../sections/sprints/sprint_2.adoc[]
 
-==== Cel
+include::../sections/sprints/sprint_3.adoc[]
 
-Założenia na dany sprint, co chcemy osiągnąć.
+include::../sections/sprints/sprint_4.adoc[]
 
-==== Wykonane Zadania
+include::../sections/sprints/sprint_5.adoc[]
 
-Lista ukończonych zadań wraz z opisem rozwiązania.
+include::../sections/sprints/sprint_6.adoc[]
 
-==== Podsumowanie
+include::../sections/sprints/sprint_7.adoc[]
 
-Osiągnięte rezultaty, wykresy i statystki ze sprintu.
+include::../sections/sprints/sprint_8.adoc[]
 
-=== Sprint 2
+include::../sections/sprints/sprint_9.adoc[]
 
-=== Sprint 3
+include::../sections/sprints/sprint_10.adoc[]
 
-=== Sprint 4
+include::../sections/sprints/sprint_11.adoc[]
 
-=== Sprint 5
+include::../sections/sprints/sprint_12.adoc[]
 
-=== Sprint 6
+include::../sections/sprints/sprint_13.adoc[]
 
-=== Sprint 7
-
-=== Sprint 8
-
-=== Sprint 9
-
-=== Sprint 10
-
-=== Sprint 11
+include::../sections/sprints/sprint_14.adoc[]

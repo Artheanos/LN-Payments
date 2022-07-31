@@ -1,3 +1,4 @@
+[#_omowienie_problemu]
 == Omówienie problemu
 
 [#_przedstawienie_problemu]

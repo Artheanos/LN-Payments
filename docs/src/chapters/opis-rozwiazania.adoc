@@ -1,3 +1,4 @@
+[#_opis_rozwiazania]
 == Opis rozwiązania
 
 Rozdział opisuje zawartość repozytorium, w którym przechowywany jest między innymi kod źródłowy wszystkich komponentów
