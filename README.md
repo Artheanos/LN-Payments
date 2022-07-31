@@ -30,7 +30,7 @@ and to sign multisig transactions being sent from the server.
 
 Firstly you must decide whether you want to use your own Bitcoin node, or you want to use a third party one. 
 Having Bitcoin node running, you must start your own instance of LND. You can use _docker-compose_ files located in
-_devtools/docker_ directory.
+_devtools/docker_ directory. It also contains _readme_ file with instructions on how to run them.
 
 Executables can be found in each release files. Minimal version requires you to start webapp and webservice. It is 
 recommended to send mobile app installer to all future admins, because it is required to use Bitcoin transfers. 
