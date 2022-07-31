@@ -1,49 +1,42 @@
-import { rest } from 'msw'
-import { setupServer } from 'msw/node'
-
-import { currentPath, render, screen, waitFor } from 'tests/test-utils'
+import { render, screen, waitFor } from 'tests/test-utils'
 import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
 import React from 'react'
+import { WalletInfo } from 'webService/interface/wallet'
 
 describe('WalletPage', () => {
-  let responseStatus: number
-  const server = setupServer(
-    rest.get('/api/wallet', (_, res, ctx) => {
-      return res(
-        ctx.status(responseStatus),
-        ctx.json({
-          bitcoinWalletBalance: {
-            availableBalance: 21,
-            unconfirmedBalance: 37
-          },
-          channelsBalance: {
-            totalBalance: 123,
-            openedChannels: 8,
-            autoChannelCloseLimit: 789
-          },
-          lightningWalletBalance: {
-            availableBalance: 147,
-            autoTransferLimit: 369,
-            unconfirmedBalance: 40
-          },
-          totalIncomeData: [
-            {
-              key: '2022-04',
-              value: 3
-            },
-            {
-              key: '2022-05',
-              value: 2
-            },
-            {
-              key: '2022-06',
-              value: 1
-            }
-          ]
-        })
-      )
-    })
-  )
+  const testData: WalletInfo = {
+    bitcoinWalletBalance: {
+      availableBalance: 21,
+      unconfirmedBalance: 37,
+      currentReferenceFee: 1
+    },
+    channelsBalance: {
+      totalBalance: 123,
+      openedChannels: 8,
+      autoChannelCloseLimit: 789
+    },
+    lightningWalletBalance: {
+      availableBalance: 147,
+      autoTransferLimit: 369,
+      unconfirmedBalance: 40
+    },
+    totalIncomeData: [
+      {
+        key: '2022-04',
+        value: 3
+      },
+      {
+        key: '2022-05',
+        value: 2
+      },
+      {
+        key: '2022-06',
+        value: 1
+      }
+    ],
+    admins: [],
+    address: 'ddd'
+  }
 
   beforeAll(() => {
     window.ResizeObserver = jest.fn().mockImplementation(() => ({
@@ -53,15 +46,11 @@ describe('WalletPage', () => {
     }))
   })
 
-  const init = async (_responseStatus: number) => {
-    responseStatus = _responseStatus
-    server.listen()
-    render(<WalletPage />, { location: '/panel/wallet' })
-  }
+  beforeEach(() => {
+    render(<WalletPage walletInfo={testData} />)
+  })
 
   describe('when wallet exists', () => {
-    beforeEach(() => init(200))
-
     it('displays wallet info', async () => {
       await waitFor(() => {
         expect(screen.getByText('Bitcoin Wallet')).toBeInTheDocument()
@@ -75,19 +64,7 @@ describe('WalletPage', () => {
         expect(screen.getByText('40 sats unconfirmed')).toBeInTheDocument()
         expect(screen.getByText('369')).toBeInTheDocument()
         expect(screen.getByText('Total income')).toBeInTheDocument()
-      })
-    })
-  })
-
-  describe('when wallet does not exist', () => {
-    beforeEach(() => init(404))
-
-    it('redirects with a message', async () => {
-      await waitFor(() => {
-        expect(
-          screen.queryByText('Redirected to wallet creation form')
-        ).toBeInTheDocument()
-        expect(currentPath()).toBe('/panel/wallet/new')
+        expect(screen.getByText('ddd')).toBeInTheDocument()
       })
     })
   })

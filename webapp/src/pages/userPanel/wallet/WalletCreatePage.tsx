@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Button, CircularProgress, Grid } from '@mui/material'
 import { Field, Form, Formik, FormikValues } from 'formik'
-import { useNavigate } from 'react-router-dom'
 
 import Panel from 'components/common/Panel'
 import { MultiSelectInput } from 'components/Form/FormikInputs/MultiSelectInput'
@@ -9,17 +8,18 @@ import { TextInput } from 'components/Form/FormikInputs/TextInput'
 import { api } from 'webService/requests'
 import {
   walletCreateSchema,
-  initialValues,
-  WalletForm
+  initialValues
 } from 'components/wallet/create/form'
-import routesBuilder from 'routesBuilder'
 import { useTranslation } from 'react-i18next'
 
-export const WalletCreatePage: React.FC = () => {
+type Props = {
+  onSubmit: (values: FormikValues) => void
+}
+
+export const WalletCreatePage: React.FC<Props> = ({ onSubmit }) => {
   const { t } = useTranslation('wallet')
   const [admins, setAdmins] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
 
   useEffect(() => {
     api.admins
@@ -33,16 +33,6 @@ export const WalletCreatePage: React.FC = () => {
       })
       .finally(() => setLoading(false))
   }, [])
-
-  const onSubmit = async (values: FormikValues) => {
-    const { status } = await api.wallet.create(values as WalletForm)
-
-    if (status === 201) {
-      navigate(routesBuilder.userPanel.wallet.index)
-    } else {
-      alert(t('common:error.generic'))
-    }
-  }
 
   if (loading) return <CircularProgress />
 
