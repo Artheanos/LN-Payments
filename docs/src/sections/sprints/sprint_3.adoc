@@ -54,7 +54,7 @@ czyli zwykły użytkownik.
 
 Kolejnym zadaniem było opracowanie rozwiązania pozwalającego na obsłudze płatności od niezalogowanych użytkowników
 po stronie serwera. Było to problematyczne, ponieważ chciano zapisywać wszystkie płatności w bazie danych. Wymagane
-to było do przeglądania historii przed administratorów w przyszłości oraz do przesłania tokenów konkretnej osobie.
+to było do przeglądania historii przez administratorów w przyszłości oraz do przesłania tokenów konkretnej osobie.
 Zdecydowano się wtedy na stworzenie hierarchii użytkowników z wykorzystaniem klasy abstrakcyjnej _User_. Dzięki
 temu udało się wydzielić klasę dla niezalogowanego użytkownika i dwie klasy dla zalogowanych użytkowników. Dodatkowo
 stworzono generyczne repozytoria dla różnych typów użytkowników, a także serwisy odpowiedzialne za zarządzanie nimi.

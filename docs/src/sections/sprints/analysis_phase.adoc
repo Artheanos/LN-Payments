@@ -1,13 +1,13 @@
 === Model kaskadowy (10.10.2021 - 16.01.2022)
 
-Pierwszy etap realizacji rozpoczął się w październiku 2022, razem z przedmiotem "Projekt Zespołowy". Etap ten
+Pierwszy etap realizacji rozpoczął się w październiku 2021, razem z przedmiotem "Projekt Zespołowy". Etap ten
 polegał na zbieraniu wiedzy domenowej oraz wypracowaniu finalnego kształtu aplikacji. Metodyki zwinne
 nie miały racji bytu z powodu braku zdefiniowanych celów do implementacji. Podczas wybierania
 tematu projektu, nie istniała wizja działania projektu. Z tego powodu zdecydowano się na pracę w modelu kaskadowym.
 W terminie do końca pierwszego semestru realizacji projektu celem było pozbycie się wszystkich niewiadomych przed
-implementacją projektu. Zdecydowano się zakończyć, dopiero gdy zespół będzie miał wymaganą wiedzę i działający prototyp
-finalnego rozwiązania. Większość zadań w tym okresie nie była śledzonych w żadnych narzędziu. Podstawą była
-komunikacja poprzez program _Discord_ oraz spotkania z promotorem. Tylko cześć zadań dotyczących analizy
+implementacją projektu. Zdecydowano się zakończyć ten etap realizacji, dopiero gdy zespół będzie miał wymaganą wiedzę i
+działający prototyp finalnego rozwiązania. Większość zadań w tym okresie nie była śledzonych w żadnych narzędziu.
+Podstawą była komunikacja poprzez program _Discord_ oraz spotkania z promotorem. Tylko cześć zadań dotyczących analizy
 technologii była śledzona na tablicy Kanban.
 
 ==== Przebieg prac
