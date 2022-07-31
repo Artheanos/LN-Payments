@@ -62,8 +62,8 @@ Dostęp do tej ścieżki nie wymaga żadnej autoryzacji, dlatego w pierwszej lin
 email. Zostaje on opakowany w obiekt klasy _Optional_, gdyż wartość obiektu _Principal_ będzie nieobecna w przypadku
 nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade. Przyrostek
 _Facade_ miał początkowo oznaczać odrębną warstwę w architekturze aplikacji, zbierającą w sobie wszystkie serwisy. Miała
-być dostępna tylko dla klas kontrolerów. Model ten się nie przyjął w innych pakietach, gdyż zysk z tego rozwiązania był
-niewielki, a generował dużo nadmiarowego kodu.
+być ona dostępna tylko dla klas kontrolerów. Model ten się nie przyjął w innych pakietach, gdyż zysk z tego rozwiązania
+był niewielki, a generowałby dużo nadmiarowego kodu.
 
 .Metoda buildInfoResponse klasy PaymentFacade.
 [source, java]

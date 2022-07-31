@@ -39,7 +39,7 @@ wszystkie dostępne w portfelu środki. Obecnie ta metoda wykorzystywana jest ty
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=56..65]
 ----
 
-Metoda prywatna _validateAndObtainWallet_ sprawdza, czy istnieje aktualnie istniejąca transakcja. Jeżeli nie, to
+Metoda prywatna _validateAndObtainWallet_ sprawdza, czy istnieje aktualnie oczekująca transakcja. Jeżeli nie, to
 zwracany jest aktualnie używany portfel. Następnie obie przeciążone metody _createTransaction_ wywołują również
 przeciążone metody _createTransaction_, ale pochodzące z klasy _BitcoinService_. Ciało obu metod test bardzo obszerne,
 dlatego cała uwaga zostanie poświęcona wersji z możliwością określenia kwoty transakcji.

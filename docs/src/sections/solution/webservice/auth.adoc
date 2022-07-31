@@ -147,7 +147,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Metoda oznaczona jest jako @Transactional, co zapobiega jednoczesnemu dodaniu tego samego użytkownika przez kilka
-wątków. Na początku wywołanie poddany walidacji zostaje adres email, czyli wykonywane jest sprawdzenie, czy dany email
+wątków. Na początku wywołania poddany walidacji zostaje adres email, czyli wykonywane jest sprawdzenie, czy dany email
 jest wolny. Następnie model parametru konwertowany jest na klasę User (a konkretnie StandardUser) i zapisywany jest
 przy pomocy klasy repozytorium. Sama hierarchia klas repozytorium użytkowników jest dosyć ciekawa. Zaczyna się
 od generycznego interfejsu _BaseUserRepository_.

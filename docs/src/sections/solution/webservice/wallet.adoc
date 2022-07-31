@@ -34,7 +34,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Konfiguracja polega na utworzeniu obiektu klasy _WalletAppKit_. Zawiera ona wszystkie zasoby potrzebne do operowania
 na portfelach Bitcoin oraz pozwala na pozyskanie obiektów do operowania na innych aspektach protokołu. Do konfiguracji
-wymagana jest nazwa sieci Bitcoin, do której podłączy się biblioteka. Pochodzi ona aktualnie uruchomionego profilu
+wymagana jest nazwa sieci Bitcoin, do której podłączy się biblioteka. Pochodzi ona z aktualnie uruchomionego profilu
 aplikacji. Drugim parametrem jest ścieżka do pliku, który przechowywać będzie szczegóły portfela. Następnie
 portfel jest uruchamiany, co powoduje połączenie się z innymi węzłami Bitcoin i rozpoczęcie pracy przy synchronizacji
 i aktualizacji łańcucha bloków. W przypadku sieci _regtest_ biblioteka połączy się tylko i wyłącznie z węzłem
@@ -172,7 +172,7 @@ własnego wielowątkowego kodu. Wystarczy dodać adnotację _@Scheduled_ i poda�
 są do siebie bardzo podobne, operują tylko na innych polach i metodach klasy _WalletService_. W obu przypadkach
 odpowiednia metoda jest wywoływana, kiedy balans w odpowiednim miejscu osiągnął limit ustawiony przez użytkownika.
 W rozdziale _Analiza_ omówiona została zasada działania zamykania kanałów. Można je zamknąć kooperacyjnie i siłowo.
-W przypadku automatycznego zamykania odbywa się to zawsze z kooperacyjnie, chyba że kanał jest nieaktywny dłużej
+W przypadku automatycznego zamykania odbywa się to zawsze kooperacyjnie, chyba że kanał jest nieaktywny dłużej
 niż tydzień. Powyższe operacje można również uruchomić ręcznie. Dostępne są dwie metody w API HTTP:
 _/wallet/closeChannels_ oraz _/wallet/transfer_. W przypadku tej pierwszej użytkownik może samemu wybrać, czy chce
 zamknąć kanały kooperacyjnie, czy siłowo.

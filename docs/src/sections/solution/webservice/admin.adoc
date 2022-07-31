@@ -25,7 +25,7 @@ jest usuwanie użytkowników.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/admin/service/AdminService.java[lines=65..73]
 ----
 
-Aby usunąć administratora, należy najpierw pobrać jego obiekt bazy danych. Ważnym krokiem jest sprawdzenie, czy
+Aby usunąć administratora, należy najpierw pobrać jego obiekt z bazy danych. Ważnym krokiem jest sprawdzenie, czy
 pobrany administrator jest członkiem aktualnego portfela. Gdyby administrator był członkiem portfela, usunięcie go
 mogłoby spowodować utratę środków, ponieważ przepadłaby możliwość podpisania i walidacji transakcji. Po udanej
 walidacji użytkownik może zostać usunięty przy pomocy repozytorium administratorów. Klasa _AdminService_ pozwala

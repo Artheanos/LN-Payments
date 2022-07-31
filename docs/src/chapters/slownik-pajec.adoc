@@ -34,4 +34,7 @@ Górnik::
     pełnymi węzłami sieci.
 
 DTO::
-    TODO
+    Obiekt transferu danych (ang. Data Transfer Object) jest obiektem zawierającym zbiór danych, a także zapewniający
+    wsparcie dla mechanizmów serializacji oraz deserializacji. Nie powinien zawierać żadnej logiki. Zazwyczaj
+    używa się ich do transferu danych pomiędzy zdalnymi interfejsami. Dzięki temu uzyskuje się rozdzielenie
+    pomiędzy obiektami domenowymi aplikacji a danymi zwracanymi przez sieć.
