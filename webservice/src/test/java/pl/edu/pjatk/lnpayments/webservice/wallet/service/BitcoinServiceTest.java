@@ -6,6 +6,7 @@ import org.bitcoinj.core.PeerGroup;
 import org.bitcoinj.core.TransactionBroadcast;
 import org.bitcoinj.kits.WalletAppKit;
 import org.bitcoinj.params.RegTestParams;
+import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.script.ScriptException;
 import org.bitcoinj.wallet.Wallet.BalanceType;
 import org.junit.jupiter.api.Assertions;
@@ -148,6 +149,7 @@ class BitcoinServiceTest {
     @ParameterizedTest
     @MethodSource("verificationData")
     void shouldReturnTrueForProperlySignedValues(String tx, String key, boolean expected) {
+        when(walletAppKit.params()).thenReturn(TestNet3Params.get());
         boolean result = bitcoinService.verifySignature(tx, key);
         Assertions.assertEquals(expected, result);
     }

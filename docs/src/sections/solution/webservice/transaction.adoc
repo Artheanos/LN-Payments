@@ -1,0 +1,104 @@
+==== Transakcje
+
+Pakiet _transaction_ odpowiedzialny jest za tworzenie nowych transakcji oraz pobieranie historii. Współpracuje on
+ściśle z pakietami _wallet_ i _notification_, gdyż te funkcjonalności są ze sobą powiązane. Transakcje tworzy się
+ze środków znajdujących w portfelu oraz należy je potwierdzić w aplikacji mobilnej przy pomocy powiadomienia.
+Podobnie jak pakiet _admin_, zawiera dość mało klas.
+
+.Zawartość pakietu _transaction_
+image::../images/webservice_transaction_content.png[]
+
+Ogranicza się on przede wszystkim do zestawu klas pogrupowanych według warstwy aplikacji. Dostępne API pozwala na
+tworzenie nowych transakcji oraz na pobieranie danych historycznych, z wyszczególnieniem tych oczekujących. Dostępne są
+one pod ścieżką _/transactions_. Dodatkowym punktem końcowym _/transactions/info_, który pozwala na pobranie danych
+potrzebnych do utworzenia nowej transakcji.
+
+.API dostępne dla transakcji
+image::../images/webservice_transaction_api.png[]
+
+Do utworzenia transakcji, podobnie jak w przypadku płatności, należy najpierw pobrać wymagane dane. Proces
+pobierania tych danych standardowo zaczyna się w kontrolerze, w tym przypadku w _TransactionResource_, skąd wywoływana
+jest metoda _getNewTransactionDetails_ klasy _TransactionService_.
+
+.Metoda getNewTransactionDetails klasy TransactionService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=147..150]
+----
+
+Odpowiedź składa się z aktualnego balansu adresu multisig oraz wartości determinującej istnienie aktualnie oczekująca
+transakcja. Dane te wymagane są w aplikacji internetowej do poprawnej obsługi dostępu do formularza, a także do
+wyświetlania informacji o dostępnych środkach. Kolejnym krokiem jest utworzenie nowej transakcji. Odbywa się to w
+metodach _createTransaction_. Dostępne są dwie przeciążone wersje tej metody. Obie z nich przyjmują jako parametr
+adres docelowy, natomiast tylko jedna przyjmuje kwotę transakcji. Drugie przeciążenie wykonuje transakcję na
+wszystkie dostępne w portfelu środki. Obecnie ta metoda wykorzystywana jest tylko w procesie odtwarzania portfela.
+
+.Metoda createTransaction klasy TransactionService przeciążona z dwoma parametrami.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=56..65]
+----
+
+Metoda prywatna _validateAndObtainWallet_ sprawdza, czy istnieje aktualnie oczekująca transakcja. Jeżeli nie, to
+zwracany jest aktualnie używany portfel. Następnie obie przeciążone metody _createTransaction_ wywołują również
+przeciążone metody _createTransaction_, ale pochodzące z klasy _BitcoinService_. Ciało obu metod test bardzo obszerne,
+dlatego cała uwaga zostanie poświęcona wersji z możliwością określenia kwoty transakcji.
+
+.Metoda createTransaction klasy BitcoinService, przeciążona z kwotą transakcji.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/BitcoinService.java[lines=65..89]
+----
+
+Na początku parametry wejściowe mapowane są na odpowiednie obiekty z biblioteki _BitcoinJ_. Pomiędzy mapowaniami
+znajduje się pobranie balansu adresu multisig, raz utworzenie transakcji. Odbywa się ono w metodzie prywatnej
+_buildTxWithInputs_.
+
+.Metoda prywatna buildTxWithInputs klasy BitcoinService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/wallet/service/BitcoinService.java[lines=110..118]
+----
+
+Tworzy ona nowy obiekt klasy _Transaction_, pochodzącej z pakietu biblioteki _BitcoinJ, a następnie przy pomocy
+_WalletAppKit_ pobierane są adresy obserwowane przez bibliotekę. Filtrowane są w taki sposób, aby uzyskać wszystkie
+dostępne wyjścia transakcji, które dodawane są jako wejścia tej nowo powstałej. Wracając do metody _createTransaction_,
+po przygotowaniu danych następuje sprawdzenie, czy dostępne są środki w portfelu, aby dokonać transakcji, z
+uwzględnieniem opłaty transakcyjnej. Po udanej walidacji tworzone są dwa wyjścia transakcji: jedno wysyłające środki
+na wskazany adres, a drugie zwracające resztę na adres multisig. Tak utworzona transakcja mapowana jest na obiekt
+_Transaction_, tym razem będąca modelem aplikacji. Po utworzeniu obiektu transakcji metoda _createTransaction_ z klasy
+_TransactionService_ może kontynuować pracę. Wywoływana jest wtedy metoda prywatna _finishTransaction_.
+
+.Metoda finishTransaction klasy TransactionService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=129..138]
+----
+
+Metoda ta kończy tworzenie obiektu _Transaction_, po czym zapisuje go w bazie danych. Zajmuje się również wysłaniem
+powiadomień do użytkowników. Przy pomocy powiadomień może on podpisać transakcję w aplikacji mobilnej. Tworzona
+jest kolekcja powiadomień, zawierająca jeden obiekt dla każdego administratora portfela. Następnie przy pomocy klasy
+_NotificationSocketController_ pochodzącej z pakietu _notification_ wysyłane są do administratorów.
+
+.Metody klasy NotificationSocketController.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/resource/NotificationSocketController.java[lines=29..38]
+----
+
+Wywoływana jest metoda _sendAllNotifications_, która dla każdego otrzymanego powiadomienia wywołuje metodę
+_sendNotification_. Zapisuje ona transakcje w bazie danych, po czym wysyła powiadomienia na indywidualny kanał
+użytkownika protokołu Websocket.
+
+Ostatnią funkcjonalnością pakietu jest pobieranie historii o płatnościach. Dodatkowym aspektem jest oddzielenie w
+odpowiedzi transakcji oczekującej. Dzięki temu może być ona wyświetlana oddzielnie od innych transakcji, aby
+użytkownik dokładnie wiedział o jej istnieniu.
+
+.Metoda findTransactions klasy TransactionService.
+[source, java]
+----
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/transaction/service/TransactionService.java[lines=84..90]
+----
+
+Osobno pobierana jest transakcja oczekująca oraz wszystkie inne transakcje. Następnie wszystkie klasy modelowe
+konwertowane są na obiekty DTO, po czym gotowy obiekt zwracany jest użytkownikowi.

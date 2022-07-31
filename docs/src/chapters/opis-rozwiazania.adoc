@@ -1,7 +1,53 @@
 == Opis rozwiązania
 
-=== Struktura projektu
+Rozdział opisuje zawartość repozytorium, w którym przechowywany jest między innymi kod źródłowy wszystkich komponentów
+aplikacji oraz dokumentacja. Każdy podrozdział opisuje jeden z przechowywanych komponentów, wraz z omówieniem kodu
+i samego rozwiązania od strony technicznej.
 
-=== Opis API
+=== Struktura repozytorium
 
-=== Prezentacja systemu
+Wszystkie pliki związane z projektem znajdują się w jednym repozytorium zgodnie z podejściem _monorepo_. Oznacza
+to, że każda część systemu znajduje się w osobnym folderze wewnątrz jednego repozytorium. Aplikacja nie składa się z
+wielu komponentów oraz nie pracuje nad nim dużo osób, więc rozwiązanie sprawdza się tutaj perfekcyjnie. Wszystko,
+łącznie z dokumentacją i diagramami znajduje się w jednym miejscu. Ułatwia to wprowadzanie zmian do kilku
+komponentów jednocześnie, a także usprawnia proces _code review_, ponieważ zadanie będzie zawsze zawarte w jednym
+_pull requeście_. Repozytorium przechowywane w serwisie Github, z którego wykorzystywane są również wbudowane narzędzia
+do CI/CD. Główny folder projektu prezentuje się następująco:
+
+.Zawartość folderu głównego w programie Intellij IDEA.
+image::../images/root_dir_tree.png[]
+
+Poszczególne komponenty i zależności mają swoje foldery:
+
+* .github → Zawiera pliki konfiguracyjne dla repozytorium w serwisie _Github_. Znajdują się tam pliki konfigurujące
+CI/CD przy pomocy _Github Actions_, a także szablon i konfiguracja dla _pull requestów_.
+* devtools → Projekt polega na kilku programach, które wspomagają i ułatwiają proces tworzenia oprogramowania.
+W tym folderze znajdują się ich pliki konfiguracyjne oraz dokumentacja użytkowania w kontekście tworzonego systemu.
+* docs → Przechowuje większość dokumentacji stworzonej przez cały okres tworzenia projektu. Zawiera między innymi
+dokumenty KP, DZW i SWS, a także wszystkie rozdziały i pliki budujące pracę dyplomową. W poszczególnych folderach
+znajdują się również diagramy, fragmenty kodu i zdjęcia.
+* mobileapp → Znajduje się w nim kod źródłowy aplikacji mobilnej dla systemu Android.
+* webapp → Zawiera kod źródłowy aplikacji internetowej oraz kod testów E2E. Plik obsługujący proces budowania tego
+komponentu zawiera ustawienia do uruchomienia same aplikacji webowej oraz uruchomienia testów E2E dla całego serwisu
+(z wyłączeniem testów dla aplikacji mobilnej).
+* webservice → Przechowuje kod źródłowy dla serwera.
+
+Pozostałe pliki znajdujące się w tym folderze to _.gitignore_, zawierające ścieżki i pliki, które będą ignorowane przez
+system kontroli wersji _Git_, oraz _README.md_, które zawiera informacje o aplikacji oraz instrukcje potrzeba do jej
+uruchomienia.
+
+include::../sections/webservice_solution.adoc[]
+
+=== Aplikacja webowa
+
+=== Aplikacja mobilna
+
+=== Dokumentacja
+
+=== Pozostałe <- lepsza nazwa
+
+=== .github
+
+==== Postman
+
+==== Docker
