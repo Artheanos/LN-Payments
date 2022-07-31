@@ -24,8 +24,7 @@ import { TransactionFormPage } from 'pages/userPanel/transactions/TransactionFor
 import { TransactionsPage } from 'pages/userPanel/transactions/TransactionsPage'
 import { UserLayout } from './Layouts/UserLayout'
 import { UserProvider } from './Context/UserContext'
-import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
-import { WalletPage } from 'pages/userPanel/wallet/WalletPage'
+import { WalletLayout } from 'components/Layouts/WalletLayout'
 
 const theme = createTheme({
   palette: {
@@ -87,15 +86,11 @@ const App = () => (
                 />
                 <Route
                   path={routesBuilder.userPanel.wallet.index}
-                  element={<WalletPage />}
+                  element={<WalletLayout />}
                 />
                 <Route
                   path={routesBuilder.userPanel.transactions.index}
                   element={<TransactionsPage />}
-                />
-                <Route
-                  path={routesBuilder.userPanel.wallet.new}
-                  element={<WalletCreatePage />}
                 />
                 <Route
                   path={routesBuilder.userPanel.transactions.new}

@@ -36,6 +36,7 @@
     "header": "Create wallet",
     "admins": "Admins",
     "numSignatures": "Minimum number of signatures",
-    "noAdmins": "There are no admins with assigned keys, please add them in the Admin management panel."
+    "noAdmins": "There are no admins with assigned keys, please add them in the Admin management panel.",
+    "redirection": "Redirected to wallet creation form"
   }
 }
