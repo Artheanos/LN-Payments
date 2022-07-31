@@ -1,1 +1,48 @@
 == Dalsze plany rozwoju
+
+W ramach pierwszego wydania nie zostały ukończone wszystkie początkowo zaplanowane zadania. Jest to związane z nierównym
+wkładem władnym członków zespołu projektowego. W rejestrze zadań znajduje się jeszcze kilkanaście zadań. Większość
+z nich dotyczy zmniejszenia długu technicznego oraz mniej znaczących poprawek. Znalazło się tam również ważne
+zadania. Funkcjonalność odtwarzania portfela dodana jest tylko po stronie serwera. Integracja procesu w aplikacji
+internetowej nie została dodana. Drugą ważną funkcjonalnością jest dynamiczne obliczanie opłaty transakcyjnej w
+zależności od rozmiaru transakcji. W aktualnej wersji jest to sztywno ustalona kwota, która powinna być zaakceptowana
+w większości przypadków. Opłata transakcyjna powinna być obliczana automatycznie na podstawie danych o opłatach z
+ostatnich bloków przeliczonych przez rozmiar bloku w bajtach. W aplikacji zabrakło również kompletnych testów E2E.
+Zrealizowano je tylko dla procesu uwierzytelniania, a w planach były jeszcze dla całej reszty aplikacji internetowej
+oraz aplikacji mobilnej. Planowane też było usprawnienie procesu budowania produktów dostarczanych. Na potrzeby
+pierwszego wydania pliki te zostały zbudowane ręcznie, natomiast w rejestrze znajdują się zadania automatyzujące
+ten proces w ramach procesu CI/CD. Ostatnią brakującą funkcjonalnością jest przesyłanie zakupionych tokenów na adres
+email użytkownika. Już w karcie wymagań projektu zadanie było oznaczone jako opcjonalne, więc odpowiedni wpis nie
+znalazł się w rejestrze. Planowano jego realizację tylko w przypadku ukończenia projektu długo przed terminem, co nie
+miało miejsca. Wszystkie z wymienionych nieukończonych funkcjonalności będą ukończone w najbliższym czasie i zostaną
+uwzględnione w następnym wydaniu.
+
+Aplikacja ma duży potencjał do rozwoju. Nowe funkcjonalności można dodawać praktycznie bez końca. Projekt powstał
+jako połączenie dwóch innych projektów, które miały powstać w ramach projektu _Ingenious_. Był to serwer do przyjmowania
+płatności wraz z generowaniem tokenów oraz portfel multisig z aplikacją mobilną do podpisywania transakcji.
+Naturalną rzeczą jest, że połączenie dwóch projektów skutkowało zmniejszeniem liczby funkcjonalności obu z nich.
+Wiele z nich planowane jest na przyszłe wydania. Moduł płatności powinien być bardziej uniwersalny. Jedną z możliwości
+jest dodanie funkcjonalności pozwalającej na dostosowanie stylu aplikacji przez administratorów. Może to się odbywać
+przykładowo poprzez kaskadowe arkusze stylów CSS. Dobrym pomysłem dyskutowanym na początku było stworzenie serwera z
+wykorzystaniem architektury mikroserwisów. Dzięki temu klienci mogliby uruchomić tylko część serwera odpowiedzialną za
+płatności, wykorzystując stworzone rozwiązanie tylko i wyłącznie jaki bramki płatności. Prawdopodobnie dodanie tej
+funkcjonalności zwiększyłoby szansę na komercjalizację, gdyż pozwoliłoby to na integrację z istniejącymi już sklepami
+internetowymi. Bardzo wiele funkcjonalności można dodać do części odpowiedzialnej za portfel oraz transakcje.
+A aplikacji mobilnej brakuje zarządzania kluczami. W planach jest implementacja odzyskiwania klucza z _mnemonic phase_,
+a także możliwość importu oraz eksportu pliku z kluczem. Można również pomyśleć nad implementacją części funkcjonalności
+aplikacji internetowej w aplikacji mobilnej, takich jak podgląd środków w portfelu czy też przeglądania historii
+płatności. Planowane jest również rozwinięcie zarządzania kanałami. W tym celu planowany jest nowy panel wyświetlający
+szczegóły aktualnie otwartych kanałów. Administrator będzie mógł zamykać tylko wybrane przez siebie kanały, a nie
+wszystkie jednocześnie jak to jest zaimplementowane obecnie. Dodatkowo chciano dodać możliwość skorzystania z funkcji
+_LND_ o nazwie _Autopilot_. Pozwala ona na automatyczne otwieranie kanałów z popularnymi węzłami. Zmniejszyłoby to
+ilość użytkowników, którzy muszą za każdym razem samemu otwierać kanały. Byłoby to szczególnie przydatne na serwerach
+z dużą ilością użytkowników. Gdyż większość użytkowników sieci Lightning miałoby cały czas pośrednio otwarty kanał z
+serwerem. Niestety te funkcjonalności planowane są na daleką przyszłość, o ile kiedykolwiek zostaną zrealizowane.
+
+Sam projekt dostępny jest w serwisie Github jako rozwiązanie open-source. Wydany został na licencji MIT, która pozwala
+każdemu na dowolne użytkowanie i modyfikację programu. W tym modelu planowane jest dalsze rozwijanie systemu.
+Po dodaniu wielu nowych funkcjonalności może wzrosnąć wartość biznesowa rozwiązania. W tym wypadku licencja nie
+zabrania kontynuowania rozwoju oprogramowania na innej licencji, niekoniecznie open-source. Zespół nadal myśli o
+integracji projektu w ramach programu _Ingenious_. Cały czas prowadzone są rozmowy dotyczące wdrożenia systemu w ramach
+projektu, które prawdopodobnie przyspieszą po zakończeniu prac. Nieważne czy projekt ma szanse na komercjalizację,
+czy nie, prawdopodobnie dalej będzie on rozwijany jako projekt poboczny jego autorów.
