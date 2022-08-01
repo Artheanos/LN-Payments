@@ -22,8 +22,7 @@ const CheckboxInput: React.FC<Props> = ({
   checkboxLabel
 }) => {
   const [show, setShow] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, helpers] = useField(name)
+  const [field, , helpers] = useField(name)
 
   useEffect(() => {
     if (field.value) {
