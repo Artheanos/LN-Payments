@@ -25,7 +25,7 @@ Wiele z nich planowane jest na przyszłe wydania. Moduł płatności powinien by
 jest dodanie funkcjonalności pozwalającej na dostosowanie stylu aplikacji przez administratorów. Może to się odbywać
 przykładowo poprzez kaskadowe arkusze stylów CSS. Dobrym pomysłem dyskutowanym na początku było stworzenie serwera z
 wykorzystaniem architektury mikroserwisów. Dzięki temu klienci mogliby uruchomić tylko część serwera odpowiedzialną za
-płatności, wykorzystując stworzone rozwiązanie tylko i wyłącznie jaki bramki płatności. Prawdopodobnie dodanie tej
+płatności, wykorzystując stworzone rozwiązanie tylko i wyłącznie jako bramki płatności. Prawdopodobnie dodanie tej
 funkcjonalności zwiększyłoby szansę na komercjalizację, gdyż pozwoliłoby to na integrację z istniejącymi już sklepami
 internetowymi. Bardzo wiele funkcjonalności można dodać do części odpowiedzialnej za portfel oraz transakcje.
 A aplikacji mobilnej brakuje zarządzania kluczami. W planach jest implementacja odzyskiwania klucza z _mnemonic phase_,
