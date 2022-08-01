@@ -2,7 +2,7 @@
 
 W ramach pierwszego wydania nie zostały ukończone wszystkie początkowo zaplanowane zadania. Jest to związane z nierównym
 wkładem własnym członków zespołu projektowego. W rejestrze zadań znajduje się jeszcze kilkanaście zadań. Większość
-z nich dotyczy zmniejszenia długu technicznego oraz mniej znaczących poprawek. Znalazło się tam również ważne
+z nich dotyczy zmniejszenia długu technicznego oraz mniej znaczących poprawek. Znalazły się tam również ważne
 zadania. Funkcjonalność odtwarzania portfela dodana jest tylko po stronie serwera. Integracja procesu w aplikacji
 internetowej nie została dodana. Drugą ważną funkcjonalnością jest dynamiczne obliczanie opłaty transakcyjnej w
 zależności od rozmiaru transakcji. W aktualnej wersji jest to sztywno ustalona kwota, która powinna być zaakceptowana
