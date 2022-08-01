@@ -1,143 +1,62 @@
-import { Then, When, Given, And } from 'cypress-cucumber-preprocessor/steps'
+import { Given } from 'cypress-cucumber-preprocessor/steps'
+// eslint-disable-next-line no-restricted-imports
+import '../../support/index'
 
 beforeEach(() => {
   Given('I am on the site homepage', () => {
     cy.visit('http://localhost:3000/')
   })
-  When('I click on {string} button', (login_button) => {
-    cy.get('button').contains(login_button).click()
-  })
-  Then('I am redirected to {string} Page', (login_page) => {
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.eq(login_page)
-    })
-  })
+  cy.clickButton()
+  cy.redirectToPage()
 })
 
-Given('I enter {string} into {string} field', (correct_login, email_field) => {
-  cy.get('input[name=' + email_field + ']').type(correct_login)
-})
-And(
-  'I enter {string} into {string} field',
-  (correct_password, password_field) => {
-    cy.get('input[name=' + password_field + '').type(correct_password)
-  }
-)
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('I am redirected to {string} Page of {string} User', (history_page) => {
-  cy.location().should((loc) => {
-    expect(loc.pathname).to.eq(history_page)
-  })
-})
-And('Alert {string} is displayed for {string} User', (login_success_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(login_success_alert)
-  })
+it('I am logged in when I enter correct email and password credentials', () => {
+  cy.typeData()
+  cy.typeData()
+  cy.clickButton()
+  cy.redirectToPage()
+  cy.displayAlert()
 })
 
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I did not enter email and password credentials', () => {
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-Given(
-  'I enter {string} into {string} field',
-  (correct_password, password_field) => {
-    cy.get('input[name=' + password_field + '').type(correct_password)
-  }
-)
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I did not enter email credential', () => {
+  cy.typeData()
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-Given('I enter {string} into {string} field', (correct_login, email_field) => {
-  cy.get('input[name=' + email_field + ']').type(correct_login)
-})
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I did not enter password credential', () => {
+  cy.typeData()
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-Given(
-  'I enter {string} into {string} field',
-  (incorrect_login, email_field) => {
-    cy.get('input[name=' + email_field + ']').type(incorrect_login)
-  }
-)
-And(
-  'I enter {string} into {string} field',
-  (incorrect_password, password_field) => {
-    cy.get('input[name=' + password_field + '').type(incorrect_password)
-  }
-)
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I enter incorrect email and password credentials', () => {
+  cy.typeData()
+  cy.typeData()
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-Given(
-  'I enter {string} into {string} field',
-  (incorrect_login, email_field) => {
-    cy.get('input[name=' + email_field + ']').type(incorrect_login)
-  }
-)
-And(
-  'I enter {string} into {string} field',
-  (correct_password, password_field) => {
-    cy.get('input[name=' + password_field + '').type(correct_password)
-  }
-)
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I enter incorrect email and correct password credentials', () => {
+  cy.typeData()
+  cy.typeData()
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-Given('I enter {string} into {string} field', (correct_login, email_field) => {
-  cy.get('input[name=' + email_field + ']').type(correct_login)
-})
-And(
-  'I enter {string} into {string} field',
-  (incorrect_password, password_field) => {
-    cy.get('input[name=' + password_field + '').type(incorrect_password)
-  }
-)
-When('I click on {string} button', (login_button) => {
-  cy.get('button').contains(login_button).click()
-})
-Then('Alert {string} is displayed', (email_password_alert) => {
-  cy.on('window:alert', (str) => {
-    expect(str).to.equal(email_password_alert)
-  })
+it('Alert is displayed when I enter correct email and incorrect password credentials', () => {
+  cy.typeData()
+  cy.typeData()
+  cy.clickButton()
+  cy.displayAlert()
 })
 
-When('I click on {string} button', (register_instead_button) => {
-  cy.get('button').contains(register_instead_button).click()
-})
-Then('I am redirected to {string} Page', (register_page) => {
-  cy.location().should((loc) => {
-    expect(loc.pathname).to.eq(register_page)
-  })
+it('I am redirected to Register Page', () => {
+  cy.clickButton()
+  cy.redirectToPage()
 })
