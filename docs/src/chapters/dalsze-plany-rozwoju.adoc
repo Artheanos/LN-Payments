@@ -30,7 +30,7 @@ funkcjonalności zwiększyłoby szansę na komercjalizację, gdyż pozwoliłoby 
 internetowymi. Bardzo wiele funkcjonalności można dodać do części odpowiedzialnej za portfel oraz transakcje.
 A aplikacji mobilnej brakuje zarządzania kluczami. W planach jest implementacja odzyskiwania klucza z _mnemonic phase_,
 a także możliwość importu oraz eksportu pliku z kluczem. Można również pomyśleć nad implementacją części funkcjonalności
-aplikacji internetowej w aplikacji mobilnej, takich jak podgląd środków w portfelu czy też przeglądania historii
+aplikacji internetowej w aplikacji mobilnej, takich jak podgląd środków w portfelu czy też przeglądanie historii
 płatności. Planowane jest również rozwinięcie zarządzania kanałami. W tym celu planowany jest nowy panel wyświetlający
 szczegóły aktualnie otwartych kanałów. Administrator będzie mógł zamykać tylko wybrane przez siebie kanały, a nie
 wszystkie jednocześnie jak to jest zaimplementowane obecnie. Dodatkowo chciano dodać możliwość skorzystania z funkcji
