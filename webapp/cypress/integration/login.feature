@@ -9,8 +9,8 @@ Feature: Login scenarios
     Given I enter "admin@admin.pl" into "email" field
     And I enter "admin" into "password" field
     When I click on "Login" button
-    Then I am redirected to "/panel/history" Page of "admin@admin.pl" User
-    And Alert "Login successful" is displayed for "admin@admin.pl" User
+    Then I am redirected to "/panel/history" Page
+    And Alert "Login successful" is displayed
 
   Scenario: Alert is displayed when I did not enter email and password credentials
     When I click on "Login" button
