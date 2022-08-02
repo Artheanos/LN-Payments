@@ -26,4 +26,5 @@ public class PropertyValues {
     private long autoTransferLimit;
     private long lastModification;
     private String tokenDeliveryUrl;
+    private String serverIpAddress;
 }

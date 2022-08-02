@@ -22,6 +22,17 @@
     },
     "price": {
       "label": "Price"
+    },
+    "tokenDeliveryUrl": {
+      "label": "Token delivery URL",
+      "question": "Do you want to send tokens to another service?"
+    },
+    "serverIpAddress": {
+      "label": "Server IP address",
+      "question": "Do you use custom server ip?"
+    },
+    "messages": {
+      "urlValidation": "Value should be either URL or IPv4 address."
     }
   }
 }

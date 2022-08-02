@@ -10,6 +10,7 @@ import { api } from 'webService/requests'
 import { serverSettingsSchema } from './form'
 import { useNotification } from 'components/Context/NotificationContext'
 import { useTranslation } from 'react-i18next'
+import CheckboxInput from 'pages/userPanel/serverSettings/CheckboxInput'
 
 export const ServerSettingsPage: React.FC = () => {
   const { t } = useTranslation('settings')
@@ -116,7 +117,23 @@ export const ServerSettingsPage: React.FC = () => {
                   type="number"
                 />
               </Grid>
-              <Grid xs={12} className="pt-10" item>
+              <Grid xs={12} item>
+                <CheckboxInput
+                  label={t('form.tokenDeliveryUrl.label')}
+                  name="tokenDeliveryUrl"
+                  type="string"
+                  checkboxLabel={t('form.tokenDeliveryUrl.question')}
+                />
+              </Grid>
+              <Grid xs={12} item>
+                <CheckboxInput
+                  label={t('form.serverIpAddress.label')}
+                  name="serverIpAddress"
+                  type="string"
+                  checkboxLabel={t('form.serverIpAddress.question')}
+                />
+              </Grid>
+              <Grid xs={12} item>
                 <LoadingButton
                   type="submit"
                   variant="contained"

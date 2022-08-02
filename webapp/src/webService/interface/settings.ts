@@ -6,4 +6,6 @@ export interface Settings {
   lastModification: number
   paymentExpiryInSeconds: number
   price: number
+  tokenDeliveryUrl: string
+  serverIpAddress: string
 }

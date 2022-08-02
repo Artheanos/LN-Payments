@@ -24,7 +24,9 @@ describe('ServerSettingsPage', () => {
     description: 'Red payment',
     invoiceMemo: 'Token payment',
     paymentExpiryInSeconds: 300,
-    price: 10
+    price: 10,
+    serverIpAddress: '',
+    tokenDeliveryUrl: ''
   }
 
   let inputValues: Omit<Settings, 'lastModification'>
