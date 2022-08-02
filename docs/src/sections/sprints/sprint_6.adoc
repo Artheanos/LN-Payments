@@ -99,7 +99,7 @@ jest ponowne nieukończenie płatności dla niezalogowanych użytkowników. Nies
 wiedzę potrzebną do jego ukończenia w sensownym czasie, co jest sporym utrudnieniem.
 
 .Wykres spalania sprintu szóstego.
-image::../../images/sprints_raports/burndown_sprint6.png[]
+image::../images/sprints_raports/burndown_sprint6.png[]
 
 Zakończono 14 z 17 zadań zaplanowanych na ten sprint. Dostarczone zostało łącznie 30 punktów historii. Trzech zadań
 nie udało się ukończyć i zostało przeniesione do następnej iteracji. Udało się ukończyć więcej zadań niż w poprzednim
