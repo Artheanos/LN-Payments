@@ -1,31 +1,106 @@
 === Sprint 6 (11.04.2022 - 25.04.2022)
 
+Głównym celem tej iteracji było dokończenie funkcjonalności portfela. Zaplanowano również wznowienie prac nad
+książką do pracy dyplomowej oraz podjęcie pierwszych kroków przy implementacji funkcjonalności transakcji, oraz
+aplikacji mobilnej. Dodatkowo znalazły się też zaległe zadania dotyczące płatności przez niezalogowanych użytkowników
+oraz pierwsze zadanie dotyczące testów E2E.
+
 .Lista zadań w sprincie szóstym.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status
 |LP-96|Set up e2e tests|Aleksander Konieczny|3|Ukończone
-|LP-101|Create book chapter plan|Aleksander Konieczny|2|Ukończone
+|LP-106|Add all payments view|Jan Pieczul|2|Ukończone
 |LP-102|Set up scheduler to automatically transfer funds|Aleksander Konieczny|1|Ukończone
 |LP-113|Set up scheduler to automatically close all channels|Aleksander Konieczny|1|Ukończone
+|LP-107|Create main wallet panel|Jan Pieczul|2|Ukończone
 |LP-108|Implement LN channels status box|Aleksander Konieczny|2|Ukończone
 |LP-110|Create LN wallet status box|Aleksander Konieczny|2|Ukończone
 |LP-111|Create Bitcoin wallet status box|Aleksander Konieczny|2|Ukończone
 |LP-112|Create wallet actions box|Aleksander Konieczny|2|Ukończone
-|LP-106|Add all payments view|Jan Pieczul|2|Ukończone
 |LP-98|Create form for wallet creation|Jan Pieczul|5|Ukończone
-|LP-107|Create main wallet panel|Jan Pieczul|2|Ukończone
 |LP-114|Add endpoint for uploading keys and integrate it with rest of app|Aleksander Konieczny|5|Ukończone
+|LP-101|Create book chapter plan|Aleksander Konieczny|2|Ukończone
 |LP-153|Create risk analysis|Aleksander Konieczny|1|Ukończone
-|LP-118|Investigate push notifications|Aleksander Konieczny|-|Ukończone
 |LP-68|Create title page and disclaimer|-|2|Nieukończone
+|LP-118|Investigate push notifications|Aleksander Konieczny|-|Ukończone
 |LP-139|Implement admin deletion|Sebastian Lewandowski|3|Nieukończone
 |LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
 |===
 
+Zaplanowane zostało 16 zadań o wartości 37 punktów historii. W trakcie iteracji dodano jedno zadanie warte 1 punkt.
+Pięć zadań zostało przeniesionych z poprzedniego sprintu. Ostatecznie plan na tę iterację obejmował 17 zadań
+wartych łącznie 38 punktów historii.
+
 ==== Przebieg prac
+
+Na tym etapie prac aplikacja posiadała już w pełni działające funkcjonalności. Zdecydowano się na powolne przejście
+do implementacji scenariuszy oraz testów E2E. Pierwszym krokiem do rozpoczęcia prac była odpowiednia konfiguracja.
+Folder zawierający testy znalazł się razem z kodem aplikacji internetowej. Wykorzystany został framework _Cypress_
+wraz z narzędziem _Cucumber_. Wykonana została konfiguracja obu narzędzi, a także utworzono kilka przykładowych testów.
+Następnie do pliku _package.json_ aplikacji internetowej dodano skrypty odpowiedzialne za przygotowanie środowiska
+oraz uruchomienie testów. Na koniec zostało dodane nowe zadanie w Github Actions, uruchamiające testy E2E na takich
+samych zasadach jak w przypadku pozostałych komponentów. Jedyną różnicą jest uruchamianie testów przy modyfikacji
+kodu serwera oraz aplikacji internetowe, a nie w przypadku wyłącznie jednego z modułów.
+
+Z poprzedniej iteracji zostało przeniesione zadanie LP-106, polegające na utworzeniu ekranu wyświetlającego
+administratorom historię wszystkich płatności. Zadanie to udało się ukończyć w tej iteracji.
+
+Następna grupa zadań dotyczy funkcjonalności portfela. Pierwsze dwa zadania dotyczą zadań planowanych obsługujących
+automatyczne transfery środków. Jedno z nich ma za zadanie automatycznie zamykać kanały płatności przy osiągnięciu
+limitu, natomiast drugie automatycznie przelewa środki z portfela w węźle Lightning na adres multisig. Kolejne zadania
+dotyczą implementacji aplikacji internetowej. Utworzony został ekran portfela, a następnie implementowane były jego
+poszczególne komponenty. Zaimplementowano cztery z pięciu. Piąty komponent był wykresem historii przychodów i został
+zaplanowany na jedną z późniejszych iteracji. Użytkownik ma podgląd na stan środków w każdym z elementów procesu,
+a także na postęp do automatycznego transferu środków. Dodany został też komponent zawierający guziki kontrolujące
+portfel. Użytkownik może ręcznie zażądać zamknięcia kanałów i transferu środków. Ostatnim zadaniem było dodanie procesu
+tworzenia nowego portfela. Jeżeli serwer zwróci kod 404 zamiast informacji o portfelu, użytkownik przekierowany
+zostanie do formularza tworzenia nowego portfela.
+
+Kolejne zadanie było pierwszym krokiem do implementacji funkcjonalności portfela. Zadanie to także było wymagane do
+pełnego działania tworzenia portfela. Mowa tutaj o możliwości przesłania swojego klucza publicznego przez
+administratorów. Zadanie to obejmowało integrację tej funkcjonalności z innymi częściami aplikacji. Na początku
+najpierw zaimplementowano odpowiedni punkt końcowy oraz odpowiednie metody w serwisach. Następnie informacja o
+przesłanym kluczu została dołączona do odpowiedzi zwracającej listę administratorów. Posłużyło to do wyświetlenia
+informacji o przesłanym kluczy w tabeli na stronie internetowe, a także na odfiltrowanie użytkowników bez kluczy w
+formularzu tworzenia portfela.
+
+W tej iteracji planowano również wznowienie prac nad książką do pracy dyplomowej. Zespół zebrał się, aby wspólnie
+przedyskutować jej układ oraz planowany spis treści. Na podstawie tego spotkania powstała wstępna wersja spisu treści,
+wraz z podrozdziałami. Planowano również dodanie strony tytułowej oraz oświadczenia autorów pracy, lecz nie udało
+się tego zadania wykonać w tej iteracji i zostało ono przeniesione dalej. W trakcie sprintu dodane zostało zadanie
+LP-153, polegające na napisaniu sekcji dotyczącej analizy ryzyk. Było to zadanie wykonane przez zespół w ramach
+przedmiotu SAI. Po akceptacji prowadzącego zadanie zostało włączone pracy dyplomowej.
+
+Aby rozpocząć prace nad aplikacją mobilną, zespół musiał pozyskać wiedzę o tworzeniu powiadomień _push_. Domyślnym
+rozwiązaniem wykorzystywanym w aplikacjach na system Android jest _Google Cloud Messaging_. Jest to usługa zintegrowana
+z systemem, więc otrzymywanie powiadomień dzieje się automatycznie, a serwer jedynie musi wysłać odpowiednie żądanie
+na serwer _Google_. Nie było to pożądane rozwiązanie, ponieważ wymagało stworzenia konta w zewnętrznym systemie, a także
+odpowiedniej integracji. Założeniem aplikacji jest udostępnienie jej każdemu do samodzielnego uruchomienia. Wymóg
+rejestracji u innego dostawcy usług jest dodatkowym niechcianym wymaganiem dla użytkownika, więc zdecydowano się na
+znalezienie innego rozwiązania. Zdecydowano się na ponowne wykorzystanie protokołu Websocket, gdyż jest to jedyne
+rozwiązanie gwarantujące przesył danych w czasie rzeczywistym bez żadnych zewnętrznych usług. Jest to również
+technologia aktualnie wykorzystywana w projekcie, więc integracja nie stanowiła problemu. Oczywiście rozwiązanie
+to ma swoje minusy jak wymóg utrzymania połączenia, co powoduje szybsze rozładowanie baterii, jednak zespół nie znalazł
+żadnego innego rozwiązania spełniającego kryteria.
+
+Ostatnie dwa zadania tej iteracji nie zostały ukończone. Pierwsze z nich dotyczyło dodania funkcjonalności
+usuwania administrator. Może on zostać usunięty, kiedy nie jest członkiem portfela. Drugie zadanie to ponownie jest
+obsługiwanie płatności przez niezalogowanych użytkowników. Już trzeci raz zadanie to zostanie przeniesione do
+następnej iteracji.
 
 ==== Podsumowanie
 
+Udało się ukończyć prawie wszystkie cele na tę iterację. Zaimplementowano wszystkie zadania dotyczące portfela.
+Dodany został ekran wszystkich płatności, skonfigurowano testy E2E oraz dodano możliwość przesłania klucza publicznego
+wraz ze zintegrowaniem tej funkcjonalności w liście administratorów i formularzu tworzenia portfela. Dodatkowo
+rozpoczęto pracę nad książką do pracy dyplomowej poprzez dodanie pełnego spisu treści. Dużą porażką tej iteracji
+jest ponowne nieukończenie płatności dla niezalogowanych użytkowników. Niestety tylko jeden członek zespołu ma
+wiedzę potrzebną do jego ukończenia w sensownym czasie, co jest sporym utrudnieniem.
+
 .Wykres spalania sprintu szóstego.
-image::../images/sprints_raports/burndown_sprint6.png[]
+image::../../images/sprints_raports/burndown_sprint6.png[]
+
+Zakończono 14 z 17 zadań zaplanowanych na ten sprint. Dostarczone zostało łącznie 30 punktów historii. Trzech zadań
+nie udało się ukończyć i zostało przeniesione do następnej iteracji. Udało się ukończyć więcej zadań niż w poprzednim
+sprincie, jednak dalej nie są to wszystkie zadania, a co za tym idzie, rośnie opóźnienie w realizacji projektu.
