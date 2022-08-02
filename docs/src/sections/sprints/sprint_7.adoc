@@ -1,5 +1,36 @@
 === Sprint 7 (25.04.2022 - 16.05.2022)
 
+.Lista zadań w sprincie siódmym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-119|Create endpoint for querying notifications|Aleksander Konieczny|2|Ukończone
+|LP-117|Add endpoint for querying all transactions|Aleksander Konieczny|2|Ukończone
+|LP-124|Create login view|Jan Pieczul|5|Ukończone
+|LP-121|Create endpoint for creating transactions|Aleksander Konieczny|3|Ukończone
+|LP-120|Add endpoint for confirmation/rejection handling|Aleksander Konieczny|3|Ukończone
+|LP-131|Implement endpoint for obtaining raw tx|Aleksander Konieczny|3|Ukończone
+|LP-122|Implement push notification service|Aleksander Konieczny|5|Ukończone
+|LP-142|Write "Analiza" chapter|Aleksander Konieczny|5|Ukończone
+|LP-140|Write "Wizja" chapter|Aleksander Konieczny|2|Ukończone
+|LP-139|Implement admin deletion|Sebastian Lewandowski, Jan Pieczul|3|Ukończone
+|LP-68|Create title page and disclaimer|Aleksander Konieczny|2|Ukończone
+|LP-158|Create a js package with common components|Jan Pieczul|2|Ukończone
+|LP-157|Sort get responses by date desc|Aleksander Konieczny|1|Ukończone
+|LP-128|Add sidepanel|Jan Pieczul|2|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-151|Write "dalszy rozwój" chapter|-|1|Nieukończone
+|LP-125|Create upload keys view|-|3|Nieukończone
+|LP-115|Create panel with transactions|-|5|Nieukończone
+|LP-116|Create form for creating new transactions|-|2|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-129|Create server url input view|-|3|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|===
+
 ==== Przebieg prac
 
 ==== Podsumowanie
+
+.Wykres spalania sprintu siódmego.
+image::../images/sprints_raports/burndown_sprint7.png[]

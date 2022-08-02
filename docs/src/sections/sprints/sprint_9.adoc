@@ -1,5 +1,33 @@
 === Sprint 9 (30.05.2022 - 13.06.2022)
 
+.Lista zadań w sprincie dziewiątym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-180|Migrate mobile app|Jan Pieczul|3|Ukończone
+|LP-116|Create form for creating new transactions|Aleksander Konieczny|2|Ukończone
+|LP-126|Create notification list view|Aleksander Konieczny|3|Ukończone
+|LP-129|Create server url input view|Jan Pieczul|3|Ukończone
+|LP-125|Create upload keys view|Jan Pieczul|3|Ukończone
+|LP-47|Create readme for webservice|Aleksander Konieczny|1|Ukończone
+|LP-79|Implement user details controller|Aleksander Konieczny|2|Ukończone
+|LP-184|Replace common-ts with a more convenient solution|Jan Pieczul|2|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-151|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-133|Handle push notifications|-|3|Nieukończone
+|LP-127|Add confirmation/denial flow|-|5|Nieukończone
+|LP-162|Add generic way to send tokens to downstream systems|-|3|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|LP-160|Implement wallet recreation flow|-|3|Nieukończone
+|LP-136|Create payment scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-138|Create transaction scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-132|Add notification details component|-|2|Nieukończone
+|===
+
 ==== Przebieg prac
 
 ==== Podsumowanie
+
+.Wykres spalania sprintu dziewiątego.
+image::../images/sprints_raports/burndown_sprint9.png[]

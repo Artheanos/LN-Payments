@@ -1,5 +1,29 @@
 === Sprint 5 (28.03.2022 - 11.04.2022)
 
+.Lista zadań w sprincie piątym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-91|Create panel for admin management|Jan Pieczul|3|Ukończone
+|LP-92|Add admin creation form|Jan Pieczul|2|Ukończone
+|LP-87|Create postman collection with all endpoints|Sebastian Lewandowski|2|Ukończone
+|LP-94|Investigate JS library for tx signing|Aleksander Konieczny|-|Ukończone
+|LP-105|Add endpoint for querying all payments by admin|Aleksander Konieczny|2|Ukończone
+|LP-97|Create endpoint for creating wallet|Aleksander Konieczny|2|Ukończone
+|LP-99|Add endpoint for querying wallet status|Aleksander Konieczny|3|Ukończone
+|LP-100|Create service and endpoints to transfer funds from ln to btc wallet|Aleksander Konieczny|5|Ukończone
+|LP-109|Update wallet panel mockup|Jan Pieczul|3|Ukończone
+|LP-103|Add endpoint to transfer funds between wallets|Aleksander Konieczny|2|Ukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|LP-106|Add all payments view|-|2|Nieukończone
+|LP-106|Create form for wallet creation|-|5|Nieukończone
+|LP-106|Create main wallet panel|-|2|Nieukończone
+|LP-106|Implement LN channels status box|-|2|Nieukończone
+|===
+
 ==== Przebieg prac
 
 ==== Podsumowanie
+
+.Wykres spalania sprintu piątego.
+image::../images/sprints_raports/burndown_sprint5.png[]
