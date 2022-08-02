@@ -1,29 +1,110 @@
 === Sprint 5 (28.03.2022 - 11.04.2022)
 
+Plan tej iteracji zakładał pracę nad kilkoma komponentami jednocześnie. Celem było ukończenie zaległych prac nad
+zarządzaniem administratorami, a także rozpoczęcie prac nad portfelem oraz jego funkcjonalnościami. Dodatkowo
+zostało zawarte bardzo ważne zadanie, które miało na celu aktualizację płatności multisig w prototypie, wraz z
+implementacją prototypu aplikacji mobilnej. Chciano, aby zespół zdobył kompletną wiedzę potrzebną do implementacji
+transakcji. Ostatnim celem było dodanie nowego ekranu dostępnego dla administratorów, pokazującego historię wszystkich
+płatności.
+
 .Lista zadań w sprincie piątym.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status
 |LP-91|Create panel for admin management|Jan Pieczul|3|Ukończone
 |LP-92|Add admin creation form|Jan Pieczul|2|Ukończone
-|LP-87|Create postman collection with all endpoints|Sebastian Lewandowski|2|Ukończone
 |LP-94|Investigate JS library for tx signing|Aleksander Konieczny|-|Ukończone
 |LP-105|Add endpoint for querying all payments by admin|Aleksander Konieczny|2|Ukończone
+|LP-106|Add all payments view|-|2|Nieukończone
 |LP-97|Create endpoint for creating wallet|Aleksander Konieczny|2|Ukończone
 |LP-99|Add endpoint for querying wallet status|Aleksander Konieczny|3|Ukończone
 |LP-100|Create service and endpoints to transfer funds from ln to btc wallet|Aleksander Konieczny|5|Ukończone
-|LP-109|Update wallet panel mockup|Jan Pieczul|3|Ukończone
 |LP-103|Add endpoint to transfer funds between wallets|Aleksander Konieczny|2|Ukończone
-|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
-|LP-106|Add all payments view|-|2|Nieukończone
-|LP-106|Create form for wallet creation|-|5|Nieukończone
-|LP-106|Create main wallet panel|-|2|Nieukończone
+|LP-109|Update wallet panel mockup|Jan Pieczul|3|Ukończone
+|LP-98|Create form for wallet creation|-|5|Nieukończone
+|LP-107|Create main wallet panel|-|2|Nieukończone
 |LP-106|Implement LN channels status box|-|2|Nieukończone
+|LP-87|Create postman collection with all endpoints|Sebastian Lewandowski|2|Ukończone
+|LP-108|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
 |===
+
+Sprint zaplanowano na 14 zadań o łącznej wartości 33 punktów historii. W trakcie iteracji zostało dodane jedno
+zadanie warte 2 punkty. Estymacja zadania LP-100 uległa zmianie. Zadanie to wymagało o wiele większych nakładów
+pracy, niż początkowo twierdzono. Z tego powodu ilość punktów wzrosła z dwóch do pięciu. W sprincie znalazły się
+2 zadania nieukończone w poprzedniej iteracji. Ostatecznie sprint objął 15 zadań o wartości 38 punktów.
 
 ==== Przebieg prac
 
+Pierwsze dwa zadania zostały przeniesione z poprzedniego sprintu. Dotyczą one zarządzania administratorami, czyli
+tabelki ich wyświetlającej oraz formularza pozwalającego na ich dodawanie. Udało się ukończyć te zadania, dzięki
+czemu zaimplementowana została pierwsza wersja procesu.
+
+Bardzo ważnym zadaniem tej iteracji była kontynuacja zbierania informacji o transakcjach. Wynik zadania LP-62
+uwzględniał tylko szczęśliwą ścieżkę dla procesu z kluczami prywatnymi zapisanymi w miejscu tworzenia transakcji.
+Same transakcje były tworzone w taki sposób, że odbiegał on mocno od docelowego rozwiązania. Ich podpisywanie również
+odbywało się nie tak, jak powinno. Celem zadania LP-94 była aktualizacja prototypu w taki sposób, aby obsługiwał
+wszystkie funkcjonalności planowane w finalnej wersji aplikacji. Uwzględniało to również generowanie kluczy i
+podpisywanie transakcji w aplikacji mobilnej. Aby to osiągnąć, stworzony został prototyp aplikacji mobilnej posiadający
+te funkcjonalności. Po aktualizacji prototypu serwera i stworzeniu prototypu aplikacji mobilnej udało się przejść
+przez cały proces transakcji, od utworzenia, przez jej podpisanie, aż do walidacji i propagacji do innych węzłów sieci.
+Zadanie to było bardzo trudne. Wymagało zagłębienia się głęboko w protokół Bitcoina, aby uzyskać zamierzony efekt.
+Na zadanie poświęcono prawie tydzień. Proces nauki i zbierania danych był bardzo czasochłonny, a implementacja
+obu prototypów okazała się skomplikowana poprzez niekompatybilność używanych bibliotek z niektórymi nowymi
+funkcjonalnościami Bitcoina. Biblioteka _BitcoinJ_ niestety nie wspiera _PSBT_<<bip174>>, czyli częściowo podpisanych
+transakcji. Po drugiej stronie biblioteka _BitcoinJS_ po stronie aplikacji mobilnej wspierała już tylko transakcje
+_PSBT_, a wsparcie dla starego formatu zostało wycofane. Stworzenie rozwiązania wymagało ręcznego budowania
+odpowiedniej transakcji po stronie serwera, a następnie użycia bardzo starej wersji biblioteki (z 2019 roku) w aplikacji
+mobilnej. Gdyby _BitcoinJ_ był aktywnie rozwijany, a _PSBT_ byłoby zaimplementowane, ukończenie zadania LP-94 zajęłoby
+ułamek poświęconego czasu. Na szczęście udało się pokonać przeciwności i zakończyć pracę nad prototypem. Zdobyta
+wiedza pozwoliła na dodanie przyszłych zadań mających na celu implementację tej logiki po stronie serwera.
+
+Następne dwa zadania dotyczą ekranu wszystkich płatności. Chciano, aby administrator mógł przeglądać wszystkie płatności
+dokonane przez wszystkich użytkowników, bez uwzględnienia danych poufnych, jak kody tokenów. Zrealizowana została
+część serwerowa rozwiązania. Podobnie jak w przypadku osobistej historii płatności, rozwiązanie wspiera w pełni
+paginację, a także jest przygotowane na dodanie w przyszłości sortowania oraz wyszukiwania. Nie udało się zrealizować
+natomiast odpowiedniego ekranu po stronie aplikacji internetowej. Zadanie LP-106 przeniesione zostało do następnej
+iteracji.
+
+W tej iteracji planowano prace nad portfelem oraz zarządzaniem nim. Rozpoczęto od implementacji części serwerowej.
+Najpierw dodany został punkt końcowy pozwalający na stworzenie nowego portfela. W ramach tego zadania konfiguracji
+została poddana biblioteka _BitcoinJ_, gdyż nie była wcześniej używana. Następnie dodano punkt końcowy pozwalający
+na pobranie statusu portfela. Odpowiedź zawiera informacje o balansie w kanałach, węźle Lightning oraz na adresie
+multisig. Dodatkowo zawarto tam również adres multisig oraz listę administratorów nim zarządzających. W ramach tego
+zadania uświadomiono sobie, że podczas planowania nie ujęto paru aspektów, takich jak zarządzanie kanałami i portfelem
+w węźle Lightning. Zdecydowano się na implementacje funkcjonalności kanałów w ramach
+zadań LP-100 oraz LP-103, które wcześniej przeoczono i nie znalazło się początkowo w zakresie iteracji. Z tego powodu
+estymacja LP-100 została podwyższona do 5 punktów. Zaimplementowane zostały wszystkie serwisy i punkty końcowe do
+zarządzania kanałem oraz portfelem Lightning. Po zakończeniu tych zadań użytkownicy mogli manualnie przelewać
+środki z zablokowanych kanałów na adres multisig. Prace nad częścią strony internetowej nie przebiegały równie dobrze.
+Stworzenie ekranu portfela wymagało aktualizacji makiety interaktywnej. Odbyła się wspólna narada członków zespołu, na
+której ustalono wygląd komponentów, po czym odpowiednie zmiany zostały naniesione na istniejącą makietę interaktywną.
+Niestety kolejne trzy zadania dotyczące tej funkcjonalności nie zostały ukończone, przez co zostały przeniesione do
+następnej iteracji. W planach było dodanie ekranu portfela, wraz z odpytywanie serwera o jego detale, stworzenie
+formularza tworzącego nowy portfel oraz wykończenie komponentu wyświetlającego dane o środkach zamkniętych w kanałach
+płatności.
+
+Następne zadanie dotyczyło dodania kolekcji programu _Postman_, która zawiera przykładowe zapytania do serwera
+aplikacji. Miało to na celu ułatwienie pracy nad aplikacją, gdyż do tej pory każde zapytanie trzeba było tworzyć od
+nowa. Zespół uzgodnił, że każda modyfikacja API aplikacji powinna zostać uwzględniona w tej kolekcji, aby żądania
+były cały czas dobrze udokumentowane.
+
+Ostatnie zadanie dotyczyło obsługi płatności przez zalogowanych użytkowników. Było ono uwzględnione w poprzedniej
+iteracji, jednak nie zostało wtedy wykonane. Niestety w tej iteracji również nie zostało ukończone, a co za tym idzie,
+zostało przeniesione do następnej iteracji.
+
 ==== Podsumowanie
+
+Iteracja zakończyła się częściowym sukcesem. Udało się zrealizować zaległe zadania dotyczące zarządzania
+administratorami. Zaimplementowana została część serwerowa portfela oraz wyświetlania historii wszystkich płatności.
+Udało się to pomimo wielu problemów z zaplanowanie zadań, co miało częściowy wpływ na niedokończenie innych zadań.
+Niestety zespół poległ w implementacji części aplikacji internetowej. Nie udało się dodać żadnych komponentów
+historii płatności, portfela, a także przekładanego już dodania płatności dla niezalogowanych użytkowników. Jako
+pocieszenie udało się zaktualizować makietę interaktywną, a także dodać kolekcję żądań dla programu _Postman_.
 
 .Wykres spalania sprintu piątego.
 image::../images/sprints_raports/burndown_sprint5.png[]
+
+Ukończone zostało 10 z początkowo planowanych 15 zadań. Daje to tylko 19 punktów historii. Aż pięć zadań o wartości
+14 punktów nie zostało ukończonych, przez co musiały one zostać przeniesione do następnego sprintu. Pomimo zbliżającego
+się terminu oddania pracy, zespół dostarcza coraz mniej zadań z iteracji na iterację. Rosnące opóźnienie nie daje
+powodów do optymizmu, gdyż następne iteracje będą musiały zawierać coraz więcej zadań.
