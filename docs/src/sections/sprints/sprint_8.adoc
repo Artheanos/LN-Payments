@@ -1,37 +1,109 @@
 === Sprint 8 (16.05.2022 - 30.05.2022)
 
-==== Przebieg prac
+Oryginalnym celem tej iteracji było dokończenie MVP aplikacji, czyli pierwszej wersji zawierającej niezbędne
+funkcjonalności, aby wypuścić produkt na rynek. Niestety liczne opóźnienia spowodowały nagromadzenie w tej iteracji
+wielu zadań nie zawsze związanych z zakresem MVP. Lista zadań obejmuje prace nad transakcjami, portfelem, książką do
+pracy dyplomowej oraz innymi brakującymi funkcjonalnościami.
 
 .Lista zadań w sprincie ósmym.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status
-|LP-123|Create service for transaction verification and broadcasting|Aleksander Konieczny|3|Ukończone
-|LP-155|Create server setting management service and endpoint|Aleksander Konieczny|5|Ukończone
 |LP-115|Create panel with transactions|Aleksander Konieczny|5|Ukończone
-|LP-161|Add wallet recreation endpoint|Aleksander Konieczny|3|Ukończone
-|LP-173|Add social aspects part|Aleksander Konieczny|1|Ukończone
-|LP-156|Extract notifications web socket part to separate controller|Aleksander Konieczny|1|Ukończone
-|LP-151|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
-|LP-133|Handle push notifications|-|3|Nieukończone
-|LP-160|Implement wallet recreation flow|-|3|Nieukończone
-|LP-132|Add notification details component|-|2|Nieukończone
 |LP-116|Create form for creating new transactions|-|2|Nieukończone
-|LP-162|Add generic way to send tokens to downstream systems|-|3|Nieukończone
+|LP-123|Create service for transaction verification and broadcasting|Aleksander Konieczny|3|Ukończone
+
+|LP-156|Extract notifications web socket part to separate controller|Aleksander Konieczny|1|Ukończone
+|LP-161|Add wallet recreation endpoint|Aleksander Konieczny|3|Ukończone
+|LP-160|Implement wallet recreation flow|-|3|Nieukończone
+
+|LP-155|Create server setting management service and endpoint|Aleksander Konieczny|5|Ukończone
+
+|LP-173|Add social aspects part|Aleksander Konieczny|1|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-151|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
 |LP-168|Add security description in Analysis chapter|-|1|Nieukończone
 |LP-159|Fix interactive mockup and update screenshots in book|-|2|Nieukończone
-|LP-126|Create notification list view|-|3|Nieukończone
-|LP-127|Add confirmation/denial flow|-|5|Nieukończone
-|LP-125|Create upload keys view|-|3|Nieukończone
+
 |LP-129|Create server url input view|-|3|Nieukończone
-|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-125|Create upload keys view|-|3|Nieukończone
+|LP-126|Create notification list view|-|3|Nieukończone
+|LP-133|Handle push notifications|-|3|Nieukończone
+|LP-132|Add notification details component|-|2|Nieukończone
+|LP-127|Add confirmation/denial flow|-|5|Nieukończone
+
 |LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
 |LP-136|Create payment scenarios|Sebastian Lewandowski|3|Nieukończone
 |LP-138|Create transaction scenarios|Sebastian Lewandowski|3|Nieukończone
+
+|LP-162|Add generic way to send tokens to downstream systems|-|3|Nieukończone
 |LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
 |===
 
+W tej iteracji zaplanowano początkowo aż 21 zadań, które wymagały nakładu prac wartych 68. W trakcie iteracji zostały
+dodane 2 zadania warte 2 punty. Finalnie zakres iteracji objął 23 zadania warte 70 punktów. Jest to dwukrotnie więcej,
+niż wynosił zakres poprzednich iteracji. Wynikło to z chęci podjęcia próby ukończenia aplikacji w pierwotnym terminie,
+czyli połowie czerwca. Podczas planowania sprintu członkowie zespołu zadeklarowali się podjąć się próby wykonania
+większej ilości zadań, aby ukończyć projekt w planowanym czasie.
+
+==== Przebieg prac
+
+Priorytetem tej iteracji było ukończenie brakujących funkcjonalności. Jedną z nich jest część aplikacji internetowej
+odpowiedzialnej za transakcje. Zadania te były początkowo planowane w poprzedniej iteracji. Wykonany został ekran
+transakcji, wyświetlający dane w tabeli. Wymagało ono sporo modyfikacji w aktualnym kodzie. Chciano, aby oczekująca
+transakcja była zawsze wyświetlana na każdej stronie. Nie było to zaimplementowane w komponencie tabeli ani nie było
+proste w implementacji. Następne zadanie dotyczyło formularza tworzenia płatności. Polegało ono na dodanie nowego
+punktu końcowego z danymi wymaganymi do transakcji oraz stworzeniu samego formularza a aplikacji internetowej.
+Zadanie to nie zostało ukończone w tej iteracji. Udało się natomiast rozwinąć proces zatwierdzania transakcji.
+Została dodana funkcjonalność rozgłaszania transakcji po zebraniu odpowiedniej ilości podpisów. Przed samym
+rozgłoszeniem dokonywane jest próbne uruchomienie skryptów mające na celu weryfikację poprawności transakcji.
+W przypadku uzbierania ilości odrzuceń transakcji uniemożliwiającej rozgłoszenie, dokonywana jest odpowiednia
+aktualizacja w bazie danych.
+
+Kontynuowano również prace nad portfelem. Zaplanowano w tej iteracji dodanie odtwarzania portfela. Polega ono
+na stworzeniu nowego oczekującego portfela w bazie danych, po czym utworzeniu transakcji przelewającej środki na nowy
+adres. Aby to zadanie ułatwić, w trakcie iteracji dodano zadanie polegające na poddaniu refaktoryzacji logikę
+odpowiedzialną za wysyłanie powiadomień. Została ona wyciągnięta do osobnego kontrolera, co ułatwiło wykorzystanie
+jej w innych klasach aplikacji. Następnie cały proces został zaimplementowany w części serwerowej. Rozwiązanie
+powstało na bazie funkcjonalności tworzenia nowego portfela. Główne różnice to rodzaj transakcji, która zawsze
+zbiera wszystkie dostępne środki oraz dodatkowe operacje w bazie danych. Dotychczasowy portfel musi pozostać
+aktywny tak długo, aż transakcja nie zostanie zaakceptowana przez inne węzły w sieci Bitcoina. Nie można natomiast
+w trakcie procesu przelewać środków z portfela w węźle Lightning, gdyż zostałyby one zablokowane na później nieaktywnym
+adresie. W tej iteracji chciano również rozszerzyć aplikację internetową o tę funkcjonalność, jednak nie udało się tego
+osiągnąć.
+
+Jedną z brakujących funkcjonalności, które zespół zapomniał zaimplementować wcześniej, są ustawienia serwera. W tym
+sprincie zaplanowano rozszerzenie serwera o tę funkcjonalność. Zdecydowano się na przechowywanie ustawień w pliku
+konfiguracyjnym, którego lokalizacja jest w folderze znajdującym się w katalogu domowym użytkownika komputera.
+Wartości są przechowywane w formacie klucz-wartość. Zaimplementowane zostały dwa punkty końcowe, jeden do pobierania
+ustawień, a drugi do ich aktualizacji. W przypadku aktualizacji zastosowano mechanizm zabezpieczający przed
+utraconymi zapisami podobny do tego znanego z podpisywania transakcji. Rozwiązanie zostało również zintegrowane z
+resztą aplikacji, aby inne serwisy wykorzystywały ustawienia z pliku zamiast sztywno zakodowanych stałych.
+
+Zespół planował spore prace nad książką do pracy dyplomowej. Chciano napisać dwa nowe rozdziały, "Plan" oraz pierwszą
+część procesu realizacji. Zaplanowano również poprawki do aktualnie istniejących rozdziałów. Niestety żadnego z
+zadań nie udało się dokończyć. W trakcie iteracji zostało dodane zadanie, polegające na dodanie podrozdziału o
+społecznych aspektach projektu. Zadanie to zostało wykonane w ramach zajęć z _SAI_.
+
+W tej iteracji nie zostało ukończonych wiele zadań. Chciano początkowo poczynić duże postępy z aplikacją mobilną.
+Na liście zadań znalazły się krytyczne zadania, takie jak generowanie i przesyłanie kluczy, wyświetlanie powiadomień
+oraz podpisywanie transakcji. Planowano również stworzenie wszystkich brakujących testów E2E, dotyczących
+uwierzytelniania, płatności oraz transakcji. Na koniec zaplanowano dwa zaległe zadania dotyczące procesu płatności.
+Pierwsze z nich dotyczy dodania automatycznego przesyłania opłaconych tokenów na adres wskazany w ustawieniach serwera.
+Drugie zadanie to po raz kolejny dodanie płatności dla niezalogowanych użytkowników. Żadnych z tych zadań nie udało
+się ukończyć. Większość została przeniesiona do następnej iteracji, a część wróciła do rejestru zadań.
+
 ==== Podsumowanie
+
+Sprint zakończył się kompletną porażką. Nie osiągnięto w pełni prawie żadnego celu. Udało się dodać część serwerową
+dla odtwarzania portfela, zaimplementowano rozgłaszanie transakcji oraz pobieranie danych wymaganych do jej stworzenia.
+Nie zrobiono prawie żadnych postępów w aplikacji mobilnej, aplikacji internetowej oraz dokumentacji. Porażką zakończyła
+się również implementacja zaległych zadań z procesu płatności.
 
 .Wykres spalania sprintu ósmego.
 image::../images/sprints_raports/burndown_sprint8.png[]
+
+Ukończono zaledwie 6 zadań, a zaplanowanych było aż 23. Dostarczone zadania miały wartość 18 punktów. Reszta zadań
+została przeniesiona do następnej iteracji bądź do rejestru zadań. Okazało się oczywiste, że projekt nie zostanie
+ukończony w pierwszym terminie. Ilość zadań w rejestrze zadań była wciąż ogromna. Prac nie ułatwiał fakt, że była to już
+druga iteracja z rzędu, w której zadania dostarczane były tylko przez jednego członka zespołu.
