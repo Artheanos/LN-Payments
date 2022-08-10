@@ -3,7 +3,7 @@ import React from 'react'
 
 interface DetailsElement {
   title: string
-  data: any
+  data: string | number
 }
 
 export function NotificationDetailsElement(props: DetailsElement) {

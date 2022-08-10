@@ -10,6 +10,7 @@ import { ErrorAlert } from 'components/screens/notification/NotificationDetailSc
 import { Alert } from 'react-native'
 import { NotificationDetails } from 'webService/interface/notification'
 import { NotificationDetailsElement } from './NotificationDetailsElement'
+import { LoadingModal } from 'components/screens/notification/NotificationDetailScreen/LoadingModal'
 
 /**
  * Displays details of the clicked notification.
@@ -23,7 +24,7 @@ export const NotificationDetailScreen: React.FC<
   },
 }) => {
   const [processing, setProcessing] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [errorDialog, setErrorDialog] = useState(false)
   const { user, logoutUser } = useContext(UserContext)
   const [details, setDetails] = useState<NotificationDetails>()
@@ -32,14 +33,17 @@ export const NotificationDetailScreen: React.FC<
    * Method to get data from API
    */
   const notificationDetails = async () => {
-    setLoading(true)
     try {
-      const { data } = await api.notifications.getNotificationDetails(
+      const { data, status } = await api.notifications.getNotificationDetails(
         notificationId,
       )
+      if (status === 401) {
+        logoutUser()
+        Alert.alert(R.strings.logout.timeout)
+      }
       setDetails(data)
     } catch (error) {
-      showAlert()
+      logoutUser()
     } finally {
       setLoading(false)
     }
@@ -84,9 +88,7 @@ export const NotificationDetailScreen: React.FC<
             .catch(showAlert)
         }
       })
-      .catch(() => {
-        logoutUser()
-      })
+      .catch(showAlert)
   }
 
   /**
@@ -142,36 +144,37 @@ export const NotificationDetailScreen: React.FC<
    */
   return (
     <Center justifyContent="flex-start" h="100%">
+      <LoadingModal processing={processing} />
       <ErrorAlert isOpen={errorDialog} close={alertClose} />
-      {loading ? (
-        <Center>
+      {loading || !details ? (
+        <Box flex={1} alignItems="center" justifyContent="center">
           <Spinner color="primary.500" size="lg" />
-        </Center>
+        </Box>
       ) : (
         <VStack space={3} marginTop={5}>
           <NotificationDetailsElement
             title={R.strings.details.id}
-            data={details?.id}
+            data={details.id}
           />
           <NotificationDetailsElement
             title={R.strings.details.type}
-            data={details?.type}
+            data={details.type}
           />
           <NotificationDetailsElement
             title={R.strings.details.message}
-            data={details?.message}
+            data={details.message}
           />
           <NotificationDetailsElement
             title={R.strings.details.address}
-            data={details?.address}
+            data={details.address}
           />
           <NotificationDetailsElement
             title={R.strings.details.amount}
-            data={details?.amount}
+            data={details.amount}
           />
           <NotificationDetailsElement
             title={R.strings.details.status}
-            data={details?.status}
+            data={details.status}
           />
         </VStack>
       )}
