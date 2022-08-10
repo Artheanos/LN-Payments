@@ -65,6 +65,13 @@ class Requests {
           params,
         })
       },
+      getNotificationDetails: async (
+        notificationId: string,
+      ): Promise<Response<NotificationDetails>> => {
+        return this.request(routes.notifications.details(notificationId), {
+          method: 'get',
+        })
+      },
       getConfirmationDetails: async (
         notificationId: string,
       ): Promise<Response<ConfirmationDetails>> => {
