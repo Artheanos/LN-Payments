@@ -86,13 +86,51 @@ znajdują się tylko pliki dotyczące pracy dyplomowej. Katalog _chapters_ przec
 podrozdziały. Wszystkie pliki są napisane w formacie _asciidoc_, co sprawia, że tekst można bardzo łatwo modyfikować
 przy pomocy prostego języka znaczników.
 
-.Fragment rozdziału "analiza":
+.Fragment kodu źródłowego rozdziału "analiza".
 [source, asciidoc]
 ----
 include::./../sections/architecture.adoc[]
 ----
 
+W folderze _dependencies_ znajdują się dodatkowe pliki _asciidoc_, które łączone są z innymi dokumentami po
+wcześniejszej kompilacji. Aktualnie znajduje się tam jeden plik, który reprezentuje stronę tytułową oraz oświadczenie
+autorów pracy dyplomowej. Folder _themes_ zawiera pliki konfigurujące style dla dokumentów. Dzięki nim konfigurowane
+są ustawienia czcionki czy też układ elementów dokumentu. W katalogu _snippets_ znajdują się niektóre fragmenty
+kodu prezentowane w tej pracy. Większość pochodzi z odniesienia bezpośrednio do prawdziwego kodu źródłowego systemu.
+W tym folderze znajdują się głównie fragmenty niepowiązane z kodem produkcyjnym, a głównie przykłady i kod prototypu
+(przechowywany jest on w innym repozytorium). W folderze _images_ znajdują się wszystkie zdjęcia użyte w tej pracy.
+Są to między innymi różnego rodzaju wykresy i rzuty ekranu. Ostatnim folderem zawierającym kod źródłowy dokumentacji
+jest _diagrams_, zawierający diagramy stworzone na potrzeby systemu. Większość z nim została wykonana przy użyciu
+narzędzia _plantuml_. Pozwala ono na tworzenie diagramów w zwykłych plikach tekstowych, tak samo, jak w przypadku
+dokumentów w formacie _asciidoc_. Dzięki wykorzystaniu wtyczki _asciidoctor-diagram_, diagramy w plantuml mogą
+być dołączone do kodu pracy w taki sam sposób, jak w przypadku wszystkich innych zależności. Kompilowane są one razem
+z całością dokumentacji.
 
+.Przykładowy schemat blokowy w formacie _plantuml_.
+[source, puml]
+----
+include::./../diagrams/channel_close_flow.puml[]
+----
+
+Zastosowane technologie do tworzenia dokumentacji sprawiają, że wszystkie pliki są śledzone w systemie kontroli wersji
+razem z kodem źródłowym projektu. Umożliwia to między innymi recenzje kodu poprzez serwis _Github_. Pliki są czytelne,
+a prostej składni wykorzystywanych języków znaczników można szybko nauczyć się z oficjalnej dokumentacji. Rozwiązanie
+to sprawdza się o wiele lepiej niż graficzne programy biurowe do tworzenia dokumentów.
 
 === Pozostałe elementy projektu
 
+Ostatnim folderem w repozytorium projektu jest _devtools_. Zawiera on dodatkowi pliki związane z programami
+wykorzystywanymi w pracach nad projektem. Aktualnie zawiera on foldery dla programów _postman_ oraz _docker_.
+
+.Zawartość katalogu devtools.
+image::../images/devtools_dir.png[]
+
+Folder _postman_ zawiera tylko kolekcję dokumentującą wszystkie żądania obsługiwane przez serwer. Wystarczy tylko
+zaimportować ją do programu, aby zyskać natychmiastowy dostęp do przykładowych żądań. Programista nie musi dzięki
+temu samemu przygotowywać wielokrotnie tych samych żądań. Drugim katalogiem jest _docker_. Przechowywane są w nim
+pliki _docker-compose_, pozwalające na uruchomienie wszystkich kontenerów z programami potrzebnymi do działania
+systemy, czyli węzeł sieci Lightning, węzeł sieci Bitcoin oraz bazę danych. Dostępne są trzy pliki _docker-compose_.
+Jeden z nich jest plikiem bazowym, zawierającym podstawową konfigurację i nie powinno się go uruchamiać samemu.
+Pozostałe dwa pliki odpowiadają dwóm aktualnie wspieranym sieciom Bitcoina, czyli _regtest_ oraz _testnet_. Katalog
+ten zawiera również konfigurację dla obu węzłów. Dostępne są one odpowiednio w folderach _bitcoind_ oraz _lnd_. Są
+one przesyłane do kontenera podczas jego rozruchu i zawierają ustawienia dopasowane do tworzonego systemu.
