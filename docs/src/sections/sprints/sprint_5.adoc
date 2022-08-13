@@ -68,10 +68,10 @@ iteracji.
 W tej iteracji planowano prace nad portfelem oraz zarządzaniem nim. Rozpoczęto od implementacji części serwerowej.
 Najpierw dodany został punkt końcowy pozwalający na stworzenie nowego portfela. W ramach tego zadania konfiguracji
 została poddana biblioteka _BitcoinJ_, gdyż nie była wcześniej używana. Następnie dodano punkt końcowy pozwalający
-na pobranie statusu portfela. Odpowiedź HTTP zawiera informacje o balansie w kanałach, węźle Lightning oraz na adresie
-multisig. Dodatkowo zawarto tam również adres multisig oraz listę administratorów nim zarządzających. W ramach tego
-zadania uświadomiono sobie, że podczas planowania nie ujęto paru aspektów, takich jak zarządzanie kanałami i portfelem
-w węźle Lightning. Zdecydowano się na implementacje funkcjonalności kanałów w ramach
+na pobranie statusu portfela. Jego zwracana odpowiedź HTTP zawiera informacje o balansie w kanałach, węźle
+Lightning oraz na adresie multisig. Dodatkowo zawarto tam również adres multisig oraz listę administratorów nim
+zarządzających. W ramach tego zadania uświadomiono sobie, że podczas planowania nie ujęto paru aspektów, takich jak
+zarządzanie kanałami i portfelem w węźle Lightning. Zdecydowano się na implementacje funkcjonalności kanałów w ramach
 zadań LP-100 oraz LP-103, które wcześniej przeoczono i nie znalazły się początkowo w zakresie iteracji. Z tego powodu
 estymacja LP-100 została podwyższona do 5 punktów. Zaimplementowane zostały wszystkie serwisy i punkty końcowe do
 zarządzania kanałem oraz portfelem Lightning. Po zakończeniu tych zadań użytkownicy mogli manualnie przelewać
