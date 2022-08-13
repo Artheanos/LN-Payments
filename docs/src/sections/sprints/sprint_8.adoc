@@ -47,7 +47,7 @@ odpowiedzialnej za transakcje. Zadania te były początkowo planowane w poprzedn
 transakcji, wyświetlający dane w tabeli. Wymagało ono sporo modyfikacji w aktualnym kodzie. Chciano, aby oczekująca
 transakcja była zawsze wyświetlana na każdej stronie. Nie było to zaimplementowane w komponencie tabeli ani nie było
 proste w implementacji. Następne zadanie dotyczyło formularza tworzenia płatności. Polegało ono na dodanie nowego
-punktu końcowego z danymi wymaganymi do transakcji oraz stworzeniu samego formularza a aplikacji internetowej.
+punktu końcowego z danymi wymaganymi do transakcji oraz stworzeniu samego formularza w aplikacji internetowej.
 Zadanie to nie zostało ukończone w tej iteracji. Udało się natomiast rozwinąć proces zatwierdzania transakcji.
 Została dodana funkcjonalność rozgłaszania transakcji po zebraniu odpowiedniej ilości podpisów. Przed samym
 rozgłoszeniem dokonywane jest próbne uruchomienie skryptów mające na celu weryfikację poprawności transakcji.
@@ -98,6 +98,6 @@ się również implementacja zaległych zadań z procesu płatności.
 image::../images/sprints_raports/burndown_sprint8.png[]
 
 Ukończono zaledwie 6 zadań, a zaplanowanych było aż 23. Dostarczone zadania miały wartość 18 punktów. Reszta zadań
-została przeniesiona do następnej iteracji bądź do rejestru zadań. Okazało się oczywiste, że projekt nie zostanie
+została przeniesiona do następnej iteracji bądź do rejestru zadań. Stało się jasne, że projekt nie zostanie
 ukończony w pierwszym terminie. Ilość zadań w rejestrze zadań była wciąż ogromna. Prac nie ułatwiał fakt, że była to już
 druga iteracja z rzędu, w której zadania dostarczane były tylko przez jednego członka zespołu.

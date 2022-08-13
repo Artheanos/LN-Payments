@@ -38,7 +38,7 @@ musiała zostać ukończona w czerwcu. Z tego powodu w tej iteracji ponownie zaw
 
 ==== Przebieg prac
 
-Priorytetem tej iteracji był rozwój aplikacji mobilnej. Na początku praz napotkano kilka poważnych problemów.
+Priorytetem tej iteracji był rozwój aplikacji mobilnej. Na początku prac napotkano kilka poważnych problemów.
 Okazało się, że biblioteka obsługująca protokół Bitcoina w prototypie nie jest kompatybilna z aplikacją mobilną
 stworzoną z zestawem narzędzi _Expo_. Było to bardzo problematyczne, gdyż zablokowało to rozwój aplikacji. Zespół
 musiał znaleźć rozwiązanie pozwalające na jej użycie. Zdecydowano się na pozbycie się _Expo_. Praktycznie
@@ -51,10 +51,10 @@ internetowej oraz mobilnej. Niestety praca z tym pakietem okazała się bardzo n
 kompilacja oraz ręczne dodanie przy każdej modyfikacji, co przy równoczesnej pracy nad innymi komponentami bardzo
 utrudniało programowanie. Nie istnieje rozwiązanie pozwalające na dynamiczną aktualizację pakietów, więc zdecydowano
 się na usunięcie pakietu wspólnego. Praca z duplikatami w tym przypadku nie jest dużym utrudnieniem, a zdecydowanie
-posunięcie to przyspieszyło prace nad komponentami systemu.
+przyspieszyło to prace nad komponentami systemu.
 
 Po uporaniu się ze środowiskiem aplikacji mobilnej przystąpiono do jej implementacji. Jako pierwsze zostało zrealizowane
-zadanie LP-149. Miało ono początkowo dodać nowy ekran przed logowaniem, w którym użytkownik musiałby podać adres
+zadanie LP-149. Miało ono początkowo dodawać nowy ekran przed logowaniem, w którym użytkownik musiałby podać adres
 serwera. W trakcie prac zmieniono kryteria akceptacji. Postanowiono, że lepszy rozwiązaniem będzie dodanie tego pola
 do ekranu adresu. Następnie został dodany nowy ekran odpowiedzialny za generowanie oraz przesyłanie kluczy.
 Ekran składa się tylko z obracającego się kółka ładowania oraz tekstu opisującego aktualnie trwającą czynność.
@@ -70,7 +70,7 @@ planowano również zadania wykańczające ekran szczegółów powiadomienia, cz
 implementacja procesu potwierdzania i odrzucania powiadomienia. Zaplanowano również obsługę powiadomień _push_
 przychodzących z serwera. Niestety tych zadań nie udało się ukończyć i zostały one przeniesione do następnej iteracji.
 
-Dwa następne zadania dotyczą dalszych prac nad serwerem. Komponent ten był już bliski ukończenia, a zadań w rejestrze
+Dwa następne zadania dotyczyły dalszych prac nad serwerem. Komponent ten był już bliski ukończenia, a zadań w rejestrze
 było coraz mniej. Pierwsze zadanie dotyczyło napisanie pliku _readme_ dla serwera, zawierającego informacje o
 komponencie oraz instrukcje jego uruchomienia i testowania. Drugie zadanie dotyczyło brakującej funkcjonalności
 profilu użytkownika. Dodane zostały dwa punkty końcowe. Ta funkcjonalność wymagała dodania możliwości pobrania
@@ -90,7 +90,7 @@ a także zadania związane z funkcjonalnościami portfela i płatności.
 ==== Podsumowanie
 
 Jest to kolejna już iteracja, w której nie ukończono bardzo wielu z zaplanowanych zadań. Pomimo przeciwności udało się
-wznowić prace nad aplikacją mobilną. Problemu te są częściowym usprawiedliwieniem w niepowodzeniach tej iteracji, gdyż
+wznowić prace nad aplikacją mobilną. Problemy te były częściowym usprawiedliwieniem w niepowodzeniach tej iteracji, gdyż
 pochłonęły one prawie połowę iteracji. Poczyniono nieznaczne postępy przy zadaniach związanych z serwerem i aplikacją
 mobilną. Nie ukończono natomiast żadnego zadania dotyczącego testów E2E, a także wielu zadań dotyczących aplikacji
 mobilnej oraz internetowej.

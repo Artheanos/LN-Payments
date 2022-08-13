@@ -68,11 +68,11 @@ iteracji.
 W tej iteracji planowano prace nad portfelem oraz zarządzaniem nim. Rozpoczęto od implementacji części serwerowej.
 Najpierw dodany został punkt końcowy pozwalający na stworzenie nowego portfela. W ramach tego zadania konfiguracji
 została poddana biblioteka _BitcoinJ_, gdyż nie była wcześniej używana. Następnie dodano punkt końcowy pozwalający
-na pobranie statusu portfela. Odpowiedź zawiera informacje o balansie w kanałach, węźle Lightning oraz na adresie
+na pobranie statusu portfela. Odpowiedź HTTP zawiera informacje o balansie w kanałach, węźle Lightning oraz na adresie
 multisig. Dodatkowo zawarto tam również adres multisig oraz listę administratorów nim zarządzających. W ramach tego
 zadania uświadomiono sobie, że podczas planowania nie ujęto paru aspektów, takich jak zarządzanie kanałami i portfelem
 w węźle Lightning. Zdecydowano się na implementacje funkcjonalności kanałów w ramach
-zadań LP-100 oraz LP-103, które wcześniej przeoczono i nie znalazło się początkowo w zakresie iteracji. Z tego powodu
+zadań LP-100 oraz LP-103, które wcześniej przeoczono i nie znalazły się początkowo w zakresie iteracji. Z tego powodu
 estymacja LP-100 została podwyższona do 5 punktów. Zaimplementowane zostały wszystkie serwisy i punkty końcowe do
 zarządzania kanałem oraz portfelem Lightning. Po zakończeniu tych zadań użytkownicy mogli manualnie przelewać
 środki z zablokowanych kanałów na adres multisig. Prace nad częścią strony internetowej nie przebiegały równie dobrze.
@@ -106,5 +106,5 @@ image::../images/sprints_raports/burndown_sprint5.png[]
 
 Ukończone zostało 10 z początkowo planowanych 15 zadań. Daje to tylko 19 punktów historii. Aż pięć zadań o wartości
 14 punktów nie zostało ukończonych, przez co musiały one zostać przeniesione do następnego sprintu. Pomimo zbliżającego
-się terminu oddania pracy, zespół dostarcza coraz mniej zadań z iteracji na iterację. Rosnące opóźnienie nie daje
-powodów do optymizmu, gdyż następne iteracje będą musiały zawierać coraz więcej zadań.
+się terminu oddania pracy, zespół dostarczał coraz mniej zadań z iteracji na iterację. Rosnące opóźnienie nie dawało
+powodów do optymizmu, gdyż następne iteracje musiały zawierać coraz więcej zadań.

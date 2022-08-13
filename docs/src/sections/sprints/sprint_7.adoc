@@ -89,7 +89,7 @@ Zostały dodane odpowiednie zadania mające na celu poprawę tego procesu. Po za
 do implementacji pierwszego ekranu, czyli logowania wraz z integracją procesu uwierzytelniania. Logowanie do aplikacji
 mobilnej dostępne jest tylko dla administratorów, dlatego wymagano dodania obsługi takich przypadków w tym zadaniu.
 Przy tworzeniu nawigacji dla aplikacji mobilnej odkryto, że najlepszy sposobem jest dodanie od razu menu bocznego,
-gdyż odbywa się do automatycznie przez używane szablon aplikacji. Wbrew pozorom, było to łatwiejsze, niż stworzenie
+gdyż odbywa się to automatycznie przez używane szablon aplikacji. Wbrew pozorom, było to łatwiejsze, niż stworzenie
 układu ekranów bez panelu bocznego. W rejestrze zadań znajdowało się odpowiadające zadanie, zaplanowane na następną
 iterację, jednak zostało ono przeniesione oraz zakończone w tej iteracji. Zespół planował również dodać ekran
 odpowiedzialny za generowanie pary kluczy i przesłanie klucza publicznego na serwer oraz dodanie ekranu do wpisania
@@ -113,6 +113,6 @@ aplikacji mobilnej, a także zrealizowano kilka pomniejszych zadań usprawniają
 image::../images/sprints_raports/burndown_sprint7.png[]
 
 Ukończone zostało 14 z 22 zaplanowanych zadań. Dostarczonych zostało 40 punktów historii. Oznacza to, że aż 8 zdań
-o wartości 22 punktów zostało przeniesionych do następnej iteracji. Jest to bardzo zły wynik, który tylko potęguje
-opóźnienie w realizacji projektu. Nierówny wkład własny członków zespołu powoduje, że zadania związane z serwerem
-kończone są zawsze na czas, natomiast zadania związane z _frontend'em_ stale nie są dostarczane w terminie.
+o wartości 22 punktów zostało przeniesionych do następnej iteracji. Jest to bardzo zły wynik, który tylko potęgował
+opóźnienie w realizacji projektu. Nierówny wkład własny członków zespołu spowodował, że zadania związane z serwerem
+kończone były zawsze na czas, natomiast zadania związane z _frontend'em_ stale nie były dostarczane w terminie.

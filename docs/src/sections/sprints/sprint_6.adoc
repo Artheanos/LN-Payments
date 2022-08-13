@@ -58,7 +58,7 @@ tworzenia nowego portfela. Jeżeli serwer zwróci kod 404 zamiast informacji o p
 zostanie do formularza tworzenia nowego portfela.
 
 Kolejne zadanie było pierwszym krokiem do implementacji funkcjonalności portfela. Zadanie to także było wymagane do
-pełnego działania tworzenia portfela. Mowa tutaj o możliwości przesłania swojego klucza publicznego przez
+pełnego działania procesu tworzenia portfela. Mowa tutaj o możliwości przesłania swojego klucza publicznego przez
 administratorów. Zadanie to obejmowało integrację tej funkcjonalności z innymi częściami aplikacji. Na początku
 najpierw zaimplementowano odpowiedni punkt końcowy oraz odpowiednie metody w serwisach. Następnie informacja o
 przesłanym kluczu została dołączona do odpowiedzi zwracającej listę administratorów. Posłużyło to do wyświetlenia
@@ -70,7 +70,7 @@ przedyskutować jej układ oraz planowany spis treści. Na podstawie tego spotka
 wraz z podrozdziałami. Planowano również dodanie strony tytułowej oraz oświadczenia autorów pracy, lecz nie udało
 się tego zadania wykonać w tej iteracji i zostało ono przeniesione dalej. W trakcie sprintu dodane zostało zadanie
 LP-153, polegające na napisaniu sekcji dotyczącej analizy ryzyk. Było to zadanie wykonane przez zespół w ramach
-przedmiotu SAI. Po akceptacji prowadzącego zadanie zostało włączone pracy dyplomowej.
+przedmiotu SAI. Po akceptacji prowadzącego zadanie zostało włączone do pracy dyplomowej.
 
 Aby rozpocząć prace nad aplikacją mobilną, zespół musiał pozyskać wiedzę o tworzeniu powiadomień _push_. Domyślnym
 rozwiązaniem wykorzystywanym w aplikacjach na system Android jest _Google Cloud Messaging_. Jest to usługa zintegrowana
@@ -78,7 +78,7 @@ z systemem, więc otrzymywanie powiadomień dzieje się automatycznie, a serwer 
 na serwer _Google_. Nie było to pożądane rozwiązanie, ponieważ wymagało stworzenia konta w zewnętrznym systemie, a także
 odpowiedniej integracji. Założeniem aplikacji jest udostępnienie jej każdemu do samodzielnego uruchomienia. Wymóg
 rejestracji u innego dostawcy usług jest dodatkowym niechcianym wymaganiem dla użytkownika, więc zdecydowano się na
-znalezienie innego rozwiązania. Zdecydowano się na ponowne wykorzystanie protokołu Websocket, gdyż jest to jedyne
+znalezienie innego rozwiązania. Podjęto decyzję o ponownym wykorzystaniu protokołu Websocket, gdyż jest to jedyne
 rozwiązanie gwarantujące przesył danych w czasie rzeczywistym bez żadnych zewnętrznych usług. Jest to również
 technologia aktualnie wykorzystywana w projekcie, więc integracja nie stanowiła problemu. Oczywiście rozwiązanie
 to ma swoje minusy jak wymóg utrzymania połączenia, co powoduje szybsze rozładowanie baterii, jednak zespół nie znalazł
@@ -103,4 +103,4 @@ image::../images/sprints_raports/burndown_sprint6.png[]
 
 Zakończono 14 z 17 zadań zaplanowanych na ten sprint. Dostarczone zostało łącznie 30 punktów historii. Trzech zadań
 nie udało się ukończyć i zostało przeniesione do następnej iteracji. Udało się ukończyć więcej zadań niż w poprzednim
-sprincie, jednak dalej nie są to wszystkie zadania, a co za tym idzie, rośnie opóźnienie w realizacji projektu.
+sprincie, jednak dalej nie były to wszystkie zadania, a co za tym idzie, rosło opóźnienie w realizacji projektu.
