@@ -46,3 +46,9 @@ https://ycharts.com/indicators/bitcoin_blockchain_size[]
 
 * [[[bip174, 15]]] _Andrew Chow_, BIP-174 - Partially Signed Bitcoin Transaction Format, [dostęp: 02.08.2022],
 https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki[]
+
+* [[[pragmatic_prog, 16]]] _David Thomas, Andrew Hunt_, Pragmatyczny programista, 1999,
+ISBN:{nbsp}978-83-283-7139-2
+
+* [[[scrum_guide, 17]]] _Ken Schwaber, Jeff Sutherland_, The Scrum Guide, 2020, [dostęp: 13.08.2022]
+https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf[]
