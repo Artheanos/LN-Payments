@@ -55,7 +55,7 @@ zmian czy też dodawania automatycznej numeracji obrazów i tabel. Plików tych 
 kontroli wersji, gdyż zapisane są zazwyczaj w formacie binarnym. Wymaga to przechowywania kopii dokumentu na
 współdzielonym dysku. Nie rozwiązuje to jednak często problemu równoczesnej pracy nad plikiem przez kilka osób.
 Aby temu zapobiec, zdecydowano się na użycie języka znaczników _asciidoc_, dzięki któremu można w łatwy sposób
-automatycznie formatować dokumenty, które zapisane są w zwykłych plikach tekstowych. Zespół dzięki temu nie musiał się
+automatycznie formatować dokumenty, które zapisane są w zwykłych plikach tekstowych. Dzięki temu zespół nie musiał się
 kompletnie martwić stylem dokumentu, gdyż pliki sformatowane _pdf_ oraz _html_ tworzone są automatycznie przez narzędzie
 _asciidoctor_. Cała dokumentacja projektu, czyli dokumenty wstępne i książka do pracy dyplomowej zostały napisane
 z wykorzystaniem tej technologii. Wszystkie pliki są przechowywane tak samo, jak kod źródłowy w folderze _docs_.
@@ -99,7 +99,7 @@ są ustawienia czcionki czy też układ elementów dokumentu. W katalogu _snippe
 kodu prezentowane w tej pracy. Większość pochodzi z odniesienia bezpośrednio do prawdziwego kodu źródłowego systemu.
 W tym folderze znajdują się głównie fragmenty niepowiązane z kodem produkcyjnym, a głównie przykłady i kod prototypu
 (przechowywany jest on w innym repozytorium). W folderze _images_ znajdują się wszystkie zdjęcia użyte w tej pracy.
-Są to między innymi różnego rodzaju wykresy i rzuty ekranu. Ostatnim folderem zawierającym kod źródłowy dokumentacji
+Są to między innymi różnego rodzaju wykresy i zrzuty ekranu. Ostatnim folderem zawierającym kod źródłowy dokumentacji
 jest _diagrams_, zawierający diagramy stworzone na potrzeby systemu. Większość z nim została wykonana przy użyciu
 narzędzia _plantuml_. Pozwala ono na tworzenie diagramów w zwykłych plikach tekstowych, tak samo, jak w przypadku
 dokumentów w formacie _asciidoc_. Dzięki wykorzystaniu wtyczki _asciidoctor-diagram_, diagramy w plantuml mogą
@@ -119,7 +119,7 @@ to sprawdza się o wiele lepiej niż graficzne programy biurowe do tworzenia dok
 
 === Pozostałe elementy projektu
 
-Ostatnim folderem w repozytorium projektu jest _devtools_. Zawiera on dodatkowi pliki związane z programami
+Ostatnim folderem w repozytorium projektu jest _devtools_. Zawiera on dodatkowe pliki związane z programami
 wykorzystywanymi w pracach nad projektem. Aktualnie zawiera on foldery dla programów _postman_ oraz _docker_.
 
 .Zawartość katalogu devtools.
@@ -129,7 +129,7 @@ Folder _postman_ zawiera tylko kolekcję dokumentującą wszystkie żądania obs
 zaimportować ją do programu, aby zyskać natychmiastowy dostęp do przykładowych żądań. Programista nie musi dzięki
 temu samemu przygotowywać wielokrotnie tych samych żądań. Drugim katalogiem jest _docker_. Przechowywane są w nim
 pliki _docker-compose_, pozwalające na uruchomienie wszystkich kontenerów z programami potrzebnymi do działania
-systemy, czyli węzeł sieci Lightning, węzeł sieci Bitcoin oraz bazę danych. Dostępne są trzy pliki _docker-compose_.
+systemu, czyli węzeł sieci Lightning, węzeł sieci Bitcoin oraz bazę danych. Dostępne są trzy pliki _docker-compose_.
 Jeden z nich jest plikiem bazowym, zawierającym podstawową konfigurację i nie powinno się go uruchamiać samemu.
 Pozostałe dwa pliki odpowiadają dwóm aktualnie wspieranym sieciom Bitcoina, czyli _regtest_ oraz _testnet_. Katalog
 ten zawiera również konfigurację dla obu węzłów. Dostępne są one odpowiednio w folderach _bitcoind_ oraz _lnd_. Są
