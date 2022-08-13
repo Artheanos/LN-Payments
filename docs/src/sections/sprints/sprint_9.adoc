@@ -1,5 +1,103 @@
 === Sprint 9 (30.05.2022 - 13.06.2022)
 
+W oryginalnym planie w tej iteracji planowano pracę nad długiem technicznym oraz poprawą stabilności aplikacji.
+Niestety w poprzednich iteracjach nie ukończono tak dużej ilości zadań, że zespół musiał nadal pracować nad
+funkcjonalnościami aplikacji. Na tym etapie prac nadal nie posiadano całego działającego procesu, od płatności do
+transakcji. Zbliżał się w tamtym czasie termin prezentacji aplikacji mobilnej w ramach zajęć _PAMO_, więc te zadania
+zostały potraktowane priorytetowo.
+
+.Lista zadań w sprincie dziewiątym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-180|Migrate mobile app|Jan Pieczul|3|Ukończone
+|LP-184|Replace common-ts with a more convenient solution|Jan Pieczul|2|Ukończone
+|LP-129|Create server url input view|Jan Pieczul|3|Ukończone
+|LP-125|Create upload keys view|Jan Pieczul|3|Ukończone
+|LP-126|Create notification list view|Aleksander Konieczny|3|Ukończone
+|LP-132|Add notification details component|-|2|Nieukończone
+|LP-127|Add confirmation/denial flow|-|5|Nieukończone
+|LP-133|Handle push notifications|-|3|Nieukończone
+|LP-47|Create readme for webservice|Aleksander Konieczny|1|Ukończone
+|LP-79|Implement user details controller|Aleksander Konieczny|2|Ukończone
+|LP-116|Create form for creating new transactions|Aleksander Konieczny|2|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-151|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
+|LP-160|Implement wallet recreation flow|-|3|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-136|Create payment scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-138|Create transaction scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-162|Add generic way to send tokens to downstream systems|-|3|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|===
+
+Zaplanowane zostało 17 zadań wartych 49 punktów historii. Większość z tych zadań była już wcześniej planowana w
+innych iteracjach. W trakcie sprintu dodane zostały 2 zadania warte 5 punktów. Ostatecznie zakres zadań wyniósł
+19 zadań wartych 54 punkty. Pomimo tego, że termin prac przesunięto na początek września, aplikacja mobilna wciąż
+musiała zostać ukończona w czerwcu. Z tego powodu w tej iteracji ponownie zawarto wiele zadań.
+
 ==== Przebieg prac
 
+Priorytetem tej iteracji był rozwój aplikacji mobilnej. Na początku prac napotkano kilka poważnych problemów.
+Okazało się, że biblioteka obsługująca protokół Bitcoina w prototypie nie jest kompatybilna z aplikacją mobilną
+stworzoną z zestawem narzędzi _Expo_. Było to bardzo problematyczne, gdyż zablokowało to rozwój aplikacji. Zespół
+musiał znaleźć rozwiązanie pozwalające na jej użycie. Zdecydowano się na pozbycie się _Expo_. Praktycznie
+cała aplikacja musiała zostać przepisana, gdyż proces tworzenia oprogramowania tylko i wyłącznie z wykorzystaniem
+narzędzi dostarczanych z _React Native_ kompletnie różni się od _Expo_. Po długiej walce udało się przenieść aplikację
+na domyślne narzędzia budowania. Udało się także dodać bibliotekę _BitcoinJS_, dzięki zastosowaniu narzędzia
+_rn-nodeify_, pozwalającego na dodanie pakietów _Node_ do aplikacji tworzonej w _React Native_. Kolejnym problemem
+okazał się wcześniej dodany pakiet wspólny _common-ts_. Miał on na celu pozbycie się duplikatów z aplikacji
+internetowej oraz mobilnej. Niestety praca z tym pakietem okazała się bardzo nieporęczna. Wymagana była jego
+kompilacja oraz ręczne dodanie przy każdej modyfikacji, co przy równoczesnej pracy nad innymi komponentami bardzo
+utrudniało programowanie. Nie istnieje rozwiązanie pozwalające na dynamiczną aktualizację pakietów, więc zdecydowano
+się na usunięcie pakietu wspólnego. Praca z duplikatami w tym przypadku nie jest dużym utrudnieniem, a zdecydowanie
+przyspieszyło to prace nad komponentami systemu.
+
+Po uporaniu się ze środowiskiem aplikacji mobilnej przystąpiono do jej implementacji. Jako pierwsze zostało zrealizowane
+zadanie LP-149. Miało ono początkowo dodawać nowy ekran przed logowaniem, w którym użytkownik musiałby podać adres
+serwera. W trakcie prac zmieniono kryteria akceptacji. Postanowiono, że lepszy rozwiązaniem będzie dodanie tego pola
+do ekranu adresu. Następnie został dodany nowy ekran odpowiedzialny za generowanie oraz przesyłanie kluczy.
+Ekran składa się tylko z obracającego się kółka ładowania oraz tekstu opisującego aktualnie trwającą czynność.
+W tym czasie aplikacja generuje parę kluczy, zapisuje klucz prywatny lokalnie oraz wysyła klucz publiczny na serwer.
+Ekran ten wyświetlany jest tylko przy pierwszym logowaniu do aplikacji mobilnej. Zaimplementowany został również
+ekran główny aplikacji, zawierający pobrane powiadomienia z bazy danych. Ekran obsługuje paginację oraz odświeżanie
+listy obsługiwane odpowiednimi ruchami na ekranie. Każde powiadomienie można również kliknąć. Użytkownik jest wtedy
+przekierowany na ekran, na którym w przyszłości będą jego szczegóły oraz guziki do potwierdzania, oraz odrzucania
+powiadomienia. W tym zadaniu napotkano problem z nawigacją pomiędzy ekranami. Aktualna implementacja nie pozwalała na
+utworzenie ekranu wyświetlanego nad innymi panelami, a tak właśnie zaplanowano implementację ekranu szczegółów
+powiadomienia. Wymagało to praktycznie przepisania kodu odpowiedzialnego za nawigację w aplikacji. W tym sprincie
+planowano również zadania wykańczające ekran szczegółów powiadomienia, czyli dodanie samych szczegółów oraz
+implementacja procesu potwierdzania i odrzucania powiadomienia. Zaplanowano również obsługę powiadomień _push_
+przychodzących z serwera. Niestety tych zadań nie udało się ukończyć i zostały one przeniesione do następnej iteracji.
+
+Dwa następne zadania dotyczyły dalszych prac nad serwerem. Komponent ten był już bliski ukończenia, a zadań w rejestrze
+było coraz mniej. Pierwsze zadanie dotyczyło napisanie pliku _readme_ dla serwera, zawierającego informacje o
+komponencie oraz instrukcje jego uruchomienia i testowania. Drugie zadanie dotyczyło brakującej funkcjonalności
+profilu użytkownika. Dodane zostały dwa punkty końcowe. Ta funkcjonalność wymagała dodania możliwości pobrania
+szczegółów danego użytkownika. W pierwszym wydaniu zaplanowano, że użytkownik będzie mógł zmienić tylko i wyłącznie
+hasło, co zostało zaimplementowane w ramach drugiego punktu końcowego. Modyfikacja pozostałych pól jest w planach
+na następne iteracje.
+
+Następne zadanie dotyczyło dodania formularza tworzącego nowe transakcje. Na jego potrzeby dodano w ramach tego zadania
+dodatkowy punkt końcowy zwracający dane wymagane do tworzenia transakcji takich jak dostępne środki i wysokość opłaty
+transakcyjnej. Dodatkowo należało zaimplementować filtr uniemożliwiający dostęp do formularza, gdy istnieje oczekująca
+transakcja.
+
+Ostatnia grupa zadań nie została ukończona. Są to te same zadania, które nie zostały również ukończone w poprzedniej
+iteracji. Znajdują się w tej grupie zadania dotyczące pisania rozdziałów pracy dyplomowej, implementacji testów E2E,
+a także zadania związane z funkcjonalnościami portfela i płatności.
+
 ==== Podsumowanie
+
+Jest to kolejna już iteracja, w której nie ukończono bardzo wielu z zaplanowanych zadań. Pomimo przeciwności udało się
+wznowić prace nad aplikacją mobilną. Problemy te były częściowym usprawiedliwieniem w niepowodzeniach tej iteracji, gdyż
+pochłonęły one prawie połowę iteracji. Poczyniono nieznaczne postępy przy zadaniach związanych z serwerem i aplikacją
+mobilną. Nie ukończono natomiast żadnego zadania dotyczącego testów E2E, a także wielu zadań dotyczących aplikacji
+mobilnej oraz internetowej.
+
+.Wykres spalania sprintu dziewiątego.
+image::../images/sprints_raports/burndown_sprint9.png[]
+
+Udało się zakończyć 8 z 19 zadań wartych 19 punktów. Po raz kolejny wiele zadań zostało przeniesionych do następnej
+iteracji oraz do rejestru zadań. Nie jest to satysfakcjonujący wynik, natomiast jest i tak o wiele lepszy od
+kilku poprzednich iteracji. W bardzo powolnym tempie zespół zbliżał się do końca implementacji _MVP_ systemu.

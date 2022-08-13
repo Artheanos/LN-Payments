@@ -4,7 +4,7 @@ W tej iteracji planowano dodać przeglądanie historii płatności przez użytko
 administratorów i ich zarządzaniem. W ramach dodatkowych prac zaplanowano również poprawki do dokumentacji oraz
 dokończenie procesu płatności, co było początkowo zaplanowane na poprzedni sprint.
 
-.Lista zadań w sprincie czwartego.
+.Lista zadań w sprincie czwartym.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status

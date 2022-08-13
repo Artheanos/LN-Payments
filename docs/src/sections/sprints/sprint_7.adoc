@@ -1,5 +1,118 @@
 === Sprint 7 (25.04.2022 - 16.05.2022)
 
+W tej iteracji zaplanowano prace nad funkcjonalnością transakcji oraz powiązanych z nią powiadomień, a także
+rozpoczęcie prac nad aplikacją mobilną. Zakres zadań objął również kolejne prace nad rozdziałami książki do pracy
+dyplomowej. Planowano także zacząć realizację pierwszych scenariuszy testów E2E.
+
+.Lista zadań w sprincie siódmym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-122|Implement push notification service|Aleksander Konieczny|5|Ukończone
+|LP-121|Create endpoint for creating transactions|Aleksander Konieczny|3|Ukończone
+|LP-119|Create endpoint for querying notifications|Aleksander Konieczny|2|Ukończone
+|LP-117|Add endpoint for querying all transactions|Aleksander Konieczny|2|Ukończone
+|LP-131|Implement endpoint for obtaining raw tx|Aleksander Konieczny|3|Ukończone
+|LP-120|Add endpoint for confirmation/rejection handling|Aleksander Konieczny|3|Ukończone
+|LP-115|Create panel with transactions|-|5|Nieukończone
+|LP-116|Create form for creating new transactions|-|2|Nieukończone
+|LP-68|Create title page and disclaimer|Aleksander Konieczny|2|Ukończone
+|LP-142|Write "Analiza" chapter|Aleksander Konieczny|5|Ukończone
+|LP-140|Write "Wizja" chapter|Aleksander Konieczny|2|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-151|Write "dalszy rozwój" chapter|-|1|Nieukończone
+|LP-139|Implement admin deletion|Sebastian Lewandowski, Jan Pieczul|3|Ukończone
+|LP-157|Sort get responses by date desc|Aleksander Konieczny|1|Ukończone
+|LP-158|Create a js package with common components|Jan Pieczul|2|Ukończone
+|LP-124|Create login view|Jan Pieczul|5|Ukończone
+|LP-128|Add sidepanel|Jan Pieczul|2|Ukończone
+|LP-125|Create upload keys view|-|3|Nieukończone
+|LP-129|Create server url input view|-|3|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|===
+
+Początkowo zaplanowane zostało 19 zadań wartych aż 57 punktów. Większa ilość wymaganych nakładów wiąże się z
+zaległościami z poprzednich iteracji. Zespół wyraził chęć cięższej pracy, aby zdążyć z realizacją projektu do połowy
+czerwca 2022. W trakcie iteracji zostały 3 zadania warte 5 punktów. Trzy zadania zostały przeniesione z poprzedniej
+iteracji. Finalnie plan objął 22 zadania warte 62 punkty historii.
+
 ==== Przebieg prac
 
+Pierwsza grupa zadań dotyczy obsługi funkcjonalności transakcji. Prace zostały rozpoczęte od stworzenia serwisu
+obsługującego powiadomienia. W ramach tego zadania umożliwiono tworzenie powiadomień oraz wysyłanie ich przez
+protokół websocket. Adres kanału wyliczany jest dla osobno każdego administratora na podstawie jego niezmiennych danych.
+Mając już serwis wysyłający powiadomienia, rozpoczęto implementację punktu końcowego razem z serwisami do obsługi
+tworzenia transakcji. Wykorzystany został częściowo kod pochodzący z prototypu, jednak został diametralne
+zrefaktoryzowany. Wymagało to generowania skryptów, korzystając z kluczy publicznych administratorów. Następne dwa
+zadania polegały na dodaniu punktów końcowych do pobierania zarówno transakcji, jak i powiadomień. Obie
+funkcjonalności zawierają w sobie paginację. W przypadku pobierania transakcji odpowiedź HTTP zawiera dodatkowo
+wyszczególnione pole na oczekującą transakcję. Dzięki temu w aplikacji mobilnej będzie możliwe wyświetlanie tej
+transakcji niezależne od aktualnie wyświetlanej strony. Kolejne dwa zadania dotyczą implementacji procesu podpisywania
+transakcji. Składa się on z dwóch kroków: pobrania surowej transakcji w formacie szesnastkowym oraz przesłaniu
+tej samej podpisanej transakcji. Oczywiście w przypadku odrzucenia transakcji wystarczy tylko jedno żądanie
+aktualizujące encję w bazie danych. Do testowania podpisywania transakcji wykorzystano prototyp aplikacji mobilnej.
+Zadanie LP-120 sprawiło sporo problemów. Najpierw należało napisać nietrywialny kod weryfikujący podpisy. Następnie
+należało rozwiązać problem straconych zapisów. Pobieranie oraz przesyłanie podpisanych transakcji odbywa się
+asynchronicznie. Należało dodać zabezpieczenia na wypadek, gdy dwóch użytkowników pobierze tę samą transakcję, po czym
+oboje będą próbować ją podpisać. Bez odpowiednich zabezpieczeń pierwszy podpis mógłby zostać stracony poprzez
+nadpisanie transakcji w bazie danych. Zadanie to okazało się trudniejsze, niż początkowo planowano, przez co poświęcono
+na nie o wiele więcej czasu. W tej iteracji planowano dodać ekran transakcji oraz formularz je tworzący do aplikacji
+internetowej. Niestety obu zadań nie udało się ukończyć i zostały przeniesione do następnej iteracji.
+
+Kolejnym założeniem na tę iterację było kontynuowanie prac nad książką do pracy dyplomowej. Udało się zrealizować
+zadanie z poprzedniej iteracji dotyczące dodanie strony tytułowej oraz oświadczenia autorów. Nie jest to tak proste,
+jak by się mogło wydawać, gdyż narzędzie Asciidoctor nie wspiera tworzenia własnych stron tytułowych. Wbudowane
+generowanie nie odpowiadało wymaganiom. Zdecydowano się na stworzenie nowego dokumentu w formacie asciidoc zawierającego
+stronę tytułową i oświadczenie. Następnie zmodyfikowano plik _makefile_ budujący dokumentację w taki sposób, aby po
+kompilacji pracy dyplomowej i strony tytułowej oba pliki były łączone w jeden. W tej iteracji planowano również
+napisanie kilku rozdziałów. Pierwszym z nich był "Analiza". Obejmował on udokumentowanie wiedzy zdobytej w
+pierwszym etapie prac, łącznie z opisami użycia kryptowalut, a także stworzeniu wielu wykresów obrazujących tworzoną
+aplikację i zachodzące w niej procesy. Pisanie rozdziałów okazało się o wiele bardziej czasochłonne, niż początkowo
+założono, a wykonanie zadania zajęło aż 8 dni. Kolejnym napisanym rozdziałem był "Wizja" (później przemianowany na
+"Projekt"). Opisuje on wybór technologii do realizacji projektu opisanego w rozdziale "Analiza". W tej iteracji
+planowano również napisanie rozdziałów "Plan", opisującego procesy oraz podejście do pracy w zespole, a także
+"Dalsze plany", przedstawiający plane zespołu na rozwijanie aplikacji po zakończeniu pracy dyplomowej. Niestety tych
+dwóch rozdziałów nie udało się ukończyć, przez co zostały przeniesione do następnej iteracji.
+
+Następnie zrealizowano dwa mniejsze zadania. Pierwszym z nim jest funkcjonalność usuwania administratorów. Było
+to zadanie wymagające zmiany kodu zarówno w serwerze, jak i aplikacji internetowej. Dzięki temu każdy użytkownik
+niebędący członkiem portfela może zostać usunięty. Drugie zadanie dotyczyło zmiany kolejności wyświetlania wyników
+w tabelach. Domyślnie dane były zwracane w kolejności dodania ich do bazy danych. Zespół doszedł do wniosku, że
+intuicyjne będzie zwracane danych w takiej kolejności, aby najnowsze wyniki były wyświetlane na górze strony.
+
+W tej iteracji zaplanowano implementację pierwszych zadań dotyczących aplikacji mobilnej. W trakcie sprintu dodano
+zadanie polegające na wydzieleniu części wspólnych aplikacji mobilnej i internetowej do jednego komponentu. Oba
+komponenty systemu wykorzystują język programowania _Typescript_, więc wydawało się to początkowo dobrym posunięciem.
+Niestety spowodowało to potrzebę kompilacji i ręcznego dodawania nowego modułu przy każdej jego modyfikacji.
+Zostały dodane odpowiednie zadania mające na celu poprawę tego procesu. Po zakończeniu tego zadania przystąpiono
+do implementacji pierwszego ekranu, czyli logowania wraz z integracją procesu uwierzytelniania. Logowanie do aplikacji
+mobilnej dostępne jest tylko dla administratorów, dlatego wymagano dodania obsługi takich przypadków w tym zadaniu.
+Przy tworzeniu nawigacji dla aplikacji mobilnej odkryto, że najlepszy sposobem jest dodanie od razu menu bocznego,
+gdyż odbywa się to automatycznie przez używane szablon aplikacji. Wbrew pozorom, było to łatwiejsze, niż stworzenie
+układu ekranów bez panelu bocznego. W rejestrze zadań znajdowało się odpowiadające zadanie, zaplanowane na następną
+iterację, jednak zostało ono przeniesione oraz zakończone w tej iteracji. Zespół planował również dodać ekran
+odpowiedzialny za generowanie pary kluczy i przesłanie klucza publicznego na serwer oraz dodanie ekranu do wpisania
+adresu URL serwera przed logowaniem. Niestety obu zadań nie udało się dokończyć i zostały one przeniesione do
+następnej iteracji.
+
+Ostatnie dwa zadania nie zostały ukończone. Pierwsze dotyczyło utworzenia scenariusze testów E2E procesów logowania
+i rejestracji. Drugie zadanie to ponownie obsługa płatności przez niezalogowanych użytkowników. Zadanie zostało po raz
+kolejny przeniesione do następnej iteracji.
+
 ==== Podsumowanie
+
+W tej iteracji udało się ukończyć większość celów. Standardowo już wykonano wszystkie zadania po stronie serwera,
+a te niewykonane znajdują się głównie po stronie aplikacji internetowej, a teraz także i aplikacji mobilnej i
+dokumentacji. Udało się zrobić duże postępy nad funkcjonalnością transakcji. Interfejs API wspiera już cały proces
+podpisywania i odrzucania transakcji. Administratorzy mają także możliwość pobierania swoich powiadomień oraz
+historii transakcji. Udało się wykonać część zaplanowanych zadań dotyczących książki do pracy dyplomowej oraz
+aplikacji mobilnej, a także zrealizowano kilka pomniejszych zadań usprawniających działanie aplikacji.
+
+.Wykres spalania sprintu siódmego.
+image::../images/sprints_raports/burndown_sprint7.png[]
+
+Ukończone zostało 14 z 22 zaplanowanych zadań. Dostarczonych zostało 40 punktów historii. Oznacza to, że aż 8 zdań
+o wartości 22 punktów zostało przeniesionych do następnej iteracji. Jest to bardzo zły wynik, który tylko potęgował
+opóźnienie w realizacji projektu. Nierówny wkład własny członków zespołu spowodował, że zadania związane z serwerem
+kończone były zawsze na czas, natomiast zadania związane z _frontend'em_ stale nie były dostarczane w terminie.
