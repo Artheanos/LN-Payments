@@ -14,8 +14,7 @@ export default {
     payments: '/panel/payments',
     quickBuy: '/panel/quick-buy',
     wallet: {
-      index: '/panel/wallet',
-      new: '/panel/wallet/new'
+      index: '/panel/wallet'
     },
     transactions: {
       index: '/panel/transactions',

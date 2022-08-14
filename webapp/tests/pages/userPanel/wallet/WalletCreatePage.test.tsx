@@ -2,13 +2,7 @@ import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 
 import routesBuilder from 'routesBuilder'
-import {
-  currentPath,
-  fireEvent,
-  render,
-  screen,
-  waitFor
-} from 'tests/test-utils'
+import { fireEvent, render, screen, waitFor } from 'tests/test-utils'
 import userEvent from '@testing-library/user-event'
 import { WalletCreatePage } from 'pages/userPanel/wallet/WalletCreatePage'
 
@@ -29,9 +23,6 @@ const adminsMock = [
 
 describe('WalletCreatePage', () => {
   const server = setupServer(
-    rest.post(routesBuilder.api.wallet.index, (req, res, ctx) => {
-      return res(ctx.status(201))
-    }),
     rest.get(routesBuilder.api.admins.index, (req, res, ctx) => {
       return res(ctx.json({ content: adminsMock }))
     })
@@ -47,13 +38,18 @@ describe('WalletCreatePage', () => {
         await userEvent.click(screen.getByText(email))
       }
       await userEvent.click(screen.getAllByLabelText('Admins')[0])
-      fireEvent.click(await screen.getByText('Submit'))
+      fireEvent.click(screen.getByText('Submit'))
     })
   }
 
-  beforeEach(() => {
+  const submitFunction = jest.fn()
+
+  beforeEach(async () => {
     server.listen()
-    render(<WalletCreatePage />, { location: '/panel/wallet/new' })
+    render(<WalletCreatePage onSubmit={submitFunction} />)
+    await waitFor(() => {
+      screen.getByText('Create wallet')
+    })
   })
 
   afterEach(() => server.resetHandlers())
@@ -64,9 +60,9 @@ describe('WalletCreatePage', () => {
       async () => await fillForm(['admin@gmail.com', 'admin2@gmail.com'], '2')
     )
 
-    it('redirects to wallet page', async () => {
+    it('should call submit function', async () => {
       await waitFor(() => {
-        expect(currentPath()).toBe('/panel/wallet')
+        expect(submitFunction).toHaveBeenCalled()
       })
     })
   })
@@ -82,7 +78,6 @@ describe('WalletCreatePage', () => {
           )
         ).toBeInTheDocument()
       })
-      expect(currentPath()).toBe('/panel/wallet/new')
     })
   })
 })
