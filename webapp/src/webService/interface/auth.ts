@@ -22,3 +22,7 @@ export interface RefreshTokenResponse {
 export interface LoginResponse extends User {
   token: string
 }
+
+export interface TemporaryForm {
+  email: string
+}

@@ -3,7 +3,7 @@ import { CircularProgress } from '@mui/material'
 
 import { LocalKey } from 'constants/LocalKey'
 import { PaymentDetails } from 'webService/interface/payment'
-import { SetupStage } from './Stages/SetupStage'
+import { SetupStage } from './Stages/SetupStage/SetupStage'
 import { StageProgress } from './StageProgress/StageProgress'
 import { TokensStage } from './Stages/TokensStage/TokensStage'
 import { TransactionStage } from './Stages/TransactionStage/TransactionStage'
@@ -42,7 +42,7 @@ export const QuickBuy: React.FC = () => {
       redirectTo = StageIndex.Tokens
     } else if (payment) {
       redirectTo = StageIndex.Transaction
-    } else if (isLoggedIn) {
+    } else {
       redirectTo = StageIndex.Setup
     }
 
@@ -55,7 +55,11 @@ export const QuickBuy: React.FC = () => {
   )
 
   if (stageIndex === undefined || !CurrentStage) {
-    return <CircularProgress />
+    return (
+      <div className="pt-10 w-full text-center">
+        <CircularProgress />
+      </div>
+    )
   }
 
   return (

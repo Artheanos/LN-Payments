@@ -6,9 +6,10 @@ export const routes = {
     info: '/api/payments/info'
   },
   auth: {
-    register: '/api/auth/register',
     login: '/api/auth/login',
-    refreshToken: '/api/auth/refreshToken'
+    refreshToken: '/api/auth/refreshToken',
+    register: '/api/auth/register',
+    temporary: '/api/auth/temporary'
   },
   admins: {
     index: '/api/admins',
