@@ -18,7 +18,6 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   const showEmailInput = !isLoggedIn || user?.role === Role.TEMPORARY
 
   const createPayment = async (form: PaymentLocalForm) => {
-    console.log('CREATE PAYMENT')
     const { data } = await api.payment.create(form)
     if (data) {
       setPayment(data!)
@@ -27,10 +26,11 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
   }
 
   const logInTemporaryUser = async (form: PaymentLocalForm) => {
-    const response = await api.auth.temporary(form)
+    const response = await api.auth.temporary({ email: form.email })
     if (response.data) {
       setToken(response.data.token)
       setUser({ email: form.email, role: Role.TEMPORARY, fullName: '' })
+      await createPayment(form)
     }
   }
 
