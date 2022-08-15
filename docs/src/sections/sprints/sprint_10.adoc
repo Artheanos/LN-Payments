@@ -1,5 +1,49 @@
 === Sprint 10 (13.06.2022 - 27.06.2022)
 
+W oryginalnym planie na tą iterację planowano przygotowania do wydania aplikacji, natomiast w rzeczywistości wysiłki zespołu skupiły się głównie na aplikacją mobilną, ponieważ chciano zakończyć nad nią prace przed terminem jej prezentacji na przedmiocie _PAMO_. Zaplanowano również zajęcie się zadaniami związanymi z rozwojem książki do projektu dyplomowego oraz długiem technicznym.
+
+.Lista zadań w sprincie dziesiątym.
+[cols="1,5,3,1,2"]
+|===
+|Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-177|Add total income data to balance endpoint|Aleksander Konieczny|3|Ukończone
+|LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
+|LP-154|Add server settings page|Jan Pieczul|2|Ukończone
+|LP-127|Add confirmation/denial flow|Aleksander Konieczny|5|Ukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
+|LP-179|Create E2E test for mobileapp|-|5|Nieukończone
+|LP-185|Set up and add missing tests|Jan Pieczul|5|Ukończone
+|LP-187|Perform monkey tests and fix errors|Aleksander Konieczny|2|Ukończone
+|LP-186|Fix first 3 chapters|Aleksander Konieczny|3|Nieukończone
+|LP-188|Improve error handling|Jan Pieczul|2|Ukończone
+|LP-189|Add missing docs|Aleksander Konieczny|2|Ukończone
+|LP-133|Handle push notifications|Jan Pieczul|3|Ukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Nieukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|8|Nieukończone
+|LP-190|Create endpoint for querying single notifications|Jan Pieczul|2|Ukończone
+|LP-191|Clean up names and icons|Aleksander Konieczny|1|Ukończone
+|LP-192|Write test scenarios|Aleksander Konieczny|1|Ukończone
+|===
+
+Na tą iterację zaplanowanych zostało 16 zadań dających w sumie 52 punkty historii. W czasie jej trwania dodane zostały 3 nowe problemy, wycenione w sumie na 4 punkty. Usunięto również jedno z istniejących już zadań, które było wycenione na 5 punktów.
+Ostatecznie, w tym sprincie znalazło się 18 zadań wycenionych na 51 punktów historii. Większość z nich związana była z aplikacją mobilną, co wynikało ze zbliżającej się prezentacji.
+
 ==== Przebieg prac
+Tak jak w poprzednim sprincie, priorytetem w dalszym ciągu pozostawała aplikacja mobilna. Jako pierwsze ukończone zostało zadanie umożliwiające zatwierdzanie/ odrzucanie transakcji, dzięki czemu jedna z głównych funkcjonalności aplikacji została dostarczona. Kolejnym krokiem była implementacja wyświetlania powiadomień _push_ po utworzeniu transakcji (LP-133). Aby wszystko działało tak, jak należy, niezbędne okazało się stworzenie punktu końcowego dla pojedynczego komunikatu, co wymagało dodatkowego nakładu czasu.
+Następnie zespół zajął się tworzeniem dokumentacji oraz pisaniem testów dla aplikacji mobilnej. Jako pierwsze dodane zostały _testy małpy_, które umożliwiają sprawdzenie tego, jak zachowuje się aplikacja po wprowadzeniu losowych danych wejściowych. W dalszej kolejności dodano testy sprawdzające między innymi to, czy poszczególne elementy generują się prawidłowo oraz czy aplikacja zachowuje się w określonych sytuacjach poprawnie(np. jeśli użytkownik nie posiada klucza prywatnego). Do ich stworzenia wykorzystano framework do testowania _Jest_. W związku z tym, że nie udało się dodać pełnych testów _end-to-end_, napisane zostały same scenariusze testowe z wykorzystaniem narzędzia _Cucumber_.
+Pod koniec iteracji udało się również poprawić obsługę błędów, która wyeliminowała zawieszanie się aplikacji mobilnej np. w sytuacji, gdy wygasł token.
+Do aplikacji webowej dodana została podstrona z ustawieniami serwera (LP-154), gdzie administrator ma możliwość między innymi podania po osiągnięciu jakiej wartości, kanał ma zostać zamknięty.
+Ostatnim zadaniem wykonanym w tym sprincie (LP-177) było dodanie logiki odpowiedzialnej za wyświetlanie wpływów do portfela w kolejności chronologicznej.
 
 ==== Podsumowanie
+W tej iteracji również nie udało się wykonać wszystkich z zaplanowanych zadań. Pozytywem było to, że udało się zakończyć zdecydowaną większość zagadnień związanych z aplikacją mobilną. Do następnego sprintu przeniesione zostało jedynie zadanie związane z implementacją ekranu wyświetlającego szczegóły powiadomienia (LP-132).
+Poczyniono niewielkie postępy, jeśli chodzi o kwestie związane z serwerem. Niestety nie udało się ukończyć obsługi płatności dla niezalogowanych użytkowników (LP-104) i _testów E2E_ dla ekranów logowania oraz rejestracji (LP-135).
+Jako porażkę należy rozpatrywać to, że żadne z zadań związanych z książką projektową nie zostało ukończone w tym sprincie.
+
+.Wykres spalania sprintu dziesiątego.
+image::../images/sprints_raports/burndown_sprint10.png[]
+
+Zespół ukończył 11 z 18 zadań wycenionych na 28 punktów historii. Pozostałe zadania musiały niestety zostać przeniesione do kolejnej iteracji lub rejestru zadań. Nie jest to wynik, z którego można się cieszyć, natomiast warto zauważyć, że w związku ze zbliżającym się zakończeniem semestru, dostępność członków zespołu była mniejsza.
+Jako pozytyw można rozpatrywać to, że udało się ukończyć większość zadań związanych z aplikacją mobilną.
