@@ -15,7 +15,9 @@ export const LandingPage = () => {
         <p className="my-3 text-4xl font-bold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
           {t('title')}
         </p>
-        <p className="text-xl text-gray-900">Very cool!</p>
+        <p className="text-xl text-gray-900">
+          System for receiving payments and generating single-use tokens.
+        </p>
         <div className="mt-20 space-x-16">
           <Link to={routesBuilder.login}>
             <button className="btn">Login</button>
