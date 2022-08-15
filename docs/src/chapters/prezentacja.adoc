@@ -1,1 +1,28 @@
 == Prezentacja w działaniu
+
+. strona główna
+. płatność niezalogowanym
+. rejestracja
+. walidacja formularza?
+. logowanie na usera
+. konto
+. zmiana hasła
+. logowanie na admina wbudowanego
+. ustawienia
+. płatność adminem?
+. historia indywidualna
+. historia ogólna
+. admin management
+. dodanie admina
+. mobilka -> logowanie
+. mobilka -> upload kluczy
+. stworzenie portfela
+. ekran portfela
+. ekran transakcji
+. stworzenie nowej transakcji
+. again ekran transakcji, bo teraz jest pending
+. mobilka -> lista powiadomień
+. mobilka -> powiadomienie
+. mobilka -> odrzucenie
+. mobilka -> potwierdzenie
+. again ekran transakcji + dowód z blockchain.info
