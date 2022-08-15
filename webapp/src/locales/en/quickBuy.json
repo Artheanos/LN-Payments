@@ -2,6 +2,9 @@
   "setup": {
     "header": "Setup",
     "form": {
+      "singleTokenPrice": "Single token price",
+      "description": "Transaction description",
+      "total": "Total",
       "numberOfTokens": {
         "label": "Number of tokens"
       },
@@ -19,9 +22,8 @@
       "timeoutMessage": "Transaction has expired"
     },
     "invoicePanel": {
-      "header": "Invoice for",
-      "currency": "SAT",
-      "withCurrency": "{{price}} SAT",
+      "currency": "Currency",
+      "price": "Price",
       "onCopyMessage": "Payment request copied to clipboard"
     },
     "nodePanel": {
@@ -34,5 +36,7 @@
     "onCopyMessage": "Token {{tokenId}} has been copied to clipboard",
     "header": "Tokens",
     "listItemPrefix": "Token {{tokenId}}"
-  }
+  },
+  "sat": "SAT",
+  "withSat": "{{price}} SAT"
 }

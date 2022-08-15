@@ -13,6 +13,7 @@ interface PanelProps {
 export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
   const { t } = useTranslation('quickBuy')
   const [showInvoiceInfo, setShowInvoiceInfo] = useState(true)
+
   const switchPanel = () => setShowInvoiceInfo((prevState) => !prevState)
   const price = info.price * details.numberOfTokens
 
@@ -24,11 +25,29 @@ export const QRInfo: React.FC<PanelProps> = ({ details, info }) => {
             value={details.paymentRequest}
             onCopyMessage={t('transaction.invoicePanel.onCopyMessage')}
           >
-            {t('transaction.invoicePanel.header')}
-            <p className="text-2xl font-bold">
-              <span className="font-extrabold text-purple-700">{price} </span>
-              {t('transaction.invoicePanel.currency')}
-            </p>
+            <Grid container justifyContent="space-between">
+              <Grid
+                item
+                xs={6}
+                className="p-2 text-left bg-gray-100 rounded-lg"
+              >
+                <p className="text-xs text-gray-500">
+                  {t('transaction.invoicePanel.price')}
+                </p>
+                <p className="text-2xl font-bold">{price}</p>
+              </Grid>
+
+              <Grid
+                item
+                xs={5}
+                className="p-2 text-left bg-gray-100 rounded-lg"
+              >
+                <p className="text-xs text-gray-500">
+                  {t('transaction.invoicePanel.currency')}
+                </p>
+                <p className="text-2xl font-bold">{t('sat')}</p>
+              </Grid>
+            </Grid>
           </QRComponent>
         ) : (
           <QRComponent

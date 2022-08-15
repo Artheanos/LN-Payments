@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Alert, Grid, TextField } from '@mui/material'
+import { Alert, Grid } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { Formik, Field, Form } from 'formik'
 
@@ -63,26 +63,30 @@ export const SetupStage: React.FC<StageProps> = ({
           </Alert>
           <CardForm className="mx-auto w-96" submitButtonContent="Next">
             <Grid xs={12} item>
-              <DisabledInput
-                label="Price for a single token"
-                value={t('transaction.invoicePanel.withCurrency', paymentInfo)}
+              <DisplayField
+                label={t('setup.form.singleTokenPrice')}
+                value={t('withSat', paymentInfo)}
               />
             </Grid>
 
             <Grid xs={12} item>
-              <DisabledInput
-                label="Transaction description"
-                value={paymentInfo.description || ' '}
+              <DisplayField
+                label={t('setup.form.description')}
+                value={paymentInfo.description}
               />
             </Grid>
 
             <Grid xs={12} item>
-              <DisabledInput
+              <DisplayField
                 label="Total"
-                value={t('transaction.invoicePanel.withCurrency', {
+                value={t('withSat', {
                   price: paymentInfo.price * values.numberOfTokens
                 })}
               />
+            </Grid>
+
+            <Grid xs={12} item>
+              <hr />
             </Grid>
 
             <Grid xs={12} item>
@@ -117,6 +121,8 @@ export const SetupStage: React.FC<StageProps> = ({
   )
 }
 
-const DisabledInput = (props: { value: string; label: string }) => (
-  <TextField label={props.label} value={props.value} disabled />
+const DisplayField = (props: { value: string; label: string }) => (
+  <div>
+    <b>{props.label}:</b> {props.value}
+  </div>
 )

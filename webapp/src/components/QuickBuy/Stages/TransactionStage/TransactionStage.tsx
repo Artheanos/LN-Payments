@@ -86,10 +86,12 @@ export const TransactionStage: React.FC<StageProps> = ({
             <Grid xs={12} item>
               <QRInfo details={payment} info={paymentInfo} />
             </Grid>
-            <Grid xs={12} item>
+            <Grid xs={6} item>
               <Button variant="contained" onClick={cancelTransaction}>
                 {t('common:cancel')}
               </Button>
+            </Grid>
+            <Grid xs={6} item>
               <Button color="warning" disabled variant="contained">
                 {millisecondsToClock(timeLeft)}
               </Button>
