@@ -12,10 +12,14 @@ import { Role } from 'webService/interface/user'
 import { api } from 'webService/requests'
 import { initialValues, PaymentLocalForm, schemaFactory } from './form'
 
-export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
+export const SetupStage: React.FC<StageProps> = ({
+  onNext,
+  setPayment,
+  paymentInfo
+}) => {
   const { t } = useTranslation('quickBuy')
-  const { user, isLoggedIn, setToken, setUser } = useContext(UserContext)
-  const showEmailInput = !isLoggedIn || user?.role === Role.TEMPORARY
+  const { user, isLoggedIn, hasAccount, setToken, setUser } =
+    useContext(UserContext)
 
   const createPayment = async (form: PaymentLocalForm) => {
     const { data } = await api.payment.create(form)
@@ -48,40 +52,77 @@ export const SetupStage: React.FC<StageProps> = ({ onNext, setPayment }) => {
         user?.role === Role.TEMPORARY ? user.email : ''
       )}
       onSubmit={onSubmit}
-      validationSchema={schemaFactory(showEmailInput)}
+      validationSchema={schemaFactory(!hasAccount)}
     >
-      <Form className="flex flex-col gap-10">
-        <Alert variant="standard" severity="info" className="mx-auto">
-          {t('setup.info')}
-        </Alert>
-        <CardForm className="mx-auto w-96" submitButtonContent="Next">
-          <Grid xs={12} item>
-            <Field
-              name="numberOfTokens"
-              label={t('setup.form.numberOfTokens.label')}
-              type="number"
-              variant="standard"
-              InputProps={{ inputProps: { min: 1 } }}
-              component={TextInput}
-            />
-          </Grid>
+      {({ values }) => (
+        <Form className="flex flex-col gap-10">
+          <Alert variant="standard" severity="info" className="mx-auto">
+            {t(
+              `setup.${hasAccount ? 'infoWithAccount' : 'infoWithoutAccount'}`
+            )}
+          </Alert>
+          <CardForm className="mx-auto w-96" submitButtonContent="Next">
+            <Grid xs={12} item>
+              <DisplayField
+                label={t('setup.form.singleTokenPrice')}
+                value={t('withSat', paymentInfo)}
+              />
+            </Grid>
 
-          {showEmailInput && (
-            <Grid xs={12} item className="pb-5">
+            <Grid xs={12} item>
+              <DisplayField
+                label={t('setup.form.description')}
+                value={paymentInfo.description}
+              />
+            </Grid>
+
+            <Grid xs={12} item>
+              <DisplayField
+                label="Total"
+                value={t('withSat', {
+                  price: paymentInfo.price * values.numberOfTokens
+                })}
+              />
+            </Grid>
+
+            <Grid xs={12} item>
+              <hr />
+            </Grid>
+
+            <Grid xs={12} item>
               <Field
-                name="email"
-                label={t('setup.form.email.label')}
+                name="numberOfTokens"
+                label={t('setup.form.numberOfTokens.label')}
+                type="number"
                 variant="standard"
+                InputProps={{ inputProps: { min: 1 } }}
                 component={TextInput}
               />
             </Grid>
-          )}
 
-          <Grid xs={12} item className="flex justify-end">
-            <CardFormButton content={t('common:next')} />
-          </Grid>
-        </CardForm>
-      </Form>
+            {!hasAccount && (
+              <Grid xs={12} item className="pb-5">
+                <Field
+                  name="email"
+                  label={t('setup.form.email.label')}
+                  variant="standard"
+                  component={TextInput}
+                />
+              </Grid>
+            )}
+
+            <Grid xs={12} item className="flex justify-end">
+              <CardFormButton content={t('common:next')} />
+            </Grid>
+          </CardForm>
+        </Form>
+      )}
     </Formik>
   )
 }
+
+const DisplayField = (props: { value: string; label: string }) => (
+  <div>
+    <b>{props.label}:</b> {props.value}
+  </div>
+)

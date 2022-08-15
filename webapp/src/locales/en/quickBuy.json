@@ -2,6 +2,9 @@
   "setup": {
     "header": "Setup",
     "form": {
+      "singleTokenPrice": "Single token price",
+      "description": "Transaction description",
+      "total": "Total",
       "numberOfTokens": {
         "label": "Number of tokens"
       },
@@ -9,7 +12,8 @@
         "label": "Email"
       }
     },
-    "info": "Tokens are very cool things. You can use them to do all sorts of things. That's why tokens are very cool things."
+    "infoWithAccount": "After purchase tokens will be saved to your account. You can view them anytime.",
+    "infoWithoutAccount": "Purchased tokens will be shown at the last screen. Make sure to save them before closing or else they will be gone forever."
   },
   "transaction": {
     "header": "Transaction",
@@ -18,8 +22,8 @@
       "timeoutMessage": "Transaction has expired"
     },
     "invoicePanel": {
-      "header": "Invoice for",
-      "currency": "uBTC",
+      "currency": "Currency",
+      "price": "Price",
       "onCopyMessage": "Payment request copied to clipboard"
     },
     "nodePanel": {
@@ -28,9 +32,11 @@
     }
   },
   "tokens": {
-    "info": "Keep in mind - Unregistered users will not be able to retrieve the tokens once they close this stage",
+    "infoWithoutAccount": "After closing this stage the tokens will be gone forever",
     "onCopyMessage": "Token {{tokenId}} has been copied to clipboard",
     "header": "Tokens",
     "listItemPrefix": "Token {{tokenId}}"
-  }
+  },
+  "sat": "SAT",
+  "withSat": "{{price}} SAT"
 }
