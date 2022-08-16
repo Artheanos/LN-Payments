@@ -1,6 +1,6 @@
 === Sprint 10 (13.06.2022 - 27.06.2022)
 
-W oryginalnym planie na tą iterację planowano przygotowania do wydania aplikacji, natomiast w rzeczywistości wysiłki zespołu skupiły się głównie na aplikacją mobilną, ponieważ chciano zakończyć nad nią prace przed terminem jej prezentacji na przedmiocie _PAMO_. Zaplanowano również zajęcie się zadaniami związanymi z rozwojem książki do projektu dyplomowego oraz długiem technicznym.
+W oryginalnym planie na tą iterację planowano przygotowania do wydania aplikacji, natomiast w rzeczywistości wysiłki zespołu skupiły się głównie na aplikacji mobilnej, ponieważ chciano zakończyć nad nią prace przed terminem jej prezentacji na przedmiocie _PAMO_. Zaplanowano również zajęcie się zadaniami związanymi z rozwojem książki do projektu dyplomowego oraz długiem technicznym.
 
 .Lista zadań w sprincie dziesiątym.
 [cols="1,5,3,1,2"]

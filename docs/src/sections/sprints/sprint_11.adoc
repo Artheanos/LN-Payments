@@ -1,5 +1,45 @@
 === Sprint 11 (27.06.2022 - 11.07.2022)
 
+Wcześniejsze plany nie zakładały, że ta iteracja będzie potrzebna, jednak w rzeczywistości wyszło inaczej. Zespół skupił się na zadaniach niewykonanych w poprzednich sprintach. Zaplanowano zajęcie się pisaniem książki do projektu dyplomowego oraz pracę nad długiem technicznym.
+
+.Lista zadań w sprincie jedenastym.
+[cols="1,5,3,1,2"]
+|===
+|LP-163|Fix validation register form|Aleksander Konieczny|1|Ukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
+|LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Nieukończone
+|LP-168|Add security description in Analysis chapter|Aleksander Konieczny|1|Ukończone
+|LP-162|Add generic way to send tokens to downstream systems|Jan Pieczul|3|Ukończone
+|LP-160|Implement wallet recreation flow|Sebastian Lewandowski|3|Nieukończone
+|LP-174|Add commercialization part|Aleksander Konieczny|1|Ukończone
+|LP-80|[FE] Create edit account page|Aleksander Konieczny|2|Ukończone
+|LP-178|Implement chart on wallet panel|Aleksander Konieczny|3|Ukończone
+|LP-183|Correct wallet setup form|Aleksander Konieczny|1|Ukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Nieukończone
+|LP-186|Fix first 3 chapters|Aleksander Konieczny|3|Ukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|8|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
+|LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
+|===
+
+W tej iteracji zaplanowano wykonanie 17 zadań wycenionych na 40 punktów historii. W trakcie jej trwania nie zostało dodane ani usunięte żadne z zagadnień. Duża część zadań do wykonania pochodziła z poprzednich sprintów. Sporo kwestii związanych było z pracą dyplomową. Pojawiło się też zadanie, aby nanieść poprawki w istniejących już rozdziałach.
+
 ==== Przebieg prac
 
+W związku z tym, że aplikacja mobilna została w większości ukończona, skoncentrowano się na zadaniach związanych z długiem technicznym, naprawą istniejących problemów oraz pisaniu pracy dyplomowej.
+Jako pierwsze ukończone zostało zadanie L-178. Polegało ono na implementacji wykresu do wizualizacji wpływów do portfela. Następnie zajęto się naniesieniem poprawek do istniejących już rozdziałów książki. Kolejnym krokiem było napisanie rozdziału związanego z komercjalizacją projektu do pisania, którego zespół mógł wykorzystać wiedzę zdobytą podczas przedmiotu _KMR_. Ostatnią kwestią związaną z pracą dyplomową w tej iteracji było napisanie sekcji odnoszącej się do bezpieczeństwa (LP-168).
+W formularzu rejestracji dodana została walidacja dla pola "Full name", o której wcześniej zapomniano (LP-163). Poprawiono także ekran tworzenia portfela, tak aby formularz wyświetlał się tylko w wypadku, gdy administratorzy posiadają wygenerowane klucze (LP-183). W ramach zadania LP-80 dodane zostały dwie podstrony. Pierwsza z nich wyświetla informacje o koncie, takie jak rola czy adres email, natomiast druga umożliwia zmianę hasła. W ramach problemu LP-162 napisany został serwis odpowiedzialny za wysyłanie tokenów pod odpowiedni adres po zakończonej płatności. Ostatnim z zadań, które planowano zrobić, było dodanie obsługi płatności dla niezalogowanych użytkowników (LP-104). Nie każdy z użytkowników ma ochotę aby zakładać konto, dlatego była to ważna i pożądana funkcjonalność, jednak nie powiodła się próba dostarczenia zadania na czas.
+
 ==== Podsumowanie
+
+Niestety i w tym sprincie nie udało się ukończyć wielu zadań.
+Cieszyć mógł fakt, że prace nad książką posuwały się naprzód. Do projektu dodanych zostało kilka ważnych funkcjonalności, których brakowało, a z punktu widzenia użytkownika końcowego były ważne. Mowa tutaj np. o możliwości zmiany hasła.
+Martwić mogło natomiast to, że większość z ukończonych zadań w tej iteracji było dziełem jednej osoby. Niestety nie udało się także ukończyć zadania związanego z przyjmowaniem płatności od niezalogowanych użytkowników.
+
+.Wykres spalania sprintu jedenastego.
+image::../images/sprints_raports/burndown_sprint11.png[]
+
+Zespół wykonał jedynie 9 z 17 zaplanowanych zadań, wycenionych na 18 punktów historii. Kolejny raz nieukończone zagadnienia musiały zostać przeniesione do rejestru lub nadchodzących iteracji.
+Mimo że prace nie przebiegały w takim tempie, jak to planowano, to jednak poczyniony został postęp.
