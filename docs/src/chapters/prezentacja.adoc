@@ -156,47 +156,154 @@ na przykład, gdy serwer ma działać tylko w sieci prywatnej.
 .Ustawienia serwera.
 image::../images/system_presentation/webapp/settings.png[]
 
+Aby móc operować środkami pozyskanymi na sprzedaży tokenów, należy utworzyć portfel. Jednak aby tego dokonać,
+należy najpierw dodać administratorów, a następnie przesłać z ich aplikacji mobilnych klucze publiczne na serwer.
+Zarządzanie administratorami odbywa się w dedykowanym panelu, który dostępny jest pod przyciskiem _admin management_
+w menu bocznym. Ekran ten zawiera tabelę wszystkich administratorów w serwerze. Każdy wiersz zawiera
+adres email, imię i nazwisko oraz 2 ikony, które informują czy użytkownik ma przesłany klucz publiczny, a także czy
+jest przypisany do aktualnego portfela. Dodatkowo w ostatniej kolumnie znajduje się przycisk pozwalający na usunięcie
+administratora, który nie jest przypisany do portfela.
+
 .Panel zarządzania administratorami.
 image::../images/system_presentation/webapp/admin_management.png[]
+
+Dodawanie nowego użytkownika odbywa się w formularzu, który jest dostępny pod przyciskiem _add new_ w panelu zarządzania
+administratorami. Formularz wygląda dokładnie tak samo, jak ten w przypadku rejestracji dla standardowego użytkownika.
+W przyszłości planowana jest możliwość automatycznego generowania hasła i wysłania go nowo utworzonemu administratorowi,
+jednak zostanie to dodane dopiero w przyszłych wydaniach. Zalecane jest, aby nowo utworzony administrator od razu
+po pierwszym logowaniu zmienił swoje hasło.
 
 .Formularz dodawania nowego administratora.
 image::../images/system_presentation/webapp/add_admin.png[]
 
+Administrator, który chce być członkiem portfela, musi wygenerować parę kluczy, po czym przesłać swój klucz publiczny
+na serwer. Odbywa się to automatycznie przy pierwszym logowaniu do aplikacji mobilnej. Przy jej pierwszym uruchomieniu
+użytkownik zostanie przywitany ekranem logowania. Warto wspomnieć, że aplikacja mobilna dostępna jest tylko dla
+administratorów. Próba zalogowania się zwykłym użytkownikiem zakończy się niepowodzeniem i wyświetleniem odpowiedniego
+komunikatu. Formularz logowania zawiera dwa oczywiste pola, czyli adres email i hasło. Dodatkowym polem jest adres
+url serwera. Rozwiązanie _LN Payments_ przewidziane jest do samodzielnego wdrożenia. Użytkownik musi ręcznie podać
+adres, ponieważ nie ma jednego centralnego serwera zarządzającego instancjami. Od osoby wdrażającej zależy sposób,
+w jaki system zostanie wdrożony. Adres url zostaje zapisany lokalnie, dzięki czemu nie trzeba go ponownie wpisywać
+przy każdym logowaniu.
+
 .Strona logowania w aplikacji mobilnej
 image::../images/system_presentation/mobileapp/login.png[]
+
+Przy pierwszym logowaniu odbędzie się proces generowania kluczy i przesłania klucza publicznego. Etap składa się
+z kilku kroków. Najpierw generowane są klucze, następnie zapisywane na dysku, a na koniec klucz publiczny wysyłany
+jest na serwer. Użytkownik informowany jest o statusie procesu poprzez odpowiednią wiadomość wyświetlaną na ekranie
+ładowania.
 
 .Jeden z komunikatów wyświetlanych podczas tworzenia i zapisywania pary kluczy.
 image::../images/system_presentation/mobileapp/keys.png[]
 
+Po udanym przesłaniu klucza publicznego użytkownik zyska dostęp do aplikacji mobilnej. Dla nowo utworzonego
+administratora wyświetlony zostanie pusty komponent powiadomień. Został on zaprojektowany w taki sposób, aby
+powiadomienia nie były powiązane z transakcjami. W przyszłości możliwe będzie wyświetlanie tutaj innych powiadomień.
+Na chwilę obecną administrator musi czekać na dodanie do portfela, aby pojawiły się powiadomienia.
+
 .Pusty panel powiadomień.
 image::../images/system_presentation/mobileapp/notifications_empty.png[]
+
+Gdy wszyscy administratorzy, którzy mają zostać członkami portfela, przesłali swoje klucze, można przejść do formularza
+jego tworzenia. Gdy na serwerze nie istnieje aktualnie żaden portfel, użytkownik zostanie do niego przekierowany
+automatyczne po kliknięciu przycisku _Wallet_ w panelu bocznym. Formularz zawiera dwa pola. Pierwsze z nich określa
+ilość podpisów wymaganych do wykonania transakcji. Liczba ta nie może być większa od administratorów portfela, którzy
+określani są w drugim polu formularza. Jest to lista rozwijana wielokrotnego wyboru, na której wskazuje się adresy
+email administratorów.
 
 .Formularz tworzenia nowego portfela.
 image::../images/system_presentation/webapp/add_wallet.png[]
 
+Po przesłaniu formularza zostanie utworzony portfel. Od tego momentu serwer będzie obserwował balanse w kanałach i
+portfelu Lightning, aby samemu uruchamiać transfery środków. Postęp do uruchomieniu transferów można obserwować
+na kafelkach w górnej części panelu. Prezentowany zrzut ekranu jest z portfela działającego już jakiś czas,
+dzięki czemu wyświetlane są w nich duże ilości danych. Każdy z kafelków w górnym rzędzie zawiera również kwotę
+zebraną w poszczególnych częściach portfela. Od lewej są to portfel Bitcoin, kanały Lightning oraz portfel Lightning.
+Dolny rząd zawiera wykres, obrazujący przychody serwera w poszczególnych miesiącach. Ostatnim kafelkiem jest
+panel akcji, pozwalający na ręczne zamykanie kanałów oraz przelewanie środków z portfela Lightning na portfel Bitcoin.
+Dodatkowo panel zawiera adres Bitcoin portfela w jego prawym górnym rogu.
+
 .Ekran portfela.
 image::../images/system_presentation/webapp/wallet.png[]
+
+Mając już skumulowane środki ze sprzedaży w portfelu Bitcoin, można dokonać transakcji. Zarządzanie transakcjami
+odbywa się w panelu dostępnym pod przyciskiem _Transactions_ w menu bocznym. Ekran ten zawiera tabelę z wykonanymi
+wcześniej transakcjami. Każdy wiersz zawiera datę transakcji, kwotę, adresy źródłowy oraz docelowy, status oraz
+ilość zebranych podpisów. Aby serwer spróbował rozpropagować transakcję, należy uzbierać ilość podpisów podaną
+wcześniej w formularzu tworzenia portfela.
 
 .Ekran transakcji.
 image::../images/system_presentation/webapp/transactions.png[]
 
+Tworzenie nowych transakcji odbywa się w formularzu. Dostęp do niego dostępny jest poprzez przycisk _create transaction_
+na ekranie powiadomień. Formularz ten nie jest dostępny, gdy istnieje aktualnie trwająca transakcja. Formularz
+składa się z dwóch pól, w których należy podać kwotę transakcji oraz adres docelowy. Po prawej stronie panelu
+wyświetlane są informacje wymagane do utworzenia transakcji. Jest to aktualny balans w portfelu oraz estymowana
+wartość opłaty. Obecnie jest to zawsze 1000 SAT, jednak w przyszłych wydaniach zaplanowano dodanie kalkulacji na
+podstawie rozmiaru transakcji i wysokości opłat w poprzednim bloku. Przesłanie formularza spowoduje dodanie transakcji
+w bazie danych oraz wysłanie powiadomień do wszystkich administratorów będących członkami portfela.
+
 .Formularz tworzenia nowej transakcji.
 image::../images/system_presentation/webapp/add_transaction.png[]
+
+W tym momencie administrator zostanie przekierowany z powrotem na panel transakcji. W tabeli można zobaczyć, że
+oczekująca transakcja jest wyróżniana specjalnym kolorem. Będzie ona również wyświetlana na samej górze każdej
+strony w tabeli. Dodatkowo zauważyć można również, że zniknął przycisk pozwalający na tworzenie transakcji, gdyż
+jest on dostępny tylko wtedy, gdy nie ma aktualnie trwającej transakcji.
 
 .Ekran transakcji z transakcją oczekującą.
 image::../images/system_presentation/webapp/transactions_pending.png[]
 
+Przy utworzeniu nowej transakcji zostaje ona zapisana w bazie danych, razem z powiadomieniami dla każdego użytkownika.
+Każde powiadomienie zostaje również wysłane do aplikacji mobilnej, która wyświetla je jako systemowe powiadomienie push.
+Zawiera ono podstawowe informacje o transakcji, a kliknięcie go uruchomi aplikację mobilną i przekieruje użytkownika
+na ekran ze szczegółami powiadomienia.
+
+.Powiadomienie push informujące o nowej transakcji.
+image::../images/system_presentation/mobileapp/push_notification.png[]
+
+Powiadomienie o nowej transakcji zostanie również wyświetlone na wcześniej pokazanym komponencie aplikacji mobilnej.
+Lista ma zaimplementowaną paginację oraz odświeżanie. Następne strony ładowane są dynamicznie przy przesuwaniu
+ekranu palcem z dołu do góry. Odświeżanie wywołuje się poprzez pociągnięcie ekranu w dół. Każde powiadomienie na liście
+zawiera jego tytuł, typ oraz ikonkę odpowiadającą jego statusowi. Po kliknięciu powiadomienia użytkownik zostanie
+przeniesiony na ekran zawierający jego szczegóły.
+
 .Ekran powiadomień wraz z oczekującą transakcją.
 image::../images/system_presentation/mobileapp/notifications.png[]
+
+Jedynymi aktualnie wspieranymi powiadomieniami są transakcji. Każde z nich zawiera id, wiadomość, adres docelowy,
+kwotę transakcji, typ powiadomienia oraz jego status. W przypadku powiadomienia dotyczącego oczekującej transakcji
+na dole ekranu wyświetlane są dwa guziki, które pozwalają na jej potwierdzenie bądź odrzucenie. Potwierdzenie
+transakcji powoduje pobranie z serwera aktualnej wartości transakcji w formacie szesnastkowym. Następnie następuje
+jej podpisanie i odesłanie jej z powrotem na serwer. Jeżeli osiągnięto wymaganą ilość podpisów, serwer propaguje
+transakcję w sieci, a status innych oczekujących powiadomień zmienia się na wygasły. W przypadku odrzucenia transakcji
+aktualizowana jest odpowiednia encja w bazie danych. Tak samo, jak przy potwierdzeniu, gdy zebrana ilość odrzuceń
+uniemożliwi akceptację jej przez inne węzły, oczekujące powiadomienia zostaną wygaszone.
 
 .Szczegóły powiadomienia.
 image::../images/system_presentation/mobileapp/notification_details.png[]
 
+Jeżeli podpisanie bądź odrzucenie transakcji zakończy się powodzeniem, wyświetlany jest specjalny ekran, który
+informuje o sukcesie wykonanej akcji. Różnią się one zawartością, czyli wiadomością, kolorem tła i ikoną. Po kliknięciu
+przycisku _OK_ użytkownik przekierowany zostanie z powrotem na listę powiadomień.
+
 .Komunikat wyświetlany po udanym potwierdzeniu powiadomienia.
 image::../images/system_presentation/mobileapp/notification_confirmation.png[]
+
+Wracając do aplikacji mobilnej po zebraniu odpowiedniej ilości podpisów, można zauważyć, że transakcji oczekującej,
+a wykonana właśnie transakcja ma status zatwierdzony.
 
 .Ekran transakcji, na którym widać właśnie potwierdzoną transakcję.
 image::../images/system_presentation/webapp/transactions_completed.png[]
 
+Przeszukując dane o blockchainie Bitcoina, można znaleźć przesłaną właśnie transakcję. Pozwala na to na przykład
+serwis _blockchain.info_. Wykonaną właśnie transakcję można znaleźć po adresie wychodzącym portfela czy też przy użyciu
+id transakcji, które jest logowane przez serwer podczas propagowania transakcji.
+
 .Dowód udanego rozgłoszenia transakcji w serwisie blockchain.info.
 image::../images/broadcast_proof.png[]
+
+Jak widać na powyższym zrzucie ekranu, dane w portalu zgadzają się z informacjami dostępnymi w systemie LN Payments.
+Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym źródle. Pozwala
+to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.
