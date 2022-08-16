@@ -1,4 +1,40 @@
-=== Sprint 13 (01.08.2022 - 15.08.2022)
+=== Sprint 13 (02.08.2022 - 22.08.2022)
+
+Oryginalny plan nie zakładał istnienia również i tej iteracji. Jej celem było oczywiście dostarczenie wszystkich nieskończonych jeszcze zadań.
+
+.Lista zadań w sprincie trzynastym.
+[cols="1,5,3,1,2"]
+|===
+|LP-148|Complete own contribution for Aleksander Konieczny|Aleksander Konieczny|1|Nieukończone
+|LP-149|Complete own contribution for Jan Pieczul|Jan Pieczul|1|Nieukończone
+|LP-145|Write webapp subsection of "opis realizacji" chapter|Jan Pieczul|8|Nieukończone
+|LP-146|Write mobileapp subsection of "opis realizacji" chapter|Jan Pieczul|5|Nieukończone
+|LP-150|Complete own contribution for Sebastian Lewandowski|Sebastian Lewandowski|1|Nieukończone
+|LP-182|Write "Proces realizacji" chapter - part 3|Sebastian Lewandowski|5|Nieukończone
+|LP-169|Write "Proces realizacji" chapter - part 2|Aleksander Konieczny|5|Ukończone
+|LP-197|Update book style|-|1|Nieukończone
+|LP-199|Add missing terms to glossary|-|2|Nieukończone
+|LP-152|Add attachments|Aleksander Konieczny|1|Ukończone
+|LP-198|Improve JWT management for webapp|Jan Pieczul|2|Nieukończone
+|LP-175|Perform manual tests of entire system|-|2|Nieukończone
+|LP-147|Write "podsumowanie realizacji" chapter|-|2|Nieukończone
+|LP-205|Write project presentation chapter|Aleksander Konieczny|3|Nieukończone
+|LP-208|Review and update older parts of the book|-|1|Nieukończone
+|LP-207|Write empty parts of "opis realizacji" chapter|Aleksander Konieczny|3|Ukończone
+|LP-165|Create deployable artifacts|-|3|Nieukończone
+|LP-171|Write "testy" chapter|-|3|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Ukończone
+|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Ukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Ukończone
+|LP-172|Adjust payment caroussel|Jan Pieczul|2|Ukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
+|LP-209|Apply mentor's remarks - part 1|Aleksander Konieczny|2|Nieukończone
+|LP-210|Apply mentor's remarks and polish book - part 2|-|2|Nieukończone
+
+|===
+
+Wstępnie w tym sprincie znalazły się aż 24 zadania, wycenione w sumie na 62 punkty historii. Takiej ilości można było się spodziewać, biorąc pod uwagę opóźnienia z poprzednich iteracji.
 
 ==== Przebieg prac
 
