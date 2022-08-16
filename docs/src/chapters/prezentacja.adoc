@@ -283,4 +283,5 @@ image::../images/broadcast_proof.png[]
 Jak widać na powyższym zrzucie ekranu, dane w portalu zgadzają się z informacjami dostępnymi w systemie LN Payments.
 Adres, z którego pobrano środki, to adres portfela multisig, a wykorzystano jedno UTXO o wartości ponad 96000 SAT.
 Wyjściami transakcji jest adres docelowy na kwotę podaną w formularzu oraz reszta środków UTXO wracająca na adres
-multisig. Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym źródle. Pozwala to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.
+multisig. Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym
+źródle. Pozwala to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.
