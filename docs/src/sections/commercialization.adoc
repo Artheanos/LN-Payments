@@ -5,7 +5,7 @@ Lightning, generowanie tokenów czy też podpisywanie transakcji multisig w apli
 natomiast posiadać wielu podstawowych, o wiele prostszych rozwiązań. Przykładowo nie będzie możliwości standardowych
 płatności w Bitcoinach, a jedynie poprzez sieć Lightning. Na rynku jest również dostępnych wiele kryptowalut
 innych niż sam Bitcoin, co również stawia nas na przegranej pozycji. Produkt skierowany jest do bardzo wąskiej grupy
-odbiorców (przede wszystkim projekt _Ingenious_), dlatego zdecydowano się na wydanie projektu w modelu open-source na
+odbiorców (przede wszystkim projekt _iNGENIOUS_), dlatego zdecydowano się na wydanie projektu w modelu open-source na
 licencji MIT. Zainteresowana osoba będzie mogła sprawdzić projekt, a także wpływać na jego rozwój za darmo. Jedynym
 sposobem do komercjalizacji jest oferowanie klientom biznesowym płatnego wsparcia technicznego. Obejmować ono może
 pomoc przy wdrożeniu oraz utrzymanie w środowisku produkcyjnym. Licencja MIT pozwala w razie potrzeby na rozwój

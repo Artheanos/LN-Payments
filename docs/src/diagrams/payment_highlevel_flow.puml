@@ -11,7 +11,7 @@ if (Użytkownik nie jest zalogowany?) then (Tak)
     :Wpisanie adresu email w formularzu;
 endif
 :Wysłanie formularza i przejście na ekran płatności;
-:Zeskanowanie kodu QR z żądaniem płatności Lightning\n i/lub zeskanowanie adresu węzła Lightning;
+:Prezentacja kodu QR z żądaniem płatności Lightning\n i/lub prezentacja adresu węzła Lightning;
 :Po zaksięgowaniu płatności przekierowanie na ekran z podsumowaniem;
 :Użytkownik może wyświetlić i skopiować swoje tokeny;
 end

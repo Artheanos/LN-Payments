@@ -45,16 +45,16 @@ UC13 -.> UC14 : <<includes>>
 temporary_user <|- user
 user <|- admin
 
-temporary_user --> UC1
-temporary_user --> UC2
-temporary_user --> UC4
+temporary_user -- UC1
+temporary_user -- UC2
+temporary_user -- UC4
 
-user --> UC3
+user -- UC3
 
-admin --> UC15
-admin --> UC6
-admin --> UC5
-admin --> UC13
-admin --> UC10
+admin -- UC15
+admin -- UC6
+admin -- UC5
+admin -- UC13
+admin -- UC10
 
 @enduml

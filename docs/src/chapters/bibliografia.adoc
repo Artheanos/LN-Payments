@@ -52,3 +52,6 @@ ISBN:{nbsp}978-83-283-7139-2
 
 * [[[scrum_guide, 17]]] _Ken Schwaber, Jeff Sutherland_, The Scrum Guide, 2020, [dostęp: 13.08.2022]
 https://scrumguides.org/docs/scrumguide/v2020/2020-Scrum-Guide-US.pdf[]
+
+* [[[monorepo, 18]]] _GitHub, Inc. and contributors._, Maintaining a Monorepo, [dostęp: 16.08.2022]
+https://monorepo-book.github.io[]

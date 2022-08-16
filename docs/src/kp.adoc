@@ -14,7 +14,7 @@ zapisywania danych w blockchainie oraz system zarządzania portfelem BTC.
 
 3+| *_Data ustalenia tematu:_* 07.11.2021
 | *_Opiekun:_* Tadeusz Późniakowski 3+| *Konsultanci:* *_1._* [red]#TBD# *_2._* [red]#TBD#
-4+| *_Cele projektu (co chcemy osiągnąć):_* Działający projekt wdrożony w ramach europejskiego projektu Ingenious.
+4+| *_Cele projektu (co chcemy osiągnąć):_* Działający projekt wdrożony w ramach europejskiego projektu iNGENIOUS.
 4+| *_Rezultaty projektu (oczekiwane produkty lub usługi):_* Serwer do przyjmowania płatności wraz z aplikacją webową
 oraz apkikacja mobilna do podpisywania transakcji z portfela.
 4+| *_Miary sukcesu:_* Działająca aplikacja z wysokiej jakości kodem.

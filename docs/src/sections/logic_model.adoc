@@ -3,7 +3,7 @@
 Model logiczny, jak również cały system podzielić można na trzy główne części:
 
 * Kupowanie jednorazowych tokenów przy pomocy sieci Lightning
-* Zarządzanie wbudowanych portfelem Bitcoin
+* Zarządzanie wbudowanym portfelem Bitcoin
 * Podpisywanie transakcji w aplikacji mobilnej
 
 Teoretycznie dwie pierwsze funkcjonalności są od siebie niezależne. Istnieje możliwość zaimplementowania ich jako dwie
@@ -58,10 +58,11 @@ Po wygenerowaniu tokenów są one wysyłane użytkownikowi, a następnie mu wyś
 
 W momencie pierwszego uruchomienia serwera wbudowany portfel nie będzie skonfigurowany. Środki z płatności trafiać
 będą tylko do portfela w węźle Lightning. Aby regularnie zamykać kanały i uwalniać środki znajdujące się w nich na
-serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie, którego celem będzie zamykanie kanałów.
-Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty siłowo, jeśli będzie nieaktywny
-dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego zamknięcia
-kanałów, zarówno kooperacyjnie, jak i siłowo.
+serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie. Sprawdza ono, czy kwota zablokowana w kanałach po
+stronie serwera osiągnęła limit określony w ustawieniach serwera. Jeżeli limit zostanie przekroczony, to nastąpi
+próba zamknięcia wszystkich kanałów. Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty
+siłowo, jeśli będzie nieaktywny dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego
+zamknięcia kanałów, zarówno kooperacyjnie, jak i siłowo.
 
 .Schemat blokowy dla automatycznego zamykania kanałów
 [plantuml]
