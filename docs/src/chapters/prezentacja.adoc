@@ -1,30 +1,6 @@
-== Prezentacja w działaniu
+:mobile-size: pdfwidth=30%
 
-. strona główna $
-. płatność niezalogowanym $
-. rejestracja $
-. walidacja formularza? $
-. logowanie na usera $ -> jako user?
-. płatność userem? $ -> jako user?
-. historia indywidualna -> jako user?
-. konto $ -> jako user?
-. zmiana hasła $ -> jako user?
-. historia ogólna $
-. ustawienia serwera $
-. admin management $
-. dodanie admina -> brak!
-. mobilka -> logowanie $
-. mobilka -> upload kluczy $
-. mobilka -> pusty notifications $
-. stworzenie portfela $ -> wywalić swój email
-. ekran portfela $
-. ekran transakcji $
-. stworzenie nowej transakcji $
-. again ekran transakcji, bo teraz jest pending -> brak
-. mobilka -> lista powiadomień -> brak
-. mobilka -> powiadomienie -> brak
-. mobilka -> potwierdzenie -> brak
-. again ekran transakcji + dowód z blockchain.info $
+== Prezentacja w działaniu
 
 W procesie implementacji projektu wytworzono trzy główne komponenty, czyli serwer, aplikację mobilną oraz aplikację
 internetową. API serwera nie zostało zaprojektowane do użytku publicznego. Jego jedynym zadaniem jest obsługiwanie
@@ -187,7 +163,7 @@ w jaki system zostanie wdrożony. Adres url zostaje zapisany lokalnie, dzięki c
 przy każdym logowaniu.
 
 .Strona logowania w aplikacji mobilnej
-image::../images/system_presentation/mobileapp/login.png[]
+image::../images/system_presentation/mobileapp/login.png[{mobile-size}]
 
 Przy pierwszym logowaniu odbędzie się proces generowania kluczy i przesłania klucza publicznego. Etap składa się
 z kilku kroków. Najpierw generowane są klucze, następnie zapisywane na dysku, a na koniec klucz publiczny wysyłany
@@ -195,7 +171,7 @@ jest na serwer. Użytkownik informowany jest o statusie procesu poprzez odpowied
 ładowania.
 
 .Jeden z komunikatów wyświetlanych podczas tworzenia i zapisywania pary kluczy.
-image::../images/system_presentation/mobileapp/keys.png[]
+image::../images/system_presentation/mobileapp/keys.png[{mobile-size}]
 
 Po udanym przesłaniu klucza publicznego użytkownik zyska dostęp do aplikacji mobilnej. Dla nowo utworzonego
 administratora wyświetlony zostanie pusty komponent powiadomień. Został on zaprojektowany w taki sposób, aby
@@ -203,7 +179,7 @@ powiadomienia nie były powiązane z transakcjami. W przyszłości możliwe będ
 Na chwilę obecną administrator musi czekać na dodanie do portfela, aby pojawiły się powiadomienia.
 
 .Pusty panel powiadomień.
-image::../images/system_presentation/mobileapp/notifications_empty.png[]
+image::../images/system_presentation/mobileapp/notifications_empty.png[{mobile-size}]
 
 Gdy wszyscy administratorzy, którzy mają zostać członkami portfela, przesłali swoje klucze, można przejść do formularza
 jego tworzenia. Gdy na serwerze nie istnieje aktualnie żaden portfel, użytkownik zostanie do niego przekierowany
@@ -261,7 +237,7 @@ Zawiera ono podstawowe informacje o transakcji, a kliknięcie go uruchomi aplika
 na ekran ze szczegółami powiadomienia.
 
 .Powiadomienie push informujące o nowej transakcji.
-image::../images/system_presentation/mobileapp/push_notification.png[]
+image::../images/system_presentation/mobileapp/push_notification.png[{mobile-size}]
 
 Powiadomienie o nowej transakcji zostanie również wyświetlone na wcześniej pokazanym komponencie aplikacji mobilnej.
 Lista ma zaimplementowaną paginację oraz odświeżanie. Następne strony ładowane są dynamicznie przy przesuwaniu
@@ -270,7 +246,7 @@ zawiera jego tytuł, typ oraz ikonkę odpowiadającą jego statusowi. Po klikni�
 przeniesiony na ekran zawierający jego szczegóły.
 
 .Ekran powiadomień wraz z oczekującą transakcją.
-image::../images/system_presentation/mobileapp/notifications.png[]
+image::../images/system_presentation/mobileapp/notifications.png[{mobile-size}]
 
 Jedynymi aktualnie wspieranymi powiadomieniami są transakcji. Każde z nich zawiera id, wiadomość, adres docelowy,
 kwotę transakcji, typ powiadomienia oraz jego status. W przypadku powiadomienia dotyczącego oczekującej transakcji
@@ -282,14 +258,14 @@ aktualizowana jest odpowiednia encja w bazie danych. Tak samo, jak przy potwierd
 uniemożliwi akceptację jej przez inne węzły, oczekujące powiadomienia zostaną wygaszone.
 
 .Szczegóły powiadomienia.
-image::../images/system_presentation/mobileapp/notification_details.png[]
+image::../images/system_presentation/mobileapp/notification_details.png[{mobile-size}]
 
 Jeżeli podpisanie bądź odrzucenie transakcji zakończy się powodzeniem, wyświetlany jest specjalny ekran, który
 informuje o sukcesie wykonanej akcji. Różnią się one zawartością, czyli wiadomością, kolorem tła i ikoną. Po kliknięciu
 przycisku _OK_ użytkownik przekierowany zostanie z powrotem na listę powiadomień.
 
 .Komunikat wyświetlany po udanym potwierdzeniu powiadomienia.
-image::../images/system_presentation/mobileapp/notification_confirmation.png[]
+image::../images/system_presentation/mobileapp/notification_confirmation.png[{mobile-size}]
 
 Wracając do aplikacji mobilnej po zebraniu odpowiedniej ilości podpisów, można zauważyć, że transakcji oczekującej,
 a wykonana właśnie transakcja ma status zatwierdzony.
@@ -305,5 +281,6 @@ id transakcji, które jest logowane przez serwer podczas propagowania transakcji
 image::../images/broadcast_proof.png[]
 
 Jak widać na powyższym zrzucie ekranu, dane w portalu zgadzają się z informacjami dostępnymi w systemie LN Payments.
-Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym źródle. Pozwala
-to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.
+Adres, z którego pobrano środki, to adres portfela multisig, a wykorzystano jedno UTXO o wartości ponad 96000 SAT.
+Wyjściami transakcji jest adres docelowy na kwotę podaną w formularzu oraz reszta środków UTXO wracająca na adres
+multisig. Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym źródle. Pozwala to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.
