@@ -194,5 +194,37 @@ plikach znajdujących się w folderze _interface_. Odzwierciedlają one obiekty 
 
 ==== Komponenty
 
-.Zawartość folderu components..
+Główna część aplikacji mobilnej znajduje się w folderze _components_. Zawiera on kod wszystkich ekranów komponentów
+oraz nawigacji. Pliki mają rozszerzenie _tsx_, ponieważ zapisane są w formacie narzędzia _Babel_, które pozwala
+na pisanie kodu HTML wewnątrz plików JavaScript oraz TypeScript. Warto wspomnieć, że wszystkie komponenty pisane są
+w stylu funkcyjnym. Jest to nowsze rozwiązanie, które pozwala na pisanie o wiele czytelniejsze, a także ma nowsze
+funkcjonalności względem stylu wykorzystującego klasy.
+
+.Zawartość folderu components.
 image::../images/mobileapp_components_content.png[]
+
+Pliki zostały pogrupowane w folderach według funkcji. Katalog _context_ zawiera konteksty React'a, czyli globalne
+pojemniki na zmienne. Element opakowany w kontekst może uzyskać dostęp do jego zawartości. Drugim folderem jest _form_,
+który zawiera niestandardowe pola formularzy. Na potrzeby aplikacji mobilnej stworzono tylko jeden komponent
+reprezentujący pole tekstowe. Następny katalog, czyli _routers_ zawiera funkcje obsługujące nawigację w aplikacji.
+Zdefiniowane są tam wszystkie połączenia oraz zachowania ekranów. Ostatnim folderem jest _screens_, w którym znajdują
+się komponenty odpowiedzialne za wyświetlane ekrany, wraz z ich sub-komponentami. Punktem wejściowym dla aplikacji
+jest plik _App.tsx_. Zawiera on część konfiguracji aplikacji główny komponent grupujący kontekst użytkownika i
+pierwszy element nawigacji.
+
+.Funkcja App zwracająca pierwszy, główny komponent aplikacji.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/App.tsx[lines=28..38]
+----
+
+Komponenty React wykorzystuje się jako niestandardowe znaczniki HTML. Komponent konfiguracyjny _NativeBaseProvider_
+pochodzi z biblioteki _NativeBase_. Dostarcza ona gotowe komponenty HTML dostosowane dla platformy Android. Następnym
+komponentem jest _UserContextProvider_, dostarczający kontekst użytkownika. Jest on zdefiniowany w pliku
+_UserContext.tsx_ w folderze _context_.
+
+.TODO
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=28..38]
+----
