@@ -1,0 +1,66 @@
+=== Aplikacja mobilna
+
+Aplikacja mobilna została wykonana z pomocą podobnych technologii i narzędzi jak w przypadku aplikacji mobilnej.
+Podstawę stanowią język programowania TypeScript oraz framework React Native, który jest wersją framework'a react
+dostosowaną do tworzenia natywnych aplikacji mobilnych. Pozwala on na równoczesne tworzenie kodu na platformy
+Android oraz iOS, jednak w projekcie zdecydowano się wspierać tylko system Android. Jest to podyktowane brakiem
+potrzebnych urządzeń funduszy. Tak samo, jak w aplikacji mobilnej, projekt budowany jest przy pomocy programu _yarn_,
+a za jakość kodu odpowiadają _prettier_ oraz _eslint_.
+
+Od czytelnika wymagana jest podstawowa znajomość języka JavaScript w standardzie ECMA2017 oraz TypeScript w wersji co
+najmniej 4.4. Tłumaczone będą niektóre mechanizmy charakterystyczne dla framework'a React Native, natomiast jego
+znajomość również jest zalecana, gdyż wiele pojęć związanych z tą technologią nie zostanie opisanych szczegółowo.
+
+==== Struktura komponentu
+
+Główny katalog projektu aplikacji mobilnej zawiera głównie pliki konfiguracyjne dla wykorzystywanych narzędzi,
+a także kilka folderów, zawierających kod źródłowy, testy oraz folder _android_ zawierający natywny kod w Javie,
+który został automatycznie wygenerowany przez framework React Native.
+
+.Układ katalogów w folderze głównym aplikacji mobilnej.
+image::../images/mobileapp_root_dir.png[]
+
+Folder zawiera znany już plik _.gitignore_, dodający wyjątki dla programu git. Konfiguracja narzędzi do stylizacji
+kodu odbywa się w plikach _.eslintignore_ i _.eslintrc_ dla programu _eslint_ oraz _.prettierrc_ dla programu
+_prettier_. Transpilatory języka javascript wykorzystywane w projekcie to _babel_ oraz _metro_. Pozwalają one
+na używanie niestandardowej składni języka w kodzie jak na przykład wykorzystywanie kodu html. Ich konfiguracja
+zawiera się odpowiednio w _babel.config.js_ oraz _metro.config.js_. Aby umożliwić dynamiczną aktualizację
+aplikacji przy zmianie kodu, wykorzystywany jest program _watchman_, który skonfigurowany jest w pliku
+_.watchmanconfig_. Pliki _.buckconfig_, _app.json_ zawierają konfigurację dla aplikacji React Native. Sama aplikacja
+uruchamiana jest poprzez plik _index.js_. Interesujący jest plik _shim.js_, gdyż zawiera on brakujący kod pozwalający
+na wykorzystywanie pakietów _node_ w aplikacji React Native. Folder główny zawiera również plik _tsconfig.json_,
+zawierający ustawienia dla kompilatora TypeScript, _yarn.lock_ przechowujący metadane wykorzystywanych pakietów_,
+_package.json_ zawierający ustawienia procesu budowania oraz wykorzystywane biblioteki, a także _readme_ z informacjami
+o tym module. Komponent zawiera dwa foldery na testy. Katalog _tests_ przechowuje testy jednostkowe i integracyjne,
+a _e2e_ miał przechowywać automatyczne testy end-to-end. Niestety znajdują się tam tylko scenariusze testowe w języku
+Gherkin, a sama ich implementacja nie została zrealizowana. Zadanie to planowane jest na następne wydania. Ostatnim
+folderem jest _src_, zawierający sam kod źródłowy aplikacji.
+
+.Układ katalogów w folderze _src_.
+image::../images/mobileapp_src_content.png[]
+
+Główna część aplikacji, czyli kod odpowiedzialny za wyświetlanie stron, poszczególne komponenty czy też routing
+znajdują się w folderze _components_. Katalogi _res_ i _constants_ zawierają stałe wartości oraz inne zasoby aplikacji.
+Folder _utils_ przechowuje różne metody pomocnicze, a _bitcoin_ zawiera kod pozwalający na używanie biblioteki
+_bitcoinjs_ w kodzie aplikacji mobilnej. Ostatnim katalogiem jest _webservice_, zawierający obiekty modelowe oraz
+funkcje odpowiedzialne za wysyłanie żądań do serwera.
+
+==== Wartości stałe i zasoby
+
+.Zawartość folderów res i constants.
+image::../images/mobileapp_res_const_content.png[]
+
+==== Funkcje i pliki użytkowe
+
+.Zawartość folderów utils i bitcoin.
+image::../images/mobileapp_utils_btc_content.png[]
+
+==== Klient HTTP
+
+.Zawartość folderu webService.
+image::../images/mobileapp_webservice_content.png[]
+
+==== Komponenty
+
+.Zawartość folderu components..
+image::../images/mobileapp_components_content.png[]

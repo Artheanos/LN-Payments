@@ -43,9 +43,7 @@ include::../sections/webservice_solution.adoc[]
 
 TODO
 
-=== Aplikacja mobilna
-
-TODO
+include::../sections/mobileapp_solution.adoc[]
 
 === Dokumentacja
 
