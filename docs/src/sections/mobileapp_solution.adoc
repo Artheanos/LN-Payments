@@ -88,8 +88,8 @@ reprezentujący klucze wartości zapisywanych lokalnie w trakcie działania apli
 include::../../../mobileapp/src/constants/LocalKey.ts[lines=4..9]
 ----
 
-Aplikacja w swojej pamięci zapisuje adres email, adres URL serwera, token, czyli kluczy prywatny administratora oraz
-nazwę kanały WebSocket, na który przychodzą powiadomienia push.
+Aplikacja w swojej pamięci zapisuje adres email, adres URL serwera, token JWT oraz nazwę kanały WebSocket, na który
+przychodzą powiadomienia push.
 
 ==== Funkcje i pliki użytkowe
 
@@ -223,8 +223,196 @@ pochodzi z biblioteki _NativeBase_. Dostarcza ona gotowe komponenty HTML dostoso
 komponentem jest _UserContextProvider_, dostarczający kontekst użytkownika. Jest on zdefiniowany w pliku
 _UserContext.tsx_ w folderze _context_.
 
-.TODO
+.Zawartość kontekstu użytkownika.
 [source, typescript]
 ----
-include::../../../mobileapp/src/components/context/UserContext.tsx[lines=28..38]
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=38..50]
 ----
+
+Zawiera on obiekt zalogowanego użytkownika pobrany z serwera podczas logowania. Część jego danych zapisana jest
+lokalnie w urządzeniu mobilnym. Kontekst zawiera również funkcje pozwalające na manipulowanie obiektem użytkownikiem,
+takie jak jego ustawienie, aktualizację oraz wylogowanie. Ostatnim parametrem jest flaga wskazująca, czy trwa aktualnie
+ładowanie użytkownika. Warto wspomnieć, że metoda _createContext_ definiuje tylko typ oraz wartości domyślne kontekstu.
+Jego prawdziwe właściwości definiowane są w komponencie _UserContextProvider_.
+
+.Wartość zwracana komponentu UserContextProvider
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=155..168]
+----
+
+Tworzony jest dostawca kontekstu, którego wartości muszą odpowiadać wcześniej zdefiniowanemu typowi. Wszystkie
+metody zdefiniowane są jako funkcje tego komponentu. Dane użytkownika w kontekście początkowo ładowane są tylko z
+wartości zapisanych lokalnie na dysku.
+
+.Funkcja pobierająca lokalnie zapisane dane użytkownika.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=86..119]
+----
+
+Przy pomocy biblioteki _AsyncStorage_ pobierane są wcześniej zapisane wartości użytkownika. Następnie w pętli dane są
+ustawiane w obiekcie użytkownika. Na koniec obiekt użytkownika w kontekście jest aktualizowany poprzez funkcję
+_updateUser_.
+
+.Funkcja updateUser komponentu UserContextProvider.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=60..65]
+----
+
+Obiekt _Partial_ pozwala na stworzenie obiektu danego typu niezawierającego wszystkich wartości. W normalnym przypadku
+zakończyłoby się to błędem kompilacji. Funkcja ta ustawia nowy stan użytkownika, łącząc stare dane ze starymi,
+przekazanymi w parametrze. Kolejną funkcją kontekstu jest _loadKeysFromStorage_. Ładuje ona osobno parę kluczy
+z pamięci, niezależnie od pozostałych pól użytkownika.
+
+.Funkcja loadKeysFromStorage komponentu UserContextProvider.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=124..136]
+----
+
+Podobnie jak w przypadku metody pobierającej dane użytkownika, odpowiednie pole pobierane jest przy pomocy obiektu
+_AsyncStorage_, a następnie aktualizowany jest obiekt użytkownika. Ostatnią wartą uwagi funkcją w tym komponencie jest
+_logoutUser_, która pozwala na wylogowanie użytkownika.
+
+.Funkcja logoutUser komponentu UserContextProvider.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/UserContext.tsx[lines=67..80]
+----
+
+Metoda ta polega na usunięciu lokalnie zapisanego tokena JWT oraz adresu email, a także usuwane są wartości wszystkich
+pól w kontekście. Po omówieniu kontekstu użytkownika wrócić można do pliku _App.tsx_. Ostatnie dwa użyte komponenty
+odpowiedzialne są za nawigację w aplikacji. Komponent _NavigationContainer_ pochodzi z biblioteki React Navigation i
+tworzy kontener grupujący inne komponenty odpowiedzialne za nawigację w aplikacji. Drugim komponentem jest _AppRouter_,
+Który jest punktem wejściowym do nawigacji w aplikacji mobilnej.
+
+.Wartość zwracana komponentu _AppRouter_.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/routers/AppRouter.tsx[lines=41..45]
+----
+
+W zależności od tego, czy użytkownik jest zalogowany oraz, czy ma wygenerowany klucz prywatny, wyświetlany jest
+odpowiedni komponent nawigacji. Powstały dwa osobne dla zalogowanych i niezalogowanych użytkowników. Stanowi to również
+filtr przed nieautoryzowanym dostępem do aplikacji. Komponent _AppRouter_ zawiera również kod inicjujący obsługę
+powiadomień push.
+
+.Kod inicjujący nawigację powiadomień push w komponencie _AppRouter_.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/routers/AppRouter.tsx[lines=20..31]
+----
+
+Funkcja ta jest opakowana w inną funkcję Reacta _useEffect_, która wywołuje się zawsze przy aktualizacji pól podanych
+w tablicy jako ostatni parametr. W tym przypadku tablica jest pusta, więc funkcja wykona się tylko raz przy inicjacji
+komponentu. Tworzy ona nową funkcję nasłuchująca na kliknięcie powiadomienia push. Po kliknięciu nastąpi przekierowanie
+do ekranu ze szczegółami powiadomienia, a jako parametr podane jest jego identyfikator. Następnie funkcja nasłuchująca
+dodana jest przy pomocy dwóch metod z biblioteki _notifee_. Sprawiają one, że obsługa powiadomień będzie działała
+również, gdy aplikacja jest zminimalizowana. Ekrany aplikacji dla niezalogowanych użytkowników są obsługiwane poprzez
+komponent _SignedOutRouter_.
+
+.Fragment kodu komponentu SignedOutRouter.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/routers/SignedOutRouter.tsx[lines=21..27]
+----
+
+Wykorzystywanym typem nawigacji jest stos, który pozwala na wyświetlanie ekranów jeden nad drugim. Flaga user.uploadKeys
+wskazuje, czy użytkownik jest aktualnie w trakcie procesu generowania i przesyłania kluczy. Jeżeli nie, to
+przekierowywany jest na stronę logowania. Nie będzie w tym rozdziale szczególnie pokazywanego kodu HTML, gdyż jest on
+bardzo długi, a nie wnosi dużej wartości. Uwaga zostanie poświęcona głównie części napisanej w TypeScript. Gdy
+użytkownik wypełni formularz i go wyśle, zostanie wywołana metoda _onSubmit_:
+
+.Metoda onSubmit komponentu LoginScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/auth/LoginScreen/LoginScreen.tsx[lines=70..95]
+----
+
+Działanie funkcji zaczyna się od ustawienia flagi ładowania, aby wyświetlić odpowiednią animację użytkownikowi.
+Następnie walidacji poddawany jest podany przez użytkownika adres url. Jeżeli jest zgodny ze standardami,
+wykonywane jest żądanie HTTP do serwera. Jego rezultat obsługują trzy funkcje zwrotne. Funkcje _onFailure_
+oraz _onUnauthorized_ służą do obsługi błędów podczas logowania. Ich zadaniem jest powiadomienie użytkownika poprzez
+wyświetlenie odpowiednich komunikatów. Funkcja _onSuccess_ wywoływana jest w przypadku powodzenia logowania.
+Aktualizuje ona kontekst użytkownika i lokalny magazyn danych, ustawiając dane otrzymane w odpowiedzi żądania.
+
+.Metoda onSuccess komponentu LoginScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/auth/LoginScreen/LoginScreen.tsx[lines=31..44]
+----
+
+Funkcja ta najpierw ustawia token i adres hosta w obiekcie _Requests_, odpowiedzialnym za komunikację z serwerem.
+Następnie dane zapisywane są w pamięci oraz aktualizowany jest kontekst użytkownika. Gdy użytkownik nie przesłał
+jeszcze kluczy, czyli jest to jego pierwsze logowanie do aplikacji mobilnej, zostanie przekierowany do ekranu
+odpowiedzialnego za generowanie i przesyłanie kluczy, czyli _KeyUploadScreen_.
+
+.Kod odpowiedzialny za wyświetlanie zawartości ekranu KeyUploadScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/auth/KeyUploadScreen.tsx[lines=81..89]
+----
+
+Jest to bardzo prosty ekran, na którym wyświetlany jest jedynie obracającą się ikonę ładowania, oraz wiadomość
+informującą o aktualnie trwającym etapie procesu. Główna logika znajduje się natomiast w funkcji _generateKeys_.
+Funkcja wywoływana jest przez hak _useEffect_ przy tworzeniu komponentu.
+
+.Funkcja generateKeys komponentu KeyUploadScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/auth/KeyUploadScreen.tsx[lines=26..60]
+----
+
+Można ną funkcję podzielić na 3 części, czyli generowanie kluczy, przesyłanie klucza publicznego na serwer oraz
+zapisanie ich w kontekście użytkownika. Generowanie odbywa się poprzez wywołanie funkcji _generateKeyPair_ z pliku
+_bitcoin.ts_. Następnie wykonywane jest wysłanie żądania przesyłającego klucz publiczny. Proces ten zawiera wiele
+przypadków krańcowych, które reprezentowane są przez różne kody błędów HTTP. Wobec każdego z nich wyświetlany jest
+odpowiedni komunikat użytkownikowi. W przypadku sukcesu klucze zapisywane są w pamięci urządzenia. Na koniec
+następuje aktualizacja obiektu użytkownika w jego kontekście. Komponent ten posiada 3 flagi, czyli _generated_,
+_upload_ oraz _saved_. Ich wartość jest zmieniana po zakończeniu każdej z części procesu, aby wyświetlić użytkownikowi
+odpowiednią wiadomość. Po zakończeniu procesu użytkownik zostanie przekierowany do komponentu nawigacji dla zalogowanych
+użytkowników. Stanie się to również od razu po logowaniu, gdy użytkownik ma już wygenerowane klucze. Nawigacja dla
+zalogowanych użytkowników również jest zdefiniowana w postaci stosu. Zawiera on układ ekranów, które są wyświetlane
+na różnych zasadach. Znajduje się tam definicja menu bocznego, a także ekrany, które muszą być wyświetlane nad nim,
+czyli szczegóły powiadomienia oraz informacja o sukcesie jego potwierdzenia bądź odrzucenia. Dodatkowo wszystkie
+komponenty otoczone są kontekstem zalogowanego użytkownika. Sam kontekst zawiera tylko informacje o połączeniu WebSocket
+nasłuchującym przychodzących powiadomień, natomiast komponent zawiera również metody obsługujące te powiadomienia,
+jak również kod wysyłający powiadomienia push.
+
+.Funkcja ustalająca połączenie WebSocket w komponencie SignedInContext.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/SignedInContext.tsx[lines=39..52]
+----
+
+Przy pomocy funkcji _websocketBuilder_ tworzony jest klient dla protokołu _Stomp_. Następnie subskrybowany jest
+kanał zgodnie z indywidualnym adresem użytkownika. Na koniec kanał _WebSocket_ jest aktywowany. Wywołanie funkcji
+deaktywującej połączenie znajduje się w wartości zwracanej funkcji. Sprawi to, że ta funkcja ta zostanie wywołana
+przy sprzątaniu komponentu. Kod ten znajduje się w haku _useEffect_, który wywoływany jest przy każdej zmianie
+zmiennej _notificationChannelId_ oraz przy wywołaniu funkcji _setSocket_. Drugą funkcją wartą uwagi w tym komponencie
+jest _showNotification_, która odpowiedzialna jest za wyświetlanie powiadomień push.
+
+.Funkcja wysyłająca powiadomienia push w komponencie SignedInContext.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/context/SignedInContext.tsx[lines=88..97]
+----
+
+Na początku tworzony jest nowy kanał powiadomień, zgodnie z identyfikatorem zdefiniowanym w zasobach aplikacji.
+Następnie przy pomocy biblioteki _notifee_ wysyłane jest powiadomienie push, wraz ze szczegółami otrzymanymi wcześniej
+przez kanał _WebSocket_. Za wyświetlanie zawartości aplikacji dla zalogowanych użytkowników w dużej części odpowiada
+_DrawerRouter_, który odpowiedzialny jest za manu boczne aplikacji.
+
+.Komponent DrawerRouter.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/routers/DrawerRouter.tsx[lines=12..19]
+----
+
+Definiuje samo menu oraz jego zawartość. Generowanie całej części widoku użytkownika odbywa się automatycznie.
+Zawiera ono tylko dwa guziki, stronę główną oraz przycisk pozwalający na wylogowanie użytkownika.
+Komponent wyświetla tylko komunikat o trwającym procesie. Dodatkowo zawiera on hak useEffect, który wywołuje metodę
+_logoutUser_ z kontekstu użytkownika przy załadowaniu ekranu. Komponent _MainScreen_ jest głównym ekranem aplikacji,
+jednak renderuje on jedynie inny ekran, czyli listę wszystkich powiadomień.
