@@ -415,4 +415,79 @@ Definiuje samo menu oraz jego zawartość. Generowanie całej części widoku u�
 Zawiera ono tylko dwa guziki, stronę główną oraz przycisk pozwalający na wylogowanie użytkownika.
 Komponent wyświetla tylko komunikat o trwającym procesie. Dodatkowo zawiera on hak useEffect, który wywołuje metodę
 _logoutUser_ z kontekstu użytkownika przy załadowaniu ekranu. Komponent _MainScreen_ jest głównym ekranem aplikacji,
-jednak renderuje on jedynie inny ekran, czyli listę wszystkich powiadomień.
+jednak renderuje on jedynie inny ekran, czyli listę wszystkich powiadomień. Sama lista powiadomień zaimplementowana
+jest w komponencie NotificationListScreen.
+
+.Fragmentu kodu komponentu NotificationListScreen
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationListScreen/NotificationListScreen.tsx[lines=124..142]
+----
+
+Do wyświetlania listy użyto komponentu _FlatList_ z biblioteki _native-base_. Pobiera on wiele parametrów, takich
+jak metody do obsługi niektórych zdarzeń, komponent wyświetlający pojedynczy element list, a także kolekcja danych
+do wyświetlenia. Elementy powiadomień pobierane są przy inicjacji komponentu przez funkcję _queryElements_.
+
+.Funkcja queryElement komponentu NotificationListScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationListScreen/NotificationListScreen.tsx[lines=38..65]
+----
+
+Funkcja ta przyjmuje dwa parametry, numer strony oraz jej rozmiar. Domyślnie pobierane jest 10 elementów pierwszej
+strony. Następnie wykonywane jest żądanie pobierające powiadomienia z serwera. Gdy żądanie zakończy się sukcesem,
+pobrane dane dodawane są do haka stanu zawierającego powiadomienia. Paginacja polega właśnie na dodawaniu kolejnych
+elementów do stanu i wyświetlanie ich wszystkich razem. Aby to umożliwić, dodano flagę _hasMore_, która wskazuje, czy
+na serwerze są dostępne jeszcze elementy do pobrania.
+
+.Funkcja loadElements komponentu NotificationListScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationListScreen/NotificationListScreen.tsx[lines=81..85]
+----
+
+Pobieranie kolejnej strony odbywa się przy pomocy metody _loadElements_. Jeżeli wartość flagi _hasMore_ jest prawdziwa,
+to wywoływana jest funkcja _loadElements_ z wartością strony większą o jeden. Komponent ten zawiera jeszcze metodę
+_onRefresh_. Jest ona wywoływana przez komponent _FlatList_, gdy użytkownik wykona pociągnięcie listy w dół.
+Uruchamia to odświeżenie listy.
+
+.Funkcja onRefresh komponentu NotificationListScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationListScreen/NotificationListScreen.tsx[lines=91..97]
+----
+
+Funkcja ta ustawia flagi _isRefreshing_ i _loading_, aby wskazać użytkownikowi, że następuje odświeżenie. Następnie
+czyszczona jest lista powiadomień, a także wykonywane jest żądanie przy pomocy funkcji _queryElements_ z domyślnymi
+parametrami. Efekt wywołania jest taki sam jak przy nowym wejściu na ekran powiadomień. Pojedynczy element listy
+obsługiwany jest przez komponent _NotificationListEntry_. Jest to prosty element nieposiadający kodu Typescript,
+a jedynie HTML w formacie _TSX_. Wykorzystuje on komponent _NotificationIcon_ służący do wyświetlania statusu
+powiadomienia. Po kliknięciu pojedynczego elementu listy, użytkownik zostanie przekierowany na ekran zawierający
+szczegóły powiadomienia. Odbywa się to w komponencie _NotificationDetailScreen_. Poza samym prezentowaniem detali
+powiadomienia, komponent ten jest również odpowiedzialny za ich potwierdzanie i odrzucanie. Można tego dokonać poprzez
+guziki na dole ekranu, które wyświetlane są tylko dla oczekujących powiadomień. Potwierdzanie obsługiwane jest przez
+funkcję _confirm_.
+
+.Funkcja confirm komponentu NotificationDetailScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationDetailScreen/NotificationDetailScreen.tsx[lines=62..92]
+----
+
+Najpierw wysyłane jest pierwsze żądanie, pobierające surową transakcję z serwera. Jeżeli zakończy się ono powodzeniem,
+to transakcja jest podpisywana przy pomocy funkcji _signTx_ z pliku _bitcoin.ts_. Po podpisaniu transakcja wysyłana
+jest z powrotem na serwer. Jeżeli proces zakończy się powodzeniem, to użytkownik przekierowany zostanie do komponentu
+_NotificationResultScreen_, który informuje o sukcesie wykonanej akcji. Jeżeli któryś z etapów nie powiedzie się,
+zostanie wyświetlony odpowiedni komunikat o błędzie w wyskakującym oknie reprezentowanym przez komponent _ErrorAlert_.
+Drugi przycisk pozwala na odrzucenie powiadomienia, co wykonywane jest przez funkcję _deny_.
+
+.Funkcja deny komponentu NotificationDetailScreen.
+[source, typescript]
+----
+include::../../../mobileapp/src/components/screens/notification/NotificationDetailScreen/NotificationDetailScreen.tsx[lines=97..106]
+----
+
+Funkcja ta jest o wiele prostsza od tej obsługującej potwierdzenia. Nie ma tutaj potrzeby robienia dwóch żądań.
+Wykonywane jest jedno żądanie do odrzucające transakcję, a w przypadku sukcesu wyświetlany jest ekran
+_NotificationResultScreen_, tym razem z inną wiadomością, ikoną i kolorem. Ponownie w przypadku błędu wyświetlany
+jest wyskakujący komunikat z wiadomością o błędzie.
