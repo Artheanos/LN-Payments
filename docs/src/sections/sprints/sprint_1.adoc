@@ -45,7 +45,7 @@ tekstowych. Członkowie zespołu uznali, że najlepszym rozwiązaniem będzie st
 przechowywanie jej w głównym repozytorium projektu. Pierwsze zadanie dotyczyło konwersji dokumentów z formatu programu
 Microsoft Word na format Asciidoc. Dzięki temu zyskano możliwość nie tylko przeglądania historii dokumentów, ale także
 łatwiejszą kontrolę i wyłapywanie błędów po ich edycji dzięki systemowi kontroli wersji. Przeniesione zostały dokumenty
-KP, DZW oraz SWS. Pojawił się wtedy problem automatycznego tworzenia plików w formacie _pdf. Przy większej liczbie
+KP, DZW oraz SWS. Pojawił się wtedy problem automatycznego tworzenia plików w formacie _pdf_. Przy większej liczbie
 plików ich budowanie stawało się czasochłonne i niewygodne, wiec pojawiła się potrzeba stworzenia _makefile_ do
 automatycznego budowanie wszystkich dokumentów. Dzięki temu wystarczy tylko wywołać komendę _make_ w terminalu i każdy
 dokument zostaje zbudowany w formie pliku _html_ oraz _pdf_. Plik ten powstał w taki sposób, abu umożliwić późniejsze
