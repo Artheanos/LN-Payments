@@ -18,24 +18,25 @@ na łańcuchu bloków.
 === Kontekst problemu
 
 [NOTE]
-Rozdział ten ma na celu wprowadzenie czytelnika w świat kryptowalut. Dla ułatwienia zrozumienia tematu stosowane jest
-wiele uproszczeń. Szczegółowe informacje o działaniu Bitcoina można znaleźć w książce <<btcbook,"Mastering Bitcoin">>.
+Rozdział ten ma na celu między innymi wprowadzenie czytelnika w świat kryptowalut. Dla ułatwienia zrozumienia tematu
+stosowane jest wiele uproszczeń. Szczegółowe informacje o działaniu Bitcoina można znaleźć w książce
+"Mastering Bitcoin"<<btcbook>>
 
 Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to
 struktura danych gwarantująca niezmienność danych historycznych, która wynika z zastosowanej metody konsensusu, która
 pozwala określić, który blockchain jest uznawany za prawdziwy. Składa się on z bloków połączonych ze sobą, w
 których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
 Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
-możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jest ona budowana z
+możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w Bitcoinach, jest ona budowana z
 na podstawie danych użytkownika, takich jak jego poprzednie niewykorzystane wyjścia z transakcje oraz adresy
 docelowe, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
 zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
 szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
 bloki. Następnie górnik stara się
 zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
-wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi być wartością
+wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku Bitcoina dowód pracy musi być wartością
 mniejszą bądź równą celowi trudności. Jest to wartość pomiędzy 1 a 2^256^, która regulowana jest przez poziom
-trudności. Poziom trudności jest ustalany w taki sposób, aby blok był wykopywany co ok. 10 minut.
+trudności. Poziom trudności jest ustalany w taki sposób, aby blok był wykopywany co około 10 minut.
 
 Uproszczając, pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin
 jest aktualnie na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby nie zaśmiecać
@@ -117,11 +118,11 @@ przy użyciu Bitrefill jest możliwe, aczkolwiek mocno różniłoby się od nasz
 
 === Cele systemu
 
-System ma na celu umożliwić sprzedaż jednorazowych tokenów za pomocą bitcoinów w sieci Lightning, które będzie można
+System ma na celu umożliwić sprzedaż jednorazowych tokenów za pomocą Bitcoinów w sieci Lightning, które będzie można
 wykorzystać do podpisywania wydarzeń w sieci Bitcoin, jak i do innych celów takich jak sklepy internetowe. Wdrożenie
 tego systemu rozwiąże problem pozyskiwania środków do korzystania z funkcjonalności związanych z zapisywaniem danych.
 Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _iNGENIOUS_. System jest przeznaczony
-przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również
+przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy Bitcoinów. Może być używany również
 jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji. Serwer musi być przede wszystkim lekki,
 łatwy w obsłudze i niezawodny. Kod programy będzie otwarty, więc każda osoba chcąca samodzielnie postawić serwer
 sprzedający tokeny będzie mogła to zrobić kompletnie za darmo. Sukcesem dla nas będzie uzyskanie działającego i

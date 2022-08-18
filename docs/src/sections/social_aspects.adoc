@@ -28,15 +28,15 @@ za tym idzie, nie ma do kogo się zgłosić w przypadku problemów. W przypadku 
 z niewiedzy czy też pomyłki nie ma nikogo, kto może spróbować odzyskać te środki. Decentralizacja może też być
 uciążliwa dla polityki monetarnej państw. Nie ma możliwości nałożenia podatków ani żadnej kontroli nad walutą.
 Salwador, kraj w Ameryce Środkowej postanowił wprowadzić Bitcoina jako walutę obowiązującą w państwie. Spowodowało to
-problemy z polityką pieniężną kraju oraz ryzyko jego niewypłacalności. Prawdopodobnie z tych powodów nie ma szans, aby
-kryptowaluty miały szybko być prawnie uregulowanym środkiem płatniczym.
+problemy z polityką pieniężną kraju oraz ryzyko jego niewypłacalności<<salvador>>. Prawdopodobnie z tych powodów nie ma
+szans, aby kryptowaluty miały szybko być prawnie uregulowanym środkiem płatniczym.
 
 Społeczne możliwości i ryzyka wpisują się w kwestie opisane w poprzednich akapitach. System dzięki sieci Lightning
 umożliwi mikropłatności przy pomocy Bitcoinów, co może pomóc w ich popularyzacji. Jest to dobra rzecz dla
 użytkowników ceniących sobie anonimowość i bezpieczeństwo, a pewnym odsetkiem tych osób są ludzie o złych zamiarach.
 Nasz projekt może również przyczynić się do generowania szarej strefy. Według polskiego prawa właściciel serwera
-powinien opłacić podatek dochodowy od przychodów uzyskanych ze sprzedaży tokenów, aczkolwiek nie ma możliwości
-udokumentowania tego przez osoby trzecie. W sieci Bitcoina nie ma żadnego powiązania pomiędzy transakcjami a
+powinien opłacić podatek dochodowy od przychodów uzyskanych ze sprzedaży kryptowalut<<podatki>>, aczkolwiek nie ma
+możliwości udokumentowania tego przez osoby trzecie. W sieci Bitcoina nie ma żadnego powiązania pomiędzy transakcjami a
 danymi płatnika, więc urząd skarbowy nie będzie miał możliwości przeprowadzenia kontroli z niezapłaconych podatków.
 
 Ważnym aspektem jest również planowana integracja w ramach programu _iNGENIOUS IoC_. Projekt ten wykorzystuje transakcje
