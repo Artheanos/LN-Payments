@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
-import { UserContext } from '../Context/UserContext'
+import { UserContext } from 'components/Context/UserContext'
 
 type Props = {
   title: string
