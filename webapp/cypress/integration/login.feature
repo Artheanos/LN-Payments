@@ -1,6 +1,6 @@
 Feature: Login scenarios
 
-  Background: I am on the "Register" Page
+  Background: I am on the "Login" Page
     Given I am on the site homepage
     When I click on "Login" button
     Then I am redirected to "/login" Page

@@ -44,7 +44,6 @@ Feature: Register scenarios
     When I click on "Register" button
     Then Alert "Full name is required!" is displayed under "fullName" field
 
-  @ignore
   Scenario: Alert is displayed when I enter not valid full name
     Given I enter "test@test.pl" into "email" field
     And I enter "NaMe@123&" into "fullName" field

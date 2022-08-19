@@ -1,7 +1,5 @@
 import { Then, And } from 'cypress-cucumber-preprocessor/steps'
 
-beforeEach(() => {})
-
 Then('Alert {string} is displayed', (successful_msg) => {
   cy.on('window:confirm', (text) => {
     expect(text).to.eq(successful_msg)
