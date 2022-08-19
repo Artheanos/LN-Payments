@@ -268,7 +268,7 @@ przycisku _OK_ użytkownik przekierowany zostanie z powrotem na listę powiadomi
 image::../images/system_presentation/mobileapp/notification_confirmation.png[{mobile-size}]
 
 Wracając do aplikacji mobilnej po zebraniu odpowiedniej ilości podpisów, można zauważyć, że dotychczasowa transakcja
-oczekująca zmieniła status na zatwierdzony.
+oczekująca zmieniła swój status na zatwierdzony.
 
 .Ekran transakcji, na którym widać właśnie potwierdzoną transakcję.
 image::../images/system_presentation/webapp/transactions_completed.png[]
