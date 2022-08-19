@@ -19,7 +19,7 @@ niezalogowani różnią się tym, że nie będą oni mieli wglądu w swoją osob
 zapisania wszystkich zakupionych tokenów, gdyż po wyjściu z aplikacji nie będą oni mogli ich więcej wyświetlić.
 Użytkownik jest wielokrotnie informowany o tym fakcie na różnych ekranach procesu. Po kliknięciu przycisku _QuickBuy_,
 na stronie głównej, następuje przekierowania do pierwszego ekranu procesu, czyli formularza płatności. W górnej
-części ekranu wydać pasek informujący o aktualnym ekranie procesu oraz komunikat o braku możliwości późniejszego
+części ekranu widać pasek informujący o aktualnym ekranie procesu oraz komunikat o braku możliwości późniejszego
 wyświetlenia tokenów po zakończeniu płatności. W centralnej części ekranu znajduje się sam formularz. Od niezalogowanego
 użytkownika wymagane jest podanie liczby tokenów oraz adresu email. Służy on do wygenerowania specjalnego tokena JWT,
 pozwalającego na dokonanie płatności oraz jej identyfikację w bazie danych. W przyszłych wydaniach planowane jest
@@ -32,8 +32,8 @@ image::../images/system_presentation/webapp/anonymous_qb_1.png[]
 
 Drugi ekran służy do opłacenia zamówienia. Zawiera on informację o finalnej cenie zakupu, a także komponent
 wyświetlający dwa kody QR. Pierwszy zawiera żądanie zapłaty w sieci Lightning, a drugi adres węzła. Pomiędzy kodami
-QR użytkownik może przełączać za pomocą przełącznika w dolnej części komponentu. Oba kody można zeskanować przy pomocy
-portfela Bitcoin wspierającego płatności w sieci Lightning. Na ekranie znajduje się również minutnik, pokazujący
+QR użytkownik może przełączać się za pomocą przełącznika w dolnej części komponentu. Oba kody można zeskanować przy
+pomocy portfela Bitcoin wspierającego płatności w sieci Lightning. Na ekranie znajduje się również minutnik, pokazujący
 czas pozostały na wykonanie płatności. Po jego upływie transakcja automatycznie zmieni status na anulowany. Gdy
 użytkownik opłaci żądanie zapłaty, zostanie automatycznie przekierowany na następny ekran.
 
@@ -56,10 +56,10 @@ adres email, imię i nazwisko, oraz dwa pola dotyczące wprowadzenia hasła.
 image::../images/system_presentation/webapp/register.png[]
 
 Wszystkie pola w całej aplikacji zawierają walidację danych wejściowych. W tym przypadku sprawdzany jest między innymi
-odpowiedni format adresu email, czy też wymogi długości i znaków specjalnych hasła. Użytkownik jest proszony o
+odpowiedni format adresu email, czy też wymogi dotyczące siły hasła. Użytkownik jest proszony o
 potwierdzenie hasła poprzez wpisanie go w dwóch polach formularza, aby zminimalizować szansę na pomyłkę. Po wysłaniu
-formularza użytkownik może od razu spróbować się zalogować. Dodatkowo w dolnej części formularza cały czas widoczny
-jest przycisk, pozwalający na nawigowanie do formularza logowania.
+formularza użytkownik może od razu spróbować się zalogować. Dodatkowo w dolnej części ekranu rejestracji cały czas
+widoczny jest przycisk, pozwalający na nawigowanie do podstrony logowania.
 
 .Prezentacja walidacji pól formularza rejestracji.
 image::../images/system_presentation/webapp/register_validation.png[]
@@ -71,11 +71,11 @@ wysłane formularza oraz przejście do ekranu rejestracji.
 .Formularz logowania.
 image::../images/system_presentation/webapp/login.png[]
 
-Po zalogowaniu użytkownik trafia automatycznie na pierwszy ekran procesu płatności. Cały proces wygląda tak samo.
-Różnie się jedynie brakiem komunikatów o potrzebie zapisu tokenów we własnym zakresie. Nowością na tym ekranie jest
-obecność menu bocznego. Służy ono do nawigacji po panelach dostępnych dla zalogowanych użytkowników oraz
-administratorów. Zwykły zalogowany użytkownik może dokonać płatności, przeglądać swoją historię, wyświetlić profil,
-a także się wylogować.
+Po zalogowaniu użytkownik trafia automatycznie na pierwszy ekran procesu płatności. Cały ten proces wygląda tak samo,
+jak w przypadku użytkownika niezalogowanego. Różnią się jedynie brakiem komunikatów o potrzebie zapisu tokenów we
+własnym zakresie. Nowością na tym ekranie jest obecność menu bocznego. Służy ono do nawigacji po panelach dostępnych
+dla zalogowanych użytkowników oraz administratorów. Zwykły zalogowany użytkownik może dokonać płatności, przeglądać
+swoją historię, wyświetlić profil, a także się wylogować.
 
 .Formularz płatności dla zalogowanego użytkownika.
 image::../images/system_presentation/webapp/qb_1.png[]
@@ -93,14 +93,14 @@ image::../images/system_presentation/webapp/history.png[]
 Następną funkcjonalnością dostępną dla standardowego użytkownika jest jego profil. Dostępny on jest pod przyciskiem
 _Account_ w menu bocznym. Panel ten pozwala na wyświetlenie danych użytkownika podanych podczas rejestracji oraz
 jego roli. Zawiera on również przycisk pozwalający na zmianę hasła. Obecnie użytkownik może edytować tylko swoje
-hasło, a następne pola planowane są w następnych wydaniach. Aby przejść do formularza, należy kliknąć przycisk
-_change password_.
+hasło, a umożliwienie modyfikacji pozostałych pól planowane jest w następnych wydaniach. Aby przejść do formularza,
+należy kliknąć przycisk _change password_.
 
 .Profil użytkownika.
 image::../images/system_presentation/webapp/account.png[]
 
 Formularz zawiera tylko trzy pola. Jest to pole na obecne hasło oraz dwa pola na nowe hasło. Walidacja pól odbywa się
-taki sam sposób jak przy formularzu rejestracji. Po wysłaniu formularza hasło zostanie zaktualizowane w bazie danych.
+w taki sam sposób jak przy formularzu rejestracji. Po wysłaniu formularza hasło zostanie zaktualizowane w bazie danych.
 
 .Formularz zmiany hasła.
 image::../images/system_presentation/webapp/password_change.png[]
@@ -120,7 +120,7 @@ image::../images/system_presentation/webapp/payments_all.png[]
 
 Ważnym zadaniem, które powinno zostać wykonane zaraz po pierwszym uruchomieniu, jest konfiguracja serwera. Ustawienia
 dostępne są poprzez przycisk _Settings_ w menu bocznym. Pozwalają one na skonfigurowanie wielu aspektów serwera.
-Można skonfigurować opis i cenę tokenów, które są wyświetlane w formularzu płatności, a także opis, który dołączany
+Można ustawić opis i cenę tokenów, które są wyświetlane w formularzu płatności, a także opis, który dołączany
 jest do żądania płatności Lightning. Administrator może również ustalić czas, jaki użytkownik ma na dokonanie
 płatności. Następne dwa pola dotyczą limitu automatycznych transferów środków z portfela Lightning do portfela Bitcoin
 oraz limitu automatycznego zamknięcia kanałów. Ostatnie dwa pola są opcjonalne, dlatego też zabezpieczone są
@@ -132,10 +132,10 @@ na przykład, gdy serwer ma działać tylko w sieci prywatnej.
 .Ustawienia serwera.
 image::../images/system_presentation/webapp/settings.png[]
 
-Aby móc operować środkami pozyskanymi na sprzedaży tokenów, należy utworzyć portfel. Jednak aby tego dokonać,
-należy najpierw dodać administratorów, a następnie przesłać z ich aplikacji mobilnych klucze publiczne na serwer.
-Zarządzanie administratorami odbywa się w dedykowanym panelu, który dostępny jest pod przyciskiem _admin management_
-w menu bocznym. Ekran ten zawiera tabelę wszystkich administratorów w serwerze. Każdy wiersz zawiera
+Aby móc operować środkami pozyskanymi ze sprzedaży tokenów, musi zostać utworzony portfel. Jednak aby tego
+dokonać, należy najpierw dodać administratorów, a następnie przesłać z ich aplikacji mobilnych klucze publiczne na
+serwer. Zarządzanie administratorami odbywa się poprzez dedykowany panel, który dostępny jest pod przyciskiem _admin
+management_ w menu bocznym. Ekran ten zawiera tabelę wszystkich administratorów w serwerze. Każdy wiersz zawiera
 adres email, imię i nazwisko oraz 2 ikony, które informują czy użytkownik ma przesłany klucz publiczny, a także czy
 jest przypisany do aktualnego portfela. Dodatkowo w ostatniej kolumnie znajduje się przycisk pozwalający na usunięcie
 administratora, który nie jest przypisany do portfela.
@@ -155,7 +155,7 @@ image::../images/system_presentation/webapp/add_admin.png[]
 Administrator, który chce być członkiem portfela, musi wygenerować parę kluczy, po czym przesłać swój klucz publiczny
 na serwer. Odbywa się to automatycznie przy pierwszym logowaniu do aplikacji mobilnej. Przy jej pierwszym uruchomieniu
 użytkownik zostanie przywitany ekranem logowania. Warto wspomnieć, że aplikacja mobilna dostępna jest tylko dla
-administratorów. Próba zalogowania się zwykłym użytkownikiem zakończy się niepowodzeniem i wyświetleniem odpowiedniego
+administratorów. Próba zalogowania się jako zwykły użytkownik zakończy się niepowodzeniem i wyświetleniem odpowiedniego
 komunikatu. Formularz logowania zawiera dwa oczywiste pola, czyli adres email i hasło. Dodatkowym polem jest adres
 url serwera. Rozwiązanie _LN Payments_ przewidziane jest do samodzielnego wdrożenia. Użytkownik musi ręcznie podać
 adres, ponieważ nie ma jednego centralnego serwera zarządzającego instancjami. Od osoby wdrażającej zależy sposób,
@@ -166,9 +166,9 @@ przy każdym logowaniu.
 image::../images/system_presentation/mobileapp/login.png[{mobile-size}]
 
 Przy pierwszym logowaniu odbędzie się proces generowania kluczy i przesłania klucza publicznego. Etap składa się
-z kilku kroków. Najpierw generowane są klucze, następnie zapisywane na dysku, a na koniec klucz publiczny wysyłany
-jest na serwer. Użytkownik informowany jest o statusie procesu poprzez odpowiednią wiadomość wyświetlaną na ekranie
-ładowania.
+z kilku kroków. Najpierw generowane są klucze, następnie zapisywane są one na dysku, a na koniec klucz publiczny
+wysyłany jest na serwer. Użytkownik informowany jest o statusie procesu poprzez odpowiednią wiadomość wyświetlaną na
+ekranie ładowania.
 
 .Jeden z komunikatów wyświetlanych podczas tworzenia i zapisywania pary kluczy.
 image::../images/system_presentation/mobileapp/keys.png[{mobile-size}]
@@ -267,8 +267,8 @@ przycisku _OK_ użytkownik przekierowany zostanie z powrotem na listę powiadomi
 .Komunikat wyświetlany po udanym potwierdzeniu powiadomienia.
 image::../images/system_presentation/mobileapp/notification_confirmation.png[{mobile-size}]
 
-Wracając do aplikacji mobilnej po zebraniu odpowiedniej ilości podpisów, można zauważyć, że transakcji oczekującej,
-a wykonana właśnie transakcja ma status zatwierdzony.
+Wracając do aplikacji mobilnej po zebraniu odpowiedniej ilości podpisów, można zauważyć, że dotychczasowa transakcja
+oczekująca zmieniła status na zatwierdzony.
 
 .Ekran transakcji, na którym widać właśnie potwierdzoną transakcję.
 image::../images/system_presentation/webapp/transactions_completed.png[]
