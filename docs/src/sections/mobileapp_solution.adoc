@@ -1,17 +1,17 @@
 === Aplikacja mobilna
 
-Aplikacja mobilna została wykonana z pomocą podobnych technologii i narzędzi jak w przypadku aplikacji mobilnej.
-Podstawę stanowią język programowania TypeScript oraz framework React Native, który jest wersją framework'a react
+Aplikacja mobilna została wykonana z pomocą podobnych technologii i narzędzi jak w przypadku aplikacji internetowej.
+Podstawę stanowią język programowania TypeScript oraz framework React Native, który jest wersją framework'a React
 dostosowaną do tworzenia natywnych aplikacji mobilnych. Pozwala on na równoczesne tworzenie kodu na platformy
 Android oraz iOS, jednak w projekcie zdecydowano się wspierać tylko system Android. Jest to podyktowane brakiem
-potrzebnych urządzeń funduszy. Tak samo, jak w aplikacji mobilnej, projekt budowany jest przy pomocy programu _yarn_,
-a za jakość kodu odpowiadają _prettier_ oraz _eslint_.
+potrzebnych urządzeń oraz funduszy. Tak samo, jak w aplikacji mobilnej, projekt budowany jest przy pomocy programu
+_yarn_, a za jakość kodu odpowiadają _prettier_ oraz _eslint_.
 
 Od czytelnika wymagana jest podstawowa znajomość języka JavaScript w standardzie ECMA2017 oraz TypeScript w wersji co
 najmniej 4.4. Tłumaczone będą niektóre mechanizmy charakterystyczne dla framework'a React Native, natomiast jego
 znajomość również jest zalecana, gdyż wiele pojęć związanych z tą technologią nie zostanie opisanych szczegółowo.
 
-==== Struktura komponentu
+==== Struktura modułu
 
 Główny katalog projektu aplikacji mobilnej zawiera głównie pliki konfiguracyjne dla wykorzystywanych narzędzi,
 a także kilka folderów, zawierających kod źródłowy, testy oraz folder _android_ zawierający natywny kod w Javie,
@@ -26,12 +26,12 @@ _prettier_. Transpilatory języka javascript wykorzystywane w projekcie to _babe
 na używanie niestandardowej składni języka w kodzie jak na przykład wykorzystywanie kodu html. Ich konfiguracja
 zawiera się odpowiednio w _babel.config.js_ oraz _metro.config.js_. Aby umożliwić dynamiczną aktualizację
 aplikacji przy zmianie kodu, wykorzystywany jest program _watchman_, który skonfigurowany jest w pliku
-_.watchmanconfig_. Pliki _.buckconfig_, _app.json_ zawierają konfigurację dla aplikacji React Native. Sama aplikacja
+_.watchmanconfig_. Pliki _.buckconfig_, _app.json_ uwzględniają konfigurację dla aplikacji React Native. Sama aplikacja
 uruchamiana jest poprzez plik _index.js_. Interesujący jest plik _shim.js_, gdyż zawiera on brakujący kod pozwalający
 na wykorzystywanie pakietów _node_ w aplikacji React Native. Folder główny zawiera również plik _tsconfig.json_,
-zawierający ustawienia dla kompilatora TypeScript, _yarn.lock_ przechowujący metadane wykorzystywanych pakietów_,
+obejmujący ustawienia dla kompilatora TypeScript, _yarn.lock_ przechowujący metadane wykorzystywanych pakietów_,
 _package.json_ zawierający ustawienia procesu budowania oraz wykorzystywane biblioteki, a także _readme_ z informacjami
-o tym module. Komponent zawiera dwa foldery na testy. Katalog _tests_ przechowuje testy jednostkowe i integracyjne,
+o tym module. Komponent mieści dwa foldery na testy. Katalog _tests_ przechowuje testy jednostkowe i integracyjne,
 a _e2e_ miał przechowywać automatyczne testy end-to-end. Niestety znajdują się tam tylko scenariusze testowe w języku
 Gherkin, a sama ich implementacja nie została zrealizowana. Zadanie to planowane jest na następne wydania. Ostatnim
 folderem jest _src_, zawierający sam kod źródłowy aplikacji.
@@ -88,7 +88,7 @@ reprezentujący klucze wartości zapisywanych lokalnie w trakcie działania apli
 include::../../../mobileapp/src/constants/LocalKey.ts[lines=4..9]
 ----
 
-Aplikacja w swojej pamięci zapisuje adres email, adres URL serwera, token JWT oraz nazwę kanały WebSocket, na który
+Aplikacja w swojej pamięci zapisuje adres email, adres URL serwera, token JWT oraz nazwę kanału WebSocket, na który
 przychodzą powiadomienia push.
 
 ==== Funkcje i pliki użytkowe
@@ -140,14 +140,14 @@ include::../../../mobileapp/src/utils/bitcoin.ts[lines=18..39]
 Parametrami tej funkcji jest surowa transakcja zapisana jako łańcuch znaków w formacie heksadecymalnym, klucz
 prywatny jako tablica bajtów, reprezentowana przez obiekt _Buffer_ oraz _redeemScript_, ponownie jako szesnastkowy
 łańcuch znaków. Najpierw tworzone są obiekty _Transaction_ oraz _TransactionBuilder_ pochodzące z biblioteki
-_bitcoinjs_. Następnie następuje przejście przez wszystkie wejścia transakcji, gdzie następuje próba ich podpisania.
-Nie ma potrzeby wskazywania konkretnego wejścia do podpisania, ponieważ wszystkie środki przychodzą na jeden adres,
-który został zbudowany ze wszystkich kluczy publicznych administratorów. Oznacza to, że każdy administrator musi
-podpisać każde wejście transakcji. Dodatkowo w procesie następuje konwersja otrzymanej tablicy bajtów na obiekt
-_ECPair_, a także przekształcenie _redeemScript'u_ z łańcucha znaków na tablicę. Na koniec w mało elegancki sposób
-zwracana jest podpisana surowa transakcja jako szesnastkowy łańcuch znaków. Brak wsparcia dla PSBT po stronie serwera
-zmusza do próby zbudowania kompletnej transakcji. Jeżeli zostanie rzucony wyjątek, to budowana jest niekompletna
-transakcja. Jest to proste obejście braku tej kluczowej dla projektu funkcjonalności biblioteki _BitcoinJ_.
+_bitcoinjs_. Następnie wykonywane jest przejście przez wszystkie wejścia transakcji, gdzie odbywa się próba ich
+podpisania. Nie ma potrzeby wskazywania konkretnego wejścia do podpisania, ponieważ wszystkie środki przychodzą na
+jeden adres, który został zbudowany ze wszystkich kluczy publicznych administratorów. Oznacza to, że każdy
+administrator musi podpisać każde wejście transakcji. Dodatkowo w procesie następuje konwersja otrzymanej tablicy
+bajtów na obiekt _ECPair_, a także przekształcenie _redeemScript'u_ z łańcucha znaków na tablicę. Na koniec w mało
+elegancki sposób zwracana jest podpisana surowa transakcja jako szesnastkowy łańcuch znaków. Brak wsparcia dla PSBT po
+stronie serwera zmusza do próby zbudowania kompletnej transakcji. Jeżeli zostanie rzucony wyjątek, to budowana jest
+niekompletna transakcja. Jest to proste obejście braku tej kluczowej dla projektu funkcjonalności biblioteki _BitcoinJ_.
 
 ==== Klient HTTP
 
@@ -187,7 +187,7 @@ include::../../../mobileapp/src/webService/requests.ts[lines=127..148]
 
 Jest to metoda generyczna. Jako typy przyjmuje ona typy ciała odpowiedzi oraz żądania HTTP. Parametrami jest adres
 zasobu, obiekt konfiguracyjny biblioteki _axios_ zawierający właściwe parametry żądania jak metoda czy ciało, oraz
-flagę informującą o konieczności załączenia tokena JWT. Z pomocą biblioteki _axios_ wysyłane jest żądanie, a zwracany
+flagę informującą o konieczności załączenia tokena JWT. Z pomocą biblioteki _axios_ wysyłane jest żądanie i zwracany
 jest jego status, a także w przypadku sukcesu ciało odpowiedzi. Co więcej, jeżeli wystąpi błąd połączenia, użytkownikowi
 wyświetlany jest odpowiedni komunikat. Typy obiektów przesyłanych jako ciało żądań i odpowiedzi zdefiniowane są w
 plikach znajdujących się w folderze _interface_. Odzwierciedlają one obiekty przesyłane do i z serwera.
@@ -308,7 +308,7 @@ include::../../../mobileapp/src/components/routers/AppRouter.tsx[lines=20..31]
 Funkcja ta jest opakowana w inną funkcję Reacta _useEffect_, która wywołuje się zawsze przy aktualizacji pól podanych
 w tablicy jako ostatni parametr. W tym przypadku tablica jest pusta, więc funkcja wykona się tylko raz przy inicjacji
 komponentu. Tworzy ona nową funkcję nasłuchująca na kliknięcie powiadomienia push. Po kliknięciu nastąpi przekierowanie
-do ekranu ze szczegółami powiadomienia, a jako parametr podane jest jego identyfikator. Następnie funkcja nasłuchująca
+do ekranu ze szczegółami powiadomienia, a jako parametr podany jest jego identyfikator. Następnie funkcja nasłuchująca
 dodana jest przy pomocy dwóch metod z biblioteki _notifee_. Sprawiają one, że obsługa powiadomień będzie działała
 również, gdy aplikacja jest zminimalizowana. Ekrany aplikacji dla niezalogowanych użytkowników są obsługiwane poprzez
 komponent _SignedOutRouter_.
@@ -365,7 +365,7 @@ Funkcja wywoływana jest przez hak _useEffect_ przy tworzeniu komponentu.
 include::../../../mobileapp/src/components/screens/auth/KeyUploadScreen.tsx[lines=26..60]
 ----
 
-Można ną funkcję podzielić na 3 części, czyli generowanie kluczy, przesyłanie klucza publicznego na serwer oraz
+Można tą funkcję podzielić na 3 części, czyli generowanie kluczy, przesyłanie klucza publicznego na serwer oraz
 zapisanie ich w kontekście użytkownika. Generowanie odbywa się poprzez wywołanie funkcji _generateKeyPair_ z pliku
 _bitcoin.ts_. Następnie wykonywane jest wysłanie żądania przesyłającego klucz publiczny. Proces ten zawiera wiele
 przypadków krańcowych, które reprezentowane są przez różne kody błędów HTTP. Wobec każdego z nich wyświetlany jest
