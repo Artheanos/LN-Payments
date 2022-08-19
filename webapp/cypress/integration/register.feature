@@ -50,7 +50,7 @@ Feature: Register scenarios
     And I enter "Pa$$word123@" into "password" field
     And I enter "Pa$$word123@" into "passwordConfirmation" field
     When I click on "Register" button
-    Then Alert "Full name not valid!" is displayed under "fullName" field
+    Then Alert "Full name cannot contain any special characters" is displayed under "fullName" field
 
   Scenario: Alerts is displayed when I left password form empty
     Given I enter "test@test.pl" into "email" field
