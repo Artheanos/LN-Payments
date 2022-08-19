@@ -15,7 +15,7 @@ możliwości włączenia środków do sieci. Istnieje odgórny limit ilości Bit
 i wynosi 21 milionów. Żaden bank ani żadna organizacja nie będzie mogła manipulować wartością i ilością pieniędzy w
 obiegu, co czyni je stabilnym środkiem płatniczym.footnote:[Odnosząc się do wartości dóbr w relacji do Bitcoina, a nie
 do wartości giełdowej kryptowalut, która bywa bardzo zmienna] Transakcje są jedynie podpisywane kluczami prywatnymi,
-a nie danymi osobowymi jak w przypadku normalnych walut. Zapewnia to pełną praktycznie anonimowość transakcji.
+a nie danymi osobowymi jak w przypadku normalnych walut. Zapewnia to praktycznie pełną anonimowość transakcji.
 Sam blockchain nie przechowuje informacji o właścicielu, natomiast mogą to robić inne serwisy. Na tej podstawie
 teoretycznie da się określić powiązania i wydedukować potencjalnego właściciela, jest to jednak trudne zadanie.
 
@@ -44,5 +44,5 @@ zapisane na blockchainie Bitcoina do podpisania wydarzenia w czasie. Tokeny gene
 zostać wysłane do innego serwisu, który będzie w stanie wykorzystać je w wybrany przez siebie sposób. W ramach projektu
 osoby kupujące tokeny będą mogły przy ich pomocy podpisać wydarzenia, który wydarzyły się w ich firmach. Token jest
 powiązany z transakcją Bitcoin, więc dzięki temu uzyskuje się niezaprzeczalny dowód potwierdzający autentyczność.
-Tworzone rozwiązanie ma wkład w tworzenie tego innowacyjnego rozwiązania poprzez finansowanie transakcji służących do
+Proponowane rozwiązanie ma wkład w tworzenie tego innowacyjnego rozwiązania poprzez finansowanie transakcji służących do
 podpisywania zdarzeń.
