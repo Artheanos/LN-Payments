@@ -1,6 +1,6 @@
-=== Sprint 13 (02.08.2022 - 22.08.2022)
+=== Sprint 13 (01.08.2022 - 22.08.2022)
 
-Oryginalny plan nie zakładał istnienia również i tej iteracji. Jej celem było oczywiście dostarczenie wszystkich nieskończonych jeszcze zadań.
+Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jeszcze zadań. Spora ilość zadań nie napawała optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
 
 .Lista zadań w sprincie trzynastym.
 [cols="1,5,3,1,2"]

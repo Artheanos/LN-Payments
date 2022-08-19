@@ -1,40 +1,46 @@
 === Sprint 10 (13.06.2022 - 27.06.2022)
 
-W oryginalnym planie na tą iterację planowano przygotowania do wydania aplikacji, natomiast w rzeczywistości wysiłki zespołu skupiły się głównie na aplikacji mobilnej, ponieważ chciano zakończyć nad nią prace przed terminem jej prezentacji na przedmiocie _PAMO_. Zaplanowano również zajęcie się zadaniami związanymi z rozwojem książki do projektu dyplomowego oraz długiem technicznym.
+W oryginalnym planie na tą iterację zamierzano skupić się na przygotowaniach do wydania aplikacji, natomiast w rzeczywistości wysiłki zespołu skoncentrowały się głównie na aplikacji mobilnej, ponieważ chciano zakończyć nad nią prace przed terminem jej prezentacji na przedmiocie _PAMO_. Zaplanowano również zajęcie się zadaniami związanymi z rozwojem książki do projektu dyplomowego oraz długiem technicznym.
 
 .Lista zadań w sprincie dziesiątym.
 [cols="1,5,3,1,2"]
 |===
 |Klucz|Nazwa|Osoba przypisana|Story points|Status
+|LP-127|Add confirmation/denial flow|Aleksander Konieczny|5|Ukończone
+|LP-190|Create endpoint for querying single notifications|Jan Pieczul|2|Ukończone
+|LP-133|Handle push notifications|Jan Pieczul|3|Ukończone
+|LP-189|Add missing docs|Aleksander Konieczny|2|Ukończone
+|LP-191|Clean up names and icons|Aleksander Konieczny|1|Ukończone
+|LP-187|Perform monkey tests and fix errors|Aleksander Konieczny|2|Ukończone
+|LP-185|Set up and add missing tests|Jan Pieczul|5|Ukończone
+|LP-192|Write test scenarios|Aleksander Konieczny|1|Ukończone
+|LP-188|Improve error handling|Jan Pieczul|2|Ukończone
+|LP-154|Add server settings page|Jan Pieczul|2|Ukończone
 |LP-177|Add total income data to balance endpoint|Aleksander Konieczny|3|Ukończone
 |LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
-|LP-154|Add server settings page|Jan Pieczul|2|Ukończone
-|LP-127|Add confirmation/denial flow|Aleksander Konieczny|5|Ukończone
 |LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
 |LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
 |LP-179|Create E2E test for mobileapp|-|5|Nieukończone
-|LP-185|Set up and add missing tests|Jan Pieczul|5|Ukończone
-|LP-187|Perform monkey tests and fix errors|Aleksander Konieczny|2|Ukończone
 |LP-186|Fix first 3 chapters|Aleksander Konieczny|3|Nieukończone
-|LP-188|Improve error handling|Jan Pieczul|2|Ukończone
-|LP-189|Add missing docs|Aleksander Konieczny|2|Ukończone
-|LP-133|Handle push notifications|Jan Pieczul|3|Ukończone
 |LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
 |LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Nieukończone
-|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|8|Nieukończone
-|LP-190|Create endpoint for querying single notifications|Jan Pieczul|2|Ukończone
-|LP-191|Clean up names and icons|Aleksander Konieczny|1|Ukończone
-|LP-192|Write test scenarios|Aleksander Konieczny|1|Ukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
 |===
 
 Na tą iterację zaplanowanych zostało 16 zadań dających w sumie 52 punkty historii. W czasie jej trwania dodane zostały 3 nowe problemy, wycenione w sumie na 4 punkty. Usunięto również jedno z istniejących już zadań, które było wycenione na 5 punktów.
 Ostatecznie, w tym sprincie znalazło się 18 zadań wycenionych na 51 punktów historii. Większość z nich związana była z aplikacją mobilną, co wynikało ze zbliżającej się prezentacji.
 
 ==== Przebieg prac
-Tak jak w poprzednim sprincie, priorytetem w dalszym ciągu pozostawała aplikacja mobilna. Jako pierwsze ukończone zostało zadanie umożliwiające zatwierdzanie/ odrzucanie transakcji, dzięki czemu jedna z głównych funkcjonalności aplikacji została dostarczona. Kolejnym krokiem była implementacja wyświetlania powiadomień _push_ po utworzeniu transakcji (LP-133). Aby wszystko działało tak, jak należy, niezbędne okazało się stworzenie punktu końcowego dla pojedynczego komunikatu, co wymagało dodatkowego nakładu czasu.
-Następnie zespół zajął się tworzeniem dokumentacji oraz pisaniem testów dla aplikacji mobilnej. Jako pierwsze dodane zostały _testy małpy_, które umożliwiają sprawdzenie tego, jak zachowuje się aplikacja po wprowadzeniu losowych danych wejściowych. W dalszej kolejności dodano testy sprawdzające między innymi to, czy poszczególne elementy generują się prawidłowo oraz czy aplikacja zachowuje się w określonych sytuacjach poprawnie(np. jeśli użytkownik nie posiada klucza prywatnego). Do ich stworzenia wykorzystano framework do testowania _Jest_. W związku z tym, że nie udało się dodać pełnych testów _end-to-end_, napisane zostały same scenariusze testowe z wykorzystaniem narzędzia _Cucumber_.
+Tak jak w poprzednim sprincie, priorytetem w dalszym ciągu pozostawała aplikacja mobilna. Jako pierwsze ukończone zostało zadanie umożliwiające zatwierdzanie/ odrzucanie transakcji (LP-127), dzięki czemu jedna z głównych funkcjonalności aplikacji została dostarczona. Celem tego zagadnienia było stworzenie odpowiedniej logiki, która będzie przekazywać do _serwera_ informację o tym, jaką decyzję podjął administrator. Osobne zadanie LP-132 zostało natomiast zdefiniowane po to, aby zaimplementować odpowiedni ekran wyświetlający szczegóły oraz zawierający dwa guziki do wykonywania wyżej wymienionych akcji.
+Kolejnym krokiem była implementacja wyświetlania powiadomień _push_ po utworzeniu transakcji (LP-133). Początkowo istniał tylko punkt końcowy transakcji, który po wysłaniu odpowiedniego zapytania, od razu w odpowiedzi zwracał szczegółowe informacje na jej temat. Aby wszystko działało tak, jak należy, niezbędne okazało się stworzenie punktu końcowego dla pojedynczego komunikatu, co wymagało dodatkowego nakładu czasu.
+
+Wykonane zostało również zadanie LP-189 polegające na szczegółowym udokumentowaniu aplikacji mobilnej i opisaniu fragmentów kodu. W ramach rozwiązania LP-191 poprawione w niej zostały nazwy zmiennych, dodano ikony oraz zaktualizowano paletę kolorów.
+
+Następnie zespół zajął się pisaniem testów dla aplikacji mobilnej. Jako pierwsze dodane zostały _testy małpy_, które umożliwiają sprawdzenie tego, jak zachowuje się aplikacja po wprowadzeniu losowych danych wejściowych. Warto wspomnieć, że zagadnienie to zostało wykonane specjalnie na potrzeby zaliczenia z _PAMO_, ponieważ było jedną ze składowych oceny z tego przedmiotu. W dalszej kolejności dodane zostały testy sprawdzające między innymi to, czy poszczególne elementy w aplikacji mobilnej generują się prawidłowo oraz czy aplikacja zachowuje się w określonych sytuacjach poprawnie(np. jeśli użytkownik nie posiada klucza prywatnego). Do ich stworzenia wykorzystano framework do testowania _Jest_. W związku z tym, że nie udało się dodać pełnych testów _end-to-end_, napisane zostały same scenariusze testowe z wykorzystaniem narzędzia _Cucumber_ i języka _Gherkin_.
+
 Pod koniec iteracji udało się również poprawić obsługę błędów, która wyeliminowała zawieszanie się aplikacji mobilnej np. w sytuacji, gdy wygasł token.
-Do aplikacji webowej dodana została podstrona z ustawieniami serwera (LP-154), gdzie administrator ma możliwość między innymi podania po osiągnięciu jakiej wartości, kanał ma zostać zamknięty.
+
+Do aplikacji webowej dodana została podstrona z ustawieniami serwera (LP-154), gdzie administrator zyskał możliwość między innymi podania po osiągnięciu jakiej wartości kanał ma zostać zamknięty.
 Ostatnim zadaniem wykonanym w tym sprincie (LP-177) było dodanie logiki odpowiedzialnej za wyświetlanie wpływów do portfela w kolejności chronologicznej.
 
 ==== Podsumowanie
@@ -46,4 +52,4 @@ Jako porażkę należy rozpatrywać to, że żadne z zadań związanych z ksią�
 image::../images/sprints_raports/burndown_sprint10.png[]
 
 Zespół ukończył 11 z 18 zadań wycenionych na 28 punktów historii. Pozostałe zadania musiały niestety zostać przeniesione do kolejnej iteracji lub rejestru zadań. Nie jest to wynik, z którego można się cieszyć, natomiast warto zauważyć, że w związku ze zbliżającym się zakończeniem semestru, dostępność członków zespołu była mniejsza.
-Jako pozytyw można rozpatrywać to, że udało się ukończyć większość zadań związanych z aplikacją mobilną.
+Jako pozytyw można rozpatrywać fakt, iż udało się ukończyć większość zadań związanych z aplikacją mobilną.

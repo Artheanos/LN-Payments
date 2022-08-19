@@ -1,45 +1,52 @@
 === Sprint 12 (11.07.2022 - 01.08.2022)
 
-Ta iteracja, tak jak i poprzednia nie była wstępnie planowana. Wysiłki zespołu miały skoncentrować się na zagadnieniach związanych z długiem technicznym oraz pracą dyplomową, która w dalszym ciągu wymagała dużych nakładów pracy. Wciąż poprawy wymagały _testy E2E_ związane z logowaniem oraz rejestracją.
+Wysiłki zespołu w tej iteracji miały skoncentrować się na zagadnieniach związanych z długiem technicznym oraz pracą dyplomową, która w dalszym ciągu wymagała dużych nakładów pracy. Wciąż poprawy wymagały _testy E2E_ związane z logowaniem oraz rejestracją.
 
 .Lista zadań w sprincie dwunastym.
 [cols="1,5,3,1,2"]
 |===
-|LP-151|Write "dalszy rozwój" chapter|Aleksander Konieczny|1|Ukończone
 |LP-193|Change notifications status on broadcast|Aleksander Konieczny|1|Ukończone
-|LP-195|Fix progress bars on wallet screen|Jan Pieczul|1|Ukończone
-|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Nieukończone
-|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|5|Ukończone
-|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
-|LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
-|LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Ukończone
-|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
 |LP-196|Enable incoming request logging|Aleksander Konieczny|1|Ukończone
-|LP-200|Protect wallet creation form then wallet is created|Aleksander Konieczny|1|Ukończone
+|LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Ukończone
+|LP-195|Fix progress bars on wallet screen|Jan Pieczul|1|Ukończone
 |LP-202|Add server and token url inputs to settings|Aleksander Konieczny|1|Ukończone
+|LP-200|Protect wallet creation form then wallet is created|Aleksander Konieczny|1|Ukończone
+|LP-203|Move LND files to .lnpayment directory|Aleksander Konieczny|1|Ukończone
+|LP-159|Fix interactive mockup and update screenshots in book|Aleksander Konieczny|2|Ukończone
 |LP-181|Rewrite main repo readme|Aleksander Konieczny|2|Ukończone
 |LP-144|Write webservice subsection of "opis realizacji" chapter|Aleksander Konieczny|8|Ukończone
-|LP-159|Fix interactive mockup and update screenshots in book|Aleksander Konieczny|2|Ukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|5|Ukończone
+|LP-151|Write "dalszy rozwój" chapter|Aleksander Konieczny|1|Ukończone
+|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
+|LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
 |LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
 |LP-138|Create transaction scenarios|-|3|Nieukończone
 |LP-136|Create payments scenarios|-|3|Nieukończone
 |LP-171|Write "testy" chapter.|-|3|Nieukończone
 |LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
-|LP-203|Move LND files to .lnpayment directory|Aleksander Konieczny|1|Ukończone
 |===
 
-Na tą iterację przypadło wstępnie 19 zadań wartych 43 punkty historii. W trakcie jej trwania, usunięte zostały 3 zadania, a dwa kolejne zostały dodane. Lwią część zagadnień do wykonania w tym odstępie czasu stanowił po raz kolejny dług techniczny oraz książka projektowa.
+Na tą iterację przypadło wstępnie 19 zadań wartych 43 punkty historii. W trakcie jej trwania usunięte zostały 3 zadania, a dwa kolejne zostały dodane. Lwią część zagadnień do wykonania w tym odstępie czasu stanowił po raz kolejny dług techniczny oraz książka projektowa.
 
 ==== Przebieg prac
 
 Pierwszym z zadań ukończonych w tym sprincie było dodanie zmiany statusu powiadomień na wygasłe po uzyskaniu wymaganej liczby potwierdzeń/odmów (LP-193). Do tej pory, nawet po rozgłoszeniu transakcji powiadomienia pozostawały aktywne, więc należało to zmienić.
-Dodano również logowanie wszystkich przychodzących zapytań, wykorzystując mechanizm _Springa_. Kolejnym podjętym krokiem była modyfikacja _NodeDetailsService_. Dotychczasowe rozwiązanie zostało zastąpione przez _RestTemplate_. Dzięki temu administrator zyskał również możliwość podania własnego _node_ w ustawieniach serwera. Poprawiona została również funkcja odpowiedzialna za wyświetlanie paska postępu na ekranie portfela. Dotychczas, po uzyskaniu maksymalnej wartości, pasek wracał do stanu początkowego, co było niepożądanym zachowaniem (LP-195). Następnie zajęto się zagadnieniem związanym z przeniesieniem plików wymaganych do połączenia z _LND_ do katalogu _.lnpayments_. Nie było to może zadanie niezbędne, ale dzięki temu zabiegowi lokalizacja wszystkich plików konfiguracyjnych została ujednolicona. Poprawione zostały również interaktywne makiety, które zostały stworzone przez zespół przed implementacją projektu i zawierały drobne błędy. Kolejnym zagadnieniem, którym się zajęto, była modyfikacja istniejącego już _readme_ projektu, tak aby wyglądało ono bardziej profesjonalnie i zawierało więcej informacji. W ramach zadania LP-202 do ekranu ustawień dodane zostały dwa pola, których wcześniej brakowało. Ostatnim wykonanym zadaniem w tej iteracji, jeśli chodzi o implementację, było zablokowanie dostępu do formularza tworzenia nowego portfela w wypadku gdy ten już istnieje.
+Dodano również logowanie wszystkich przychodzących zapytań, wykorzystując mechanizm _Springa_ (LP-196). Zdecydowano się na napisanie prostego rejestratora, tak aby nie poświęcać tej kwestii zbyt dużo czasu. Kolejnym podjętym krokiem była modyfikacja _NodeDetailsService_. Dotychczasowe rozwiązanie zostało zastąpione przez _RestTemplate_. Dzięki temu administrator zyskał również możliwość podania własnego _node url_ w ustawieniach serwera.
 
-Do książki projektu dyplomowego dopisana została sekcja związana z _webservice_ (LP-144). Udało się także napisać pierwszą część rozdziału poświęconego _opisowi realizacji_ (LP-143). Sukcesem zakończyły się również prace nad sekcją _dalszy rozwój_ (LP-155).
+Poprawiona została również funkcja odpowiedzialna za wyświetlanie paska postępu na ekranie portfela. Dotychczas, po uzyskaniu maksymalnej wartości, pasek wracał do stanu początkowego, co było niepożądanym zachowaniem (LP-195).
+W ramach zadania LP-202 do ekranu ustawień serwera dodane zostały dwa pola, których wcześniej brakowało(mowa tutaj o _tokenDeliveryUrl_ oraz _serverIpAddress_). Następnym wykonanym zadaniem w tej iteracji, jeśli chodzi o implementację, było zablokowanie dostępu do formularza tworzenia nowego portfela w wypadku gdy ten już istnieje.
+
+Następnie zajęto się zagadnieniem związanym z przeniesieniem plików wymaganych do połączenia z _LND_ do katalogu _.lnpayments_ (LP-203). Nie było to może zadanie niezbędne, ale dzięki temu zabiegowi lokalizacja wszystkich plików konfiguracyjnych została ujednolicona.
+
+Poprawione zostały również interaktywne makiety (LP-159), które zostały stworzone przez zespół przed implementacją projektu i zawierały drobne błędy. Kolejnym zagadnieniem, którym się zajęto, była modyfikacja istniejącego już _readme_ projektu, tak aby wyglądało ono bardziej profesjonalnie i zawierało więcej informacji. Chciano również, aby po zapoznaniu się z nim zainteresowane osoby były w stanie bez problemu samemu uruchomić i przetestować aplikację.
+
+Do książki projektu dyplomowego dopisana została sekcja związana z _webservice_ (LP-144). Udało się także napisać pierwszą część rozdziału poświęconego _opisowi realizacji_ (LP-143). Sukcesem zakończyły się również prace nad sekcją _dalszy rozwój_ (LP-151).
 
 ==== Podsumowanie
 
-W tej iteracji nie udało się również zrealizowanie założeń i wykonanie wszystkich zadań, które planowano. W trakcie jej trwania doszło jedno nowe zagadnienie, którym należało się zająć. Prace powoli zmierzały ku końcowi.
+W tej iteracji również nie udało się zrealizowanie założeń i wykonanie wszystkich zadań, które planowano. W trakcie jej trwania doszło jedno nowe zagadnienie, którym należało się zająć. Prace powoli zmierzały ku końcowi.
 Niestety w dalszym ciągu nie udało się ukończyć przyjmowania płatności od niezalogowanych użytkowników, a _testy E2E_ wciąż nie były gotowe. Był to kolejny sprint, w którym dużą część zadań wykonał jeden członek zespołu.
 
 .Wykres spalania sprintu dwunastego.
