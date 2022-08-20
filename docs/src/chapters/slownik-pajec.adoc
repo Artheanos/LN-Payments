@@ -50,7 +50,7 @@ DTO::
 
 Dowód pracy::
     Jest to kryptograficzne potwierdzenie pokazujące, że jedna strona poświęciła pewien wysiłek obliczeniowy na
-    pewien cel. Jest to jedna z metod konsensusu wykorzystywana w kryptowalutach, w tym w Bitcoinie.
+    określony cel. Jest to jedna z metod konsensusu wykorzystywana w kryptowalutach, w tym w Bitcoinie.
     Dowód pracy może zostać potwierdzony przez weryfikatorów przy minimalnym wysiłku z ich strony.
 
 Mnemonic phrase::
