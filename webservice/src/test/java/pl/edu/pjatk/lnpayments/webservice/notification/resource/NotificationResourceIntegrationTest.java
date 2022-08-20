@@ -122,14 +122,14 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnNotificationById() throws Exception {
             String jsonContent = getJsonResponse("integration/payment/response/notification-GET.json");
 
-            mockMvc.perform(get("/notifications/" + notification1.getIdentifier()).principal(principal))
+            mockMvc.perform(get("/api/notifications/" + notification1.getIdentifier()).principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
 
         @Test
         void shouldReturn404WhenIdCannotBeFound() throws Exception {
-            mockMvc.perform(get("/notifications/1").principal(principal))
+            mockMvc.perform(get("/api/notifications/1").principal(principal))
                     .andExpect(status().isNotFound());
         }
 
@@ -137,7 +137,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnNotificationsByUser() throws Exception {
             String jsonContent = getJsonResponse("integration/payment/response/notifications-GET.json");
 
-            mockMvc.perform(get("/notifications").principal(principal))
+            mockMvc.perform(get("/api/notifications").principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
@@ -163,14 +163,14 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             String jsonContent = getJsonResponse("integration/payment/response/confirmation-details-GET.json");
 
-            mockMvc.perform(get("/notifications/" + notification.getIdentifier() + "/transaction"))
+            mockMvc.perform(get("/api/notifications/" + notification.getIdentifier() + "/transaction"))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
 
         @Test
         void shouldReturn404WhenNoNotification() throws Exception {
-            mockMvc.perform(get("/notifications/d6b5915c46/transaction"))
+            mockMvc.perform(get("/api/notifications/d6b5915c46/transaction"))
                     .andExpect(status().isNotFound());
         }
 
@@ -184,7 +184,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
             notificationRepository.save(notification);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/deny"))
                     .andExpect(status().isOk());
 
             Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
@@ -203,7 +203,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             Notification notification = new Notification(user, transaction, "message1", NotificationType.TRANSACTION);
             notificationRepository.save(notification);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/deny"))
                     .andExpect(status().isOk());
 
             Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
@@ -216,7 +216,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
     class DenyNotification {
         @Test
         void shouldReturn404WhenNotificationForDenialNotFound() throws Exception {
-            mockMvc.perform(post("/notifications/d6b5915c46/deny"))
+            mockMvc.perform(post("/api/notifications/d6b5915c46/deny"))
                     .andExpect(status().isNotFound());
         }
 
@@ -230,7 +230,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notification.setStatus(NotificationStatus.DENIED);
             notificationRepository.save(notification);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/deny"))
                     .andExpect(status().isBadRequest());
         }
 
@@ -247,7 +247,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             Notification notification = new Notification(user, transaction, "message1", NotificationType.WALLET_RECREATION);
             notificationRepository.save(notification);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/deny"))
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/deny"))
                     .andExpect(status().isOk());
 
             Notification saved = notificationRepository.findByIdentifier(notification.getIdentifier()).orElseThrow();
@@ -291,7 +291,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(100L));
             when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
@@ -318,7 +318,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f300000000d9004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c260147304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L, null);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
@@ -346,7 +346,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092000047304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L, null);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
@@ -393,7 +393,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(100L));
             when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
@@ -412,7 +412,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         @Test
         void shouldReturn404WhenNotificationForConfirmationNotFound() throws Exception {
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092000047304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L, null);
-            mockMvc.perform(post("/notifications/d6b5915c46/confirm")
+            mockMvc.perform(post("/api/notifications/d6b5915c46/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isNotFound());
@@ -429,7 +429,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092000047304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L, null);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
@@ -446,7 +446,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092000047304402200a505e3526df75a3addf672c366f79fe28b3f0220f063f78db8ae4a921d0e97a02207aefa698d8f1a984b93fff4480cd30b5e174832e3dab84365a4766615845c8580147522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 1L, null);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isPreconditionFailed());
@@ -463,7 +463,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
             notificationRepository.save(notification);
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c26010047522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", 0L, null);
 
-            mockMvc.perform(post("/notifications/" + notification.getIdentifier() + "/confirm")
+            mockMvc.perform(post("/api/notifications/" + notification.getIdentifier() + "/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
@@ -473,7 +473,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturn400WhenVersionIsNegative() throws Exception {
             ConfirmationDetails details = new ConfirmationDetails("01000000012a3c2133f9b678877ae4afd5a982bdc453d5e86749722fe189acd5a2c97660f30000000092004730440220407e37b9e31d1200f2abe0e393338db0aa1bd21783ccc06f68aee92aae529a790220627b7052a9bc8dd4dc5c55e4f631a97296b3e1ddfe19fb2b5528cb0d130f0c26010047522102ab7358f9fba8b2661dc6b489ced6cac0d620eb1de82100e6cf40c404ee44dc3a210346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb52aeffffffff026400000000000000160014a9619fc4a9c6d2d36eb6ace4d5bc9abdbebc8f5cc42200000000000017a914b41d8a3e10f6a407ae80ceea45a8eae867ac78598700000000", -2L, null);
 
-            mockMvc.perform(post("/notifications/aaa/confirm")
+            mockMvc.perform(post("/api/notifications/aaa/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
@@ -483,7 +483,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturn400WhenRawTxIsBlank() throws Exception {
             ConfirmationDetails details = new ConfirmationDetails("", -2L, null);
 
-            mockMvc.perform(post("/notifications/aaa/confirm")
+            mockMvc.perform(post("/api/notifications/aaa/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());
@@ -493,7 +493,7 @@ class NotificationResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturn400WhenRawTxIsNull() throws Exception {
             ConfirmationDetails details = new ConfirmationDetails(null, 1L, null);
 
-            mockMvc.perform(post("/notifications/aaa/confirm")
+            mockMvc.perform(post("/api/notifications/aaa/confirm")
                             .content(new ObjectMapper().writeValueAsBytes(details))
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest());

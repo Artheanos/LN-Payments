@@ -88,7 +88,7 @@ class NotificationSocketControllerIntegrationTest extends BaseIntegrationTest {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
         StompSession stompSession = webSocketStompClient.connect(
-                String.format("ws://localhost:%d/notification", port),
+                String.format("ws://localhost:%d/api/notification", port),
                 new WebSocketHttpHeaders(httpHeaders),
                 new StompSessionHandlerAdapter() {
                 }).get(1, SECONDS);

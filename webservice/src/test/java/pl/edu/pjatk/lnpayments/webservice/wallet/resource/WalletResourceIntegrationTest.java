@@ -103,7 +103,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         adminUserRepository.save(admin1);
         adminUserRepository.save(admin2);
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -143,7 +143,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(1000L));
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -169,7 +169,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         walletRepository.saveAll(List.of(oldWallet, newWallet));
         List<String> adminEmails = List.of("dd@dd.pl", "ddd@dd.pl");
         CreateWalletRequest request = new CreateWalletRequest(2, adminEmails);
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -185,7 +185,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         walletRepository.save(oldWallet);
         List<String> adminEmails = List.of("dd@dd.pl", "ddd@dd.pl");
         CreateWalletRequest request = new CreateWalletRequest(2, adminEmails);
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -207,7 +207,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         adminUserRepository.save(admin2);
         List<String> adminEmails = List.of(admin1.getEmail(), admin2.getEmail());
         CreateWalletRequest request = new CreateWalletRequest(2, adminEmails);
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -217,7 +217,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn404WhenNoEmailsProvided() throws Exception {
         CreateWalletRequest request = new CreateWalletRequest(1, Collections.emptyList());
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -227,7 +227,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn404WhenNotEmailProvided() throws Exception {
         CreateWalletRequest request = new CreateWalletRequest(1, List.of("not an email"));
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -237,7 +237,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn404WhenInvalidNumberOfSignatures() throws Exception {
         CreateWalletRequest request = new CreateWalletRequest(0, List.of(EMAIL));
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -247,7 +247,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn404WhenMoreSignaturesThanEmails() throws Exception {
         CreateWalletRequest request = new CreateWalletRequest(5, List.of(EMAIL));
 
-        mockMvc.perform(post("/wallet")
+        mockMvc.perform(post("/api/wallet")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -258,7 +258,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         ListChannelsResponse response = new ListChannelsResponse();
         response.setChannels(Collections.emptyList());
         when(lndAPI.listChannels(any())).thenReturn(response);
-        mockMvc.perform(post("/wallet/closeChannels"))
+        mockMvc.perform(post("/api/wallet/closeChannels"))
                 .andExpect(status().isOk());
     }
 
@@ -273,7 +273,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         sendCoinsResponse.setTxid("tx");
         when(lndAPI.walletBalance()).thenReturn(balanceRequest);
         when(lndAPI.sendCoins(any())).thenReturn(sendCoinsResponse);
-        mockMvc.perform(post("/wallet/transfer"))
+        mockMvc.perform(post("/api/wallet/transfer"))
                 .andExpect(status().isOk());
     }
 
@@ -311,14 +311,14 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
         String jsonContent = getJsonResponse("integration/wallet/response/balance-GET.json");
 
-        mockMvc.perform(get("/wallet"))
+        mockMvc.perform(get("/api/wallet"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
 
     @Test
     void shouldReturn404ForBalanceWhenNoWalletCreated() throws Exception {
-        mockMvc.perform(get("/wallet"))
+        mockMvc.perform(get("/api/wallet"))
                 .andExpect(status().isNotFound());
     }
 
@@ -329,7 +329,7 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         walletRepository.save(wallet);
         when(lndAPI.channelBalance()).thenThrow(ValidationException.class);
 
-        mockMvc.perform(get("/wallet"))
+        mockMvc.perform(get("/api/wallet"))
                 .andExpect(status().isInternalServerError());
     }
 

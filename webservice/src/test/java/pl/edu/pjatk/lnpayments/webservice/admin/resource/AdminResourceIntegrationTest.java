@@ -61,7 +61,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn201AndSaveAdmin() throws Exception {
         AdminRequest request = new AdminRequest("test@test.pl", "test", "zaq1@WSX");
-        mockMvc.perform(post("/admins")
+        mockMvc.perform(post("/api/admins")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -73,7 +73,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
         AdminRequest request = new AdminRequest("test@test.pl", "test", "zaq1@WSX");
         AdminUser user = AdminUser.adminBuilder().email("test@test.pl").build();
         adminUserRepository.save(user);
-        mockMvc.perform(post("/admins")
+        mockMvc.perform(post("/api/admins")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -82,7 +82,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn400WhenInputIsInvalid() throws Exception {
         AdminRequest request = new AdminRequest(null, null, "");
-        mockMvc.perform(post("/admins")
+        mockMvc.perform(post("/api/admins")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -97,7 +97,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
         adminUserRepository.save(firstAdmin);
         adminUserRepository.save(secondAdmin);
         String jsonContent = getJsonResponse("integration/payment/response/admins-GET-valid.json");
-        mockMvc.perform(get("/admins"))
+        mockMvc.perform(get("/api/admins"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
@@ -105,7 +105,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn200AndEmptyListWhenNoUsers() throws Exception {
         String jsonContent = getJsonResponse("integration/payment/response/admins-GET-empty.json");
-        mockMvc.perform(get("/admins"))
+        mockMvc.perform(get("/api/admins"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
@@ -114,7 +114,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn404WhenAdminNotFound() throws Exception {
         AdminDeleteRequest deleteRequest = new AdminDeleteRequest("test@test.pl");
 
-        mockMvc.perform(delete("/admins")
+        mockMvc.perform(delete("/api/admins")
                 .content(new ObjectMapper().writeValueAsString(deleteRequest))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -128,7 +128,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
 
         adminUserRepository.save(admin);
 
-        mockMvc.perform(delete("/admins")
+        mockMvc.perform(delete("/api/admins")
                         .content(new ObjectMapper().writeValueAsString(deleteRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
@@ -145,7 +145,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
         admin.setWallet(wallet);
         adminUserRepository.save(admin);
 
-        mockMvc.perform(delete("/admins")
+        mockMvc.perform(delete("/api/admins")
                         .content(new ObjectMapper().writeValueAsString(deleteRequest))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -169,7 +169,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
             adminUserRepository.save(admin);
             KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
 
-            mockMvc.perform(patch("/admins/keys")
+            mockMvc.perform(patch("/api/admins/keys")
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
@@ -182,7 +182,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
             String publicKey = "2137";
             KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
 
-            mockMvc.perform(patch("/admins/keys")
+            mockMvc.perform(patch("/api/admins/keys")
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
@@ -193,7 +193,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturn400WhenKeyNotProvided() throws Exception {
             KeyUploadRequest keyUploadRequest = new KeyUploadRequest(null);
 
-            mockMvc.perform(patch("/admins/keys")
+            mockMvc.perform(patch("/api/admins/keys")
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
@@ -208,7 +208,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
             adminUserRepository.save(admin);
             KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
 
-            mockMvc.perform(patch("/admins/keys")
+            mockMvc.perform(patch("/api/admins/keys")
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
@@ -220,7 +220,7 @@ class AdminResourceIntegrationTest extends BaseIntegrationTest {
             String publicKey = "0346b221a71369a6f70be9660ae560096396cf6813a051fcaf50a418d517007fcb";
             KeyUploadRequest keyUploadRequest = new KeyUploadRequest(publicKey);
 
-            mockMvc.perform(patch("/admins/keys")
+            mockMvc.perform(patch("/api/admins/keys")
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(keyUploadRequest)))
