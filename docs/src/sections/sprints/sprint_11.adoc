@@ -1,7 +1,10 @@
 === Sprint 11 (27.06.2022 - 11.07.2022)
 
-Wcześniejsze plany nie zakładały, że ta iteracja będzie potrzebna, jednak w rzeczywistości wyszło inaczej. Ten oraz każdy następujący po nim sprint wynikały z opóźnień podczas prac, które powstały wskutek zaległości w realizowaniu przypisanych zagadnień.
-Zespół skupił się na zadaniach niewykonanych we wcześniejszym okresie. Zaplanowano zajęcie się pisaniem książki do projektu dyplomowego oraz pracę nad długiem technicznym.
+Wcześniejsze plany nie zakładały, że ta iteracja będzie potrzebna, jednak w rzeczywistości wyszło inaczej. Ten oraz
+każdy następujący po nim sprint wynikały z opóźnień podczas prac, które powstały wskutek zaległości w realizowaniu
+przypisanych zagadnień.
+Zespół skupił się na zadaniach niewykonanych we wcześniejszym okresie. Zaplanowano zajęcie się pisaniem książki do
+projektu dyplomowego oraz pracę nad długiem technicznym.
 
 .Lista zadań w sprincie jedenastym.
 [cols="1,5,3,1,2"]
@@ -25,28 +28,50 @@ Zespół skupił się na zadaniach niewykonanych we wcześniejszym okresie. Zapl
 |LP-172|Adjust payment caroussel|Jan Pieczul|2|Nieukończone
 |===
 
-W tej iteracji zaplanowano wykonanie 17 zadań wycenionych na 40 punktów historii. W trakcie jej trwania nie zostało dodane ani usunięte żadne z zagadnień. Duża część zadań do wykonania pochodziła z poprzednich sprintów. Sporo kwestii związanych było z pracą dyplomową. Pojawiło się też zadanie, aby nanieść poprawki w istniejących już rozdziałach.
+W tej iteracji zaplanowano wykonanie 17 zadań wycenionych na 40 punktów historii. W trakcie jej trwania nie zostało
+dodane ani usunięte żadne z zagadnień. Duża część zadań do wykonania pochodziła z poprzednich sprintów. Sporo kwestii
+związanych było z pracą dyplomową. Pojawiło się też zadanie, aby nanieść poprawki w istniejących już rozdziałach.
 
 ==== Przebieg prac
 
-W związku z tym, że aplikacja mobilna została w większości ukończona, skoncentrowano się na zadaniach związanych z długiem technicznym, naprawą istniejących problemów oraz pisaniu pracy dyplomowej.
+W związku z tym, że aplikacja mobilna została w większości ukończona, skoncentrowano się na zadaniach związanych z
+długiem technicznym, naprawą istniejących problemów oraz pisaniu pracy dyplomowej.
 
-Jako pierwsze ukończone zostało zadanie L-178. Polegało ono na implementacji rzeczywistego wykresu do wizualizacji wpływów do portfela. Dotychczas w aplikacji dodany był zrzut ekranu, który pełnił funkcję _placeholder-a_, należało więc stworzyć rzeczywisty wykres obrazujący wpływy do portfela. Do wykonania tego celu, zespół zdecydował się na użycie biblioteki _Recharts_.
+Jako pierwsze ukończone zostało zadanie L-178. Polegało ono na implementacji rzeczywistego wykresu do wizualizacji
+wpływów do portfela. Dotychczas w aplikacji dodany był zrzut ekranu, który pełnił funkcję _placeholder-a_, należało więc
+stworzyć rzeczywisty wykres obrazujący wpływy do portfela. Do wykonania tego celu, zespół zdecydował się na użycie
+biblioteki _Recharts_.
 
-Po otrzymaniu uwag od promotora zajęto się naniesieniem poprawek do istniejących już rozdziałów książki. Kolejnym krokiem było napisanie rozdziału związanego z komercjalizacją projektu, do którego zespół mógł wykorzystać wiedzę zdobytą podczas przedmiotu _KMR_. Ostatnią kwestią związaną z pracą dyplomową w tej iteracji było napisanie sekcji odnoszącej się do bezpieczeństwa (LP-168).
+Po otrzymaniu uwag od promotora zajęto się naniesieniem poprawek do istniejących już rozdziałów książki. Kolejnym
+krokiem było napisanie rozdziału związanego z komercjalizacją projektu, do którego zespół mógł wykorzystać wiedzę
+zdobytą podczas przedmiotu _KMR_. Ostatnią kwestią związaną z pracą dyplomową w tej iteracji było napisanie sekcji
+odnoszącej się do bezpieczeństwa (LP-168).
 
-W formularzu rejestracji dodana została walidacja dla pola "Full name", o której wcześniej zapomniano (LP-163). Dzięki temu niemożliwym stało się podawanie na przykład znaków specjalnych oraz cyfr w polu imienia. Poprawiono także ekran tworzenia portfela tak, aby formularz wyświetlał się tylko w wypadku, gdy administratorzy posiadają wygenerowane klucze (LP-183). W ramach zadania LP-80 dodane zostały dwie podstrony. Pierwsza z nich wyświetla informacje o koncie, takie jak rola czy adres email, natomiast druga umożliwia zmianę hasła. Jest to ważna funkcjonalność głównie z punktu widzenia administratora, który po otrzymaniu danych logowania będzie mógł zmienić hasło na takie, które zna tylko on.
+W formularzu rejestracji dodana została walidacja dla pola "Full name", o której wcześniej zapomniano (LP-163). Dzięki
+temu niemożliwym stało się podawanie na przykład znaków specjalnych oraz cyfr w polu imienia. Poprawiono także ekran
+tworzenia portfela tak, aby formularz wyświetlał się tylko w wypadku, gdy administratorzy posiadają wygenerowane
+klucze (LP-183). W ramach zadania LP-80 dodane zostały dwie podstrony. Pierwsza z nich wyświetla informacje o koncie,
+takie jak rola czy adres email, natomiast druga umożliwia zmianę hasła. Jest to ważna funkcjonalność głównie z punktu
+widzenia administratora, który po otrzymaniu danych logowania będzie mógł zmienić hasło na takie, które zna tylko on.
 
-W ramach problemu LP-162 napisany został serwis odpowiedzialny za wysyłanie tokenów po zakończonej płatności pod zadeklarowany adres. Ostatnim z zadań, które planowano zrobić, było dodanie obsługi płatności dla niezalogowanych użytkowników (LP-104). Nie każdy z użytkowników ma ochotę aby zakładać konto, dlatego była to ważna i pożądana funkcjonalność, jednak nie powiodła się próba dostarczenia zadania na czas. Stworzona podczas trwania tej iteracji implementacja tego problemu zawierała błędy i wymagała dalszych nakładów pracy.
+W ramach problemu LP-162 napisany został serwis odpowiedzialny za wysyłanie tokenów po zakończonej płatności pod
+zadeklarowany adres. Ostatnim z zadań, które planowano zrobić, było dodanie obsługi płatności dla niezalogowanych
+użytkowników (LP-104). Nie każdy z użytkowników ma ochotę aby zakładać konto, dlatego była to ważna i pożądana
+funkcjonalność, jednak nie powiodła się próba dostarczenia zadania na czas. Stworzona podczas trwania tej iteracji
+implementacja tego problemu zawierała błędy i wymagała dalszych nakładów pracy.
 
 ==== Podsumowanie
 
 Niestety i w tym sprincie nie udało się ukończyć wielu zadań.
-Cieszyć mógł fakt, że prace nad książką posuwały się naprzód. Do projektu dodanych zostało kilka ważnych funkcjonalności, których brakowało, a z punktu widzenia użytkownika końcowego były ważne. Mowa tutaj np. o możliwości zmiany hasła.
-Martwić mogło natomiast to, że większość z ukończonych zadań w tej iteracji było dziełem jednej osoby. Niestety nie udało się także ukończyć zadania związanego z przyjmowaniem płatności od niezalogowanych użytkowników.
+Cieszyć mógł fakt, że prace nad książką posuwały się naprzód. Do projektu dodanych zostało kilka ważnych
+funkcjonalności, których brakowało, a z punktu widzenia użytkownika końcowego były ważne. Mowa tutaj np. o możliwości
+zmiany hasła.
+Martwić mogło natomiast to, że większość z ukończonych zadań w tej iteracji było dziełem jednej osoby. Niestety
+nie udało się także ukończyć zadania związanego z przyjmowaniem płatności od niezalogowanych użytkowników.
 
 .Wykres spalania sprintu jedenastego.
 image::../images/sprints_raports/burndown_sprint11.png[]
 
-Zespół wykonał jedynie 9 z 17 zaplanowanych zadań, wycenionych na 18 punktów historii. Kolejny raz nieukończone zagadnienia musiały zostać przeniesione do rejestru lub nadchodzących iteracji.
+Zespół wykonał jedynie 9 z 17 zaplanowanych zadań, wycenionych na 18 punktów historii. Kolejny raz nieukończone
+zagadnienia musiały zostać przeniesione do rejestru lub nadchodzących iteracji.
 Mimo że prace nie przebiegały w takim tempie, jak to planowano, to jednak poczyniony został postęp.

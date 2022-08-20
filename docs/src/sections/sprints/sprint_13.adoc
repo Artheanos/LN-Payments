@@ -1,6 +1,7 @@
 === Sprint 13 (01.08.2022 - 22.08.2022)
 
-Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jeszcze zadań. Spora ilość zadań nie napawała optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
+Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jeszcze zadań. Spora ilość zadań nie napawała
+optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
 
 .Lista zadań w sprincie trzynastym.
 [cols="1,5,3,1,2"]
@@ -34,7 +35,8 @@ Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jes
 
 |===
 
-Wstępnie w tym sprincie znalazły się aż 24 zadania, wycenione w sumie na 62 punkty historii. Takiej ilości można było się spodziewać, biorąc pod uwagę opóźnienia z poprzednich iteracji.
+Wstępnie w tym sprincie znalazły się aż 24 zadania, wycenione w sumie na 62 punkty historii. Takiej ilości można było
+się spodziewać, biorąc pod uwagę opóźnienia z poprzednich iteracji.
 
 ==== Przebieg prac
 
