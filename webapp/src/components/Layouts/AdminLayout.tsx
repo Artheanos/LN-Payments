@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import { LinearProgress } from '@mui/material'
 import { Navigate } from 'react-router-dom'
 
 import routesBuilder from 'routesBuilder'
@@ -8,9 +7,8 @@ import { PanelLayout } from './PanelLayout'
 import { Role } from 'webService/interface/user'
 
 export const AdminLayout: React.FC = () => {
-  const { user, isLoggedIn, loading } = useContext(UserContext)
+  const { user, isLoggedIn } = useContext(UserContext)
 
-  if (loading) return <LinearProgress />
   if (!isLoggedIn) return <Navigate to={routesBuilder.login} />
 
   if (user?.role !== Role.ADMIN)

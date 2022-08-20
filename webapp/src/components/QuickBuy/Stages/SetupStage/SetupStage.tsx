@@ -18,8 +18,7 @@ export const SetupStage: React.FC<StageProps> = ({
   paymentInfo
 }) => {
   const { t } = useTranslation('quickBuy')
-  const { user, isLoggedIn, hasAccount, setToken, setUser } =
-    useContext(UserContext)
+  const { user, isLoggedIn, hasAccount, login } = useContext(UserContext)
 
   const createPayment = async (form: PaymentLocalForm) => {
     const { data } = await api.payment.create(form)
@@ -32,8 +31,14 @@ export const SetupStage: React.FC<StageProps> = ({
   const logInTemporaryUser = async (form: PaymentLocalForm) => {
     const response = await api.auth.temporary({ email: form.email })
     if (response.data) {
-      setToken(response.data.token)
-      setUser({ email: form.email, role: Role.TEMPORARY, fullName: '' })
+      login(
+        {
+          email: form.email,
+          role: Role.TEMPORARY,
+          fullName: ''
+        },
+        response.data.token
+      )
       await createPayment(form)
     }
   }
