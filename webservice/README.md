@@ -69,3 +69,17 @@ Generated executable can be run with:
 ```bash
 java -jar target/webservice-X.jar
 ```
+In addition to that, you can also generate webservice _jar_ file with webapp bundled in it. It is served as static 
+files at root resource path. In order to generate an image, insert the following command:
+```bash
+mvn package -P package-frontend
+```
+
+## Building docker image
+
+Module contains dockerfile that allow to build the docker image. Prebuild one is available in the docker hub under
+the name _oskar117/lnpayments_. To generate an image you must first package the application with one of the commands
+from previous section. After that, you can execute:
+```bash
+docker build -t lnpayments .
+```

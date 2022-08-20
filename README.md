@@ -35,9 +35,10 @@ _devtools/docker_ directory. It also contains _readme_ file with instructions on
 Executables can be found in each release files. Minimal version requires you to start webapp and webservice. It is 
 recommended to send mobile app installer to all future admins, because it is required to use Bitcoin transfers. 
 Server jar file has web application bundled, so you can run both by standard _java -jar_ command (requires Java 17).
-Prior to that, you must prepare certificate and macaroon files. Instructions for that can be found in webservice
-readme, _set up_ section. Mobile application requires at least Android 9. Apple products are not supported at the
-moment.
+It is also possible to start webservice bundled with webapp using docker image. It is available in the registry
+under the name `oskar117/lnpayments`. You can run it using _docker-compose_. Instructions can be found in 
+_devtools/docker_ readme file. Prior to that, you must prepare certificate and macaroon files. Instructions for that can be found in webservice readme, _set up_ section. These steps are required for both java and docker application 
+startups. Mobile application requires at least Android 9. Apple products are not supported at the moment.
 
 When you have application running, you can use default admin account to set up everything. Both username and password
 are `admin`. After login, it is recommended to add all server administrators. You should also ask them to change
