@@ -105,7 +105,7 @@ class PaymentSocketControllerIntegrationTest extends BaseIntegrationTest {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
         StompSession stompSession = webSocketStompClient.connect(
-                String.format("ws://localhost:%d/api/payment", port),
+                String.format("ws://localhost:%d/payment", port),
                 new WebSocketHttpHeaders(httpHeaders),
                 new StompSessionHandlerAdapter() {
                 }).get(1, SECONDS);

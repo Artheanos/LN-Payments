@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.edu.pjatk.lnpayments.webservice.common.entity.Role.ROLE_TEMPORARY;
 
 @ActiveProfiles("test")
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest(classes = IntegrationTestConfiguration.class)
 class AuthResourceIntegrationTest extends BaseIntegrationTest {
 
