@@ -19,31 +19,38 @@ import org.springframework.web.filter.CorsFilter;
 import pl.edu.pjatk.lnpayments.webservice.auth.filter.AuthTokenFilter;
 import pl.edu.pjatk.lnpayments.webservice.common.entity.Role;
 
+import java.util.List;
+
 import static pl.edu.pjatk.lnpayments.webservice.common.Constants.*;
 
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final static String[] UNSECURED_PATHS = {
+    private final static String[] UNSECURED_PATHS = addPrefixToAll(List.of(
             AUTH_PATH + REGISTER_PATH,
             AUTH_PATH + LOGIN_PATH,
             AUTH_PATH + TEMPORARY_PATH,
             PAYMENTS_PATH + INFO_PATH,
             PAYMENTS_WS_PATH,
-            NOTIFICATION_WS_PATH,
-            "/v2/api-docs",
-            "/swagger-ui/**",
-            "/swagger-resources/**"
-    };
+            NOTIFICATION_WS_PATH
+    ), API_PREFIX);
 
-    private final static String[] ADMIN_PATHS = {
+    private final static String[] ADMIN_PATHS = addPrefixToAll(List.of(
             AUTH_PATH + ADMIN_PATH,
             PAYMENTS_PATH + ALL_PATH,
             WALLET_PATH,
             TRANSACTIONS_PATH,
             NOTIFICATIONS_PATH,
             SETTINGS_PATH
+    ), API_PREFIX);
+
+    private final static String[] RESOURCE_PATHS = {
+            "/v2/api-docs",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/assets/**",
+            "/"
     };
 
     private final UserDetailsService userDetailsService;
@@ -74,6 +81,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(ADMIN_PATHS).hasAuthority(Role.ROLE_ADMIN.toString())
                 .antMatchers(UNSECURED_PATHS).permitAll()
+                .antMatchers(RESOURCE_PATHS).permitAll()
                 .anyRequest().authenticated().and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
@@ -90,4 +98,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
+    private static String[] addPrefixToAll(List<String> elements, String prefix) {
+        return elements.stream()
+                .map(element -> prefix + element)
+                .toArray(String[]::new);
+    }
 }
