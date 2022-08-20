@@ -1,43 +1,93 @@
 === Sprint 13 (01.08.2022 - 22.08.2022)
 
-Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jeszcze zadań. Spora ilość zadań nie napawała
-optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
+Celem tej iteracji było oczywiście dostarczenie wszystkich nieukończonych jeszcze zadań. Miała to być ostatnia iteracja,
+której zakończenie oznaczałoby koniec prac nad projektem. Większość z zaplanowanych zadań dotyczyła pracy dyplomowej
+oraz drobnych poprawek. Znalazło się również kilka brakujących funkcjonalności do implementacji. Spora ilość zadań nie
+napawała optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
 
 .Lista zadań w sprincie trzynastym.
 [cols="1,5,3,1,2"]
 |===
-|LP-148|Complete own contribution for Aleksander Konieczny|Aleksander Konieczny|1|Nieukończone
-|LP-149|Complete own contribution for Jan Pieczul|Jan Pieczul|1|Nieukończone
-|LP-145|Write webapp subsection of "opis realizacji" chapter|Jan Pieczul|8|Nieukończone
-|LP-146|Write mobileapp subsection of "opis realizacji" chapter|Jan Pieczul|5|Nieukończone
-|LP-150|Complete own contribution for Sebastian Lewandowski|Sebastian Lewandowski|1|Nieukończone
-|LP-182|Write "Proces realizacji" chapter - part 3|Sebastian Lewandowski|5|Nieukończone
-|LP-169|Write "Proces realizacji" chapter - part 2|Aleksander Konieczny|5|Ukończone
-|LP-197|Update book style|-|1|Nieukończone
-|LP-199|Add missing terms to glossary|-|2|Nieukończone
-|LP-152|Add attachments|Aleksander Konieczny|1|Ukończone
-|LP-198|Improve JWT management for webapp|Jan Pieczul|2|Nieukończone
-|LP-175|Perform manual tests of entire system|-|2|Nieukończone
-|LP-147|Write "podsumowanie realizacji" chapter|-|2|Nieukończone
-|LP-205|Write project presentation chapter|Aleksander Konieczny|3|Nieukończone
-|LP-208|Review and update older parts of the book|-|1|Nieukończone
-|LP-207|Write empty parts of "opis realizacji" chapter|Aleksander Konieczny|3|Ukończone
-|LP-165|Create deployable artifacts|-|3|Nieukończone
-|LP-171|Write "testy" chapter|-|3|Nieukończone
-|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Ukończone
-|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Ukończone
-|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
 |LP-132|Add notification details component|Sebastian Lewandowski|2|Ukończone
-|LP-172|Adjust payment caroussel|Jan Pieczul|2|Ukończone
-|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
-|LP-209|Apply mentor's remarks - part 1|Aleksander Konieczny|2|Nieukończone
-|LP-210|Apply mentor's remarks and polish book - part 2|-|2|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Ukończone
+|LP-172|Adjust payment carousel|Jan Pieczul|2|Ukończone
+|LP-198|Improve JWT management for webapp|Jan Pieczul|2|Ukończone
+|LP-165|Create deployable artifacts|Aleksander Konieczny|3|Ukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Ukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Ukończone
+|LP-169|Write "Proces realizacji" chapter - part 2|Aleksander Konieczny|5|Ukończone
+|LP-182|Write "Proces realizacji" chapter - part 3|Sebastian Lewandowski, Aleksander Konieczny|5|Ukończone
+|LP-145|Write webapp subsection of "opis realizacji" chapter|Jan Pieczul|8|Ukończone
+|LP-146|Write mobileapp subsection of "opis realizacji" chapter|Aleksander Konieczny|5|Ukończone
+|LP-207|Write empty parts of "opis realizacji" chapter|Aleksander Konieczny|3|Ukończone
+|LP-205|Write project presentation chapter|Aleksander Konieczny|3|Ukończone
+|LP-171|Write "testy" chapter|Sebastian Lewandowski|3|Ukończone
+|LP-175|Perform manual tests of entire system|Sebastian Lewandowski|2|Ukończone
+|LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Ukończone
+|LP-147|Write "podsumowanie realizacji" chapter|Aleksander Konieczny|2|Ukończone
+|LP-148|Complete own contribution for Aleksander Konieczny|Aleksander Konieczny|1|Ukończone
+|LP-149|Complete own contribution for Jan Pieczul|Jan Pieczul|1|Ukończone
+|LP-150|Complete own contribution for Sebastian Lewandowski|Sebastian Lewandowski|1|Ukończone
+|LP-209|Apply mentor's remarks - part 1|Aleksander Konieczny|2|Ukończone
+|LP-210|Apply mentor's remarks and polish book - part 2|Aleksander Konieczny|2|Ukończone
+|LP-197|Update book style|Aleksander Konieczny|1|Ukończone
+|LP-199|Add missing terms to glossary|Aleksander Konieczny|2|Ukończone
+|LP-152|Add attachments|Aleksander Konieczny|1|Ukończone
+|LP-208|Review and update older parts of the book|Aleksander Konieczny|1|Ukończone
 
 |===
 
 Wstępnie w tym sprincie znalazły się aż 24 zadania, wycenione w sumie na 62 punkty historii. Takiej ilości można było
-się spodziewać, biorąc pod uwagę opóźnienia z poprzednich iteracji.
+się spodziewać, biorąc pod uwagę opóźnienia z poprzednich iteracji. Dodatkowo dwa zadania warte 4 punkty zostały dodane
+w trakcie trwania iteracji. Łącznie zakres prac na ostatnią iterację objął 26 zadań wartych 66 punktów. Zespół
+nie planował następnych iteracji, dlatego postanowiono, że iteracja ta zostanie ewentualnie przedłużona, jeżeli nie uda
+się wykonać wszystkich zadań.
 
 ==== Przebieg prac
 
+Pierwsza grupa zadań dotyczy implementacji brakujących funkcjonalności projektu. Udało się wykończyć komponent
+odpowiedzialny za wyświetlanie szczegółów powiadomienia w aplikacji mobilnej. Tym samym zakończono pracę nad
+aplikacją mobilną. Kolejnym zadaniem było dokończenie procesu płatności. Zaimplementowano w końcu wsparcie dla
+płatności dokonywanych przez niezalogowanych użytkowników. Było ono przekładane z iteracji na iterację przez ponad 4
+miesiące, więc ukończenie zadania było bardzo radosną nowiną. Naniesione zostały również poprawki do wszystkich
+ekranów procesu płatności. Dodano na przykład informację o cenie na pierwszym ekranie czy zaktualizowano komunikaty
+wyświetlane użytkownikom. Ostatnie zadanie związane z programowaniem dotyczyło poprawek zarządzania tokenem JWT
+w aplikacji internetowej. Aplikacja do tamtej pory nie radziła sobie zbyt dobrze z jego odświeżaniem, co powodowało
+zawieszenie się strony. Tym zadanie zostały zakończone prace nad implementacją systemu.
+
+Drobnych prac wymagano również w zakresie pozostałych aspektów związanych z projektem. Po ukończeniu implementacji
+należało utworzyć artefakty i pliki wykonywalne, aby istniała możliwość prostego uruchomienia systemu bez ręcznej
+kompilacji poszczególnych modułów. Utworzone pliki zostały udostępnione w serwisie _github_ jako pierwsze wydanie
+systemu. Udało się również nareszcie zakończyć zadanie związane z testami E2E dla logowania i rejestracji. Utknęło
+ono w procesie recenzji kodu na trzy miesiące, więc zakończenie prac napawa radością. Na koniec napisane zostały
+pliki _readme_ dla aplikacji internetowej oraz mobilnej, które zawierają informacje o modułach kroki potrzebne do
+ich uruchomienia.
+
+Wszystkie pozostałe zadania w iteracji dotyczyły pisania książki do pracy dyplomowej. Pierwsze dwa zadania dotyczą
+napisania dwóch pozostałych części rozdziału "Proces realizacji". Jest to rozdział zawierający dokumentację każdej
+z iteracji, wraz z omówieniem zrealizowanych zadań. Następne zadania dotyczyły najdłuższego rozdziału pracy,
+czyli "Opis realizacji". Zawiera on szczegóły implementacji każdego elementu systemu. W tej iteracji napisano
+wszystkie jego części poza serwerem, który został już opisany wcześniej. Napisano również wiele pozostałych rozdziałów,
+takich jak "Prezentacja w działaniu", "Testy", "Podsumowanie realizacji" oraz "Plan". Przy pisaniu rozdziału "Test"
+przeprowadzono oraz udokumentowano również testy manualne całego systemu na podstawie wymagań funkcjonalnych
+z rozdziału 4.3. Następne trzy zadania dotyczą napisania przez każdego z członków zespołu swoje wkładu w realizację
+projektu dyplomowego. Kolejne dwa zadania zostały dodane w trakcie iteracji. Dotyczyły one naniesienia poprawek
+zgodnie ze wskazówkami promotora.
+
+Na sam koniec zaplanowano kilka zadań wprowadzających ogólne poprawki do pracy. Aktualizacji wymagał styl pracy,
+gdyż używane były niewłaściwe kolory i rozmiar czcionki. Dodane zostały załączniki do pracy oraz brakujące terminy
+w słowniku pojęć. Na koniec przeczytano całą pracę w celu znalezienia wszystkich błędów oraz aktualizacji starszych
+części pracy dyplomowej.
+
 ==== Podsumowanie
+
+Z końcem iteracji udało się zakończyć prace nad projektem. Dokończone zostały wszystkie zadania dotyczące modułów
+systemu, a także napisano całą książkę do pracy dyplomowej. Zespół musiał już tylko uzyskać wymagane zgody i złożyć
+pracę.
+
+//.Wykres spalania sprintu trzynastego.
+//image::../images/sprints_raports/burndown_sprint13.png[]
+
+Zakończone zostały wszystkie 26 zadań wartych 66 punktów historii. Iteracja została trakcie przedłużona o tydzień.
+Jest to jedna z niewielu iteracji, która zakończyła się sukcesem. W rejestrze zadań zostało nadal kilkanaście zadań,
+jednak zostały one przeniesione do następnych ewentualnych wydań systemu.
