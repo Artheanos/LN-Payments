@@ -17,5 +17,16 @@ docker-compose -f devtools/docker/docker-compose.yaml -f devtools/docker/docker-
 docker-compose -f devtools/docker/docker-compose.yaml -f devtools/docker/docker-compose-regtest.yaml up
 ```
 
+## Container with LNPayments
+
+It is possible to start container with bundled webservice and webapp. It can be done by the following command:
+
+```
+docker-compose -f devtools/docker/docker-compose-lnpayments.yaml -f up
+```
+
+Remember that you must still put macaroon and tls files in your home root directory. Instructions
+can be found in webservice readme.
+
 ## Starting from IntelliJ
 When you create new launch configuration in idea, you will have to select 2 files in _docker compose files_ section.
