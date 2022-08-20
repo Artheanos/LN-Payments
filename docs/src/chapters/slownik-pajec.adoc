@@ -13,6 +13,15 @@ macaroon::
     przeglądarki, można utworzyć makaronik o ograniczonych możliwościach, a następnie wysłać go do innych użytkowników.
     <<lnbook>>
 
+Wyjście transakcji::
+    Zawiera ono instrukcje, w jaki sposób wysłać środki w transakcji. Składa się między innymi z wartości wyjścia oraz
+    skryptu blokującego środki. W skrypcie zazwyczaj zakodowany jest adres publiczny nowego właściciela środków.
+
+Wejście transakcji::
+    Jest to odniesienie do poprzedniego niewydanego wyjścia transakcji. Zawiera między innymi indeks, hash poprzedniej
+    transakcji, z której pochodzi wyjście oraz skrypt odblokowujący środki. Ten ostatni zazwyczaj mieści podpis ECDSA
+    oraz klucz publiczny właściciela wydawanego wyjścia. Jest to oczywiście zależne od typu transakcji.
+
 UTXO::
     Jest to niewydane wyjście z transakcji Bitcoin. Suma wartości UTXO użytkownika mówi, ile posiada on Bitcoinów.
 
@@ -38,3 +47,25 @@ DTO::
     wsparcie dla mechanizmów serializacji oraz deserializacji. Nie powinien zawierać żadnej logiki. Zazwyczaj
     używa się ich do transferu danych pomiędzy zdalnymi interfejsami. Dzięki temu uzyskuje się rozdzielenie
     pomiędzy obiektami domenowymi aplikacji a danymi zwracanymi przez sieć.
+
+Dowód pracy::
+    Jest to kryptograficzne potwierdzenie pokazujące, że jedna strona poświęciła pewien wysiłek obliczeniowy na
+    pewien cel. Jest to jedna z metod konsensusu wykorzystywana w kryptowalutach, w tym w Bitcoinie.
+    Dowód pracy może zostać potwierdzony przez weryfikatorów przy minimalnym wysiłku z ich strony.
+
+Mnemonic phrase::
+    Standard pozwalający na eksport oraz import klucza publicznego zaprezentowany w standardzie BIP-39.
+    _Mnemonic phrase_ składa się z 12 bądź 24 angielskich słów, które po przekształceniu tworzą ziarno generatora.
+    Dzięki niemu można obliczyć wartość klucza prywatnego w sposób deterministyczny. Zapisanie sekwencji słów pozwala
+    na późniejsze odtworzenie portfela, na przykład w przypadku utraty urządzenia.
+
+Invoice::
+    Rodzaj faktury, która służy do wykonywania płatności w sieci Lightning. Generowane są przez odbiorców
+    płatności. Następnie _invoice_ musi zostać przekazany płatnikowi, aby ten mógł go opłacić. Każdy _invoice_ jest
+    podpisany cyfrowo przez odbiorcę, a zawiera między innymi kwotę płatności, klucz publiczny odbiorcy, limit
+    czasu na zapłatę oraz wspierane funkcjonalności Lightning.
+
+REPL::
+    _Read-eval-print-loop_ jest prostym środowiskiem, które pobiera wejście użytkownika, a następnie wykonuje je i
+    wypisuje wynik. Wszystkie czynności odbywają się w pętli, co pozwala na szybkie wykonywanie poleceń bądź
+    pojedynczych instrukcji kodu.
