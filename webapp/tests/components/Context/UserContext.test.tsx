@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import routesBuilder from 'routesBuilder'
 import { UserLayout } from 'components/Layouts/UserLayout'
 import { UserProvider } from 'components/Context/UserContext'
-import { act, render, screen, waitFor } from 'tests/test-utils'
+import { render, screen, waitFor } from 'tests/test-utils'
 import { getLocalJson, setLocalJson } from 'utils/persist'
 
 const Consumer = () => {
@@ -47,10 +47,8 @@ describe('UserProvider', () => {
     beforeEach(() => init('123'))
 
     it('renders children', async () => {
-      expect(screen.getByRole('progressbar')).toBeInTheDocument()
       await waitFor(() => {
         expect(screen.getByText('Consumer')).toBeInTheDocument()
-        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
       })
     })
   })
@@ -60,7 +58,6 @@ describe('UserProvider', () => {
       init('321')
 
       await waitFor(() => {
-        expect(screen.queryByRole('progressbar')).not.toBeInTheDocument()
         expect(screen.queryByText('Consumer')).not.toBeInTheDocument()
       })
     })

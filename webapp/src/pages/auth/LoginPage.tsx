@@ -12,7 +12,7 @@ import { useNotification } from 'components/Context/NotificationContext'
 
 export const LoginPage: React.FC = () => {
   const { t } = useTranslation('auth')
-  const { setUser, setToken } = useContext(UserContext)
+  const { login } = useContext(UserContext)
   const navigate = useNavigate()
   const createSnackbar = useNotification()
   const [openAlert, setOpenAlert] = useState(false)
@@ -23,8 +23,7 @@ export const LoginPage: React.FC = () => {
 
     if (data) {
       localStorage.setItem(LocalKey.TRANSACTION_TOKENS, '')
-      setUser(data)
-      setToken(data.token)
+      login(data, data.token)
       createSnackbar(t('login.form.successMessage'), 'success')
       navigate(routesBuilder.landingPage)
     } else {

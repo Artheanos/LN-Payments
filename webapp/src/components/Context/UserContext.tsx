@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { LocalKey } from 'constants/LocalKey'
+import { REFRESH_TOKEN_INTERVAL } from 'constants/miscellaneous'
 import { Role, User } from 'webService/interface/user'
 import { api } from 'webService/requests'
 import { useLocalStorage } from 'utils/persist'
@@ -14,6 +15,7 @@ type ContextType = {
   isLoggedIn: boolean
   hasAccount: boolean
   logout: () => void
+  login: (user: User, token: string) => void
   tryRefreshingToken: () => void
 }
 
@@ -25,6 +27,7 @@ export const defaultValue: ContextType = {
   loading: true,
   isLoggedIn: false,
   logout: () => {},
+  login: () => {},
   hasAccount: false,
   tryRefreshingToken: () => {}
 }
@@ -47,6 +50,14 @@ export const UserProvider: React.FC = ({ children }) => {
     localStorage.setItem(LocalKey.TRANSACTION_TOKENS, '')
   }, [setToken, setUser])
 
+  const login = useCallback(
+    (user: User, token: string) => {
+      setUser(user)
+      setToken(token)
+    },
+    [setToken, setUser]
+  )
+
   const tryRefreshingToken = useCallback(() => {
     setLoading(true)
     api.auth
@@ -59,7 +70,10 @@ export const UserProvider: React.FC = ({ children }) => {
         }
       })
       .catch(logout)
-      .finally(() => setLoading(false))
+      .finally(() => {
+        setTimeout(() => tryRefreshingToken(), REFRESH_TOKEN_INTERVAL)
+        setLoading(false)
+      })
   }, [logout, setToken])
 
   useEffect(() => tryRefreshingToken(), [tryRefreshingToken])
@@ -74,6 +88,7 @@ export const UserProvider: React.FC = ({ children }) => {
         loading,
         isLoggedIn,
         logout,
+        login,
         tryRefreshingToken,
         hasAccount
       }}
