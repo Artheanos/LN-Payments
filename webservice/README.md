@@ -11,8 +11,8 @@ There are two ways to check the api specification of the webservice. In _devtool
 postman collection containing examples for all the endpoints with example values. Collection can be imported by 
 any postman version that supports v2.1 format. Another option is to check the specification using Swagger. In order
 to do that you must have webservice running. You can access the openApi specification by entering
-[api-docs url](http://localhost:8080/api/v2/api-docs). There is also a Swagger UI running that can be accessed
-with [this url](http://localhost:8080/api/swagger-ui/index.html).
+[api-docs url](http://localhost:8080/v2/api-docs). There is also a Swagger UI running that can be accessed
+with [this url](http://localhost:8080/swagger-ui/index.html).
 
 ## Local environment setup
 
