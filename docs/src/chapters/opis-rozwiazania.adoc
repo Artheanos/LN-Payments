@@ -39,7 +39,7 @@ uruchomienia.
 
 include::../sections/webservice_solution.adoc[]
 
-include::../sections/solution/webapp.adoc[]
+include::../sections/webapp_solution.adoc[]
 
 include::../sections/mobileapp_solution.adoc[]
 
