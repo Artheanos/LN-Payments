@@ -71,7 +71,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnOkAndCorrectResponse() throws Exception {
             userRepository.save(createStandardUser(EMAIL));
             String jsonContent = getJsonResponse("integration/payment/response/profileinfo-GET-valid.json");
-            mockMvc.perform(get("/payments/info")
+            mockMvc.perform(get("/api/payments/info")
                             .principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
@@ -81,7 +81,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnOkWhenUserNotAuthorized() throws Exception {
             when(principal.getName()).thenReturn(null);
             String jsonContent = getJsonResponse("integration/payment/response/profileinfo-GET-valid.json");
-            mockMvc.perform(get("/payments/info")
+            mockMvc.perform(get("/api/payments/info")
                             .principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
@@ -90,7 +90,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         @Test
         void shouldReturnOkWhenNoPrincipalGiven() throws Exception {
             String jsonContent = getJsonResponse("integration/payment/response/profileinfo-GET-valid.json");
-            mockMvc.perform(get("/payments/info"))
+            mockMvc.perform(get("/api/payments/info"))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
@@ -103,7 +103,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         void shouldReturnOkForProperRequest() throws Exception {
             userRepository.save(createStandardUser(EMAIL));
             String request = getJsonResponse("integration/payment/request/details-POST-valid.json");
-            MvcResult mvcResult = mockMvc.perform(post("/payments")
+            MvcResult mvcResult = mockMvc.perform(post("/api/payments")
                             .principal(principal)
                             .content(request)
                             .contentType(MediaType.APPLICATION_JSON))
@@ -116,7 +116,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         @Test
         void shouldReturn404WhenInvalidTokenNumberProvided() throws Exception {
             PaymentDetailsRequest request = new PaymentDetailsRequest(-1);
-            mockMvc.perform(post("/payments")
+            mockMvc.perform(post("/api/payments")
                             .content(new ObjectMapper().writeValueAsString(request))
                             .principal(principal)
                             .contentType(MediaType.APPLICATION_JSON))
@@ -137,7 +137,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
 
-            mockMvc.perform(get("/payments").principal(principal))
+            mockMvc.perform(get("/api/payments").principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
@@ -148,7 +148,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, null));
             String jsonContent = getJsonResponse("integration/payment/response/payments-GET-empty.json");
 
-            mockMvc.perform(get("/payments").principal(principal))
+            mockMvc.perform(get("/api/payments").principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
@@ -169,7 +169,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
 
-            mockMvc.perform(get("/payments/all").principal(principal))
+            mockMvc.perform(get("/api/payments/all").principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }
@@ -179,7 +179,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             userRepository.save(createAdminUser(EMAIL));
             String jsonContent = getJsonResponse("integration/payment/response/payments-GET-empty.json");
 
-            mockMvc.perform(get("/payments/all").principal(principal))
+            mockMvc.perform(get("/api/payments/all").principal(principal))
                     .andExpect(status().isOk())
                     .andExpect(content().json(jsonContent));
         }

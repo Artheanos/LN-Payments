@@ -22,7 +22,7 @@ _HttpSecurity_.
 .Metoda _configure_ klasy WebSecurityConfig nadpisana z parametrem HttpSecurity.
 [source, java]
 ----
-include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/config/WebSecurityConfig.java[lines=69..79]
+include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/config/WebSecurityConfig.java[lines=76..87]
 ----
 
 Konfiguracja zaczyna się od wyłączenia zabezpieczeń CORS i CSRF, ponieważ w innych metodach są one konfigurowane w inny

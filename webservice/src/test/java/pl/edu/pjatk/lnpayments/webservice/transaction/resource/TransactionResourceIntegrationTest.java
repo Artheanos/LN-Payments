@@ -92,7 +92,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
         TransactionRequest request = new TransactionRequest(100L, "2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv");
 
-        mockMvc.perform(post("/transactions")
+        mockMvc.perform(post("/api/transactions")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -111,7 +111,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         Transaction transaction = new Transaction();
         transaction.setStatus(TransactionStatus.PENDING);
         transactionRepository.save(transaction);
-        mockMvc.perform(post("/transactions")
+        mockMvc.perform(post("/api/transactions")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -137,7 +137,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
         TransactionRequest request = new TransactionRequest(10000L, "2N61hyQz11Y8kJ3tjh42w1QAAgmJFdanYEv");
 
-        mockMvc.perform(post("/transactions")
+        mockMvc.perform(post("/api/transactions")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -147,7 +147,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
     void shouldThrow400WhenInvalidAddressProvided() throws Exception {
         TransactionRequest request = new TransactionRequest(10000L, "2137");
 
-        mockMvc.perform(post("/transactions")
+        mockMvc.perform(post("/api/transactions")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -176,7 +176,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         transactionRepository.save(transaction2);
         String jsonContent = getJsonResponse("integration/payment/response/transactions-GET.json");
 
-        mockMvc.perform(get("/transactions"))
+        mockMvc.perform(get("/api/transactions"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
@@ -195,7 +195,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         transactionRepository.save(transaction2);
         String jsonContent = getJsonResponse("integration/payment/response/transactions-GET-no-pending.json");
 
-        mockMvc.perform(get("/transactions"))
+        mockMvc.perform(get("/api/transactions"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
@@ -204,7 +204,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturnOkAndEmptyResponseWhenNoTransactions() throws Exception {
         String jsonContent = getJsonResponse("integration/payment/response/transactions-GET-empty.json");
 
-        mockMvc.perform(get("/transactions"))
+        mockMvc.perform(get("/api/transactions"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }
@@ -218,7 +218,7 @@ class TransactionResourceIntegrationTest extends BaseIntegrationTest {
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.AVAILABLE)).thenReturn(Coin.valueOf(1000L));
         when(walletMock.getBalance(org.bitcoinj.wallet.Wallet.BalanceType.ESTIMATED)).thenReturn(Coin.valueOf(0L));
 
-        mockMvc.perform(get("/transactions/info"))
+        mockMvc.perform(get("/api/transactions/info"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
     }

@@ -62,7 +62,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturnOkAndProperResponse() throws Exception {
         RegisterRequest request = new RegisterRequest(EMAIL, "test", "zaq1@WSX");
-        mockMvc.perform(post("/auth/register")
+        mockMvc.perform(post("/api/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
@@ -74,7 +74,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         RegisterRequest request = new RegisterRequest(EMAIL, "test", "zaq1@WSX");
         StandardUser user = StandardUser.builder().email(EMAIL).build();
         userRepository.save(user);
-        mockMvc.perform(post("/auth/register")
+        mockMvc.perform(post("/api/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
@@ -83,7 +83,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn400ForInvalidParams() throws Exception {
         RegisterRequest request = new RegisterRequest(EMAIL, null, "");
-        mockMvc.perform(post("/auth/register")
+        mockMvc.perform(post("/api/auth/register")
                         .content(new ObjectMapper().writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
@@ -95,7 +95,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         StandardUser user = createTestUser();
         userRepository.save(user);
 
-        String response = mockMvc.perform(post("/auth/login")
+        String response = mockMvc.perform(post("/api/auth/login")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -114,7 +114,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         StandardUser user = createTestUser();
         userRepository.save(user);
 
-        mockMvc.perform(post("/auth/login")
+        mockMvc.perform(post("/api/auth/login")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -125,7 +125,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn401WhenUserDoesNotExist() throws Exception {
         LoginRequest request = new LoginRequest(EMAIL, "test");
 
-        mockMvc.perform(post("/auth/login")
+        mockMvc.perform(post("/api/auth/login")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized())
@@ -146,7 +146,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         String token = jwtService.generateToken(email);
 
         MvcResult result = mockMvc
-                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .perform(get("/api/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -163,7 +163,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
         String token = "thisTokenIsInvalid";
 
         mockMvc
-                .perform(get("/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
+                .perform(get("/api/auth/refreshToken").header(HttpHeaders.AUTHORIZATION, String.format("Bearer %s", token)))
                 .andExpect(status().isUnauthorized());
     }
 
@@ -171,7 +171,7 @@ class AuthResourceIntegrationTest extends BaseIntegrationTest {
     void shouldCreateTempUserAndReturnOk() throws Exception {
         String email = "test@test.pl";
         TemporaryAuthRequest req = new TemporaryAuthRequest(email);
-        MvcResult mvcResult = mockMvc.perform(post("/auth/temporary")
+        MvcResult mvcResult = mockMvc.perform(post("/api/auth/temporary")
                         .content(objectMapper.writeValueAsString(req))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

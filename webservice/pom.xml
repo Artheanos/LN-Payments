@@ -10,7 +10,7 @@
     </parent>
     <groupId>pl.edu.pjatk.lnpayments</groupId>
     <artifactId>webservice</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>webservice</name>
     <description>Webservice for LN-Payments</description>
     <properties>
@@ -30,6 +30,13 @@
         <jaxb.version>3.0.1</jaxb.version>
         <commons-configuration2.version>2.7</commons-configuration2.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
+        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
+        <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+        <frontend-maven-plugin.nodeVersion>v16.15.0</frontend-maven-plugin.nodeVersion>
+        <frontend-maven-plugin.yarnVersion>v1.22.19</frontend-maven-plugin.yarnVersion>
+        <frontend-maven-plugin.webappWorkingDirectory>
+            ${project.basedir}/../webapp
+        </frontend-maven-plugin.webappWorkingDirectory>
     </properties>
 
     <dependencies>
@@ -230,6 +237,43 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>required-java-versions</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>17</version>
+                                </requireJavaVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>required-maven-version</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[3.8,)</version>
+                                </requireMavenVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -276,6 +320,72 @@
                                             </limits>
                                         </rule>
                                     </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>package-frontend</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>${frontend-maven-plugin.version}</version>
+                        <configuration>
+                            <nodeVersion>${frontend-maven-plugin.nodeVersion}</nodeVersion>
+                            <yarnVersion>${frontend-maven-plugin.yarnVersion}</yarnVersion>
+                            <workingDirectory>${frontend-maven-plugin.webappWorkingDirectory}</workingDirectory>
+                            <installDirectory>${project.build.outputDirectory}</installDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>install node and yarn</id>
+                                <goals>
+                                    <goal>install-node-and-yarn</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                            </execution>
+                            <execution>
+                                <id>yarn install</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>install</arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>yarn build</id>
+                                <goals>
+                                    <goal>yarn</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>build</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>position-react-build</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${frontend-maven-plugin.webappWorkingDirectory}/dist</directory>
+                                            <filtering>false</filtering>
+                                        </resource>
+                                    </resources>
                                 </configuration>
                             </execution>
                         </executions>

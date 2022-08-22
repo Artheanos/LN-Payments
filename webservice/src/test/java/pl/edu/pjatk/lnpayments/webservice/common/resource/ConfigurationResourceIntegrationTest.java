@@ -39,7 +39,7 @@ class ConfigurationResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn200GetSettings() throws Exception {
         String jsonResponse = getJsonResponse("integration/settings/response/settings-GET.json");
 
-        mockMvc.perform(get("/settings"))
+        mockMvc.perform(get("/api/settings"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonResponse));
     }
@@ -48,7 +48,7 @@ class ConfigurationResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn200AndSave() throws Exception {
         String jsonRequest = getJsonResponse("integration/settings/request/settings-PUT-valid.json");
 
-        mockMvc.perform(put("/settings")
+        mockMvc.perform(put("/api/settings")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isOk());
@@ -61,7 +61,7 @@ class ConfigurationResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn412AndSaveWhenUpdatedBefore() throws Exception {
         String jsonRequest = getJsonResponse("integration/settings/request/settings-PUT-wrong-version.json");
 
-        mockMvc.perform(put("/settings")
+        mockMvc.perform(put("/api/settings")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isPreconditionFailed());
@@ -71,7 +71,7 @@ class ConfigurationResourceIntegrationTest extends BaseIntegrationTest {
     void shouldReturn400WhenInputsAreInvalid() throws Exception {
         String jsonRequest = getJsonResponse("integration/settings/request/settings-PUT-invalid.json");
 
-        mockMvc.perform(put("/settings")
+        mockMvc.perform(put("/api/settings")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonRequest))
                 .andExpect(status().isBadRequest());

@@ -59,7 +59,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn200AndUserDetails() throws Exception {
         String jsonContent = getJsonResponse("integration/common/response/users-GET.json");
-        mockMvc.perform(get("/users")
+        mockMvc.perform(get("/api/users")
                         .principal(principal))
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonContent));
@@ -67,7 +67,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
 
     @Test
     void shouldReturn404WhenUserNotFound() throws Exception {
-        mockMvc.perform(get("/users")
+        mockMvc.perform(get("/api/users")
                         .principal(() -> "dudu@dudu.pl"))
                 .andExpect(status().isNotFound());
     }
@@ -75,7 +75,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn200AndUpdatePasswordForProperData() throws Exception {
         String request = getJsonResponse("integration/common/request/password-PUT.json");
-        mockMvc.perform(put("/users/password")
+        mockMvc.perform(put("/api/users/password")
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .principal(principal))
@@ -88,7 +88,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn404WhenUserToChangePasswordNotFound() throws Exception {
         String request = getJsonResponse("integration/common/request/password-PUT.json");
-        mockMvc.perform(put("/users/password")
+        mockMvc.perform(put("/api/users/password")
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .principal(() -> "not found"))
@@ -98,7 +98,7 @@ class UserResourceIntegrationTest extends BaseIntegrationTest {
     @Test
     void shouldReturn400WhenPasswordDoesNotMatch() throws Exception {
         String request = getJsonResponse("integration/common/request/password-PUT-wrong-current.json");
-        mockMvc.perform(put("/users/password")
+        mockMvc.perform(put("/api/users/password")
                         .content(request)
                         .contentType(MediaType.APPLICATION_JSON)
                         .principal(principal))

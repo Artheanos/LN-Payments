@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  lnpayments:
+    image: oskar117/lnpayments
+    restart: always
+    network_mode: "host"
+    ports:
+      - "8080:8080"
+    volumes:
+      -  ~/.lnpayments:/root/.lnpayments

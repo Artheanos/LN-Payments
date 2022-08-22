@@ -11,8 +11,8 @@ There are two ways to check the api specification of the webservice. In _devtool
 postman collection containing examples for all the endpoints with example values. Collection can be imported by 
 any postman version that supports v2.1 format. Another option is to check the specification using Swagger. In order
 to do that you must have webservice running. You can access the openApi specification by entering
-[api-docs url](http://localhost:8080/api/v2/api-docs). There is also a Swagger UI running that can be accessed
-with [this url](http://localhost:8080/api/swagger-ui/index.html).
+[api-docs url](http://localhost:8080/v2/api-docs). There is also a Swagger UI running that can be accessed
+with [this url](http://localhost:8080/swagger-ui/index.html).
 
 ## Local environment setup
 
@@ -68,4 +68,18 @@ File will be generated inside _target_ directory with the name _webservice-X.jar
 Generated executable can be run with:
 ```bash
 java -jar target/webservice-X.jar
+```
+In addition to that, you can also generate webservice _jar_ file with webapp bundled in it. It is served as static 
+files at root resource path. In order to generate an image, insert the following command:
+```bash
+mvn package -P package-frontend
+```
+
+## Building docker image
+
+Module contains dockerfile that allow to build the docker image. Prebuild one is available in the docker hub under
+the name _oskar117/lnpayments_. To generate an image you must first package the application with one of the commands
+from previous section. After that, you can execute:
+```bash
+docker build -t lnpayments .
 ```
