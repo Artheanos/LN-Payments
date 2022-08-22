@@ -1,6 +1,7 @@
 # Mobile app
-Mobile client for the webservice made with `ReactNative`.
-It is meant **solely for android devices.**
+Mobile client for the webservice made with `ReactNative` **solely for android devices**.
+It is meant to by used only by admins who already have their account registered on the server.
+The mobile app allows to generate private-public key pairs and confirm any outgoing transactions from the server.
 
 ## Requirements
 * Android Studio > 2022.1.1 https://developer.android.com/
@@ -38,3 +39,8 @@ yarn test
 ```bash
 yarn lint
 ```
+
+## Building and publishing
+
+If you want to build the app's APK and/or publish it to Google Play Store follow [this tutorial](Google Play Store
+).
