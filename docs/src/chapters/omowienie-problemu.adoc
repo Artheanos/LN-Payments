@@ -1,32 +1,53 @@
 [#_omowienie_problemu]
 == Omówienie problemu
 
-[#_przedstawienie_problemu]
-=== Przedstawienie problemu
+Dane zapisane w blockchainie Bitcoina są niezmienne. Każda próba zmiany danych w bloku wymaga ponownego przeliczenia
+dowodu pracy dla zmienionego bloku oraz dla wszystkich następnych. Sieć zawsze traktuje najdłuższy łańcuch bloków
+jako prawdziwy. Aktualnie moc obliczeniowa stojąca za siecią jest tak ogromna, że próba zmiany danych jest niemożliwa.
+
+Niezmienność danych w systemie jest jego ogromną zaletą. Otwiera to drzwi przed innymi zastosowaniami dla kryptowalut.
+Skoro dane są niezmienne, można je użyć w innym kontekście, na przykład jako dowód bądź potwierdzenie
+autentyczności przedmiotu, bądź zdarzenia. Przykładowo istnieje możliwość użycia numeru transakcji w Bitcoinach jako
+identyfikatora dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do
+portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Osoba próbująca
+potwierdzić to wydarzenie jest w stanie wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim
+kluczem publicznym. Dzięki temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest
+finansowanie takich transakcji. Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia
+na łańcuchu bloków.
+
+=== Kontekst problemu
+
+[NOTE]
+Rozdział ten ma na celu między innymi wprowadzenie czytelnika w świat kryptowalut. Dla ułatwienia zrozumienia tematu
+stosowane jest wiele uproszczeń. Szczegółowe informacje o działaniu Bitcoina można znaleźć w książce
+"Mastering Bitcoin"<<btcbook>>
 
 Bitcoin, podobnie jak inne kryptowaluty działa na podstawie technologii o nazwie blockchain <<btcbook>>. Jest to
 struktura danych gwarantująca niezmienność danych historycznych, która wynika z zastosowanej metody konsensusu, która
 pozwala określić, który blockchain jest uznawany za prawdziwy. Składa się on z bloków połączonych ze sobą, w
 których znajdują się między innymi dane o transakcjach. Każdy użytkownik, który samemu uruchomi węzeł w sieci
 Bitcoin, może (a w niektórych przypadkach musi) pobrać pełną kopię całego blockchaina. Zyskuje dzięki temu kontrolę i
-możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w bitcoinach, jest ona budowana z
+możliwość samodzielnego weryfikowania danych. Kiedy użytkownik wykonuje transakcje w Bitcoinach, jest ona budowana z
 na podstawie danych użytkownika, takich jak jego poprzednie niewykorzystane wyjścia z transakcje oraz adresy
 docelowe, po czym zostaje wysłana i rozpropagowana po całej sieci. Niektóre węzły zajmują się procesem
 zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
 szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
 bloki. Następnie górnik stara się
 zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
-wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku bitcoina dowód pracy musi posiadać
-określoną liczbę zer na początku. Liczba zer jest ustalana w taki sposób, aby blok był wykopywany co ok. 10 minut.
+wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku Bitcoina dowód pracy musi być wartością
+mniejszą bądź równą celowi trudności. Jest to wartość pomiędzy 1 a 2^256^, która regulowana jest przez poziom
+trudności. Poziom trudności jest ustalany w taki sposób, aby blok był wykopywany co około 10 minut.
 
-Pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin jest aktualnie
-na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby zmniejszyć ruch oraz nie
-zaśmiecać blockchaina, wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować górnikowi, aby
-ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany jest co 10
-minut i maksymalnie może pomieścić kilka tysięcy transakcji, to opłaty transakcyjne są bardzo wysokie. Według danych z
-portalu "Ycharts" <<fee_chart>>, średni koszt pojedynczej transakcji w momencie pisania tej pracy wynosi 2 dolary
-amerykańskie. W szczytowym momencie (kwiecień 2021) opłaty wynosiły aż 62 dolary. Wysokie opłaty
-sprawiają, że mikropłatności przy użyciu bitcoina są praktycznie nieopłacalne, ponieważ koszty znacząco przewyższają
+Uproszczając, pojedynczy blok ograniczony jest do rozmiaru 1 MB. Współcześnie ruch w sieci jest bardzo duży. Bitcoin
+jest aktualnie na tyle popularny, że oczekujących transakcji w sieci czasem są dziesiątki tysięcy. Aby nie zaśmiecać
+blockchaina bardzo małymi transakcjami, a także zachęcić do zabezpieczenia sieci poprzez dołączanie nowych bloków
+wprowadzona została opłata transakcyjna. Jest to suma, jaką musimy zaoferować
+górnikowi, aby ten zechciał dołączyć oferowaną mu transakcję do aktualnie kopanego bloku. Jako że jeden blok kopany
+jest średnio co 10 minut i maksymalnie może pomieścić kilka tysięcy transakcji, to opłaty transakcyjne są bardzo
+wysokie. Czas kopania regulowany jest poprzez dostosowania poziomu trudności kopania bloku.
+Według danych z portalu "Ycharts" <<fee_chart>>, średni koszt pojedynczej transakcji w momencie pisania tej pracy
+wynosi 2 dolary amerykańskie. W szczytowym momencie (kwiecień 2021) opłaty wynosiły aż 62 dolary. Wysokie opłaty
+sprawiają, że mikropłatności przy użyciu Bitcoina są praktycznie nieopłacalne, ponieważ koszty znacząco przewyższają
 wartość samej transakcji.
 
 Rozwiązaniem dla tego problemu było stworzenie sieci Lightning, która działa jak druga warstwa dla sieci Bitcoin
@@ -40,34 +61,19 @@ może go w każdej chwili zamknąć, a ostatni stan kanału reprezentowany przez
 wysłany do innych węzłów sieci Bitcoin. Dzięki sieci Lightning możliwe jest realizowanie szybkich i małych
 mikropłatności, co jest niemożliwe przy użyciu podstawowej sieci Bitcoin.
 
-=== Kontekst problemu
-
-Dane zapisane w blockchainie są niezmienne. Każda próba zmiany danych w bloku wymaga ponownego przeliczenia
-dowodu pracy dla zmienionego bloku oraz dla wszystkich następnych. Sieć zawsze traktuje najdłuższy łańcuch bloków
-jako prawdziwy. Aktualnie moc obliczeniowa stojąca za siecią jest tak ogromna, że próba zmiany danych jest niemożliwa.
-
-Niezmienność danych w systemie jest jego ogromną zaletą. Otwiera to drzwi przed innymi zastosowaniami dla kryptowalut.
-Skoro dane są niezmienne, można je użyć w innym kontekście, na przykład jako dowód bądź potwierdzenie
-autentyczności przedmiotu, bądź zdarzenia. Przykładowo istnieje możliwość użycia numeru transakcji w Bitcoinach jako
-identyfikatora dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do
-portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Osoba próbująca
-potwierdzić to wydarzenie jest w stanie wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim
-kluczem publicznym. Dzięki temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest
-finansowanie takich transakcji. Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia.
-
 === Proponowane rozwiązanie
 
 System, który proponujemy ma na celu umożliwić finansowanie jednorazowych tokenów do podpisywania wydarzeń w sieci
 Bitcoin. Wdrożenie tego systemu rozwiąże problem, skąd pozyskać środki do korzystania z funkcjonalności związanych z
 zapisywaniem danych. System jest przeznaczony przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia
 przy pomocy bitcoinów. Może być używany również jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji.
-Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu Ingenious.
+Głównym środowiskiem zastosowania ma być finansowanie rejestrowania wydarzeń w ramach projektu iNGENIOUS.
 
 Chcemy stworzyć serwer pozwalający na przyjmowanie płatności, zwracając w zamian token. Serwer po wygenerowaniu
 tokena będzie wysyłał go na serwer klienta, jednocześnie rejestrując go w bazie danych.
 Dzięki temu tokeny nie będą przypisane do konkretnego zastosowania, a klient będzie mógł samemu wybrać sposób ich
 przetwarzania po swojej stronie. Mogą one zostać zastosowane do zakupu produktów cyfrowych, jednorazowego dostępu
-do treści internetowych typu _paywall_, czy też jak w przypadku projektu _Ingenious_ do podpisywania zdarzeń w czasie.
+do treści internetowych typu _paywall_, czy też jak w przypadku projektu _iNGENIOUS_ do podpisywania zdarzeń w czasie.
 Baza danych po naszej stronie będzie służyła do rejestrowania historii transakcji.
 Planujemy 2 typy użytkowników: klient oraz administrator. Jeden administrator tworzony będzie
 automatycznie przy pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie systemu. Klienci nie
@@ -88,7 +94,7 @@ sprzedaży, zbiórkę pieniędzy czy też sklep internetowy. Za pomocą wtyczek 
 funkcjonalności takie jak integracje z innymi frameworkami do sprzedaży np.: Shopify czy WooCommerce. BTCPayServer
 posiada również wsparcie dla sieci Lightning. Rozwiązanie naszego problemu można by zrealizować za pomocą własnej
 wtyczki generującej tokeny. Trzeba by wtedy sporych nakładów pracy za zintegrowanie wszystkich elementów rozwiązania.
-Serwer ten jet również bardzo ciężkim rozwiązaniem, które wspiera bardzo dużo funkcjonalności których kompletnie nie
+Serwer ten jet również bardzo ciężkim rozwiązaniem, które wspiera bardzo dużo funkcjonalności, których kompletnie nie
 potrzebujemy. Jest też dosyć skomplikowany w uruchomieniu. Uważamy, że oparcie naszego rozwiązania na BTCPayServer
 nie jest słusznym wyborem, ponieważ nasz produkt ma być lekki, szybki i łatwy we wdrożeniu. Są to cechy, których
 omawiane rozwiązanie nie posiada.
@@ -112,11 +118,11 @@ przy użyciu Bitrefill jest możliwe, aczkolwiek mocno różniłoby się od nasz
 
 === Cele systemu
 
-System ma na celu umożliwić sprzedaż jednorazowych tokenów za pomocą bitcoinów w sieci Lightning, które będzie można
+System ma na celu umożliwić sprzedaż jednorazowych tokenów za pomocą Bitcoinów w sieci Lightning, które będzie można
 wykorzystać do podpisywania wydarzeń w sieci Bitcoin, jak i do innych celów takich jak sklepy internetowe. Wdrożenie
 tego systemu rozwiąże problem pozyskiwania środków do korzystania z funkcjonalności związanych z zapisywaniem danych.
-Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _Ingenious_. System jest przeznaczony
-przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy bitcoinów. Może być używany również
+Chcielibyśmy, aby nasz projekt został wdrożony w ramach europejskiego projektu _iNGENIOUS_. System jest przeznaczony
+przede wszystkim dla osób chcących sfinansować różne przedsięwzięcia przy pomocy Bitcoinów. Może być używany również
 jako rodzaj sklepu internetowego, czy strony do przyjmowania dotacji. Serwer musi być przede wszystkim lekki,
 łatwy w obsłudze i niezawodny. Kod programy będzie otwarty, więc każda osoba chcąca samodzielnie postawić serwer
 sprzedający tokeny będzie mogła to zrobić kompletnie za darmo. Sukcesem dla nas będzie uzyskanie działającego i

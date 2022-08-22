@@ -18,7 +18,7 @@ miało miejsca. Wszystkie z wymienionych nieukończonych funkcjonalności będą
 uwzględnione w następnym wydaniu.
 
 Aplikacja ma duży potencjał do rozwoju. Nowe funkcjonalności można dodawać praktycznie bez końca. Projekt powstał
-jako połączenie dwóch innych projektów, które miały powstać w ramach projektu _Ingenious_. Był to serwer do przyjmowania
+jako połączenie dwóch innych projektów, które miały powstać w ramach projektu _iNGENIOUS_. Był to serwer do przyjmowania
 płatności wraz z generowaniem tokenów oraz portfel multisig z aplikacją mobilną do podpisywania transakcji.
 Naturalną rzeczą jest, że połączenie dwóch projektów skutkowało zmniejszeniem liczby funkcjonalności obu z nich.
 Wiele z nich planowane jest na przyszłe wydania. Moduł płatności powinien być bardziej uniwersalny. Jedną z możliwości
@@ -43,6 +43,6 @@ Sam projekt dostępny jest w serwisie Github jako rozwiązanie open-source. Wyda
 każdemu na dowolne użytkowanie i modyfikację programu. W tym modelu planowane jest dalsze rozwijanie systemu.
 Po dodaniu wielu nowych funkcjonalności może wzrosnąć wartość biznesowa rozwiązania. W tym wypadku licencja nie
 zabrania kontynuowania rozwoju oprogramowania na innej licencji, niekoniecznie open-source. Zespół nadal myśli o
-integracji projektu w ramach programu _Ingenious_. Cały czas prowadzone są rozmowy dotyczące wdrożenia systemu w ramach
+integracji projektu w ramach programu _iNGENIOUS_. Cały czas prowadzone są rozmowy dotyczące wdrożenia systemu w ramach
 projektu, które prawdopodobnie przyspieszą po zakończeniu prac. Nieważne czy projekt ma szanse na komercjalizację,
 czy nie, prawdopodobnie dalej będzie on rozwijany jako projekt poboczny jego autorów.

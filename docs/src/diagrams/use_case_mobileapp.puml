@@ -20,7 +20,7 @@ MC4 -.> MC8 : <<includes>>
 MC8 -right-.> MC5 : <<includes>>
 MC8 -.> MC6 : <<includes>>
 
-admin --> MC1
-admin --> MC4
+admin -- MC1
+admin -- MC4
 
 @enduml

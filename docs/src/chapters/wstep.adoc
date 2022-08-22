@@ -4,22 +4,21 @@
 W ostatnich kilkunastu latach technologie blockchain i kryptowaluty zaliczyły ogromny wzrost
 popularności. Wraz z dynamicznym rozwojem tych technologii pojawiły się również inne zastosowania
 niż tylko wykorzystanie ich jako wirtualnych pieniędzy. Transakcje w kryptowalutach można traktować jako
-niezmienne tokeny, a co za tym idzie użyć ich na przykład jako rodzaj podpisu dla różnych przedmiotów czy też
+niezmienne tokeny, a co za tym idzie użyć ich na przykład jako rodzaj certyfikatu dla różnych przedmiotów czy też
 wydarzeń. Niestety pojedyncze transakcje w najpopularniejszych kryptowalutach są drogie, więc pojawia się problem
 finansowania operacji. Celem naszego zespołu jest opracowanie rozwiązania, które umożliwiłoby finansowanie takich
-podpisów.
+certyfikatów.
 
 Rozwiązaniem, które proponujemy, jest stworzenie serwera do przyjmowanie płatności w Bitcoinach z wykorzystaniem sieci
-Lightning. Pozwala ona na zagregowanie wiele płatności do jednej transakcji w specjalnych kanałach płatności,
+Lightning. Pozwala ona na zagregowanie wielu płatności do jednej transakcji w specjalnych kanałach płatności,
 co pozwala obniżyć koszta. Przy każdej płatności użytkownik otrzyma unikatowy token, który będzie mógł później
-wykorzystać u firmy zarządzającej serwerem płatności. Operacja ta będzie jednocześnie potwierdzona na blockchainie
-sieci bitcoin. Serwer będzie posiadał wbudowany portfel, na który będą przelewane środki z sieci Lightning. Aby
-wprowadzić dodatkowe zabezpieczenie portfela, każda transakcja wychodząca będzie musiała zostać podpisana przez
-wszystkie osoby do tego uprawnione za pomocą specjalnej aplikacji mobilnej.
+wykorzystać u firmy zarządzającej serwerem płatności. Serwer będzie posiadał wbudowany portfel, na który będą
+przelewane środki z sieci Lightning. Aby wprowadzić dodatkowe zabezpieczenie portfela, każda transakcja wychodząca
+będzie musiała zostać podpisana przez wszystkie osoby do tego uprawnione za pomocą specjalnej aplikacji mobilnej.
 
 Projekt powstanie z wykorzystanie nowoczesnych technologii takich jak _Java, Spring, TypeScript React_ i _React
 Native_ z wykorzystaniem wysokiej jakości narzędzi oraz bibliotek. Planujemy pracować z wykorzystaniem metodyk
 zwinnych, konkretnie używając iteracyjnych oraz przyrostowych ram postępowania _Scrum_. Celem jest stworzenie
 lekkiego i skalowalnego rozwiązania, które każde przedsiębiorstwo będzie mogło wdrożyć i dostosować do swoich potrzeb
 bez dużych nakładów pracy. Chcemy również, aby udało nam się wdrożyć projekt w ramach europejskiego projektu
-_Ingenious IoC_.
+_iNGENIOUS IoC_.

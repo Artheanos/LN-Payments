@@ -96,7 +96,7 @@ transakcje swoim kluczem i przeglądać historię wpłat._
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: |_UNP 03_
 |Nazwa: |_Uczelnia_
-|Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu Ingenious._
+|Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu iNGENIOUS._
 |Typ udziałowca: |_Nieożywiony pośredni_
 |Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań.
 biznesowych_

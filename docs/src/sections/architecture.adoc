@@ -7,7 +7,7 @@ Lightning oraz sieci Bitcoin. Węzeł sieci Bitcoin będzie przede wszystkim wyk
 do pobierania informacji o blockchainie Bitcoina. Dodatkowo będzie również używany przez bibliotekę BitcoinJ do
 szybszego podłączenia się do sieci. Dane o operacjach zachodzących na serwerze zapisywane będą w relacyjnej bazie
 danych. Planowana jest również możliwość integracji z innymi systemami w celu wysyłania tokenów. Poza integracją w
-ramach projektu Ingenious powinna znaleźć się możliwość dodania adresu URL, na który wysyłane będą tokeny.
+ramach projektu iNGENIOUS powinna znaleźć się możliwość dodania adresu URL, na który wysyłane będą tokeny.
 
 .Model architektoniczny systemu
 image::../images/diagram_architecture.png[]

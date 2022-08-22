@@ -2,13 +2,13 @@
 
 U podstaw rozwiązania leży zaawansowane wykorzystanie technologii Bitcoin wraz ze wsparciem sieci Lightning.
 System w kontekście kryptowalut podzielić można na cztery części. Środki będą sekwencyjnie przychodzić przez wszystkie
-z nim. Cykl życia środków w systemie zacznie się od sieci Lightning. Użytkownik będzie musiał utworzyć kanał płatności
-z tworzonym serwerem, dzięki czemu będzie mógł zakupić tokeny. Środki ze sprzedaży początkowo zablokowane będą w
-kanale płatności, które będą musiały być regularnie zamykane, aby móc wykorzystać zebrane bitcoiny. Następnie fundusze
-będą musiały zostać przelane na adres multisig, który utworzony będzie z kilku kluczy publicznych osób zarządzających
-serwerem. Cały proces kończy się na transakcjach, które pozwalają na wykorzystanie środków zgromadzonych w portfelu
-poprzez mechanizm podpisywania transakcji w aplikacji mobilnej. Poniżej przedstawiony został szczegółowy opis każdej z
-czterech części.
+z nich. Cykl życia środków w systemie zacznie się od sieci Lightning. Użytkownik będzie musiał mieć ustanowiony kanał
+płatności z serwerem (pośrednio lub bezpośrednio), dzięki czemu będzie mógł zakupić tokeny. Środki ze
+sprzedaży początkowo zablokowane będą w kanale płatności, które będą musiały być regularnie zamykane, aby móc
+wykorzystać zebrane Bitcoiny. Następnie fundusze będą musiały zostać przelane na adres multisig, który utworzony
+będzie z kilku kluczy publicznych osób zarządzających serwerem. Cały proces kończy się na transakcjach, które
+pozwalają na wykorzystanie środków zgromadzonych w portfelu poprzez mechanizm podpisywania transakcji w aplikacji
+mobilnej. Poniżej przedstawiony został szczegółowy opis każdej z czterech części.
 
 === Sieć Lightning
 
@@ -19,12 +19,12 @@ transakcji gwałtownie wzrosła, a co za tym idzie wzrosły opłaty. W szczytowy
 <<fee_chart>>! Oczywiste jest, że płatność pokroju 1 dolar za kawę staje się kompletnie nieopłacalne.
 Dzięki sieci Lightning można utworzyć kanały płatności i zyskać możliwość dokonywania małych i natychmiastowych
 płatności, jeśli tylko uiszczona zostanie jednorazowa opłata transakcyjna. Więcej szczegółów na temat działania sieci
-oraz opłat transakcyjnych zostało już opisanych w podrozdziale <<_przedstawienie_problemu,"przedstawienie problemu">>.
+oraz opłat transakcyjnych zostało już opisanych w rozdziale <<_omowienie_problemu,2>>.
 
 W kontekście tej pracy kupowanie tokenów będzie odbywało się tylko za pomocą sieci Lightning. Z założenia cena różnego
 rodzaju tokenów jest tak niska, że górnicy i tak by nie chciały wykopać takiej transakcji. Problematyczne
 może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z płatnościami w Bitcoinach. W przypadku
-głównego zastosowania, czyli wdrożenia projektu w ramach programu Ingenious, można założyć, że serwer będzie operowany
+głównego zastosowania, czyli wdrożenia projektu w ramach programu iNGENIOUS, można założyć, że serwer będzie operowany
 w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,
 wystarczy jeden kanał, aby wszystkie osoby miały połączenie z serwerem. Mogą wtedy wykorzystać routing sieci lightning,
 który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż dotrze do odbiorcy. Tym sposobem, niskim
@@ -105,7 +105,7 @@ płacąca od razu wie, że dany adres jest adresem multisig. Problemem tego skry
 transakcje liczy się od rozmiaru transakcji w bajtach. Właściciel adresu P2SH musi liczyć się z dużymi kosztami wydania
 swoich środków, gdyż musi on dołączyć do skryptu cały _redeem script_, który może zawierać wiele bardzo długich
 kluczy publicznych. Kolejnym problemem jest wymóg posiadania skryptu _redeem_ poza samymi kluczami. W przypadku utraty
-tego skryptu środku mogą zostać utracone.
+tego skryptu środku zostaną utracone.
 
 Zdecydowano się na użycie adresu P2SH, gdyż jest on najprostszy w implementacji oraz idealnie pasuje do opisywanego
 przypadku użycia, czyli podpisywania transakcji przez kilku administratorów serwera. Rozwiązanie to można również
@@ -155,14 +155,15 @@ z sejfem. Każda uprawniona osoba może samodzielnie rozdysponować środki bez 
 
 Adres multisig w proponowanym rozwiązaniu ma na celu rozwiązanie tego problemu. Rozdysponowanie środków wymaga
 podpisów kluczami prywatnymi określonej liczby administratorów serwera. Dzięki temu jedna uprawniona osoba nie
-może samodzielnie dysponować środkami. Musi to być zawsze decyzja kolektywna. Dodatkowym
-zabezpieczeniem jest aplikacja mobilna do podpisywania transakcji, która przechowuje jednocześnie klucze prywatne.
-Dzięki temu proces podpisywania nie odbywa się w jednym centralnym miejscu, co znacząco zmniejszałoby bezpieczeństwo.
-Atak hakerski na serwer mógłby spowodować utratę środków. Haker do rozdysponowania środków znajdujących się na
-serwerze będzie musiał poza serwerem uzyskać dostęp do kilkunastu urządzeń mobilnych przechowujących klucze.
-Atak na tak wiele urządzeń jest niezwykle trudny, prawie niewykonalny bez posiadania odpowiedniej wiedzy o lokalizacji
-urządzeń. Proponowane rozwiązanie sprawia, że środki znajdujące się na serwerze są niezwykle bezpieczne, a
-prawdopodobieństwo utraty środków w niekontrolowany sposób jest prawie zerowe.
+może samodzielnie dysponować środkami. Musi to być zawsze decyzja kolektywna. Oczywiście dalej możliwy jest przypadek,
+w którym wymagana liczba administratorów umówi się na kradzież środków, jednak ten przypadek jest praktycznie
+niemożliwy do uniknięcia. Dodatkowym zabezpieczeniem jest aplikacja mobilna do podpisywania transakcji, która
+przechowuje jednocześnie klucze prywatne. Dzięki temu proces podpisywania nie odbywa się w jednym centralnym miejscu,
+co znacząco zmniejszałoby bezpieczeństwo. Atak hakerski na serwer mógłby spowodować utratę środków. Haker do
+rozdysponowania środków znajdujących się na serwerze będzie musiał poza serwerem uzyskać dostęp do kilkunastu urządzeń
+mobilnych przechowujących klucze. Atak na tak wiele urządzeń jest niezwykle trudny, prawie niewykonalny bez posiadania
+odpowiedniej wiedzy o lokalizacji urządzeń. Proponowane rozwiązanie sprawia, że środki znajdujące się na serwerze są
+niezwykle bezpieczne, a prawdopodobieństwo utraty środków w niekontrolowany sposób jest prawie zerowe.
 
 W przyszłości możliwe jest dalsze zwiększanie bezpieczeństwa. W pierwszym wydaniu zabraknie mechanizmów odzyskiwania
 kluczy z _mnemonic phrase_, czy też możliwości eksportu kluczy. Dzięki temu rozwiązaniu administrator serwera będzie

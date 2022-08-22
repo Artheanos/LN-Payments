@@ -20,7 +20,7 @@ aby omówić wiele znaczących kwestii. Zajmowano się między innymi analizą k
 płatności skonfigurowano _BTCPayServer_, dzięki czemu można było samemu wypróbować płatności przez sieć Lightning.
 Wraz ze wzrostem wiedzy domenowej odkryto, że zakres projektu obejmujący tylko płatności w sieci Lightning może
 okazać się niewystarczający. Z tego powodu zdecydowano się na połączenie ówczesnego tematu z drugim projektem
-opracowywanym w ramach projektu _Ingenious_, czyli zarządzania portfelem multisig oraz podpisywania transakcji
+opracowywanym w ramach projektu _iNGENIOUS_, czyli zarządzania portfelem multisig oraz podpisywania transakcji
 poprzez aplikację mobilną. Na podstawie tam wybranego tematu pracy kontynuowano naukę oraz wypracowywanie wymagań.
 Zmieniały się one wielokrotnie, aż do końca listopada, gdy wizja projektu przybrała obecną formę. W międzyczasie
 wybrano również większość używanych technologii i bibliotek.
