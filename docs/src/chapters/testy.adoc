@@ -16,7 +16,7 @@ Katalog _workflows_ z plikami prezentuje się następująco:
 .Zawartość folderu workflows z plikami YAML
 image::../images/tests_chapter/workflows_CI.png[]
 
-Na poniższym zrzucie ekranu można zauważyć listę kroków wykonywanych każdorazowo, po wypchnięciu zmian do części
+Na poniższym zrzucie ekranu można zauważyć listę kroków wykonywanych każdorazowo po wypchnięciu zmian do części
 backendowej aplikacji. Testy w tym wypadku uruchamiane są przez narzędzie _Maven_.
 
 .Fragment pliku webservice.yml prezentujący listę wykonywanych kroków
@@ -28,8 +28,8 @@ include::../../../.github/workflows/webservice.yml[lines=17..37]
 === Testy jednostkowe i integracyjne
 
 ==== Backend
-Kod źródłowy dla testów jednostkowych i integracyjnych umieszczony został w katalogu _test_, znajdującego się w folderze
-_src_. Testy tak samo, jak główny kod _Javy_ podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich układ
+Kod źródłowy dla testów jednostkowych i integracyjnych umieszczony został w katalogu _test_, znajdującym się w folderze
+_src_. Testy, tak samo jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich układ
 można zaobserwować na zrzucie ekranu poniżej.
 
 .Pakiety testów Java dla serwera
@@ -51,23 +51,25 @@ uwierzytelniania.
 image::../images/tests_chapter/auth_folder.png[]
 
 * common- W tym pakiecie znalazły się testy mające na celu walidację np. tego, czy podany adres jest adresem Bitcoin,
-lub czy wpisany klucz, może być kluczem publicznym.
+lub czy wpisany klucz może być kluczem publicznym.
 
 .Katalog common
 image::../images/tests_chapter/common_folder.png[]
 
-* helper-
+* helper- W tym folderze umieszczona została implementacja pomocnicza. Stworzona tutaj została np. metoda
+_resetSettings_, odpowiadająca za powrót do domyślnych właściwości, czy też implementacja klasy _BaseIntegrationTest_
+wykorzystywane w testach integracyjnych.
 
 .Katalog helper
 image::../images/tests_chapter/helper_folder.png[]
 
 * notification- W tym katalogu umieszczono testy, które związane były z powiadomieniami. Sprawdzano np. czy
-powiadomienie o danym _id_ zostanie prawidłowo zwrócone oraz, czy jego typ jest zgodny z oczekiwaniami.
+powiadomienie o danym _id_ zostanie prawidłowo zwrócone oraz czy jego typ jest zgodny z oczekiwaniami.
 
 .Katalog notification
 image::../images/tests_chapter/notification_folder.png[]
 
-* payment- Tak jak to sama nazwa wskazuje, w poniższych folderach umieszczone zostały testy związane z płatnościami.
+* payment- Tak jak sama nazwa wskazuje, w poniższych folderach umieszczone zostały testy związane z płatnościami.
 Miały one na celu np. sprawdzić, czy status płatności zachowuje się zgodnie z oczekiwaniami.
 
 .Katalog payments
@@ -104,7 +106,12 @@ include::../../../webservice/src/test/java/pl/edu/pjatk/lnpayments/webservice/ad
 Do tworzenia testów wykorzystane zostały biblioteki _JUnit_ oraz _Mockito_. Warto również wspomnieć o tym, że wszystkie
 klasy z testami integracyjnymi korzystają z klasy _BaseIntegrationTest_.
 
-TODO test coverage
+Na poniższym zrzucie ekranu został załączony raport dotyczący pokrycia testami kodu związanego z częścią serwerową
+aplikacji. Wynik na poziomie 91% świadczy o solidnym podejściu do testowania stworzonego kodu. Niektóre klasy zostały
+pokryte testami nawet w 100%, co wymagało poświęcenia trochę dodatkowego czasu.
+
+.Raport z pokrycia testami kodu części backendowej
+image::../images/tests_chapter/test_coverage_backend.png[]
 
 ==== Frontend
 
@@ -124,12 +131,12 @@ image::../images/tests_chapter/components_tests.png[]
 .Folder zawierający atrapę historii
 image::../images/tests_chapter/concern_folder.png[]
 
-* mockData- Jak sama nazwa wskazuje, zostały tutaj ustworzone pliki z atrapami dla m.in. płatności oraz transakcji.
+* mockData- Jak sama nazwa wskazuje, zostały tutaj utworzone pliki z atrapami dla m.in. płatności oraz transakcji.
 
 .Folder zawierający atrapy
 image::../images/tests_chapter/mockdata_folder.png[]
 
-* pages- Znalazły się tutaj testy, w których sprawdzano np, czy po podaniu odpowiednich danych w formularzu
+* pages- Znalazły się tutaj testy, w których sprawdzano np. czy po podaniu odpowiednich danych w formularzu
 administrator zostanie prawidło utworzony.
 
 .Folder zawierający testy różnych funkcjonalności
@@ -158,7 +165,12 @@ prawidłowych danych oczekiwany jest komunikat o powodzeniu operacji.
 include::../../../webapp/tests/pages/userPanel/account/PasswordChangePage.test.tsx[lines=25..42]
 ----
 
-TEST COVERAGE TODO
+Kod napisany w _Typescript_ został pokryty testami w ponad 65%. Stworzono 32 przypadki testowe, zawierające 93 testy.
+Jest to rezultat widocznie gorszy niż w przypadku części serwerowej. Pewien wpływ miały na to zapewne opóźnienia w pracy
+nad projektem i brak dodatkowego czasu na implementację kolejnych testów.
+
+.Raport z pokrycia testami kodu części frontendowej
+image::../images/tests_chapter/test_coverage_frontend.png[]
 
 ==== Aplikacja mobilna
 
@@ -193,7 +205,12 @@ Przykładowy test odpowiedzialny za generowanie komponentu prezentuje się nast�
 include::../../../mobileapp/tests/components/routers/SignedInRouter.test.tsx[lines=20..35]
 ----
 
-TODO (klasycznie test coverage)
+Mimo że aplikacja mobilna jest najmniejszą częścią projektu, to pokrycie jej kodu testami wyniosło poniżej 50%. Wynik
+ten nie może zbytnio dziwić, ponieważ na implementację tego elementu poświęcono stosunkowo najmniej czasu.
+Napisanych zostało 13 przypadków testowych oraz 39 testów co jest przyzwoitym wynikiem.
+
+.Raport z pokrycia testami kodu aplikacji mobilnej
+image::../images/tests_chapter/test_coverage_mobileapp.png[]
 
 === Testy E2E
 
@@ -209,7 +226,7 @@ poniższym zrzucie ekranu.
 image::../images/tests_chapter/webapp_e2e.png[]
 
 Scenariusze testowe _login.feature_ oraz _register.feature_ stworzone zostały z wykorzystaniem biblioteki _Cucumber_,
-oraz języka Gherkin. Przykładowy scenariusz został zamieszczony poniżej.
+oraz języka _Gherkin_. Przykładowy scenariusz został zamieszczony poniżej.
 
 .Przykładowy scenariusz testowy w języku Gherkin
 [source, gherkin]
@@ -232,7 +249,7 @@ w następnych wydaniach.
 
 ==== Aplikacja mobilna
 
-Z powodu opóźnień w realizacji dla aplikacji mobilnej udało się tylko napisać scenariusze testowe w języku _Gherkin_.
+Z powodu opóźnień w realizacji, dla aplikacji mobilnej udało się tylko napisać scenariusze testowe w języku _Gherkin_.
 Pliki _auth.feature_ oraz _notifications.feature_ zostały umieszczone w katalogu _e2e_.
 
 .Scenariusze testowe dla aplikacji mobilnej
