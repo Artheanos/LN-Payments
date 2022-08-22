@@ -1,0 +1,571 @@
+=== Manualne testy systemowe i walidacyjne
+
+jakiś opis
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST01
+|Nazwa | Dokonywanie płatności przez niezalogowanych użytkowników
+|Testowane wymagania | _F08, F09_
+|Opis a| Niezalogowany powinien móc przejść do procesu płatności z poziomu strony głównej. Może on dokonać płatności
+i pobrać tokeny, aczkolwiek nie będzia on miał do nich dostępu po opuszczeniu aplikacji.
+|Warunki wstępne a|Niezalogowany użytkownik znajduje się na stronie głównej, posiada skonfigurowany portfel wspierający
+sieć Lightning.
+|Przebieg testu a|
+. Kliknięcie przycisku _QuickBuy na stronie głównej
+. Podanie adresu email oraz ilości tokenów w formularzu
+. Kliknięcie przycisku _next_
+. (Opcjonalnie) Otwarcie kanału Lightning z serwerem, skanując portfelem kod QR z adresem węzła
+. Opłacenie żądania zapłaty przy pomocy portfela
+. Następuje automatyczne przekierowanie na kolejny ekran
+. Tokeny dostępne są do wyświetlenia bądź skopiowania
+|Oczekiwany wynik | Użytkownik może przejść przez cały proces, wykonując płatność oraz otrzymując w zamian tokeny.
+Na ekranach wyświetlane są komunikaty informujące o utracie tokenów po wyjściu z aplikacji.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST02
+|Nazwa | Rejestracja użytkowników
+|Testowane wymagania | _F03_
+|Opis a| Każda osoba zainteresowana może założyć konto w systemie poprzez formularz dostępny na stronie głównej.
+|Warunki wstępne a| Niezalogowany użytkownik znajduje się na stronie głównej.
+|Przebieg testu a|
+. Kliknięcie przycisku _register_ na stronie głównej
+. Wypełnienie wszystkich pól formularza danymi
+. Kliknięcie przycisku _register_
+. Sprawdzenie otrzymanego komunikatu
+|Oczekiwany wynik | Przy poprawnym wypełnieniu formularza pojawia się wyskakujące okienko informujące o sukcesie.
+W przypadku porażki wyświetlane są odpowiednie komunikaty o błędach.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: |ST03
+|Nazwa |Logowanie użytkowników oraz administratorów
+|Testowane wymagania | _F02_
+|Opis a| Zarówno administratorzy, jak i użytkownicy mają możliwość zalogowania w ten sam
+sposób poprzez formularz dostępny na stronie głównej.
+|Warunki wstępne a| Niezalogowany użytkownik znajduje się na stronie głównej.
+|Przebieg testu a|
+. Kliknięcie przycisku _login_ na stronie głównej
+. Wypełnienie pola adresu email oraz hasła
+. Kliknięcie przycisku _login_
+. Sprawdzenie aktualnej podstrony bądź komunikatu o błędzie
+|Oczekiwany wynik |Po wysłanie formularza logowania z poprawnymi danymi następuje przekierowanie do panelu użytkownika
+bądź administratora. Po wpisaniu niepoprawnych danych w formularzu wyświetlany jest odpowiedni komunikat o błędzie.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST04
+|Nazwa | Automatyczne odświeżanie tokena JWT
+|Testowane wymagania | _brak_
+|Opis a| Po zalogowaniu użytkownik otrzymuje token ważny 15 minut, który pozwala na autoryzowanie się w żądaniach do
+serwera. Aplikacja internetowa powinna pozyskiwać automatycznie nowy token co 10 minut.
+|Warunki wstępne a| Użytkownik jest zalogowany, znajduje się na dowolnym ekranie panelu użytkownika.
+|Przebieg testu a|
+. Oczekiwanie przez 10 minut po zalogowaniu
+. W prawym dolnym rogu ekranu wyświetla się powiadomienie informujące o pozyskiwaniu nowego tokena
+. Oczekiwanie kolejnych 7 minut
+. Użytkownik dalej może korzystać z aplikacji
+|Oczekiwany wynik | Aplikacja cały czas odświeża token, dzięki czemu użytkownik może przez cały czas korzystać
+z aplikacji nieprzerwanie.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST05
+|Nazwa | Płatności przez zalogowanych użytkowników oraz administratorów
+|Testowane wymagania | _F08_
+|Opis a| Każda zalogowana osoba ma dostęp do funkcjonalności płatności, która jest dostępna przez cały czas w menu
+bocznym. Proces ten wygląda praktycznie tak samo, jak przy płatnościach dla niezalogowanych użytkowników.
+|Warunki wstępne a| W aplikacji zalogowany jest użytkownik bądź administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _QuickBuy_ w menu bocznym aplikacji.
+. Podanie adresu email oraz ilości tokenów w formularzu
+. Kliknięcie przycisku _next_
+. (Opcjonalnie) Otwarcie kanału Lightning z serwerem, skanując portfelem kod QR z adresem węzła
+. Opłacenie żądania zapłaty przy pomocy portfela
+. Następuje automatyczne przekierowanie na kolejny ekran
+. Tokeny dostępne są do wyświetlenia bądź skopiowania
+|Oczekiwany wynik | Zalogowany użytkownik oraz administrator mogą dokonać płatności, oraz otrzymać tokeny. W trakcie
+procesu wyświetlane są komunikaty informujące, że tokeny będą również dostępne z poziomu panelu historii.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST06
+|Nazwa | Przesyłanie tokenów na zewnętrzny serwer
+|Testowane wymagania | _F18_
+|Opis a| Administrator ma możliwość podania w ustawieniach adresu URL, na który wysyłane będą tokeny po zakończeniu
+płatności przez użytkownika. Zaraz po ich wygenerowaniu, powinny one zostać wysłane na wskazany adres.
+|Warunki wstępne a| Użytkownik jest w procesie płatności, uruchomiony jest serwer testowy przyjmujący tokeny,
+serwer jest skonfigurowany pod wysyłanie tokenów.
+|Przebieg testu a|
+. Użytkownik dokonuje płatności poprzez swój portfel Lightning.
+. Na ekranie wyświetlane są tokeny.
+|Oczekiwany wynik | Po opłaceniu żądania zapłaty przez użytkownika na serwer testowy przychodzi żądanie zawierające
+jego tokeny. Właściciel serwera może teraz zarejestrować je w swojej bazie danych, aby wykorzystać je do swoich celów.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST07
+|Nazwa | Wyświetlanie indywidualnej historii płatności
+|Testowane wymagania | _F05_
+|Opis a| Przy wygenerowanie każdej płatności, dane zapisywane są w bazie danych. Są one później dostępne na ekranie
+historii dla każdego użytkownika, gdzie może on sprawdzić jej szczegóły, a także wyświetlić tokeny w przypadku
+zakończonej płatności.
+|Warunki wstępne a| Zalogowany jest użytkownik, który dokonał już kilka płatności.
+|Przebieg testu a|
+. Kliknięcie przycisku _History_ w menu bocznym
+. Prezentowane są dane w postaci tabeli
+. Przy zakończonej płatności, po kliknięciu guzika _view_, pojawia się wyskakujące okno z tokenami.
+|Oczekiwany wynik | Tabela z danymi zawiera wszystkie płatności zainicjowane przez użytkownika, czyli oczekujące,
+nieudane oraz zakończone. Może on wyświetlić swoje, tokeny klikając odpowiedni przycisk przy zakończonej płatności.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST08
+|Nazwa | Automatyczna zmiana statusu płatności po jej wygaśnięciu.
+|Testowane wymagania | _F08, F09_
+|Opis a| Żądanie płatności ważne jest domyślnie 15 minut. Po tym czasie użytkownik nie może już dokonać płatności.
+Po tym czasie status jest automatycznie zmieniany na nieudane.
+|Warunki wstępne a| Zalogowany jest użytkownik bądź administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _QuickBuy_ w menu bocznym
+. Wypełnienie formularza płatności poprawnymi danymi
+. Kliknięcie przyciska _next_
+. Przejście na ekran historii, gdzie widoczna jest oczekująca płatność
+. Odczekanie 15 minut
+. Odświeżenie ekranu historii.
+. Sprawdzenie statusu utworzonej wcześniej płatności
+|Oczekiwany wynik | Nieopłacona płatności po 15 minutach zmieniła status na nieudane.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST09
+|Nazwa | Zmiana hasła przez użytkowników.
+|Testowane wymagania | _F11_
+|Opis a| Każdy z użytkowników, czyli również administratorzy, ma dostęp do swojego profilu. Może tam znaleźć przycisk
+pozwalający na zmianę hasła.
+|Warunki wstępne a| Zalogowany jest użytkownik.
+|Przebieg testu a|
+. Kliknięcie przycisku _account_ w menu bocznym
+. Kliknięcie przycisku _change password_
+. Wypełnienie formularza składającego się ze starego oraz nowego hasła, wraz z potwierdzeniem
+. Wysłanie formularza
+. Wylogowanie z aplikacji
+. Próba logowania starym hasłem
+. Wyświetlenie komunikaty o złym haśle
+. Logowanie z użyciem nowego hasła
+|Oczekiwany wynik | Po zmianie hasła, użytkownik może zalogować się tylko przy pomocy nowych danych. Próba logowania
+starym hasłem kończy się niepowodzeniem.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST10
+|Nazwa | Dostęp do historii wszystkich płatności.
+|Testowane wymagania | _F05_
+|Opis a| Administratorzy mają dostęp do panelu zawierającego historię płatności wszystkich użytkowników.
+Nie są wyświetlane wszystkie dane, brakuje na przykład żądania zapłaty oraz tokenów. Tabela zawiera adresy email
+użytkowników.
+|Warunki wstępne a| Dany jest serwer, na którym wielu użytkowników dokonało płatności, zalogowany jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _payments_ w menu bocznym
+. Na ekranie pojawia się table ze wszystkimi płatnościami
+|Oczekiwany wynik | Administrator może przeglądać wszystkie płatności dokonane na serwerze.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST11
+|Nazwa | Zamiana ustawień serwera.
+|Testowane wymagania | _F01_
+|Opis a| Administratorzy mają dostęp do panela zawierającego ustawienia serwera. Można na nim ustawić wiele
+aspektów aplikacji jak cena tokenów czy limity automatycznych transferów środków.
+|Warunki wstępne a| Zalogowany jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _settings_ w menu bocznym
+. Modyfikacja danych formularza
+. Wysłanie formularza
+. Odświeżenie strony
+|Oczekiwany wynik | Po zapisaniu ustawień serwer zwraca nowe dane ustawień. Są używane w innych miejscach w aplikacji,
+takich jak formularz tworzenia płatności.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST12
+|Nazwa | Dodawanie administratorów.
+|Testowane wymagania | _F04, F14_
+|Opis a| Każdy administrator ma dostęp do panelu zarządzania administratorami. Może z nim przeglądać oraz usuwać
+konta. Dostępny jest formularz służący do dodawania nowych administratorów.
+|Warunki wstępne a| Zalogowany jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _admin management_ w menu bocznym
+. Kliknięcie przycisku _add new_ w prawym górnym rogu ekranu
+. Wypełnienie formularza danymi
+. Przesłanie formularza
+. Przekierowanie na ekran zarządzania administratorami.
+|Oczekiwany wynik | Nowo dodany użytkownik widoczny jest na liście znajdującej się w panelu zarządzania
+administratorami.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST13
+|Nazwa | Logowanie do aplikacji mobilnej przez administratorów.
+|Testowane wymagania | _FA01_
+|Opis a| Każdy administrator serwera może zalogować się do aplikacji mobilnej.
+|Warunki wstępne a| Niezalogowany administrator mający uruchomioną aplikację mobilną.
+|Przebieg testu a|
+. Administrator po uruchomieniu aplikacji trafia do formularza logowania
+. Wypełnienie pól formularza, razem z adresem URL serwera
+. Wysłanie formularza
+|Oczekiwany wynik | Administrator zostaje poprawnie zalogowany i trafia na ekran główny aplikacji mobilnej.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST14
+|Nazwa | Wygenerowanie pary kluczy oraz przesłanie klucza publicznego na serwer.
+|Testowane wymagania | _FA02, F14_
+|Opis a| Zawsze przy pierwszym logowaniu do aplikacji mobilnej, użytkownik trafi na ekran generowania kluczy.
+W tym czasie aplikacja generuje klucze, przesyła klucz publiczny oraz zapisuje lokalnie klucz prywatny.
+|Warunki wstępne a| Dany jest administrator, który nie logował się do aplikacji mobilnej, czyli nie ma przesłanego
+klucza.
+|Przebieg testu a|
+. Administrator po uruchomieniu aplikacji trafia do formularza logowania
+. Wypełnienie pól formularza, razem z adresem URL serwera
+. Wysłanie formularza
+. Przejście na ekran generowania kluczy
+. Przejście na stronę główną aplikacji
+. Zalogowanie się do aplikacji internetowej
+. Przejście do panelu zarządzania administratorami
+|Oczekiwany wynik | Po wysłaniu formularza zostają wysłane klucze na serwer. W panelu zarządzania administratorami
+przy użytkowniku wyświetla się zielona ikonka w polu _hasKeys_.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST15
+|Nazwa | Usuwanie administratorów
+|Testowane wymagania | _F14, F15_
+|Opis a| Z poziomu panelu administratora można usunąć dowolnego użytkownika, który nie jest członkiem portfela.
+|Warunki wstępne a| Zalogowany jest administrator, utworzone jest dodatkowe konto nieprzypisane do portfela.
+|Przebieg testu a|
+. Kliknięcie przycisku _admin management_ w menu bocznym
+. Kliknięcie guzika z ikonką kosza na śmieci przy użytkowniku do usunięcia
+. Potwierdzenie swojego wyboru w wyskakującym oknie
+|Oczekiwany wynik | Wskazany administrator został usunięty z bazy danych i nie jest już wyświetlany w tabeli.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST16
+|Nazwa | Tworzenie nowego portfela
+|Testowane wymagania | _F01, F10, F13_
+|Opis a| Gdy na serwerze nie został stworzony jeszcze nowy portfel, przy wyjściu na jego panel zostaje wyświetlony
+formularz, który należy wypełnić liczbą wymaganych podpisów oraz wybrać administratorów.
+|Warunki wstępne a| Serwer z trzema administratorami, którzy mają przesłane klucze publiczne, zalogowany administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Podanie ilości podpisów wymaganych do zatwierdzenia transakcji
+. Wybranie z listy administratorów, którzy będą członkami portfela
+. Przesłanie formularza
+|Oczekiwany wynik | Po utworzeniu portfela użytkownik został przekierowany na ekran portfela. Portfel nie może mieć
+żadnych środków w żadnym z jego elementów.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST17
+|Nazwa | Zamykanie kanałów poprzez kliknięcie przycisku na ekranie portfela
+|Testowane wymagania | _F13, F16_
+|Opis a| Panel administratora zawiera przycisk do kooperacyjnego zamykania kanałów płatności. Pozwala on na przesłanie
+środków do portfela w węźle Lightning.
+|Warunki wstępne a| Otwarte są kanały płatności z balansem środków po stronie serwera, wszystkie węzły są
+aktywne, zalogowany jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Kliknięcie przycisku _close channels_
+. Odczekanie pięciu minut
+. Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
+|Oczekiwany wynik | Ilość otwartych kanałów wynosi zero, a wszystkie środki zostały przeniesione do portfela w węźle
+Lightning.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST18
+|Nazwa | Siłowe zamykanie kanałów przyciskiem w ekranie portfela.
+|Testowane wymagania | _F13, F16_
+|Opis a| Podobnie jak w przypadku kooperacyjnego zamykania, dostępny jest przycisk zamykający kanały siłowo. Środki
+są wtedy niedostępne przez tydzień.
+|Warunki wstępne a| Otwarte są kanały płatności z balansem środków po stronie serwera, węzły są nieaktywne, zalogowany
+jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Kliknięcie przycisku _close channels with force_
+. Potwierdzenie akcji w wyskakującym oknie
+. Odczekanie pięciu minut
+. Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
+. Odczekanie tygodnia
+. Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
+|Oczekiwany wynik | Po wykonaniu akcji środki powinny zniknąć z kanałów Lightning. Trafiają one do portfela w węźle
+Lightning dopiero po mniej więcej tygodniu.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST19
+|Nazwa | Automatyczne zamykanie kanałów po osiągnięciu limitu.
+|Testowane wymagania | _F01, F13, F16_
+|Opis a| Kanały są automatycznie zamykane, jeżeli ich balans osiągnie limit podany w ustawieniach serwera. Jest to
+sprawdzane co 15 minut. Domyślnie odbywa się to kooperacyjnie, natomiast jeżeli węzeł po drugiej stronie jest nieaktywny
+przez tydzień, to odbywa się zamknięcie siłowe.
+|Warunki wstępne a| Utworzony jest portfel, balans środków w kanałach jest większy niż 10000 SAT, zalogowany jest
+administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _settings_ w menu bocznym
+. Zmiana limitu automatycznego zamykania kanałów na 10000
+. Wysłanie formularza
+. Odczekanie 20 minut
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
+|Oczekiwany wynik | Kanały powinny zostać zamknięte bez udziału użytkownika. Środki trafiają na portfel w węźle
+Lightning.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST20
+|Nazwa | Transfer środków na portfel Bitcoin poprzez przycisk w panelu portfela.
+|Testowane wymagania | _F13, F17_
+|Opis a| Panel portfela zawiera przycisk pozwalający na transfer środków z portfela w węźle Lightning do głównego
+portfela multisig serwera.
+|Warunki wstępne a| Utworzony jest portfel, w portfelu Lightning znajdują się środki, zalogowany jest administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Kliknięcie przycisku _transfer funds_
+. Odczekanie pięciu minut
+. Porównanie balansu w portfelu węzła Lightning oraz portfela Bitcoin
+|Oczekiwany wynik | Środki zostały przesłane z jednego portfela do drugiego.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST21
+|Nazwa | Automatyczny transfer środków pomiędzy portfelami po osiągnięciu limitu.
+|Testowane wymagania | _F01, F13, F17_
+|Opis a| Transfer odbywa się automatycznie, jeżeli balans środków osiągnie limit podany w ustawieniach serwera. Jest to
+sprawdzane co 15 minut przez zadanie działające na serwerze.
+|Warunki wstępne a| Utworzony jest portfel, w portfelu Lightning znajduje się ponad 10000 SAT, zalogowany jest
+administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _settings_ w menu bocznym
+. Zmiana limitu automatycznego transferu środków na 10000
+. Wysłanie formularza
+. Odczekanie 20 minut
+. Kliknięcie przycisku _wallet_ w menu bocznym
+. Porównanie balansu w obu portfelach
+|Oczekiwany wynik | Środki zostały automatycznie przesłane pomiędzy portfelami bez udziału użytkownika.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST22
+|Nazwa | Tworzenie transakcji
+|Testowane wymagania | _F12_
+|Opis a| Środki zgromadzone w adresie multisig można wykorzystać dzięki transakcjom. Można je zainicjować w panelu
+transakcji.
+|Warunki wstępne a| Utworzony jest portfel, na adresie multisig znajduje się ponad 1000 SAT, zalogowany jest
+administrator.
+|Przebieg testu a|
+. Kliknięcie przycisku _transactions_ w menu bocznym
+. Kliknięcie przycisku _create transaction_ w prawym górnym rogu ekranu
+. Wypełnienie formularza poprawnymi danymi
+. Wysłanie formularza i przekierowanie na panel transakcji
+. Sprawdzenie szczegółów transakcji w tabeli
+|Oczekiwany wynik | Została utworzona transakcja, jest ona widoczna w wyszczególnionym polu tabeli, ma status
+oczekujący, nie można więcej przejść na formularz tworzenia.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST23
+|Nazwa | Otrzymywanie powiadomień push o transakcji.
+|Testowane wymagania | _F12, FA04_
+|Opis a| Po utworzeniu nowej transakcji wszyscy członkowie portfela dostają powiadomienia _push_ w swoich aplikacjach
+mobilnych.
+|Warunki wstępne a| Utworzony jest portfel ze środkami, administrator wypełnia formularz transakcji, w aplikacji
+mobilnej zalogowany jest użytkownik.
+|Przebieg testu a|
+. Administrator wysyła formularz z transakcją w aplikacji internetowej.
+. W telefonie rozwija górny pasek menu
+. Wyświetlane jest powiadomienie systemowe
+. Kliknięcie powiadomienia
+. Przekierowanie na ekran ze szczegółami powiadomienia
+|Oczekiwany wynik | Wyświetlone zostało powiadomienie do nowo utworzonej transakcji, które przekierowuje na ekran
+ze szczegółami.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST24
+|Nazwa | Potwierdzenie transakcji w aplikacji mobilnej.
+|Testowane wymagania | _F12, FA03, FA06_
+|Opis a| Każda transakcja wymaga podpisów cyfrowych od liczby użytkowników podanych przy tworzeniu portfela.
+Podpisywanie odbywa się w aplikacji mobilnej.
+|Warunki wstępne a| Utworzona jest oczekująca transakcja, w aplikacji mobilnej zalogowany jest członek portfela,
+transakcja nie została jeszcze podpisana ani razu.
+|Przebieg testu a|
+. Odświeżenie listy powiadomień
+. Kliknięcie oczekującego powiadomienia
+. Kliknięcie przycisku _confirm_
+. Po wyświetleniu komunikatu o sukcesie kliknięcie przycisku _ok_
+. Powiadomienie ma status potwierdzony
+. Przejście do aplikacji internetowej
+. Kliknięcie przycisku _transactions_ w menu bocznym
+. Sprawdzenie ilości zebranych podpisów w oczekującej transakcji
+|Oczekiwany wynik | Ilość podpisów widoczna w panelu transakcji zwiększyła się o jeden, a powiadomienie ma status
+potwierdzony w aplikacji mobilnej.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST25
+|Nazwa | Zabezpieczenie przed równoczesnym podpisaniem transakcji.
+|Testowane wymagania | _F12, FA03_
+|Opis a| W bazie danych transakcja razem ze wszystkimi polami znajduje się w jednym polu. Aby uniknąć stracenia
+podpisów, istnieje stosowne zabezpieczenie. Jeżeli dwaj użytkownicy podpisują transakcje jednocześnie, to jeden z nich
+otrzyma komunikat o błędzie.
+|Warunki wstępne a| Utworzona jest oczekująca transakcja, w dwóch aplikacjach mobilnych zalogowani są dwaj członkowie
+portfela, transakcja nie została jeszcze podpisana ani razu.
+|Przebieg testu a|
+. Pierwszy administrator wchodzi w szczegóły powiadomienia
+. Drugi administrator wchodzi w szczegóły powiadomienia
+. Pierwszy administrator klika _confirm_
+. Drugi administrator klika _confirm_
+. Pierwszy administrator otrzymuje informacje o udanym podpisaniu transakcji
+. Drugi administrator otrzymuje błąd równoczesnego podpisu transakcji
+. Przejście do aplikacji internetowej
+. Kliknięcie przycisku _transactions_ w menu bocznym
+. Sprawdzenie ilości zebranych podpisów w oczekującej transakcji
+|Oczekiwany wynik | Ilość podpisów widoczna w panelu transakcji zwiększyła się o jeden, pierwszy administrator na
+powiadomienie w statusie zatwierdzony, a drugi w statusie oczekujący.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST26
+|Nazwa | Odrzucanie transakcji w aplikacji mobilnej.
+|Testowane wymagania | _F12, FA05, FA06_
+|Opis a| W aplikacji mobilnej można odrzucić transakcję. Jeżeli ilość odrzuceń uniemożliwi wykonanie transakcji,
+zostanie ona anulowana. Odrzucanie odbywa się w aplikacji mobilnej.
+|Warunki wstępne a| Utworzona jest oczekująca transakcja, w aplikacji mobilnej zalogowany jest członek portfela.
+|Przebieg testu a|
+. Odświeżenie listy powiadomień
+. Kliknięcie oczekującego powiadomienia
+. Kliknięcie przycisku _deny_
+. Po wyświetleniu komunikatu o sukcesie kliknięcie przycisku _ok_
+. Powiadomienie ma status odrzucony
+|Oczekiwany wynik | Powiadomienie ma status odrzuconego. W bazie danych widać, że transakcja ma jedną odmowę podpisu.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST27
+|Nazwa | Automatyczna propagacja transakcji po uzbieraniu podpisów.
+|Testowane wymagania | _F07, F12, FA03, FA06_
+|Opis a| Gdy zostanie uzbierana wymagana liczba podpisów, transakcja jest propagowana do innych węzłów sieci, a jej
+status w aplikacji zmienia status na zakończony.
+|Warunki wstępne a| Utworzona jest oczekująca transakcja, której brakuje jednego podpisu, w aplikacji mobilnej
+zalogowany jest członek portfela.
+|Przebieg testu a|
+. W aplikacji mobilnej użytkownik podpisuje transakcję
+. Przejście do aplikacji internetowej
+. Kliknięcie przycisku _transactions_ w menu bocznym
+. Weryfikacja sukcesu wysłania transakcji w zewnętrznym serwisie, takim jak _blockchain.info_
+|Oczekiwany wynik | Transakcja została wysłana automatycznie, zmienił się jej status, formularz tworzenia jest
+ponownie dostępny, transakcja zarejestrowana jest na blockchainie Bitcoina.
+|Rezultat testu |
+|===
+
+[cols="2h,6"]
+|===
+2+| *Scenariusz testowy*
+|Identyfikator: | ST28
+|Nazwa | Anulowanie transakcji po zbyt dużej ilości jej odrzuceń.
+|Testowane wymagania | _F14, F05, F06_
+|Opis a| Gdy ilość odrzuceń transakcji uniemożliwia jej wysłanie, jest ona anulowana, a użytkownicy mogą stworzyć
+nową transakcję.
+|Warunki wstępne a| Utworzona jest oczekująca transakcja, której brakuje jednego odrzucenia do jej anulowania,
+w aplikacji mobilnej zalogowany jest członek portfela.
+|Przebieg testu a|
+. W aplikacji mobilnej użytkownik odrzuca transakcję
+. Przejście do aplikacji internetowej
+. Kliknięcie przycisku _transactions_ w menu bocznym
+. Weryfikacja anulowania transakcji wcześniej oczekującej
+|Oczekiwany wynik | Transakcja na serwerze automatycznie została anulowana, formularz tworzenia jest ponownie
+dostępny, środki nie zostały wydane.
+|Rezultat testu |
+|===

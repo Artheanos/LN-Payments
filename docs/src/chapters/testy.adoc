@@ -10,3 +10,5 @@
 === Aplikacja mobilna
 
 === Testy E2E
+
+include::../sections/manual_tests.adoc[]
