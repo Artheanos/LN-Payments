@@ -29,8 +29,8 @@ include::../../../.github/workflows/webservice.yml[lines=17..37]
 
 ==== Backend
 Kod źródłowy dla testów jednostkowych i integracyjnych umieszczony został w katalogu _test_, znajdującym się w folderze
-_src_. Testy, tak samo jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich układ
-można zaobserwować na zrzucie ekranu poniżej.
+_src_. Testy, tak samo jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich
+układ można zaobserwować na zrzucie ekranu poniżej.
 
 .Pakiety testów Java dla serwera
 image::../images/tests_chapter/test_folders_server.png[]
