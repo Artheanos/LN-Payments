@@ -10,22 +10,17 @@ z logowaniem oraz rejestracją, a na implementację czekały ostatnie funkcjonal
 |LP-193|Change notifications status on broadcast|Aleksander Konieczny|1|Ukończone
 |LP-196|Enable incoming request logging|Aleksander Konieczny|1|Ukończone
 |LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Ukończone
-
 |LP-195|Fix progress bars on wallet screen|Jan Pieczul|1|Ukończone
 |LP-202|Add server and token url inputs to settings|Aleksander Konieczny|1|Ukończone
 |LP-200|Protect wallet creation form then wallet is created|Aleksander Konieczny|1|Ukończone
-
 |LP-203|Move LND files to .lnpayments directory|Aleksander Konieczny|1|Ukończone
-
 |LP-159|Fix interactive mockup and update screenshots in book|Aleksander Konieczny|2|Ukończone
 |LP-181|Rewrite main repo readme|Aleksander Konieczny|2|Ukończone
-
 |LP-144|Write webservice subsection of "opis realizacji" chapter|Aleksander Konieczny|8|Ukończone
 |LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|5|Ukończone
 |LP-151|Write "dalszy rozwój" chapter|Aleksander Konieczny|1|Ukończone
 |LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
 |LP-171|Write "testy" chapter.|-|3|Nieukończone
-
 |LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
 |LP-172|Adjust payment carousel|Jan Pieczul|2|Nieukończone
 |LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone

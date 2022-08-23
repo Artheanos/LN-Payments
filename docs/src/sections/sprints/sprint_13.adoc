@@ -22,7 +22,7 @@ napawała optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
 |LP-207|Write empty parts of "opis realizacji" chapter|Aleksander Konieczny|3|Ukończone
 |LP-205|Write project presentation chapter|Aleksander Konieczny|3|Ukończone
 |LP-171|Write "testy" chapter|Sebastian Lewandowski|3|Ukończone
-|LP-175|Perform manual tests of entire system|Sebastian Lewandowski|2|Ukończone
+|LP-175|Perform manual tests of entire system|Aleksander Konieczny|2|Ukończone
 |LP-141|Write "Plan" chapter|Aleksander Konieczny|3|Ukończone
 |LP-147|Write "podsumowanie realizacji" chapter|Aleksander Konieczny|2|Ukończone
 |LP-148|Complete own contribution for Aleksander Konieczny|Aleksander Konieczny|1|Ukończone
@@ -34,7 +34,6 @@ napawała optymizmem i zwiastowała wzmożoną końcówkę prac nad projektem.
 |LP-199|Add missing terms to glossary|Aleksander Konieczny|2|Ukończone
 |LP-152|Add attachments|Aleksander Konieczny|1|Ukończone
 |LP-208|Review and update older parts of the book|Aleksander Konieczny|1|Ukończone
-
 |===
 
 Wstępnie w tym sprincie znalazły się aż 24 zadania, wycenione w sumie na 62 punkty historii. Takiej ilości można było
