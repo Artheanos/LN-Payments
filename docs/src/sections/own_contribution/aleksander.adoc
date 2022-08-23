@@ -61,7 +61,8 @@ wprowadzania poprawek do procesu CI. Zainicjowałem i skonfigurowałem testy E2E
 uczestniczyłem aktywnie w procesie _code review_, a także zarządzałem całym _scrum'em_ w projekcie. Prowadziłem
 także badania nad technologiami, między innymi dotyczących transakcji multisig, testów E2E oraz powiadomień push w
 aplikacji mobilnej. Na koniec procesu realizacji kontaktowałem się z promotorem i nanosiłem sugerowane poprawki w całym
-projekcie i jego dokumentacji.
+projekcie i jego dokumentacji. Stworzyłem również scenariusze testowe, na podstawie których przeprowadziłem testy
+manualne całego systemu.
 
 .Lista zadań, przy których pracował Aleksander w procesie implementacji.
 [cols="1,9,1"]
@@ -173,10 +174,11 @@ projekcie i jego dokumentacji.
 |LP-197|Update book style|1
 |LP-199|Add missing terms to glossary|2
 |LP-152|Add attachments|1
+|LP-175|Perform manual tests of entire system|2
 |LP-208|Review and update older parts of the book|1
 |===
 
-Zrealizowałem bądź uczestniczyłem w implementacji 107 zadań. Ich łączna wartość wyniosła 262 punkty historii. Stanowi
+Zrealizowałem bądź uczestniczyłem w implementacji 108 zadań. Ich łączna wartość wyniosła 264 punkty historii. Stanowi
 to około ⅔ wszystkich zadań, jakie zaplanowano do realizacji. Zadania te dotyczyły praktycznie każdego aspektu
 projektu. Ta liczba zadań oczywiście nie uwzględnia wkładu w pierwszą część procesu realizacji, czyli nauki,
 tworzenia dokumentacji oraz napisania prototypów. Nie uwzględnia również czasu poświęconego na planowanie, układanie
