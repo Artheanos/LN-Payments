@@ -1,5 +1,91 @@
 === Sprint 12 (11.07.2022 - 01.08.2022)
 
+Wysiłki zespołu w tej iteracji miały skoncentrować się na zagadnieniach związanych z długiem technicznym oraz pracą
+dyplomową, która w dalszym ciągu wymagała dużych nakładów pracy. Wciąż poprawy wymagały _testy E2E_ związane
+z logowaniem oraz rejestracją, a na implementację czekały ostatnie funkcjonalności i mniejsze poprawki.
+
+.Lista zadań w sprincie dwunastym.
+[cols="1,5,3,1,2"]
+|===
+|LP-193|Change notifications status on broadcast|Aleksander Konieczny|1|Ukończone
+|LP-196|Enable incoming request logging|Aleksander Konieczny|1|Ukończone
+|LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Ukończone
+|LP-195|Fix progress bars on wallet screen|Jan Pieczul|1|Ukończone
+|LP-202|Add server and token url inputs to settings|Aleksander Konieczny|1|Ukończone
+|LP-200|Protect wallet creation form then wallet is created|Aleksander Konieczny|1|Ukończone
+|LP-203|Move LND files to .lnpayments directory|Aleksander Konieczny|1|Ukończone
+|LP-159|Fix interactive mockup and update screenshots in book|Aleksander Konieczny|2|Ukończone
+|LP-181|Rewrite main repo readme|Aleksander Konieczny|2|Ukończone
+|LP-144|Write webservice subsection of "opis realizacji" chapter|Aleksander Konieczny|8|Ukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Aleksander Konieczny|5|Ukończone
+|LP-151|Write "dalszy rozwój" chapter|Aleksander Konieczny|1|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-171|Write "testy" chapter.|-|3|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
+|LP-172|Adjust payment carousel|Jan Pieczul|2|Nieukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-138|Create transaction scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-136|Create payments scenarios|Sebastian Lewandowski|3|Nieukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|===
+
+Na tę iterację przypadło wstępnie 19 zadań wartych 43 punkty historii. Nie zostały usunięte żadne zadania,
+natomiast dwa zostały dodane. Finalnie dało to 21 zadań, których estymacja wyniosła 47 punktów. Lwią część zagadnień
+do wykonania w tym odstępie czasu stanowił po raz kolejny dług techniczny, naprawa błędów oraz książka projektowa.
+Pomimo tego, że znalazło się w tej iteracji wiele zadań, miały one często bardzo niskie estymacje pokroju jednego
+punktu. Zespół od początku wiedział, że osiągnięcie celów może być problematyczne poprzez rozpoczynający się sezon
+wakacyjny.
+
 ==== Przebieg prac
 
+Pierwszym z zadań ukończonych w tym sprincie było dodanie zmiany statusu powiadomień na wygasłe po uzyskaniu wymaganej
+liczby potwierdzeń bądź odmów. Do tej pory, nawet po rozgłoszeniu transakcji powiadomienia pozostawały aktywne, więc
+należało to zmienić. Dodano również logowanie wszystkich przychodzących żądań, wykorzystując mechanizm _Springa_.
+Zdecydowano się na napisanie prostego rejestratora niewyświetlającego odpowiedzi i ich statusu, aby nie poświęcać tej
+kwestii zbyt dużo czasu. Kolejnym podjętym krokiem była modyfikacja _NodeDetailsService_. Dotychczasowe rozwiązanie
+zostało zastąpione przez _RestTemplate_. Dzięki temu administrator zyskał również możliwość podania własnego _node url_
+w ustawieniach serwera. Znacząco uprościło to również testy integracyjne aplikacji, gdyż dotychczasowe rozwiązanie
+wymagało postawienia dedykowanego serwera zwracającego adres IP na potrzeby testów.
+
+Poprawiona została również funkcja odpowiedzialna za wyświetlanie paska postępu na ekranie portfela. Dotychczas,
+po uzyskaniu maksymalnej wartości, pasek wracał do stanu początkowego, co było niepożądanym zachowaniem.
+W ramach zadania LP-202 do ekranu ustawień serwera dodane zostały dwa brakujące pola, czyli
+adres url serwera oraz serwisu, do którego wysyłane będą tokeny. Oba pola zaznaczone są w formularzu jako opcjonalne.
+Następnym wykonanym zadaniem w tej iteracji, jeśli chodzi o implementację, było zablokowanie dostępu do formularza
+tworzenia nowego portfela w wypadku gdy ten już istnieje.
+
+Następnie zajęto się zagadnieniem związanym z przeniesieniem plików wymaganych do połączenia z _LND_ do katalogu
+_.lnpayments_, tworzonego automatycznie a katalogu domowym użytkownika. Nie było to może zadanie niezbędne, ale dzięki
+temu zabiegowi lokalizacja wszystkich plików konfiguracyjnych została ujednolicona.
+
+Poprawione zostały również niektóre ekrany makiety interaktywnej, które zostały stworzone przez zespół przed
+implementacją projektu. Zawierały drobne błędy, takie jak literówki czy nierówne ułożenie komponentów. Kolejnym
+zadaniem, którym się zajęto, była modyfikacja istniejącego już _readme_ projektu, tak aby wyglądało ono bardziej
+profesjonalnie i zawierało więcej użytecznych informacji. Chciano, aby po zapoznaniu się z nim zainteresowane
+osoby były w stanie bez problemu samemu uruchomić i przetestować aplikację.
+
+Do książki projektu dyplomowego dopisana została sekcja związana opisem rozwiązania serwera aplikacji. Udało się także
+napisać pierwszą część rozdziału poświęconego procesowi realizacji. Zadanie to zostało przejęte przez Aleksandra
+Koniecznego, a także zmieniono ilość punktów historii z 8 do 5. Wynikło to ze zmiany planu na ten rozdział, a także
+chęci pchnięcia rozwoju do przodu. Sukcesem zakończyły się również prace nad rozdziałem "Dalszy rozwój". Planowano
+również napisanie rozdziałów "Testy" oraz "Plan", jednak nie udało się ich zrealizować.
+
+W tej iteracji ponownie nie zrealizowano również kilku zadań, których nie udało się ukończyć w poprzednich sprintach.
+Są to między innymi testy E2E, dwa zadania dotyczące procesu płatności, dokończenie aplikacji mobilnej oraz napisanie
+brakujących plików _readme_.
+
 ==== Podsumowanie
+
+W tej iteracji udało się ukończyć wiele zadań związanych z rozwojem aplikacji. Do pierwszego zadania zostało ich
+tylko kilka. Zespół nadal miał spore problemy z dostarczaniem zadań związanych z testami E2E i książką do pracy
+dyplomowej. Niestety w dalszym ciągu nie udało się również ukończyć przyjmowania płatności od niezalogowanych
+użytkowników. Był to kolejny sprint, w którym dużą część zadań wykonał jeden członek zespołu. Iteracja ta została ze
+względu na sezon wakacyjny przedłużona o tydzień, jednak to nie pomogło w dostarczeniu wszystkich zakładanych zadań.
+
+.Wykres spalania sprintu dwunastego.
+image::../images/sprints_raports/burndown_sprint12.png[]
+
+Udało się ukończyć 12 z zaplanowanych 21 zadań, które złożyły się na zdobycie 25 punktów historii. Pozostałe
+zagadnienia, które nie zostały wykonane, musiały zostać przeniesione do kolejnego sprintu. W związku z powstałymi
+opóźnieniami, w kolejnej iteracji pojawiło się bardzo dużo zadań, co nie było zbyt dobrą informacją dla zespołu.

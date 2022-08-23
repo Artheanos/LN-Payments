@@ -1,5 +1,83 @@
 === Sprint 11 (27.06.2022 - 11.07.2022)
 
+Wcześniejsze plany nie zakładały, że ta iteracja będzie potrzebna. Dodanie następnych kolejnych iteracji podyktowane
+było zmianą terminu ukończenia projektu na początek września 2022. Wynikało to z opóźnień podczas prac, które powstały
+wskutek zaległości w realizowaniu przypisanych zagadnień. Zespół skupił się na zadaniach niewykonanych we
+wcześniejszym okresie. Zaplanowano zajęcie się pisaniem książki do projektu dyplomowego oraz pracę nad długiem
+technicznym.
+
+.Lista zadań w sprincie jedenastym.
+[cols="1,5,3,1,2"]
+|===
+|LP-178|Implement chart on wallet panel|Aleksander Konieczny|3|Ukończone
+|LP-186|Fix first 3 chapters|Aleksander Konieczny|3|Ukończone
+|LP-174|Add commercialization part|Aleksander Konieczny|1|Ukończone
+|LP-168|Add security description in Analysis chapter|Aleksander Konieczny|1|Ukończone
+|LP-141|Write "Plan" chapter|Jan Pieczul|3|Nieukończone
+|LP-143|Write "Proces realizacji" chapter - part 1|Sebastian Lewandowski|8|Nieukończone
+|LP-163|Fix validation register form|Aleksander Konieczny|1|Ukończone
+|LP-183|Correct wallet setup form|Aleksander Konieczny|1|Ukończone
+|LP-80|[FE] Create edit account page|Aleksander Konieczny|2|Ukończone
+|LP-162|Add generic way to send tokens to downstream systems|Jan Pieczul|3|Ukończone
+|LP-104|Handle payments from non-logged users|Jan Pieczul|3|Nieukończone
+|LP-172|Adjust payment carousel|Jan Pieczul|2|Nieukończone
+|LP-46|Create readme for webapp and mobileapp|Jan Pieczul|1|Nieukończone
+|LP-86|Reimplement NodeDetailsService|Aleksander Konieczny|1|Nieukończone
+|LP-160|Implement wallet recreation flow|Sebastian Lewandowski|3|Nieukończone
+|LP-135|Create auth scenarios|Sebastian Lewandowski|2|Nieukończone
+|LP-132|Add notification details component|Sebastian Lewandowski|2|Nieukończone
+|===
+
+W tej iteracji zaplanowano wykonanie 17 zadań wycenionych na 40 punktów historii. W trakcie jej trwania nie zostało
+dodane ani usunięte żadne z nich. Duża część zadań do wykonania pochodziła z poprzednich sprintów. Zaplanowano
+realizację wielu kwestii związanych z pracą dyplomową. Pojawiło się też zadanie, aby nanieść poprawki w istniejących
+już rozdziałach.
+
 ==== Przebieg prac
 
+W związku z tym, że aplikacja mobilna została w większości ukończona, skoncentrowano się na zadaniach związanych z
+długiem technicznym, brakującymi funkcjonalnościami, naprawą istniejących problemów oraz pisaniu pracy dyplomowej.
+
+Jako pierwsze ukończone zostało zadanie LP-178. Polegało ono na implementacji wykresu do wizualizacji wpływów do
+portfela. Dotychczas w aplikacji dodany był zrzut ekranu, który pełnił funkcję elementu zastępczego, należało więc
+stworzyć rzeczywisty wykres obrazujący wpływy do portfela. Do wykonania tego celu, zespół zdecydował się na użycie
+biblioteki _Recharts_.
+
+Po otrzymaniu uwag od promotora zajęto się naniesieniem poprawek do istniejących już rozdziałów książki. Kolejnym
+krokiem było napisanie rozdziału związanego z komercjalizacją projektu, do którego zespół mógł wykorzystać wiedzę
+zdobytą podczas przedmiotu _KMR_. Ostatnią kwestią związaną z pracą dyplomową zrealizowaną w tej iteracji było
+napisanie sekcji odnoszącej się do bezpieczeństwa w kontekście kryptowalut. W tej iteracji zaplanowano również pracę
+nad rozdziałami "Plan" oraz "Proces realizacji". Zadania te nie zostały ukończone w tym sprincie.
+
+W formularzu rejestracji dodana została walidacja dla pola _fullname_, o której wcześniej zapomniano. Dzięki
+temu niemożliwym stało się podawanie na przykład znaków specjalnych oraz cyfr w polu imienia i nazwiska. Poprawiono
+także ekran tworzenia portfela tak, aby formularz wyświetlał się tylko w wypadku, gdy administratorzy posiadają
+wygenerowane klucze. W przypadku gdy nie ma administratorów, którzy mogą być członkami portfela, zamiast formularza
+wyświetlany jest odpowiedni komunikat. W ramach zadania LP-80 dodane zostały dwie nowe podstrony. Pierwsza z nich
+wyświetla informacje o koncie, takie jak rola czy adres email, natomiast druga umożliwia zmianę hasła. Jest to ważna
+funkcjonalność głównie z punktu widzenia administratora, który po otrzymaniu danych logowania będzie mógł zmienić hasło
+na takie, które zna tylko on.
+
+W ramach zadania LP-162 napisany został serwis odpowiedzialny za wysyłanie tokenów po zakończonej płatności pod
+zadeklarowany w ustawieniach serwera adres URL. Kolejnym zadaniem, które planowano zrobić, było dodanie obsługi
+płatności dla niezalogowanych użytkowników. Była to ważna i pożądana funkcjonalność, jednak nie powiodła się próba
+dostarczenia zadania na czas. Stworzona podczas trwania tej iteracji implementacja tego problemu zawierała błędy i
+wymagała dalszych nakładów pracy. Nie udało się również zrealizować kilku mniejszych zadań, takich jak napisania
+plików _readme_ dla aplikacji internetowej i mobilnej, aktualizacji ekranów procesu płatności czy też implementacji
+formularza do odtwarzania portfela. Nie ukończono również ponownie zadania LP-132, które jest ostatnim zadanie, jakie
+zespół planował zrealizować w aplikacji mobilnej.
+
 ==== Podsumowanie
+
+Niestety i w tym sprincie nie udało się ukończyć wielu zadań. Cieszyć mógł fakt, że prace nad książką posuwały się
+naprzód. Do projektu dodanych zostało kilka ważnych funkcjonalności, których brakowało, a z punktu widzenia użytkownika
+końcowego były ważne. Mowa tutaj na przykład o możliwości zmiany hasła. Martwić mogło natomiast to, że większość z
+ukończonych zadań w tej iteracji było dziełem jednej osoby.
+
+.Wykres spalania sprintu jedenastego.
+image::../images/sprints_raports/burndown_sprint11.png[]
+
+Zespół wykonał jedynie 9 z 17 zaplanowanych zadań, wycenionych na 18 punktów historii. Kolejny raz nieukończone 9 zadań
+o wartości 22 punktów musiały zostać przeniesione do rejestru lub nadchodzących iteracji. Mimo że prace nie przebiegały
+w takim tempie, jak to planowano, to jednak poczyniony został postęp, a prace nad samym systemem powoli zmierzały do
+końca.

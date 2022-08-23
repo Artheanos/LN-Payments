@@ -27,5 +27,3 @@ include::../sections/sprints/sprint_11.adoc[]
 include::../sections/sprints/sprint_12.adoc[]
 
 include::../sections/sprints/sprint_13.adoc[]
-
-include::../sections/sprints/sprint_14.adoc[]
