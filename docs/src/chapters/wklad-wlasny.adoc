@@ -1,7 +1,7 @@
-== Wykład własny
+== Wkład własny
 
-=== Aleksander Konieczny
+include::../sections/own_contribution/aleksander.adoc[]
 
-=== Jan Pieczul
+include::../sections/own_contribution/jan.adoc[]
 
-=== Sebastian Lewandowski
+include::../sections/own_contribution/sebastian.adoc[]

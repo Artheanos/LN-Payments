@@ -1,0 +1,185 @@
+=== Aleksander Konieczny
+
+W projekcie miałem się zajmować głównie rozwojem części serwerowej aplikacji, jednak z czasem realizowałem również
+wiele zadań w aplikacji mobilnej oraz internetowej, a także napisałem dużą część dokumentacji i książki do pracy
+dyplomowej. W czasie trwania etapu analizy zacząłem również pełnić funkcję osoby prowadzącej projekt, będąc dodatkowo
+_Scrum Master'em_ oraz _Product Owner'em_ według ról _scrum'owych_. Oznaczało to, że byłem organizatorem i osobą
+prowadzącą wszystkie spotkania. Byłem również odpowiedzialny za rejestr zadań. Dodawałem nowe zadania wraz z opisami,
+układałem je w iteracje, a także spędzałem dużo czasu na planowaniu następnych faz realizacji projektu. Byłem też główną
+osobą odpowiedzialną za kontakt z udziałowcami, prowadząc prezentacje i dyskutując o rozwoju projektu na przedmiotach
+PRZ, PSEM, SAI czy też PAMO.
+
+W pierwszej fazie realizacji poza dokumentacją i zbieraniem wymagań zajmowałem się badaniem kryptowalut oraz stworzeniem
+dużej części prototypu. Prototyp rozwijałem również w kolejnych miesiącach, dopóki nie posiadał on wszystkich
+funkcjonalności, które miały zostać zaimplementowane w projekcie. Napisałem interfejs użytkownika aplikacji,
+sprawdzenie balansu środków oraz realizowanie transakcji multisig wraz z prototypem aplikacji mobilnej. Tak samo, jak
+pozostali członkowie zespołu, bardzo dużo czasu spędziłem na nauce technologii oraz zaprojektowaniu finalnego kształtu
+systemu.
+
+W fazie implementacji pracowałem przede wszystkim nad serwerem aplikacji. Skonfigurowałem nowy projekt w języku Java,
+wraz z konfiguracją procesu CI. Stworzyłem konfiguracje dla węzłów sieci Lightning oraz Bitcoin. Następnie
+zaimplementowałem większość funkcjonalności serwera. Stworzyłem cały kod odpowiedzialny za płatności (poza wysyłaniem
+tokenów do zewnętrznego serwisu), portfela, transakcji, ustawień serwera i użytkownika. Cały kod i wszystkie
+algorytmy obsługujące protokoły Bitcoina oraz sieci Lightning są mojego autorstwa. Obejmuje to między innymi
+generowanie _invoice_, tworzenie adresu P2SH, generowanie pary kluczy, budowanie transakcji oraz ich podpisywanie i
+propagowanie po sieci. Zaimplementowałem również większość logiki dla procesów uwierzytelniania oraz autoryzacji, a
+także przy zarządzaniu administratorami. W czasie implementacji na bieżąco pisałem testy jednostkowe, a przy zadaniach
+dodających nowe punkty końcowe HTTP również testy integracyjne.
+
+Początkowo miałem realizować niewiele zadań z szeroko pojętego _frontend'u_ systemu. W pierwszych iteracjach
+realizowałem tylko pomniejsze zadania, jednak z czasem zacząłem robić ich coraz więcej. Wynikało to z rosnącej
+ilości zaplanowanych zadań nierealizowanych w swoich iteracjach. W aplikacji internetowej stworzyłem logikę
+odpowiedzialną za menu boczne dla zalogowanych użytkowników, formularz rejestracji i panel użytkownika.
+Zaimplementowałem ekrany historii użytkowników, panelu użytkownika oraz transakcji wraz ze wszystkimi podstronami takimi
+jak formularze, a także wskaźniki przesłania kluczy i bycia członkiem portfela na ekranie zarządzania administratorami.
+Utworzyłem również wszystkie komponenty widoczne na ekranie portfela, wraz z funkcjonalnościami przycisków do jego
+zarządzania. Dodatkowo zrealizowałem kilka mniejszych zadań polegających na poprawkach i naprawie błędów.
+
+W aplikacji mobilnej zajmowałem się częścią aplikacji odpowiedzialnej za wyświetlanie powiadomień, a także procesem
+potwierdzania i odrzucania transakcji. Zrealizowałem listę powiadomień obecną na głównym ekranie aplikacji, wraz
+z wszystkimi jest funkcjonalnościami jak odświeżaniem, paginacją czy przekierowaniem na ekran ze szczegółami
+powiadomienia. Aby tego dokonać, musiałem przebudować nawigację aplikacji, aby umożliwić wyświetlanie szczegółów
+powiadomienia nad innymi ekranami wraz z przekierowaniem. W ekranie szczegółów powiadomienia dodałem tylko dwa
+przyciski służące do jego potwierdzenia bądź odrzucenia, natomiast zaimplementowałem logikę stojącą za nimi, czyli
+proces podpisywania transakcji. Dodatkowo napisałem dokumentację metod na potrzeby przedmiotu PAMO, przygotowałem
+aplikację do wydania, a także pomogłem w naprawie błędów związanych z autoryzacją. Napisałem też scenariusze testowe
+do implementacji testów E2E w aplikacji mobilnej.
+
+Miałem bardzo duży wkład w tworzenie książki do pracy dyplomowej. Byłem główną osobą decydującą o układzie i zawartości
+rozdziałów. Napisane przeze mnie rozdziały to "Wstęp", "Omówienie problemu", "Wizja rozwiązania w kontekście
+kryptowalut", "Analiza", "Projekt systemu", "Plan", "Prezentacja w działaniu", "Podsumowanie realizacji" oraz "Dalsze
+plany rozwoju". Napisałem również dużą część rozdziału "Proces realizacji", czyli opis pierwszego etapy prac oraz
+opisy sprintów od 1 do 9 włącznie, oraz sprintu 13. W rozdziale "Opis rozwiązania" stworzyłem części opisujące serwer,
+aplikację mobilną, dokumentację i pozostałe elementy projektu. Dodatkowo utworzyłem stronę tytułową, ustaliłem styl
+dokumentów, napisałem swój wkład własny oraz naniosłem wiele poprawek i modyfikacji w cały dokumencie. Moje poprawki
+można również znaleźć w pozostałych, nienapisanych przeze mnie rozdziałach. Byłem również osobą odpowiedzialną za
+technologię stojącą za dokumentacją. Stworzyłem całą strukturę projektu oraz napisałem plik ją budujący przy pomocy
+programu _make_.
+
+Dodatkowo podczas implementacji projektu realizowałem wiele mniejszych zadań jak pisanie plików _readme_ czy
+wprowadzania poprawek do procesu CI. Zainicjowałem i skonfigurowałem testy E2E dla aplikacji internetowej,
+uczestniczyłem aktywnie w procesie _code review_, a także zarządzałem całym _scrum'em_ w projekcie. Prowadziłem
+także badania nad technologiami, między innymi dotyczących transakcji multisig, testów E2E oraz powiadomień push w
+aplikacji mobilnej. Na koniec procesu realizacji kontaktowałem się z promotorem i nanosiłem sugerowane poprawki w całym
+projekcie i jego dokumentacji. Stworzyłem również scenariusze testowe, na podstawie których przeprowadziłem testy
+manualne całego systemu.
+
+.Lista zadań, przy których pracował Aleksander w procesie implementacji.
+[cols="1,9,1"]
+|===
+|Klucz|Nazwa|Story points
+|LP-29|Set up java project|3
+|LP-43|Migrate documents to asciidoc|2
+|LP-35|Create makefile for documents|5
+|LP-36|Create pipeline for Java webservice|2
+|LP-39|Pipeline for documents|5
+|LP-41|Prepare docker-compose for lnd and bitcoind|3
+|LP-48|Run pipelines in PR when there are changes|2
+|LP-61|Connect backend with database|1
+|LP-52|Set up document and write introduction|3
+|LP-53|Write 'Problem description' chapter|3
+|LP-58|Create service that generates tokens|3
+|LP-59|Create invoice service|3
+|LP-60|Implement payment process|5
+|LP-67|Implement websocket endpoint for payment processing|5
+|LP-70|Create services for JWT|2
+|LP-71|Integrate JWT with spring security|3
+|LP-73|Create endpoint for logging in|3
+|LP-74|Create endpoint for user registration|3
+|LP-77|Create registration page|2
+|LP-75|Handle temporary users|5
+|LP-84|Integrate user authorization with payments|3
+|LP-93|Secure and authenticate ws connections|2
+|LP-81|Create user side panel|2
+|LP-82|Add endpoint for querying user payments|2
+|LP-83|Create history panel|3
+|LP-90|Create endpoints for admin creation and querying|2
+|LP-89|Add root admin at server startup|2
+|LP-63|Update DZW after review|1
+|LP-95|Research E2E tests|-
+|LP-88|Automatically change expired payments status|2
+|LP-94|Investigate JS library for tx signing|-
+|LP-105|Add endpoint for querying all payments by admin|2
+|LP-97|Create endpoint for creating wallet|2
+|LP-99|Add endpoint for querying wallet status|3
+|LP-100|Create service and endpoints to transfer funds from ln to btc wallet|5
+|LP-103|Add endpoint to transfer funds between wallets|2
+|LP-96|Set up e2e tests|3
+|LP-102|Set up scheduler to automatically transfer funds|1
+|LP-113|Set up scheduler to automatically close all channels|1
+|LP-108|Implement LN channels status box|2
+|LP-110|Create LN wallet status box|2
+|LP-111|Create Bitcoin wallet status box|2
+|LP-112|Create wallet actions box|2
+|LP-114|Add endpoint for uploading keys and integrate it with rest of app|5
+|LP-101|Create book chapter plan|2
+|LP-153|Create risk analysis|1
+|LP-118|Investigate push notifications|-
+|LP-122|Implement push notification service|5
+|LP-121|Create endpoint for creating transactions|3
+|LP-119|Create endpoint for querying notifications|2
+|LP-117|Add endpoint for querying all transactions|2
+|LP-131|Implement endpoint for obtaining raw tx|3
+|LP-120|Add endpoint for confirmation/rejection handling|3
+|LP-68|Create title page and disclaimer|2
+|LP-142|Write "Analiza" chapter|5
+|LP-140|Write "Wizja" chapter|2
+|LP-157|Sort get responses by date desc|1
+|LP-115|Create panel with transactions|5
+|LP-123|Create service for transaction verification and broadcasting|3
+|LP-156|Extract notifications web socket part to separate controller|1
+|LP-161|Add wallet recreation endpoint|3
+|LP-155|Create server setting management service and endpoint|5
+|LP-173|Add social aspects part|1
+|LP-126|Create notification list view|3
+|LP-47|Create readme for webservice|1
+|LP-79|Implement user details controller|2
+|LP-116|Create form for creating new transactions|2
+|LP-127|Add confirmation/denial flow|5
+|LP-189|Add missing docs|2
+|LP-191|Clean up names and icons|1
+|LP-187|Perform monkey tests and fix errors|2
+|LP-192|Write test scenarios|1
+|LP-188|Improve error handling|2
+|LP-177|Add total income data to balance endpoint|3
+|LP-178|Implement chart on wallet panel|3
+|LP-186|Fix first 3 chapters|3
+|LP-174|Add commercialization part|1
+|LP-168|Add security description in Analysis chapter|1
+|LP-163|Fix validation register form|1
+|LP-183|Correct wallet setup form|1
+|LP-80|[FE] Create edit account page|2
+|LP-193|Change notifications status on broadcast|1
+|LP-196|Enable incoming request logging|1
+|LP-86|Reimplement NodeDetailsService|1
+|LP-202|Add server and token url inputs to settings|1
+|LP-200|Protect wallet creation form then wallet is created|1
+|LP-203|Move LND files to .lnpayments directory|1
+|LP-159|Fix interactive mockup and update screenshots in book|2
+|LP-181|Rewrite main repo readme|2
+|LP-144|Write webservice subsection of "opis realizacji" chapter|8
+|LP-143|Write "Proces realizacji" chapter - part 1|5
+|LP-151|Write "dalszy rozwój" chapter|1
+|LP-165|Create deployable artifacts|3
+|LP-169|Write "Proces realizacji" chapter - part 2|5
+|LP-182|Write "Proces realizacji" chapter - part 3|5
+|LP-146|Write mobileapp subsection of "opis realizacji" chapter|5
+|LP-207|Write empty parts of "opis realizacji" chapter|3
+|LP-205|Write project presentation chapter|3
+|LP-141|Write "Plan" chapter|3
+|LP-147|Write "podsumowanie realizacji" chapter|2
+|LP-148|Complete own contribution for Aleksander Konieczny|1
+|LP-209|Apply mentor's remarks - part 1|2
+|LP-210|Apply mentor's remarks and polish book - part 2|2
+|LP-197|Update book style|1
+|LP-199|Add missing terms to glossary|2
+|LP-152|Add attachments|1
+|LP-175|Perform manual tests of entire system|2
+|LP-208|Review and update older parts of the book|1
+|===
+
+Zrealizowałem bądź uczestniczyłem w implementacji 108 zadań. Ich łączna wartość wyniosła 264 punkty historii. Stanowi
+to około ⅔ wszystkich zadań, jakie zaplanowano do realizacji. Zadania te dotyczyły praktycznie każdego aspektu
+projektu. Ta liczba zadań oczywiście nie uwzględnia wkładu w pierwszą część procesu realizacji, czyli nauki,
+tworzenia dokumentacji oraz napisania prototypów. Nie uwzględnia również czasu poświęconego na planowanie, układanie
+zadań, tworzenie prezentacji oraz zarządzania całym projektem.
