@@ -32,16 +32,16 @@ Następną kategorią jest aplikacja internetowa. Zrealizowano również 38 zada
 Najmniej zadań dotyczyło aplikacji mobilnej. Tej kategorii dotyczyło 17 zdań, których estymacja wynosi 52 punkty.
 Ukończono również wiele mniejszych zadań, niepasujących do wymienionych wcześniej kategorii. Są to na przykład
 poprawki w repozytorium projektu, pisanie testów E2E oraz tworzenie plików _readme_. Tych zadań było jedynie 14,
-a ich wartość to 19 punktów. W trakcie realizacji projektu nie zrealizowano wszystkich zadań. W rejestrze znajduje się
+a ich wartość to 19 punktów. W trakcie tworzenia projektu nie zrealizowano wszystkich zadań. W rejestrze znajduje się
 dalej 10 zadań, większość z nich nie ma jeszcze ustalonej estymacji. Ich realizacja planowana jest w następnych
 wydaniach.
 
 .Wkład członków zespołu w realizację projektu na podstawie zrealizowanych punktów historii.
 image::../images/storypoints_by_person.png[]
 
-Największy udział w implementacji projektu miał Aleksander Konieczny. Zrealizował on zadania warte 262 punkty historii.
-Jest to aż 65.2% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 120 punktów historii, dających 29,9%.
-Sebastianowi Lewandowskiemu udało się ukończyć zadania o wartości 20 punktów historii, co daje 5% udziału w
+Największy udział w implementacji projektu miał Aleksander Konieczny. Zrealizował on zadania warte 264 punkty historii.
+Jest to aż 65.7% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 120 punktów historii, dających 29,9%.
+Sebastianowi Lewandowskiemu udało się ukończyć zadania o wartości 18 punktów historii, co daje 4.5% udziału w
 implementacji. Statystyki te nie uwzględniają pierwszego etapu historii. W tamtym czasie nad nauką, dokumentacją i
 projektowaniem systemu pracował cały zespół. Autorem makiety interaktywnej był w całości Jan Pieczul, natomiast przy
 prototypie rozkład udziału jest podobny jak w przypadku implementacji końcowego produktu.
