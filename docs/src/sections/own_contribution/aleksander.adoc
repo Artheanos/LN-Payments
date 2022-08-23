@@ -16,7 +16,7 @@ sprawdzenie balansu środków oraz realizowanie transakcji multisig wraz z proto
 pozostali członkowie zespołu, bardzo dużo czasu spędziłem na nauce technologii oraz zaprojektowaniu finalnego kształtu
 systemu.
 
-W fazie implementacji pracowałem przede wszystkim serwerem aplikacji. Skonfigurowałem nowy projekt w języku Java,
+W fazie implementacji pracowałem przede wszystkim nad serwerem aplikacji. Skonfigurowałem nowy projekt w języku Java,
 wraz z konfiguracją procesu CI. Stworzyłem konfiguracje dla węzłów sieci Lightning oraz Bitcoin. Następnie
 zaimplementowałem większość funkcjonalności serwera. Stworzyłem cały kod odpowiedzialny za płatności (poza wysyłaniem
 tokenów do zewnętrznego serwisu), portfela, transakcji, ustawień serwera i użytkownika. Cały kod i wszystkie
