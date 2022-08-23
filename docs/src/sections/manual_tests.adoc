@@ -1,6 +1,15 @@
 === Manualne testy systemowe i walidacyjne
 
-jakiś opis
+Na sam koniec realizacji projetu przeprowadzone zostały testy systemowe całego systemu, które dodatkowo zweryfikowały
+jego zgodność z funkcjonalnymi wymaganiami opisanymi w rozdziale 4.3. Stworzone zostały scenariusze testowe,
+testujące każdą funkcjonalność aplikacji internetowej oraz mobilnej. Nie zostały napisane scenariusze przypadków
+pozytywnych i negatywnych. Przy wykonywaniu testów sprawdzane były wszystkie przypadki, a rezultat testu dotyczy nie
+tylko pozytywnej ścieżki opisanej w przebiegu testu. Testy nie uwzględniają wszystkich wymagań funkcjonalnych,
+ponieważ niektóre z nich nie były od samego początku planowane na te wydania. W przypadku wymagania _F11_ użytkownicy
+mają możliwość edytowania hasła, natomiast pozostałe pola zostały przesunięte do następnych wydań.
+Środowiskiem testowym był zwykły komputer, a system został uruchomiony w kontenerach programu _docker_, w sieci
+Bitcoina _testnet_. Testy manualne odbyły się po zakończeniu prac nad kodem aplikacji. Poniżej zaprezentowane są
+wszystkie scenariusze testowe, wraz z wynikiem ich testów.
 
 [cols="2h,6"]
 |===
@@ -9,7 +18,7 @@ jakiś opis
 |Nazwa | Dokonywanie płatności przez niezalogowanych użytkowników
 |Testowane wymagania | _F08, F09_
 |Opis a| Niezalogowany powinien móc przejść do procesu płatności z poziomu strony głównej. Może on dokonać płatności
-i pobrać tokeny, aczkolwiek nie będzia on miał do nich dostępu po opuszczeniu aplikacji.
+i pobrać tokeny, aczkolwiek nie będzie on miał do nich dostępu po opuszczeniu aplikacji.
 |Warunki wstępne a|Niezalogowany użytkownik znajduje się na stronie głównej, posiada skonfigurowany portfel wspierający
 sieć Lightning.
 |Przebieg testu a|
@@ -22,7 +31,7 @@ sieć Lightning.
 . Tokeny dostępne są do wyświetlenia bądź skopiowania
 |Oczekiwany wynik | Użytkownik może przejść przez cały proces, wykonując płatność oraz otrzymując w zamian tokeny.
 Na ekranach wyświetlane są komunikaty informujące o utracie tokenów po wyjściu z aplikacji.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -40,7 +49,7 @@ Na ekranach wyświetlane są komunikaty informujące o utracie tokenów po wyjś
 . Sprawdzenie otrzymanego komunikatu
 |Oczekiwany wynik | Przy poprawnym wypełnieniu formularza pojawia się wyskakujące okienko informujące o sukcesie.
 W przypadku porażki wyświetlane są odpowiednie komunikaty o błędach.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -59,7 +68,7 @@ sposób poprzez formularz dostępny na stronie głównej.
 . Sprawdzenie aktualnej podstrony bądź komunikatu o błędzie
 |Oczekiwany wynik |Po wysłanie formularza logowania z poprawnymi danymi następuje przekierowanie do panelu użytkownika
 bądź administratora. Po wpisaniu niepoprawnych danych w formularzu wyświetlany jest odpowiedni komunikat o błędzie.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -78,7 +87,7 @@ serwera. Aplikacja internetowa powinna pozyskiwać automatycznie nowy token co 1
 . Użytkownik dalej może korzystać z aplikacji
 |Oczekiwany wynik | Aplikacja cały czas odświeża token, dzięki czemu użytkownik może przez cały czas korzystać
 z aplikacji nieprzerwanie.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -100,7 +109,7 @@ bocznym. Proces ten wygląda praktycznie tak samo, jak przy płatnościach dla n
 . Tokeny dostępne są do wyświetlenia bądź skopiowania
 |Oczekiwany wynik | Zalogowany użytkownik oraz administrator mogą dokonać płatności, oraz otrzymać tokeny. W trakcie
 procesu wyświetlane są komunikaty informujące, że tokeny będą również dostępne z poziomu panelu historii.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -118,7 +127,7 @@ serwer jest skonfigurowany pod wysyłanie tokenów.
 . Na ekranie wyświetlane są tokeny.
 |Oczekiwany wynik | Po opłaceniu żądania zapłaty przez użytkownika na serwer testowy przychodzi żądanie zawierające
 jego tokeny. Właściciel serwera może teraz zarejestrować je w swojej bazie danych, aby wykorzystać je do swoich celów.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -137,7 +146,7 @@ zakończonej płatności.
 . Przy zakończonej płatności, po kliknięciu guzika _view_, pojawia się wyskakujące okno z tokenami.
 |Oczekiwany wynik | Tabela z danymi zawiera wszystkie płatności zainicjowane przez użytkownika, czyli oczekujące,
 nieudane oraz zakończone. Może on wyświetlić swoje, tokeny klikając odpowiedni przycisk przy zakończonej płatności.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -158,7 +167,7 @@ Po tym czasie status jest automatycznie zmieniany na nieudane.
 . Odświeżenie ekranu historii.
 . Sprawdzenie statusu utworzonej wcześniej płatności
 |Oczekiwany wynik | Nieopłacona płatności po 15 minutach zmieniła status na nieudane.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -181,7 +190,7 @@ pozwalający na zmianę hasła.
 . Logowanie z użyciem nowego hasła
 |Oczekiwany wynik | Po zmianie hasła, użytkownik może zalogować się tylko przy pomocy nowych danych. Próba logowania
 starym hasłem kończy się niepowodzeniem.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -198,7 +207,7 @@ użytkowników.
 . Kliknięcie przycisku _payments_ w menu bocznym
 . Na ekranie pojawia się table ze wszystkimi płatnościami
 |Oczekiwany wynik | Administrator może przeglądać wszystkie płatności dokonane na serwerze.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -217,7 +226,7 @@ aspektów aplikacji jak cena tokenów czy limity automatycznych transferów śro
 . Odświeżenie strony
 |Oczekiwany wynik | Po zapisaniu ustawień serwer zwraca nowe dane ustawień. Są używane w innych miejscach w aplikacji,
 takich jak formularz tworzenia płatności.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -237,7 +246,7 @@ konta. Dostępny jest formularz służący do dodawania nowych administratorów.
 . Przekierowanie na ekran zarządzania administratorami.
 |Oczekiwany wynik | Nowo dodany użytkownik widoczny jest na liście znajdującej się w panelu zarządzania
 administratorami.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -253,7 +262,7 @@ administratorami.
 . Wypełnienie pól formularza, razem z adresem URL serwera
 . Wysłanie formularza
 |Oczekiwany wynik | Administrator zostaje poprawnie zalogowany i trafia na ekran główny aplikacji mobilnej.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -276,7 +285,7 @@ klucza.
 . Przejście do panelu zarządzania administratorami
 |Oczekiwany wynik | Po wysłaniu formularza zostają wysłane klucze na serwer. W panelu zarządzania administratorami
 przy użytkowniku wyświetla się zielona ikonka w polu _hasKeys_.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -292,7 +301,7 @@ przy użytkowniku wyświetla się zielona ikonka w polu _hasKeys_.
 . Kliknięcie guzika z ikonką kosza na śmieci przy użytkowniku do usunięcia
 . Potwierdzenie swojego wyboru w wyskakującym oknie
 |Oczekiwany wynik | Wskazany administrator został usunięty z bazy danych i nie jest już wyświetlany w tabeli.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -311,7 +320,7 @@ formularz, który należy wypełnić liczbą wymaganych podpisów oraz wybrać a
 . Przesłanie formularza
 |Oczekiwany wynik | Po utworzeniu portfela użytkownik został przekierowany na ekran portfela. Portfel nie może mieć
 żadnych środków w żadnym z jego elementów.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -331,7 +340,7 @@ aktywne, zalogowany jest administrator.
 . Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
 |Oczekiwany wynik | Ilość otwartych kanałów wynosi zero, a wszystkie środki zostały przeniesione do portfela w węźle
 Lightning.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -354,7 +363,8 @@ jest administrator.
 . Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
 |Oczekiwany wynik | Po wykonaniu akcji środki powinny zniknąć z kanałów Lightning. Trafiają one do portfela w węźle
 Lightning dopiero po mniej więcej tygodniu.
-|Rezultat testu |
+|Rezultat testu | Zaliczony warunkowo, nie czekano tygodnia, aby sprawdzić, czy środki się pojawią.
+Było to testowane na etapie implementacji.
 |===
 
 [cols="2h,6"]
@@ -377,7 +387,7 @@ administrator.
 . Porównanie balansu zablokowanego w kanałach oraz portfelu Lightning
 |Oczekiwany wynik | Kanały powinny zostać zamknięte bez udziału użytkownika. Środki trafiają na portfel w węźle
 Lightning.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -395,7 +405,7 @@ portfela multisig serwera.
 . Odczekanie pięciu minut
 . Porównanie balansu w portfelu węzła Lightning oraz portfela Bitcoin
 |Oczekiwany wynik | Środki zostały przesłane z jednego portfela do drugiego.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -416,7 +426,7 @@ administrator.
 . Kliknięcie przycisku _wallet_ w menu bocznym
 . Porównanie balansu w obu portfelach
 |Oczekiwany wynik | Środki zostały automatycznie przesłane pomiędzy portfelami bez udziału użytkownika.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -437,7 +447,7 @@ administrator.
 . Sprawdzenie szczegółów transakcji w tabeli
 |Oczekiwany wynik | Została utworzona transakcja, jest ona widoczna w wyszczególnionym polu tabeli, ma status
 oczekujący, nie można więcej przejść na formularz tworzenia.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -458,7 +468,7 @@ mobilnej zalogowany jest użytkownik.
 . Przekierowanie na ekran ze szczegółami powiadomienia
 |Oczekiwany wynik | Wyświetlone zostało powiadomienie do nowo utworzonej transakcji, które przekierowuje na ekran
 ze szczegółami.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -482,7 +492,7 @@ transakcja nie została jeszcze podpisana ani razu.
 . Sprawdzenie ilości zebranych podpisów w oczekującej transakcji
 |Oczekiwany wynik | Ilość podpisów widoczna w panelu transakcji zwiększyła się o jeden, a powiadomienie ma status
 potwierdzony w aplikacji mobilnej.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -508,7 +518,7 @@ portfela, transakcja nie została jeszcze podpisana ani razu.
 . Sprawdzenie ilości zebranych podpisów w oczekującej transakcji
 |Oczekiwany wynik | Ilość podpisów widoczna w panelu transakcji zwiększyła się o jeden, pierwszy administrator na
 powiadomienie w statusie zatwierdzony, a drugi w statusie oczekujący.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -527,7 +537,7 @@ zostanie ona anulowana. Odrzucanie odbywa się w aplikacji mobilnej.
 . Po wyświetleniu komunikatu o sukcesie kliknięcie przycisku _ok_
 . Powiadomienie ma status odrzucony
 |Oczekiwany wynik | Powiadomienie ma status odrzuconego. W bazie danych widać, że transakcja ma jedną odmowę podpisu.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -547,7 +557,7 @@ zalogowany jest członek portfela.
 . Weryfikacja sukcesu wysłania transakcji w zewnętrznym serwisie, takim jak _blockchain.info_
 |Oczekiwany wynik | Transakcja została wysłana automatycznie, zmienił się jej status, formularz tworzenia jest
 ponownie dostępny, transakcja zarejestrowana jest na blockchainie Bitcoina.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
 
 [cols="2h,6"]
@@ -567,5 +577,5 @@ w aplikacji mobilnej zalogowany jest członek portfela.
 . Weryfikacja anulowania transakcji wcześniej oczekującej
 |Oczekiwany wynik | Transakcja na serwerze automatycznie została anulowana, formularz tworzenia jest ponownie
 dostępny, środki nie zostały wydane.
-|Rezultat testu |
+|Rezultat testu | Zaliczony
 |===
