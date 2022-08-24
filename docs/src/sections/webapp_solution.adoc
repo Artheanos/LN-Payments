@@ -2,10 +2,10 @@
 
 Aplikacja internetowa została wykonana na podstawie biblioteki _React_
 ze względu na jej znajomość przez członków zespołu.
-Oprócz języka _JavaScript_ zespół korzysta z jego nadzbioru o nazwie — Typescript.
+Oprócz języka _JavaScript_ zespół korzystał z jego nadzbioru o nazwie — Typescript.
 Pozwala on na wykrycie wielu błędów jeszcze przed uruchomieniem kodu.
-Dodatkowo stanowczo usprawnia pracę dzięki temu, że edytory tekstowe, z których korzysta zespół, wyświetlają typ i pola
-obiektu zaznaczonego kursorem.
+Dodatkowo zdecydowanie usprawnia pracę dzięki temu, że edytory tekstowe,
+z których korzysta zespół, wyświetlają typ i pola obiektu zaznaczonego kursorem.
 Biblioteka _Vite_ pomaga uruchomić środowisko deweloperskie z przeładowywaniem aplikacji w czasie rzeczywistym
 przy każdej zmianie kodu.
 Wiele komponentów bazuje na bibliotece _material-ui_.
@@ -17,7 +17,7 @@ wiele pojęć związanych z tą technologią nie zostanie opisanych szczegółow
 
 Słowo "widok" należy rozumieć podobnie do słowa "strona" w konwencjonalnych aplikacjach internetowych,
 gdyż aplikacja internetowa zespołu jest jednostronicowa. Składa się z jednej strony i wielu widoków.
-Zespół zdecydował się na używanie komponentów funkcyjnych, ponieważ są one bardziej przejrzyste, zużywają mniej kodu i
+Zespół zdecydował się na używanie komponentów funkcyjnych, ponieważ są one bardziej przejrzyste, zajmują mniej kodu i
 pozwalają na tworzenie spersonalizowanych hooków.
 
 ==== Struktura plików
@@ -39,16 +39,16 @@ image::../images/webapp/src_pages_dir.png[]
 Widoki są pogrupowane na domeny. Podobne pogrupowanie widoczne jest w innych miejscach aplikacji.
 
 * _auth_ — autentykacja użytkowników
-* _quickBuy_ — przyjmowanie pieniędzy i zwracanie tokenów
+* _quickBuy_ — przyjmowanie płatności i zwracanie tokenów
 * _userPanel_ — widoki dla zalogowanych użytkowników
-** _account_ — edycja swojego konta
-** _adminManagement_ — zarządzanie kontami adminów
-** _serverSettings_ — zarządzanie konfiguracjami serwera
+** _account_ — edycja konta
+** _adminManagement_ — zarządzanie kontami administratorów
+** _serverSettings_ — edytowanie konfiguracji serwera
 ** _transactions_ — zarządzanie transakcjami
-** _wallet_ — zarządzanie portfelem
+** _wallet_ — tworzenie i wyświetlanie statystyk portfelu
 
-Katalog _components_ zawiera komponenty, które nie znajdują się w katalogu _pages_.
-Są wyodrębnione w taki sposób, aby mogły być wykorzystane w dowolnym miejscu w aplikacji.
+Katalog _components_ zawiera komponenty, które nie zostały zamieszczone w katalogu _pages_.
+Zostały wyodrębnione w taki sposób, aby mogły być wykorzystane w dowolnym miejscu w aplikacji.
 Pozwala to na ponowne użycie komponentów. Na przykład komponent do przyjmowania płatności _QuickBuy.tsx_,
 który można zobaczyć w panelu użytkownika i
 na widoku publicznym.
@@ -57,9 +57,9 @@ na widoku publicznym.
 image::../images/webapp/src_components_dir.png[]
 
 * _common_ — komponenty wykorzystywane w więcej niż jednych widoku
-* _Context_ — komponenty zwracające _Reactowy context_ z przygotowanymi danymi i hookami
+* _Context_ — komponenty zwracające _React_ context z przygotowanymi danymi i hookami
 * _Form_ — komponenty do tworzenia formularzy
-* _Layouts_ — komponenty, które wyświetlają inne komponenty dodając do nich pewne elementy
+* _Layouts_ — komponenty, wyświetlające inne komponenty dodając do nich pewne elementy
 * _Modals_ — okna dialogowe
 
 Reszta katalogów w folderze _components_ jest nazwana od widoków, gdzie są wykorzystywane:
@@ -74,7 +74,7 @@ Reszta katalogów w folderze _components_ jest nazwana od widoków, gdzie są wy
 ==== Pliki konfiguracyjne
 
 * postcss.config.js — konfiguracja narzędzia _postcss_, wymagana przez _tailwindcss_
-* jest.config.js — zawiera konfiguracje takich rzeczy jak generowanie raportów z testów,
+* jest.config.js — zawiera konfiguracje takich elementów jak generowanie raportów z testów,
 czy dodawanie ścieżek modułów wykorzystywanych w testach
 * .prettierrc — konfiguracja narzędzia _prettier_
 * .tailwind.config.js — konfiguracja narzędzia _tailwind_
@@ -122,13 +122,13 @@ image::../images/system_presentation/webapp/refreshing_token.png[]
 
 _UserLayout.tsx_, tak samo, jak _AdminLayout.tsx_ i _PublicLayout.tsx_ przekierowuje użytkownika
 w zależności od jego stanu.
-Zagnieżdżają w sobie komponenty w zależności od tego, komu należy się udostępnić dany widok.
+Zagnieżdżają w sobie komponenty w zależności od tego, komu należy udostępnić dany widok.
 
-* _UserLayout.tsx_ — przekierowuje do strony logowania, jeśli użytkownik nie jest zalogowany, lub do strony głównej,
-jeśli użytkownik ma rolę tymczasową
-* _AdminLayout.tsx_ — przekierowuje do strony logowania, jeśli użytkownik nie jest zalogowany, lub do strony głównej,
-jeśli użytkownik nie jest adminem
-* _PublicLayout.tsx_ — przekierowuje do panelu użytkownika, jeśli użytkownik jest zalogowany
+* _UserLayout.tsx_ — przekierowuje do strony logowania — jeśli użytkownik nie jest zalogowany
+lub do strony głównej — jeśli użytkownik ma rolę tymczasową
+* _AdminLayout.tsx_ — przekierowuje do strony logowania — jeśli użytkownik nie jest zalogowany
+lub do strony głównej — jeśli użytkownik nie jest adminem
+* _PublicLayout.tsx_ — przekierowuje do panelu użytkownika — jeśli użytkownik jest zalogowany
 i ma rolę inną niż tymczasową
 
 .Fragment pliku UserLayout.tsx.
@@ -138,10 +138,10 @@ include::../../../webapp/src/components/Layouts/UserLayout.tsx[lines=9..18]
 ----
 
 _UserContext.tsx_ jest odpowiedzialny za przechowywanie danych o użytkowniku oraz sprawdzanie ważności tokena dostępu
-do serwera. Jeśli odświeżanie tokena się nie powiedzie, użytkownik jest wylogowany, a zarazem przekierowany
+do serwera. Jeśli odświeżanie tokena się nie powiedzie, użytkownik zostanie wylogowany, a zarazem przekierowany
 przez _UserLayout.tsx_ lub _AdminLayout.tsx_ do strony logowania.
 Jeśli odświeżanie się powiedzie, kolejne jego uruchomienie zostaje zakolejkowane do wykonania za 10 minut.
-Ponieważ ważność tokena na serwerze jest ustalona na 15 minut, token w przeglądarce jest zawsze ważny.
+Dzięki temu, że ważność tokena na serwerze jest ustalona na 15 minut, token w przeglądarce jest zawsze ważny.
 Udostępnia również funkcje pomocnicze, takie jak _login_, _logout_, w celu wyeliminowania powtórzeń.
 
 .Funkcje _login_ i _logout_ pliku UserContext.tsx.
@@ -163,7 +163,7 @@ aby dane o użytkowniku zostały zapisane nawet przy zamknięciu przeglądarki.
 
 Plik _persist.ts_ zawiera funkcje dotyczące _localStorage_,
 czyli API do długotrwałego zapisu danych dostępnego w przeglądarce.
-API _localStorage_ pozwala zapisać dane typu klucz wartość, ale klucz i wartość muszą być wartością tekstową.
+API _localStorage_ pozwala zapisać dane typu klucz wartość, ale tylko postaci wartości tekstowej.
 Zostały napisane funkcje, aby obejść to ograniczenie, zamieniając obiekty na wartość tekstową przy zapisywaniu
 i odwrotnie przy wczytywaniu.
 
@@ -184,7 +184,7 @@ przy okazji zamieniając ciągi tekstowe na obiekty _Date_.
 include::../../../webapp/src/utils/persist.ts[lines=4..11]
 ----
 
-Ponieważ w Reakcie zmienne wartości muszą być przechowywane w stanie, został napisany hook _useLocalStorage_,
+Z tego powodu, że w Reakcie zmienne wartości muszą być przechowywane w stanie, został napisany hook _useLocalStorage_,
 który oprócz zapisywania wartości w stanie, nadpisuje ją w _localStorage_.
 Używa się go jak standardowego hooku _useState_, z tą różnicą, że zamiast przyjmować wartość, przyjmuje klucz,
 który wskazuje na wartość w _localStorage_.
@@ -198,8 +198,9 @@ include::../../../webapp/src/utils/persist.ts[lines=17..30]
 Pasek nawigacyjny po lewej stronie ekranu został zaimplementowany w _src/components/common/Sidebar/Sidebar.tsx_.
 Jest on dodawany do komponentów w _PanelLayout.tsx_.
 Każdy przycisk na tym pasku jest zdefiniowany przy pomocy komponentu _SidebarEntry.tsx_.
-Jest możliwość przekazania do niego argumentu _adminOnly_, jeśli przycisk ma być wyświetlony tylko dla adminów.
-Przycisk jest podświetlony, jeśli otwarta ścieżka w przeglądarce zawiera w sobie ścieżkę danego przycisku.
+Istnieje możliwość przekazania do niego argumentu _adminOnly_,
+jeśli przycisk ma być wyświetlony tylko dla administratorów.
+Przycisk jest podświetlony, jeśli otwarta ścieżka w przeglądarce zawiera w sobie jego ścieżkę.
 
 [source, tsx]
 ----
@@ -219,7 +220,7 @@ image::../images/webapp/src_locales_dir.png[]
 
 ==== Komunikacja z serwerem
 W katalogu _src/webServer_ znajduje się interfejs do komunikacji z serwerem.
-Wyodrębnione zostały funkcje odpowiedzialne za pobieranie danych, w taki sposób,
+Wyodrębnione zostały funkcje odpowiedzialne za pobieranie danych w taki sposób,
 żeby wywołanie funkcji było czytelne i bez niepotrzebnych powtórzeń.
 
 .Układ katalogów i plików w folderze _webService_.
@@ -263,9 +264,9 @@ która dodaje do zapytania nagłówek z tokenami i wykonuje je przy użyciu bibl
 include::../../../webapp/src/webService/requests.ts[lines=195..216]
 ----
 
-Ponieważ serwer zwraca różne kody HTTP, a biblioteka _axios_ wyrzuca błąd,
-jeśli kod odpowiedzi nie jest kodem powodzenia,
-metoda _request_ wyłapuje błąd zwracany przez axios i zwraca obiekt typu _Response_ z pustym polem danych,
+Serwer używa różnych kodów HTTP do przekazania różnych informacji, w tym kodów błędu.
+Biblioteka _axios_ wyrzuca wyjątek, jeśli kod odpowiedzi nie jest kodem powodzenia.
+Metoda _request_ wyłapuje wyjątki zwracane przez axios i zwraca obiekt typu _Response_ z pustym polem danych,
 zamiast wyrzucać błąd. Oznacza to, że nie trzeba wyłapywać błędu przy każdym wywołaniu funkcji pola _api_.
 Żeby zobaczyć, czy zapytanie zakończyło się powodzeniem, wystarczy sprawdzić pole _status_ zwracanego obiektu.
 
@@ -293,7 +294,7 @@ include::../../../webapp/src/components/wallet/WalletCard.tsx[lines=9..16]
 image::../images/system_presentation/webapp/wallet_cropped.png[]
 
 Komponent _ProgressCard.tsx_, podobnie jak _WalletCard.tsx_, jest wykorzystywany w wielu miejscach.
-Przy wyświetlaniu stanu środków portfelu i stanu środków w kanałach _Lightning Network_.
+Przy wyświetlaniu stanu środków portfelu i środków w kanałach _Lightning Network_.
 Przyjmuje informacje o tym, jaki tekst ma być wyświetlony na kafelku i wartości liczbowe,
 jakie mają być wyświetlone na pasku wczytywania.
 
@@ -330,11 +331,10 @@ include::../../../webapp/src/components/wallet/WalletLoadingSkeleton.tsx[]
 
 Żeby wyświetlić dane o portfelu, trzeba wcześniej go stworzyć.
 Do tego służy widok _WalletCreatePage.tsx_.
-Jeśli na widoku portfelu serwer nie ma stworzonego portfelu,
-zostanie wyświetlony _WalletCreatePage.tsx_.
-Żeby stworzyć portfel, potrzebny jest co najmniej jeden admin z przypisanym kluczem publicznym.
+Jeśli korzystając z niego, serwer nie ma stworzonego portfela, zostanie wyświetlony _WalletCreatePage.tsx_.
+Żeby stworzyć portfel, potrzebny jest co najmniej jeden administrator z przypisanym kluczem publicznym.
 W komponencie _WalletCreatePage.tsx_ pobierani są użytkownicy z rolą _admin_
-i filtrowani sprawdzając obecność klucza publicznego.
+i filtrowani sprawdzając posiadanie klucza publicznego.
 Jeśli długość tablicy zawierającej filtrowanych adminów wynosi zero,
 zamiast formularza zwracany jest komunikat o błędzie.
 
@@ -352,7 +352,7 @@ image::../images/system_presentation/webapp/wallet_cannot_create.png[]
 Za przyjmowanie płatności odpowiedzialny jest komponent _QuickBuy.tsx_.
 Składa się z trzech komponentów, które są naprzemiennie wyświetlane.
 Do każdego komponentu są przekazywane te same argumenty, takie jak cena pojedynczej transakcji,
-funkcje do przechodzenia do następnego komponentu.
+czy funkcje do przechodzenia do następnego komponentu.
 
 .Fragment pliku QuickBuy.tsx.
 [source, tsx]
@@ -374,7 +374,7 @@ include::../../../webapp/src/components/QuickBuy/Stages/SetupStage/SetupStage.ts
 Drugim krokiem jest wyświetlenie informacji o transakcji i przejście na trzeci komponent,
 w momencie, gdy płatność zostanie wykonana. Tym zajmuje się komponent _TokensStage.tsx_.
 Informacje przedstawione są w postaci kodu QR, który można zeskanować,
-używając telefonu lub kopiując do schowka poprzez naciśnięcie na ten kod.
+używając telefonu lub kopiując go do schowka poprzez naciśnięcie na ten kod.
 
 .Fragment pliku QRComponent.tsx.
 [source, tsx]
@@ -453,10 +453,10 @@ include::../../../webapp/src/pages/userPanel/HistoryPage.tsx[]
 
 Aby wyświetlić dane w tabeli razem z elementami sterującymi paginacją,
 komponent _History.tsx_ korzysta z _ApiPageableTable.tsx_.
-Ponieważ w większości widoków z tabelami zespół chce pobrać listę danych z danej ścieżki i ją wyświetlić,
+Z racji, że w większości widoków z tabelami zespół chce pobrać listę danych z danej ścieżki i ją wyświetlić,
 _ApiPageableTable.tsx_ zamiast danych przyjmuje ścieżkę URL do serwera.
 Eliminuje to dużo powtórzeń, ale uniemożliwia zapisanie i manipulacji danymi poza tym komponentem.
-Dlatego powstał komponent _PageableTable.tsx_, wykorzystywany przez _ApiPageableTable.tsx_,
+W tym celu powstał komponent _PageableTable.tsx_, wykorzystywany przez _ApiPageableTable.tsx_,
 który przyjmuje listę danych i wyświetla ją w postaci tabeli.
 
 .Plik History.tsx.
@@ -499,7 +499,7 @@ include::../../../webapp/src/components/common/Notification.tsx[]
 ==== Pozostałe komponenty
 Biblioteka _formik_ bardzo ułatwia tworzenie formularzy, lecz żeby spersonalizować widok pól formularzy,
 trzeba dostosować się do sposobu działania tej biblioteki.
-Pola tworzy się przy pomocy komponentu _Field_ z biblioteki, który przyjmuje argument o nazwie _component_.
+Pola tworzy się przy pomocy komponentu _Field_ z tej biblioteki, który przyjmuje argument o nazwie _component_.
 _TextInput.tsx_ oraz _MultiSelectInput.tsx_ w katalogu _src/Form/FormikInputs_ są stworzone,
 aby być przekazane jako ten argument.
 _TextInput.tsx_ zwraca pole tekstowego, a _MultiSelectInput.tsx_ zwraca listę z możliwością wybrania wielu pozycji.
@@ -513,10 +513,10 @@ include::../../../webapp/src/components/auth/Register/Register.tsx[indent=0,line
 .Formularz rejestracji użytkownika.
 image::../images/system_presentation/webapp/register.png[]
 
-_ConfirmationModal.tsx_ to okno dialogowe, wyświetla przekazany tekst z dwoma przyciskami —
+_ConfirmationModal.tsx_ to okno dialogowe, które wyświetla przekazany tekst z dwoma przyciskami —
 do odrzucenia i do zaakceptowania wyświetlonej informacji.
 Jeśli wiadomość zostanie odrzucona, okno zostaje zamknięte.
-Jeśli wiadomość zostanie zaakceptowana, okno zostaje zamknięte,
+Jeśli jednak wiadomość zostanie zaakceptowana, okno zostaje zamknięte,
 i wykonana jest funkcja wcześniej przekazana do okna jako parametr.
 
 .Przykład użycia _ConfirmationModal.tsx_.
