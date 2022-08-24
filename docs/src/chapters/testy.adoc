@@ -3,7 +3,7 @@
 Aby już na wczesnym etapie wykrywać powstałe błędy, zespół zdecydował o tworzeniu testów podczas pisania poszczególnych
 elementów systemu. Dzięki takiemu podejściu udało się uniknąć wielu błędów w trakcie rozbudowy aplikacji. Ułatwiło to
 również dokonywanie _code review_, ponieważ osoba sprawdzająca mogła w łatwy sposób zweryfikować czy dana funkcjonalność
-działa w taki sposób, jak to zaplanowano.
+działa w taki sposób, w jaki została zaplanowana.
 Podczas implementacji należało pamiętać również o tym, że tworzony kod musi być testowalny, w konsekwencji czego był on
 czytelniejszy i prostszy do zrozumienia.
 
@@ -27,7 +27,7 @@ include::../../../.github/workflows/webservice.yml[lines=17..37]
 
 === Testy jednostkowe i integracyjne
 
-==== Backend
+==== Serwer
 Kod źródłowy dla testów jednostkowych i integracyjnych umieszczony został w katalogu _test_, znajdującym się w folderze
 _src_. Testy, tak samo jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich
 układ można zaobserwować na zrzucie ekranu poniżej.
@@ -58,7 +58,7 @@ image::../images/tests_chapter/common_folder.png[]
 
 * helper- W tym folderze umieszczona została implementacja pomocnicza. Stworzona tutaj została np. metoda
 _resetSettings_, odpowiadająca za powrót do domyślnych właściwości, czy też implementacja klasy _BaseIntegrationTest_
-wykorzystywane w testach integracyjnych.
+wykorzystywana w testach integracyjnych.
 
 .Katalog helper
 image::../images/tests_chapter/helper_folder.png[]
@@ -113,7 +113,7 @@ pokryte testami nawet w 100%, co wymagało poświęcenia trochę dodatkowego cza
 .Raport z pokrycia testami kodu części backendowej
 image::../images/tests_chapter/test_coverage_backend.png[]
 
-==== Frontend
+==== Aplikacja internetowa
 
 Testy dotyczące części frontendowej aplikacji zostały umieszczone w katalogu _tests_. Znajdujące się w nim foldery
 zostały przedstawione na poniższym zrzucie ekranu, są to:
@@ -121,28 +121,38 @@ zostały przedstawione na poniższym zrzucie ekranu, są to:
 .Folder zawierający testy do części frontendowej aplikacji
 image::../images/tests_chapter/tests_folders_frontend.png[]
 
+W związku z tym, że zespół zdecydował się na użycie _React Testing Library_ to testy jednostkowe dla komponentów
+_React-a_ to tak naprawdę testy integracyjne. Świadczą o tym słowa wypowiedziane przez twórców tejże biblioteki "ciężko
+stwierdzić granicę pomiędzy testami jednostkowymi a integracyjnymi".
+Testy napisane w "czystym" _Typescript-cie_ są testami jednostkowymi.
+W głównym katalogu _tests_ zostały umieszczone następujące foldery:
+
 * components- Znalazły się tutaj testy sprawdzające, czy poszczególne elementy renderują się poprawnie
 
 .Folder zawierający testy komponentów
 image::../images/tests_chapter/components_tests.png[]
 
-* concern- W folderze umieszczony został plik zawierający atrapę historii przeglądarki.
+* concern- W folderze umieszczony został plik zawierający atrapę historii przeglądarki, jednakże głównym przeznaczeniem
+znajdujących się tam elementów jest zadbanie o to, aby testy uruchamiały się prawidłowo. W podfolderze _polyfills_
+usytuowane zostały implementacje, które wykorzystywane są do rozszerzenia funkcjonalności istniejącego już kodu.
 
 .Folder zawierający atrapę historii
 image::../images/tests_chapter/concern_folder.png[]
 
-* mockData- Jak sama nazwa wskazuje, zostały tutaj utworzone pliki z atrapami dla m.in. płatności oraz transakcji.
+* mockData- Jak sama nazwa wskazuje, zostały tutaj utworzone pliki z atrapami danych zwracanymi przez serwer
+m.in. płatności oraz transakcji.
 
 .Folder zawierający atrapy
 image::../images/tests_chapter/mockdata_folder.png[]
 
-* pages- Znalazły się tutaj testy, w których sprawdzano np. czy po podaniu odpowiednich danych w formularzu
-administrator zostanie prawidło utworzony.
+* pages- Znalazły się tutaj testy, w których sprawdzano czy poszczególne widoki działają poprawnie np. czy po podaniu
+odpowiednich danych w formularzu
+administrator zostanie prawidłowo utworzony.
 
 .Folder zawierający testy różnych funkcjonalności
 image::../images/tests_chapter/pages_folder.png[]
 
-* utils- Katalog ten zawiera testy sprawdzające datę oraz czas
+* utils- Katalog ten zawiera testy sprawdzające datę oraz czas.
 
 .Folder zawierający testy związane z czasem
 image::../images/tests_chapter/utils_folder.png[]
@@ -150,8 +160,8 @@ image::../images/tests_chapter/utils_folder.png[]
 Fragment kodu umieszczony niżej przedstawia test odpowiedzialny za sprawdzanie, czy komponent _navbar_ zostanie
 wygenerowany w poprawny sposób.
 
-.Test generujący komponent z pliku Navbar.test.java
-[source, javascript]
+.Test generujący komponent z pliku Navbar.test.tsx
+[source, tsx]
 ----
 include::../../../webapp/tests/components/common/Navbar.test.tsx[lines=6..12]
 ----
@@ -159,8 +169,8 @@ include::../../../webapp/tests/components/common/Navbar.test.tsx[lines=6..12]
 Kolejny test zaprezentowany poniżej odpowiedzialny jest za sprawdzenie formularza zmiany hasła. Po wprowadzeniu
 prawidłowych danych oczekiwany jest komunikat o powodzeniu operacji.
 
-.Test sprawdzający formularz zmiany hasła z pliku PasswordChangePage.test.java
-[source, javascript]
+.Test sprawdzający formularz zmiany hasła z pliku PasswordChangePage.test.tsx
+[source, tsx]
 ----
 include::../../../webapp/tests/pages/userPanel/account/PasswordChangePage.test.tsx[lines=25..42]
 ----
@@ -174,7 +184,7 @@ image::../images/tests_chapter/test_coverage_frontend.png[]
 
 ==== Aplikacja mobilna
 
-Testy dla aplikacji mobilnej, podobnie jak w przypadku części frontendowej zostały umieszczone w folderze _tests_.
+Testy dla aplikacji mobilnej, podobnie jak w przypadku części frontendowej, zostały umieszczone w folderze _tests_.
 
 .Folder zawierający testy dla aplikacji mobilnej
 image::../images/tests_chapter/mobileapp_tests.png[]
@@ -200,7 +210,7 @@ image::../images/tests_chapter/mobileapp_utils_folder.png[]
 Przykładowy test odpowiedzialny za generowanie komponentu prezentuje się następująco:
 
 .Przykładowy test z pliku SignedInRouter.test.tsx
-[source, javascript]
+[source, tsx]
 ----
 include::../../../mobileapp/tests/components/routers/SignedInRouter.test.tsx[lines=20..35]
 ----
@@ -214,18 +224,25 @@ image::../images/tests_chapter/test_coverage_mobileapp.png[]
 
 === Testy E2E
 
-Obecnie istnieją narzędzia, które umożliwiają napisanie testów sprawdzających, jak aplikacja funkcjonuje jako całość,
-bez konieczności robienia tego manualnie. Zespół zdecydował się na utworzenie również testów tego typu.
+Obecnie istnieją narzędzia, które umożliwiają napisanie testów sprawdzających jak aplikacja funkcjonuje jako całość,
+bez konieczności robienia tego manualnie.
+Testy te powiązane są ze zwinnym procesem wytwarzania oprogramowania zwanym _BDD_. Polega on na stworzeniu
+wymagań(napisaniu scenariuszy) z wykorzystaniem języka _Gherkin_. W związku z tym, że wykorzystuje się do tego celu język
+naturalny, nawet osoba nietechniczna jest w stanie stworzyć taką dokumentację. Pomaga to również na etapie implementacji
+rozwiązania oraz testów, ponieważ wymagane kroki dla określonej funkcjonalności zostały jasno opisane.
+Zespół zdecydował się na utworzenie również testów tego typu. Do tego celu wykorzystano framework _Cypress_ wraz
+z plugin-em _Cucumber_.
 
-==== Serwer
 
-Pliki odpowiedzialne za testy E2E dla aplikacji webowej umieszczono w katalogu _cypress_, co zostało przedstawione na
-poniższym zrzucie ekranu.
+==== Aplikacja internetowa + serwer
+
+Pliki odpowiedzialne za testy E2E serwera wraz z aplikacją webową umieszczono w katalogu _cypress_, co zostało
+przedstawione na poniższym zrzucie ekranu.
 
 .Katalog zawierający pliki do testów E2E
 image::../images/tests_chapter/webapp_e2e.png[]
 
-Scenariusze testowe _login.feature_ oraz _register.feature_ stworzone zostały z wykorzystaniem biblioteki _Cucumber_,
+Scenariusze testowe _login.feature_ i _register.feature_ stworzone zostały z wykorzystaniem biblioteki _Cucumber_
 oraz języka _Gherkin_. Przykładowy scenariusz został zamieszczony poniżej.
 
 .Przykładowy scenariusz testowy w języku Gherkin
