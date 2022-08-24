@@ -26,7 +26,7 @@ export const AdminManagementPage: React.FC = () => {
           apiRequest={api.admins.getAll}
           mapper={(user: AdminUser, key) => (
             <AdminListItem
-              user={user}
+              adminUser={user}
               key={key}
               reloadList={() => setReloadDependency((i) => i + 1)}
             />

@@ -279,5 +279,4 @@ image::../images/tests_chapter/mobileapp_e2e.png[]
 Przykładowy scenariusz wygląda tak samo, jak w przypadku aplikacji webowej. Różnią się one tylko zaplanowanymi akcjami.
 W następnych wydaniach planowana jest implementacja metod odpowiedzialnych za wykonywanie istniejących już scenariuszy.
 
-=== Testy manualne
-TODO
+include::../sections/manual_tests.adoc[]

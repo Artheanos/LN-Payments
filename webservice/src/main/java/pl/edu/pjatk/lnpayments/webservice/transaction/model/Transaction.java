@@ -21,7 +21,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 1024)
+    @Column(length = 4096)
     private String rawTransaction;
     private String sourceAddress;
     private String targetAddress;
