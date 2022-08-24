@@ -227,9 +227,9 @@ image::../images/tests_chapter/test_coverage_mobileapp.png[]
 Obecnie istnieją narzędzia, które umożliwiają napisanie testów sprawdzających jak aplikacja funkcjonuje jako całość,
 bez konieczności robienia tego manualnie.
 Testy te powiązane są ze zwinnym procesem wytwarzania oprogramowania zwanym _BDD_. Polega on na stworzeniu
-wymagań(napisaniu scenariuszy) z wykorzystaniem języka _Gherkin_. W związku z tym, że wykorzystuje się do tego celu język
-naturalny, nawet osoba nietechniczna jest w stanie stworzyć taką dokumentację. Pomaga to również na etapie implementacji
-rozwiązania oraz testów, ponieważ wymagane kroki dla określonej funkcjonalności zostały jasno opisane.
+wymagań(napisaniu scenariuszy) z wykorzystaniem języka _Gherkin_. W związku z tym, że wykorzystuje się do tego celu
+język naturalny, nawet osoba nietechniczna jest w stanie stworzyć taką dokumentację. Pomaga to również na etapie
+implementacji rozwiązania oraz testów, ponieważ wymagane kroki dla określonej funkcjonalności zostały jasno opisane.
 Zespół zdecydował się na utworzenie również testów tego typu. Do tego celu wykorzystano framework _Cypress_ wraz
 z plugin-em _Cucumber_.
 
