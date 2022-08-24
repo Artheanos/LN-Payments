@@ -1,10 +1,11 @@
 === Jan Pieczul
 
-Moją główną odpowiedzialnością była aplikacja internetowa i skonfigurowanie narzędzi potrzebnych do rozwoju projektu.
+Moją główną odpowiedzialnością była aplikacja internetowa, aplikacja mobilna i
+skonfigurowanie narzędzi potrzebnych do rozwoju projektu.
 Stworzyłem dla zespołu repozytoria na serwisach takich jak _Jira_, _GitHub_, _Discord_ i _Figma_.
 Dostosowałem je w taki sposób, żeby praca nad projektem była efektywna.
 Do tego wybrałem i skonfigurowałem środowisko ciągłej integracji — _GitHub Actions_.
-Oprócz aplikacji internetowej wykonałem parę zadań dotyczących serwera.
+Oprócz aplikacji internetowej wykonałem parę zadań dotyczących serwera i napisałem fragment książki do pracy dyplomowej.
 
 Zanim odbyła się praca nad projektem, spędziłem czas na nauce technologii kryptowalut,
 między innymi _Bitcoin_ i _Lightning Network_. Dokształcając się, pisząc dokumentację i pracując nad prototypem,
@@ -35,7 +36,7 @@ Niestety podczas implementowania generowania kluczy według prototypu zauważył
 że prototyp korzystał z rozwiązania niedostępnego przy korzystaniu z narzędzia _Expo_.
 Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _ReactNative_.
 
-.Lista zadań, przy których pracował Jan Pieczul w procesie implementacji
+.Lista zadań, przy których pracował Jan Pieczul w procesie implementacji.
 [cols="1,9,1"]
 |===
 |Klucz|Nazwa|Story points
@@ -84,4 +85,4 @@ Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _R
 |LP-198|Improve JWT management for webapp|2
 |===
 
-Wykonałem 42 zadania. Ich łączna wartość wyniosła 108 punktów historii.
+Wykonałem 43 zadania. Ich łączna wartość wyniosła 118 punktów historii.
