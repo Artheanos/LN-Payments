@@ -1,1 +1,36 @@
 === Sebastian Lewandowski
+
+Wstępnie w projekcie miałem zajmować się głównie implementacją części związanej z serwerem. Z przyczyn losowych
+nie mogłem zbytnio uczestniczyć w początkowej fazie prac związanych z tworzeniem aplikacji.
+
+Zadanie związane z implementacją portfela multisig w prototypie zajęło mi zdecydowanie zbyt dużo czasu.
+W moim odczuciu byłem najsłabszy pod kontem stricte umiejętności programistycznych. Aby nie opóźniać prac, razem
+z zespołem podjęliśmy decyzję o tym, że zajmę się najłatwiejszymi zadaniami związanymi np. z testami czy też tworzeniem
+kolekcji w _Postman-nie_ ze wszystkimi punktami końcowymi. Mimo to ilość czasu, jaką potrzebowałem na zrealizowanie
+zagadnień oraz ilość poprawek, które musiałem nanieść była duża. Niestety ma to swoje odniesienie w
+liczbie wykonanych przeze mnie zadań.
+
+Podjąłem próbę napisania pierwszej części rozdziału "Proces realizacji", jednak w odczuciu kapitana zespołu był on
+słaby. W późniejszym etapie pomysł na rozdział uległ zmianie, wiec praca poszła na marne. Napisałem ostatnią
+część rozdziału "Proces realizacji" oraz opisałem rozdział "Testy".
+
+Brałem czynny udział w _code review_ głównie rozwiązań związanych z serwerem. Sporo czasu poświęciłem na sprawdzanie
+tekstów napisanych przez pozostałych członków zespołu i starałem się wyłapać w nich wszystkie błędy.
+
+.Lista zadań, przy których pracował Sebastian w procesie implementacji.
+[cols="1,9,1"]
+|===
+|Klucz|Nazwa|Story points
+|LP-62|Investigate and implement multisig wallet in prototype|-
+|LP-87|Create postman collection with all endpoints|2
+|LP-139|Implement admin deletion|3
+|LP-132|Add notification details component|2
+|LP-135|Create auth scenarios|2
+|LP-182|Write "Proces realizacji" chapter - part 3|5
+|LP-171|Write "testy" chapter|3
+|LP-150|Complete own contribution for Sebastian Lewandowski|1
+|===
+
+Wykonałem lub brałem udział w realizacji 8 zadań, których łączna wartość wyniosła 18 punktów historii. Ich procentowy
+udział w całkowitej liczbie wyniósł ok. 5%. Jest to najsłabszy wynik z całego zespołu. Ta wartość nie uwzględnia czasu
+poświęconego na tworzenie dokumentacji podczas pierwszego etapu realizacji, na naukę oraz na _code review_.
