@@ -233,7 +233,6 @@ implementacji rozwiązania oraz testów, ponieważ wymagane kroki dla określone
 Zespół zdecydował się na utworzenie również testów tego typu. Do tego celu wykorzystano framework _Cypress_ wraz
 z plugin-em _Cucumber_.
 
-
 ==== Aplikacja internetowa + serwer
 
 Pliki odpowiedzialne za testy E2E serwera wraz z aplikacją webową umieszczono w katalogu _cypress_, co zostało
