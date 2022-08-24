@@ -209,9 +209,9 @@ zamknięcia kanałów.
 4+| *KARTA WYMAGANIA*
 |Identyfikator: |F17 h|Priorytet: |*M* (musi być)
 |Nazwa 3+|Transfer środków z portfela w węźle Lightning na portfel serwera
-|Opis 3+| Środku zakumulowane w węźle sieci Lightning powinny być automatycznie przelewane na adres wbudowanego
+|Opis 3+| Środki zakumulowane w węźle sieci Lightning powinny być automatycznie przelewane na adres wbudowanego
 portfela. Powinna też istnieć możliwość manualnego przelania środków poprzez panel portfela.
-|Kryteria akceptacji 3+|Środki z porfela Lightning są automatycznie przelewane po osiągnięciu limitu oraz istnieje
+|Kryteria akceptacji 3+|Środki z portfela Lightning są automatycznie przelewane po osiągnięciu limitu oraz istnieje
 guzik do manualnego transferu.
 |Udziałowiec 3+| _UOB02_
 |Wymagania powiązane 3+| _F13, F16_

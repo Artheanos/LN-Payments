@@ -31,7 +31,7 @@ transakcje swoim kluczem i przeglądać historię wpłat._
 |Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu iNGENIOUS._
 |Typ udziałowca: |_Nieożywiony pośredni_
 |Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań.
-biznesowych_
+biznesowych._
 |Ograniczenia: |_Nie ma wglądu w projekt, jedynie go nadzoruje._
 |===
 
