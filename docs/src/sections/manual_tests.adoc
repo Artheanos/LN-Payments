@@ -2,7 +2,7 @@
 
 Na sam koniec realizacji projetu przeprowadzone zostały testy systemowe całego systemu, które dodatkowo zweryfikowały
 jego zgodność z funkcjonalnymi wymaganiami opisanymi w rozdziale 4.3. Stworzone zostały scenariusze testowe,
-testujące każdą funkcjonalność aplikacji internetowej oraz mobilnej. Nie zostały napisane scenariusze przypadków
+sprawdzające każdą funkcjonalność aplikacji internetowej oraz mobilnej. Nie zostały napisane scenariusze przypadków
 pozytywnych i negatywnych. Przy wykonywaniu testów sprawdzane były wszystkie przypadki, a rezultat testu dotyczy nie
 tylko pozytywnej ścieżki opisanej w przebiegu testu. Testy nie uwzględniają wszystkich wymagań funkcjonalnych,
 ponieważ niektóre z nich nie były od samego początku planowane na te wydania. W przypadku wymagania _F11_ użytkownicy
@@ -17,8 +17,8 @@ wszystkie scenariusze testowe, wraz z wynikiem ich testów.
 |Identyfikator: | ST01
 |Nazwa | Dokonywanie płatności przez niezalogowanych użytkowników
 |Testowane wymagania | _F08, F09_
-|Opis a| Niezalogowany powinien móc przejść do procesu płatności z poziomu strony głównej. Może on dokonać płatności
-i pobrać tokeny, aczkolwiek nie będzie on miał do nich dostępu po opuszczeniu aplikacji.
+|Opis a| Niezalogowany użytkownik powinien móc przejść do procesu płatności z poziomu strony głównej. Może on dokonać
+płatności i pobrać tokeny, aczkolwiek nie będzie on miał do nich dostępu po opuszczeniu aplikacji.
 |Warunki wstępne a|Niezalogowany użytkownik znajduje się na stronie głównej, posiada skonfigurowany portfel wspierający
 sieć Lightning.
 |Przebieg testu a|
@@ -120,7 +120,7 @@ procesu wyświetlane są komunikaty informujące, że tokeny będą również do
 |Testowane wymagania | _F18_
 |Opis a| Administrator ma możliwość podania w ustawieniach adresu URL, na który wysyłane będą tokeny po zakończeniu
 płatności przez użytkownika. Zaraz po ich wygenerowaniu, powinny one zostać wysłane na wskazany adres.
-|Warunki wstępne a| Użytkownik jest w procesie płatności, uruchomiony jest serwer testowy przyjmujący tokeny,
+|Warunki wstępne a| Użytkownik jest w trakcie procesie płatności, uruchomiony jest serwer testowy przyjmujący tokeny,
 serwer jest skonfigurowany pod wysyłanie tokenów.
 |Przebieg testu a|
 . Użytkownik dokonuje płatności poprzez swój portfel Lightning.
@@ -224,7 +224,7 @@ aspektów aplikacji jak cena tokenów czy limity automatycznych transferów śro
 . Modyfikacja danych formularza
 . Wysłanie formularza
 . Odświeżenie strony
-|Oczekiwany wynik | Po zapisaniu ustawień serwer zwraca nowe dane ustawień. Są używane w innych miejscach w aplikacji,
+|Oczekiwany wynik | Po zapisaniu ustawień serwer zwraca nowe ich dane. Są one używane w innych miejscach w aplikacji,
 takich jak formularz tworzenia płatności.
 |Rezultat testu | Zaliczony
 |===
@@ -235,7 +235,7 @@ takich jak formularz tworzenia płatności.
 |Identyfikator: | ST12
 |Nazwa | Dodawanie administratorów.
 |Testowane wymagania | _F04, F14_
-|Opis a| Każdy administrator ma dostęp do panelu zarządzania administratorami. Może z nim przeglądać oraz usuwać
+|Opis a| Każdy administrator ma dostęp do panelu zarządzania administratorami. Może w nim przeglądać oraz usuwać
 konta. Dostępny jest formularz służący do dodawania nowych administratorów.
 |Warunki wstępne a| Zalogowany jest administrator.
 |Przebieg testu a|
@@ -271,8 +271,8 @@ administratorami.
 |Identyfikator: | ST14
 |Nazwa | Wygenerowanie pary kluczy oraz przesłanie klucza publicznego na serwer.
 |Testowane wymagania | _FA02, F14_
-|Opis a| Zawsze przy pierwszym logowaniu do aplikacji mobilnej, użytkownik trafi na ekran generowania kluczy.
-W tym czasie aplikacja generuje klucze, przesyła klucz publiczny oraz zapisuje lokalnie klucz prywatny.
+|Opis a| Zawsze przy pierwszym logowaniu do aplikacji mobilnej, użytkownik zostanie przekierowany na ekran generowania
+kluczy. W tym czasie aplikacja generuje klucze, przesyła klucz publiczny oraz zapisuje lokalnie klucz prywatny.
 |Warunki wstępne a| Dany jest administrator, który nie logował się do aplikacji mobilnej, czyli nie ma przesłanego
 klucza.
 |Przebieg testu a|
@@ -283,7 +283,7 @@ klucza.
 . Przejście na stronę główną aplikacji
 . Zalogowanie się do aplikacji internetowej
 . Przejście do panelu zarządzania administratorami
-|Oczekiwany wynik | Po wysłaniu formularza zostają wysłane klucze na serwer. W panelu zarządzania administratorami
+|Oczekiwany wynik | Po wysłaniu formularza klucze zostają wysłane na serwer. W panelu zarządzania administratorami
 przy użytkowniku wyświetla się zielona ikonka w polu _hasKeys_.
 |Rezultat testu | Zaliczony
 |===
