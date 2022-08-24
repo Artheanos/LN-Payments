@@ -5,7 +5,7 @@
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: | _UOB01_
 |Nazwa: | _Użytkownik_
-|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
+|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci Lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
 |Typ udziałowca: |_Ożywiony bezpośredni_
 |Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu._
 |Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących._

@@ -26,14 +26,14 @@ rodzaju tokenów jest tak niska, że górnicy i tak by nie chcieliby wykopać ta
 może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z płatnościami w Bitcoinach. W przypadku
 głównego zastosowania, czyli wdrożenia projektu w ramach programu iNGENIOUS, można założyć, że serwer będzie operowany
 w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,
-wystarczy jeden kanał, aby wszystkie osoby miały połączenie z serwerem. Mogą wtedy wykorzystać routing sieci lightning,
+wystarczy jeden kanał, aby wszystkie osoby miały połączenie z serwerem. Mogą wtedy wykorzystać routing sieci Lightning,
 który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż dotrze do odbiorcy. Tym sposobem, niskim
 kosztem poprzez otwarcie jednego kanału z serwerem, można przyznać do niego dostęp wielu użytkownikom. Jeżeli dany
 klient nie będzie posiadał pośredniego połączenia z serwerem, będzie musiał on otworzyć i opłacić kanał bezpośredni. Aby
 rozwiązać problem zbyt częstego otwierania kanałów, istnieje również możliwość podłączenia się do jednej z globalnych
 sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>.
 
-.Schemat blokowy zarządzania kanałami ze strony użytkownika
+.Schemat blokowy zarządzania kanałami ze strony użytkownika.
 [plantuml]
 ----
 include::../diagrams/ln_channels_flow.puml[]
@@ -63,7 +63,7 @@ długi czas, aczkolwiek może to być i tak krótszy okres niż w przypadku ocze
 
 Po zamknięciu kanałów, środki alokowane w nich będą trafiały na osobny portfel znajdujący się w węźle Lightning,
 działającym przy serwerze. Dostęp do tego portfela posiadać będzie tylko serwer, na którym znajdują się pliki
-"macaroon", regulujące dostęp do węzła sieci lightning. Środki z regularnie zamykanych kanałów będą trafiały na portfel
+"macaroon", regulujące dostęp do węzła sieci Lightning. Środki z regularnie zamykanych kanałów będą trafiały na portfel
 Lightning, z którego będą mogły zostać wysłane do portfela wbudowanego w serwer. Środki będą przelewane automatycznie po
 osiągnięciu limitu podanego w ustawieniach serwera. Dodatkowo administrator będzie mógł uruchomić transfer środków
 manualnie, jeżeli zajdzie taka potrzeba. Nie będzie możliwości transferu środków z portfela Lightning na inny adres niż
@@ -90,7 +90,7 @@ rozmiar takiego skryptu, ponieważ jest on czasem 5 razy większy niż zwykły s
 skrypt blokujący zawiera hash skryptu w rozmiarze 20 bajtów oraz funkcję sprawdzającą skrypt, który zostanie podany w
 skrypcie odblokowującym. Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_.
 
-.Porównanie skryptów P2PKH i P2SH
+.Porównanie skryptów P2PKH i P2SH.
 [cols="1h,2,2"]
 |===
 h| h|P2PKH h|P2SH
@@ -126,7 +126,7 @@ jakichkolwiek środków wymagana jest pewna liczba podpisów od różnych admini
 Podpisywanie transakcji odbywać się będzie w dedykowanej do tego aplikacji mobilnej. Aby użytkownik został
 członkiem portfela, będzie musiał wcześniej zalogować się do aplikacji mobilnej. Przy pierwszym logowaniu zostanie
 wygenerowana para kluczy. Klucz publiczny zostanie wysłany na serwer i zapisany w bazie danych, a klucz prywatny
-zostanie zapisany w pamięci telefony i będzie używany do podpisywania transakcji.
+zostanie zapisany w pamięci telefonu i będzie używany do podpisywania transakcji.
 
 Aby wykonać transakcję, jeden z administratorów musi zainicjować transakcję w aplikacji webowej. Zostaną wtedy zebrane
 wszystkie wyjścia z transakcji, które wskazują na adres portfela. Później obliczana jest opłata transakcyjna i wyjścia
@@ -137,7 +137,7 @@ transakcji z powrotem na serwer. Gdy transakcja zostanie podpisana przez wymagan
 wejście zostanie zweryfikowane poprzez testowe uruchomienie skryptu. Jeżeli wszystkie wykonania zakończą się sukcesem,
 transakcja zostanie rozpropagowana po całej sieci Bitcoin.
 
-.Schemat blokowy procesu tworzenia i podpisywania transakcji
+.Schemat blokowy procesu tworzenia i podpisywania transakcji.
 [plantuml]
 ----
 include::../diagrams/btc_transaction_flow.puml[]
