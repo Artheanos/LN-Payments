@@ -9,7 +9,7 @@ Niezmienność danych w systemie jest jego ogromną zaletą. Otwiera to drzwi pr
 Skoro dane są niezmienne, można je użyć w innym kontekście, na przykład jako dowód bądź potwierdzenie
 autentyczności przedmiotu, bądź zdarzenia. Przykładowo istnieje możliwość użycia numeru transakcji w Bitcoinach jako
 identyfikatora dla wydarzenia, które gdzieś i kiedyś się wydarzyło. Można sobie wyobrazić, że ciężarówka wjeżdża do
-portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Osoba próbująca
+portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci Bitcoin. Osoba próbująca
 potwierdzić to wydarzenie jest w stanie wylegitymować się posiadanym przez siebie numerem transakcji oraz swoim
 kluczem publicznym. Dzięki temu można mieć pewność, że takie wydarzenie faktycznie miało miejsce. Problemem jest
 finansowanie takich transakcji. Ktoś musi zapłacić, aby być w stanie przypisać numer transakcji do danego wydarzenia

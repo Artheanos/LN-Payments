@@ -219,7 +219,6 @@ wiele takich samych bibliotek, między innymi:
 * Axios
 * Formik
 * Jest
-* MSW
 * Eslint
 * Prettier
 
@@ -230,9 +229,9 @@ Podobnie jak w przypadku standardowej wersji frameworku React służy on do twor
 Główną różnicą jest fakt, że zawiera on natywne komponenty dla danego urządzenia. Dzięki temu można
 bezproblemowo tworzyć aplikacje mobilne czy też oprogramowanie na telewizory.
 
-Expo::
-Jest to zestaw narzędzi ułatwiające proces tworzenia aplikacji z wykorzystaniem React Native. Pomaga między innymi w
-budowaniu aplikacji, uruchamianiu lokalnym czy też obsługą zaawansowanych funkcji telefonu.
+Native Base::
+Jest to biblioteka zawierająca wiele gotowych komponentów React'a dostosowanych do aplikacji mobilnych. Wygląd
+aplikacji internetowej jest głównie jej zasługą.
 
 BitcoinJS::
 BitcoinJS jest biblioteką zapewniającą obsługę protokołu Bitcoina. W aplikacji mobilnej jest używana do generowania

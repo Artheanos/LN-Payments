@@ -28,7 +28,7 @@ wybrano również większość używanych technologii i bibliotek.
 Mając ustalony kształt finalnego rozwiązania oraz solidną wiedzę z zakresu kryptowalut, rozpoczęto przygotowywanie
 dokumentacji wstępnej. Stworzono w tym czasie dokumenty KP, DZW oraz SWS. Znajdują się one w załącznikach pracy.
 Opracowano również wstępne schematy blokowe dla niektórych procesów, a także diagram architektury systemu.
-Dodatkowo w tym czasie stworzono repozytorium dla właściwej części projektu w serwisie _Github.
+Dodatkowo w tym czasie stworzono repozytorium dla właściwej części projektu w serwisie _Github_.
 
 Po ukończeniu wymaganej dokumentacji rozpoczęło się opracowywanie ostatnich produktów dostarczanych tej fazy, czyli
 prototypu oraz makiety interaktywnej. Za wykonanie makiety odpowiedzialny był Jan Pieczul, a Aleksander Konieczny

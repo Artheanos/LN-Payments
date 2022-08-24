@@ -2,7 +2,7 @@
 
 Obsługa autoryzacji i procesu uwierzytelniania znajduje się w pakiecie _auth_. Posiada on wszystkie klasy
 konfiguracyjne, filtry i serwisy odpowiedzialne za bezpieczeństwo aplikacji. Znajdują się tutaj również pozostałości
-po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jgo danych. Z tego powodu w
+po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jego danych. Z tego powodu w
 tym pakiecie znajdują się repozytoria, serwis i konwerter dla klas modelowych użytkowników (znajdujące się w pakiecie
 _common_).
 
@@ -34,7 +34,7 @@ bezstanowe<<rest_tutorial_stateless>>. Kolejne metody konfigurują zabezpieczeni
 wszystkie ścieżki wymagają przynajmniej roli użytkownika, następnie jawnie definiowane są ścieżki dostępne tylko dla
 administratorów oraz ścieżki ogólnodostępne. Na koniec dodany jest filtr, który zajmuje się sprawdzaniem tokena JWT.
 Wstrzykiwany jest przed domyślny filtr Springa _UsernamePasswordAuthenticationFilter_, aby dokonać walidacji przed
-wywołaniem domyślnych mechanizmów autoryzacji. Filtr _AuthTokenFilter odpowiedzialny jest za walidację tokena. W
+wywołaniem domyślnych mechanizmów autoryzacji. Filtr _AuthTokenFilter_ odpowiedzialny jest za walidację tokena. W
 przypadku gdy token jest poprawny, użytkownik, którego dane się w nim znajdują, zostaje ustawiony jako uwierzytelniony
 użytkownik w kontekście bezpieczeństwa.
 

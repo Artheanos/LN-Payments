@@ -164,7 +164,7 @@ znaleźć satysfakcjonującego rozwiązania w akceptowalnym czasie.
 image::../images/mobileapp_webservice_content.png[]
 
 Katalog zawiera dwa pliki. W _routes.ts_ przechowywane są ścieżki do zasobów serwera. Wykorzystywane są one w pliku
-_routes.ts_ do wykonywania żądań HTTP. Plik ten zawiera klasę _Requests_ typu singleton, która zawiera metody
+_requests.ts_ do wykonywania żądań HTTP. Plik ten zawiera klasę _Requests_ typu singleton, która zawiera metody
 pozwalające na wysyłanie żądań. Funkcje reprezentujące pojedyncze żądania one udostępnione programiście poprzez ich
 eksport jako zwykły obiekt JavaScript.
 

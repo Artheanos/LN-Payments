@@ -40,7 +40,7 @@ wydaniach.
 image::../images/storypoints_by_person.png[]
 
 Największy udział w implementacji projektu miał Aleksander Konieczny. Zrealizował on zadania warte 264 punkty historii.
-Jest to aż 65.7% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 120 punktów historii, dających 29,9%.
+Jest to aż 65.3% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 122 punktów historii, dających 30,2%.
 Sebastianowi Lewandowskiemu udało się ukończyć zadania o wartości 18 punktów historii, co daje 4.5% udziału w
 implementacji. Statystyki te nie uwzględniają pierwszego etapu historii. W tamtym czasie nad nauką, dokumentacją i
 projektowaniem systemu pracował cały zespół. Autorem makiety interaktywnej był w całości Jan Pieczul, natomiast przy

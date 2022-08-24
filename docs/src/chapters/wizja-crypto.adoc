@@ -1,7 +1,7 @@
 == Wizja rozwiązania w kontekście kryptowalut
 
 U podstaw rozwiązania leży zaawansowane wykorzystanie technologii Bitcoin wraz ze wsparciem sieci Lightning.
-System w kontekście kryptowalut podzielić można na cztery części. Środki będą sekwencyjnie przychodzić przez wszystkie
+System w kontekście kryptowalut podzielić można na cztery części. Środki będą sekwencyjnie przechodzić przez wszystkie
 z nich. Cykl życia środków w systemie zacznie się od sieci Lightning. Użytkownik będzie musiał mieć ustanowiony kanał
 płatności z serwerem (pośrednio lub bezpośrednio), dzięki czemu będzie mógł zakupić tokeny. Środki ze
 sprzedaży początkowo zablokowane będą w kanale płatności, które będą musiały być regularnie zamykane, aby móc
@@ -22,7 +22,7 @@ płatności, jeśli tylko uiszczona zostanie jednorazowa opłata transakcyjna. W
 oraz opłat transakcyjnych zostało już opisanych w rozdziale <<_omowienie_problemu,2>>.
 
 W kontekście tej pracy kupowanie tokenów będzie odbywało się tylko za pomocą sieci Lightning. Z założenia cena różnego
-rodzaju tokenów jest tak niska, że górnicy i tak by nie chciały wykopać takiej transakcji. Problematyczne
+rodzaju tokenów jest tak niska, że górnicy i tak by nie chcieliby wykopać takiej transakcji. Problematyczne
 może być otwieranie kanałów, ponieważ ono też generuje koszta powiązane z płatnościami w Bitcoinach. W przypadku
 głównego zastosowania, czyli wdrożenia projektu w ramach programu iNGENIOUS, można założyć, że serwer będzie operowany
 w ramach jednej firmy. Jeżeli osoby mające korzystać z kupowania tokenów mają kanały płatności ustanowione między sobą,

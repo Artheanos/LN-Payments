@@ -128,3 +128,5 @@ funkcjonalności. Ciągłej modyfikacji poddawany był harmonogram. Na pewnym et
 opóźnienia w realizacji projektu. Początkowo zakres iteracji oraz harmonogram były aktualizowane. Gdy data zakończenia
 projektu przesunięta została na wrzesień roku 2022, zaniechano dalszej modyfikacji harmonogramu, gdyż stało się to
 niepotrzebnym dodatkiem. Harmonogram praktycznie nie był realizowany, więc nie było sensu jego dalszego utrzymywania.
+W trakcie ostatniej iteracji tymczasowo wprowadzono spotkanie _daily scrum_. Odbywało się ono codziennie przez
+ponad tydzień, aby zespół mógł się synchronizować o postępach prac w ostatniej fazie realizacji projektu.
