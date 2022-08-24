@@ -109,12 +109,12 @@ klasy z testami integracyjnymi korzystają z klasy _BaseIntegrationTest_.
 Na poniższym zrzucie ekranu został załączony raport dotyczący pokrycia testami kodu związanego z częścią serwerową
 aplikacji. Wynik na poziomie 91% świadczy o solidnym podejściu do testowania stworzonego kodu. Niektóre klasy zostały
 pokryte testami nawet w 100%, co wymagało poświęcenia trochę dodatkowego czasu.
-Napisanych zostało 333 testy, które rozlokowano w 61 plikach.
+Napisanych zostało 333 testów, które rozlokowano w 61 plikach.
 
 .Raport z pokrycia testami kodu części backendowej
 image::../images/tests_chapter/test_coverage_backend.png[]
 
-Zamieszczony raport pochodzi z pliku _jacoco.exec_. Wygenerowany został on przez _Jacoco_ do pliku _index.html_ i
+Zamieszczony raport pochodzi z programu _Intellij IDEA_. Wygenerowany został on przez _Jacoco_ do pliku _index.html_ i
 przedstawia trochę inne dane. Według niego pokrycie testami kodu serwera wyniosło 95%.
 
 ==== Aplikacja internetowa
