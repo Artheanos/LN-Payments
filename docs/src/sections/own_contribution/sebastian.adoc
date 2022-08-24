@@ -4,15 +4,24 @@ Wstępnie w projekcie miałem zajmować się głównie implementacją części z
 nie mogłem zbytnio uczestniczyć w początkowej fazie prac związanych z tworzeniem aplikacji.
 
 Zadanie związane z implementacją portfela multisig w prototypie zajęło mi zdecydowanie zbyt dużo czasu.
-W moim odczuciu byłem najsłabszy pod kontem stricte umiejętności programistycznych. Aby nie opóźniać prac, razem
-z zespołem podjęliśmy decyzję o tym, że zajmę się najłatwiejszymi zadaniami związanymi np. z testami czy też tworzeniem
-kolekcji w _Postman-nie_ ze wszystkimi punktami końcowymi. Mimo to ilość czasu, jaką potrzebowałem na zrealizowanie
+W moim odczuciu byłem najsłabszy pod kontem stricte umiejętności programistycznych, co wynika również z faktu, że
+brakuje mi komercyjnego doświadczenia w technologiach webowych. Aby nie opóźniać prac, razem z zespołem podjęliśmy
+decyzję o tym, że zajmę się najłatwiejszymi zadaniami związanymi np. z testami czy też tworzeniem kolekcji w
+_Postman-nie_ ze wszystkimi punktami końcowymi. Mimo to ilość czasu, jaką potrzebowałem na zrealizowanie
 zagadnień oraz ilość poprawek, które musiałem nanieść była duża. Niestety ma to swoje odniesienie w
 liczbie wykonanych przeze mnie zadań.
 
+Napisałem logikę umożliwiającą usunięcie z listy administratora, który nie został jeszcze przypisany do portfela.
+Połączyłem ją również z aplikacją internetową tak, aby można było wykonać tę czynność na stronie.
+W aplikacji mobilnej zaimplementowałem ekran, na którym wyświetlane są szczegóły powiadomienia, takie jak: id czy też
+adres. Dodałem również dwa guziki, służące do akceptowania/ odrzucania transakcji.
+W ramach zadania LP-135 stworzyłem testy E2E. Napisałem w języku _Gherkin_ scenariusze testowe dla przypadków logowania
+oraz rejestracji, a następnie dodałem ich implementację z wykorzystaniem  narzędzia _Cypress_.
+
 Podjąłem próbę napisania pierwszej części rozdziału "Proces realizacji", jednak w odczuciu kapitana zespołu był on
 słaby. W późniejszym etapie pomysł na rozdział uległ zmianie, wiec praca poszła na marne. Napisałem ostatnią
-część rozdziału "Proces realizacji" oraz opisałem rozdział "Testy".
+część rozdziału "Proces realizacji" obejmującego sprinty 10 - 12. Opisałem również rozdział "Testy" dotyczący testów
+jednostkowych, integracyjnych oraz E2E dla serwera, aplikacji webowej oraz mobilnej.
 
 Brałem czynny udział w _code review_ głównie rozwiązań związanych z serwerem. Sporo czasu poświęciłem na sprawdzanie
 tekstów napisanych przez pozostałych członków zespołu i starałem się wyłapać w nich wszystkie błędy.
