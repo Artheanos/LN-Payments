@@ -114,8 +114,8 @@ Napisanych zostało 333 testów, które rozlokowano w 61 plikach.
 .Raport z pokrycia testami kodu części backendowej
 image::../images/tests_chapter/test_coverage_backend.png[]
 
-Zamieszczony raport pochodzi z programu _Intellij IDEA_. Wygenerowany został on przez _Jacoco_ do pliku _index.html_ i
-przedstawia trochę inne dane. Według niego pokrycie testami kodu serwera wyniosło 95%.
+Zamieszczony raport pochodzi z programu _Intellij IDEA_. Wygenerowany on został również przez narzędzie _Jacoco_
+do pliku _index.html_ i przedstawia trochę inne dane. Według niego pokrycie testami kodu serwera wyniosło 95%.
 
 ==== Aplikacja internetowa
 
