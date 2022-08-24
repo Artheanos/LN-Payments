@@ -1,3 +1,12 @@
 extends: default
 image:
   align: center
+page:
+  numbering:
+    start-at: toc
+running-content:
+  start-at: toc
+link:
+  font-color: $base-font-color
+code:
+  font-size: $base-font-size
