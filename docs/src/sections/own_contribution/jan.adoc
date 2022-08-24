@@ -21,7 +21,7 @@ wybrałem i zainstalowałem narzędzia do serwowania aplikacji, testowania, spra
 Ustaliłem strukturę plików w aplikacji internetowej, sposób dzielenia komponentów i sposób nawigacji.
 Skonfigurowałem środowisko testowe, aby działało z naszymi rozwiązaniami.
 W późniejszej fazie implementacji pracowałem między innymi nad panelem użytkownika,
-panelem admina, ekranem przyjmowania płatności, i autoryzacją użytkownika.
+panelem admina, ekranem przyjmowania płatności i autoryzacją użytkownika.
 Gdy zauważyłem, że wiele funkcji odpowiedzialnych za odbieranie danych z serwera wykonuje podobne czynności,
 wydzieliłem je do osobnego folderu i ustaliłem ich wspólny interfejs.
 
@@ -30,6 +30,7 @@ Stworzyłem w repozytorium katalog o nazwie _mobileapp_ zawierający aplikację 
 napisałem instrukcję jak ją uruchomić.
 Używając mojego doświadczenia z biblioteką _React_, mogłem ponownie wykorzystać znane mi narzędzia.
 Stworzyłem ekran logowania i proces generowania pary kluczy użytkownika.
+Zaimplementowałem przyjmowanie powiadomień, używając protokołu _WebSocket_.
 Zainstalowałem narzędzia do testowania, skonfigurowałem je i napisałem większość testów jednostkowych.
 Początkowo stworzyłem aplikację, używając narzędzia _Expo_.
 Niestety podczas implementowania generowania kluczy według prototypu zauważyłem,
@@ -85,4 +86,6 @@ Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _R
 |LP-198|Improve JWT management for webapp|2
 |===
 
-Wykonałem 43 zadania. Ich łączna wartość wyniosła 118 punktów historii.
+Łącznie wykonałem 44 zadania. Ich łączna wartość wyniosła 122 punkty historii.
+Zadania jednak nie uwzględniają rzeczy takich jak szukanie rozwiązań niektórych problemów,
+czy pomaganie członkom zespołu.
