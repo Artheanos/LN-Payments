@@ -50,7 +50,7 @@ Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _R
 |LP-46|Create readme for webapp and mobileapp|1
 |LP-55|Create landing page|2
 |LP-56|Update quick buy page mockup|3
-|LP-57|Create quick buy page|3
+|LP-57|Create quick buy page|5
 |LP-64|Polish form carousel view|3
 |LP-65|Polish checkout carousel view|5
 |LP-66|Polish payment summary view|2
@@ -86,6 +86,6 @@ Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _R
 |LP-198|Improve JWT management for webapp|2
 |===
 
-Łącznie wykonałem 44 zadania. Ich łączna wartość wyniosła 122 punkty historii.
+Łącznie wykonałem 43 zadania. Ich łączna wartość wyniosła 120 punktów historii.
 Zadania jednak nie uwzględniają rzeczy takich jak szukanie rozwiązań niektórych problemów,
 czy pomaganie członkom zespołu.

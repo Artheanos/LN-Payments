@@ -10,9 +10,8 @@ funkcjonalności sieci Bitcoin oraz Lightning. Stworzony produkt jest kompletnym
 młodą jeszcze technologię, której potencjał nie został jeszcze w pełni wykorzystany. Sprawia to, że projekt ma
 szansę zyskać uznanie wśród społeczności technologi Blockchain.
 
-// TODO tej fajny wykres z jiry
-//.Wykres obrazujący łączny nakład prac w projekcie.
-//image::../images/cumulative_report.png[]
+.Wykres obrazujący łączny nakład prac w projekcie.
+image::../images/cumulative_report.png[]
 
 W trakcie prac nad implementacją projektu zrealizowano łącznie 156 zadań. Ich estymacja w postaci punktów historii
 wyniosła 392. Zespół nie śledził, ile czasu zostało poświęcone na zadania. Można przyjąć, że 1 punkt warty był 4
@@ -40,15 +39,14 @@ wydaniach.
 image::../images/storypoints_by_person.png[]
 
 Największy udział w implementacji projektu miał Aleksander Konieczny. Zrealizował on zadania warte 264 punkty historii.
-Jest to aż 65.3% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 122 punktów historii, dających 30,2%.
+Jest to aż 65.7% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 120 punktów historii, dających 29.9%.
 Sebastianowi Lewandowskiemu udało się ukończyć zadania o wartości 18 punktów historii, co daje 4.5% udziału w
 implementacji. Statystyki te nie uwzględniają pierwszego etapu historii. W tamtym czasie nad nauką, dokumentacją i
 projektowaniem systemu pracował cały zespół. Autorem makiety interaktywnej był w całości Jan Pieczul, natomiast przy
 prototypie rozkład udziału jest podobny jak w przypadku implementacji końcowego produktu.
 
-// TODO contributions z githuba
-//.Ilość commit'ów w projekcie na przestrzeni czasu.
-//image::../images/storypoints_by_person.png[]
+.Ilość commit'ów w projekcie na przestrzeni czasu.
+image::../images/commits_timeline.png[]
 
 W trakcie realizacji kod był _commit'owany_ 154 razy. Mała liczba wynika z podejścia do zarządzania zmianami w
 projekcie. Przy każdym zmianie włączonej do głównej gałęzi kodu, wszystkie _commit'y_ były łączone w jeden, aby

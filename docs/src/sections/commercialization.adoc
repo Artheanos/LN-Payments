@@ -31,7 +31,7 @@ Według raportu wykonanego przez serwis _crypto.com_ suma płatności w roku 202
 wydawać małą kwotą, natomiast trzeba pamiętać o nowości i innowacyjności kryptowalut. Technologia ta jest dostępna od
 niedawna, podczas gdy sprzedaż internetowa jest już ugruntowana na rynku od wielu lat. Szacuje się, że rynek
 płatności w kryptowalutach będzie rósł o 22,8 do 23,4 procent rok do roku. Znajduje to potwierdzenie w danych
-historycznych oraz w przewidywaniach serwisu _crypto.com_, co widoczne jest na poniższym wykresie.
+historycznych oraz w przewidywaniach serwisu _crypto.com_, co widoczne jest na rysunku 21.
 
 .Łączna wartość transakcji w kryptowalutach (w miliardach dolarów).
 image::../images/total_btc_tx_value.png[]
@@ -47,7 +47,7 @@ szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za t
 image::../images/crypto_users.png[]
 
 Dla wielu użytkowników problemem mógł być brak regulacji prawnych. Dla wielu firm mogło to być barierą nie
-do przejścia, gdyż chcąc działać w pełni legalnie, chcieli zastosować się do panujących regulacji, których nie
+do przejścia, gdyż chcąc działać w pełni legalnie, chcieli zastosować się do panujących regulacji, które nie
 istniały. Problemem jest to, że technologia blockchain jest rozproszoną i anonimową strukturą danych, przez co
 kontrola finansów w sposób znany z tradycyjnych nie jest możliwe. Na szczęście coraz więcej krajów decyduje się na
 prawne uregulowanie kwestii kryptowalut. Wiele firm znając obowiązujące przepisy, może zdecydować się na wprowadzenie
@@ -56,7 +56,7 @@ proporcjonalnie do ilości użytkowników, więc można spodziewać się wzrost�
 
 ==== Zainteresowanie technologią
 
-Obecnie na rynku dostępnym jest wiele różnych kryptowalut. Zdecydowanie najbardziej ugruntowane na rynku są Bitcoin
+Obecnie na rynku dostępnych jest wiele różnych kryptowalut. Zdecydowanie najbardziej ugruntowane na rynku są Bitcoin
 oraz Ethereum, gdzie najpopularniejszą jest ta pierwsza. Odpowiada obecnie aż za 38% udziału wśród kryptowalut.
 W ostatnim czasie stracił trochę udziałów, aczkolwiek dalej jest na pozycji dominującej rynek.
 

@@ -16,7 +16,7 @@ konfiguracja środowisk, tak aby powstała niezbędna baza do rozbudowy aplikacj
 |LP-34|Research CI available options|Jan Pieczul|-|Ukończone
 |LP-36|Create pipeline for Java webservice|Aleksander Konieczny|2|Ukończone
 |LP-37|Create pipeline for React webapp|Jan Pieczul|3|Ukończone
-|LP-38|Create pipeline for mobile app|Jan Pieczul|5|Ukończone
+|LP-38|Create pipeline for mobile app|Jan Pieczul|5|Nieukończone
 |LP-39|Pipeline for documents|Aleksander Konieczny|5|Ukończone
 |LP-40|Add git hooks|-|3|Anulowane
 |LP-41|Prepare docker-compose for lnd and bitcoind|Aleksander Konieczny|3|Ukończone
@@ -37,10 +37,10 @@ programowania TypeScript. W ramach tego zadania dodano również narzędzia do a
 Prettier. Cała aplikacja budowana jest przy pomocy narzędzi _Yarn_ oraz _Vite_. Ostatnim komponentem jest aplikacja
 mobilna, wykorzystująca ponownie TypeScript oraz mobilną wersję _React'a_, czyli _React Native_. Całość była uruchamiana
 przez zestaw narzędzi _Expo_. Zadanie to otrzymało więcej punktów od pozostałych dwóch, ponieważ zespół nie posiadał
-wcześniejszego doświadczenia z aplikacjami mobilnymi. Dodatkowe dwa punkty zostały przydzielone w celu zdobyciu
+wcześniejszego doświadczenia z aplikacjami mobilnymi. Dodatkowe dwa punkty zostały przydzielone w celu zdobycia
 odpowiedniej wiedzy.
 
-Następne dwa zadania dotyczyło folderu repozytorium zawierającego wszystkie dokumenty zapisane w zwykłych plikach
+Następne dwa zadania dotyczyły folderu repozytorium zawierającego wszystkie dokumenty zapisane w zwykłych plikach
 tekstowych. Członkowie zespołu uznali, że najlepszym rozwiązaniem będzie stworzenie całej dokumentacji w Asciidoc i
 przechowywanie jej w głównym repozytorium projektu. Pierwsze zadanie dotyczyło konwersji dokumentów z formatu programu
 Microsoft Word na format Asciidoc. Dzięki temu zyskano możliwość nie tylko przeglądania historii dokumentów, ale także
@@ -58,7 +58,7 @@ z serwisem _Github_ oraz jest darmowe. _Travis_ posiada limit darmowych uruchomi
 wybranego rozwiązania i istniało ryzyko jego osiągnięcia. Projekt nie posiada budżetu, więc było to bardzo ważne
 kryterium. Po dokonaniu wyboru technologi rozpoczęto tworzenie konfiguracji dla serwera i aplikacji webowej.
 W obu folderach zawierających kod źródłowy dodano automatyczne budowanie aplikacji, uruchomianie testów
-automatycznych, a także sprawdzanie stylu kodu. W tym sprincie nie uwzględniono automatyzacji budowania dla aplikacji
+automatycznych, a także sprawdzanie stylu kodu. W tym sprincie zrezygnowano z automatyzacji budowania dla aplikacji
 mobilnej ze względu na potrzebne dodatkowe nakłady pracy przy zdobywaniu wiedzy. Zadanie to zostało uwzględnione w
 następnym sprincie. W przypadku folderu z dokumentami dodano automatyczne budowanie oraz serie walidacji dla plików.
 Sprawdzane są między innymi długość linijek, nadmiarowe spacje czy też poprawne zakończenie linijek.
@@ -73,9 +73,10 @@ kontenera zawierającego bazę danych _PostgreSQL_ w plikach _docker-compose_.
 
 ==== Podsumowanie
 
-Wszystkie planowane zadania udało się zamknąć, więc cel Sprintu został osiągnięty. Wstępnie w Sprincie znalazło się 13
-zadań wycenionych na 40 punktów. Wykonanych zostało 12 z nich, ponieważ jedno zadanie zostało anulowane w trakcie
-iteracji. Przełożyło się na uzyskanie 37 punktów historii na koniec pierwszej iteracji.
+Prawie wszystkie zaplanowane zadania udało się zamknąć, więc cel Sprintu został osiągnięty. Wstępnie w Sprincie znalazło
+się 13 zadań wycenionych na 40 punktów. Wykonanych zostało 11 z nich, ponieważ jedno zadanie zostało anulowane w trakcie
+iteracji, a drugie zostało przeniesione do następnej iteracji. Przełożyło się na uzyskanie 32 punktów historii na
+koniec pierwszej iteracji.
 
 .Wykres spalania sprintu pierwszego.
 image::../images/sprints_raports/burndown_sprint1.png[]

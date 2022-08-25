@@ -1,7 +1,7 @@
 == Projekt systemu
 
 Centralnym punktem rozwiązania jest serwer napisany w języku programowania Java wraz z użyciem frameworka Spring.
-Zdecydowaliśmy się na to rozwiązanie ze względu na duże doświadczenie członków zespołu w tej technologii. Java
+Zdecydowano się na to rozwiązanie ze względu na duże doświadczenie członków zespołu w tej technologii. Java
 posiada również biblioteki do obsługi kryptowalut, które idealnie pasują do naszego przypadku użycia. Aplikacja
 została wykonana w warstwowej architekturze klient-serwer. Współcześnie popularnym trendem jest rozbicie aplikacji
 internetowych na część serwerową oraz część prezentacyjną, nie inaczej postanowiliśmy zrobić w prezentowanym systemie.
@@ -11,9 +11,9 @@ projektowego. Przy pomocy Reacta można w łatwy i szybki sposób stworzyć prof
 co jest ogromną zaletą. Do stworzenia aplikacji mobilnej wykorzystano podobnie jak w przypadku aplikacji webowej
 język TypeScript oraz framework React Native, który jest mobilnym odpowiednikiem Reacta. Dzięki temu minimalizowany
 jest dodatkowy nakład na naukę nowych technologii. To rozwiązanie pozwana nam też na ponowne użycie niektórych
-komponentów i typów z aplikacji webowej. Komunikacja pomiędzy serwerem, aplikacją webową oraz aplikacją mobilną
-odbywa się z wykorzystaniem protokołów HTTP/HTTPS, oraz WebSocket. Dane w bazie danych są ustrukturyzowane, więc
-zdecydowaliśmy się na relacyjną bazę danych PostgreSQL. Dodatkowo razem z serwerem będzie działać węzeł sieci
+komponentów i typów z aplikacji internetowej. Komunikacja pomiędzy serwerem, aplikacją internetową oraz aplikacją
+mobilną odbywa się z wykorzystaniem protokołów HTTP/HTTPS, oraz WebSocket. Dane w bazie danych są ustrukturyzowane,
+więc zdecydowano się na relacyjną bazę danych PostgreSQL. Dodatkowo razem z serwerem będzie działać węzeł sieci
 Lightning _LND_ oraz pełny węzeł sieci Bitcoin _bitcoind_.
 
 Znaczna większość wykorzystywanych technologii oraz bibliotek opartych jest na licencjach open-source. Pozwala to na
@@ -59,7 +59,7 @@ przedłużonym wsparciem. W momencie rozpoczęcia prac nad projektem była to na
 Cały kod aplikacji oraz testy napisane są w tym języku.
 
 Spring::
-Spring jest szkieletem tworzenia aplikacji dla platformy Javy. Adaptuje on paradygmat IaC (inversion of control).
+Spring jest szkieletem tworzenia aplikacji dla platformy Java. Adaptuje on paradygmat IaC (inversion of control).
 Składa się z wielu modułów takich jak Core, MVC czy też AOP. Dzięki nim można szybko i łatwo tworzyć rozbudowane
 aplikacje webowe.
 
@@ -71,12 +71,12 @@ nowych modułów.
 
 Spring Data JPA::
 Jest to moduł Springa ułatwiający komunikację z bazą danych. Dzięki niemu nie ma potrzeby pisania kodu dostępowego
-do bazy danych oraz znacząco ogranicza liczbę ręcznie pisanych zapytać do bazy danych. Jako że używamy relacyjnej
+do bazy danych oraz znacząco ogranicza liczbę ręcznie pisanych zapytań do bazy danych. Jako że używamy relacyjnej
 bazy danych, wybrano wersję JPA, czyli specyfikacji API do obsługi relacyjnej bazy danych. Jako domyślna implementacja
 JPA używany jest Hibernate.
 
 Spring Security::
-Spring security jest modułem dostarczającym wiele gotowych mechanizmów do zabezpieczania aplikacji webowej.
+Spring security jest modułem dostarczającym wiele gotowych mechanizmów do zabezpieczania aplikacji internetowej.
 Pisząc minimalną ilość kodu, można stworzyć kompleksowe zabezpieczenia dla aplikacji. Spring Security użyto do
 zabezpieczenia API, zarówno REST, jak i WebSocket.
 
@@ -141,11 +141,11 @@ Checkstyle::
 Jest to narzędzie służące do analizy kodu źródłowego. Pozwala na sprawdzenie, czy dany kod jest zgodny z ustalonymi
 wcześniej regułami.
 
-==== Aplikacja webowa
+==== Aplikacja internetowa
 
 TypeScript::
 Jest to język programowania będący rozszerzeniem języka JavaScript. Dodaje on między innymi statyczne typowanie
-oraz programowanie obiektowe. Kod TypeScript kompilowany jest do kody JavaScript, dzięki czemu kod napisany w
+oraz programowanie obiektowe. Kod TypeScript kompilowany jest do kodu JavaScript, dzięki czemu kod napisany w
 JavaScript jest poprawnym kodem w TypeScript.
 
 React::
@@ -246,7 +246,7 @@ kod źródłowy projektu.
 
 Asciidoctor::
 Asciidoctor jest parserem dla plików napisanych przy użyciu języka asciidoc. Domyślnie generuje pliki HTML. Jego
-funkcjonalność można rozwinąć dzięki rozszerzeniom. W projekcie używamy asciidoctor-pdf do generowania plików PDF oraz
+funkcjonalność można rozwinąć dzięki rozszerzeniom. W projekcie użyto asciidoctor-pdf do generowania plików PDF oraz
 asciidoctor-diagram do wstawiania diagramów w plantuml.
 
 PlantUML::
@@ -256,8 +256,8 @@ tekstowych. Tak samo, jak w przypadku dokumentacji pozwala to na trzymanie plik�
 ==== Testy E2E
 
 Cypress::
-Cypress to framework do tworzenia automatycznych testów E2E dla aplikacji webowych. Dostarcza on wszystkich narzędzi
-wymaganych do przeprowadzenia testów. Same testy pisane są w języku JavaScript.
+Cypress to framework do tworzenia automatycznych testów E2E dla aplikacji internetowych. Dostarcza on wszystkich
+narzędzi wymaganych do przeprowadzenia testów. Same testy pisane są w języku JavaScript.
 
 Cucumber::
 Jest to narzędzie programistyczne wspierające proces BDD. Pozwala na uruchamianie testów akceptacyjnych oraz E2E
@@ -283,8 +283,8 @@ W projekcie za pomocą Dockera przygotowywane jest środowisko deweloperskie w p
 Lightning i Bitcoin.
 
 Figma::
-Figma jest aplikacją webową stworzoną do edycji grafiki wektorowej oraz tworzenia prototypów. Została wykorzystana do
-stworzenia makiety interaktywnej w ramach projektu interfejsu użytkownika.
+Figma jest aplikacją internetową stworzoną do edycji grafiki wektorowej oraz tworzenia prototypów. Została
+wykorzystana do stworzenia makiety interaktywnej w ramach projektu interfejsu użytkownika.
 
 Maven::
 Maven jest narzędziem do budowania aplikacji napisanych w Javie. Funkcjonalności można rozbudować poprzez rozmaite
@@ -303,7 +303,7 @@ Jest to system zarządzania relacyjną bazą danych SQL.
 
 Yarn::
 Jest to system budowania i pakowania aplikacji dla aplikacji napisanych w języku JavaScript na platformie _node.js_.
-Wykorzystywany zarówno w aplikacji mobilne, jak i aplikacji webowej.
+Wykorzystywany zarówno w aplikacji mobilne, jak i aplikacji internetowej.
 
 Git::
 Git jest systemem kontroli wersji stworzonym przez Linusa Torvaldsa.

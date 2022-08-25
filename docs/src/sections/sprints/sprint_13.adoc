@@ -84,8 +84,8 @@ Z końcem iteracji udało się zakończyć prace nad projektem. Dokończone zost
 systemu, a także napisano całą książkę do pracy dyplomowej. Zespół musiał już tylko uzyskać wymagane zgody i złożyć
 pracę.
 
-//.Wykres spalania sprintu trzynastego.
-//image::../images/sprints_raports/burndown_sprint13.png[]
+.Wykres spalania sprintu trzynastego.
+image::../images/sprints_raports/burndown_sprint13.png[]
 
 Zakończone zostały wszystkie 26 zadań wartych 66 punktów historii. Iteracja została trakcie przedłużona o ponad tydzień.
 Jest to jedna z niewielu iteracji, która zakończyła się sukcesem. W rejestrze zadań zostało nadal kilkanaście zadań,

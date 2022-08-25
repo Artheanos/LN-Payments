@@ -72,7 +72,7 @@ rozwojem zarówno aplikacji internetowej, jak i aplikacji mobilnej. Sebastian Le
 testowaniem aplikacji. Wszyscy członkowie projektu dodatkową są deweloperami, którzy tworzą nowe funkcjonalności w
 systemie.
 
-Spotkania nie były organizowane według zasad opisanych w _Scrum Guide_<<scrum_guide>. Zdecydowano się na zrezygnowanie
+Spotkania nie były organizowane według zasad opisanych w _Scrum Guide_<<scrum_guide>>. Zdecydowano się na zrezygnowanie
 z codziennego spotkania _daily scrum_, na którym członkowie zespołu synchronizują się nawzajem o postępach prac.
 Projekt realizowany był w wolnym czasie, po pracy. Czas pracy nad systemem nie był równomiernie rozłożony przez
 wszystkich programistów. Jedna osoba pracowała głównie w weekendy, a druga po godzinach pracy. Codzienne spotkania

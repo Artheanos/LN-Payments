@@ -42,7 +42,7 @@ zakupione tokeny.
 include::../diagrams/payment_highlevel_sequence.puml[]
 ----
 
-Nie wliczając logowania, wszystkie punktu końcowe będą miały ścieżkę _/payments_. Gdy użytkownik znajdzie się na
+Nie wliczając logowania, wszystkie punkty końcowe będą miały ścieżkę _/payments_. Gdy użytkownik znajdzie się na
 pierwszym ekranie, zostanie wysłane zapytanie do serwera o aktualne dane potrzebne do płatności. Będą to przykładowo
 cena, opis, a dla zalogowanych użytkowników również transakcje w trakcie. Pozwoli to na powrót do niedokończonej
 płatności przerwanej na przykład przez odświeżenie strony internetowej. Po uzupełnieniu formularza, do serwera zostanie
@@ -50,16 +50,16 @@ wysłane żądanie _POST_ tworzące nowy zasób płatności. Przy pomocy lokalne
 _invoice_, dzięki któremu użytkownik będzie mógł zapłacić za swój zakup. W tym momencie użytkownikowi zostają
 wyświetlone kody QR, więc może on od razu zapłacić, bądź najpierw otworzyć kanał. Węzeł sieci Lightning nasłuchuje na
 nadchodzące płatności. Zaraz po zaksięgowaniu status płatności zostanie zaktualizowany oraz zostaną wygenerowane tokeny.
-Aplikacja webowa po zakończeniu ostatniego żądania nasłuchuje na odpowiednim kanale protokołu websocket za otrzymanie
-tokenów. Czas przedawnienia płatności będzie wynosił 15 minut. Po tym czasie płatność zmieni swój status na anulowany.
-Po wygenerowaniu tokenów są one wysyłane użytkownikowi, a następnie mu wyświetlane.
+Aplikacja internetowa po zakończeniu ostatniego żądania nasłuchuje na odpowiednim kanale protokołu websocket za
+otrzymanie tokenów. Czas przedawnienia płatności będzie wynosił 15 minut. Po tym czasie płatność zmieni swój status na
+anulowany. Po wygenerowaniu tokenów są one wysyłane użytkownikowi, a następnie mu wyświetlane.
 
 ==== Zarządzanie portfelem
 
 W momencie pierwszego uruchomienia serwera wbudowany portfel nie będzie skonfigurowany. Środki z płatności trafiać
 będą tylko do portfela w węźle Lightning. Aby regularnie zamykać kanały i uwalniać środki znajdujące się w nich na
 serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie. Sprawdza ono, czy kwota zablokowana w kanałach po
-stronie serwera osiągnęła limit określony w ustawieniach serwera. Jeżeli limit zostanie przekroczony, to nastąpi
+stronie serwera osiągnęła limit określony w jego ustawieniach. Jeżeli limit zostanie przekroczony, to nastąpi
 próba zamknięcia wszystkich kanałów. Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty
 siłowo, jeśli będzie nieaktywny dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego
 zamknięcia kanałów, zarówno kooperacyjnie, jak i siłowo.
