@@ -38,8 +38,8 @@ image::../images/tests_chapter/test_folders_server.png[]
 W każdym z widocznych katalogów utworzone zostały foldery, gdzie umiejscowiono pliki z testami.
 
 * admins - Katalog _admins_ zawiera w sobie 4 foldery oraz 5 plików z testami co jest widoczne na zrzucie
-ekranu z rysunku 113. Jak sama nazwa wskazuje, znajdują się tam testy związane z administratorami np. sprawdzanie, czy ich tworzenie
-działa prawidłowo.
+ekranu z rysunku 113. Jak sama nazwa wskazuje, znajdują się tam testy związane z administratorami np. sprawdzanie, czy
+ich tworzenie działa prawidłowo.
 
 .Katalog admins.
 image::../images/tests_chapter/admins_folder.png[]

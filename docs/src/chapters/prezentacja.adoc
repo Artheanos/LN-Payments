@@ -192,7 +192,8 @@ email administratorów.
 image::../images/system_presentation/webapp/add_wallet.png[]
 
 Po przesłaniu formularza zostanie utworzony portfel. Od tego momentu serwer będzie obserwował balans środków w
-kanałach i portfelu Lightning, aby samemu uruchamiać transfery środków. Postęp do uruchomieniu transferów można obserwować na kafelkach w górnej części panelu. Prezentowany zrzut ekranu jest z portfela działającego już jakiś czas,
+kanałach i portfelu Lightning, aby samemu uruchamiać transfery środków. Postęp do uruchomieniu transferów można
+obserwować na kafelkach w górnej części panelu. Prezentowany zrzut ekranu jest z portfela działającego już jakiś czas,
 dzięki czemu wyświetlane są w nich duże ilości danych. Każdy z kafelków w górnym rzędzie zawiera również kwotę
 zebraną w poszczególnych częściach portfela. Od lewej są to portfel Bitcoin, kanały Lightning oraz portfel Lightning.
 Dolny rząd zawiera wykres, obrazujący przychody serwera w poszczególnych miesiącach. Ostatnim kafelkiem jest
