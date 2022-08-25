@@ -29,12 +29,12 @@ dokumenty KP, DZW i SWS, a także wszystkie rozdziały i pliki budujące pracę 
 znajdują się również diagramy, fragmenty kodu i zdjęcia.
 * mobileapp → Znajduje się w nim kod źródłowy aplikacji mobilnej dla systemu Android.
 * webapp → Zawiera kod źródłowy aplikacji internetowej oraz kod testów E2E. Plik obsługujący proces budowania tego
-komponentu zawiera ustawienia do uruchomienia same aplikacji webowej oraz uruchomienia testów E2E dla całego serwisu
-(z wyłączeniem testów dla aplikacji mobilnej).
-* webservice → Przechowuje kod źródłowy dla serwera.
+komponentu zawiera ustawienia do uruchomienia samej aplikacji oraz testów E2E dla całego serwisu
+(z wyłączeniem testów E2E dla aplikacji mobilnej).
+* webservice → Przechowuje kod źródłowy serwera.
 
 Pozostałe pliki znajdujące się w tym folderze to _.gitignore_, zawierające ścieżki i pliki, które będą ignorowane przez
-system kontroli wersji _Git_, oraz _README.md_, które zawiera informacje o aplikacji oraz instrukcje potrzeba do jej
+system kontroli wersji _Git_, oraz _README.md_, które zawiera informacje o aplikacji oraz instrukcje potrzebne do jej
 uruchomienia.
 
 include::../sections/webservice_solution.adoc[]
@@ -45,14 +45,14 @@ include::../sections/mobileapp_solution.adoc[]
 
 === Dokumentacja
 
-Pisanie dokumentacji w graficznych programach jest często kłopotliwe. Bardzo ciężko zarządza się jednolitym
+Pisanie dokumentacji w graficznych programach jest często kłopotliwe. Bardzo ciężko zarządza się problem z jednolitym
 formatowaniem dużej ilości dokumentów. W przypadku pisania książki pojawia się również problem wprowadzania dużych
 zmian czy też dodawania automatycznej numeracji obrazów i tabel. Plików tych nie da się również śledzić w systemach
 kontroli wersji, gdyż zapisane są zazwyczaj w formacie binarnym. Wymaga to przechowywania kopii dokumentu na
 współdzielonym dysku. Nie rozwiązuje to jednak często problemu równoczesnej pracy nad plikiem przez kilka osób.
 Aby temu zapobiec, zdecydowano się na użycie języka znaczników _asciidoc_, dzięki któremu można w łatwy sposób
 automatycznie formatować dokumenty, które zapisane są w zwykłych plikach tekstowych. Dzięki temu zespół nie musiał się
-kompletnie martwić stylem dokumentu, gdyż pliki sformatowane _pdf_ oraz _html_ tworzone są automatycznie przez narzędzie
+kompletnie martwić stylem dokumentu, gdyż sformatowane pliki _pdf_ oraz _html_ tworzone są automatycznie przez narzędzie
 _asciidoctor_. Cała dokumentacja projektu, czyli dokumenty wstępne i książka do pracy dyplomowej zostały napisane
 z wykorzystaniem tej technologii. Wszystkie pliki są przechowywane tak samo, jak kod źródłowy w folderze _docs_.
 
@@ -77,12 +77,12 @@ tytułowej. Jest ona osobnym dokumentem, stworzonym z innym zestawem stylów. Ab
 dodana została specjalna reguła, która łączy oba pliki przy pomocy narzędzia _pdftk_.
 
 Części składowe plików dokumentacji zostały podzielone w hierarchii folderów znajdującej się w katalogu _src_. Główny
-folder zawiera główne pliki dokumentów. Są to KP, SWS, DZW oraz właściwa praca dyplomowa. W pozostałych folderach
-znajdują się tylko pliki dotyczące pracy dyplomowej. Katalog _chapters_ przechowuje rozdziały, natomiast _sections_
-podrozdziały. Wszystkie pliki są napisane w formacie _asciidoc_, co sprawia, że tekst można bardzo łatwo modyfikować
-przy pomocy prostego języka znaczników.
+folder zawiera przede wszystkim pliki dokumentów. Są to KP, SWS, DZW oraz właściwa praca dyplomowa. W pozostałych
+folderach znajdują się tylko pliki dotyczące pracy dyplomowej. Katalog _chapters_ przechowuje rozdziały, natomiast
+_sections_ podrozdziały. Wszystkie pliki są napisane w formacie _asciidoc_, co sprawia, że tekst można bardzo łatwo
+modyfikować przy pomocy prosTego języka znaczników.
 
-.Fragment kodu źródłowego rozdziału "analiza".
+.Fragment kodu źródłowego rozdziału 4.
 [source, asciidoc]
 ----
 include::./../sections/architecture.adoc[]
@@ -125,8 +125,10 @@ Folder _postman_ zawiera tylko kolekcję dokumentującą wszystkie żądania obs
 zaimportować ją do programu, aby zyskać natychmiastowy dostęp do przykładowych żądań. Programista nie musi dzięki
 temu samemu przygotowywać wielokrotnie tych samych żądań. Drugim katalogiem jest _docker_. Przechowywane są w nim
 pliki _docker-compose_, pozwalające na uruchomienie wszystkich kontenerów z programami potrzebnymi do działania
-systemu, czyli węzeł sieci Lightning, węzeł sieci Bitcoin oraz bazę danych. Dostępne są trzy pliki _docker-compose_.
+systemu, czyli węzeł sieci Lightning, węzeł sieci Bitcoin oraz bazę danych. Dostępne są cztery pliki _docker-compose_.
 Jeden z nich jest plikiem bazowym, zawierającym podstawową konfigurację i nie powinno się go uruchamiać samemu.
-Pozostałe dwa pliki odpowiadają dwóm aktualnie wspieranym sieciom Bitcoina, czyli _regtest_ oraz _testnet_. Katalog
-ten zawiera również konfigurację dla obu węzłów. Dostępne są one odpowiednio w folderach _bitcoind_ oraz _lnd_. Są
-one przesyłane do kontenera podczas jego rozruchu i zawierają ustawienia dopasowane do tworzonego systemu.
+Następne dwa pliki odpowiadają dwóm aktualnie wspieranym sieciom Bitcoina, czyli _regtest_ oraz _testnet_.
+Ostatni plik zawiera konfigurację pozwalającą na uruchomienie serwera oraz aplikacji internetowej w kontenerze.
+Obraz aplikacji został wcześniej przesłany do repozytorium _docker'a_. Katalog ten zawiera również konfigurację dla
+obu węzłów. Dostępne są one odpowiednio w folderach _bitcoind_ oraz _lnd_. Są one przesyłane do kontenera podczas jego
+rozruchu i zawierają ustawienia dopasowane do tworzonego systemu.

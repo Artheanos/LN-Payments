@@ -13,7 +13,7 @@ znajomość również jest zalecana, gdyż wiele pojęć związanych z tą techn
 
 ==== Struktura modułu
 
-Główny katalog projektu aplikacji mobilnej zawiera głównie pliki konfiguracyjne dla wykorzystywanych narzędzi,
+Główny katalog projektu aplikacji mobilnej zawiera przede wszystkim pliki konfiguracyjne dla wykorzystywanych narzędzi,
 a także kilka folderów, zawierających kod źródłowy, testy oraz folder _android_ zawierający natywny kod w Javie,
 który został automatycznie wygenerowany przez framework React Native.
 
@@ -29,7 +29,7 @@ aplikacji przy zmianie kodu, wykorzystywany jest program _watchman_, który skon
 _.watchmanconfig_. Pliki _.buckconfig_, _app.json_ uwzględniają konfigurację dla aplikacji React Native. Sama aplikacja
 uruchamiana jest poprzez plik _index.js_. Interesujący jest plik _shim.js_, gdyż zawiera on brakujący kod pozwalający
 na wykorzystywanie pakietów _node_ w aplikacji React Native. Folder główny zawiera również plik _tsconfig.json_,
-obejmujący ustawienia dla kompilatora TypeScript, _yarn.lock_ przechowujący metadane wykorzystywanych pakietów_,
+obejmujący ustawienia dla kompilatora TypeScript, _yarn.lock_ przechowujący metadane wykorzystywanych pakietów,
 _package.json_ zawierający ustawienia procesu budowania oraz wykorzystywane biblioteki, a także _readme_ z informacjami
 o tym module. Komponent mieści dwa foldery na testy. Katalog _tests_ przechowuje testy jednostkowe i integracyjne,
 a _e2e_ miał przechowywać automatyczne testy end-to-end. Niestety znajdują się tam tylko scenariusze testowe w języku
@@ -59,7 +59,7 @@ Oba foldery zawierają łącznie tylko 7 plików. Każdy z nich eksportuje obiek
 aplikacji. W katalogu _res_ znajduje się plik o nazwie _R.ts_. Jego zadaniem jest grupowanie innych zasobów
 z jednym obiekcie, aby zunifikować dostęp do nich. Nazwa pliku pochodzi z konwencji obecnej przy tworzeniu aplikacji
 mobilnych w języku Java. Wszystkie zasoby w dostępne są dla programisty poprzez obiekt _R_ zapewniony przez framework
-programowania aplikacji Android. Konwencja ta została przez zespół przyjęty również w aplikacji tworzonej w React
+programowania aplikacji Android. Konwencja ta została przez zespół przyjęta również w aplikacji tworzonej w React
 Native, aby ułatwić dostęp oraz zwiększyć czytelność kodu.
 
 .Zawartość pliku R.ts.
@@ -105,7 +105,7 @@ W obu katalogach znajdują się zaledwie cztery pliki. Folder _bitcoin_ zawiera 
 bibliotekę _bitcoinjs_ jako moduł. Plik _hex.ts_ w katalogu _utils_ zawiera funkcje służące do obsługi
 konwersji pomiędzy heksadecymalnym łańcuchem znaków a tablicą bajtów. Zawiera ona dwie funkcje, _toHexString_ oraz
 _toHexBytes_, które obsługują konwersje w obie strony. Następnym plikiem jest _strings.ts_. Zawiera on dwie
-funkcje pozwalające na operowanie na łańcuchach znaków
+funkcje pozwalające na operowanie na łańcuchach znaków.
 
 .Funkcje w pliku strings.ts.
 [source, tsx]
@@ -164,7 +164,7 @@ znaleźć satysfakcjonującego rozwiązania w akceptowalnym czasie.
 image::../images/mobileapp_webservice_content.png[]
 
 Katalog zawiera dwa pliki. W _routes.ts_ przechowywane są ścieżki do zasobów serwera. Wykorzystywane są one w pliku
-_routes.ts_ do wykonywania żądań HTTP. Plik ten zawiera klasę _Requests_ typu singleton, która zawiera metody
+_requests.ts_ do wykonywania żądań HTTP. Plik ten zawiera klasę _Requests_ typu singleton, która zawiera metody
 pozwalające na wysyłanie żądań. Funkcje reprezentujące pojedyncze żądania one udostępnione programiście poprzez ich
 eksport jako zwykły obiekt JavaScript.
 
@@ -174,7 +174,7 @@ eksport jako zwykły obiekt JavaScript.
 include::../../../mobileapp/src/webService/requests.ts[lines=43..58]
 ----
 
-Wszystkie publiczne funkcje są pogrupowane w hierarchii obiektów, dzięki czemu można jest w elegancki sposób wywoływać
+Wszystkie publiczne funkcje są pogrupowane w hierarchii obiektów, dzięki czemu można je w elegancki sposób wywoływać
 bez potrzeby tworzenia za każdym razem obiektu klasy _Requests_. W przypadku każdej z nich wykonywane jest żądanie
 z pomocą metody _request_. Parametry wejściowe są do niej przekazywane, a zwracany obiekt _Promise_ opakowuje
 odpowiedź HTTP. Kod metody _request_ prezentuje się następująco:
@@ -209,8 +209,8 @@ który zawiera niestandardowe pola formularzy. Na potrzeby aplikacji mobilnej st
 reprezentujący pole tekstowe. Następny katalog, czyli _routers_ zawiera funkcje obsługujące nawigację w aplikacji.
 Zdefiniowane są tam wszystkie połączenia oraz zachowania ekranów. Ostatnim folderem jest _screens_, w którym znajdują
 się komponenty odpowiedzialne za wyświetlane ekrany, wraz z ich sub-komponentami. Punktem wejściowym dla aplikacji
-jest plik _App.tsx_. Zawiera on część konfiguracji aplikacji główny komponent grupujący kontekst użytkownika i
-pierwszy element nawigacji.
+jest plik _App.tsx_. Zawiera on część konfiguracji oraz jest to główny komponent aplikacji grupujący kontekst
+użytkownika i pierwszy element nawigacji.
 
 .Funkcja App zwracająca pierwszy, główny komponent aplikacji.
 [source, tsx]
@@ -230,7 +230,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=38..50]
 ----
 
 Zawiera on obiekt zalogowanego użytkownika pobrany z serwera podczas logowania. Część jego danych zapisana jest
-lokalnie w urządzeniu mobilnym. Kontekst zawiera również funkcje pozwalające na manipulowanie obiektem użytkownikiem,
+lokalnie w urządzeniu mobilnym. Kontekst zawiera również funkcje pozwalające na manipulowanie obiektem użytkownika,
 takie jak jego ustawienie, aktualizację oraz wylogowanie. Ostatnim parametrem jest flaga wskazująca, czy trwa aktualnie
 ładowanie użytkownika. Warto wspomnieć, że metoda _createContext_ definiuje tylko typ oraz wartości domyślne kontekstu.
 Jego prawdziwe właściwości definiowane są w komponencie _UserContextProvider_.
@@ -243,7 +243,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=155..16
 
 Tworzony jest dostawca kontekstu, którego wartości muszą odpowiadać wcześniej zdefiniowanemu typowi. Wszystkie
 metody zdefiniowane są jako funkcje tego komponentu. Dane użytkownika w kontekście początkowo ładowane są tylko z
-wartości zapisanych lokalnie na dysku.
+wartości zapisanych lokalnie w pamięci.
 
 .Funkcja pobierająca lokalnie zapisane dane użytkownika.
 [source, tsx]
@@ -403,7 +403,7 @@ include::../../../mobileapp/src/components/context/SignedInContext.tsx[lines=88.
 Na początku tworzony jest nowy kanał powiadomień, zgodnie z identyfikatorem zdefiniowanym w zasobach aplikacji.
 Następnie przy pomocy biblioteki _notifee_ wysyłane jest powiadomienie push, wraz ze szczegółami otrzymanymi wcześniej
 przez kanał _WebSocket_. Za wyświetlanie zawartości aplikacji dla zalogowanych użytkowników w dużej części odpowiada
-_DrawerRouter_, który odpowiedzialny jest za manu boczne aplikacji.
+_DrawerRouter_, który odpowiedzialny jest za menu boczne aplikacji.
 
 .Komponent DrawerRouter.
 [source, tsx]
@@ -411,7 +411,7 @@ _DrawerRouter_, który odpowiedzialny jest za manu boczne aplikacji.
 include::../../../mobileapp/src/components/routers/DrawerRouter.tsx[lines=12..19]
 ----
 
-Definiuje samo menu oraz jego zawartość. Generowanie całej części widoku użytkownika odbywa się automatycznie.
+Definiuje on samo menu oraz jego zawartość. Generowanie całej części widoku użytkownika odbywa się automatycznie.
 Zawiera ono tylko dwa guziki, stronę główną oraz przycisk pozwalający na wylogowanie użytkownika.
 Komponent wyświetla tylko komunikat o trwającym procesie. Dodatkowo zawiera on hak useEffect, który wywołuje metodę
 _logoutUser_ z kontekstu użytkownika przy załadowaniu ekranu. Komponent _MainScreen_ jest głównym ekranem aplikacji,

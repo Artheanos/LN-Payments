@@ -79,7 +79,7 @@ zarządzania kanałem oraz portfelem Lightning. Po zakończeniu tych zadań uży
 Stworzenie ekranu portfela wymagało aktualizacji makiety interaktywnej. Odbyła się wspólna narada członków zespołu, na
 której ustalono wygląd komponentów, po czym odpowiednie zmiany zostały naniesione na istniejącą makietę interaktywną.
 Niestety kolejne trzy zadania dotyczące tej funkcjonalności nie zostały ukończone, przez co zostały przeniesione do
-następnej iteracji. W planach było dodanie ekranu portfela, wraz z odpytywanie serwera o jego detale, stworzenie
+następnej iteracji. W planach było dodanie ekranu portfela, wraz z odpytywaniem serwera o jego detale, stworzenie
 formularza tworzącego nowy portfel oraz wykończenie komponentu wyświetlającego dane o środkach zamkniętych w kanałach
 płatności.
 
@@ -96,7 +96,7 @@ zostało przeniesione do następnej iteracji.
 
 Iteracja zakończyła się częściowym sukcesem. Udało się zrealizować zaległe zadania dotyczące zarządzania
 administratorami. Zaimplementowana została część serwerowa portfela oraz wyświetlania historii wszystkich płatności.
-Udało się to pomimo wielu problemów z zaplanowanie zadań, co miało częściowy wpływ na niedokończenie innych zadań.
+Udało się to pomimo wielu problemów z zaplanowaniem zadań, co miało częściowy wpływ na niedokończenie innych zadań.
 Niestety zespół poległ w implementacji części aplikacji internetowej. Nie udało się dodać żadnych komponentów
 historii płatności, portfela, a także przekładanego już dodania płatności dla niezalogowanych użytkowników. Jako
 pocieszenie udało się zaktualizować makietę interaktywną, a także dodać kolekcję żądań dla programu _Postman_.

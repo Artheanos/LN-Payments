@@ -5,7 +5,7 @@
 2+| *KARTA UDZIAŁOWCA*
 |Identyfikator: | _UOB01_
 |Nazwa: | _Użytkownik_
-|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
+|Opis: |_Osoba chcąca wymienić swoje bitcoiny w sieci Lightning na tokeny do rejestracji wydarzeń w czasie i nie tylko._
 |Typ udziałowca: |_Ożywiony bezpośredni_
 |Punkt widzenia: |_Łatwość dokonania transakcji, wygoda obsługi, możliwość przeglądania historii po zalogowaniu._
 |Ograniczenia: |_Nie może mieć dostępu do portfela znajdującego się na serwerze oraz do transakcji wychodzących._
@@ -31,7 +31,7 @@ transakcje swoim kluczem i przeglądać historię wpłat._
 |Opis: |_Uczelnia, która chce wdrożyć projekt w ramach europejskiego projektu iNGENIOUS._
 |Typ udziałowca: |_Nieożywiony pośredni_
 |Punkt widzenia: |_Nadzorowanie projektu, kontakt z udziałowcami z projektu ingenuity, pomoc z ustaleniem wymagań.
-biznesowych_
+biznesowych._
 |Ograniczenia: |_Nie ma wglądu w projekt, jedynie go nadzoruje._
 |===
 

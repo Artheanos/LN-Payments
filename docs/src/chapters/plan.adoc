@@ -72,7 +72,7 @@ rozwojem zarówno aplikacji internetowej, jak i aplikacji mobilnej. Sebastian Le
 testowaniem aplikacji. Wszyscy członkowie projektu dodatkową są deweloperami, którzy tworzą nowe funkcjonalności w
 systemie.
 
-Spotkania nie były organizowane według zasad opisanych w _Scrum Guide_<<scrum_guide>. Zdecydowano się na zrezygnowanie
+Spotkania nie były organizowane według zasad opisanych w _Scrum Guide_<<scrum_guide>>. Zdecydowano się na zrezygnowanie
 z codziennego spotkania _daily scrum_, na którym członkowie zespołu synchronizują się nawzajem o postępach prac.
 Projekt realizowany był w wolnym czasie, po pracy. Czas pracy nad systemem nie był równomiernie rozłożony przez
 wszystkich programistów. Jedna osoba pracowała głównie w weekendy, a druga po godzinach pracy. Codzienne spotkania
@@ -128,3 +128,5 @@ funkcjonalności. Ciągłej modyfikacji poddawany był harmonogram. Na pewnym et
 opóźnienia w realizacji projektu. Początkowo zakres iteracji oraz harmonogram były aktualizowane. Gdy data zakończenia
 projektu przesunięta została na wrzesień roku 2022, zaniechano dalszej modyfikacji harmonogramu, gdyż stało się to
 niepotrzebnym dodatkiem. Harmonogram praktycznie nie był realizowany, więc nie było sensu jego dalszego utrzymywania.
+W trakcie ostatniej iteracji tymczasowo wprowadzono spotkanie _daily scrum_. Odbywało się ono codziennie przez
+ponad tydzień, aby zespół mógł się synchronizować o postępach prac w ostatniej fazie realizacji projektu.

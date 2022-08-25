@@ -1,11 +1,12 @@
 === Analiza Ryzyk
 
-[cols="1,4,2,3,2,6",stripes=even]
+.Analiza ryzyk stworzona na potrzeby projektu.
+[cols="2,8,5,6,4,12",stripes=odd]
 |===
-| ID | Ryzyko | Kategoria | Szansa na wystąpienie | Wpływ na projekt | Planowane działania
+h| ID h| Ryzyko h| Kategoria h| Szansa na wystąpienie h| Wpływ na projekt h| Planowane działania
 | R1 | Brak doświadczenia z domeny projektu | Zespół | Wysokie | Wysoki
 | Przeczytanie książek polecanych przez promotora oraz dalsze dokształcanie się z zakresu kryptowalut.
-| R2 | Nie każdy członek zespołu ma doświadczenie z aplikacjami webowymi | Zespół | Wysokie | Średni
+| R2 | Nie każdy członek zespołu ma doświadczenie z aplikacjami internetowymi | Zespół | Wysokie | Średni
 | Należy okazać wsparcie i chęć pomocy niedoświadczonej osobie. Jeżeli ktoś ma problem ze swoim zadaniem, powinno się
 poprosić o pomoc kogoś z bardziej doświadczonych deweloperów.
 | R3 | Problemy z komunikacją | Zespół | Niskie | Niski
@@ -26,19 +27,19 @@ harmonogramu nie była potrzebna. W przypadku znacznych zmian istnieje możliwo�
 zaangażować innych członków projektu w pracach nad badaniem technologii. Są to zadania priorytetowe, od których
 zależy późniejsza
 implementacja projektu.
-| R9 | Plan nie uwzględnia dyspozycyjności członków | Harmo-nogram | Średnie | Średni
+| R9 | Plan nie uwzględnia dyspozycyjności członków zespołu | Harmo-nogram | Średnie | Średni
 | Podczas nieprzewidywalnej dyspozycyjności krytyczne zadania zostaną w miarę możliwości przypisane do pracowników o
 niższym obciążeniu.
 | R10 | Niedostarczanie funkcjonalności w terminie | Harmo-nogram | Średnie | Wysoki | Jeżeli funkcjonalność nie będzie
 dostarczona do końca iteracji, zadanie musi mieć najwyższy priorytet w następnej iteracji. Musi ono zostać dostarczone
 w pierwszej kolejności nowo rozpoczętego sprintu.
-| R11 | Działanie w nowej i mało popularnej technologii | Technicz-ne | Wysokie | Niski
+| R11 | Działanie w nowej i mało popularnej technologii | Techniczne | Wysokie | Niski
 | Prace nad projektem zostaną poprzedzone dogłębną analizą domeny oraz utworzeniem prototypu,
 który będzie zawierał najważniejsze funkcjonalności projektu.
-| R12 | Mała wiedza z zakresu aplikacji mobilnych | Technicz-ne | Wysokie | Średni
+| R12 | Mała wiedza z zakresu aplikacji mobilnych | Techniczne | Wysokie | Średni
 | Każdy członek zespołu powinien przejść przez kurs tworzenia aplikacji w wybranej przez nas technologii. Dodatkową
 pomocą będzie przedmiot "Programowanie Aplikacji mobilnych", który realizujemy równolegle z implementacją projektu.
-| R13 | Problemy z konfiguracją środowiska | Technicz-ne | Średnie | Średni
+| R13 | Problemy z konfiguracją środowiska | Techniczne | Średnie | Średni
 | Wszystkie kroki potrzebne do postawienia środowiska powinny być dobrze udokumentowane oraz udostępnione członkom
 zespołu. W przypadku problemów z zewnętrzną zależnością należy utworzyć zadanie mające na celu zbadanie problemu.
 |===

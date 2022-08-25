@@ -49,10 +49,10 @@ Wraz z rozwojem technologii blockchain, pojawiają się nowe zastosowania inne n
 pieniądze. Podczas pojedynczej transakcji na blockchainie istnieje możliwość zapisania danych, których nie
 można później zmienić. W przypadku omawianej przez nas sieci Bitcoin jest to 80 bajtów. Stwarza to możliwość do
 wykorzystania tej technologii np. do rejestrowania określonych wydarzeń. Można sobie wyobrazić, że ciężarówka wjeżdża
-do portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci bitcoin. Dzięki temu mamy
+do portu, a to wydarzenie jest podpisywane tokenem powiązanym z daną transakcją w sieci Bitcoin. Dzięki temu mamy
 dowód, że to wydarzenie zdarzyło się na pewno, a ta informacja jest niezmienna.
 
-Niestety występuje problem z finansowaniem operacji zapisywania danych na blockchainie bitcoina. Każda transakcja
+Niestety występuje problem z finansowaniem operacji zapisywania danych na blockchainie Bitcoina. Każda transakcja
 wymaga uiszczenia pewnej opłaty. Przy wielu transakcjach koszta mogą być większe od wartości przelewanych pieniędzy.
 Rozwiązaniem tego problemu może być stworzenie sklepu z jednorazowymi tokenami.
 
@@ -98,7 +98,7 @@ rozwiązania, które będzie lepiej pasować do kontekstu naszego systemu.
 płatności)
 * Wypłata środków(przelew) po uzbieraniu zadeklarowanej kwoty
 * Wysyłanie powiadomień w aplikacji mobilnej
-* Budowanie transakcji multisig bitcoina z potwierdzeniami w aplikacji mobilnej
+* Budowanie transakcji multisig Bitcoina z potwierdzeniami w aplikacji mobilnej
 
 === Z punktu widzenia Użytkownika
 

@@ -43,7 +43,7 @@ image::../images/system_presentation/webapp/anonymous_qb_2.png[]
 Ostatnim ekranem jest podsumowanie płatności. Zawiera on listę zakupionych tokenów. Można je wyświetlić bądź skopiować
 do schowka przy pomocy odpowiednich przycisków. Przy kopiowaniu, a także wielu innych akcjach w aplikacji internetowej
 wyświetlane są w lewym dolnym roku powiadomienia o dokonanej akcji. Przycisk _close_ powoduje powrót na pierwszy
-formularza płatności. Aby wrócić na stronę główną, należy kliknąć nagłówek strony w lewym górnym rogu ekranu.
+ekran formularza płatności. Aby wrócić na stronę główną, należy kliknąć nagłówek strony w lewym górnym rogu ekranu.
 
 .Podsumowanie płatności dla niezalogowanego użytkownika.
 image::../images/system_presentation/webapp/anonymous_qb_3.png[]
@@ -191,9 +191,9 @@ email administratorów.
 .Formularz tworzenia nowego portfela.
 image::../images/system_presentation/webapp/add_wallet.png[]
 
-Po przesłaniu formularza zostanie utworzony portfel. Od tego momentu serwer będzie obserwował balanse w kanałach i
-portfelu Lightning, aby samemu uruchamiać transfery środków. Postęp do uruchomieniu transferów można obserwować
-na kafelkach w górnej części panelu. Prezentowany zrzut ekranu jest z portfela działającego już jakiś czas,
+Po przesłaniu formularza zostanie utworzony portfel. Od tego momentu serwer będzie obserwował balans środków w
+kanałach i portfelu Lightning, aby samemu uruchamiać transfery środków. Postęp do uruchomieniu transferów można
+obserwować na kafelkach w górnej części panelu. Prezentowany zrzut ekranu jest z portfela działającego już jakiś czas,
 dzięki czemu wyświetlane są w nich duże ilości danych. Każdy z kafelków w górnym rzędzie zawiera również kwotę
 zebraną w poszczególnych częściach portfela. Od lewej są to portfel Bitcoin, kanały Lightning oraz portfel Lightning.
 Dolny rząd zawiera wykres, obrazujący przychody serwera w poszczególnych miesiącach. Ostatnim kafelkiem jest
@@ -251,8 +251,8 @@ image::../images/system_presentation/mobileapp/notifications.png[{mobile-size}]
 Jedynymi aktualnie wspieranymi powiadomieniami są transakcji. Każde z nich zawiera id, wiadomość, adres docelowy,
 kwotę transakcji, typ powiadomienia oraz jego status. W przypadku powiadomienia dotyczącego oczekującej transakcji
 na dole ekranu wyświetlane są dwa guziki, które pozwalają na jej potwierdzenie bądź odrzucenie. Potwierdzenie
-transakcji powoduje pobranie z serwera aktualnej wartości transakcji w formacie szesnastkowym. Następnie następuje
-jej podpisanie i odesłanie jej z powrotem na serwer. Jeżeli osiągnięto wymaganą ilość podpisów, serwer propaguje
+transakcji powoduje pobranie z serwera aktualnej wartości transakcji w formacie szesnastkowym. Następnie wykonywane
+jest jej podpisanie i odesłanie z powrotem na serwer. Jeżeli osiągnięto wymaganą ilość podpisów, serwer propaguje
 transakcję w sieci, a status innych oczekujących powiadomień zmienia się na wygasły. W przypadku odrzucenia transakcji
 aktualizowana jest odpowiednia encja w bazie danych. Tak samo, jak przy potwierdzeniu, gdy zebrana ilość odrzuceń
 uniemożliwi akceptację jej przez inne węzły, oczekujące powiadomienia zostaną wygaszone.
@@ -280,8 +280,8 @@ id transakcji, które jest logowane przez serwer podczas propagowania transakcji
 .Dowód udanego rozgłoszenia transakcji w serwisie blockchain.info.
 image::../images/broadcast_proof.png[]
 
-Jak widać na powyższym zrzucie ekranu, dane w portalu zgadzają się z informacjami dostępnymi w systemie LN Payments.
+Jak widać na zrzucie ekranu z rysunku 110, dane w portalu zgadzają się z informacjami dostępnymi w systemie LN Payments.
 Adres, z którego pobrano środki, to adres portfela multisig, a wykorzystano jedno UTXO o wartości ponad 96000 SAT.
-Wyjściami transakcji jest adres docelowy na kwotę podaną w formularzu oraz reszta środków UTXO wracająca na adres
+Wyjściami transakcji jest adres docelowy na kwotę podaną w formularzu oraz reszta środków UTXO zwracana na adres
 multisig. Każda transakcja jest publicznie dostępna, dzięki czemu można wyświetlić jej szczegóły w niezależnym
 źródle. Pozwala to również na zweryfikowanie, że transakcja oraz jej propagacja zakończyły się sukcesem.

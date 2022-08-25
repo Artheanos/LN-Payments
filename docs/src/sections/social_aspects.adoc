@@ -13,11 +13,12 @@ bezpieczeństwo samemu, bądź ze wsparciem specjalnych rozwiązań oferowanych 
 inflacji. Emisja środków odbywa się poprzez nagradzanie osób, którym uda się wykopać blok z transakcjami. Nie ma innej
 możliwości włączenia środków do sieci. Istnieje odgórny limit ilości Bitcoin'ów, które kiedykolwiek zostaną wyemitowane
 i wynosi 21 milionów. Żaden bank ani żadna organizacja nie będzie mogła manipulować wartością i ilością pieniędzy w
-obiegu, co czyni je stabilnym środkiem płatniczym.footnote:[Odnosząc się do wartości dóbr w relacji do Bitcoina, a nie
-do wartości giełdowej kryptowalut, która bywa bardzo zmienna] Transakcje są jedynie podpisywane kluczami prywatnymi,
-a nie danymi osobowymi jak w przypadku normalnych walut. Zapewnia to praktycznie pełną anonimowość transakcji.
-Sam blockchain nie przechowuje informacji o właścicielu, natomiast mogą to robić inne serwisy. Na tej podstawie
-teoretycznie da się określić powiązania i wydedukować potencjalnego właściciela, jest to jednak trudne zadanie.
+obiegu, co czyni Bitcoina stabilnym środkiem płatniczym.footnote:[Odnosząc się do wartości dóbr w relacji do Bitcoina,
+a nie do wartości giełdowej kryptowalut, która bywa bardzo zmienna] Transakcje są jedynie podpisywane kluczami
+prywatnymi, a nie danymi osobowymi jak w przypadku normalnych walut. Zapewnia to praktycznie pełną anonimowość
+transakcji. Sam blockchain nie przechowuje informacji o właścicielu, natomiast mogą to robić inne serwisy. Na tej
+podstawie teoretycznie da się określić powiązania i wydedukować potencjalnego właściciela, jest to jednak trudne
+zadanie.
 
 Powyższe zalety Bitcoina, jak i kryptowalut w ogóle rodzą również wiele zagrożeń. Anonimowość transakcji może okazać
 się idealnym rozwiązaniem dla wszelkiego rodzaju przestępców. Można sobie wyobrazić sytuację, w której kryptowaluty

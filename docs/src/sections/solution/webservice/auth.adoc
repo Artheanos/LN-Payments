@@ -2,7 +2,7 @@
 
 Obsługa autoryzacji i procesu uwierzytelniania znajduje się w pakiecie _auth_. Posiada on wszystkie klasy
 konfiguracyjne, filtry i serwisy odpowiedzialne za bezpieczeństwo aplikacji. Znajdują się tutaj również pozostałości
-po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jgo danych. Z tego powodu w
+po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jego danych. Z tego powodu w
 tym pakiecie znajdują się repozytoria, serwis i konwerter dla klas modelowych użytkowników (znajdujące się w pakiecie
 _common_).
 
@@ -14,10 +14,10 @@ uzyskać dostępu do większości API. Jedynym niezabezpieczonym punktem końcow
 odpowiedzialne za logowanie i rejestrację. Konfiguracja bezpieczeństwa dla API HTTP znajduje się w klasie
 _WebSecurityConfig_. Do obsługi zabezpieczeń wykorzystywany jest moduł Springa — _String Security_. Dodaje on
 kompleksowe narzędzia pozwalające na implementację procesów autoryzacji. Uruchomienie zabezpieczeń _Spring Security_
-dodanie na poziomie klasy adnotacji _@EnableWebSecurity_ oraz dziedziczenie po klasie _WebSecurityConfigurerAdapter_.
-Dzięki temu programista otrzymuje zestaw narzędzi pozwalający na dowolną konfigurację zabezpieczeń. W przypadku
-klasy _WebSecurityConfig_ odbywa się to za pomocą nadpisanej metody _configure_, przeciążonej z parametrem
-_HttpSecurity_.
+wymaga dodania na poziomie klasy adnotacji _@EnableWebSecurity_ oraz dziedziczenia po klasie
+_WebSecurityConfigurerAdapter_. Dzięki temu programista otrzymuje zestaw narzędzi pozwalający na dowolną konfigurację
+zabezpieczeń. W przypadku klasy _WebSecurityConfig_ odbywa się to za pomocą nadpisanej metody _configure_, przeciążonej
+z parametrem _HttpSecurity_.
 
 .Metoda _configure_ klasy WebSecurityConfig nadpisana z parametrem HttpSecurity.
 [source, java]
@@ -26,7 +26,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Konfiguracja zaczyna się od wyłączenia zabezpieczeń CORS i CSRF, ponieważ w innych metodach są one konfigurowane w inny
-niż domyślny sposób. Metoda _exceptionHandling_ pozwala na przechwytywanie wyjątków przez klasy Springa przez zwróceniem
+niż domyślny sposób. Metoda _exceptionHandling_ pozwala na przechwytywanie wyjątków przez klasy Springa przed zwróceniem
 błędu użytkownikowi, dzięki temu można samemu ustawić kod błędu dla wyjątku, co zostało opisane przy klasie
 _GlobalExceptionHandler_. Następnie znajduje się ustawienie parametrów sesji na sesję bezstanową. Całe API stworzone
 jest zgodnie ze stylem architektury _REST_, według której wszystkie punkty końcowe oraz sesje użytkowników są
@@ -34,7 +34,7 @@ bezstanowe<<rest_tutorial_stateless>>. Kolejne metody konfigurują zabezpieczeni
 wszystkie ścieżki wymagają przynajmniej roli użytkownika, następnie jawnie definiowane są ścieżki dostępne tylko dla
 administratorów oraz ścieżki ogólnodostępne. Na koniec dodany jest filtr, który zajmuje się sprawdzaniem tokena JWT.
 Wstrzykiwany jest przed domyślny filtr Springa _UsernamePasswordAuthenticationFilter_, aby dokonać walidacji przed
-wywołaniem domyślnych mechanizmów autoryzacji. Filtr _AuthTokenFilter odpowiedzialny jest za walidację tokena. W
+wywołaniem domyślnych mechanizmów autoryzacji. Filtr _AuthTokenFilter_ odpowiedzialny jest za walidację tokena. W
 przypadku gdy token jest poprawny, użytkownik, którego dane się w nim znajdują, zostaje ustawiony jako uwierzytelniony
 użytkownik w kontekście bezpieczeństwa.
 
@@ -63,7 +63,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Generowanie odbywa się przez klasę _Jwts_, która posiada zaimplementowany wzorzec projektowy Budowniczy do tworzenia
 nowych tokenów. Email użytkownika jest ustawiony jako temat tokena. Dodatkowo ustawiana jest data wydania oraz data
 wygaśnięcia. Niestety biblioteka ta nie jest aktywnie utrzymywana, przez co daty obsługiwane są przez bardzo starą
-klasę _Date_. Na koniec token podpisywane jest przy pomocy odpowiedniego algorytmu oraz klucza zdefiniowanego w
+klasę _Date_. Na koniec token podpisywany jest przy pomocy odpowiedniego algorytmu oraz klucza zdefiniowanego w
 plikach konfiguracyjnych serwera. Drugą metodą wartą uwagi jest _retrieveEmail_, ekstraktujący adres email z tokena
 JWT. Do otrzymania adresu email potrzebny jest ponownie klucz, z którym został wygenerowany token. Następnie z ciała
 rozszyfrowanego tokena wyciągany jest adres email, który można zwrócić.
@@ -89,7 +89,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Metoda preSend przechwytuje wiadomość otwierającą nowe połączenie protokołu Websocket, po czym uwierzytelnia
 użytkownika. Kod tej metody jest dosyć podobny do fragmentu klasy _AuthTokenFilter_. Również z nagłówka wyodrębniany
 jest token, po czym następuje walidacja oraz zalogowanie użytkownika. W tym przypadku nie jest to kontekst
-bezpieczeństwa, tylko w obiekcie klasy StompHeaderAccessor, który zarządza dostępem do przechwyconej przez interceptor
+bezpieczeństwa, tylko obiekt klasy StompHeaderAccessor, który zarządza dostępem do przechwyconej przez interceptor
 wiadomości.
 
 Pakiet _auth_ obsługuje również część API odpowiedzialną za uwierzytelnianie. Dostępne są 4 punkty końcowe: _login_

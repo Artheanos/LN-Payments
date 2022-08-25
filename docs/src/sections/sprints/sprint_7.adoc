@@ -34,8 +34,8 @@ dyplomowej. Planowano także zacząć realizację pierwszych scenariuszy testów
 
 Początkowo zaplanowane zostało 19 zadań wartych aż 57 punktów. Większa ilość wymaganych nakładów wiąże się z
 zaległościami z poprzednich iteracji. Zespół wyraził chęć cięższej pracy, aby zdążyć z realizacją projektu do połowy
-czerwca 2022. W trakcie iteracji zostały 3 zadania warte 5 punktów. Trzy zadania zostały przeniesione z poprzedniej
-iteracji. Finalnie plan objął 22 zadania warte 62 punkty historii.
+czerwca 2022. W trakcie iteracji zostały dodane 3 zadania warte 5 punktów. Trzy zadania zostały przeniesione z
+poprzedniej iteracji. Finalnie plan objął 22 zadania warte 62 punkty historii.
 
 ==== Przebieg prac
 
@@ -72,7 +72,7 @@ aplikację i zachodzące w niej procesy. Pisanie rozdziałów okazało się o wi
 założono, a wykonanie zadania zajęło aż 8 dni. Kolejnym napisanym rozdziałem był "Wizja" (później przemianowany na
 "Projekt"). Opisuje on wybór technologii do realizacji projektu opisanego w rozdziale "Analiza". W tej iteracji
 planowano również napisanie rozdziałów "Plan", opisującego procesy oraz podejście do pracy w zespole, a także
-"Dalsze plany", przedstawiający plane zespołu na rozwijanie aplikacji po zakończeniu pracy dyplomowej. Niestety tych
+"Dalsze plany", przedstawiający plany zespołu na rozwijanie aplikacji po zakończeniu pracy dyplomowej. Niestety tych
 dwóch rozdziałów nie udało się ukończyć, przez co zostały przeniesione do następnej iteracji.
 
 Następnie zrealizowano dwa mniejsze zadania. Pierwszym z nim jest funkcjonalność usuwania administratorów. Było
@@ -89,7 +89,7 @@ Zostały dodane odpowiednie zadania mające na celu poprawę tego procesu. Po za
 do implementacji pierwszego ekranu, czyli logowania wraz z integracją procesu uwierzytelniania. Logowanie do aplikacji
 mobilnej dostępne jest tylko dla administratorów, dlatego wymagano dodania obsługi takich przypadków w tym zadaniu.
 Przy tworzeniu nawigacji dla aplikacji mobilnej odkryto, że najlepszy sposobem jest dodanie od razu menu bocznego,
-gdyż odbywa się to automatycznie przez używane szablon aplikacji. Wbrew pozorom, było to łatwiejsze, niż stworzenie
+gdyż odbywa się to automatycznie przez używany szablon aplikacji. Wbrew pozorom, było to łatwiejsze, niż stworzenie
 układu ekranów bez panelu bocznego. W rejestrze zadań znajdowało się odpowiadające zadanie, zaplanowane na następną
 iterację, jednak zostało ono przeniesione oraz zakończone w tej iteracji. Zespół planował również dodać ekran
 odpowiedzialny za generowanie pary kluczy i przesłanie klucza publicznego na serwer oraz dodanie ekranu do wpisania
@@ -103,7 +103,7 @@ kolejny przeniesione do następnej iteracji.
 ==== Podsumowanie
 
 W tej iteracji udało się ukończyć większość celów. Standardowo już wykonano wszystkie zadania po stronie serwera,
-a te niewykonane znajdują się głównie po stronie aplikacji internetowej, a teraz także i aplikacji mobilnej i
+a te niewykonane znajdują się głównie po stronie aplikacji internetowej, a teraz także aplikacji mobilnej i
 dokumentacji. Udało się zrobić duże postępy nad funkcjonalnością transakcji. Interfejs API wspiera już cały proces
 podpisywania i odrzucania transakcji. Administratorzy mają także możliwość pobierania swoich powiadomień oraz
 historii transakcji. Udało się wykonać część zaplanowanych zadań dotyczących książki do pracy dyplomowej oraz

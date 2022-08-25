@@ -1,7 +1,7 @@
 === Serwer
 
 Do stworzenia serwera dla tworzonej aplikacji zdecydowano się na język programowania Java oraz framework Spring.
-Zastosowane narzędzia pozwalają w łatwy i szybki sposób tworzyć kompletne aplikacje webowe, a zapewnione dodatkowe
+Zastosowane narzędzia pozwalają w łatwy i szybki sposób tworzyć kompletne aplikacje internetowe, a zapewnione dodatkowe
 moduły ułatwiają między innymi komunikację z bazą danych czy obsługę kolejek wiadomości. Do procesu budowania
 wykorzystywane jest narzędzie Maven, które wymusza określoną hierarchię katalogów w projekcie. Wykorzystano również
 wiele narzędzi wspomagających pracę jak CheckStyle, wspomagający utrzymanie jednolitego stylu kodu w projekcie.
@@ -26,22 +26,22 @@ dla biblioteki lombok, upraszczającej tworzenie i zarządzanie klasami modelowy
 podstawowe informacje o komponencie oraz instrukcje uruchomienia samej aplikacji, testów oraz konfiguracje środowiska
 deweloperskiego. W pliku _pom.xml_ znajduje się konfiguracja dla narzędzia budowania aplikacji Maven. Zawiera on
 metadane projektu, wykorzystywane zależności oraz instrukcje do budowania aplikacji w określony sposób, na przykład
-warunki sprawdzania pokrycia kodu testami. Pozwala również na zbudowanie pliku zawierającego aplikację webową i serwer
-w jednym pliku wykonywalnym. Na koniec został folder _src_ zawierający kod źródłowy posegregowany zgodnie ze
+warunki sprawdzania pokrycia kodu testami. Pozwala również na zbudowanie pliku zawierającego aplikację internetową i
+serwer w jednym pliku wykonywalnym. Na koniec został folder _src_ zawierający kod źródłowy posegregowany zgodnie ze
 standardowym układem dla programu Maven<<maven_directories>>. Jego zawartość prezentuje się następująco:
 
 .Układ katalogów w folderze _src_.
 image::../images/webservice_src_content.png[]
 
 Folder zawiera dwa katalogi: main i test. Pierwszy z nich zawiera kod źródłowy aplikacji, natomiast drugi kod źródłowy
-testów jednostkowych i integracyjnych. Więcej o testach opisane jest w rozdziale <<_testy,"Testy">>. Oba katalogi
+testów jednostkowych i integracyjnych. Więcej o testach opisane jest w rozdziale <<_testy,10>>. Oba katalogi
 zawierają takie same podkatalogi. Folder _java_ zawiera pakiety zawierające kod źródłowy, a _resources_ pliki statyczne
 wymagane do uruchomienia aplikacji, a które nie wymagają kompilacji.
 
-Kod w Javie grupowany jest w pakietach domenowych. Zdecydowane się na grupowanie kodu w pakietach pod względem
+Kod w Javie grupowany jest w pakietach domenowych. Zdecydowano się na grupowanie kodu w pakietach pod względem
 funkcjonalności. Jest to rozwiązanie zwiększające czytelność oraz ułatwiające rozwój aplikacji według tych
 funkcjonalności. Zazwyczaj są one w jakimś stopniu niezależne od innych, ewentualnie wykorzystują publiczne serwisy,
-więc zapewnia to pewien poziom enkapsulacji. Oczywiście lepszy zastosowaniem tutaj byłyby moduły dodane w Javie 9,
+więc zapewnia to pewien poziom enkapsulacji. Oczywiście lepszym zastosowaniem byłyby tutaj moduły dodane w Javie 9,
 gdyż eliminują one kompletnie problem niechcianego dostępu do klas. Pozwalają one na jawne zdefiniowanie dostępu do
 klas publicznych poza modułem. Nie zdecydowano się na ich użycie ze względu na duży poziom skomplikowania oraz rozmiar
 projektu. Niektóre pakiety zawierają niewiele klas, a wyodrębnienie ich do modułów zwiększyłoby ilość niepotrzebnych
@@ -53,9 +53,9 @@ prezentuje się następująco:
 image::../images/webservice_root_packages.png[]
 
 Wszystkie pakiety pogrupowane są w ścieżce pakietów _pl.edu.pjatk.lnpayments.webservice_. Pakiet _webservice_ zawiera
-jedną klasę _Webservice application_ odpowiedzialną tylko i wyłącznie za uruchomienie aplikacji. Pozostałą zawartością
+jedną klasę _WebserviceApplication_ odpowiedzialną tylko i wyłącznie za uruchomienie aplikacji. Pozostałą zawartością
 są pakiety domenowe oraz jeden pakiet _common_ zawierający ogólną konfigurację, oraz klasy wspólne dla całej aplikacji.
-Wewnątrz każdego pakiety pliki pogrupowane zostały według innego popularnego podejścia, czyli grupowania według
+Wewnątrz każdego pakietu pliki pogrupowane zostały według innego popularnego podejścia, czyli grupowania według
 warstw. Zdecydowano się na stworzenie aplikacji według architektury warstwowej, więc osobne warstwy, takie jak
 repozytoria, kontrolery i serwisy znajdują się w swoich pakietach. Po niżej przykład zawartości jednego z
 pakietów domenowych.
@@ -75,7 +75,7 @@ danych była tworzona w ramach zwykłych zadań dodających nowe funkcjonalnośc
 konfiguracja połączenia z bazą danych oraz wymaganych bibliotek i frameworków. Cała reszta działa się automatycznie na
 podstawie kodu tworzonego w Javie.
 
-Schemat bazy danych nie różni się znacząco od diagramu domenowego prezentowanego w rozdziale Analiza.
+Schemat bazy danych nie różni się znacząco od diagramu domenowego prezentowanego w rozdziale 4.
 Znajduje się tam opis każdej z tabeli, jak i relacje pomiędzy nimi. Główne różnice to przede wszystkim nazwy oraz ilość
 pól w poszczególnych tabelach. Oczywiście prawie każda z tabel zawiera kolumny _id_, która służy jako klucz publiczny,
 a także odpowiednie pola, które są kluczami obcymi.
@@ -91,7 +91,7 @@ nowej transakcji). Dzięki temu dla jednego użytkownika oraz jednej transakcji 
 powiadomienie. Tabela _Notification_ zawiera również pole identifier, które wyliczane jest na podstawie klucza
 złożonego. Wykorzystywane jest do odnoszenia się do rekordu danych podczas wysyłania żądań do API powiadomień.
 Reszta kolumn została dodana, aby ułatwić pracę niektórych algorytmów bądź uatrakcyjnić widok danych prezentowany
-użytkownikowi. Wszystkie relacje pomiędzy tabelami zostały bez zmian względem diagramu domenowego.
+użytkownikowi. Wszystkie relacje pomiędzy tabelami zostały bez zmian względem diagramu domenowego z rysunku 6.
 
 include::solution/webservice/common.adoc[]
 
@@ -119,8 +119,8 @@ Zawiera on tylko 3 pliki. Najważniejszym jest _application.properties_, który 
 aplikacji. Ustawione w nim są różne wartości takie jak operowana sieć Bitcoina, poziomy logowania czy też czas ważności
 tokena JWT. Folder _default_ zawiera kolejny plik _application.properties_, natomiast ten nie jest konfiguracją
 aplikacji, tylko plikiem zawierającym domyślne wartości dla ustawień użytkownika. Jak już zostało opisane wcześniej,
-jest ona przechowywana w katalogu domowym użytkownika i może być modyfikowana z poziomu komputera, bądź aplikacji
-webowej. Plik ten kopiowany jest do docelowego katalogu, gdy nie znajduje się tam już istniejąca konfiguracja.
+jest on przechowywany w katalogu domowym użytkownika i może być modyfikowany z poziomu komputera, bądź aplikacji
+internetowej. Plik ten kopiowany jest do docelowego katalogu, gdy nie znajduje się tam jeszcze istniejąca konfiguracja.
 Ostatnim folderem jest _META-INF_, zawierający dodatkowe pliki konfiguracyjne interpretowane przez Javę.
 W przypadku aplikacji folder zawiera dodatkową konfigurację metadanych wartości w pliku konfiguracyjnym. Dzięki
 temu Spring otrzymuje informację o typach i opis poszczególnych własności konfiguracyjnych.

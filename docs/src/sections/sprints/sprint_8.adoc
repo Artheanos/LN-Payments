@@ -37,7 +37,7 @@ pracy dyplomowej oraz innymi brakującymi funkcjonalnościami.
 W tej iteracji zaplanowano początkowo aż 21 zadań, które wymagały nakładu prac wartych 68. W trakcie iteracji zostały
 dodane 2 zadania warte 2 punty. Finalnie zakres iteracji objął 23 zadania warte 70 punktów. Jest to dwukrotnie więcej,
 niż wynosił zakres poprzednich iteracji. Wynikło to z chęci podjęcia próby ukończenia aplikacji w pierwotnym terminie,
-czyli połowie czerwca. Podczas planowania sprintu członkowie zespołu zadeklarowali się podjąć się próby wykonania
+czyli połowie czerwca. Podczas planowania sprintu członkowie zespołu zadeklarowali podjąć się próby wykonania
 większej ilości zadań, aby ukończyć projekt w planowanym czasie.
 
 ==== Przebieg prac
@@ -46,7 +46,7 @@ Priorytetem tej iteracji było ukończenie brakujących funkcjonalności. Jedną
 odpowiedzialnej za transakcje. Zadania te były początkowo planowane w poprzedniej iteracji. Wykonany został ekran
 transakcji, wyświetlający dane w tabeli. Wymagało ono sporo modyfikacji w aktualnym kodzie. Chciano, aby oczekująca
 transakcja była zawsze wyświetlana na każdej stronie. Nie było to zaimplementowane w komponencie tabeli ani nie było
-proste w implementacji. Następne zadanie dotyczyło formularza tworzenia płatności. Polegało ono na dodanie nowego
+proste w implementacji. Następne zadanie dotyczyło formularza tworzenia płatności. Polegało ono na dodaniu nowego
 punktu końcowego z danymi wymaganymi do transakcji oraz stworzeniu samego formularza w aplikacji internetowej.
 Zadanie to nie zostało ukończone w tej iteracji. Udało się natomiast rozwinąć proces zatwierdzania transakcji.
 Została dodana funkcjonalność rozgłaszania transakcji po zebraniu odpowiedniej ilości podpisów. Przed samym

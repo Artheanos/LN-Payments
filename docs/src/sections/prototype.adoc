@@ -2,10 +2,10 @@
 === Prototyp
 
 Tworzenie aplikacji z wykorzystaniem kryptowalut oraz nowoczesnych technologii z nimi związanych (jak sieć Lightning)
-wiąże ze sobą wiele niewiadomych. Zastosowaniu zaawansowanych technik jak niestandardowe płatności multisig dodatkowo
+wiąże ze sobą wiele niewiadomych. Zastosowanie zaawansowanych technik jak niestandardowe płatności multisig dodatkowo
 utrudnia wykonanie zadania. Aby ułatwić późniejszą implementację projektu, zdecydowano się na stworzenie prototypu
-prezentującego wszystkie wymagane funkcjonalności związane z kryptowalutami oraz obsługujące je biblioteki.
-Prototyp serwera stworzony został w języku Java, natomiast aplikacji mobilnej w języku JavaScript.
+prezentującego wszystkie wymagane funkcjonalności związane z kryptowalutami oraz obsługujący proponowane biblioteki.
+Prototyp serwera stworzony został w języku Java, natomiast prototyp aplikacji mobilnej w języku JavaScript.
 
 [NOTE]
 Załączone fragmentu kodu są wersją roboczą stworzoną na potrzeby prototypu. W trakcie implementacji zostaną przejrzane
@@ -20,7 +20,7 @@ uruchomieniu aplikacji użytkownik może wpisywać polecenia, po czym natychmias
 Cała aplikacja bazuje na wzorcu projektowym _Polecenie (Command)_<<gof>>. Po wpisaniu polecenia w konsoli tekst
 zamieniany jest na wartość typu wyliczeniowego.
 
-.Kod odpowiedzianly za tłumaczenie łańcucha znaków na wartość typu wyliczeniowego
+.Kod odpowiedzialny za tłumaczenie łańcucha znaków na wartość typu wyliczeniowego.
 [source,java]
 ----
 include::../snippets/prototype/StringToCommand.java[]
@@ -29,7 +29,7 @@ include::../snippets/prototype/StringToCommand.java[]
 Wartość typu wyliczeniowego _ConsoleCommand_ odpowiada implementacjom interfejsu Command. Każde polecenie implementuje
 ten interfejs. Przyjmuje zmienną ilość argumentów, odpowiadającą wartościom parametrów.
 
-.Interfejs Command
+.Interfejs Command.
 [source,java]
 ----
 include::../snippets/prototype/Command.java[]
@@ -39,7 +39,7 @@ Wartość typu wyliczeniowego jest przekazywany do klasy _CommandExecutor_, któ
 mapującą typ wyliczeniowy na implementację interfejsu Command. Przy wywołaniu metody _execute_ pobierana jest
 odpowiednia instancja polecenia, które następnie wywoływane jest wraz z parametrami.
 
-.Skrócona klasa wywołująca polecenia
+.Skrócona klasa wywołująca polecenia.
 [source,java]
 ----
 include::../snippets/prototype/Executor.java[]
@@ -52,7 +52,7 @@ komputera, na którym kod jest uruchomiony oraz pobiera klucz publiczny węzła 
 ciąg staje się zrozumiały dla portfeli Bitcoin. Skanując taki kod bądź wpisując go ręcznie, można otworzyć kanał
 płatności.
 
-.Polecenie zwracające adres węzła Lightning
+.Polecenie zwracające adres węzła Lightning.
 [source,java]
 ----
 include::../snippets/prototype/NodeAddress.java[]
@@ -62,7 +62,7 @@ Aby umożliwić płatności w sieci Lightning, należy wygenerować _invoice_, c
 sposób i z jakimi parametrami wykonać płatność. Jako parametr metoda przyjmuję kwotę, na jaką zostanie wystawiony
 rachunek oraz tekst, który będzie wyświetlany podczas płatności w portfelu (można to również nazwać tytułem przelewu).
 
-.Polecenie zwracające żądanie zapłaty
+.Polecenie zwracające żądanie zapłaty.
 [source,java]
 ----
 include::../snippets/prototype/CreateInvoice.java[]
@@ -74,7 +74,7 @@ Lightning, a następnie dla każdego z nich wywoływana jest metoda prywatna _cl
 przekształca wartość identyfikatora kanału z wartości tekstowej na obiekt wymagany do wywołania metody _closeChannels_.
 W przypadku wyjątku przy jakiejkolwiek operacji kanał zostanie pominięty.
 
-.Polecenie zamykające kanały
+.Polecenie zamykające kanały.
 [source,java]
 ----
 include::../snippets/prototype/CloseChannels.java[]
@@ -84,7 +84,7 @@ include::../snippets/prototype/CloseChannels.java[]
 polecenia. Pozwala to na szybkie testowanie wyłącznie tej funkcjonalności z pominięciem płatności multisig.
 Przelewane są wszystkie środki znajdujące sie w portfelu.
 
-.Polecenie transferujące środki z portfela w węźle Lightning
+.Polecenie transferujące środki z portfela w węźle Lightning.
 [source,java]
 ----
 include::../snippets/prototype/Transfer.java[]
@@ -94,7 +94,7 @@ Adres portfela tworzony jest na podstawie kluczy publicznych podanych jako param
 do odblokowania środków zawsze potrzebne będą 2 podpisy. Tworzony jest _redeem script_, z którego następnie
 wyprowadzony jest skrypt wyjściowy oraz adres. Proces ten został opisany w podrozdziale <<_adres_multisig>>.
 
-.Polecenie tworzące adres multisig
+.Polecenie tworzące adres multisig.
 [source,java]
 ----
 include::../snippets/prototype/MultiWallet.java[]
@@ -106,7 +106,7 @@ wyjścia, jedno na docelowy adres, a drugie zwracające resztę na adres multisi
 transakcyjna. Dla uproszczenia przelewane jest zawsze 100 satoshi. Na koniec zwracana jest transakcja w systemie
 heksadecymalnym. Otrzymaną wartość należy przekazać odpowiednim użytkownikom do podpisania.
 
-.Polecenie tworzące transakcję
+.Polecenie tworzące transakcję.
 [source,java]
 ----
 include::../snippets/prototype/MultiTransfer.java[]
@@ -118,7 +118,7 @@ klucza publicznego. W tym prototypie obsługiwane jest tylko pierwsze wejście. 
 wejścia, po czym są one sprawdzane wobec klucza publicznego podanego w parametrze wejściowym metody. Tylko jeżeli
 znaleziony zostanie podpis pasujący do klucza, metoda zwróci _true_.
 
-.Polecenie weryfikujące podpis
+.Polecenie weryfikujące podpis.
 [source,java]
 ----
 include::../snippets/prototype/MultiVerify.java[]
@@ -128,7 +128,7 @@ Po uzbieraniu wymaganej ilości podpisów transakcja jest gotowa do wysłania do
 Wcześniej każde wejście transakcji jest weryfikowane poprzez uruchomienie testowe skryptu znajdującego się nim.
 Jeżeli wszystkie wejścia transakcji są poprawne, transakcja jest propagowana w sieci Bitcoin.
 
-.Polecenie propagujące transakcje
+.Polecenie propagujące transakcje.
 [source,java]
 ----
 include::../snippets/prototype/MultiBroadcast.java[]
@@ -142,12 +142,12 @@ implementacją w późniejszych rozdziałach.
 ==== Prototyp aplikacji mobilnej
 
 Prototyp aplikacji mobilnej również jest aplikacją konsolową. Implementacja nie jest przesadnie skomplikowana.
-Jako że obsługiwane są tylko 2 polecenia, obsługiwane są one w instrukcji _switch_.
+Jako że dostępne są tylko 2 polecenia, obsługiwane są one w instrukcji _switch_.
 
 Pierwsze polecenie odpowiedzialne jest za wygenerowanie kluczy. W tym przypadku generowane
 są dla sieci _testnet_. Po wygenerowaniu oba klucze zostają wypisane na ekran.
 
-.Kod odpowiedzialny za generowanie kluczy
+.Kod odpowiedzialny za generowanie kluczy.
 [source,javascript]
 ----
 include::../snippets/prototype/GenerateKeys.js[]
@@ -158,7 +158,7 @@ konwertowana jest na obiekt transakcji. Następnie dla uproszczenia tego prototy
 jest kluczem prywatnym. Klucz prywatny podawany jest jako drugi parametr. Ostatnim parametrem jest _redeemScript_,
 który wymagany jest do podpisania transakcji. Następnie podpisana transakcja wypisywana jest na ekranie.
 
-.Kod podpisujący transakcję
+.Kod podpisujący transakcję.
 [source,javascript]
 ----
 include::../snippets/prototype/SignTransaction.js[]

@@ -16,7 +16,7 @@ pracy dyplomowej.
 |LP-53|Write 'Problem description' chapter|Aleksander Konieczny|3|Ukończone
 |LP-55|Create landing page|Jan Pieczul|2|Ukończone
 |LP-56|Update quick buy page mockup|Jan Pieczul|3|Ukończone
-|LP-57|Create quick buy page|Jan Pieczul|3|Ukończone
+|LP-57|Create quick buy page|Jan Pieczul|5|Ukończone
 |LP-58|Create service that generates tokens|Aleksander Konieczny|3|Ukończone
 |LP-59|Create invoice service|Aleksander Konieczny|3|Ukończone
 |LP-60|Implement payment process|Aleksander Konieczny|5|Ukończone
@@ -48,11 +48,11 @@ Kolejne trzy zadania dotyczyły prac nad aplikacją internetową. Pierwszym krok
 aplikacji. Zawiera ona odniesienia do stron logowania, rejestracji oraz płatności dla niezalogowanych użytkowników.
 Kolejne dwa zadania dotyczą ekranu płatności. W pierwszej planowej wersji miał to być jeden ekran, na którym będą
 wyświetlane wszystkie dane. W trakcie planowania iteracji zdecydowano się na zmianę podejścia do tego ekranu.
-Wzorem innym popularnych sklepów internetowych, funkcjonalność rozbito na kilka ekranów. Miały one reprezentować
+Wzorem innych popularnych sklepów internetowych, funkcjonalność rozbito na kilka ekranów. Miały one reprezentować
 wstępny formularz, ekran płatności oraz podsumowanie zakupu. Zmiana ta wymagała aktualizacji makiety interaktywnej,
 aby osoba odpowiedzialna miała już gotowy do zaimplementowania styl i układ komponentów. Zadanie poskutkowało
 dodaniem wielu nowych zadań polegających na stworzeniu stylów dla każdego komponentu. Aby nie zmieniać zakresu
-iteracji, zadania te zdecydowano się zaimplementować w następnych iteracjach. A ramach zadania LP-61 postanowiono
+iteracji, zadania te zdecydowano się zaimplementować w następnych iteracjach. W ramach zadania LP-61 postanowiono
 stworzyć cały mechanizm karuzeli ekranów. Utworzone zostały stosowne podstrony, a także została zaimplementowana część
 logiki odpowiedzialnej za przechodzenie pomiędzy nimi. Resztę funkcjonalności zdecydowano się rozdzielić na zadania
 dedykowane osobno każdej podstronie.
@@ -74,9 +74,9 @@ rachunków pochodzącą z węzła Lightning. Tym sposobem zaimplementowano pierw
 
 Ostatnie zadanie w iteracji było typu _spike_. Jest to zadanie wydzielone z zakresu iteracji i nie ma przydzielonych
 punktów historii. Polega na zbadaniu zagadnienia oraz zdobyciu wiedzy potrzebnej do wykonania zadania. W tym przypadku
-należało zbadać wykonywanie z adresu multisig. Nie zostało to wykonane w pierwszym etapie realizacji projektu,
-ponieważ plan zakładał implementacje tej funkcjonalności dopiero za kilka miesięcy. Niestety tego zadania nie udało
-się ukończyć w tej iteracji.
+należało zbadać wykonywanie transakcji z adresu multisig. Nie zostało to wykonane w pierwszym etapie realizacji
+projektu, ponieważ plan zakładał implementacje tej funkcjonalności dopiero za kilka miesięcy. Niestety tego zadania nie
+udało się ukończyć w tej iteracji.
 
 ==== Podsumowanie
 

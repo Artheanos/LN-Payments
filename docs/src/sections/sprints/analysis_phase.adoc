@@ -6,7 +6,7 @@ nie miały racji bytu z powodu braku zdefiniowanych celów do implementacji. Pod
 tematu projektu, nie istniała wizja działania projektu. Z tego powodu zdecydowano się na pracę w modelu kaskadowym.
 W terminie do końca pierwszego semestru realizacji projektu celem było pozbycie się wszystkich niewiadomych przed
 implementacją projektu. Zdecydowano się zakończyć ten etap realizacji, dopiero gdy zespół będzie miał wymaganą wiedzę i
-działający prototyp finalnego rozwiązania. Większość zadań w tym okresie nie była śledzonych w żadnych narzędziu.
+działający prototyp finalnego rozwiązania. Większość zadań w tym okresie nie była śledzona w żadnych narzędziu.
 Podstawą była komunikacja poprzez program _Discord_ oraz spotkania z promotorem. Tylko cześć zadań dotyczących analizy
 technologii była śledzona na tablicy Kanban.
 
@@ -20,7 +20,7 @@ aby omówić wiele znaczących kwestii. Zajmowano się między innymi analizą k
 płatności skonfigurowano _BTCPayServer_, dzięki czemu można było samemu wypróbować płatności przez sieć Lightning.
 Wraz ze wzrostem wiedzy domenowej odkryto, że zakres projektu obejmujący tylko płatności w sieci Lightning może
 okazać się niewystarczający. Z tego powodu zdecydowano się na połączenie ówczesnego tematu z drugim projektem
-opracowywanym w ramach projektu _iNGENIOUS_, czyli zarządzania portfelem multisig oraz podpisywania transakcji
+opracowywanym w ramach projektu _iNGENIOUS_, czyli zarządzaniem portfela multisig oraz podpisywaniem transakcji
 poprzez aplikację mobilną. Na podstawie tam wybranego tematu pracy kontynuowano naukę oraz wypracowywanie wymagań.
 Zmieniały się one wielokrotnie, aż do końca listopada, gdy wizja projektu przybrała obecną formę. W międzyczasie
 wybrano również większość używanych technologii i bibliotek.
@@ -28,7 +28,7 @@ wybrano również większość używanych technologii i bibliotek.
 Mając ustalony kształt finalnego rozwiązania oraz solidną wiedzę z zakresu kryptowalut, rozpoczęto przygotowywanie
 dokumentacji wstępnej. Stworzono w tym czasie dokumenty KP, DZW oraz SWS. Znajdują się one w załącznikach pracy.
 Opracowano również wstępne schematy blokowe dla niektórych procesów, a także diagram architektury systemu.
-Dodatkowo w tym czasie stworzono repozytorium dla właściwej części projektu w serwisie _Github.
+Dodatkowo w tym czasie stworzono repozytorium dla właściwej części projektu w serwisie _Github_.
 
 Po ukończeniu wymaganej dokumentacji rozpoczęło się opracowywanie ostatnich produktów dostarczanych tej fazy, czyli
 prototypu oraz makiety interaktywnej. Za wykonanie makiety odpowiedzialny był Jan Pieczul, a Aleksander Konieczny
@@ -61,7 +61,7 @@ w osobnych kontenerach, skonfigurowane w taki sposób, aby węzeł Lightning mó
 Pierwszym problemem była konfiguracja węzła Bitcoin w testowej sieci _testnet3_. Węzeł stale próbował
 pobierać pełną historię głównej sieci, co zajmuje w dniu pisania tego rozdziału 418 GB na dysku <<blockchain_size>>.
 Sieć testowa zajmuje tylko około 30 GB, a także środki do testowania można pozyskiwać za darmo, więc wybór sieci
-testowej jest oczywisty. Po uporaniu się z konfiguracją sieci wystąpił problem z czasem pobieranie blockchaina.
+testowej jest oczywisty. Po uporaniu się z konfiguracją sieci wystąpił problem z czasem pobierania blockchaina.
 Czas pobierania powinien wynosić około godzinę, w zależności od prędkości internetu. W przypadku prototypu
 szacowany czas wynosił 10 godzin. Oba problemy z węzłem Bitcoin rozwiązano poprzez dostosowanie parametrów
 konfiguracyjnych węzła. Następne napotkane problemy dotyczyły komunikacji obu węzłów, które również naprawiono

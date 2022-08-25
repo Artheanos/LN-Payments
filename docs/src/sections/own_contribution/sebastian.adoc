@@ -18,10 +18,10 @@ adres. Dodałem również dwa guziki, służące do akceptowania i odrzucania tr
 W ramach zadania LP-135 stworzyłem testy E2E. Napisałem w języku _Gherkin_ scenariusze testowe dla przypadków logowania
 oraz rejestracji, a następnie dodałem ich implementację z wykorzystaniem  narzędzia _Cypress_.
 
-Podjąłem próbę napisania pierwszej części rozdziału "Proces realizacji", jednak w odczuciu kapitana zespołu był on
-słaby. W późniejszym etapie pomysł na rozdział uległ zmianie, wiec praca poszła na marne. Napisałem ostatnią
-część rozdziału "Proces realizacji" obejmującego sprinty 10 - 12. Opisałem również rozdział "Testy" dotyczący testów
-jednostkowych, integracyjnych oraz E2E dla serwera, aplikacji webowej oraz mobilnej.
+Podjąłem próbę napisania pierwszej części rozdziału "Proces realizacji". W późniejszym etapie pomysł na rozdział uległ
+zmianie, wiec pewna część pracy poszła na marne. Część z tej pracy nadal jest widoczna w opisie sprintu 1.
+Napisałem ostatnią część rozdziału "Proces realizacji" obejmującego sprinty 10 - 12. Opisałem również rozdział "Testy"
+dotyczący testów jednostkowych, integracyjnych oraz E2E dla serwera, aplikacji webowej oraz mobilnej.
 
 Brałem czynny udział w _code review_ głównie rozwiązań związanych z serwerem. Sporo czasu poświęciłem na sprawdzanie
 tekstów napisanych przez pozostałych członków zespołu i starałem się wyłapać w nich wszystkie błędy.
