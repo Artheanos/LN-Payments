@@ -1,1 +1,91 @@
 === Jan Pieczul
+
+Moją główną odpowiedzialnością była aplikacja internetowa, aplikacja mobilna i
+skonfigurowanie narzędzi potrzebnych do rozwoju projektu.
+Stworzyłem dla zespołu repozytoria na serwisach takich jak _Jira_, _GitHub_, _Discord_ i _Figma_.
+Dostosowałem je w taki sposób, żeby praca nad projektem była efektywna.
+Do tego wybrałem i skonfigurowałem środowisko ciągłej integracji — _GitHub Actions_.
+Oprócz aplikacji internetowej wykonałem parę zadań dotyczących serwera i napisałem fragment książki do pracy dyplomowej.
+
+Zanim odbyła się praca nad projektem, spędziłem czas na nauce technologii kryptowalut,
+między innymi _Bitcoin_ i _Lightning Network_. Dokształcając się, pisząc dokumentację i pracując nad prototypem,
+nabyłem potrzebnej wiedzy, żeby tworzyć funkcjonalności projektu.
+
+Po skończeniu prototypu zająłem się projektowaniem interfejsu aplikacji.
+Stworzyłem makietę w programie _Figma_ i używając jej, zaprojektowałem całe widoki oraz poszczególne komponenty,
+takie jak przyciski, pola tekstowe, tablice, czy formularze. Wybrałem kolorystykę i ogólny motyw interfejsu.
+
+Po ustaleniu z zespołem, że będziemy korzystać z biblioteki _React_, zainicjowałem aplikację internetową.
+Aby proces pisania przebiegał sprawnie,
+wybrałem i zainstalowałem narzędzia do serwowania aplikacji, testowania, sprawdzania składni kodu i obsługi formularzy.
+Ustaliłem strukturę plików w aplikacji internetowej, sposób dzielenia komponentów i sposób nawigacji.
+Skonfigurowałem środowisko testowe, aby działało z naszymi rozwiązaniami.
+W późniejszej fazie implementacji pracowałem między innymi nad panelem użytkownika,
+panelem admina, ekranem przyjmowania płatności i autoryzacją użytkownika.
+Gdy zauważyłem, że wiele funkcji odpowiedzialnych za odbieranie danych z serwera wykonuje podobne czynności,
+wydzieliłem je do osobnego folderu i ustaliłem ich wspólny interfejs.
+
+Proces budowania aplikacji mobilnej z początku wyglądał podobnie do aplikacji internetowej.
+Stworzyłem w repozytorium katalog o nazwie _mobileapp_ zawierający aplikację mobilną i
+napisałem instrukcję jak ją uruchomić.
+Używając mojego doświadczenia z biblioteką _React_, mogłem ponownie wykorzystać znane mi narzędzia.
+Stworzyłem ekran logowania i proces generowania pary kluczy użytkownika.
+Zaimplementowałem przyjmowanie powiadomień, używając protokołu _WebSocket_.
+Zainstalowałem narzędzia do testowania, skonfigurowałem je i napisałem większość testów jednostkowych.
+Początkowo stworzyłem aplikację, używając narzędzia _Expo_.
+Niestety podczas implementowania generowania kluczy według prototypu zauważyłem,
+że prototyp korzystał z rozwiązania niedostępnego przy korzystaniu z narzędzia _Expo_.
+Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _ReactNative_.
+
+.Lista zadań, przy których pracował Jan Pieczul w procesie implementacji.
+[cols="1,9,1"]
+|===
+|Klucz|Nazwa|Story points
+|LP-30|Set up react project|3
+|LP-33|Set up mobile app project|5
+|LP-34|Research CI available options|-
+|LP-37|Create pipeline for React webapp|3
+|LP-38|Create pipeline for mobile app|5
+|LP-44|Configure container for PostgreSQL|1
+|LP-46|Create readme for webapp and mobileapp|1
+|LP-55|Create landing page|2
+|LP-56|Update quick buy page mockup|3
+|LP-57|Create quick buy page|3
+|LP-64|Polish form carousel view|3
+|LP-65|Polish checkout carousel view|5
+|LP-66|Polish payment summary view|2
+|LP-69|Set up swagger|1
+|LP-72|Create endpoint for JWT renewal|2
+|LP-76|Create login page|2
+|LP-78|Integrate authorization|3
+|LP-91|Create panel for admin management|3
+|LP-92|Add admin creation form|2
+|LP-98|Create form for wallet creation|5
+|LP-104|Handle payments from non-logged users|3
+|LP-106|Add all payments view|2
+|LP-107|Create main wallet panel|2
+|LP-109|Update wallet panel mockup|3
+|LP-124|Create login view|5
+|LP-125|Create upload keys view|3
+|LP-128|Add sidepanel|2
+|LP-129|Create server url input view|3
+|LP-133|Handle push notifications|3
+|LP-139|Implement admin deletion|3
+|LP-145|Write webapp subsection of "opis realizacji" chapter|8
+|LP-149|Complete own contribution for Jan Pieczul|1
+|LP-154|Add server settings page|2
+|LP-158|Create a js package with common components|2
+|LP-162|Add generic way to send tokens to downstream systems|3
+|LP-172|Adjust payment carousel|2
+|LP-180|Migrate mobile app|3
+|LP-184|Replace common-ts with a more convenient solution|2
+|LP-185|Set up and add missing tests|5
+|LP-188|Improve error handling|2
+|LP-190|Create endpoint for querying single notifications|2
+|LP-195|Fix progress bars on wallet screen|1
+|LP-198|Improve JWT management for webapp|2
+|===
+
+Łącznie wykonałem 44 zadania. Ich łączna wartość wyniosła 122 punkty historii.
+Zadania jednak nie uwzględniają rzeczy takich jak szukanie rozwiązań niektórych problemów,
+czy pomaganie członkom zespołu.
