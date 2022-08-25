@@ -24,7 +24,7 @@ import {
   TransactionsResponse
 } from './interface/transaction'
 import { getLocalJson } from '../utils/persist'
-import { LocalKey } from '../constants/LocalKey'
+import { LocalKey } from 'constants/LocalKey'
 import { Settings } from 'webService/interface/settings'
 import { PasswordChangeProps } from 'pages/userPanel/account/form'
 

@@ -39,9 +39,7 @@ uruchomienia.
 
 include::../sections/webservice_solution.adoc[]
 
-=== Aplikacja webowa
-
-TODO
+include::../sections/webapp_solution.adoc[]
 
 include::../sections/mobileapp_solution.adoc[]
 

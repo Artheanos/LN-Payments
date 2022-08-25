@@ -1,4 +1,4 @@
-import { QuickBuy } from 'components/QuickBuy/QuickBuy'
+import { QuickBuy } from 'components/QuickBuy'
 
 export const QuickBuyPage = () => {
   return (

@@ -69,3 +69,7 @@ REPL::
     _Read-eval-print-loop_ jest prostym środowiskiem, które pobiera wejście użytkownika, a następnie wykonuje je i
     wypisuje wynik. Wszystkie czynności odbywają się w pętli, co pozwala na szybkie wykonywanie poleceń bądź
     pojedynczych instrukcji kodu.
+
+Hook::
+    Funkcjonalność biblioteki React. Hooki to funkcje, które pozwalają używać stanu i innych funkcjonalności Reacta,
+    bez użycia klas.

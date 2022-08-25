@@ -44,7 +44,6 @@ export const MultiSelectInput: React.FC<Props> = ({
     <FormControl className={className}>
       <InputLabel id={labelId}>{label}</InputLabel>
       <Select
-        data-testid="dupa"
         error={showError}
         labelId={labelId}
         id={field.name}
