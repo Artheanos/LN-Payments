@@ -264,7 +264,7 @@ która dodaje do zapytania nagłówek z tokenami i wykonuje je przy użyciu bibl
 include::../../../webapp/src/webService/requests.ts[lines=195..216]
 ----
 
-Serwer używa kodów HTTP do przekazania różnych informacji, w tym także kodów błędu.
+Serwer używa kodów HTTP do przekazania różnych informacji, w tym także kodów błędów.
 Biblioteka _axios_ wyrzuca wyjątek, jeśli kod odpowiedzi nie jest kodem powodzenia.
 Metoda _request_ wyłapuje wyjątki zwracane przez axios i zwraca obiekt typu _Response_ z pustym polem danych,
 zamiast wyrzucać błąd. Oznacza to, że nie trzeba wyłapywać błędu przy każdym wywołaniu funkcji pola _api_.
