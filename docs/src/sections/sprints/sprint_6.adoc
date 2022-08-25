@@ -74,15 +74,16 @@ przedmiotu SAI. Po akceptacji prowadzącego zadanie zostało włączone do pracy
 
 Aby rozpocząć prace nad aplikacją mobilną, zespół musiał pozyskać wiedzę o tworzeniu powiadomień _push_. Domyślnym
 rozwiązaniem wykorzystywanym w aplikacjach na system Android jest _Google Cloud Messaging_. Jest to usługa zintegrowana
-z systemem, więc otrzymywanie powiadomień dzieje się automatycznie, a serwer jedynie musi wysłać odpowiednie żądanie
-na serwer _Google_. Nie było to pożądane rozwiązanie, ponieważ wymagało stworzenia konta w zewnętrznym systemie, a także
-odpowiedniej integracji. Założeniem aplikacji jest udostępnienie jej każdemu do samodzielnego uruchomienia. Wymóg
+z systemem operacyjnym, więc otrzymywanie powiadomień dzieje się automatycznie, a serwer jedynie musi wysłać
+odpowiednie żądanie na serwer _Google_. Nie było to pożądane rozwiązanie, ponieważ wymagało stworzenia konta w
+zewnętrznym systemie, a także odpowiedniej integracji.
+Założeniem aplikacji jest udostępnienie jej każdemu do samodzielnego uruchomienia. Wymóg
 rejestracji u innego dostawcy usług jest dodatkowym niechcianym wymaganiem dla użytkownika, więc zdecydowano się na
 znalezienie innego rozwiązania. Podjęto decyzję o ponownym wykorzystaniu protokołu Websocket, gdyż jest to jedyne
 rozwiązanie gwarantujące przesył danych w czasie rzeczywistym bez żadnych zewnętrznych usług. Jest to również
 technologia aktualnie wykorzystywana w projekcie, więc integracja nie stanowiła problemu. Oczywiście rozwiązanie
-to ma swoje minusy jak wymóg utrzymania połączenia, co powoduje szybsze rozładowanie baterii, jednak zespół nie znalazł
-żadnego innego rozwiązania spełniającego kryteria.
+to ma swoje minusy jak wymóg utrzymywania połączenia, co powoduje szybsze rozładowanie baterii, jednak zespół nie
+znalazł żadnego innego rozwiązania spełniającego kryteria.
 
 Ostatnie dwa zadania tej iteracji nie zostały ukończone. Pierwsze z nich dotyczyło dodania funkcjonalności
 usuwania administrator. Może on zostać usunięty, kiedy nie jest członkiem portfela. Drugie zadanie to ponownie jest

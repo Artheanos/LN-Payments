@@ -120,7 +120,7 @@ procesu wyświetlane są komunikaty informujące, że tokeny będą również do
 |Testowane wymagania | _F18_
 |Opis a| Administrator ma możliwość podania w ustawieniach adresu URL, na który wysyłane będą tokeny po zakończeniu
 płatności przez użytkownika. Zaraz po ich wygenerowaniu, powinny one zostać wysłane na wskazany adres.
-|Warunki wstępne a| Użytkownik jest w trakcie procesie płatności, uruchomiony jest serwer testowy przyjmujący tokeny,
+|Warunki wstępne a| Użytkownik jest w trakcie procesu płatności, uruchomiony jest serwer testowy przyjmujący tokeny,
 serwer jest skonfigurowany pod wysyłanie tokenów.
 |Przebieg testu a|
 . Użytkownik dokonuje płatności poprzez swój portfel Lightning.
@@ -216,7 +216,7 @@ użytkowników.
 |Identyfikator: | ST11
 |Nazwa | Zamiana ustawień serwera.
 |Testowane wymagania | _F01_
-|Opis a| Administratorzy mają dostęp do panela zawierającego ustawienia serwera. Można na nim ustawić wiele
+|Opis a| Administratorzy mają dostęp do panelu zawierającego ustawienia serwera. Można na nim ustawić wiele
 aspektów aplikacji jak cena tokenów czy limity automatycznych transferów środków.
 |Warunki wstępne a| Zalogowany jest administrator.
 |Przebieg testu a|

@@ -52,7 +52,7 @@ zadanie ukończyć, dzięki czemu dostęp do płatności był tylko dla zalogowa
 mieli dostęp do strony głównej, rejestracji oraz logowania. W tamtym momencie istniała tylko jedna rola użytkownika,
 czyli zwykły użytkownik.
 
-Kolejnym zadaniem było opracowanie rozwiązania pozwalającego na obsłudze płatności od niezalogowanych użytkowników
+Kolejnym zadaniem było opracowanie rozwiązania polegającego na obsłudze płatności od niezalogowanych użytkowników
 po stronie serwera. Było to problematyczne, ponieważ chciano zapisywać wszystkie płatności w bazie danych. Wymagane
 to było do przeglądania historii przez administratorów w przyszłości oraz do przesłania tokenów konkretnej osobie.
 Zdecydowano się wtedy na stworzenie hierarchii użytkowników z wykorzystaniem klasy abstrakcyjnej _User_. Dzięki
@@ -60,7 +60,7 @@ temu udało się wydzielić klasę dla niezalogowanego użytkownika i dwie klasy
 stworzono generyczne repozytoria dla różnych typów użytkowników, a także serwisy odpowiedzialne za zarządzanie nimi.
 Na koniec dodano punkt końcowy HTTP, pozwalający na uzyskanie tokena JWT bez wcześniejszego logowania. Token ten ma
 uprawienia tylko do procesu płatności (poza punktami ogólnodostępnymi). Szczegóły tego, jak i innych rozwiązań znajduje
-się w rozdziale <<_opis_rozwiazania,"Opis rozwiązania">>.
+się w rozdziale <<_opis_rozwiazania,8>>.
 
 Następnie należało zintegrować proces płatności z uwierzytelnianiem. Punkty końcowe zostały odpowiednio zabezpieczone,
 a encje płatności powiązano z użytkownikami. Dzięki temu każda płatność ma przypisanego użytkownika, co pozwala na
@@ -70,7 +70,7 @@ dodane w trakcie sprintu, ponieważ pojawiły się problemy podczas testowania. 
 na tworzenie nowej płatności, kiedy poprzednia była aktywna. Brak tej funkcjonalności skutkował utkwieniem płatność
 w staniu oczekującym, dlatego zdecydowano się na jak najszybsze naprawienie tego błędu.
 
-Zadanie LP-69 dotyczy integracji serwera z biblioteką _Swagger_, pozwalającą na automatyczne generowanie dokumentacji
+Zadanie LP-69 dotyczyło integracji serwera z biblioteką _Swagger_, pozwalającą na automatyczne generowanie dokumentacji
 dla API HTTP. Zdecydowano się na dodanie jej dla poprawienia komunikacji przy integracji backend'u z frontend'em.
 Całe API było automatycznie udokumentowane wraz z przykładami użycia, co ułatwiało implementację aplikacji internetowej.
 
@@ -89,7 +89,7 @@ multisig niestety również zakończyło się porażką, a zadanie przeniesione 
 .Wykres spalania sprintu trzeciego.
 image::../images/sprints_raports/burndown_sprint3.png[]
 
-Sprint rozpoczęto z 15 zadaniami i 38 punktami historii. W trakcie sprintu dodali jedno zadanie warte 2 punktu.
+Sprint rozpoczęto z 15 zadaniami i 38 punktami historii. W trakcie sprintu dodano jedno zadanie warte 2 punktu.
 Nie udało się ukończyć trzech zadań wartych 7 punktów. Finalnie spring udało się ukończyć zakres prac warty 33 punkty
 w postaci 13 zadań. Nie jest to wciąż zły wynik. Udało się zamknąć większość zadań, a prawie wszystkie cele zostały
 osiągnięte. Zadania polegające na dokończeniu karuzeli płatności oraz zbadanie płatności multisig zostały przeniesione

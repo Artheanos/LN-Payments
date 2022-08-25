@@ -52,14 +52,14 @@ miesiące, więc ukończenie zadania było bardzo radosną nowiną. Naniesione z
 ekranów procesu płatności. Dodano na przykład informację o cenie na pierwszym ekranie czy zaktualizowano komunikaty
 wyświetlane użytkownikom. Ostatnie zadanie związane z programowaniem dotyczyło poprawek zarządzania tokenem JWT
 w aplikacji internetowej. Aplikacja do tamtej pory nie radziła sobie zbyt dobrze z jego odświeżaniem, co powodowało
-zawieszenie się strony. Tym zadanie zostały zakończone prace nad implementacją systemu.
+zawieszenie się strony. Tym zadaniem zostały zakończone prace nad implementacją systemu.
 
 Drobnych prac wymagano również w zakresie pozostałych aspektów związanych z projektem. Po ukończeniu implementacji
 należało utworzyć artefakty i pliki wykonywalne, aby istniała możliwość prostego uruchomienia systemu bez ręcznej
 kompilacji poszczególnych modułów. Utworzone pliki zostały udostępnione w serwisie _github_ jako pierwsze wydanie
 systemu. Udało się również nareszcie zakończyć zadanie związane z testami E2E dla logowania i rejestracji. Utknęło
 ono w procesie recenzji kodu na trzy miesiące, więc zakończenie prac napawa radością. Na koniec napisane zostały
-pliki _readme_ dla aplikacji internetowej oraz mobilnej, które zawierają informacje o modułach kroki potrzebne do
+pliki _readme_ dla aplikacji internetowej oraz mobilnej, które zawierają informacje o modułach oraz kroki potrzebne do
 ich uruchomienia.
 
 Wszystkie pozostałe zadania w iteracji dotyczyły pisania książki do pracy dyplomowej. Pierwsze dwa zadania dotyczą

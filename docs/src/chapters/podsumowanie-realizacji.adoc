@@ -56,7 +56,7 @@ repozytorium, rozpoczęcia implementacji oraz okres wzmożonych prac przy zbliż
 
 Projekt rozwijany był jako rozwiązanie _open-source_. Każdy mógł wejść i przeglądać publiczne repozytorium projektu.
 Ciekawym faktem jest to, że cieszyło się ono małym zainteresowaniem, co zaskoczyło zespół projektowy. Strona
-repozytorium została łącznie wyświetlona 811 razy przez 13 unikatowych użytkowników. Pobrany został 220 razy przez
+repozytorium została łącznie wyświetlona 811 razy przez 13 unikatowych użytkowników. Kod pobrany został 220 razy przez
 12 unikatowych użytkowników. Jedna osoba stworzyła dodatkowo _fork_ projektu, a 3 osoby niezwiązane z projektem go
 obserwują.
 

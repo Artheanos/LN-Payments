@@ -61,7 +61,7 @@ wejściowych. Warto wspomnieć, że zagadnienie to zostało wykonane specjalnie 
 było jedną ze składowych oceny z tego przedmiotu. W dalszej kolejności dodane zostały testy integracyjne sprawdzające
 między innymi to, czy poszczególne elementy w aplikacji mobilnej generują się prawidłowo oraz, czy aplikacja zachowuje
 się w określonych sytuacjach poprawnie (np. jeśli użytkownik nie posiada klucza prywatnego). Do ich stworzenia
-wykorzystano framework'i do testowania _Jest_ oraz _Testing-library. W związku z tym, że nie udało się dodać pełnych
+wykorzystano framework'i do testowania _Jest_ oraz _Testing-library_. W związku z tym, że nie udało się dodać pełnych
 testów _end-to-end_, napisane zostały same scenariusze testowe z wykorzystaniem języka _Gherkin_. Zadanie związane
 z implementacją tych testów zostało usunięte ze sprintu w trakcie jego trwania, gdyż uznano je za zbyt niski priorytet.
 

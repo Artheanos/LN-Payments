@@ -33,11 +33,11 @@ na czas, więc bazując na wynikach poprzednich sprintów, zmniejszono odpowiedn
 
 Priorytetem prac z powodów opóźnienia było zdecydowanie ukończenie procesu płatności. Dwa zadania LP-65 oraz LP-66
 polegały na dokończeniu odpowiadających im ekranów karuzeli płatności. Podczas implementacji zadania dotyczącego
-ekranu podsumowania odkryto, że po stronie serwera nie zostały zabezpieczenia kanałów Websocket. Spowodowało to, że
-domyślne ustawienia blokowały dostęp do kanałów. Część płatności aplikacji była zaimplementowana przed
-uwierzytelnianiem, przez co przeoczone ten aspekt wcześniej. Z tego powodu do sprintu dodano zadanie LP-93, polegające
-na integracji kanałów Websocket z autoryzacją. Prace rozpoczęte zostały natychmiast, aczkolwiek spowodowały kolejne
-opóźnienia. Na szczęście udało się ukończyć cały proces płatności w tej iteracji.
+ekranu podsumowania odkryto, że po stronie serwera nie zostały zaimplementowane zabezpieczenia kanałów Websocket.
+Spowodowało to, że domyślne ustawienia blokowały dostęp do kanałów. Część płatności aplikacji była zaimplementowana
+przed uwierzytelnianiem, przez co przeoczono ten aspekt wcześniej. Z tego powodu do sprintu dodano zadanie LP-93,
+polegające na integracji kanałów Websocket z autoryzacją. Prace rozpoczęte zostały natychmiast, aczkolwiek spowodowały
+kolejne opóźnienia. Na szczęście udało się ukończyć cały proces płatności w tej iteracji.
 
 Kolejne zadanie dotyczyło rozwoju aplikacji internetowej. Aby dodać następne panele dostępne dla użytkowników, należało
 zaimplementować komponent gromadzący linki do nich. Zostało dodane boczne menu zawierające linki. Napotkany został
@@ -46,7 +46,7 @@ pozycjonowanie elementów prawie na całej stronie internetowej. Był to większ
 pozwoliło to na zbudowanie solidnego szablonu do dodawania następnych podstron.
 
 Zrealizowanie menu bocznego pozwoliło na kontynuację rozwoju aplikacji. Rozpoczęto implementację historii płatności.
-Najpierw dodano tę funkcjonalność do części serwerowe. Rozwiązanie zaimplementowano w taki sposób, aby w przyszłości
+Najpierw dodano tę funkcjonalność do części serwerowej. Rozwiązanie zaimplementowano w taki sposób, aby w przyszłości
 istniała możliwość sortowania oraz wyszukiwania płatności po wszystkich dostępnych polach. Następnie został dodany
 ekran wyświetlający płatności w tabeli, włącznie z paginacją.
 
@@ -61,7 +61,7 @@ jeden administrator domyślny. Planowano również dodać część aplikacji int
 administratorami. W sprincie znalazły się zadania LP-91, dodające ekran z tabelą zawierającą administratorów, oraz
 LP-92, implementujące formularz ich dodawania. Niestety obu zadań nie udało się ukończyć w tej iteracji.
 
-Ostatnie trzy zadania dotyczyły zadań mniejszej wagi jak poprawek w dokumentacji oraz badania technologii. Pierwszym
+Ostatnie trzy zadania dotyczyły spraw mniejszej wagi jak poprawek w dokumentacji oraz badania technologii. Pierwszym
 zadaniem było naniesienie poprawek do dokumentu DZW zgłoszonych przez promotora. Następne zadanie zostało dodane
 w trakcie sprintu. Dotyczyło ono zbadania implementacji testów E2E obejmujących serwer oraz aplikację mobilną.
 Zadanie to zostało dodane dopiero teraz, ponieważ początkowo tego typu testy nie były planowane. Jak rezultat tego

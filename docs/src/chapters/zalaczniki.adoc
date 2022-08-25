@@ -16,4 +16,4 @@
 * Plik zawierający linki do:
 ** Repozytorium projektu w serwisie Github
 ** Makiety interaktywnej w aplikacji internetowej Figma
-** Raporty z testów poszczególnych komponentów
+* Raporty z testów poszczególnych komponentów
