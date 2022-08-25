@@ -16,7 +16,7 @@ image::../images/webservice_admin_api.png[]
 
 Kod klasy _AdminResource_, obsługującej żądania HTTP jest bardzo prosta. Każda metoda deleguje wywołanie do klasy
 _AdminService_, która zawiera prawie całą logikę w tym pakiecie. Zawiera ona wiele metod bardzo podobnych do tych
-pochodzących z _AdminService_, tylko operujące na administratorach. Nową funkcjonalnością względem tamtej klasy
+pochodzących z _UserService, tylko operujące na administratorach. Nową funkcjonalnością względem tamtej klasy
 jest usuwanie użytkowników.
 
 .Metoda removeAdmin klasy AdminService.
@@ -38,7 +38,7 @@ oraz weryfikację podpisów transakcji.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/admin/service/AdminService.java[lines=55..63]
 ----
 
-Zasada działania jest dosyć podobny do poprzednio omawianej metody. Po pobraniu administratora z bazy danych następuje
+Zasada działania jest dosyć podobna do poprzednio omawianej metody. Po pobraniu administratora z bazy danych następuje
 weryfikacja. Tym razem jest to sprawdzenie, czy użytkownik przesłał już swój klucz publiczny. Następnie wartość
 pola przechowującego klucz jest aktualizowana, a sam obiekt zapisywany w bazie danych. Ostatnim elementem pakietu
 jest klasa _InitialAdminLoader_, która służy do automatycznego tworzenia administratora przy starcie serwera.

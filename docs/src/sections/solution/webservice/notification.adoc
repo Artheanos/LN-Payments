@@ -5,7 +5,7 @@ transakcji, zarówno standardowych, jak i tych odtwarzających portfel. Rozwiąz
 sposób, aby w przyszłości istniała możliwość wysyłania powiadomień niepowiązanych w żaden sposób z transakcjami.
 Z tego powodu funkcjonalność otrzymała swój własny pakiet.
 
-.Zawartość pakietu _notification_
+.Zawartość pakietu _notification_.
 image::../images/webservice_notification_content.png[]
 
 Pakiet poza standardowymi klasami różnych warstw aplikacji zawiera również obsługę potwierdzania i odrzucania
@@ -14,7 +14,7 @@ przy okazji pakietu _transaction_. Standardowo wszystkie funkcjonalności obsłu
 początkowo przez metody kontrolera _NotificationResource_, skąd wywołania są delegowane do serwisu
 _NotificationService_.
 
-.API dostępne dla powiadomień mobilnych
+.API dostępne dla powiadomień mobilnych.
 image::../images/webservice_notification_api.png[]
 
 Dostępnych jest kilka punktów końcowych API. Metoda GET _/notifications_ pozwala na pobranie wszystkich powiadomień
@@ -45,7 +45,7 @@ bazie danych. Jest to zabezpieczenie przed problemem straconych zapisów. W tym 
 ponieważ stracona podpisana transakcja może prowadzić do utraty środków.
 
 Następnymi i najważniejszymi funkcjonalnościami pakietu są potwierdzanie i odrzucania transakcji. Zajmują się tym metody
-_handleNotificationResponse_ oraz _handleNotificationDenial_ klasy _NotificationService.
+_handleNotificationResponse_ oraz _handleNotificationDenial_ klasy _NotificationService_.
 
 .Metoda getSignatureData klasy NotificationService.
 [source, java]
@@ -54,14 +54,14 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Metody są do siebie podobne. W obu przypadkach pobierane jest powiadomienie z bazy danych. Następna jest walidacja,
-która sprawdza, czy wobec powiadomienia została podjęta już jakaś akcja. Następnie pobierana jest klasa obsługująca
+która sprawdza, czy wobec powiadomienia została podjęta już jakaś akcja. Później pobierana jest klasa obsługująca
 otrzymany typ powiadomienia, wobec której wywoływana jest odpowiednia metoda _confirm_ bądź _deny_. Pomimo tego,
 że metody się dużo nie różnią, wydzielenie wspólnej części do osobnej metody było problematyczne, ponieważ Java nie
 wspiera zwracania kilku wartości z jednej metody. Przy tak małej ilości kodu zdecydowano się na pozostawienie
 duplikatów, aby nie stracić na czytelności kodu.
 
 Powiadomienia obsługiwane są przez implementacje interfejsu _NotificationHandler_. Został do tego zaimplementowany
-wzorzec projektowy strategia (_strategy_)<<gof>>. Dzięki temu każdy tym powiadomienia ma swoją własną klasę
+wzorzec projektowy strategia (_strategy_)<<gof>>. Dzięki temu każdy typ powiadomienia ma swoją własną klasę
 odpowiedzialną za jego obsługę.
 
 .Interfejs NotificationHandler.

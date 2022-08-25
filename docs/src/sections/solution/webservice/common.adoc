@@ -14,8 +14,8 @@ serwera przez administratorów. Kontrolery obsługujące żądania HTTP, wraz z 
 
 Omawianie obu funkcjonalności można zacząć od obsługi ustawień serwera. Obsługiwana jest przez klasę
 _ConfigurationResource_. Jedyną zależnością klasy jest serwis SettingsService, dostarczający metody
-obsługujące pobieranie i aktualizowanie ustawień. Przy każdym nadchodzącym żądaniu jedyne co robią
-metody to wywołanie odpowiedniej metody z SettingsService oraz opakowanie zwróconej wartości w obiekt klasy
+obsługujące pobieranie i aktualizowanie ustawień. Przy każdym nadchodzącym żądaniu jedynym zadaniem tej klasy jest
+wywołanie odpowiedniej metody z SettingsService oraz opakowanie zwróconej wartości w obiekt klasy
 _ResponseEntity_, zawierający metadane odpowiedzi HTTP. Dostępne są dwa punkty końcowe:
 
 .API ustawień serwera znajdujące się we wspólnym pakiecie.
@@ -23,7 +23,7 @@ image::../images/webservice_common_config_api.png[]
 
 Ustawienia przechowywane są w pliku tekstowym, który znajduje się w folderze _.lnpayments_ w katalogu domowym
 użytkownika. Dzięki zastosowaniu zewnętrznego pliku istnieje możliwość zmiany ustawień bez konieczności uruchamiania
-aplikacji webowej. Dane z pliku ładowane są przy uruchamianiu aplikacji przez klasę konfiguracyjną
+aplikacji internetowej. Dane z pliku ładowane są przy uruchamianiu aplikacji przez klasę konfiguracyjną
 _SettingsPropertiesConfig_. Posiada ona jedną metodę publiczną _propertiesConfig_ oznaczoną za pomocą adnotacji
 _@Bean_, co sprawia, że zwracany przez metodę obiekt będzie zainicjowany w kontekście Springa. Metoda zwraca obiekt
 _PropertiesConfiguration_ z biblioteki _Apache Commons Configuration2_, która używana jest do automatycznego
@@ -78,8 +78,8 @@ image::../images/webservice_common_user_api.png[]
 
 Kontrolerem obsługującym te punkty końcowe jest UserResource. Jak widać na powyższym rzucie ekranu, ścieżki nie
 zawierają żadnego ID użytkownika, ponieważ autoryzacja użytkownika odbywa się poprzez token JWT, z którego też
-otrzymujemy dane o użytkowniku. Ciągnie to za sobą ograniczenie, w którym tylko dany użytkownik może pobrać swoje dane,
-aczkolwiek nigdy nie było planów na dodanie takiej funkcjonalności.
+otrzymujemy dane o użytkowniku. Ciągnie to za sobą ograniczenie, w którym tylko dany użytkownik może pobrać swoje dane.
+Nigdy nie było planów na dodanie funkcjonalności pozwalającej na pobranie danych innych użytkowników.
 
 .Klasa _UserResource_.
 [source, java]
@@ -87,9 +87,9 @@ aczkolwiek nigdy nie było planów na dodanie takiej funkcjonalności.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/common/resource/UserResource.java[lines=16..38]
 ----
 
-Dane o użytkowniku pobierane są z obiektu _Principal_, który zawiera kontekst aktualnie zalogowanego użytkownika.
+Dane o użytkowniku pobierane są z obiektu _Principal_, który zawiera kontekst aktualnie zalogowanej osoby.
 W przypadku obu metod dane z żądania HTTP oraz informacja o użytkowniku przekazywana jest dalej do serwisu
-_UserService_, pochodzącego z pakietu auth. Wykorzystywane są jego dwie metody _getUserDetails_ i _updatePassword_.
+_UserService_, pochodzącego z pakietu _auth_. Wykorzystywane są jego dwie metody _getUserDetails_ i _updatePassword_.
 W przypadku pobierania danych o użytkowniku sprawa jest oczywista. Dane pobierane są z bazy danych, a następnie mapowane
 na obiekt _UserDto_, który zwracany jest użytkownikowi. W przypadku zmiany hasła po pobraniu danych użytkownika
 należy zweryfikować, czy podane aktualne hasło pasuje do tego zapisanego w bazie danych. Jeżeli wszystko się zgadza,
@@ -118,7 +118,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 }
 ----
 
-Przechwytywanie wyjątków przez tę klasę jest możliwe dzięki dziedziczeniu po klasie Stringa
+Przechwytywanie wyjątków przez tę klasę jest możliwe dzięki dziedziczeniu po klasie Springa
 _ResponseEntityExceptionHandler_. Każda metoda posiada również adnotację _@ExceptionHandler_, która definiuje
 przechwytywany wyjątek. W przypadku aplikacji jedyna wykonywana operacja to mapowanie wyjątku na odpowiedni kod błędu
 HTTP. W niektórych przypadkach metoda obsługująca wyjątek loguje potrzebne informacje.
@@ -166,13 +166,13 @@ hierarcha rozpoczyna się od klasy abstrakcyjnej _User_, Która zawiera podstawo
 użytkownika. Struktura widoczna na diagramach osiągnięta została przez zastosowanie adnotacji _@Inheritance_
 pochodzącej z JPA. Użyto strategii _Joined_, aby każda klasa w Javie miała swoją własną tabelę w bazie danych.
 
-.Klasa PublicKeyValidator.
+.Klasa abstrakcyjna User.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/common/entity/User.java[lines=9..28]
 ----
 
-Dzięki zastosowaniu modyfikatora dostępu _protected_ nie można dziedziczyć po tej klasie poza pakietem entity. Pole
+Dzięki zastosowaniu modyfikatora dostępu _protected_ nie można dziedziczyć po tej klasie poza pakietem _entity_. Pole
 _email_ oznaczone jest jako unikatowe, ponieważ służy ono jako dodatkowe pole do identyfikacji encji. Metoda _getRole_
 jest abstrakcyjna, co umożliwia zdefiniowanie odpowiedniej roli w każdej klasie potomnej, bez zapisywania tej informacji
 w bazie danych. Bezpośrednio po abstrakcyjnej klasie _User_ dziedziczą _TemporaryUser_ oraz _StandardUser_.

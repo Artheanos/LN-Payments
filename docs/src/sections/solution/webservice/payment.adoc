@@ -47,7 +47,7 @@ diagram sekwencji obrazujący cały przepływ danych.
 include::../../../diagrams/payment_sequence.puml[]
 ----
 
-Diagram powstał przed implementacją rozwiązania, dlatego niektóre nazwy i drobne szczegóły mogą się różnic ze stanem
+Diagram powstał przed implementacją rozwiązania, dlatego niektóre nazwy i drobne szczegóły mogą się różnić ze stanem
 faktycznym. Aby ukazać proces rozwoju aplikacji, zdecydowano się na pokazanie go w niezmienionej formie.
 Jak widać na diagramie, proces zaczyna się od żądania na adres _/payments/info_. Wszystkie żądania HTTP obsługiwane są
 w klasie _PaymentResource_.
@@ -60,7 +60,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Dostęp do tej ścieżki nie wymaga żadnej autoryzacji, dlatego w pierwszej linijce następuje próba pozyskania adresu
 email. Zostaje on opakowany w obiekt klasy _Optional_, gdyż wartość obiektu _Principal_ będzie nieobecna w przypadku
-nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade. Przyrostek
+nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade_. Przyrostek
 _Facade_ miał początkowo oznaczać odrębną warstwę w architekturze aplikacji, zbierającą w sobie wszystkie serwisy. Miała
 być ona dostępna tylko dla klas kontrolerów. Model ten się nie przyjął w innych pakietach, gdyż zysk z tego rozwiązania
 był niewielki, a generowałby dużo nadmiarowego kodu.
@@ -206,8 +206,8 @@ wysłania tokenów.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/resource/PaymentSocketController.java[lines=25..27]
 ----
 
-Jest to ostatni krok ze skomplikowane procesu płatności. Użytkownik może już w pełnie cieszyć się zakupionymi tokenami.
-Wszystkie płatności rejestrowane są w bazie danych. Serwer ma możliwość pobierania danych o historycznych
+Jest to ostatni krok ze skomplikowanego procesu płatności. Użytkownik może już w pełni cieszyć się zakupionymi
+tokenami. Wszystkie płatności rejestrowane są w bazie danych. Serwer ma możliwość pobierania danych o historycznych
 płatnościach. Zaimplementowano 2 punkty końcowe: GET /payments oraz GET /payments/all. Jeden z nich pobiera dane
 o historii użytkownika, a drugi historię wszystkich płatności. Logika obu punktów jest podobna, główną różnicą jest
 format zwracanych danych. Opisany zostanie przede wszystkim /GET /payments, gdyż posiada on kilka dodatkowych funkcji
@@ -222,7 +222,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Nowością jest tutaj obiekt Pageable. Pochodzi on z modułu Spring Data i pozwala na automatyczną implementację
 paginacji danych. Dodatkowo przy pomocy adnotacji _@SortDefault_ ustawiane jest domyślne sortowanie, w tym przypadku
 malejąco według daty. Pole pochodzi z klasy _Payment__, która została wygenerowana podczas kompilacji przez bibliotekę
-_hibernate-jpamodelgen_, która tworzy klasy opisujące encję bazy danych. Dzięki temu automatycznie powstaje obiekt,
+_hibernate-jpamodelgen_, która tworzy klasy opisujące encje bazy danych. Dzięki temu automatycznie powstaje obiekt,
 który zawiera pola modelu jako stałe. Zadaniem metody jest delegacja wywołania do _PaymentFacade_. W przypadku
 wszystkich płatności metody różnią się tylko metodą wywoływaną w _PaymentFacade._
 
@@ -235,7 +235,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Następuje wywołanie do klasy _PaymentDataService_, które ma na celu pobranie wszystkich płatności. Aby umożliwić
 ich pobieranie względem różnych pól, również zagnieżdżonych, stworzono dwa typy wyliczeniowe: SearchableField oraz
 SearchableTable. Warto wspomnieć, że w przypadku wyszukiwania wszystkich płatności następuje zwykłe wywołanie metody
-findAll, które delegowane jest aż to repozytorium w niezmienionej formie, co kończy działanie tego procesu.
+findAll, które delegowane jest aż do repozytorium w niezmienionej formie, co kończy działanie tego procesu.
 
 .Typ wyliczeniowy SearchableField.
 [source, java]
@@ -254,7 +254,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Ponownie wywołanie jest delegowane do następnej warstwy. Tym razem parametrem będzie obiekt klasy PaymentSpecification.
-Implementuje ona interfejs _Specification_, który umożliwia na tworzenie na ręczne tworzenie kwerend do bazy danych
+Implementuje ona interfejs _Specification_, który pozwala na ręczne tworzenie kwerend do bazy danych
 przy pomocy kodu Javy. Spring Data jest później w stanie stworzyć zapytanie do bazy danych na podstawie tych
 implementacji.
 
@@ -277,7 +277,7 @@ które implementuje ten interfejs.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/repository/PaymentRepository.java[lines=12..18]
 ----
 
-Ostatnio funkcjonalnością pakietu _payment_ jest agregowanie danych, które później mogą zostać wyświetlone na przykład
+Ostatnią funkcjonalnością pakietu _payment_ jest agregowanie danych, które później mogą zostać wyświetlone na przykład
 przy pomocy wykresu. Obecnie wspierane jest zbieranie danych o sumie przychodów w poszczególnych miesiącach.
 Odbywa się to oczywiście w klasie _PaymentFacade_.
 
@@ -289,8 +289,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Jest to dość zaawansowany algorytm stworzony przy użyciu Java Stream API, wprowadzonego w Javie 8. Dodaje on do Javy
 elementy programowania funkcyjnego. Na początek pobierane są dane o płatnościach z bazy danych. Filtrowane są tylko
-te płatności, które zostały zakończone sukcesem. Później transakcje są sortowane według daty oraz mapowane tablicę
+te płatności, które zostały zakończone sukcesem. Później transakcje są sortowane według daty oraz mapowane na tablicę
 asocjacyjną, łączącą miesiąc i rok z sumą przychodów. Zastosowanym obiektem jest _TreeMap_, który przechowuje klucze
-w strukturze drzewa, co zapewnia kolejność kluczy. Na koniec pozycje tablicy mapowane są na kolekcję _List_, która
+w strukturze drzewa, co zapewnia ich kolejność. Na koniec pozycje tablicy mapowane są na kolekcję _List_, która
 zawiera gotowe dane do wyświetlenia na wykresie po stronie aplikacji internetowej. Ta funkcjonalność nie posiada
 własnego punktu końcowego w API, a jest używana w pakiecie _wallet_, który zostanie opisany w dalszej części rozdziału.

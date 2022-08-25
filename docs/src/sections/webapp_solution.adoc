@@ -21,11 +21,11 @@ Zespół zdecydował się na używanie komponentów funkcyjnych, ponieważ są o
 pozwalają na tworzenie spersonalizowanych hooków.
 
 ==== Struktura plików
-.Układ katalogów i plików w folderze głównym aplikacji webowej.
+.Układ katalogów i plików w folderze głównym aplikacji internetowej.
 image::../images/webapp/root_dir.png[]
 
 W głównym folderze znajdują się pliki konfiguracyjne, katalog _src_ oraz katalog _tests_.
-Katalog _tests_ przechowuje testy, mocki danych oraz kod potrzebny do konfiguracji środowiska testowego.
+Katalog _tests_ przechowuje testy, atrapy danych oraz kod potrzebny do konfiguracji środowiska testowego.
 Katalog _src_ przechowuje kod źródłowy aplikacji webowej.
 
 .Układ katalogów w folderze _src_.
@@ -108,7 +108,7 @@ w celu zwiększania elastyczności kodu.
 Oprócz zdefiniowanych ścieżek widać, że na samej górze drzewa komponentów znajdują się contexty i layouty.
 Layout _NavbarLayout.tsx_ zagnieżdża prawie każdy widok, ponieważ dodaje górny pasek nawigacyjny do widoków.
 Jedyne widoki, które owego paska nie posiadają, to _LogoutPage.tsx_ i _Error404Page.tsx_.
-Do tego Sprawdza, czy _UserContext.tsx_ wczytuje token, jeśli tak, to dodaje powiadomienie z informacją,
+Do tego sprawdza, czy _UserContext.tsx_ wczytuje token, jeśli tak, to dodaje powiadomienie z informacją,
 że token jest w trakcie ładowania.
 
 .Fragment pliku NavbarLayout.tsx.
@@ -156,8 +156,8 @@ include::../../../webapp/src/components/Context/UserContext.tsx[lines=47..59]
 include::../../../webapp/src/components/Context/UserContext.tsx[lines=61..79]
 ----
 
-Context _UserContext.tsx_ obejmuje wszystkie widoki,
-tak żeby dane o użytkowniku nie zostały usunięte przy zmianie widoków.
+Context _UserContext.tsx_ obejmuje wszystkie widoki w taki sposób,
+aby dane o użytkowniku nie zostały usunięte przy zmianie widoków.
 Do tego korzysta z pliku pomocniczego _src/utils/persist.ts_,
 aby dane o użytkowniku zostały zapisane nawet przy zamknięciu przeglądarki.
 
@@ -317,7 +317,7 @@ Kolejnym elementem panelu jest komponent _TotalIncomeChart.tsx_.
 Wyświetla dane z serwera w postaci wykresu, korzystając z biblioteki _recharts_.
 Dzięki temu, że dane do wykresu są odpowiednio przygotowane przez serwer, nie ma potrzeby ich formatowania.
 
-Gdy dane o portfelu są w trakcie pobierania, widok profelu wyświetla _WalletLoadingSkeleton.tsx_.
+Gdy dane o portfelu są w trakcie pobierania, widok portfela wyświetla _WalletLoadingSkeleton.tsx_.
 Ten komponent mniej więcej odwzorowuje kafelki stanowiące interfejs widoku _WalletPage.tsx_.
 
 .Widok portfela podczas wczytywania.
@@ -466,6 +466,12 @@ include::../../../webapp/src/components/History/History.tsx[lines=21..30]
 ----
 
 ==== Powiadomienia
+
+[NOTE]
+Opisywane w tej sekcji powiadomienia nie mają nic wspólnego z powiadomieniami zdefiniowanymi w modelu domenowym
+aplikacji. W tym rozdziale ten termin dotyczy informacji prezentowanych użytkownikowi podczas wykonywania akcji
+w aplikacji internetowej.
+
 Żeby wyświetlone powiadomienia mogły pozostawać widoczne po przejściu na inny widok, zespół stworzył komponent
 _NotificationContext.tsx_, który decyduje o tym, jakie powiadomienie jest widoczne w danej chwili na ekranie.
 Każdy komponent zagnieżdżony w tym context'ście ma możliwość wyświetlenia powiadomienia, która nie zniknie przy
