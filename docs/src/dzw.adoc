@@ -80,7 +80,7 @@ pierwszym uruchomieniu serwera. Jego celem będzie pierwsze skonfigurowanie syst
 posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony pozwalającej na
 wykonanie płatności w sieci lightning, na której będzie wyświetlany token, który zakupił. System będzie posiadał
 wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew ze wbudowanego portfela, wymagane będą
-podpisy od ⅔ wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej,
+podpisy od 2/3 wszystkich administratorów. Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej,
 służącej tylko do przechowywania kluczy prywatnych i podpisywania transakcji. Do aplikacji mobilnej użytkownik
 będzie logował się przy pomocy tych samych referencji jak w przypadku konsoli admina. To rozwiązanie można by
 zaimplementować jako rozszerzenie do serwisu BTC Pay Server, natomiast jest to bardzo duże narzędzie, które i tak

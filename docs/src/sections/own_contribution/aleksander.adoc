@@ -179,7 +179,7 @@ manualne całego systemu.
 |===
 
 Zrealizowałem bądź uczestniczyłem w implementacji 108 zadań. Ich łączna wartość wyniosła 264 punkty historii. Stanowi
-to około ⅔ wszystkich zadań, jakie zaplanowano do realizacji. Zadania te dotyczyły praktycznie każdego aspektu
+to około 2/3 wszystkich zadań, jakie zaplanowano do realizacji. Zadania te dotyczyły praktycznie każdego aspektu
 projektu. Ta liczba zadań oczywiście nie uwzględnia wkładu w pierwszą część procesu realizacji, czyli nauki,
 tworzenia dokumentacji oraz napisania prototypów. Nie uwzględnia również czasu poświęconego na planowanie, układanie
 zadań, tworzenie prezentacji oraz zarządzania całym projektem.
