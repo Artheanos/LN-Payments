@@ -112,7 +112,7 @@ Oprócz zdefiniowanych ścieżek widać, że na samej górze drzewa komponentów
 Layout _NavbarLayout.tsx_ zagnieżdża prawie każdy widok, ponieważ dodaje górny pasek nawigacyjny do widoków.
 Jedyne widoki, które owego paska nie posiadają, to _LogoutPage.tsx_ i _Error404Page.tsx_.
 Do tego sprawdza, czy _UserContext.tsx_ wczytuje token, jeśli tak, to dodaje powiadomienie z informacją,
-że token jest w trakcie ładowania. Powiadomienie widoczne jest na rysunku 66.
+że token jest w trakcie ładowania. Powiadomienie widoczne jest na rysunku 66, a jego kod widoczny jest w kodzie 91.
 
 .Fragment pliku NavbarLayout.tsx.
 [source, tsx]
@@ -141,10 +141,10 @@ include::../../../webapp/src/components/Layouts/UserLayout.tsx[lines=9..18]
 ----
 
 _UserContext.tsx_ jest odpowiedzialny za przechowywanie danych o użytkowniku oraz sprawdzanie ważności tokena dostępu
-do serwera. Jeśli odświeżanie tokena się nie powiedzie, użytkownik zostanie wylogowany, a zarazem przekierowany
-przez _UserLayout.tsx_ lub _AdminLayout.tsx_ do strony logowania.
-Jeśli odświeżanie się powiedzie, kolejne jego uruchomienie zostaje zakolejkowane do wykonania za 10 minut.
-Dzięki temu, że ważność tokena na serwerze jest ustalona na 15 minut, token w przeglądarce jest zawsze ważny.
+do serwera. Kod tego kontekstu pokazano w kodach 92, 93 i 94. Jeśli odświeżanie tokena się nie
+powiedzie, użytkownik zostanie wylogowany, a zarazem przekierowany przez _UserLayout.tsx_ lub _AdminLayout.tsx_ do
+strony logowania. Jeśli odświeżanie się powiedzie, kolejne jego uruchomienie zostaje zakolejkowane do wykonania za 10
+minut. Dzięki temu, że ważność tokena na serwerze jest ustalona na 15 minut, token w przeglądarce jest zawsze ważny.
 Udostępnia również funkcje pomocnicze, takie jak _login_, _logout_, w celu wyeliminowania powtórzeń.
 
 .Funkcje _login_ i _logout_ pliku UserContext.tsx.
@@ -170,7 +170,8 @@ API _localStorage_ pozwala zapisać dane typu klucz wartość, ale tylko w posta
 Zostały napisane funkcje, aby obejść to ograniczenie, zamieniając obiekty na wartość tekstową przy zapisywaniu
 i odwrotnie przy wczytywaniu.
 
-Funkcja _setLocalJson_ zamienia przyjętą wartość w ciąg tekstowy i zapisuje go w _localStorage_.
+Funkcja _setLocalJson_ zamienia przyjętą wartość w ciąg tekstowy i zapisuje go w _localStorage_. Pokazana ona została
+w kodzie 95.
 
 .Funkcja setLocalJson w pliku persist.ts.
 [source, typescript]
@@ -178,8 +179,8 @@ Funkcja _setLocalJson_ zamienia przyjętą wartość w ciąg tekstowy i zapisuje
 include::../../../webapp/src/utils/persist.ts[lines=13..15]
 ----
 
-Funkcja _getLocalJson_ pobiera wartość z _localStorage_ i zamienia ją z ciągu tekstowego na obiekt _JSON_,
-przy okazji zamieniając ciągi tekstowe na obiekty _Date_.
+Funkcja _getLocalJson_, widoczna w kodzie 96, pobiera wartość z _localStorage_ i zamienia ją z ciągu tekstowego na
+obiekt _JSON_, przy okazji zamieniając ciągi tekstowe na obiekty _Date_.
 
 .Funkcja getLocalJson pliku persist.ts.
 [source, typescript]
@@ -190,7 +191,7 @@ include::../../../webapp/src/utils/persist.ts[lines=4..11]
 Z powodu tego, że w Reakcie zmienne wartości muszą być przechowywane w stanie, został napisany hook _useLocalStorage_,
 który oprócz zapisywania wartości w stanie, nadpisuje ją w _localStorage_.
 Używa się go jak standardowego hooku _useState_, z tą różnicą, że zamiast przyjmować wartość, przyjmuje klucz,
-który wskazuje na wartość w _localStorage_.
+który wskazuje na wartość w _localStorage_. Jego kod zaprezentowano w kodzie 97.
 
 .Funkcja _useLocalStorage_ w pliku _persist.ts_.
 [source, typescript]
@@ -200,11 +201,12 @@ include::../../../webapp/src/utils/persist.ts[lines=17..30]
 
 Pasek nawigacyjny po lewej stronie ekranu został zaimplementowany w _src/components/common/Sidebar/Sidebar.tsx_.
 Jest on dodawany do komponentów w _PanelLayout.tsx_.
-Każdy przycisk na tym pasku jest zdefiniowany przy pomocy komponentu _SidebarEntry.tsx_.
-Istnieje możliwość przekazania do niego argumentu _adminOnly_,
+Każdy przycisk na tym pasku jest zdefiniowany przy pomocy komponentu _SidebarEntry.tsx_, który widoczny jest w
+kodzie 98. Istnieje możliwość przekazania do niego argumentu _adminOnly_,
 jeśli ma być wyświetlony tylko dla administratorów.
 Przycisk jest podświetlony, jeśli otwarta ścieżka w przeglądarce zawiera w sobie jego ścieżkę.
 
+.Komponent SidebarEntry.
 [source, tsx]
 ----
 include::../../../webapp/src/components/common/Sidebar/SidebarEntry.tsx[]
@@ -242,8 +244,8 @@ include::../../../webapp/src/webService/requests.ts[lines=42..51]
 ...
 ----
 
-Klasa _Requests_ posiada pole _api_, przechowujące funkcje, które wysyłają zapytania do API serwera.
-Każda funkcja jest odpowiedzialna za komunikację z jedną ścieżką serwera.
+Klasa _Requests_, widoczna w kodach 99 oraz 100, posiada pole _api_, przechowujące funkcje, które wysyłają zapytania
+do API serwera. Każda funkcja jest odpowiedzialna za komunikację z jedną ścieżką serwera.
 
 .Pole _api_ metody _Requests_.
 [source, typescript]
@@ -252,7 +254,8 @@ include::../../../webapp/src/webService/requests.ts[lines=53..68]
 ...
 ----
 
-Dla ujednolicenia funkcji w polu _api_ każda z nich zwraca ten sam interfejs — _Response_.
+Dla ujednolicenia funkcji w polu _api_ każda z nich zwraca ten sam interfejs — _Response_. Definicja typu widoczna
+jest w kodzie 101.
 
 .Typ _Response_ pliku _requests.ts_.
 [source, typescript]
@@ -261,7 +264,8 @@ include::../../../webapp/src/webService/requests.ts[lines=31..34]
 ----
 
 Każda funkcja w polu _api_ wykorzystuje metodę _request_,
-która dodaje do zapytania nagłówek z tokenami i wykonuje je przy użyciu biblioteki _axios_.
+która dodaje do zapytania nagłówek z tokenami i wykonuje je przy użyciu biblioteki _axios_. Jej kod widoczny jest
+w kodzie 102.
 
 .Metoda _request_ klasy _Requests_.
 [source, typescript]
@@ -274,6 +278,7 @@ Biblioteka _axios_ wyrzuca wyjątek, jeśli kod odpowiedzi nie jest kodem powodz
 Metoda _request_ wyłapuje wyjątki zwracane przez axios i zwraca obiekt typu _Response_ z pustym polem danych,
 zamiast wyrzucać błąd. Oznacza to, że nie trzeba wyłapywać błędu przy każdym wywołaniu funkcji pola _api_.
 Żeby zobaczyć, czy zapytanie zakończyło się powodzeniem, wystarczy sprawdzić pole _status_ zwracanego obiektu.
+Przykład użycia pliku _requests_ zaprezentowano w kodzie 103.
 
 .Przykład użycia pliku _requests.ts_.
 [source, typescript]
@@ -288,7 +293,7 @@ const { data, status } = requests.api.auth.login('admin@admin.pl', 'password1')
 Katalog _src/components/wallet_ zawiera komponenty potrzebne do stworzenia widoku wyświetlającego dane o portfelu.
 Widok portfela składa się z kafelek, dlatego powstał komponent _WalletCard.tsx_,
 z którego korzystają wszystkie komponenty reprezentujące kafelek, aby ujednolicić wygląd i uniknąć powtórzeń.
-Ekran portfela zaprezentowany został na rysunku 69.
+Kod pojedynczego kafelka widoczny jest w kodzie 104, a ekran portfela zaprezentowany został na rysunku 69.
 
 .Fragment pliku WalletCard.tsx.
 [source, tsx]
@@ -300,6 +305,7 @@ include::../../../webapp/src/components/wallet/WalletCard.tsx[lines=9..16]
 image::../images/system_presentation/webapp/wallet_cropped.png[]
 
 Komponent _ProgressCard.tsx_, podobnie jak _WalletCard.tsx_, jest wykorzystywany w wielu miejscach.
+Jego kod widoczny jest w kodzie 105.
 Przy wyświetlaniu stanu środków portfela i środków w kanałach _Lightning Network_.
 Przyjmuje informacje o tym, jaki tekst ma być wyświetlony na kafelku i wartości liczbowe,
 jakie mają być wyświetlone na pasku wczytywania.
@@ -311,7 +317,8 @@ include::../../../webapp/src/components/wallet/ProgressCard.tsx[lines=25..41]
 ----
 
 Dane liczbowe są przekazywane do komponentu _BalanceProgressBar.tsx_, który jest odpowiedzialny za wyświetlanie paska.
-Przyjmuje dwie wartości liczbowe i zapełnia pasek ładowania zgodnie ze stosunkiem tych dwóch liczb.
+Przyjmuje dwie wartości liczbowe i zapełnia pasek ładowania zgodnie ze stosunkiem tych dwóch liczb. Kod komponentu
+zaprezentowano w kodzie 106.
 
 .Fragment pliku BalanceProgressBar.tsx.
 [source, tsx]
@@ -325,7 +332,7 @@ Dzięki temu, że dane do wykresu są odpowiednio przygotowane przez serwer, nie
 
 Gdy dane o portfelu są w trakcie pobierania, widok portfela wyświetla _WalletLoadingSkeleton.tsx_.
 Ten komponent mniej więcej odwzorowuje kafelki stanowiące interfejs widoku _WalletPage.tsx_.
-Efekt można zobaczyć na rysunku 70.
+Efekt można zobaczyć na rysunku 70, natomiast kod komponentu w kodzie 107.
 
 .Widok portfela podczas wczytywania.
 image::../images/system_presentation/webapp/wallet_loading.png[]
@@ -344,6 +351,7 @@ W komponencie _WalletCreatePage.tsx_ pobierani są użytkownicy z rolą _admin_
 i filtrowani sprawdzając posiadanie klucza publicznego.
 Jeśli długość tablicy zawierającej filtrowanych adminów wynosi zero,
 zamiast formularza zwracany jest komunikat o błędzie, pokazany na rysunku 71.
+W kodzie 108 zawarto funkcję odpowiedzialną za pobieranie z serwera listy administratorów.
 
 .Pobieranie adminów w _WalletCreatePage.tsx_.
 [source, tsx]
@@ -356,7 +364,7 @@ image::../images/system_presentation/webapp/wallet_cannot_create.png[]
 
 ==== Płatność
 
-Za przyjmowanie płatności odpowiedzialny jest komponent _QuickBuy.tsx_.
+Za przyjmowanie płatności odpowiedzialny jest komponent _QuickBuy.tsx_, którego fragment pokazano w kodzie 109.
 Składa się z trzech komponentów, które są naprzemiennie wyświetlane.
 Do każdego komponentu są przekazywane te same argumenty, takie jak cena pojedynczej transakcji,
 czy funkcje do przechodzenia do następnego komponentu.
@@ -368,7 +376,7 @@ include::../../../webapp/src/components/QuickBuy/QuickBuy.tsx[lines=71..94]
 ----
 
 Pierwszym krokiem jest wypełnienie formularza, w którym użytkownik ustawia ilość tokenów, które chce kupić.
-Znajduje się on w pliku _SetupStage.tsx_.
+Znajduje się on w pliku _SetupStage.tsx_, widocznym w kodzie 110.
 Jeśli użytkownik nie jest zalogowany, zostanie wyświetlone pole na adres email,
 a po zatwierdzaniu formularza użytkownik zostanie zalogowany z rolą tymczasową.
 
@@ -382,6 +390,7 @@ Drugim krokiem jest wyświetlenie informacji o transakcji i przejście na trzeci
 w momencie, gdy płatność zostanie wykonana. Tym zajmuje się komponent _TokensStage.tsx_.
 Informacje przedstawione są w postaci kodu QR, który można zeskanować,
 używając telefonu lub kopiując go do schowka poprzez naciśnięcie na ten kod.
+Fragment kodu źródłowego odpowiedzialnego za generowanie kodów QR można znaleźć w kodzie 111.
 
 .Fragment pliku QRComponent.tsx.
 [source, tsx]
@@ -392,7 +401,7 @@ include::../../../webapp/src/components/QuickBuy/Stages/TransactionStage/QRCompo
 Aby dostać informacje o tym, że płatność została wykonana w czasie rzeczywistym,
 komponent _TransactionStage.tsx_ łączy się do serwera przy pomocy _websocketu_.
 Obiekt przedstawiający połączenie jest aktywowany przy wyświetleniu komponentu i deaktywowany,
-jeśli komponent zostanie zamknięty.
+jeśli komponent zostanie zamknięty. Kod za to odpowiedzialny widoczny jest w kodzie 112.
 
 .Tworzenie połączenie _websocket_ w TransactionStage.tsx.
 [source, tsx]
@@ -403,7 +412,8 @@ include::../../../webapp/src/components/QuickBuy/Stages/TransactionStage/Transac
 Na dole komponentu znajduje się zegar odliczający czas do zamknięcia płatności.
 Gdy czas dojdzie do zera, pojawi się okno dialogowe z adekwatną wiadomością,
 a aktywny komponent zostanie zmieniony na pierwszy.
-Aktualizowaniem czasu zajmuje się _hook_ _useCountdown_ znajdujący się w pliku _src/utils/time.ts_.
+Aktualizowaniem czasu zajmuje się _hook_ _useCountdown_ znajdujący się w pliku _src/utils/time.ts_. Jego zawartość
+została zamieszczona w kodzie 113, a przykłady użycia w kodzie 114.
 
 ._Hook_ _useCountdown_ w pliku _time.ts_.
 [source, tsx]
@@ -419,7 +429,8 @@ include::../../../webapp/src/components/QuickBuy/Stages/TransactionStage/Transac
 include::../../../webapp/src/components/QuickBuy/Stages/TransactionStage/TransactionStage.tsx[indent=0,lines=95..97]
 ----
 
-Ostatnim krokiem jest wyświetlenie tokenów zwróconych przez serwer poprzez komponent _TokensStage.tsx_.
+Ostatnim krokiem jest wyświetlenie tokenów zwróconych przez serwer poprzez komponent _TokensStage.tsx_. Odbywa się
+to we fragmencie kodu pokazanym w kodzie 115.
 Tokeny są wyświetlone w liście, gdzie każda pozycja ma przycisk do skopiowania tokena do schowka
 i drugi przycisk do wyświetlenia tokena.
 
@@ -430,7 +441,8 @@ include::../../../webapp/src/components/QuickBuy/Stages/TokensStage/TokenItem.ts
 ----
 
 Jeśli użytkownik na tym etapie ma tymczasowe konto, wyświetlona jest ostrzeżenie,
-że tokeny nie będą mogły być odczytane po zamknięciu widoku.
+że tokeny nie będą mogły być odczytane po zamknięciu widoku. Kod odpowiedzialny za ostrzeżenie widoczny jest w
+kodzie 116.
 
 .Ostrzeżenie w _TokensStage.tsx_.
 [source, tsx]
@@ -440,8 +452,8 @@ include::../../../webapp/src/components/QuickBuy/Stages/TokensStage/TokensStage.
 
 ==== Historia płatności
 
-Do wyświetlenia historii płatności służy widok _HistoryPage.tsx_.
-Ten widok wykorzystuje plik _Panel_, który składa się z trzech komponentów,
+Do wyświetlenia historii płatności służy widok _HistoryPage.tsx_, pokazany w kodzie 118.
+Ten widok wykorzystuje plik _Panel_, widoczny w kodzie 117, który składa się z trzech komponentów,
 które są przeznaczone do stylizacji widoków w panelu zalogowanego użytkownika.
 Dodaje białe tło, duży nagłówek i dopełnienie do brzegów tła.
 Każdy widok w panelu użytkownika korzysta z tych komponentów, dzięki czemu panel zachowuje jednolitą estetykę.
@@ -464,7 +476,7 @@ Z racji, że w większości widoków z tabelami zespół chce pobrać listę dan
 _ApiPageableTable.tsx_ zamiast danych przyjmuje ścieżkę URL do serwera.
 Eliminuje to dużo powtórzeń, ale uniemożliwia zapisanie i manipulacji danymi poza tym komponentem.
 W tym celu powstał komponent _PageableTable.tsx_, wykorzystywany przez _ApiPageableTable.tsx_,
-który przyjmuje listę danych i wyświetla ją w postaci tabeli.
+który przyjmuje listę danych i wyświetla ją w postaci tabeli. Fragment komponentu _History_ można zobaczyć w kodzie 119.
 
 .Plik History.tsx.
 [source, tsx]
@@ -481,8 +493,8 @@ w aplikacji internetowej.
 
 Żeby wyświetlone powiadomienia mogły pozostawać widoczne po przejściu na inny widok, zespół stworzył komponent
 _NotificationContext.tsx_, który decyduje o tym, jakie powiadomienie jest widoczne w danej chwili na ekranie.
-Każdy komponent zagnieżdżony w tym context'ście ma możliwość wyświetlenia powiadomienia, która nie zniknie przy
-zamknięci komponentu, który wyświetlił powiadomienie.
+Jego kod można zobaczyć w kodzie 120. Każdy komponent zagnieżdżony w tym context'ście ma możliwość wyświetlenia
+powiadomienia, która nie zniknie przy zamknięci komponentu, który wyświetlił powiadomienie.
 Jeśli jeden komponent wyświetli powiadomienie, a następnie drugi zrobi to samo, zostanie wyświetlona powiadomienie
 ostatniego komponentu, czyli w tym przypadku, drugiego.
 
@@ -492,7 +504,7 @@ ostatniego komponentu, czyli w tym przypadku, drugiego.
 include::../../../webapp/src/components/Context/NotificationContext.tsx[lines=13..34]
 ----
 
-Do zmieniania stanu powiadomienia wykorzystywany jest hook _useNotification_.
+Do zmieniania stanu powiadomienia wykorzystywany jest hook _useNotification_, którego kod został wypisany w kodzie 121.
 
 ._Hook_ _useNotification_ pliku _NotificationContext.tsx_.
 [source, tsx]
@@ -500,7 +512,7 @@ Do zmieniania stanu powiadomienia wykorzystywany jest hook _useNotification_.
 include::../../../webapp/src/components/Context/NotificationContext.tsx[lines=36..59]
 ----
 
-Wygląd powiadomienia został zaimplementowany w pliku _src/components/common/Notification.tsx_.
+Wygląd powiadomienia został zaimplementowany w pliku _src/components/common/Notification.tsx_, co widać w kodzie 122.
 Wykorzystany został komponent _Snackbar_ z biblioteki _material-ui_.
 
 .Plik Notification.tsx.
@@ -517,6 +529,7 @@ Pola tworzy się przy pomocy komponentu _Field_ z tej biblioteki, który przyjmu
 _TextInput.tsx_ oraz _MultiSelectInput.tsx_ w katalogu _src/Form/FormikInputs_ są stworzone,
 aby być przekazane jako ten argument.
 _TextInput.tsx_ zwraca pole tekstowego, a _MultiSelectInput.tsx_ zwraca listę z możliwością wybrania wielu pozycji.
+Przykład użycia komponentu _TextInput_ został zaprezentowany w kodzie 123.
 
 .Przykład użycia _TextInput.tsx_ w _Register.tsx_.
 [source, tsx]
@@ -530,6 +543,7 @@ Okno dialogowe zobaczyć można na rysunku 72.
 Jeśli wiadomość zostanie odrzucona, okno zostaje zamknięte.
 Jeśli jednak wiadomość zostanie zaakceptowana, okno zostaje zamknięte,
 i wykonana jest funkcja wcześniej przekazana do okna jako parametr.
+Przykład użycia komponentu _ConfirmationModal_ widoczny jest w kodzie 124.
 
 .Przykład użycia _ConfirmationModal.tsx_.
 [source, tsx]

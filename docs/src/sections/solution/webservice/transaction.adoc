@@ -18,7 +18,7 @@ image::../images/webservice_transaction_api.png[]
 
 Do utworzenia transakcji, podobnie jak w przypadku płatności, należy najpierw pobrać wymagane dane. Proces
 pobierania tych danych standardowo zaczyna się w kontrolerze, w tym przypadku w _TransactionResource_, skąd wywoływana
-jest metoda _getNewTransactionDetails_ klasy _TransactionService_.
+jest metoda _getNewTransactionDetails_ klasy _TransactionService_, widoczna w kodzie 73.
 
 .Metoda getNewTransactionDetails klasy TransactionService.
 [source, java]
@@ -32,6 +32,7 @@ wyświetlania informacji o dostępnych środkach. Kolejnym krokiem jest utworzen
 metodach _createTransaction_. Dostępne są dwie przeciążone wersje tej metody. Obie z nich przyjmują jako parametr
 adres docelowy, natomiast tylko jedna przyjmuje kwotę transakcji. Drugie przeciążenie wykonuje transakcję na
 wszystkie dostępne w portfelu środki. Obecnie ta metoda wykorzystywana jest tylko w procesie odtwarzania portfela.
+Została ona zaprezentowana w kodzie 74.
 
 .Metoda createTransaction klasy TransactionService przeciążona z dwoma parametrami.
 [source, java]
@@ -42,7 +43,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Metoda prywatna _validateAndObtainWallet_ sprawdza, czy istnieje aktualnie oczekująca transakcja. Jeżeli nie, to
 zwracany jest aktualnie używany portfel. Następnie obie przeciążone metody _createTransaction_ wywołują również
 przeciążone metody _createTransaction_, ale pochodzące z klasy _BitcoinService_. Ciało obu metod test bardzo obszerne,
-dlatego cała uwaga zostanie poświęcona wersji z możliwością określenia kwoty transakcji.
+dlatego cała uwaga zostanie poświęcona wersji z możliwością określenia kwoty transakcji, zaprezentowana w kodzie 75.
 
 .Metoda createTransaction klasy BitcoinService, przeciążona z kwotą transakcji.
 [source, java]
@@ -52,7 +53,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Na początku parametry wejściowe mapowane są na odpowiednie obiekty z biblioteki _BitcoinJ_. Pomiędzy mapowaniami
 znajduje się pobranie balansu adresu multisig oraz utworzenie transakcji. Odbywa się ono w metodzie prywatnej
-_buildTxWithInputs_.
+_buildTxWithInputs_ pokazanej w kodzie 76.
 
 .Metoda prywatna buildTxWithInputs klasy BitcoinService.
 [source, java]
@@ -67,7 +68,8 @@ po przygotowaniu danych następuje sprawdzenie, czy dostępne są środki w port
 uwzględnieniem opłaty transakcyjnej. Po udanej walidacji tworzone są dwa wyjścia transakcji: jedno wysyłające środki
 na wskazany adres, a drugie zwracające resztę na adres multisig. Tak utworzona transakcja mapowana jest na obiekt
 _Transaction_, tym razem będąca modelem aplikacji. Po utworzeniu obiektu transakcji metoda _createTransaction_ z klasy
-_TransactionService_ może kontynuować pracę. Wywoływana jest wtedy metoda prywatna _finishTransaction_.
+_TransactionService_ może kontynuować pracę. Wywoływana jest wtedy metoda prywatna _finishTransaction_ widoczna w kodzie
+77.
 
 .Metoda finishTransaction klasy TransactionService.
 [source, java]
@@ -78,7 +80,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Metoda ta kończy tworzenie obiektu _Transaction_, po czym zapisuje go w bazie danych. Zajmuje się również wysłaniem
 powiadomień do użytkowników. Przy pomocy powiadomień może on podpisać transakcję w aplikacji mobilnej. Tworzona
 jest kolekcja powiadomień, zawierająca jeden obiekt dla każdego administratora portfela. Następnie przy pomocy klasy
-_NotificationSocketController_ pochodzącej z pakietu _notification_ wysyłane są one do administratorów.
+_NotificationSocketController_ pochodzącej z pakietu _notification_ wysyłane są one do administratorów. Jej wybrane
+metody pokazano w kodzie 78.
 
 .Metody klasy NotificationSocketController.
 [source, java]
@@ -92,7 +95,7 @@ użytkownika protokołu Websocket.
 
 Ostatnią funkcjonalnością pakietu jest pobieranie historii o płatnościach. Dodatkowym aspektem jest oddzielenie w
 odpowiedzi transakcji oczekującej. Dzięki temu może być ona wyświetlana oddzielnie od innych transakcji, aby
-użytkownik dokładnie wiedział o jej istnieniu.
+użytkownik dokładnie wiedział o jej istnieniu. Kod odpowiedzialny za wyszukiwanie transakcji zaprezentowano w kodzie 79.
 
 .Metoda findTransactions klasy TransactionService.
 [source, java]

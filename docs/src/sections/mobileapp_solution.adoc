@@ -61,7 +61,7 @@ aplikacji. W katalogu _res_ znajduje się plik o nazwie _R.ts_. Jego zadaniem je
 z jednym obiekcie, aby zunifikować dostęp do nich. Nazwa pliku pochodzi z konwencji obecnej przy tworzeniu aplikacji
 mobilnych w języku Java. Wszystkie zasoby w dostępne są dla programisty poprzez obiekt _R_ zapewniony przez framework
 programowania aplikacji Android. Konwencja ta została przez zespół przyjęta również w aplikacji tworzonej w React
-Native, aby ułatwić dostęp oraz zwiększyć czytelność kodu.
+Native, aby ułatwić dostęp oraz zwiększyć czytelność kodu. Kod pliku _R.ts_ znajduje się w kodzie 125.
 
 .Zawartość pliku R.ts.
 [source, tsx]
@@ -72,7 +72,7 @@ include::../../../mobileapp/src/res/R.ts[lines=10..18]
 Plik zawiera tylko definicję stałego obiektu, który grupuje pozostałe obiekty wyeksportowane w tym folderze.
 Zawiera on plik ze stałymi łańcuchami znaków, nazwy ekranów używane w routingu, definicje ekranów zawierających
 parametry (używane przy przekierowaniu z powiadomienia push), listę kolorów oraz dane wymagane do utworzenia
-nowego powiadomienia push. Dla przykładu w kodzie 125 zaprezentowano zawartość pliku _colors.ts_.
+nowego powiadomienia push. Dla przykładu w kodzie 126 zaprezentowano zawartość pliku _colors.ts_.
 
 .Zawartość pliku colors.ts.
 [source, tsx]
@@ -81,7 +81,8 @@ include::../../../mobileapp/src/res/colors.ts[lines=4..11]
 ----
 
 Drugi folder zawierający stałe to _constants_. Zawiera on tylko jeden plik, którego zawartością jest typ wyliczeniowy
-reprezentujący klucze wartości zapisywanych lokalnie w trakcie działania aplikacji.
+reprezentujący klucze wartości zapisywanych lokalnie w trakcie działania aplikacji. Kod tego pliku widoczny
+jest w kodzie 127.
 
 .Zawartość pliku LocalKey.ts.
 [source, tsx]
@@ -106,7 +107,7 @@ W obu katalogach znajdują się zaledwie cztery pliki. Folder _bitcoin_ zawiera 
 bibliotekę _bitcoinjs_ jako moduł. Plik _hex.ts_ w katalogu _utils_ zawiera funkcje służące do obsługi
 konwersji pomiędzy heksadecymalnym łańcuchem znaków a tablicą bajtów. Zawiera ona dwie funkcje, _toHexString_ oraz
 _toHexBytes_, które obsługują konwersje w obie strony. Następnym plikiem jest _strings.ts_. Zawiera on dwie
-funkcje pozwalające na operowanie na łańcuchach znaków.
+funkcje pozwalające na operowanie na łańcuchach znaków. Ich kod zaprezentowano w kodzie 128.
 
 .Funkcje w pliku strings.ts.
 [source, tsx]
@@ -120,7 +121,7 @@ Pierwszą funkcją jest _capitalize_. Pozwala ona na zmianę pierwszego znaku ł
 służy do walidacji adresu URL. Jeżeli adres podany jako łańcuch znaków jest poprawny, funkcja zwróci wartość prawdziwą.
 Ostatnim plikiem jest _bitcoin.ts_. Zawiera on funkcje obsługujące funkcjonalności związane z protokołem Bitcoina,
 czyli generowanie kluczy oraz podpisywanie transakcji. Funkcje te są krytyczne dla działania aplikacji mobilnej.
-Pierwsza z nich odpowiada za generowanie pary kluczy:
+Pierwsza z nich odpowiada za generowanie pary kluczy, a została pokazana w kodzie 129.
 
 .Metody generateKeyPair z pliku bitcoin.ts.
 [source, tsx]
@@ -130,7 +131,8 @@ include::../../../mobileapp/src/utils/bitcoin.ts[lines=46..50]
 
 Funkcja ta jest prosta w działaniu. Wywoływana jest odpowiednia funkcja z biblioteki _bitcoinjs_, która generuje
 parę kluczy. Jedynym jej parametrem jest sieć, w której operuje aplikacja. W obecnym wydaniu aplikacji mobilnej
-wspierana jest tylko sieć _testnet_. Druga funkcja w tym pliku służy do podpisywania transakcji:
+wspierana jest tylko sieć _testnet_. Druga funkcja w tym pliku służy do podpisywania transakcji, a pokazano ją w kodzie
+130.
 
 .Funkcja signTx z pliku bitcoin.ts.
 [source, tsx]
@@ -167,7 +169,7 @@ image::../images/mobileapp_webservice_content.png[]
 Katalog zawiera dwa pliki. W _routes.ts_ przechowywane są ścieżki do zasobów serwera. Wykorzystywane są one w pliku
 _requests.ts_ do wykonywania żądań HTTP. Plik ten zawiera klasę _Requests_ typu singleton, która zawiera metody
 pozwalające na wysyłanie żądań. Funkcje reprezentujące pojedyncze żądania one udostępnione programiście poprzez ich
-eksport jako zwykły obiekt JavaScript.
+eksport jako zwykły obiekt JavaScript. Fragment tej klasy pokazano na rysunku 131.
 
 .Fragment klasy Requests zawierający publicznie dostępne funkcje do wysyłania żądań.
 [source, tsx]
@@ -178,7 +180,7 @@ include::../../../mobileapp/src/webService/requests.ts[lines=43..58]
 Wszystkie publiczne funkcje są pogrupowane w hierarchii obiektów, dzięki czemu można je w elegancki sposób wywoływać
 bez potrzeby tworzenia za każdym razem obiektu klasy _Requests_. W przypadku każdej z nich wykonywane jest żądanie
 z pomocą metody _request_. Parametry wejściowe są do niej przekazywane, a zwracany obiekt _Promise_ opakowuje
-odpowiedź HTTP. Kod metody _request_ zaprezentowano w kodzie 131.
+odpowiedź HTTP. Kod metody _request_ zaprezentowano w kodzie 132.
 
 .Metoda request klasy Requests w pliku requests.ts.
 [source, tsx]
@@ -211,8 +213,8 @@ który zawiera niestandardowe pola formularzy. Na potrzeby aplikacji mobilnej st
 reprezentujący pole tekstowe. Następny katalog, czyli _routers_ zawiera funkcje obsługujące nawigację w aplikacji.
 Zdefiniowane są tam wszystkie połączenia oraz zachowania ekranów. Ostatnim folderem jest _screens_, w którym znajdują
 się komponenty odpowiedzialne za wyświetlane ekrany, wraz z ich sub-komponentami. Punktem wejściowym dla aplikacji
-jest plik _App.tsx_. Zawiera on część konfiguracji oraz jest to główny komponent aplikacji grupujący kontekst
-użytkownika i pierwszy element nawigacji.
+jest plik _App.tsx_, który pokazano w kodzie 133. Zawiera on część konfiguracji oraz jest to główny komponent aplikacji
+grupujący kontekst użytkownika i pierwszy element nawigacji.
 
 .Funkcja App zwracająca pierwszy, główny komponent aplikacji.
 [source, tsx]
@@ -223,7 +225,7 @@ include::../../../mobileapp/src/components/App.tsx[lines=28..38]
 Komponenty React wykorzystuje się jako niestandardowe znaczniki HTML. Komponent konfiguracyjny _NativeBaseProvider_
 pochodzi z biblioteki _NativeBase_. Dostarcza ona gotowe komponenty HTML dostosowane dla platformy Android. Następnym
 komponentem jest _UserContextProvider_, dostarczający kontekst użytkownika. Jest on zdefiniowany w pliku
-_UserContext.tsx_ w folderze _context_.
+_UserContext.tsx_ w folderze _context_. Jego kod zaprezentowano w kodzie 134.
 
 .Zawartość kontekstu użytkownika.
 [source, tsx]
@@ -235,7 +237,7 @@ Zawiera on obiekt zalogowanego użytkownika pobrany z serwera podczas logowania.
 lokalnie w urządzeniu mobilnym. Kontekst zawiera również funkcje pozwalające na manipulowanie obiektem użytkownika,
 takie jak jego ustawienie, aktualizację oraz wylogowanie. Ostatnim parametrem jest flaga wskazująca, czy trwa aktualnie
 ładowanie użytkownika. Warto wspomnieć, że metoda _createContext_ definiuje tylko typ oraz wartości domyślne kontekstu.
-Jego prawdziwe właściwości definiowane są w komponencie _UserContextProvider_.
+Jego prawdziwe właściwości definiowane są w komponencie _UserContextProvider_, który pokazano w kodzie 135.
 
 .Wartość zwracana komponentu UserContextProvider
 [source, tsx]
@@ -245,7 +247,8 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=155..16
 
 Tworzony jest dostawca kontekstu, którego wartości muszą odpowiadać wcześniej zdefiniowanemu typowi. Wszystkie
 metody zdefiniowane są jako funkcje tego komponentu. Dane użytkownika w kontekście początkowo ładowane są tylko z
-wartości zapisanych lokalnie w pamięci.
+wartości zapisanych lokalnie w pamięci. Logika odpowiedzialna za pobieranie lokalnie zapisanych danych znajduje się
+w kodzie 126.
 
 .Funkcja pobierająca lokalnie zapisane dane użytkownika.
 [source, tsx]
@@ -255,7 +258,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=86..119
 
 Przy pomocy biblioteki _AsyncStorage_ pobierane są wcześniej zapisane wartości użytkownika. Następnie w pętli dane są
 ustawiane w obiekcie użytkownika. Na koniec obiekt użytkownika w kontekście jest aktualizowany poprzez funkcję
-_updateUser_.
+_updateUser_, widoczną w kodzie 137.
 
 .Funkcja updateUser komponentu UserContextProvider.
 [source, tsx]
@@ -266,7 +269,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=60..65]
 Obiekt _Partial_ pozwala na stworzenie obiektu danego typu niezawierającego wszystkich wartości. W normalnym przypadku
 zakończyłoby się to błędem kompilacji. Funkcja ta ustawia nowy stan użytkownika, łącząc stare dane ze starymi,
 przekazanymi w parametrze. Kolejną funkcją kontekstu jest _loadKeysFromStorage_. Ładuje ona osobno parę kluczy
-z pamięci, niezależnie od pozostałych pól użytkownika.
+z pamięci, niezależnie od pozostałych pól użytkownika. Jest ona widoczna w kodzie 138.
 
 .Funkcja loadKeysFromStorage komponentu UserContextProvider.
 [source, tsx]
@@ -276,7 +279,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=124..13
 
 Podobnie jak w przypadku metody pobierającej dane użytkownika, odpowiednie pole pobierane jest przy pomocy obiektu
 _AsyncStorage_, a następnie aktualizowany jest obiekt użytkownika. Ostatnią wartą uwagi funkcją w tym komponencie jest
-_logoutUser_, która pozwala na wylogowanie użytkownika.
+_logoutUser_, która pozwala na wylogowanie użytkownika. Została ona zaprezentowana w kodzie 139.
 
 .Funkcja logoutUser komponentu UserContextProvider.
 [source, tsx]
@@ -288,7 +291,7 @@ Metoda ta polega na usunięciu lokalnie zapisanego tokena JWT oraz adresu email,
 pól w kontekście. Po omówieniu kontekstu użytkownika wrócić można do pliku _App.tsx_. Ostatnie dwa użyte komponenty
 odpowiedzialne są za nawigację w aplikacji. Komponent _NavigationContainer_ pochodzi z biblioteki React Navigation i
 tworzy kontener grupujący inne komponenty odpowiedzialne za nawigację w aplikacji. Drugim komponentem jest _AppRouter_,
-Który jest punktem wejściowym do nawigacji w aplikacji mobilnej.
+zaprezentowanym w kodzie 140. Jest on punktem wejściowym do nawigacji w aplikacji mobilnej.
 
 .Wartość zwracana komponentu _AppRouter_.
 [source, tsx]
@@ -299,7 +302,7 @@ include::../../../mobileapp/src/components/routers/AppRouter.tsx[lines=41..45]
 W zależności od tego, czy użytkownik jest zalogowany oraz, czy ma wygenerowany klucz prywatny, wyświetlany jest
 odpowiedni komponent nawigacji. Powstały dwa osobne dla zalogowanych i niezalogowanych użytkowników. Stanowi to również
 filtr przed nieautoryzowanym dostępem do aplikacji. Komponent _AppRouter_ zawiera również kod inicjujący obsługę
-powiadomień push.
+powiadomień push. Został on pokazany w kodzie 141.
 
 .Kod inicjujący nawigację powiadomień push w komponencie _AppRouter_.
 [source, tsx]
@@ -313,7 +316,7 @@ komponentu. Tworzy ona nową funkcję nasłuchująca na kliknięcie powiadomieni
 do ekranu ze szczegółami powiadomienia, a jako parametr podany jest jego identyfikator. Następnie funkcja nasłuchująca
 dodana jest przy pomocy dwóch metod z biblioteki _notifee_. Sprawiają one, że obsługa powiadomień będzie działała
 również, gdy aplikacja jest zminimalizowana. Ekrany aplikacji dla niezalogowanych użytkowników są obsługiwane poprzez
-komponent _SignedOutRouter_.
+komponent _SignedOutRouter_, pokazany w kodzie 142.
 
 .Fragment kodu komponentu SignedOutRouter.
 [source, tsx]
@@ -325,7 +328,7 @@ Wykorzystywanym typem nawigacji jest stos, który pozwala na wyświetlanie ekran
 wskazuje, czy użytkownik jest aktualnie w trakcie procesu generowania i przesyłania kluczy. Jeżeli nie, to
 przekierowywany jest na stronę logowania. Nie będzie w tym rozdziale szczególnie pokazywanego kodu HTML, gdyż jest on
 bardzo długi, a nie wnosi dużej wartości. Uwaga zostanie poświęcona głównie części napisanej w TypeScript. Gdy
-użytkownik wypełni formularz i go wyśle, zostanie wywołana metoda _onSubmit_, widoczna w kodzie 142.
+użytkownik wypełni formularz i go wyśle, zostanie wywołana metoda _onSubmit_, widoczna w kodzie 143.
 
 .Metoda onSubmit komponentu LoginScreen.
 [source, tsx]
@@ -337,8 +340,9 @@ Działanie funkcji zaczyna się od ustawienia flagi ładowania, aby wyświetlić
 Następnie walidacji poddawany jest podany przez użytkownika adres url. Jeżeli jest zgodny ze standardami,
 wykonywane jest żądanie HTTP do serwera. Jego rezultat obsługują trzy funkcje zwrotne. Funkcje _onFailure_
 oraz _onUnauthorized_ służą do obsługi błędów podczas logowania. Ich zadaniem jest powiadomienie użytkownika poprzez
-wyświetlenie odpowiednich komunikatów. Funkcja _onSuccess_ wywoływana jest w przypadku powodzenia logowania.
-Aktualizuje ona kontekst użytkownika i lokalny magazyn danych, ustawiając dane otrzymane w odpowiedzi żądania.
+wyświetlenie odpowiednich komunikatów. Funkcja _onSuccess_, widoczna w kodzie 144, wywoływana jest w przypadku
+powodzenia logowania. Aktualizuje ona kontekst użytkownika i lokalny magazyn danych, ustawiając dane otrzymane w
+odpowiedzi żądania.
 
 .Metoda onSuccess komponentu LoginScreen.
 [source, tsx]
@@ -358,8 +362,9 @@ include::../../../mobileapp/src/components/screens/auth/KeyUploadScreen.tsx[line
 ----
 
 Jest to bardzo prosty ekran, na którym wyświetlany jest jedynie obracającą się ikonę ładowania, oraz wiadomość
-informującą o aktualnie trwającym etapie procesu. Główna logika znajduje się natomiast w funkcji _generateKeys_.
-Funkcja wywoływana jest przez hak _useEffect_ przy tworzeniu komponentu.
+informującą o aktualnie trwającym etapie procesu. Jego kod widoczny jest w kodzie 145. Główna logika znajduje się
+natomiast w funkcji _generateKeys_, widocznej w kodzie 146. Funkcja wywoływana jest przez hak _useEffect_ przy
+tworzeniu komponentu.
 
 .Funkcja generateKeys komponentu KeyUploadScreen.
 [source, tsx]
@@ -381,7 +386,7 @@ na różnych zasadach. Znajduje się tam definicja menu bocznego, a także ekran
 czyli szczegóły powiadomienia oraz informacja o sukcesie jego potwierdzenia bądź odrzucenia. Dodatkowo wszystkie
 komponenty otoczone są kontekstem zalogowanego użytkownika. Sam kontekst zawiera tylko informacje o połączeniu WebSocket
 nasłuchującym przychodzących powiadomień, natomiast komponent zawiera również metody obsługujące te powiadomienia,
-jak również kod wysyłający powiadomienia push.
+jak również kod wysyłający powiadomienia push. Kod odpowiedzialny za połączenie WebSocket widać w kodzie 147.
 
 .Funkcja ustalająca połączenie WebSocket w komponencie SignedInContext.
 [source, tsx]
@@ -394,7 +399,8 @@ kanał zgodnie z indywidualnym adresem użytkownika. Na koniec kanał _WebSocket
 deaktywującej połączenie znajduje się w wartości zwracanej funkcji. Sprawi to, że ta funkcja ta zostanie wywołana
 przy sprzątaniu komponentu. Kod ten znajduje się w haku _useEffect_, który wywoływany jest przy każdej zmianie
 zmiennej _notificationChannelId_ oraz przy wywołaniu funkcji _setSocket_. Drugą funkcją wartą uwagi w tym komponencie
-jest _showNotification_, która odpowiedzialna jest za wyświetlanie powiadomień push.
+jest _showNotification_, która odpowiedzialna jest za wyświetlanie powiadomień push. Jej kod można zobaczyć we
+fragmencie kodu 148.
 
 .Funkcja wysyłająca powiadomienia push w komponencie SignedInContext.
 [source, tsx]
@@ -405,7 +411,7 @@ include::../../../mobileapp/src/components/context/SignedInContext.tsx[lines=88.
 Na początku tworzony jest nowy kanał powiadomień, zgodnie z identyfikatorem zdefiniowanym w zasobach aplikacji.
 Następnie przy pomocy biblioteki _notifee_ wysyłane jest powiadomienie push, wraz ze szczegółami otrzymanymi wcześniej
 przez kanał _WebSocket_. Za wyświetlanie zawartości aplikacji dla zalogowanych użytkowników w dużej części odpowiada
-_DrawerRouter_, który odpowiedzialny jest za menu boczne aplikacji.
+_DrawerRouter_, który odpowiedzialny jest za menu boczne aplikacji. Kod komponentu znajduje się w kodzie 149.
 
 .Komponent DrawerRouter.
 [source, tsx]
@@ -418,7 +424,7 @@ Zawiera ono tylko dwa guziki, stronę główną oraz przycisk pozwalający na wy
 Komponent wyświetla tylko komunikat o trwającym procesie. Dodatkowo zawiera on hak useEffect, który wywołuje metodę
 _logoutUser_ z kontekstu użytkownika przy załadowaniu ekranu. Komponent _MainScreen_ jest głównym ekranem aplikacji,
 jednak renderuje on jedynie inny ekran, czyli listę wszystkich powiadomień. Sama lista powiadomień zaimplementowana
-jest w komponencie NotificationListScreen.
+jest w komponencie NotificationListScreen, widocznym w kodzie 150.
 
 .Fragmentu kodu komponentu NotificationListScreen
 [source, tsx]
@@ -428,7 +434,8 @@ include::../../../mobileapp/src/components/screens/notification/NotificationList
 
 Do wyświetlania listy użyto komponentu _FlatList_ z biblioteki _native-base_. Pobiera on wiele parametrów, takich
 jak metody do obsługi niektórych zdarzeń, komponent wyświetlający pojedynczy element list, a także kolekcja danych
-do wyświetlenia. Elementy powiadomień pobierane są przy inicjacji komponentu przez funkcję _queryElements_.
+do wyświetlenia. Elementy powiadomień pobierane są przy inicjacji komponentu przez funkcję _queryElements_, pokazaną
+w kodzie 151.
 
 .Funkcja queryElement komponentu NotificationListScreen.
 [source, tsx]
@@ -448,10 +455,10 @@ na serwerze są dostępne jeszcze elementy do pobrania.
 include::../../../mobileapp/src/components/screens/notification/NotificationListScreen/NotificationListScreen.tsx[lines=81..85]
 ----
 
-Pobieranie kolejnej strony odbywa się przy pomocy metody _loadElements_. Jeżeli wartość flagi _hasMore_ jest prawdziwa,
-to wywoływana jest funkcja _loadElements_ z wartością strony większą o jeden. Komponent ten zawiera jeszcze metodę
-_onRefresh_. Jest ona wywoływana przez komponent _FlatList_, gdy użytkownik wykona pociągnięcie listy w dół.
-Uruchamia to odświeżenie listy.
+Pobieranie kolejnej strony odbywa się przy pomocy metody _loadElements_, widocznej w kodzie 152. Jeżeli wartość flagi
+_hasMore_ jest prawdziwa, to wywoływana jest funkcja _loadElements_ z wartością strony większą o jeden. Komponent ten
+zawiera jeszcze metodę _onRefresh_. Jest ona wywoływana przez komponent _FlatList_, gdy użytkownik wykona pociągnięcie
+listy w dół. Uruchamia to odświeżenie listy. Kod ten można zobaczyć w kodzie 153.
 
 .Funkcja onRefresh komponentu NotificationListScreen.
 [source, tsx]
@@ -468,7 +475,7 @@ powiadomienia. Po kliknięciu pojedynczego elementu listy, użytkownik zostanie 
 szczegóły powiadomienia. Odbywa się to w komponencie _NotificationDetailScreen_. Poza samym prezentowaniem detali
 powiadomienia, komponent ten jest również odpowiedzialny za ich potwierdzanie i odrzucanie. Można tego dokonać poprzez
 guziki na dole ekranu, które wyświetlane są tylko dla oczekujących powiadomień. Potwierdzanie obsługiwane jest przez
-funkcję _confirm_.
+funkcję _confirm_, widoczną w kodzie 154.
 
 .Funkcja confirm komponentu NotificationDetailScreen.
 [source, tsx]
@@ -481,7 +488,7 @@ to transakcja jest podpisywana przy pomocy funkcji _signTx_ z pliku _bitcoin.ts_
 jest z powrotem na serwer. Jeżeli proces zakończy się powodzeniem, to użytkownik przekierowany zostanie do komponentu
 _NotificationResultScreen_, który informuje o sukcesie wykonanej akcji. Jeżeli któryś z etapów nie powiedzie się,
 zostanie wyświetlony odpowiedni komunikat o błędzie w wyskakującym oknie reprezentowanym przez komponent _ErrorAlert_.
-Drugi przycisk pozwala na odrzucenie powiadomienia, co wykonywane jest przez funkcję _deny_.
+Drugi przycisk pozwala na odrzucenie powiadomienia, co wykonywane jest przez funkcję _deny_, pokazaną w kodzie 155.
 
 .Funkcja deny komponentu NotificationDetailScreen.
 [source, tsx]

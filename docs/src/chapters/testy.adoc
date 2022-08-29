@@ -16,7 +16,7 @@ Katalog _workflows_ z plikami zaprezentowano na rysunku 110.
 .Zawartość folderu workflows z plikami YAML.
 image::../images/tests_chapter/workflows_CI.png[]
 
-Na poniższym zrzucie ekranu można zauważyć listę kroków wykonywanych każdorazowo po wypchnięciu zmian do części
+We fragmencie kodu 159 można zauważyć listę kroków wykonywanych każdorazowo po wypchnięciu zmian do części
 backendowej aplikacji. Testy w tym wypadku uruchamiane są przez narzędzie _Maven_.
 
 .Fragment pliku webservice.yml prezentujący listę wykonywanych kroków
@@ -88,7 +88,7 @@ pokazano na rysunku 119.
 .Katalog wallet.
 image::../images/tests_chapter/wallet_folder.png[]
 
-W kodzie 159 zaprezentowano przykładowy test jednostkowy. Oczekuje się, że po prawidłowym dodaniu administratora
+W kodzie 160 zaprezentowano przykładowy test jednostkowy. Oczekuje się, że po prawidłowym dodaniu administratora
 zwrócony zostanie kod odpowiedzi HTTP 201(_utworzono_).
 
 .Test jednostkowy z pliku AdminResourceTest.java.
@@ -96,7 +96,7 @@ zwrócony zostanie kod odpowiedzi HTTP 201(_utworzono_).
 ----
 include::../../../webservice/src/test/java/pl/edu/pjatk/lnpayments/webservice/admin/resource/AdminResourceTest.java[lines=30..38]
 ----
-Kolejny fragment kodu, pokazany w kodzie 160, zawiera natomiast test integracyjny. Służy on do sprawdzenia, czy w
+Kolejny fragment kodu, pokazany w kodzie 161, zawiera natomiast test integracyjny. Służy on do sprawdzenia, czy w
 przypadku wprowadzenia nieprawidłowych danych zwrócony zostanie kod odpowiedzi HTTP 400(_złe zapytanie_).
 
 .Test integracyjny z pliku AdminResourceIntegrationTest.java.
@@ -166,7 +166,7 @@ image::../images/tests_chapter/pages_folder.png[]
 .Folder zawierający testy związane z czasem.
 image::../images/tests_chapter/utils_folder.png[]
 
-Fragment kodu umieszczony w kodzie 161 przedstawia test odpowiedzialny za sprawdzanie, czy komponent _navbar_ zostanie
+Fragment kodu umieszczony w kodzie 162 przedstawia test odpowiedzialny za sprawdzanie, czy komponent _navbar_ zostanie
 wygenerowany w poprawny sposób.
 
 .Test generujący komponent z pliku Navbar.test.tsx.
@@ -175,7 +175,7 @@ wygenerowany w poprawny sposób.
 include::../../../webapp/tests/components/common/Navbar.test.tsx[lines=6..12]
 ----
 
-Kolejny test zaprezentowany w kodzie 162 odpowiedzialny jest za sprawdzenie formularza zmiany hasła. Po wprowadzeniu
+Kolejny test zaprezentowany w kodzie 163 odpowiedzialny jest za sprawdzenie formularza zmiany hasła. Po wprowadzeniu
 prawidłowych danych oczekiwany jest komunikat o powodzeniu operacji.
 
 .Test sprawdzający formularz zmiany hasła z pliku PasswordChangePage.test.tsx.
@@ -219,7 +219,7 @@ Zaprezentowany on został na rysunku 131.
 .Folder zawierający testy związane z generowaniem par kluczy oraz konwersją.
 image::../images/tests_chapter/mobileapp_utils_folder.png[]
 
-Przykładowy test odpowiedzialny za generowanie komponentu zaprezentowano w kodzie 163.
+Przykładowy test odpowiedzialny za generowanie komponentu zaprezentowano w kodzie 164.
 
 .Przykładowy test z pliku SignedInRouter.test.tsx.
 [source, tsx]
@@ -257,7 +257,7 @@ przedstawione na zrzucie ekranu widocznym na rysunku 133.
 image::../images/tests_chapter/webapp_e2e.png[]
 
 Scenariusze testowe _login.feature_ i _register.feature_ stworzone zostały z wykorzystaniem biblioteki _Cucumber_
-oraz języka _Gherkin_. Przykładowy scenariusz został zamieszczony w kodzie 164.
+oraz języka _Gherkin_. Przykładowy scenariusz został zamieszczony w kodzie 165.
 
 .Przykładowy scenariusz testowy w języku Gherkin.
 [source, gherkin]
@@ -267,7 +267,7 @@ include::../../../webapp/cypress/integration/login.feature[lines=8..13]
 
 Do realizacji napisanych scenariuszy użyto biblioteki _Cypress_. Dzięki zastosowaniu parametrów w napisanych
 scenariuszach udało się stworzyć uniwersalne metody, które drastycznie zmniejszyły ilość kodu. Jedną z nich można
-zobaczyć na załączonym kodzie 165.
+zobaczyć na załączonym kodzie 166.
 
 .Przykładowa metoda w _Cypress_.
 [source, javascript]
