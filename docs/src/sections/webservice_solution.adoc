@@ -13,7 +13,7 @@ podstawowa znajomość Javy 17 oraz frameworków Spring i Spring Boot.
 ==== Struktura i pakiety
 
 Główny katalog aplikacji serwerowej zawiera przede wszystkim pliki konfiguracyjne dla wykorzystywanych narzędzi oraz
-jeden katalog, w którym znajduje się kod źródłowy aplikacji. Pokazany jest na rysunku 40.
+jeden katalog, w którym znajduje się kod źródłowy aplikacji. Pokazany on został na rysunku 40.
 
 .Układ katalogów w folderze głównym serwera.
 image::../images/webservice_root_dir.png[]
@@ -28,7 +28,7 @@ deweloperskiego. W pliku _pom.xml_ znajduje się konfiguracja dla narzędzia bud
 metadane projektu, wykorzystywane zależności oraz instrukcje do budowania aplikacji w określony sposób, na przykład
 warunki sprawdzania pokrycia kodu testami. Pozwala również na zbudowanie pliku zawierającego aplikację internetową i
 serwer w jednym pliku wykonywalnym. Na koniec został folder _src_ zawierający kod źródłowy posegregowany zgodnie ze
-standardowym układem dla programu Maven<<maven_directories>>. Jego zawartość zaprezentowana jest na rysunku 41.
+standardowym układem dla programu Maven<<maven_directories>>. Jego zawartość zaprezentowana została na rysunku 41.
 
 .Układ katalogów w folderze _src_.
 image::../images/webservice_src_content.png[]

@@ -63,7 +63,7 @@ image::../images/docs_dir_tree.png[]
 Katalog główny zawiera standardowo pliki _.gitignore_ oraz _readme_, obecne w każdym z poprzednich modułów. Folder
 _src_ zawiera kod źródłowy, a katalog _target_ zbudowane dokumenty. Jest on tworzony automatycznie podczas budowania
 plików, co odbywa się z użyciem narzędzia _make_. Plikiem konfiguracyjnym dla tego programu, który zawiera informację
-o krokach potrzebnych do zbudowania projektu, jest _makefile_. Jego zawartość pokazana jest w kodzie 156.
+o krokach potrzebnych do zbudowania projektu, jest _makefile_. Jego zawartość pokazana została w kodzie 156.
 
 .Plik makefile obsługujący budowanie dokumentacji
 [source, make]
