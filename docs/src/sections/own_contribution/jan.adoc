@@ -36,6 +36,7 @@ Początkowo stworzyłem aplikację, używając narzędzia _Expo_.
 Niestety podczas implementowania generowania kluczy według prototypu zauważyłem,
 że prototyp korzystał z rozwiązania niedostępnego przy korzystaniu z narzędzia _Expo_.
 Musiałem zbudować aplikację od nowa, tym razem korzystając z dokumentacji _ReactNative_.
+Zadania, które wykonałem pokazano w tabeli 18.
 
 .Lista zadań, przy których pracował Jan Pieczul w procesie implementacji.
 [cols="1,9,1"]

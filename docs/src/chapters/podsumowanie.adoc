@@ -14,9 +14,9 @@ szansę zyskać uznanie wśród społeczności technologi Blockchain.
 image::../images/cumulative_report.png[]
 
 W trakcie prac nad implementacją projektu zrealizowano łącznie 156 zadań. Ich estymacja w postaci punktów historii
-wyniosła 392. Zespół nie śledził, ile czasu zostało poświęcone na zadania. Można przyjąć, że 1 punkt warty był 4
-godziny. Daje to wtedy wynik 1568 godzin poświęconych na realizację implementacji projektu. Jest to jednak wynik
-bardzo nieprecyzyjny i należy go interpretować tylko jako ciekawostkę.
+wyniosła 392. Łączny nakład prac zaprezentowano na rysunku 135. Zespół nie śledził, ile czasu zostało poświęcone na
+zadania. Można przyjąć, że 1 punkt warty był 4 godziny. Daje to wtedy wynik 1568 godzin poświęconych na realizację
+implementacji projektu. Jest to jednak wynik bardzo nieprecyzyjny i należy go interpretować tylko jako ciekawostkę.
 
 .Wykres obrazujący ilość punktów historii poświęcony na każdy z elementów projektu.
 image::../images/total_storypoints.png[]
@@ -24,6 +24,7 @@ image::../images/total_storypoints.png[]
 .Wykres pokazujący ilość zadań dotyczących poszczególnych elementów projektu.
 image::../images/total_tasks.png[]
 
+Nakład prac na poszczególne komponenty systemu pokazano na rysunkach 136 oraz 137.
 Najwięcej nakładów pracy wymagał serwer aplikacji. Zespół ukończył 49 zadań wartych 124 punkty historii. Na
 drugim miejscu uplasowała się dokumentacja, z 38 zadaniami wartymi 104 punty. Ta kategoria uwzględnia zarówno
 pisanie pracy dyplomowej, jak i poprawki do pozostałych dokumentów oraz stworzenie i zarządzanie projektem _asciidoc_.
@@ -41,18 +42,19 @@ image::../images/storypoints_by_person.png[]
 Największy udział w implementacji projektu miał Aleksander Konieczny. Zrealizował on zadania warte 264 punkty historii.
 Jest to aż 65.7% wszystkich dostarczonych punktów. Jan Pieczul dostarczył 120 punktów historii, dających 29.9%.
 Sebastianowi Lewandowskiemu udało się ukończyć zadania o wartości 18 punktów historii, co daje 4.5% udziału w
-implementacji. Statystyki te nie uwzględniają pierwszego etapu historii. W tamtym czasie nad nauką, dokumentacją i
-projektowaniem systemu pracował cały zespół. Autorem makiety interaktywnej był w całości Jan Pieczul, natomiast przy
-prototypie rozkład udziału jest podobny jak w przypadku implementacji końcowego produktu.
+implementacji. Wkład własny członków zespołu porównano na rysunku 138. Statystyki te nie uwzględniają pierwszego etapu
+historii. W tamtym czasie nad nauką, dokumentacją i projektowaniem systemu pracował cały zespół. Autorem makiety
+interaktywnej był w całości Jan Pieczul, natomiast przy prototypie rozkład udziału jest podobny jak w przypadku
+implementacji końcowego produktu.
 
 .Ilość commit'ów w projekcie na przestrzeni czasu.
 image::../images/commits_timeline.png[]
 
-W trakcie realizacji kod był _commit'owany_ 154 razy. Mała liczba wynika z podejścia do zarządzania zmianami w
+W trakcie realizacji kod był _commit'owany_ 154 razy Mała liczba wynika z podejścia do zarządzania zmianami w
 projekcie. Przy każdym zmianie włączonej do głównej gałęzi kodu, wszystkie _commit'y_ były łączone w jeden, aby
 zachować czytelność historii. Nazwy zmian wykonanych na każdej gałęzi jest dalej widoczna w wiadomości dołączonej do
-każdego _commit'a_. Wykres idealnie obrazuje czas trwania projektu. Widać na nim wyraźnie momenty utworzenia
-repozytorium, rozpoczęcia implementacji oraz okres wzmożonych prac przy zbliżających się terminach.
+każdego _commit'a_. Wykres z rysunku 139 idealnie obrazuje czas trwania projektu. Widać na nim wyraźnie momenty
+utworzenia repozytorium, rozpoczęcia implementacji oraz okres wzmożonych prac przy zbliżających się terminach.
 
 Projekt rozwijany był jako rozwiązanie _open-source_. Każdy mógł wejść i przeglądać publiczne repozytorium projektu.
 Ciekawym faktem jest to, że cieszyło się ono małym zainteresowaniem, co zaskoczyło zespół projektowy. Strona

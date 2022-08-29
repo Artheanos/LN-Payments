@@ -4,7 +4,7 @@ W pakiecie wspólnym znajdują się klasy, interfejsy i adnotacje wspólne dla w
 mniejsze elementy systemu, których nie było sensu wyodrębniać do osobnego pakietu. Pakiet posiada również ogólną
 konfigurację komponentów używanych w aplikacji oraz globalną obsługę wyjątków. Dodatkowo
 znajdują się tutaj adnotacje służące do walidacji parametrów wejściowych oraz klasa zawierająca wartości stałe
-aplikacji. Zawartość pakietu prezentuje się następująco:
+aplikacji. Zawartość pakietu zaprezentowana jest na rysunku 45.
 
 .Zawartość pakietu _common_.
 image::../images/webservice_common_content.png[]
@@ -16,7 +16,7 @@ Omawianie obu funkcjonalności można zacząć od obsługi ustawień serwera. Ob
 _ConfigurationResource_. Jedyną zależnością klasy jest serwis SettingsService, dostarczający metody
 obsługujące pobieranie i aktualizowanie ustawień. Przy każdym nadchodzącym żądaniu jedynym zadaniem tej klasy jest
 wywołanie odpowiedniej metody z SettingsService oraz opakowanie zwróconej wartości w obiekt klasy
-_ResponseEntity_, zawierający metadane odpowiedzi HTTP. Dostępne są dwa punkty końcowe:
+_ResponseEntity_, zawierający metadane odpowiedzi HTTP. Dostępne są dwa punkty końcowe, widoczne na rysunku 46.
 
 .API ustawień serwera znajdujące się we wspólnym pakiecie.
 image::../images/webservice_common_config_api.png[]
@@ -71,7 +71,7 @@ implementacje, zawierające sztywno określone wartości wymagane na potrzeby te
 _SettingsService_ zostały one usunięte.
 
 Następną funkcjonalnością jest pobieranie i aktualizowanie danych o użytkowniku. W przypadku aktualizacji w tym wydaniu
-wspierana jest jedynie zmiana hasła.
+wspierana jest jedynie zmiana hasła. Api widoczne jest na rysunku 47.
 
 .API dla kont użytkowników znajdujące się we wspólnym pakiecie.
 image::../images/webservice_common_user_api.png[]

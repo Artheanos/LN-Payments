@@ -40,6 +40,7 @@ tekstów napisanych przez pozostałych członków zespołu i starałem się wył
 |LP-150|Complete own contribution for Sebastian Lewandowski|1
 |===
 
-Wykonałem lub brałem udział w realizacji 8 zadań, których łączna wartość wyniosła 18 punktów historii. Ich procentowy
-udział w całkowitej liczbie wyniósł ok. 5%. Jest to najsłabszy wynik z całego zespołu. Ta wartość nie uwzględnia czasu
-poświęconego na tworzenie dokumentacji podczas pierwszego etapu realizacji, na naukę oraz na _code review_.
+Wykonałem lub brałem udział w realizacji 8 zadań, które pokazano w tabeli 19. Łączna ich wartość wyniosła 18 punktów
+historii. Ich procentowy udział w całkowitej liczbie wyniósł ok. 5%. Jest to najsłabszy wynik z całego zespołu. Ta
+wartość nie uwzględnia czasu poświęconego na tworzenie dokumentacji podczas pierwszego etapu realizacji, na naukę oraz
+na _code review_.

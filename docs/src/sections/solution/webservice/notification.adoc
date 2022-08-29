@@ -3,7 +3,7 @@
 Powiadomienia mobilne obsługiwane są w pakiecie _notifications_. Obecnie służą one do podpisywania bądź odrzucania
 transakcji, zarówno standardowych, jak i tych odtwarzających portfel. Rozwiązanie zostało zaprojektowane w taki
 sposób, aby w przyszłości istniała możliwość wysyłania powiadomień niepowiązanych w żaden sposób z transakcjami.
-Z tego powodu funkcjonalność otrzymała swój własny pakiet.
+Z tego powodu funkcjonalność otrzymała swój własny pakiet, widoczny na rysunku 59.
 
 .Zawartość pakietu _notification_.
 image::../images/webservice_notification_content.png[]
@@ -12,7 +12,7 @@ Pakiet poza standardowymi klasami różnych warstw aplikacji zawiera również o
 powiadomień oraz specjalny kontroler wysyłający je z wykorzystaniem protokołu Websocket. Został on już opisany
 przy okazji pakietu _transaction_. Standardowo wszystkie funkcjonalności obsługiwane przez API obsługiwane są
 początkowo przez metody kontrolera _NotificationResource_, skąd wywołania są delegowane do serwisu
-_NotificationService_.
+_NotificationService_. Punkty końcowe zaprezentowano na rysunku 60.
 
 .API dostępne dla powiadomień mobilnych.
 image::../images/webservice_notification_api.png[]

@@ -2,7 +2,7 @@
 
 Pakiet payment oferuje jedną z głównych funkcjonalności projektu, czyli sprzedaż tokenów za Bitcoiny w sieci
 Lightning. Obsługuje również funkcje związane z pobieraniem historii płatności czy też z agregowaniem danych
-statystycznych.
+statystycznych. Zawartość pakietu pokazana została na rysunku 50.
 
 .Zawartość pakietu _payment_.
 image::../images/webservice_payment_content.png[]
@@ -26,20 +26,20 @@ portu, na którym działa węzeł, oraz przez podanie plików zawierających cer
 Dodatkowo w przypadku asynchronicznego obiektu dodany został subskrybent, który jest aktywowany przy zmianie statusu
 _invoice_ w węźle Lightning. Klasa _InvoiceObserver_ zostanie umówiona w dalszej części podrozdziału.
 
-Funkcjonalności pakietu _payment_ udostępnione poprzez API dotyczą obsługi płatności. Użytkownicy mogą tworzyć nowe
-płatności, co wiąże się z generowaniem _invoice_ przez węzeł sieci Lightning. Pozwala także na pobieranie danych
-o płatnościach z bazy danych, zarówno dla zalogowanego użytkownika, jak i wszystkich płatności. Oczywiście dane
-zwracane przez punkty końcowe różnią się, aby zapobiec nieautoryzowanemu udostępnianiu danych poufnych. Dodatkowo
-dostępna jest ścieżka _/payments/info_, zwracająca informacje o aktualnych szczegółach płatności takich jak cena czy
-opis. Dane te są wyświetlane na powitalnej stronie modułu płatności w aplikacji mobilnej. Warto wspomnieć, że jest to
-jedyny niezabezpieczony punkt końcowy poza tymi związanymi z uwierzytelnianiem.
+Funkcjonalności pakietu _payment_ udostępnione poprzez API dotyczą obsługi płatności. Widoczne są one na rysunku 51.
+Użytkownicy mogą tworzyć nowe płatności, co wiąże się z generowaniem _invoice_ przez węzeł sieci Lightning. Pozwala
+także na pobieranie danych o płatnościach z bazy danych, zarówno dla zalogowanego użytkownika, jak i wszystkich
+płatności. Oczywiście dane zwracane przez punkty końcowe różnią się, aby zapobiec nieautoryzowanemu udostępnianiu
+danych poufnych. Dodatkowo dostępna jest ścieżka _/payments/info_, zwracająca informacje o aktualnych szczegółach
+płatności takich jak cena czy opis. Dane te są wyświetlane na powitalnej stronie modułu płatności w aplikacji mobilnej.
+Warto wspomnieć, że jest to jedyny niezabezpieczony punkt końcowy poza tymi związanymi z uwierzytelnianiem.
 
 .API dostępne dla płatności.
 image::../images/webservice_payment_api.png[]
 
 Omówienie zawartości klas polegać będzie tym razem na przejście przez cały proces płatności, w przeciwieństwie do
 omawiania zawartości poszczególnych klas. Proces jest dosyć skomplikowany, dlatego też podczas implementacji powstał
-diagram sekwencji obrazujący cały przepływ danych.
+diagram sekwencji obrazujący cały przepływ danych, widoczny na rysunku 52.
 
 .Diagram sekwencji dla implementacji procesu płatności.
 [plantuml]
@@ -98,7 +98,7 @@ się w ustawieniach serwera. Można je ustawić poprzez plik konfiguracyjny bąd
 adres w ustawieniach nie jest pusty, to zostanie on użyty do budowania adresu węzła. Adres ten zapisany jest finalnie
 jako pole klasy, więc _PaymentFacade_ wykorzystuje zwykłą metodę dostępową _getNodeUrl_. Na koniec procesu pozyskiwania
 szczegółów potrzebnych do płatności obiekt PaymentInfo zwracany jest do kontrolera, po czym przekazany jest dalej do
-użytkownika. Przykładowa odpowiedź ze ścieżki _/payments/info_ prezentuje się następująco:
+użytkownika. Przykładowa odpowiedź ze ścieżki _/payments/info_ zaprezentowana została w kodzie 40.
 
 .Przykładowa odpowiedź z punktu /payments/info.
 [source, json]
@@ -155,8 +155,8 @@ w posiadanym obiekcie. Z tego powodu obiekt musi zostać ponownie pobrany z bazy
 aktualny status płatności. Jeżeli po określonym czasie płatność dalej jest oczekująca, status zmieniany jest na
 _cancelled_, czyli anulowana. Oczywiście wywołanie tej metody odbywa się asynchronicznie, domyślnie po 15 minutach od
 utworzenia płatności. Zaraz po przekazaniu wątku do planisty, obiekt płatności zwrócony zostaje do kontrolera, gdzie
-jest on mapowany na obiekt DTO, który zostaje zwrócony użytkownikowi. Finalna odpowiedź może prezentować się
-następująco:
+jest on mapowany na obiekt DTO, który zostaje zwrócony użytkownikowi. Finalna odpowiedź może prezentować się tak, jak
+w kodzie 41.
 
 .Przykładowa odpowiedź z punktu POST /payments.
 [source, json]

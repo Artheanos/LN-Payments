@@ -1,7 +1,8 @@
 === Model domenowy
 
 Model domenowy reprezentuje nazwy oraz podstawową strukturę klas, która zostanie wykorzystana podczas tworzenia systemu.
-Diagram wprowadza pojęcia, które będą służyły do szczegółowego opisywania implementacji rozwiązania.
+Diagram widoczny na rysunku 6 wprowadza pojęcia, które będą służyły do szczegółowego opisywania implementacji
+rozwiązania.
 
 .Diagram klas domenowych systemu.
 [plantuml]

@@ -13,7 +13,7 @@ podstawowa znajomość Javy 17 oraz frameworków Spring i Spring Boot.
 ==== Struktura i pakiety
 
 Główny katalog aplikacji serwerowej zawiera przede wszystkim pliki konfiguracyjne dla wykorzystywanych narzędzi oraz
-jeden katalog, w którym znajduje się kod źródłowy aplikacji.
+jeden katalog, w którym znajduje się kod źródłowy aplikacji. Pokazany jest na rysunku 40.
 
 .Układ katalogów w folderze głównym serwera.
 image::../images/webservice_root_dir.png[]
@@ -28,7 +28,7 @@ deweloperskiego. W pliku _pom.xml_ znajduje się konfiguracja dla narzędzia bud
 metadane projektu, wykorzystywane zależności oraz instrukcje do budowania aplikacji w określony sposób, na przykład
 warunki sprawdzania pokrycia kodu testami. Pozwala również na zbudowanie pliku zawierającego aplikację internetową i
 serwer w jednym pliku wykonywalnym. Na koniec został folder _src_ zawierający kod źródłowy posegregowany zgodnie ze
-standardowym układem dla programu Maven<<maven_directories>>. Jego zawartość prezentuje się następująco:
+standardowym układem dla programu Maven<<maven_directories>>. Jego zawartość zaprezentowana jest na rysunku 41.
 
 .Układ katalogów w folderze _src_.
 image::../images/webservice_src_content.png[]
@@ -47,7 +47,7 @@ klas publicznych poza modułem. Nie zdecydowano się na ich użycie ze względu 
 projektu. Niektóre pakiety zawierają niewiele klas, a wyodrębnienie ich do modułów zwiększyłoby ilość niepotrzebnych
 plików oraz wymaganej konfiguracji. Kolejnym powodem było uproszczenie procesu deweloperskiego, gdyż o wiele łatwiej
 modyfikuje się kod znajdujący się w jednym projekcie i jednym katalogu, a nie w kilku osobnych. Finalny układ pakietów
-prezentuje się następująco:
+pokazany został na rysunku 42.
 
 .Pakiety Java wykorzystywane w serwerze.
 image::../images/webservice_root_packages.png[]
@@ -57,8 +57,8 @@ jedną klasę _WebserviceApplication_ odpowiedzialną tylko i wyłącznie za uru
 są pakiety domenowe oraz jeden pakiet _common_ zawierający ogólną konfigurację, oraz klasy wspólne dla całej aplikacji.
 Wewnątrz każdego pakietu pliki pogrupowane zostały według innego popularnego podejścia, czyli grupowania według
 warstw. Zdecydowano się na stworzenie aplikacji według architektury warstwowej, więc osobne warstwy, takie jak
-repozytoria, kontrolery i serwisy znajdują się w swoich pakietach. Po niżej przykład zawartości jednego z
-pakietów domenowych.
+repozytoria, kontrolery i serwisy znajdują się w swoich pakietach. Zawartości jednego z pakietów domenowych znajduje
+się na rysunku 43.
 
 .Przykład podziału warstwowego pakietów na przykładzie pakietu _payment_.
 image::../images/webservice_domain_package_content.png[]
@@ -75,7 +75,7 @@ danych była tworzona w ramach zwykłych zadań dodających nowe funkcjonalnośc
 konfiguracja połączenia z bazą danych oraz wymaganych bibliotek i frameworków. Cała reszta działa się automatycznie na
 podstawie kodu tworzonego w Javie.
 
-Schemat bazy danych nie różni się znacząco od diagramu domenowego prezentowanego w rozdziale 4.
+Schemat bazy danych z rysunku 44 nie różni się znacząco od diagramu domenowego prezentowanego w rozdziale 4.
 Znajduje się tam opis każdej z tabeli, jak i relacje pomiędzy nimi. Główne różnice to przede wszystkim nazwy oraz ilość
 pól w poszczególnych tabelach. Oczywiście prawie każda z tabel zawiera kolumny _id_, która służy jako klucz publiczny,
 a także odpowiednie pola, które są kluczami obcymi.
@@ -110,7 +110,7 @@ include::solution/webservice/notification.adoc[]
 ==== Zasoby
 
 Folder _resources_ przechowuje pliki, które podczas pakowania aplikacji zostaną dołączone w folderze docelowym, bądź
-pliku wykonywalnym.
+pliku wykonywalnym. Jego zawartość znajduje się na rysunku 61.
 
 .Zawartość folderu resources.
 image::../images/webservice_resources.png[]

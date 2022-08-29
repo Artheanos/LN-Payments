@@ -62,7 +62,7 @@ uczestniczyłem aktywnie w procesie _code review_, a także zarządzałem całym
 także badania nad technologiami, między innymi dotyczących transakcji multisig, testów E2E oraz powiadomień push w
 aplikacji mobilnej. Na koniec procesu realizacji kontaktowałem się z promotorem i nanosiłem sugerowane poprawki w całym
 projekcie i jego dokumentacji. Stworzyłem również scenariusze testowe, na podstawie których przeprowadziłem testy
-manualne całego systemu.
+manualne całego systemu. Wykonane przeze mnie zadania zaprezentowano w tabeli 17.
 
 .Lista zadań, przy których pracował Aleksander w procesie implementacji.
 [cols="1,9,1"]

@@ -4,7 +4,7 @@ Obsługa autoryzacji i procesu uwierzytelniania znajduje się w pakiecie _auth_.
 konfiguracyjne, filtry i serwisy odpowiedzialne za bezpieczeństwo aplikacji. Znajdują się tutaj również pozostałości
 po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jego danych. Z tego powodu w
 tym pakiecie znajdują się repozytoria, serwis i konwerter dla klas modelowych użytkowników (znajdujące się w pakiecie
-_common_).
+_common_). Zawartość pakietu zaprezentowana jest na rysunku 48.
 
 .Zawartość pakietu _auth_.
 image::../images/webservice_auth_content.png[]
@@ -99,7 +99,7 @@ _temporary_ pozwalający na pozyskanie tokena przez niezalogowanego użytkownika
 .API służące do uwierzytelniania.
 image::../images/webservice_auth_api.png[]
 
-Obsługa powyższego API znajduje się w klasie _AuthResource_. Spora część logiki znajduje się bezpośrednio w
+Obsługa API z rysunku 49 znajduje się w klasie _AuthResource_. Spora część logiki znajduje się bezpośrednio w
 kontrolerze, gdyż kodu jest często zbyt mało do wyodrębnienia do osobnego serwisu. Łamana jest przez to zasada
 _Single Responsibility Principle_ z akronimu SOLID, aczkolwiek dzięki temu uniknięto tworzenia kolejnego niepotrzebnego
 serwisu.

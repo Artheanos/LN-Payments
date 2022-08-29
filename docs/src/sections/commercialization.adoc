@@ -37,10 +37,11 @@ image::../images/total_btc_tx_value.png[]
 
 ==== Potencjalni użytkownicy
 
-Z końcem 2021 roku było prawie 300 milionów użytkowników kryptowalut. Daje to obecnie blisko 4% ogółu społeczeństwa.
-Liczba ta stale rośnie, a według analityków może osiągnąć nawet 1 miliard do końca 2022 roku. Przy tak dużym napływie
-użytkowników będzie prawdopodobnie rosło zainteresowanie technologiami operującymi na kryptowalutach. Dzięki temu jest
-szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za tym idzie potencjalnych klientów.
+Z końcem 2021 roku było prawie 300 milionów użytkowników kryptowalut. Obrazuje to rysunek 22. Daje to obecnie blisko 4%
+ogółu społeczeństwa. Liczba ta stale rośnie, a według analityków może osiągnąć nawet 1 miliard do końca 2022 roku. Przy
+tak dużym napływie użytkowników będzie prawdopodobnie rosło zainteresowanie technologiami operującymi na kryptowalutach.
+Dzięki temu jest szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za tym idzie potencjalnych
+klientów.
 
 .Użytkownicy kryptowalut w ciągu ostatnich lat wraz ze współczynnikiem adaptacji.
 image::../images/crypto_users.png[]
@@ -57,7 +58,8 @@ proporcjonalnie do ilości użytkowników, więc można spodziewać się wzrost�
 
 Obecnie na rynku dostępnych jest wiele różnych kryptowalut. Zdecydowanie najbardziej ugruntowane na rynku są Bitcoin
 oraz Ethereum, gdzie najpopularniejszą jest ta pierwsza. Odpowiada obecnie aż za 38% udziału wśród kryptowalut.
-W ostatnim czasie stracił trochę udziałów, aczkolwiek dalej jest na pozycji dominującej rynek.
+W ostatnim czasie stracił trochę udziałów, aczkolwiek dalej jest na pozycji dominującej rynek. Widać to wyraźnie na
+rysunku 23.
 
 .Udział użytkowników Bitcoina spośród wszystkich użytkowników kryptowalut.
 image::../images/bitcoin_users_share.png[]
@@ -69,7 +71,8 @@ proponowanym rozwiązaniu tylko do niego nie powinno być błędem.
 Drugą wykorzystywaną technologią w projekcie z zakresu kryptowalut jest sieć Lightning. Działa ona jako druga
 warstwa płatności, która pozwala znacząco obniżyć koszty transakcji poprzez zastosowanie kanałów płatności. Jest to
 stosunkowo nowa technologia, która została uruchomiona w głównej sieci Bitcoina w 2018 roku. Od tego momentu jej
-popularność stale rośnie. Szacuje się, że w kanałach płatności zablokowanych jest obecnie nawet 58 milionów dolarów.
+popularność stale rośnie. Szacuje się, że w kanałach płatności zablokowanych jest obecnie nawet 58 milionów dolarów,
+co widoczne jest na rysunku 24.
 
 .Środki zablokowane w sieci Lightning.
 image::../images/lightning_locked_funds.png[]

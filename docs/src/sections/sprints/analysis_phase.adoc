@@ -36,7 +36,7 @@ pełnił w procesie rolę konsultanta. Wówczas nie wykonano całej pracy związ
 niezbędne do zrealizowania zakresu płatności w sieci Lightning. Reszta paneli była dodawana do makiety na bieżąco
 podczas implementacji projektu. Zdecydowano się na ten krok ze względu na opóźnienia powstawania odpowiedniej części
 po stronie prototypu, która również powstała już w czasie implementacji. Na początku prac nad prototypem zdecydowano
-się na równy podział zadań pomiędzy członków zespołu.
+się na równy podział zadań pomiędzy członków zespołu. Zaprezentowano je w tabeli 3.
 
 .Lista zadań podczas implementacji prototypu.
 [cols="1,7,3"]

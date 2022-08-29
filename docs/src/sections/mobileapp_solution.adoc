@@ -15,7 +15,7 @@ znajomość również jest zalecana, gdyż wiele pojęć związanych z tą techn
 
 Główny katalog projektu aplikacji mobilnej zawiera przede wszystkim pliki konfiguracyjne dla wykorzystywanych narzędzi,
 a także kilka folderów, zawierających kod źródłowy, testy oraz folder _android_ zawierający natywny kod w Javie,
-który został automatycznie wygenerowany przez framework React Native.
+który został automatycznie wygenerowany przez framework React Native. Jest on widoczny na rysunku 73.
 
 .Układ katalogów w folderze głównym aplikacji mobilnej.
 image::../images/mobileapp_root_dir.png[]
@@ -34,7 +34,7 @@ _package.json_ zawierający ustawienia procesu budowania oraz wykorzystywane bib
 o tym module. Komponent mieści dwa foldery na testy. Katalog _tests_ przechowuje testy jednostkowe i integracyjne,
 a _e2e_ miał przechowywać automatyczne testy end-to-end. Niestety znajdują się tam tylko scenariusze testowe w języku
 Gherkin, a sama ich implementacja nie została zrealizowana. Zadanie to planowane jest na następne wydania. Ostatnim
-folderem jest _src_, zawierający sam kod źródłowy aplikacji.
+folderem, widocznym na rysunku 74, jest _src_, zawierający sam kod źródłowy aplikacji.
 
 .Układ katalogów w folderze _src_.
 image::../images/mobileapp_src_content.png[]
@@ -48,9 +48,10 @@ funkcje odpowiedzialne za wysyłanie żądań do serwera.
 ==== Wartości stałe i zasoby
 
 Stałe oraz zasoby wykorzystywane w aplikacji niebędące plikami przechowywane są w dwóch folderach, czyli _res_ oraz
-_constants_. Dwa foldery wynikają z błędu popełnionego podczas implementacji dwóch zadań jednocześnie przez różne
-osoby. Pomyłka ta obecna jest w aplikacji do dziś, gdyż były to ostatnie zadania przed prezentacją projektu w ramach
-przedmiotu PAMO. Jest to jedna z rzeczy, które powinny zostać poprawione w następnych wydaniach projektu.
+_constants_. Ich zawartość widoczna jest na rysunku 75. Dwa foldery wynikają z błędu popełnionego podczas implementacji
+dwóch zadań jednocześnie przez różne osoby. Pomyłka ta obecna jest w aplikacji do dziś, gdyż były to ostatnie zadania
+przed prezentacją projektu w ramach przedmiotu PAMO. Jest to jedna z rzeczy, które powinny zostać poprawione w
+następnych wydaniach projektu.
 
 .Zawartość folderów res i constants.
 image::../images/mobileapp_res_const_content.png[]
@@ -71,7 +72,7 @@ include::../../../mobileapp/src/res/R.ts[lines=10..18]
 Plik zawiera tylko definicję stałego obiektu, który grupuje pozostałe obiekty wyeksportowane w tym folderze.
 Zawiera on plik ze stałymi łańcuchami znaków, nazwy ekranów używane w routingu, definicje ekranów zawierających
 parametry (używane przy przekierowaniu z powiadomienia push), listę kolorów oraz dane wymagane do utworzenia
-nowego powiadomienia push. Dla przykładu zostanie zaprezentowana zawartość pliku _colors.ts_.
+nowego powiadomienia push. Dla przykładu w kodzie 125 zaprezentowano zawartość pliku _colors.ts_.
 
 .Zawartość pliku colors.ts.
 [source, tsx]
@@ -93,9 +94,9 @@ przychodzą powiadomienia push.
 
 ==== Funkcje i pliki użytkowe
 
-Folder _utils_ przechowuje pliki zawierające różne funkcje wykorzystywane w innych miejscach aplikacji. Można o
-nich myśleć tak samo, jak o serwisach w przypadku aplikacji napisanej w Javie i framework'u Spring. Katalog
-_bitcoin_ zawiera natomiast tylko jeden plik, który umożliwiający wykorzystanie biblioteki _bitcoinjs_ w kodzie
+Folder _utils_, widoczny na rysunku 76, przechowuje pliki zawierające różne funkcje wykorzystywane w innych miejscach
+aplikacji. Można o nich myśleć tak samo, jak o serwisach w przypadku aplikacji napisanej w Javie i framework'u Spring.
+Katalog _bitcoin_ zawiera natomiast tylko jeden plik, który umożliwiający wykorzystanie biblioteki _bitcoinjs_ w kodzie
 aplikacji mobilnej.
 
 .Zawartość folderów utils i bitcoin.
@@ -153,12 +154,12 @@ niekompletna transakcja. Jest to proste obejście braku tej kluczowej dla projek
 
 Zawartością folderu _webService_ są funkcje obsługujące połączenie z serwerem projektu, ścieżki do zasobów oraz
 definicje typów dla ciał żądań HTTP. Katalog ten jest bardzo podobny do folderu o tej samej nazwie znajdującego się
-w kodzie komponentu aplikacji internetowej. Na pewnym etapie prac kod ten znajdował się w osobnym module, który
-był importowany zarówno przez aplikację internetową, jak i aplikację mobilną. Niestety rozwiązanie to było dalekie
-od ideału. Wspólny moduł musiał być przy każdej modyfikacji kompilowany oraz ręcznie dołączany do obu projektów.
-Pojawiły się również spore problemy przy uruchomianiu testów jednostkowych. Zdecydowano się na podzielenie wspólnego
-modułu, a także na skopiowanie niektórych plików, aby ruszyć do przodu z implementacją, gdyż zespołowi nie udało się
-znaleźć satysfakcjonującego rozwiązania w akceptowalnym czasie.
+w kodzie komponentu aplikacji internetowej. Jego zawartość widoczna jest na rysunku 77. Na pewnym etapie prac kod ten
+znajdował się w osobnym module, który był importowany zarówno przez aplikację internetową, jak i aplikację mobilną.
+Niestety rozwiązanie to było dalekie od ideału. Wspólny moduł musiał być przy każdej modyfikacji kompilowany oraz
+ręcznie dołączany do obu projektów. Pojawiły się również spore problemy przy uruchomianiu testów jednostkowych.
+Zdecydowano się na podzielenie wspólnego modułu, a także na skopiowanie niektórych plików, aby ruszyć do przodu z
+implementacją, gdyż zespołowi nie udało się znaleźć satysfakcjonującego rozwiązania w akceptowalnym czasie.
 
 .Zawartość folderu webService.
 image::../images/mobileapp_webservice_content.png[]
@@ -177,7 +178,7 @@ include::../../../mobileapp/src/webService/requests.ts[lines=43..58]
 Wszystkie publiczne funkcje są pogrupowane w hierarchii obiektów, dzięki czemu można je w elegancki sposób wywoływać
 bez potrzeby tworzenia za każdym razem obiektu klasy _Requests_. W przypadku każdej z nich wykonywane jest żądanie
 z pomocą metody _request_. Parametry wejściowe są do niej przekazywane, a zwracany obiekt _Promise_ opakowuje
-odpowiedź HTTP. Kod metody _request_ prezentuje się następująco:
+odpowiedź HTTP. Kod metody _request_ zaprezentowano w kodzie 131.
 
 .Metoda request klasy Requests w pliku requests.ts.
 [source, tsx]
@@ -194,8 +195,9 @@ plikach znajdujących się w folderze _interface_. Odzwierciedlają one obiekty 
 
 ==== Komponenty
 
-Główna część aplikacji mobilnej znajduje się w folderze _components_. Zawiera on kod wszystkich ekranów komponentów
-oraz nawigacji. Pliki mają rozszerzenie _tsx_, ponieważ zapisane są w formacie narzędzia _Babel_, które pozwala
+Główna część aplikacji mobilnej znajduje się w folderze _components_, widocznym na rysunku 78. Zawiera on kod
+wszystkich ekranów komponentów oraz nawigacji.
+Pliki mają rozszerzenie _tsx_, ponieważ zapisane są w formacie narzędzia _Babel_, które pozwala
 na pisanie kodu HTML wewnątrz plików JavaScript oraz TypeScript. Warto wspomnieć, że wszystkie komponenty pisane są
 w stylu funkcyjnym. Jest to nowsze rozwiązanie, które pozwala na pisanie o wiele czytelniejsze, a także ma nowsze
 funkcjonalności względem stylu wykorzystującego klasy.
@@ -323,7 +325,7 @@ Wykorzystywanym typem nawigacji jest stos, który pozwala na wyświetlanie ekran
 wskazuje, czy użytkownik jest aktualnie w trakcie procesu generowania i przesyłania kluczy. Jeżeli nie, to
 przekierowywany jest na stronę logowania. Nie będzie w tym rozdziale szczególnie pokazywanego kodu HTML, gdyż jest on
 bardzo długi, a nie wnosi dużej wartości. Uwaga zostanie poświęcona głównie części napisanej w TypeScript. Gdy
-użytkownik wypełni formularz i go wyśle, zostanie wywołana metoda _onSubmit_:
+użytkownik wypełni formularz i go wyśle, zostanie wywołana metoda _onSubmit_, widoczna w kodzie 142.
 
 .Metoda onSubmit komponentu LoginScreen.
 [source, tsx]
@@ -365,7 +367,7 @@ Funkcja wywoływana jest przez hak _useEffect_ przy tworzeniu komponentu.
 include::../../../mobileapp/src/components/screens/auth/KeyUploadScreen.tsx[lines=26..60]
 ----
 
-Można tą funkcję podzielić na 3 części, czyli generowanie kluczy, przesyłanie klucza publicznego na serwer oraz
+Można tę funkcję podzielić na 3 części, czyli generowanie kluczy, przesyłanie klucza publicznego na serwer oraz
 zapisanie ich w kontekście użytkownika. Generowanie odbywa się poprzez wywołanie funkcji _generateKeyPair_ z pliku
 _bitcoin.ts_. Następnie wykonywane jest wysłanie żądania przesyłającego klucz publiczny. Proces ten zawiera wiele
 przypadków krańcowych, które reprezentowane są przez różne kody błędów HTTP. Wobec każdego z nich wyświetlany jest

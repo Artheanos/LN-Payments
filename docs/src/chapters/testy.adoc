@@ -11,7 +11,7 @@ W celu zautomatyzowania procesu uruchamiania testów, członkowie zespołu zdecy
 _ciągłej integracji_ Github Actions.
 Wystarczyło tylko stworzyć odpowiedni skrypt _YAML_, który czuwał nad tym, aby każdorazowo uruchomić testy po
 wypchnięciu zmian do repozytorium.
-Katalog _workflows_ z plikami prezentuje się następująco:
+Katalog _workflows_ z plikami zaprezentowano na rysunku 110.
 
 .Zawartość folderu workflows z plikami YAML.
 image::../images/tests_chapter/workflows_CI.png[]
@@ -29,8 +29,8 @@ include::../../../.github/workflows/webservice.yml[lines=17..37]
 
 ==== Serwer
 Kod źródłowy dla testów jednostkowych i integracyjnych umieszczony został w katalogu _test_, znajdującym się w folderze
-_src_. Testy, tak samo jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich
-układ można zaobserwować na zrzucie ekranu poniżej.
+_src_. Testy, tak samo, jak główny kod _Javy_, podzielone zostały na pakiety pogrupowane według funkcjonalności. Ich
+układ można zaobserwować na rysunku 111.
 
 .Pakiety testów Java dla serwera.
 image::../images/tests_chapter/test_folders_server.png[]
@@ -38,55 +38,57 @@ image::../images/tests_chapter/test_folders_server.png[]
 W każdym z widocznych katalogów utworzone zostały foldery, gdzie umiejscowiono pliki z testami.
 
 * admins - Katalog _admins_ zawiera w sobie 4 foldery oraz 5 plików z testami co jest widoczne na zrzucie
-ekranu z rysunku 113. Jak sama nazwa wskazuje, znajdują się tam testy związane z administratorami np. sprawdzanie, czy
+ekranu z rysunku 112. Jak sama nazwa wskazuje, znajdują się tam testy związane z administratorami np. sprawdzanie, czy
 ich tworzenie działa prawidłowo.
 
 .Katalog admins.
 image::../images/tests_chapter/admins_folder.png[]
 
 * auth - Zawiera 7 plików z testami rozmieszczonymi w 5 folderach. Sprawdzane jest tutaj m.in. działanie
-uwierzytelniania.
+uwierzytelniania. Jego zawartość jest widoczna na rysunku 113.
 
 .Katalog auth.
 image::../images/tests_chapter/auth_folder.png[]
 
 * common - W tym pakiecie znalazły się testy mające na celu walidację np. tego, czy podany adres jest adresem Bitcoin,
-lub czy wpisany klucz może być kluczem publicznym.
+lub czy wpisany klucz może być kluczem publicznym. Jest on widoczny na rysunku 114.
 
 .Katalog common.
 image::../images/tests_chapter/common_folder.png[]
 
-* helper - W tym folderze umieszczona została implementacja pomocnicza. Stworzona tutaj została np. metoda
-_resetSettings_, odpowiadająca za powrót do domyślnych właściwości, czy też implementacja klasy _BaseIntegrationTest_
-wykorzystywana w testach integracyjnych.
+* helper - W tym folderze umieszczona została implementacja pomocnicza. Jego zawartość pokazano na rysunku 115.
+Stworzona tutaj została np. metoda _resetSettings_, odpowiadająca za powrót do domyślnych właściwości, czy też
+implementacja klasy _BaseIntegrationTest_ wykorzystywana w testach integracyjnych.
 
 .Katalog helper.
 image::../images/tests_chapter/helper_folder.png[]
 
 * notification - W tym katalogu umieszczono testy, które związane były z powiadomieniami. Sprawdzano np. czy
-powiadomienie o danym _id_ zostanie prawidłowo zwrócone oraz czy jego typ jest zgodny z oczekiwaniami.
+powiadomienie o danym _id_ zostanie prawidłowo zwrócone oraz czy jego typ jest zgodny z oczekiwaniami. Jego
+zawartość widoczna jest na rysunku 116.
 
 .Katalog notification.
 image::../images/tests_chapter/notification_folder.png[]
 
-* payment - Tak jak sama nazwa wskazuje, w poniższych folderach umieszczone zostały testy związane z płatnościami.
-Miały one na celu np. sprawdzić, czy status płatności zachowuje się zgodnie z oczekiwaniami.
+* payment - Tak jak sama nazwa wskazuje, w folderach pokazanych na rysunku 117, umieszczone zostały testy związane z
+płatnościami. Miały one na celu np. sprawdzić, czy status płatności zachowuje się zgodnie z oczekiwaniami.
 
 .Katalog payments.
 image::../images/tests_chapter/payments_folder.png[]
 
 * transaction - Katalog ten zawiera 4 pliki z testami. Ich celem było sprawdzenie, czy funkcjonalności związane z
-transakcjami działają prawidłowo.
+transakcjami działają prawidłowo. Zawartość zaprezentowano na rysunku 118.
 
 .Katalog transaction.
 image::../images/tests_chapter/transaction_folder.png[]
 
-* wallet - W tej paczce znalazły się testy sprawdzające funkcjonalności związane z portfelem.
+* wallet - W tym pakiecie znalazły się testy sprawdzające funkcjonalności związane z portfelem. Jego zawartość
+pokazano na rysunku 119.
 
 .Katalog wallet.
 image::../images/tests_chapter/wallet_folder.png[]
 
-Poniżej zaprezentowany został przykładowy test jednostkowy. Oczekujemy w nim, że po prawidłowym dodaniu administratora
+W kodzie 159 zaprezentowano przykładowy test jednostkowy. Oczekuje się, że po prawidłowym dodaniu administratora
 zwrócony zostanie kod odpowiedzi HTTP 201(_utworzono_).
 
 .Test jednostkowy z pliku AdminResourceTest.java.
@@ -94,8 +96,8 @@ zwrócony zostanie kod odpowiedzi HTTP 201(_utworzono_).
 ----
 include::../../../webservice/src/test/java/pl/edu/pjatk/lnpayments/webservice/admin/resource/AdminResourceTest.java[lines=30..38]
 ----
-Kolejny fragment kodu zawiera natomiast test integracyjny. Służy on do sprawdzenia, czy w przypadku wprowadzenia
-nieprawidłowych danych zwrócony zostanie kod odpowiedzi HTTP _złe zapytanie_.
+Kolejny fragment kodu, pokazany w kodzie 160, zawiera natomiast test integracyjny. Służy on do sprawdzenia, czy w
+przypadku wprowadzenia nieprawidłowych danych zwrócony zostanie kod odpowiedzi HTTP 400(_złe zapytanie_).
 
 .Test integracyjny z pliku AdminResourceIntegrationTest.java.
 [source, java]
@@ -106,9 +108,9 @@ include::../../../webservice/src/test/java/pl/edu/pjatk/lnpayments/webservice/ad
 Do tworzenia testów wykorzystane zostały biblioteki _JUnit_ oraz _Mockito_. Warto również wspomnieć o tym, że wszystkie
 klasy z testami integracyjnymi korzystają z klasy _BaseIntegrationTest_.
 
-Na poniższym zrzucie ekranu został załączony raport dotyczący pokrycia testami kodu związanego z częścią serwerową
-aplikacji. Wynik na poziomie 91% świadczy o solidnym podejściu do testowania stworzonego kodu. Niektóre klasy zostały
-pokryte testami nawet w 100%, co wymagało poświęcenia trochę dodatkowego czasu.
+Na zrzucie ekranu, widocznym na rysunku 120, został załączony raport dotyczący pokrycia testami kodu związanego z
+częścią serwerową aplikacji. Wynik na poziomie 91% świadczy o solidnym podejściu do testowania stworzonego kodu.
+Niektóre klasy zostały pokryte testami nawet w 100%, co wymagało poświęcenia trochę dodatkowego czasu.
 Napisanych zostało 333 testów, które rozlokowano w 61 plikach.
 
 .Raport z pokrycia testami kodu części backendowej.
@@ -121,7 +123,7 @@ Raport ten można znaleźć w załącznikach do pracy dyplomowej.
 ==== Aplikacja internetowa
 
 Testy dotyczące części frontendowej aplikacji zostały umieszczone w katalogu _tests_. Znajdujące się w nim foldery
-zostały przedstawione na poniższym zrzucie ekranu, są to:
+zostały przedstawione na rysunku 121.
 
 .Folder zawierający testy do części frontendowej aplikacji.
 image::../images/tests_chapter/tests_folders_frontend.png[]
@@ -132,36 +134,39 @@ stwierdzić granicę pomiędzy testami jednostkowymi a integracyjnymi".
 Testy napisane w "czystym" _Typescript-cie_ są testami jednostkowymi.
 W głównym katalogu _tests_ zostały umieszczone następujące foldery:
 
-* components - Znalazły się tutaj testy sprawdzające, czy poszczególne elementy renderują się poprawnie
+* components - Znalazły się tutaj testy sprawdzające, czy poszczególne elementy renderują się poprawnie. Zawartość
+wyświetlono na rysunku 122.
 
 .Folder zawierający testy komponentów.
 image::../images/tests_chapter/components_tests.png[]
 
-* concern - W folderze umieszczony został plik zawierający atrapę historii przeglądarki, jednakże głównym przeznaczeniem
-znajdujących się tam elementów jest zadbanie o to, aby testy uruchamiały się prawidłowo. W podfolderze _polyfills_
-usytuowane zostały implementacje, które wykorzystywane są do rozszerzenia funkcjonalności istniejącego już kodu.
+* concern - W folderze na rysunku 123 umieszczony został plik zawierający atrapę historii przeglądarki, jednakże
+głównym przeznaczeniem znajdujących się tam elementów jest zadbanie o to, aby testy uruchamiały się prawidłowo.
+W podfolderze _polyfills_ usytuowane zostały implementacje, które wykorzystywane są do rozszerzenia funkcjonalności
+istniejącego już kodu.
 
 .Folder zawierający atrapę historii.
 image::../images/tests_chapter/concern_folder.png[]
 
 * mockData - Jak sama nazwa wskazuje, zostały tutaj utworzone pliki z atrapami danych zwracanych przez serwer
-m.in. płatności oraz transakcji.
+m.in. płatności oraz transakcji. Zawartość katalogu widoczna jest na rysunku 124.
 
 .Folder zawierający atrapy.
 image::../images/tests_chapter/mockdata_folder.png[]
 
-* pages - Znalazły się tutaj testy, w których sprawdzano czy poszczególne widoki działają poprawnie np. czy po podaniu
-odpowiednich danych w formularzu administrator zostanie prawidłowo utworzony.
+* pages - Znalazły się tutaj testy, w których sprawdzano, czy poszczególne widoki działają poprawnie np. czy po podaniu
+odpowiednich danych w formularzu administrator zostanie prawidłowo utworzony. Zawartość folderu pokazano na rysunku
+125.
 
 .Folder zawierający testy różnych funkcjonalności.
 image::../images/tests_chapter/pages_folder.png[]
 
-* utils - Katalog ten zawiera testy sprawdzające datę oraz czas.
+* utils - Katalog ten zawiera testy sprawdzające datę oraz czas, jest on widoczny na rysunku 126.
 
 .Folder zawierający testy związane z czasem.
 image::../images/tests_chapter/utils_folder.png[]
 
-Fragment kodu umieszczony niżej przedstawia test odpowiedzialny za sprawdzanie, czy komponent _navbar_ zostanie
+Fragment kodu umieszczony w kodzie 161 przedstawia test odpowiedzialny za sprawdzanie, czy komponent _navbar_ zostanie
 wygenerowany w poprawny sposób.
 
 .Test generujący komponent z pliku Navbar.test.tsx.
@@ -170,7 +175,7 @@ wygenerowany w poprawny sposób.
 include::../../../webapp/tests/components/common/Navbar.test.tsx[lines=6..12]
 ----
 
-Kolejny test zaprezentowany poniżej odpowiedzialny jest za sprawdzenie formularza zmiany hasła. Po wprowadzeniu
+Kolejny test zaprezentowany w kodzie 162 odpowiedzialny jest za sprawdzenie formularza zmiany hasła. Po wprowadzeniu
 prawidłowych danych oczekiwany jest komunikat o powodzeniu operacji.
 
 .Test sprawdzający formularz zmiany hasła z pliku PasswordChangePage.test.tsx.
@@ -181,14 +186,15 @@ include::../../../webapp/tests/pages/userPanel/account/PasswordChangePage.test.t
 
 Kod napisany w _Typescript_ został pokryty testami w ponad 65%. Stworzono 32 pliki zawierające 93 testy.
 Jest to rezultat widocznie gorszy niż w przypadku części serwerowej. Pewien wpływ miały na to zapewne opóźnienia w pracy
-nad projektem i brak dodatkowego czasu na implementację kolejnych testów.
+nad projektem i brak dodatkowego czasu na implementację kolejnych testów. Raport z testów pokazano na rysunku 127.
 
 .Raport z pokrycia testami kodu części frontendowej.
 image::../images/tests_chapter/test_coverage_frontend.png[]
 
 ==== Aplikacja mobilna
 
-Testy dla aplikacji mobilnej, podobnie jak w przypadku części frontendowej, zostały umieszczone w folderze _tests_.
+Testy dla aplikacji mobilnej, podobnie jak w przypadku części frontendowej, zostały umieszczone w folderze _tests_,
+którego zawartość widoczna jest 128.
 
 .Folder zawierający testy dla aplikacji mobilnej.
 image::../images/tests_chapter/mobileapp_tests.png[]
@@ -196,22 +202,24 @@ image::../images/tests_chapter/mobileapp_tests.png[]
 Testy umieszczone zostały w 3 katalogach:
 
 * components - Podobnie jak w przypadku aplikacji frontendowej, w tym folderze znalazły się testy odpowiedzialne za
-sprawdzanie poszczególnych komponentów.
+sprawdzanie poszczególnych komponentów. Jego zawartość widoczna jest na rysunku 129.
 
 .Folder zawierający testy związane z komponentami.
 image::../images/tests_chapter/mobileapp_components_folders.png[]
 
-* concern - W tym katalogu znalazła się np. deklaracja komponentu pomocniczego, czy też atrap.
+* concern - W tym katalogu znalazła się np. deklaracja komponentu pomocniczego, czy też atrap. Zawartość widoczna
+jest na rysunku 130.
 
 .Folder zawierający m.in. atrapy oraz komponent pomocniczy.
 image::../images/tests_chapter/mobileapp_concern_folder.png[]
 
 * utils - Znalazły się tutaj pliki testujące np. konwersję tablic na zmienne tekstowe, czy też generujące parę kluczy.
+Zaprezentowany on został na rysunku 131.
 
 .Folder zawierający testy związane z generowaniem par kluczy oraz konwersją.
 image::../images/tests_chapter/mobileapp_utils_folder.png[]
 
-Przykładowy test odpowiedzialny za generowanie komponentu prezentuje się następująco:
+Przykładowy test odpowiedzialny za generowanie komponentu zaprezentowano w kodzie 163.
 
 .Przykładowy test z pliku SignedInRouter.test.tsx.
 [source, tsx]
@@ -223,7 +231,8 @@ Mimo że aplikacja mobilna jest najmniejszą częścią projektu, to pokrycie je
 ten nie może zbytnio dziwić, ponieważ na implementację tego elementu poświęcono stosunkowo najmniej czasu.
 W pewnym momencie podczas implementacji testy przestały całkowicie działać. Do czasu rozwiązania problemu, nie było wiec
 możliwości tworzenia nowych testów w trakcie pisania kolejnych komponentów.
-Stworzonych zostało 13 plików zawierających 39 testów, co jest przeciętnym wynikiem.
+Stworzonych zostało 13 plików zawierających 39 testów, co jest przeciętnym wynikiem. Raport z testów widoczny jest na
+rysunku 132.
 
 .Raport z pokrycia testami kodu aplikacji mobilnej.
 image::../images/tests_chapter/test_coverage_mobileapp.png[]
@@ -242,7 +251,7 @@ z pluginem _Cucumber_.
 ==== Aplikacja internetowa i serwer
 
 Pliki odpowiedzialne za testy E2E serwera wraz z aplikacją internetową umieszczono w katalogu _cypress_, co zostało
-przedstawione na poniższym zrzucie ekranu.
+przedstawione na zrzucie ekranu widocznym na rysunku 133.
 
 .Katalog zawierający pliki do testów E2E.
 image::../images/tests_chapter/webapp_e2e.png[]
@@ -272,7 +281,7 @@ w następnych wydaniach.
 ==== Aplikacja mobilna
 
 Z powodu opóźnień w realizacji, dla aplikacji mobilnej udało się tylko napisać scenariusze testowe w języku _Gherkin_.
-Pliki _auth.feature_ oraz _notifications.feature_ zostały umieszczone w katalogu _e2e_.
+Pliki _auth.feature_ oraz _notifications.feature_ zostały umieszczone w katalogu _e2e_, widocznym na rysunku 134.
 
 .Scenariusze testowe dla aplikacji mobilnej.
 image::../images/tests_chapter/mobileapp_e2e.png[]

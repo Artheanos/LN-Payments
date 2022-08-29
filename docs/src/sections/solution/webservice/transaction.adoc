@@ -3,15 +3,15 @@
 Pakiet _transaction_ odpowiedzialny jest za tworzenie nowych transakcji oraz pobieranie ich historii. Współpracuje on
 ściśle z pakietami _wallet_ i _notification_, gdyż te funkcjonalności są ze sobą powiązane. Transakcje tworzy się
 ze środków znajdujących w portfelu oraz należy je potwierdzić w aplikacji mobilnej przy pomocy powiadomienia.
-Podobnie jak pakiet _admin_, zawiera dość mało klas.
+Podobnie jak pakiet _admin_, zawiera dość mało klas. Jego zawartość widoczna jest na rysunku 57.
 
 .Zawartość pakietu _transaction_
 image::../images/webservice_transaction_content.png[]
 
-Ogranicza się on przede wszystkim do zestawu klas pogrupowanych według warstwy aplikacji. Dostępne API pozwala na
-tworzenie nowych transakcji oraz na pobieranie danych historycznych, z wyszczególnieniem tych oczekujących. Dostępne są
-one pod ścieżką _/transactions_. Dodatkowym punktem końcowym _/transactions/info_, który pozwala na pobranie danych
-potrzebnych do utworzenia nowej transakcji.
+Ogranicza się on przede wszystkim do zestawu klas pogrupowanych według warstwy aplikacji. Dostępne API, widoczne
+na rysunku 58, pozwala na tworzenie nowych transakcji oraz na pobieranie danych historycznych, z wyszczególnieniem
+tych oczekujących. Dostępne są one pod ścieżką _/transactions_. Dodatkowym punktem końcowym _/transactions/info_, który
+pozwala na pobranie danych potrzebnych do utworzenia nowej transakcji.
 
 .API dostępne dla transakcji
 image::../images/webservice_transaction_api.png[]

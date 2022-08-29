@@ -31,7 +31,7 @@ który pozwala na przekazywanie płatności pomiędzy kanałami tak długo, aż 
 kosztem poprzez otwarcie jednego kanału z serwerem, można przyznać do niego dostęp wielu użytkownikom. Jeżeli dany
 klient nie będzie posiadał pośredniego połączenia z serwerem, będzie musiał on otworzyć i opłacić kanał bezpośredni. Aby
 rozwiązać problem zbyt częstego otwierania kanałów, istnieje również możliwość podłączenia się do jednej z globalnych
-sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>.
+sieci np. utrzymywanej przez firmę ACINQ <<public_ln>>. Schemat blokowy tego procesu widoczny jest na rysunku 1.
 
 .Schemat blokowy zarządzania kanałami ze strony użytkownika.
 [plantuml]
@@ -88,7 +88,8 @@ Ten rodzaj transakcji wprowadza poza skryptem blokującym i odblokowującym trze
 zawiera wszystkie klucze publiczne oraz minimalną, wymaganą liczbę podpisów do zatwierdzenia transakcji. Problemem jest
 rozmiar takiego skryptu, ponieważ jest on czasem 5 razy większy niż zwykły skrypt blokujący P2PKH. Aby temu zaradzić,
 skrypt blokujący zawiera hash skryptu w rozmiarze 20 bajtów oraz funkcję sprawdzającą skrypt, który zostanie podany w
-skrypcie odblokowującym. Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_.
+skrypcie odblokowującym. Skrypt odblokowujący zawiera natomiast podpisy cyfrowe oraz cały _redeem script_. Porównanie
+obu rodzajów skryptów umieszczono w tabeli 1.
 
 .Porównanie skryptów P2PKH i P2SH.
 [cols="1h,2,2"]
@@ -135,7 +136,8 @@ administratorów portfela. W aplikacji mobilnej administratorzy mogą zaakceptow
 akceptacji polega na pobraniu transakcji zapisanej w postaci szesnastkowej, podpisaniu transakcji oraz wysłaniu
 transakcji z powrotem na serwer. Gdy transakcja zostanie podpisana przez wymaganą ilość administratorów, każde
 wejście zostanie zweryfikowane poprzez testowe uruchomienie skryptu. Jeżeli wszystkie wykonania zakończą się sukcesem,
-transakcja zostanie rozpropagowana po całej sieci Bitcoin.
+transakcja zostanie rozpropagowana po całej sieci Bitcoin. Proces ten został pokazany w formie schematu blokowego
+na rysunku 2.
 
 .Schemat blokowy procesu tworzenia i podpisywania transakcji.
 [plantuml]

@@ -2,7 +2,9 @@
 
 Pierwszym sprintem jest tak zwany sprint zero. Polega on na przygotowaniu infrastruktury oraz środowiska, aby móc
 rozpocząć implementację już w następnym sprincie. Głównym celem tej iteracji było utworzenie projektów oraz
-konfiguracja środowisk, tak aby powstała niezbędna baza do rozbudowy aplikacji.
+konfiguracja środowisk, tak aby powstała niezbędna baza do rozbudowy aplikacji. Listę zadań w tej iteracji
+zaprezentowano w tabeli 4.footnote:[Taka tabela pokazana została w każdej z następnych sprintów, dlatego będą dodawana
+odniesienia do nich w następnych podrozdziałach.]
 
 .Lista zadań w Sprincie pierwszym.
 [cols="1,5,3,1,2"]
@@ -76,7 +78,8 @@ kontenera zawierającego bazę danych _PostgreSQL_ w plikach _docker-compose_.
 Prawie wszystkie zaplanowane zadania udało się zamknąć, więc cel Sprintu został osiągnięty. Wstępnie w Sprincie znalazło
 się 13 zadań wycenionych na 40 punktów. Wykonanych zostało 11 z nich, ponieważ jedno zadanie zostało anulowane w trakcie
 iteracji, a drugie zostało przeniesione do następnej iteracji. Przełożyło się na uzyskanie 32 punktów historii na
-koniec pierwszej iteracji.
+koniec pierwszej iteracji. Wykres spalania w tej iteracji pokazano na rysunku 27.footnote:[Prawie każdy z następnych
+sprintów również wykres spalania, dlatego nie będą dalej umieszczane odniesienia do nich.]
 
 .Wykres spalania sprintu pierwszego.
 image::../images/sprints_raports/burndown_sprint1.png[]

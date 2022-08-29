@@ -3,13 +3,14 @@
 Pakiet _admin_ jest zdecydowanie najmniejszy pod względem ilości klas. Zajmuje się on obsługą zarządzania
 administratorami. Poszczególne serwisy i zasoby podobne są do klas znajdujących się w pakiecie _auth_, aczkolwiek
 dotyczą tylko i wyłącznie administratorów. Dodatkową funkcjonalnością jest możliwość odbierania kluczy publicznych od
-administratorów. Zawartość pakietu prezentuje się następująco:
+administratorów. Zawartość pakietu pokazana jest na rysunku 53.
 
 .Zawartość pakietu _admin_.
 image::../images/webservice_admin_content.png[]
 
-Interfejs HTTP zawiera kilka metod dostępnych pod adresem /admins. Są to metody służące do pobierania, dodawania
-oraz usuwania administratorów. Dodatkowo ścieżka /admins/keys z metodą PATH pozwala na przesłanie klucza publicznego.
+Interfejs HTTP zawiera kilka metod dostępnych pod adresem /admins, widocznych na rysunku 54. Są to metody służące do
+pobierania, dodawania oraz usuwania administratorów. Dodatkowo ścieżka /admins/keys z metodą PATH pozwala na przesłanie
+klucza publicznego.
 
 .API dostępne dla zarządzania administratorami.
 image::../images/webservice_admin_api.png[]
