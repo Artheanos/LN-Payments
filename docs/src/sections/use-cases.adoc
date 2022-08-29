@@ -25,7 +25,7 @@ Warto zaznaczyć, że administratorzy mogą stworzyć innego administratora tylk
 Strona rejestracji pozwala tylko i wyłącznie na tworzenie standardowych użytkowników. Diagram przypadków użycia
 pokazano na rysunku 3.
 
-.Diagram przypadków użycia dla aplikacji webowej.
+.Diagram przypadków użycia dla aplikacji internetowej.
 [plantuml]
 ----
 include::../diagrams/use_case_webapp.puml[]

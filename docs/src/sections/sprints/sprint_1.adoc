@@ -58,7 +58,7 @@ dostępnych rozwiązań pasujących do używanych już technologii. Analizie zos
 oraz _Travis_. Analiza wykazała, że najlepszym rozwiązaniem będzie _Github Actions_, ponieważ jest już ono zintegrowane
 z serwisem _Github_ oraz jest darmowe. _Travis_ posiada limit darmowych uruchomień o wiele niższy niż w przypadku
 wybranego rozwiązania i istniało ryzyko jego osiągnięcia. Projekt nie posiada budżetu, więc było to bardzo ważne
-kryterium. Po dokonaniu wyboru technologi rozpoczęto tworzenie konfiguracji dla serwera i aplikacji webowej.
+kryterium. Po dokonaniu wyboru technologi rozpoczęto tworzenie konfiguracji dla serwera i aplikacji internetowej.
 W obu folderach zawierających kod źródłowy dodano automatyczne budowanie aplikacji, uruchomianie testów
 automatycznych, a także sprawdzanie stylu kodu. W tym sprincie zrezygnowano z automatyzacji budowania dla aplikacji
 mobilnej ze względu na potrzebne dodatkowe nakłady pracy przy zdobywaniu wiedzy. Zadanie to zostało uwzględnione w
