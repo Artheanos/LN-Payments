@@ -248,7 +248,7 @@ include::../../../mobileapp/src/components/context/UserContext.tsx[lines=155..16
 Tworzony jest dostawca kontekstu, którego wartości muszą odpowiadać wcześniej zdefiniowanemu typowi. Wszystkie
 metody zdefiniowane są jako funkcje tego komponentu. Dane użytkownika w kontekście początkowo ładowane są tylko z
 wartości zapisanych lokalnie w pamięci. Logika odpowiedzialna za pobieranie lokalnie zapisanych danych znajduje się
-w kodzie 126.
+w kodzie 136.
 
 .Funkcja pobierająca lokalnie zapisane dane użytkownika.
 [source, tsx]
