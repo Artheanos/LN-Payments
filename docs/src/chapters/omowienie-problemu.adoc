@@ -33,7 +33,7 @@ docelowe, po czym zostaje ona wysłana i rozpropagowana po całej sieci. Niektó
 zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
 szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
 bloki. Następnie górnik stara się
-zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
+zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji hashującej razem z całym blokiem da
 wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku Bitcoina dowód pracy musi być wartością
 mniejszą bądź równą celowi trudności. Jest to wartość pomiędzy 1 a 2^256^, która regulowana jest przez poziom
 trudności. Poziom trudności jest ustalany w taki sposób, aby blok był wykopywany co około 10 minut.

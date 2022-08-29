@@ -183,7 +183,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Metoda ta pobiera z bazy danych płatność, wyszukując ją przy pomocy żądania zapłaty. Przypisywane są tokeny, które
-są aktualnie wartością funkcji mieszającej wybranych pól płatności. Za generowanie tokenów odpowiada _TokenService_.
+są aktualnie wartością funkcji hashującej wybranych pól płatności. Za generowanie tokenów odpowiada _TokenService_.
 Oczywiście status transakcji zmienia się na zakończoną. Następnie wywoływana jest metoda _send_, serwisu
 TokenDeliveryService. Odpowiada on za wysyłanie tokenów do wybranego przez administratorów zewnętrznego serwisu.
 Umożliwia to późniejsze procesowanie tokenów w innych aplikacjach. Jest to funkcjonalność opcjonalna, którą można

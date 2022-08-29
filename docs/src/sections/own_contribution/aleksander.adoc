@@ -47,8 +47,8 @@ do implementacji testów E2E w aplikacji mobilnej.
 
 Miałem bardzo duży wkład w tworzenie książki do pracy dyplomowej. Byłem główną osobą decydującą o układzie i zawartości
 rozdziałów. Napisane przeze mnie rozdziały to "Wstęp", "Omówienie problemu", "Wizja rozwiązania w kontekście
-kryptowalut", "Analiza", "Projekt systemu", "Plan", "Prezentacja w działaniu", "Podsumowanie realizacji" oraz "Dalsze
-plany rozwoju". Napisałem również dużą część rozdziału "Proces realizacji", czyli opis pierwszego etapu prac oraz
+kryptowalut", "Analiza", "Projekt systemu", "Plan", "Prezentacja w działaniu" oraz "Podsumowanie i dalszy rozwój".
+Napisałem również dużą część rozdziału "Proces realizacji", czyli opis pierwszego etapu prac oraz
 opisy sprintów od 1 do 9 włącznie, oraz sprintu 13. W rozdziale "Opis rozwiązania" stworzyłem części opisujące serwer,
 aplikację mobilną, dokumentację i pozostałe elementy projektu. Dodatkowo utworzyłem stronę tytułową, ustaliłem styl
 dokumentów, napisałem swój wkład własny oraz naniosłem wiele poprawek i modyfikacji w cały dokumencie. Moje poprawki
