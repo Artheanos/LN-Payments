@@ -3,8 +3,8 @@
 Pierwszym sprintem jest tak zwany sprint zero. Polega on na przygotowaniu infrastruktury oraz środowiska, aby móc
 rozpocząć implementację już w następnym sprincie. Głównym celem tej iteracji było utworzenie projektów oraz
 konfiguracja środowisk, tak aby powstała niezbędna baza do rozbudowy aplikacji. Listę zadań w tej iteracji
-zaprezentowano w tabeli 4.footnote:[Taka tabela pokazana została w każdej z następnych sprintów, dlatego będą dodawana
-odniesienia do nich w następnych podrozdziałach.]
+zaprezentowano w tabeli 4.footnote:[Taka tabela pokazana została w każdym z następnych sprintów, dlatego nie będą
+dodawane odniesienia do nich w następnych podrozdziałach.]
 
 .Lista zadań w Sprincie pierwszym.
 [cols="1,5,3,1,2"]
