@@ -74,8 +74,8 @@ include::../../makefile[]
 Zdefiniowane są reguły pozwalające na zbudowanie całej dokumentacji w formatach _pdf_ oraz _html_. Kompilowane są
 wszystkie pliki z rozszerzeniem _.adoc_, a ich plik wyjściowy generowany jest w folderze _target_. Proces budowania
 całej książki ma kilka dodatkowych kroków. Główny plik zawierający pracę dyplomową nie zawiera w sobie strony
-tytułowej. Jest ona osobnym dokumentem, stworzonym z innym zestawem stylów. Aby złączyć oba pliki _pdf_ w całość,
-dodana została specjalna reguła, która łączy oba pliki przy pomocy narzędzia _pdftk_.
+tytułowej i karty projektu. Są one osobnymi dokumentami, stworzonymi z innym zestawem stylów. Aby złączyć wszystkie
+pliki _pdf_ w całość, dodana została specjalna reguła, która łączy je przy pomocy narzędzia _pdftk_.
 
 Części składowe plików dokumentacji zostały podzielone w hierarchii folderów znajdującej się w katalogu _src_. Główny
 folder zawiera przede wszystkim pliki dokumentów. Są to KP, SWS, DZW oraz właściwa praca dyplomowa. W pozostałych
