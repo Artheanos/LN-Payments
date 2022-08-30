@@ -23,7 +23,7 @@ dependencies: $(DEPENDENCIES_TARGET:=.pdf)
 
 book: book.pdf
 
-book.pdf: $(BUILD_DIR)/title-page.pdf $(BUILD_DIR)/praca-dyplomowa.pdf
+book.pdf: $(BUILD_DIR)/title-page.pdf $(BUILD_DIR)/kp.pdf $(BUILD_DIR)/praca-dyplomowa.pdf
 	pdftk $? cat output $(BUILD_DIR)/book.pdf
 
 $(BUILD_DIR)/%.pdf: $(SRC_DIR)/%.adoc dir dependencies

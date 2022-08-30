@@ -33,7 +33,7 @@ docelowe, po czym zostaje ona wysłana i rozpropagowana po całej sieci. Niektó
 zwanym kopaniem.footnote:[Nie musi to być koniecznie węzeł sieci, wystarczy odpowiednie oprogramowanie, przyjmujące
 szablony nowych bloków oraz liczące dowód pracy.] Taki węzeł nasłuchuje na przychodzące transakcje i buduje z nich
 bloki. Następnie górnik stara się
-zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji mieszającej razem z całym blokiem da
+zdobyć dowód pracy, czyli wylosować taką liczbę, która po użycie w funkcji hashującej razem z całym blokiem da
 wynik, który zostanie zaakceptowany przez wszystkie inne węzły. W przypadku Bitcoina dowód pracy musi być wartością
 mniejszą bądź równą celowi trudności. Jest to wartość pomiędzy 1 a 2^256^, która regulowana jest przez poziom
 trudności. Poziom trudności jest ustalany w taki sposób, aby blok był wykopywany co około 10 minut.
@@ -80,7 +80,7 @@ automatycznie przy pierwszym uruchomieniu serwera. Jego celem będzie pierwsze s
 będą musieli posiadać konta, ale będą mieli taką możliwość. Bez logowania będą mieli dostęp tylko do podstrony
 pozwalającej na wykonanie płatności w sieci Lightning, na której będzie wyświetlany token, który zakupili. System
 będzie posiadał wbudowany portfel, na który przelewane będą środki. Aby wykonać przelew z wbudowanego portfela,
-wymagane będą podpisy od określonej liczby wszystkich administratorów (może to być przykładowo ⅔ administratorów).
+wymagane będą podpisy od określonej liczby wszystkich administratorów (może to być przykładowo 2/3 administratorów).
 Transakcje będzie można podpisywać w specjalnej aplikacji mobilnej, służącej tylko do przechowywania kluczy
 prywatnych i podpisywania transakcji. Do aplikacji mobilnej użytkownik będzie logował się przy pomocy tych samych
 referencji jak w przypadku konsoli admina.

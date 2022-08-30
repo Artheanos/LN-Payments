@@ -17,14 +17,15 @@ Jeżeli wysłał on swój klucz publiczny na serwer, może też być członkiem 
 podpisywania transakcji w aplikacji mobilnej.
 Podobnie jak zwykły użytkownik, może on kupować tokeny oraz przeglądać swoją osobistą historię.
 
-==== Przypadki użycia dla aplikacji webowej
+==== Przypadki użycia dla aplikacji internetowej
 
 Jest to główna część systemu, w której użytkownicy, zarówno zalogowani, jak i niezalogowani, będą mogli kupować tokeny
 oraz zakładać konta. Administratorzy będą mieli możliwość zarządzania i przeglądania danych serwera.
 Warto zaznaczyć, że administratorzy mogą stworzyć innego administratora tylko w osobnym panelu do tego przeznaczonym.
-Strona rejestracji pozwala tylko i wyłącznie na tworzenie standardowych użytkowników.
+Strona rejestracji pozwala tylko i wyłącznie na tworzenie standardowych użytkowników. Diagram przypadków użycia
+pokazano na rysunku 3.
 
-.Diagram przypadków użycia dla aplikacji webowej.
+.Diagram przypadków użycia dla aplikacji internetowej.
 [plantuml]
 ----
 include::../diagrams/use_case_webapp.puml[]
@@ -35,7 +36,7 @@ include::../diagrams/use_case_webapp.puml[]
 Jest to dodatek do serwera pozwalający przede wszystkim na podpisywanie transakcji multisig.
 Każdy administrator może zalogować się do aplikacji, wygenerować klucz prywatny oraz wysłać klucz publiczny na serwer.
 Jeżeli administrator zostanie dodany do tworzonego portfela, to będzie on mógł podpisywać transakcje za pomocą
-swojego klucza prywatnego, bądź je odrzucać.
+swojego klucza prywatnego, bądź je odrzucać. Przypadki użycia zaprezentowano na diagramie widocznym na rysunku 4.
 
 .Diagram przypadków użycia dla aplikacji mobilnej.
 [plantuml]

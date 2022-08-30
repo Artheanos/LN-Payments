@@ -3,7 +3,7 @@
 Powiadomienia mobilne obsługiwane są w pakiecie _notifications_. Obecnie służą one do podpisywania bądź odrzucania
 transakcji, zarówno standardowych, jak i tych odtwarzających portfel. Rozwiązanie zostało zaprojektowane w taki
 sposób, aby w przyszłości istniała możliwość wysyłania powiadomień niepowiązanych w żaden sposób z transakcjami.
-Z tego powodu funkcjonalność otrzymała swój własny pakiet.
+Z tego powodu funkcjonalność otrzymała swój własny pakiet, widoczny na rysunku 59.
 
 .Zawartość pakietu _notification_.
 image::../images/webservice_notification_content.png[]
@@ -12,7 +12,7 @@ Pakiet poza standardowymi klasami różnych warstw aplikacji zawiera również o
 powiadomień oraz specjalny kontroler wysyłający je z wykorzystaniem protokołu Websocket. Został on już opisany
 przy okazji pakietu _transaction_. Standardowo wszystkie funkcjonalności obsługiwane przez API obsługiwane są
 początkowo przez metody kontrolera _NotificationResource_, skąd wywołania są delegowane do serwisu
-_NotificationService_.
+_NotificationService_. Punkty końcowe zaprezentowano na rysunku 60.
 
 .API dostępne dla powiadomień mobilnych.
 image::../images/webservice_notification_api.png[]
@@ -30,7 +30,7 @@ wywołania odpowiedniej metody repozytorium, która pobierze z bazy danych poż�
 przekształca dane, po czym zwraca je. Następną metodą w procesie będzie pobieranie informacji o transakcji. Dzieje się
 to już po tym, jak użytkownik kliknął guzik potwierdzający transakcję w aplikacji mobilnej. Następuje wtedy
 zebranie danych potrzebnych do podpisania transakcji. Odbywa się to w metodzie _getSignatureData_ klasy
-_NotificationService_.
+_NotificationService_, widocznej w kodzie 80.
 
 .Metoda getSignatureData klasy NotificationService.
 [source, java]
@@ -45,9 +45,9 @@ bazie danych. Jest to zabezpieczenie przed problemem straconych zapisów. W tym 
 ponieważ stracona podpisana transakcja może prowadzić do utraty środków.
 
 Następnymi i najważniejszymi funkcjonalnościami pakietu są potwierdzanie i odrzucania transakcji. Zajmują się tym metody
-_handleNotificationResponse_ oraz _handleNotificationDenial_ klasy _NotificationService_.
+_handleNotificationResponse_ oraz _handleNotificationDenial_ klasy _NotificationService_. Zaprezentowano je w kodzie 81.
 
-.Metoda getSignatureData klasy NotificationService.
+.Wybrane metody klasy NotificationService obsługujące powiadomienia.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/notification/service/NotificationService.java[lines=49..63]
@@ -62,7 +62,7 @@ duplikatów, aby nie stracić na czytelności kodu.
 
 Powiadomienia obsługiwane są przez implementacje interfejsu _NotificationHandler_. Został do tego zaimplementowany
 wzorzec projektowy strategia (_strategy_)<<gof>>. Dzięki temu każdy typ powiadomienia ma swoją własną klasę
-odpowiedzialną za jego obsługę.
+odpowiedzialną za jego obsługę. Sam interfejs zaprezentowano w kodzie 82.
 
 .Interfejs NotificationHandler.
 [source, java]
@@ -71,8 +71,9 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Odpowiednia implementacja interfejsu dla typu powiadomienia pozyskiwana jest z użyciem klasy
-_NotificationHandlerFactory_. Jest to implementacja wzorca projektowego fabryka (_factory_)<<gof>>. Pozwala ona
-na pobranie implementacji na podstawie wartości typu wyliczeniowego _NotificationType_.
+_NotificationHandlerFactory_, widocznej w kodzie 83. Jest to implementacja wzorca projektowego
+fabryka (_factory_)<<gof>>. Pozwala ona na pobranie implementacji na podstawie wartości typu wyliczeniowego
+_NotificationType_.
 
 .Klasa NotificationHandlerFactory.
 [source, java]
@@ -90,7 +91,7 @@ działanie z typami wyliczeniowymi, dzięki czemu rozwiązanie to jest bardzo sz
 wynosi stem:[O(1)].
 
 Obsługa powiadomień transakcji znajduje się w klasie _TransactionHandler_. Potwierdzanie odbywa się poprzez
-zaimplementowaną metodę _confirm_.
+zaimplementowaną metodę _confirm_, widocznej w kodzie 84.
 
 .Metoda confirm klasy TransactionHandler.
 [source, java]
@@ -99,7 +100,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Na początku pobrane z obiektu powiadomienia zostają wymagane obiekty. Są to _AdminUser_ oraz _Transaction_.
-Następnie wywoływana jest prywatna metoda _updateRawTransaction_, odpowiedzialna za aktualizację transakcji.
+Następnie wywoływana jest prywatna metoda _updateRawTransaction_, odpowiedzialna za aktualizację transakcji. Jej kod
+zaprezentowano w kodzie 85.
 
 .Metoda prywatna updateRawTransaction klasy TransactionHandler.
 [source, java]
@@ -116,6 +118,7 @@ zapisami. Jeżeli wersja otrzymana w żądaniu różni się od tej w bazie danyc
 Na koniec transakcja zostaje zaktualizowana w bazie danych. Wracając do metody _confirm_, po udanej aktualizacji
 transakcji następuje zmiana statusu powiadomienia. Finalnie sprawdzane jest, czy transakcja osiągnęła minimalną liczbę
 podpisów. Jeżeli tak, to wywoływana jest metoda _broadcastTransaction_ klasy TransactionService z pakietu _transaction_.
+Jej kod został zaprezentowany w kodzie 86.
 
 .Metoda broadcastTransaction klasy TransactionService.
 [source, java]
@@ -125,8 +128,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Wywoływana jest metoda _broadcast_ klasy BitcoinService. Jeżeli wywołanie się powiedzie, to transakcję można
 uznać za zakończoną. W przypadku otrzymania wyjątku transakcja zmienia status na nieudany. Ostatnim krokiem jest
-zmiana statusu wszystkich oczekujących powiadomień dotyczących danej transakcji na wygasły. Metoda _broadcast_
-zajmuje się już przesłaniem transakcji do innych węzłów w sieci Bitcoin.
+zmiana statusu wszystkich oczekujących powiadomień dotyczących danej transakcji na wygasły. Metoda _broadcast_,
+widoczna w kodzie 87, zajmuje się już przesłaniem transakcji do innych węzłów w sieci Bitcoin.
 
 .Metoda broadcast klasy BitcoinService.
 [source, java]
@@ -142,7 +145,8 @@ minut. Z tego powodu ustawiony został limit jednej minuty na zakończenie żąd
 uda się rozpropagować bądź wystąpi po drodze inny błąd, to rzucany jest wyjątek _BroadcastException_. Jest on później
 przechwytywany w _TransactionService_ w celu zmiany statusu transakcji na nieudaną. Nieudana propagacja nie oznacza
 również nieudanego żądania HTTP, ponieważ dotyczyło ono potwierdzenia transakcji, a nie jej rozpropagowania. Poza
-potwierdzaniem transakcji można ją również odrzucić. Wykonuje to metoda _deny_ klasy _TransactionHandler_.
+potwierdzaniem transakcji można ją również odrzucić. Wykonuje to metoda _deny_ klasy _TransactionHandler_, prezentowana
+w kodzie 88.
 
 .Metoda deny klasy TransactionHandler.
 [source, java]
@@ -157,7 +161,7 @@ anulowana. Status zmieni się na anulowany, a wszystkie oczekujące powiadomieni
 Drugim obsługiwanym typem powiadomień są odtworzenia portfela. Jest to tylko specjalny typ potwierdzenia transakcji,
 dlatego też klasa obsługująca _WalletRecreationHandler_ wykorzystuje w procesie klasę _TransactionHandler_ przy użyciu
 kompozycji. Metoda _deny_ jedyne co robi to wywołanie równoważnika z _TransactionHandler_, a jeżeli limit stanie się
-nieosiągalny, to oczekujący portfel zostanie usunięty. W przypadku metody _confirm_ logika prezentuje się następująco:
+nieosiągalny, to oczekujący portfel zostanie usunięty. Logika metody _confirm_ została pokazana w kodzie 89.
 
 .Metoda confirm klasy WalletRecreationHandler.
 [source, java]

@@ -4,7 +4,7 @@ Obsługa autoryzacji i procesu uwierzytelniania znajduje się w pakiecie _auth_.
 konfiguracyjne, filtry i serwisy odpowiedzialne za bezpieczeństwo aplikacji. Znajdują się tutaj również pozostałości
 po wcześniejszej wersji aplikacji, kiedy nie było w planach profilu użytkownika ani edycji jego danych. Z tego powodu w
 tym pakiecie znajdują się repozytoria, serwis i konwerter dla klas modelowych użytkowników (znajdujące się w pakiecie
-_common_).
+_common_). Zawartość pakietu zaprezentowana jest na rysunku 48.
 
 .Zawartość pakietu _auth_.
 image::../images/webservice_auth_content.png[]
@@ -17,7 +17,7 @@ kompleksowe narzędzia pozwalające na implementację procesów autoryzacji. Uru
 wymaga dodania na poziomie klasy adnotacji _@EnableWebSecurity_ oraz dziedziczenia po klasie
 _WebSecurityConfigurerAdapter_. Dzięki temu programista otrzymuje zestaw narzędzi pozwalający na dowolną konfigurację
 zabezpieczeń. W przypadku klasy _WebSecurityConfig_ odbywa się to za pomocą nadpisanej metody _configure_, przeciążonej
-z parametrem _HttpSecurity_.
+z parametrem _HttpSecurity_, którą pokazano w kodzie 26.
 
 .Metoda _configure_ klasy WebSecurityConfig nadpisana z parametrem HttpSecurity.
 [source, java]
@@ -36,7 +36,7 @@ administratorów oraz ścieżki ogólnodostępne. Na koniec dodany jest filtr, k
 Wstrzykiwany jest przed domyślny filtr Springa _UsernamePasswordAuthenticationFilter_, aby dokonać walidacji przed
 wywołaniem domyślnych mechanizmów autoryzacji. Filtr _AuthTokenFilter_ odpowiedzialny jest za walidację tokena. W
 przypadku gdy token jest poprawny, użytkownik, którego dane się w nim znajdują, zostaje ustawiony jako uwierzytelniony
-użytkownik w kontekście bezpieczeństwa.
+użytkownik w kontekście bezpieczeństwa. Fragment kodu filtra zaprezentowano w kodzie 27.
 
 .Kod klasy _AuthTokenFilter_ odpowiedzialny za filtrowanie żądań i uwierzytelnianie użytkowników.
 [source, java]
@@ -52,7 +52,8 @@ bezpieczeństwa. Wywołanie filtra kończy się metodą _chain.doFilter_, powodu
 w łańcuchu. Mechanizm filtrów w _Spring Security_ zaimplementowany jest przy pomocy wzorca projektowego
 _Filter Chain_. Klasa _AuthTokenFilter_ wywołuje wiele metod z serwisu _JwtService_. Zawiera on wiele użytecznych
 metod służących do obsługi tokenów JWT. Wykorzystywana jest do tego biblioteka _jsonwebtoken_. Warte uwagi są w
-tej klasie dwie metody. Pierwszą jest metoda _generateToken_, odpowiedzialna za generowanie nowych tokenów.
+tej klasie dwie metody. Pierwszą jest metoda _generateToken_, odpowiedzialna za generowanie nowych tokenów. Jej kod
+można zobaczyć w kodzie 28.
 
 .Metoda generateToken klasy JwtService.
 [source, java]
@@ -66,7 +67,7 @@ wygaśnięcia. Niestety biblioteka ta nie jest aktywnie utrzymywana, przez co da
 klasę _Date_. Na koniec token podpisywany jest przy pomocy odpowiedniego algorytmu oraz klucza zdefiniowanego w
 plikach konfiguracyjnych serwera. Drugą metodą wartą uwagi jest _retrieveEmail_, ekstraktujący adres email z tokena
 JWT. Do otrzymania adresu email potrzebny jest ponownie klucz, z którym został wygenerowany token. Następnie z ciała
-rozszyfrowanego tokena wyciągany jest adres email, który można zwrócić.
+rozszyfrowanego tokena wyciągany jest adres email, który można zwrócić. Metoda ta została pokazana w kodzie 29.
 
 .Metoda retrieveEmail klasy JwtService.
 [source, java]
@@ -86,10 +87,10 @@ użytkowników próbujących połączyć się z jednym z kanałów Websocket. Kl
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/interceptor/AuthChannelInterceptor.java[lines=31..46]
 ----
 
-Metoda preSend przechwytuje wiadomość otwierającą nowe połączenie protokołu Websocket, po czym uwierzytelnia
-użytkownika. Kod tej metody jest dosyć podobny do fragmentu klasy _AuthTokenFilter_. Również z nagłówka wyodrębniany
-jest token, po czym następuje walidacja oraz zalogowanie użytkownika. W tym przypadku nie jest to kontekst
-bezpieczeństwa, tylko obiekt klasy StompHeaderAccessor, który zarządza dostępem do przechwyconej przez interceptor
+Metoda preSend, pokazana w kodzie 30, przechwytuje wiadomość otwierającą nowe połączenie protokołu Websocket, po czym
+uwierzytelnia użytkownika. Kod tej metody jest dosyć podobny do fragmentu klasy _AuthTokenFilter_. Również z nagłówka
+wyodrębniany jest token, po czym następuje walidacja oraz zalogowanie użytkownika. W tym przypadku nie jest to kontekst
+bezpieczeństwa, tylko obiekt klasy _StompHeaderAccessor_, który zarządza dostępem do przechwyconej przez interceptor
 wiadomości.
 
 Pakiet _auth_ obsługuje również część API odpowiedzialną za uwierzytelnianie. Dostępne są 4 punkty końcowe: _login_
@@ -99,7 +100,7 @@ _temporary_ pozwalający na pozyskanie tokena przez niezalogowanego użytkownika
 .API służące do uwierzytelniania.
 image::../images/webservice_auth_api.png[]
 
-Obsługa powyższego API znajduje się w klasie _AuthResource_. Spora część logiki znajduje się bezpośrednio w
+Obsługa API z rysunku 49 znajduje się w klasie _AuthResource_. Spora część logiki znajduje się bezpośrednio w
 kontrolerze, gdyż kodu jest często zbyt mało do wyodrębnienia do osobnego serwisu. Łamana jest przez to zasada
 _Single Responsibility Principle_ z akronimu SOLID, aczkolwiek dzięki temu uniknięto tworzenia kolejnego niepotrzebnego
 serwisu.
@@ -110,14 +111,15 @@ serwisu.
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/auth/resource/AuthResource.java[lines=39..48]
 ----
 
-Omówienie zaczniemy od metody _login_, pozwalającej na logowanie użytkownika. Do uwierzytelniania wykorzystana
-została klasa _AuthenticationManager_ pochodząca ze Spring Security. Jej konfiguracja znajduje się w klasie
-konfiguracyjnej _WebSecurityConfig_. Pozwala ona na automatyczne przeprowadzenie logowania przy pomocy tego samego
+Omówienie zaczniemy od metody _login_, zaprezentowanej w kodzie 31. pozwalającej na logowanie użytkownika.
+Do uwierzytelniania wykorzystana została klasa _AuthenticationManager_ pochodząca ze Spring Security.
+Jej konfiguracja znajduje się w klasie konfiguracyjnej _WebSecurityConfig_.
+Pozwala ona na automatyczne przeprowadzenie logowania przy pomocy tego samego
 tokena uwierzytelniającego, który użyty został wcześniej przy logowaniu w filtrze HTTP. Po udanym logowaniu
 generowany jest token JWT przy pomocy _JwtService_, który zwracany jest użytkownikowi wraz z podstawowymi danymi
 o użytkowniku, takimi jak ważność tokena czy posiadana rola. W przypadku nieudanego logowania Spring automatycznie
 zwraca kod HTTP 403, oznaczający zabroniony dostęp do zasobu. Na uwagę zasługuje również metoda _obtainTemporaryToken_,
-generująca token przeznaczony dla tymczasowego użytkownika.
+generująca token przeznaczony dla tymczasowego użytkownika. Została ona zaprezentowana w kodzie 32.
 
 .Metoda obtainTemporaryToken klasy _UserResource_.
 [source, java]
@@ -138,7 +140,7 @@ generowany jest nowy token ze zaktualizowaną datą ważności. W przypadku meto
 do metody tworzącej użytkownika w klasie _UserService_. Serwis ten zajmuje się obsługą wszystkich typów użytkowników.
 Posiada metody pozwalające na tworzenie zarówno tymczasowych, jak i standardowych użytkowników oraz posiada metody
 operujące na abstrakcyjnej klasie _User_. Wracając do rejestracji, odbywa się ona poprzez wywołanie metody
-_createUser_.
+_createUser_, której logika widoczna jest w kodzie 33.
 
 .Metoda createUser klasy _UserService_.
 [source, java]
@@ -150,7 +152,7 @@ Metoda oznaczona jest jako @Transactional, co zapobiega jednoczesnemu dodaniu te
 wątków. Na początku wywołania poddany walidacji zostaje adres email, czyli wykonywane jest sprawdzenie, czy dany email
 jest wolny. Następnie model parametru konwertowany jest na klasę User (a konkretnie StandardUser) i zapisywany jest
 przy pomocy klasy repozytorium. Sama hierarchia klas repozytorium użytkowników jest dosyć ciekawa. Zaczyna się
-od generycznego interfejsu _BaseUserRepository_.
+od generycznego interfejsu _BaseUserRepository_, widocznego w kodzie 34.
 
 .Interfejs BaseUserRepository.
 [source, java]
@@ -161,6 +163,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Adnotacja _NoRepositoryBean_ sprawia, że pomimo dziedziczenia po _JpaRepository_, interfejs nie zostanie zainicjowany
 jako komponent w kontenerze Springa. Dzięki zastosowaniu typów generycznych można utworzyć interfejsy dla każdego z
 typów użytkowników, bez większego nakładu pracy dodając metody pozwalające na operacje na każdym modelu hierarchii.
+Interfejsy te widoczne są w kodzie 35.
 
 .Interfejsy UserRepository, StandardUserRepository i AdminUserRepository.
 [source, java]

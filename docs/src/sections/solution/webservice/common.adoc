@@ -4,7 +4,7 @@ W pakiecie wspólnym znajdują się klasy, interfejsy i adnotacje wspólne dla w
 mniejsze elementy systemu, których nie było sensu wyodrębniać do osobnego pakietu. Pakiet posiada również ogólną
 konfigurację komponentów używanych w aplikacji oraz globalną obsługę wyjątków. Dodatkowo
 znajdują się tutaj adnotacje służące do walidacji parametrów wejściowych oraz klasa zawierająca wartości stałe
-aplikacji. Zawartość pakietu prezentuje się następująco:
+aplikacji. Zawartość pakietu zaprezentowana jest na rysunku 45.
 
 .Zawartość pakietu _common_.
 image::../images/webservice_common_content.png[]
@@ -16,7 +16,7 @@ Omawianie obu funkcjonalności można zacząć od obsługi ustawień serwera. Ob
 _ConfigurationResource_. Jedyną zależnością klasy jest serwis SettingsService, dostarczający metody
 obsługujące pobieranie i aktualizowanie ustawień. Przy każdym nadchodzącym żądaniu jedynym zadaniem tej klasy jest
 wywołanie odpowiedniej metody z SettingsService oraz opakowanie zwróconej wartości w obiekt klasy
-_ResponseEntity_, zawierający metadane odpowiedzi HTTP. Dostępne są dwa punkty końcowe:
+_ResponseEntity_, zawierający metadane odpowiedzi HTTP. Dostępne są dwa punkty końcowe, widoczne na rysunku 46.
 
 .API ustawień serwera znajdujące się we wspólnym pakiecie.
 image::../images/webservice_common_config_api.png[]
@@ -24,10 +24,10 @@ image::../images/webservice_common_config_api.png[]
 Ustawienia przechowywane są w pliku tekstowym, który znajduje się w folderze _.lnpayments_ w katalogu domowym
 użytkownika. Dzięki zastosowaniu zewnętrznego pliku istnieje możliwość zmiany ustawień bez konieczności uruchamiania
 aplikacji internetowej. Dane z pliku ładowane są przy uruchamianiu aplikacji przez klasę konfiguracyjną
-_SettingsPropertiesConfig_. Posiada ona jedną metodę publiczną _propertiesConfig_ oznaczoną za pomocą adnotacji
-_@Bean_, co sprawia, że zwracany przez metodę obiekt będzie zainicjowany w kontekście Springa. Metoda zwraca obiekt
-_PropertiesConfiguration_ z biblioteki _Apache Commons Configuration2_, która używana jest do automatycznego
-zarządzania plikami konfiguracyjnymi.
+_SettingsPropertiesConfig_, pokazaną w kodzie 14. Posiada ona jedną metodę publiczną _propertiesConfig_ oznaczoną za
+pomocą adnotacji _@Bean_, co sprawia, że zwracany przez metodę obiekt będzie zainicjowany w kontekście Springa. Metoda
+zwraca obiekt _PropertiesConfiguration_ z biblioteki _Apache Commons Configuration2_, która używana jest do
+automatycznego zarządzania plikami konfiguracyjnymi.
 
 .Metoda konfiguracyjna propertiesConfig klasy SettingsPropertiesConfig.
 [source, java]
@@ -37,7 +37,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Metoda ta konfiguruje obiekt klasy _PropertiesConfiguration_, aby automatycznie ładowała dane z pliku, a także
 dokonywała zapisu przy każdej modyfikacji obiektu. Jeżeli plik konfiguracyjny (bądź folder) nie istnieje, jest tworzony
-przez prywatną metodę _initializeProperties_.
+przez prywatną metodę _initializeProperties_, prezentowaną w kodzie 15.
 
 .Metoda prywatna initializeProperties klasy SettingsPropertiesConfig.
 [source, java]
@@ -50,7 +50,7 @@ kopiowana jest do ścieżki docelowej. Plik z domyślną konfiguracją znajduje 
 Mając skonfigurowany obiekt _PropertiesConfiguration_, można jej użyć w _SettingsService_ do operowania na ustawieniach.
 Klasa _SettingsService_ implementuje interfejs PropertyService, definiujący metody odpowiedzialne za pobieranie
 poszczególnych ustawień wspieranych przez aplikację. Dodatkowo posiada dwie metody odpowiadające obsługiwanym
-funkcjonalnością, czyli zapisywaniem i pobieraniem ustawień.
+funkcjonalnością, czyli zapisywaniem i pobieraniem ustawień. Kod tej klasy znajduje się w kodzie 16.
 
 .Klasa SettingsService.
 [source, java]
@@ -76,10 +76,10 @@ wspierana jest jedynie zmiana hasła.
 .API dla kont użytkowników znajdujące się we wspólnym pakiecie.
 image::../images/webservice_common_user_api.png[]
 
-Kontrolerem obsługującym te punkty końcowe jest UserResource. Jak widać na powyższym rzucie ekranu, ścieżki nie
-zawierają żadnego ID użytkownika, ponieważ autoryzacja użytkownika odbywa się poprzez token JWT, z którego też
-otrzymujemy dane o użytkowniku. Ciągnie to za sobą ograniczenie, w którym tylko dany użytkownik może pobrać swoje dane.
-Nigdy nie było planów na dodanie funkcjonalności pozwalającej na pobranie danych innych użytkowników.
+Kontrolerem obsługującym te punkty końcowe jest UserResource, który pokazano w kodzie 17. Jak widać na zrzucie ekranu
+z rysunku 47, ścieżki nie zawierają żadnego ID użytkownika, ponieważ autoryzacja użytkownika odbywa się poprzez token
+JWT, z którego też otrzymujemy dane o użytkowniku. Ciągnie to za sobą ograniczenie, w którym tylko dany użytkownik może
+pobrać swoje dane. Nigdy nie było planów na dodanie funkcjonalności pozwalającej na pobranie danych innych użytkowników.
 
 .Klasa _UserResource_.
 [source, java]
@@ -94,7 +94,8 @@ W przypadku pobierania danych o użytkowniku sprawa jest oczywista. Dane pobiera
 na obiekt _UserDto_, który zwracany jest użytkownikowi. W przypadku zmiany hasła po pobraniu danych użytkownika
 należy zweryfikować, czy podane aktualne hasło pasuje do tego zapisanego w bazie danych. Jeżeli wszystko się zgadza,
 następuje aktualizacja hasła. Warto wspomnieć, że walidacja danych wejściowych następuje automatycznie dzięki
-_Bean Validation_ i odbywa się przed wywołaniem odpowiedniej metody kontrolera.
+_Bean Validation_ i odbywa się przed wywołaniem odpowiedniej metody kontrolera. Kod odpowiedzialny za zmianę hasła z
+klasy _UserService_ pokazano w kodzie 18.
 
 .Metoda updatePassword klasy UserService.
 [source, java]
@@ -108,7 +109,7 @@ generowania dokumentacji API, czyli narzędzia _Swagger_.
 
 Pakiet _exception_ zawiera wyjątki, które wykorzystywane są aplikacji oraz klasę _GlobalExceptionHandler_, zajmującą
 się obsługą wyjątków. W przypadku kiedy w jakiejś części aplikacji zostanie rzucony wyjątek czasu wykonania, trafi
-on do odpowiedniej metody w _GlobalExceptionHandler_.
+on do odpowiedniej metody w _GlobalExceptionHandler_. Fragment tej klasy pokazano w kodzie 19.
 
 .Definicja klasy GlobalExceptionHandler oraz wybrana przykładowa metoda.
 [source, java]
@@ -127,7 +128,7 @@ Tak jak już zostało wcześniej wspomniane, do walidacji parametrów wejściowy
 Biblioteka ta pozwala na weryfikację danych na podstawie specjalnych adnotacji umieszczanych na polu klasy. Specyfika
 projektu wymagała stworzenia niestandardowych adnotacji, aby dodać walidację niewspieraną domyślnie przez bibliotekę.
 Pierwszą z nich jest walidacja adresu Bitcoin. Odbywa się ona poprzez umieszczenie na polu typu _String_ adnotacji
-_@BitcoinAddress_.
+_@BitcoinAddress_, której zawartość widać w kodzie 20.
 
 .Kod adnotacji BitcoinAddress.
 [source, java]
@@ -138,7 +139,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Można ją umieścić zarówno na polu, jak i na metodzie, zgodnie ze specyfikacją _Bean Validation_. Sama walidacja odbywa
 się w klasie _BitcoinAddressValidator_, która implementuje interfejs _ConstraintValidation<BitcoinAddress, String>_.
 Wykorzystano do niej klasę _Address_ biblioteki _BitcoinJ_, która w przypadku podania błędnego adresu Bitcoin rzuca
-wyjątek.
+wyjątek. Metodę _isValid_ klasy _BitcoinAddressValidator_ pokazano w kodzie 21.
 
 .Metoda isValid klasy BitcoinAddressValidator.
 [source, java]
@@ -149,7 +150,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 Drugą niestandardową walidacją jest sprawdzenie poprawności przesłanego przez administratora klucza publicznego, który
 wymagany jest do wygenerowania adresu portfela oraz weryfikacji podpisów transakcji. Kod adnotacji _PublicKey_ niewiele
 różni się od adnotacji _BitcoinAddress_. Walidacja wartości tekstowej odbywa się także dzięki bibliotece BitcoinJ, w
-klasie implementującej ten sam interfejs, z wyjątkiem innych parametrów (zgodnie z danymi z adnotacji).
+klasie implementującej ten sam interfejs, z wyjątkiem innych parametrów (zgodnie z danymi z adnotacji). Klasę
+_PublicKeyValidator_ pokazano w kodzie 22.
 
 .Klasa PublicKeyValidator.
 [source, java]
@@ -162,9 +164,10 @@ sposób, bez potrzeby dodawania obsługi wyjątków, która w przypadku Javy jes
 
 Pakiet _common_ zawiera również kilka klas modelowych reprezentujących tabele w bazie danych. Są to klasy odpowiedzialne
 za hierarchię użytkowników oraz ich pola. Tak jak to było opisane na diagramie domenowym oraz schemacie bazy danych,
-hierarcha rozpoczyna się od klasy abstrakcyjnej _User_, Która zawiera podstawowe informacje o wszystkich typach
-użytkownika. Struktura widoczna na diagramach osiągnięta została przez zastosowanie adnotacji _@Inheritance_
-pochodzącej z JPA. Użyto strategii _Joined_, aby każda klasa w Javie miała swoją własną tabelę w bazie danych.
+hierarcha rozpoczyna się od klasy abstrakcyjnej _User_, widocznej w kodzie 23, która zawiera podstawowe informacje o
+wszystkich typach użytkownika. Struktura widoczna na diagramach osiągnięta została przez zastosowanie adnotacji
+_@Inheritance_ pochodzącej z JPA. Użyto strategii _Joined_, aby każda klasa w Javie miała swoją własną tabelę w bazie
+danych.
 
 .Klasa abstrakcyjna User.
 [source, java]
@@ -180,7 +183,7 @@ _TemporaryUser_ reprezentuje użytkownika tymczasowego, który chce zakupić tok
 Aby umożliwić śledzenie zamówienia oraz zapisać adres email zdecydowano się na dodanie specjalnego typu użytkownika,
 aby ten proces znacznie ułatwić poprzez ujednolicenie obsługi płatności dla wszystkich użytkowników. Aby zapobiec
 konfliktom adresów email, użytkownicy tymczasowi mają dołączoną do adresu email wartość powstałą z przeliczenia
-aktualnej daty przez funkcję mieszającą.
+aktualnej daty przez funkcję mieszającą. Kod klasy reprezentującej tymczasowego użytkownika zaprezentowano w kodzie 24.
 
 .Klasa TemporaryUser.
 [source, java]
@@ -189,7 +192,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Drugą klasą wyprowadzoną z klasy _User_ jest _StandardUser_, która reprezentuje zwykłego zarejestrowanego użytkownika,
-który ma już normalny dostęp do aplikacji. Względem klasy abstrakcyjnej _User_ pojawiły się nowe pola, które są
+który ma już normalny dostęp do aplikacji. Jej zawartość widać w kodzie 25. Względem klasy abstrakcyjnej _User_
+pojawiły się nowe pola, które są
 wymagane przez każdego zarejestrowanego użytkownika, takie jak imię i nazwisko, hasło oraz data utworzenia konta.
 Dodatkowo po klasie _StandardUser_ dziedziczy _AdminUser_, reprezentujący administratora serwera. Dodaje nowe pole
 zawierające klucz publiczny oraz pole będące kluczem obcym z tabeli _Wallet_. Dodatkowo pojawiło się kilka metod

@@ -3,8 +3,7 @@
 Projekt w swoim założeniu jest dosyć specyficzny. Posiada zaawansowane funkcjonalności takie jak płatność w sieci
 Lightning, generowanie tokenów czy też podpisywanie transakcji multisig w aplikacji mobilnej. Nie będzie on
 natomiast posiadać wielu podstawowych, o wiele prostszych rozwiązań. Przykładowo nie będzie możliwości standardowych
-płatności w Bitcoinach, a jedynie poprzez sieć Lightning. Na rynku jest również dostępnych wiele kryptowalut
-innych niż sam Bitcoin, co również stawia nas na przegranej pozycji. Produkt skierowany jest do bardzo wąskiej grupy
+płatności w Bitcoinach, a jedynie poprzez sieć Lightning. Produkt skierowany jest do bardzo wąskiej grupy
 odbiorców (przede wszystkim projekt _iNGENIOUS_), dlatego zdecydowano się na wydanie projektu w modelu open-source na
 licencji MIT. Zainteresowana osoba będzie mogła sprawdzić projekt, a także wpływać na jego rozwój za darmo. Jedynym
 sposobem do komercjalizacji jest oferowanie klientom biznesowym płatnego wsparcia technicznego. Obejmować ono może
@@ -38,10 +37,11 @@ image::../images/total_btc_tx_value.png[]
 
 ==== Potencjalni użytkownicy
 
-Z końcem 2021 roku było prawie 300 milionów użytkowników kryptowalut. Daje to obecnie blisko 4% ogółu społeczeństwa.
-Liczba ta stale rośnie, a według analityków może osiągnąć nawet 1 miliard do końca 2022 roku. Przy tak dużym napływie
-użytkowników będzie prawdopodobnie rosło zainteresowanie technologiami operującymi na kryptowalutach. Dzięki temu jest
-szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za tym idzie potencjalnych klientów.
+Z końcem 2021 roku było prawie 300 milionów użytkowników kryptowalut. Obrazuje to rysunek 22. Daje to obecnie blisko 4%
+ogółu społeczeństwa. Liczba ta stale rośnie, a według analityków może osiągnąć nawet 1 miliard do końca 2022 roku. Przy
+tak dużym napływie użytkowników będzie prawdopodobnie rosło zainteresowanie technologiami operującymi na kryptowalutach.
+Dzięki temu jest szansa na to, że proponowany projekt znajdzie swoje grono odbiorców, a co za tym idzie potencjalnych
+klientów.
 
 .Użytkownicy kryptowalut w ciągu ostatnich lat wraz ze współczynnikiem adaptacji.
 image::../images/crypto_users.png[]
@@ -58,7 +58,8 @@ proporcjonalnie do ilości użytkowników, więc można spodziewać się wzrost�
 
 Obecnie na rynku dostępnych jest wiele różnych kryptowalut. Zdecydowanie najbardziej ugruntowane na rynku są Bitcoin
 oraz Ethereum, gdzie najpopularniejszą jest ta pierwsza. Odpowiada obecnie aż za 38% udziału wśród kryptowalut.
-W ostatnim czasie stracił trochę udziałów, aczkolwiek dalej jest na pozycji dominującej rynek.
+W ostatnim czasie stracił trochę udziałów, aczkolwiek dalej jest na pozycji dominującej rynek. Widać to wyraźnie na
+rysunku 23.
 
 .Udział użytkowników Bitcoina spośród wszystkich użytkowników kryptowalut.
 image::../images/bitcoin_users_share.png[]
@@ -70,7 +71,8 @@ proponowanym rozwiązaniu tylko do niego nie powinno być błędem.
 Drugą wykorzystywaną technologią w projekcie z zakresu kryptowalut jest sieć Lightning. Działa ona jako druga
 warstwa płatności, która pozwala znacząco obniżyć koszty transakcji poprzez zastosowanie kanałów płatności. Jest to
 stosunkowo nowa technologia, która została uruchomiona w głównej sieci Bitcoina w 2018 roku. Od tego momentu jej
-popularność stale rośnie. Szacuje się, że w kanałach płatności zablokowanych jest obecnie nawet 58 milionów dolarów.
+popularność stale rośnie. Szacuje się, że w kanałach płatności zablokowanych jest obecnie nawet 58 milionów dolarów,
+co widoczne jest na rysunku 24.
 
 .Środki zablokowane w sieci Lightning.
 image::../images/lightning_locked_funds.png[]
@@ -90,10 +92,10 @@ adaptacji kryptowalut będzie rósł aż o 13% rok do roku.
 
 Pomimo tego, że na rynku jest dużo miejsca dla nowej konkurencji, tworzone rozwiązanie nie ma szans na zdobycie dużego
 udziału wśród procesorów płatności. Wynika to z faktu krótkiej i bardzo wyspecjalizowanej listy funkcjonalności.
-Obsługa Bitcoina tylko przez sieć Lightning sprawia, że potencjalny rynek bardzo się kurczy. Skoro 38% użytkowników
-używa Bitcoinów, odsetek użytkowników sieci Lightning jest małym procentem tej liczby. Nie każdy również będzie
-potrzebować portfela multisig oraz generowania tokenów. Rozwiązanie jest dedykowane dla bardzo wąskiego grona
-użytkowników, którzy poszukują produktu zawierającego wyłącznie proponowane przez projekt funkcjonalności.
-Z tych powodów wydanie projektu w pierwszym wydaniu jako open-source z ewentualnym płatnym wsparciem ma najwięcej
-sensu. Komercjalizacja na większą skalę będzie wymagała dodania bardzo wielu funkcjonalności, które posiada obecnie
-konkurencja, a które nie są planowane w tym, ani następnych wydaniach projektu.
+Obsługa Bitcoina tylko przez sieć Lightning sprawia, że potencjalny rynek bardzo się kurczy. Około 38% użytkowników
+używa Bitcoinów, jednak nie każdy z nich korzysta z sieci Lightning, co zmniejsza ilość potencjalnych klientów.
+Nie każdy również będzie potrzebować portfela multisig oraz generowania tokenów. Rozwiązanie jest dedykowane dla bardzo
+wąskiego grona użytkowników, którzy poszukują produktu zawierającego wyłącznie proponowane przez projekt
+funkcjonalności. Z tych powodów wydanie projektu w pierwszym wydaniu jako open-source z ewentualnym płatnym wsparciem
+ma najwięcej sensu. Komercjalizacja na większą skalę będzie wymagała dodania bardzo wielu funkcjonalności, które
+posiada obecnie konkurencja, a które nie są planowane w tym, ani następnych wydaniach projektu.

@@ -2,7 +2,7 @@
 
 Pakiet payment oferuje jedną z głównych funkcjonalności projektu, czyli sprzedaż tokenów za Bitcoiny w sieci
 Lightning. Obsługuje również funkcje związane z pobieraniem historii płatności czy też z agregowaniem danych
-statystycznych.
+statystycznych. Zawartość pakietu pokazana została na rysunku 50.
 
 .Zawartość pakietu _payment_.
 image::../images/webservice_payment_content.png[]
@@ -12,7 +12,7 @@ się na wykorzystanie węzła o nazwie _LND_, który działa w kontenerze obok a
 jest jeszcze drugi kontener, który zawiera pełny węzeł sieci Bitcoin. Teoretycznie istnieje możliwość uruchomienia
 _LND_, wykorzystując jeden publicznych węzłów Bitcoin, aczkolwiek własna instancja daje większą niezależność oraz
 ułatwia rozwój projektu. Do obsługi węzła w kodzie Java wykorzystana została biblioteka _LightningJ_. Jej
-konfiguracja odbywa się w klasie _LndConfig_, która standardowo znajduje się w pakiecie _config_.
+konfiguracja odbywa się w klasie _LndConfig_, widocznej w kodzie 36, która standardowo znajduje się w pakiecie _config_.
 
 .Metody klasy konfiguracyjna LndConfig.
 [source, java]
@@ -26,20 +26,20 @@ portu, na którym działa węzeł, oraz przez podanie plików zawierających cer
 Dodatkowo w przypadku asynchronicznego obiektu dodany został subskrybent, który jest aktywowany przy zmianie statusu
 _invoice_ w węźle Lightning. Klasa _InvoiceObserver_ zostanie umówiona w dalszej części podrozdziału.
 
-Funkcjonalności pakietu _payment_ udostępnione poprzez API dotyczą obsługi płatności. Użytkownicy mogą tworzyć nowe
-płatności, co wiąże się z generowaniem _invoice_ przez węzeł sieci Lightning. Pozwala także na pobieranie danych
-o płatnościach z bazy danych, zarówno dla zalogowanego użytkownika, jak i wszystkich płatności. Oczywiście dane
-zwracane przez punkty końcowe różnią się, aby zapobiec nieautoryzowanemu udostępnianiu danych poufnych. Dodatkowo
-dostępna jest ścieżka _/payments/info_, zwracająca informacje o aktualnych szczegółach płatności takich jak cena czy
-opis. Dane te są wyświetlane na powitalnej stronie modułu płatności w aplikacji mobilnej. Warto wspomnieć, że jest to
-jedyny niezabezpieczony punkt końcowy poza tymi związanymi z uwierzytelnianiem.
+Funkcjonalności pakietu _payment_ udostępnione poprzez API dotyczą obsługi płatności. Widoczne są one na rysunku 51.
+Użytkownicy mogą tworzyć nowe płatności, co wiąże się z generowaniem _invoice_ przez węzeł sieci Lightning. Pozwala
+także na pobieranie danych o płatnościach z bazy danych, zarówno dla zalogowanego użytkownika, jak i wszystkich
+płatności. Oczywiście dane zwracane przez punkty końcowe różnią się, aby zapobiec nieautoryzowanemu udostępnianiu
+danych poufnych. Dodatkowo dostępna jest ścieżka _/payments/info_, zwracająca informacje o aktualnych szczegółach
+płatności takich jak cena czy opis. Dane te są wyświetlane na powitalnej stronie modułu płatności w aplikacji mobilnej.
+Warto wspomnieć, że jest to jedyny niezabezpieczony punkt końcowy poza tymi związanymi z uwierzytelnianiem.
 
 .API dostępne dla płatności.
 image::../images/webservice_payment_api.png[]
 
 Omówienie zawartości klas polegać będzie tym razem na przejście przez cały proces płatności, w przeciwieństwie do
 omawiania zawartości poszczególnych klas. Proces jest dosyć skomplikowany, dlatego też podczas implementacji powstał
-diagram sekwencji obrazujący cały przepływ danych.
+diagram sekwencji obrazujący cały przepływ danych, widoczny na rysunku 52.
 
 .Diagram sekwencji dla implementacji procesu płatności.
 [plantuml]
@@ -50,7 +50,7 @@ include::../../../diagrams/payment_sequence.puml[]
 Diagram powstał przed implementacją rozwiązania, dlatego niektóre nazwy i drobne szczegóły mogą się różnić ze stanem
 faktycznym. Aby ukazać proces rozwoju aplikacji, zdecydowano się na pokazanie go w niezmienionej formie.
 Jak widać na diagramie, proces zaczyna się od żądania na adres _/payments/info_. Wszystkie żądania HTTP obsługiwane są
-w klasie _PaymentResource_.
+w klasie _PaymentResource_. Metodę obsługującą tę ścieżkę wypisane w kodzie 37.
 
 .Metoda paymentInfo klasy PaymentResource.
 [source, java]
@@ -60,8 +60,9 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Dostęp do tej ścieżki nie wymaga żadnej autoryzacji, dlatego w pierwszej linijce następuje próba pozyskania adresu
 email. Zostaje on opakowany w obiekt klasy _Optional_, gdyż wartość obiektu _Principal_ będzie nieobecna w przypadku
-nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade_. Przyrostek
-_Facade_ miał początkowo oznaczać odrębną warstwę w architekturze aplikacji, zbierającą w sobie wszystkie serwisy. Miała
+nieautoryzowanego użytkownika. Następnie wywoływana jest metoda _buildInfoResponse_ klasy _PaymentFacade_, pokazana
+w kodzie 38. Przyrostek _Facade_ miał początkowo oznaczać odrębną warstwę w architekturze aplikacji,
+zbierającą w sobie wszystkie serwisy. Miała
 być ona dostępna tylko dla klas kontrolerów. Model ten się nie przyjął w innych pakietach, gdyż zysk z tego rozwiązania
 był niewielki, a generowałby dużo nadmiarowego kodu.
 
@@ -80,9 +81,9 @@ pomocy wzorca projektowego budowniczy (builder), zaimplementowanego przy pomocy 
 opis pobierane są z serwisu _PropertyService_. Jest to interfejs, którego jedyną implementacją jest _SettingsService_.
 Został on już omówiony przy okazji pakietu _common_. Jak już zostało powiedziane, oczekujące płatności pochodzą z
 bazy danych. Adres węzła Lightning pochodzi z osobnego serwisu _NodeDetailsService_. Zajmuje się on tylko i wyłącznie
-tworzeniem adresu węzła.
+tworzeniem adresu węzła. Jej kod zaprezentowano w kodzie 39.
 
-.Metoda buildInfoResponse klasy PaymentFacade.
+.Kod klasy NodeDetailsService.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/service/NodeDetailsService.java[lines=26..59]
@@ -98,7 +99,7 @@ się w ustawieniach serwera. Można je ustawić poprzez plik konfiguracyjny bąd
 adres w ustawieniach nie jest pusty, to zostanie on użyty do budowania adresu węzła. Adres ten zapisany jest finalnie
 jako pole klasy, więc _PaymentFacade_ wykorzystuje zwykłą metodę dostępową _getNodeUrl_. Na koniec procesu pozyskiwania
 szczegółów potrzebnych do płatności obiekt PaymentInfo zwracany jest do kontrolera, po czym przekazany jest dalej do
-użytkownika. Przykładowa odpowiedź ze ścieżki _/payments/info_ prezentuje się następująco:
+użytkownika. Przykładowa odpowiedź ze ścieżki _/payments/info_ zaprezentowana została w kodzie 40.
 
 .Przykładowa odpowiedź z punktu /payments/info.
 [source, json]
@@ -108,7 +109,8 @@ include::../../../../../webservice/src/test/resources/integration/payment/respon
 
 Następnym elementem procesu jest utworzenie nowej płatności. Dzieje się to poprzez żądanie POST na ścieżkę _/payments_.
 W tym przypadku klasa _PaymentResource_ nie zawiera praktycznie żadnej logiki. Deleguje ona wywołanie do fasady
-_PaymentFacade_, po czym konwertuje zwrócony obiekt i wysyła użytkownikowi.
+_PaymentFacade_, po czym konwertuje zwrócony obiekt i wysyła użytkownikowi. Kod za to odpowiedzialny znajduje się
+w kodzie 41.
 
 .Metoda createNewPayment klasy PaymentFacade.
 [source, java]
@@ -121,7 +123,7 @@ czas ważności faktury Lightning oraz cena pojedynczego tokena. Następnie pobi
 danych. Właśnie dla tej linijki kodu potrzebna była osobna klasa dla tymczasowych użytkowników. Dzięki temu kod
 jest ujednolicony, a proces generowania faktury jest jednakowy dla wszystkich użytkowników. Wywołanie metody
 _createInvoice_ klasy _InvoiceService_ powoduje wygenerowanie żądania zapłaty, czyli łańcucha znaków, którego można użyć
-do opłacenia faktury.
+do opłacenia faktury. Jest ona widoczna w kodzie 42.
 
 .Metoda createInvoice klasy InvoiceService.
 [source, java]
@@ -140,7 +142,8 @@ pomocy wzorca projektowego budowniczy. Utworzony obiekt zapisywany jest w bazie 
 płatności. Na koniec tworzony jest nowy wątek _PaymentStatusUpdateTask_, który wysyłany jest do planisty zadań
 zainicjowanego w klasie konfiguracyjnej _SchedulerConfig_. Planista uruchomi wątek po takim samym czasie, jaki wynosi
 ważność _invoice_. Wątek ten odpowiada za automatyczną zmianę statusu płatności. Klasa ta implementuje interfejs
-_Runnable_, posiadający jedną metodę _run_, która wywoływana jest automatycznie czy uruchomieniu wątku.
+_Runnable_, posiadający jedną metodę _run_, która wywoływana jest automatycznie czy uruchomieniu wątku. Zawartość
+metody _run_ klasy _PaymentStatusUpdateTask_ znajduje się w kodzie 43.
 
 .Metoda run klasy PaymentStatusUpdateTask.
 [source, java]
@@ -155,8 +158,8 @@ w posiadanym obiekcie. Z tego powodu obiekt musi zostać ponownie pobrany z bazy
 aktualny status płatności. Jeżeli po określonym czasie płatność dalej jest oczekująca, status zmieniany jest na
 _cancelled_, czyli anulowana. Oczywiście wywołanie tej metody odbywa się asynchronicznie, domyślnie po 15 minutach od
 utworzenia płatności. Zaraz po przekazaniu wątku do planisty, obiekt płatności zwrócony zostaje do kontrolera, gdzie
-jest on mapowany na obiekt DTO, który zostaje zwrócony użytkownikowi. Finalna odpowiedź może prezentować się
-następująco:
+jest on mapowany na obiekt DTO, który zostaje zwrócony użytkownikowi. Finalna odpowiedź może prezentować się tak, jak
+w kodzie 44.
 
 .Przykładowa odpowiedź z punktu POST /payments.
 [source, json]
@@ -174,7 +177,7 @@ Aby kontynuować proces płatności, użytkownik musi opłacić fakturę, wykorz
 faktury rejestruje węzeł sieci Lightning. Status faktur obserwowany jest przez klasę _InvoiceObserver_. Klasa ta
 została wcześniej zainicjowana w klasie konfigurującej bibliotekę _LightningJ_. Nasłuchuje ona na każdą zmianę statusu
 faktury. Jeżeli nadejdzie taka ze statusem _settled_, jej żądanie zapłaty zostaje przekazane do metody _finalizePayment_
-klasy _PaymentFacade_.
+klasy _PaymentFacade_, której zawartość pokazano w kodzie 45.
 
 .Metoda finalizePayment klasy PaymentFacade.
 [source, java]
@@ -183,9 +186,10 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Metoda ta pobiera z bazy danych płatność, wyszukując ją przy pomocy żądania zapłaty. Przypisywane są tokeny, które
-są aktualnie wartością funkcji mieszającej wybranych pól płatności. Za generowanie tokenów odpowiada _TokenService_.
+są aktualnie wartością funkcji hashującej wybranych pól płatności. Za generowanie tokenów odpowiada _TokenService_.
 Oczywiście status transakcji zmienia się na zakończoną. Następnie wywoływana jest metoda _send_, serwisu
-TokenDeliveryService. Odpowiada on za wysyłanie tokenów do wybranego przez administratorów zewnętrznego serwisu.
+_TokenDeliveryService_. Jego niektóre metody wypisano w kodzie 46. Odpowiada on za wysyłanie tokenów do wybranego
+przez administratorów zewnętrznego serwisu.
 Umożliwia to późniejsze procesowanie tokenów w innych aplikacjach. Jest to funkcjonalność opcjonalna, którą można
 wyłączyć poprzez ustawienie pustego adresu HTTP w ustawieniach bądź w pliku konfiguracyjnym. W przypadku błędów
 logowane są odpowiednie komunikaty.
@@ -198,7 +202,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Ostatnim krokiem do finalizacji płatności jest wysłanie tokenów na odpowiedni kanał Websocket. Odbywa się to w klasie
 _PaymentSocketController_. Wykorzystuje on klasę _SimpMessagingTemplate_ pochodzącą z modułu _Spring Messaging_ do
-wysłania tokenów.
+wysłania tokenów. Metodę _send_ klasy _PaymentSocketController_ pokazano w kodzie 47.
 
 .Metoda send klasy PaymentSocketController.
 [source, java]
@@ -211,7 +215,7 @@ tokenami. Wszystkie płatności rejestrowane są w bazie danych. Serwer ma możl
 płatnościach. Zaimplementowano 2 punkty końcowe: GET /payments oraz GET /payments/all. Jeden z nich pobiera dane
 o historii użytkownika, a drugi historię wszystkich płatności. Logika obu punktów jest podobna, główną różnicą jest
 format zwracanych danych. Opisany zostanie przede wszystkim /GET /payments, gdyż posiada on kilka dodatkowych funkcji
-względem drugiej metody.
+względem drugiej metody. Obsługiwany jest on przez metodę _getAllUserPayments_, której kod pokazano w kodzie 48.
 
 .Metoda getAllUserPayments klasy PaymentResource.
 [source, java]
@@ -224,7 +228,7 @@ paginacji danych. Dodatkowo przy pomocy adnotacji _@SortDefault_ ustawiane jest 
 malejąco według daty. Pole pochodzi z klasy _Payment__, która została wygenerowana podczas kompilacji przez bibliotekę
 _hibernate-jpamodelgen_, która tworzy klasy opisujące encje bazy danych. Dzięki temu automatycznie powstaje obiekt,
 który zawiera pola modelu jako stałe. Zadaniem metody jest delegacja wywołania do _PaymentFacade_. W przypadku
-wszystkich płatności metody różnią się tylko metodą wywoływaną w _PaymentFacade._
+wszystkich płatności metody różnią się tylko metodą wywoływaną w _PaymentFacade_, co pokazano w kodzie 49.
 
 .Metoda getPaymentsByEmail klasy PaymentFacade.
 [source, java]
@@ -233,9 +237,10 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Następuje wywołanie do klasy _PaymentDataService_, które ma na celu pobranie wszystkich płatności. Aby umożliwić
-ich pobieranie względem różnych pól, również zagnieżdżonych, stworzono dwa typy wyliczeniowe: SearchableField oraz
-SearchableTable. Warto wspomnieć, że w przypadku wyszukiwania wszystkich płatności następuje zwykłe wywołanie metody
-findAll, które delegowane jest aż do repozytorium w niezmienionej formie, co kończy działanie tego procesu.
+ich pobieranie względem różnych pól, również zagnieżdżonych, stworzono dwa typy wyliczeniowe: SearchableField
+oraz SearchableTable. Ten pierwszy pokazano w kodzie 50. Warto wspomnieć, że w przypadku wyszukiwania wszystkich
+płatności następuje zwykłe wywołanie metody findAll, które delegowane jest aż do repozytorium w niezmienionej formie,
+co kończy działanie tego procesu.
 
 .Typ wyliczeniowy SearchableField.
 [source, java]
@@ -245,7 +250,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Każda wartość typu wyliczeniowego zawiera dwa parametry. Mapowana jest nazwa tabeli z tekstową nazwą pola w obiekcie
 modelowym. Tekstowe nazwy pól ponownie pochodzą z automatycznie wygenerowanych klas z metadanymi. Aby znaleźć
-płatności według nazwy użytkownika, wystarczy wywołać metodę _findAll_ przeciążoną z typem SearchableField.
+płatności według nazwy użytkownika, wystarczy wywołać metodę _findAll_ przeciążoną z typem SearchableField, pokazaną
+w kodzie 51.
 
 .Przeciążona metoda findAll klasy PaymentDataService.
 [source, java]
@@ -253,12 +259,12 @@ płatności według nazwy użytkownika, wystarczy wywołać metodę _findAll_ pr
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/service/PaymentDataService.java[lines=39..41]
 ----
 
-Ponownie wywołanie jest delegowane do następnej warstwy. Tym razem parametrem będzie obiekt klasy PaymentSpecification.
-Implementuje ona interfejs _Specification_, który pozwala na ręczne tworzenie kwerend do bazy danych
-przy pomocy kodu Javy. Spring Data jest później w stanie stworzyć zapytanie do bazy danych na podstawie tych
-implementacji.
+Ponownie wywołanie jest delegowane do następnej warstwy. Tym razem parametrem będzie obiekt klasy PaymentSpecification,
+której fragment widać w kodzie 52. Implementuje ona interfejs _Specification_, który pozwala na ręczne
+tworzenie kwerend do bazy danych przy pomocy kodu Javy. Spring Data jest później w stanie stworzyć zapytanie do bazy
+danych na podstawie tych implementacji.
 
-.Przeciążona metoda findAll klasy PaymentDataService.
+.Metoda toPredicate klasy PaymentSpecification.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/repository/specification/PaymentSpecification.java[lines=21..30]
@@ -269,9 +275,9 @@ której filtrowane będą wyniki. W zależności od tabeli wyrażonej wartości�
 budowane jest odpowiednie twierdzenie. W przypadku zagnieżdżonego pola, jakim jest użytkownik, należy wykonać
 złączenie tabel znane z SQL. Repozytorium płatności jako jedyne implementuje interfejs _JpaSpecificationExecutor_,
 który umożliwia procesowanie implementacji interfejsu _Specification_. Jest to jedyne repozytorium w projekcie,
-które implementuje ten interfejs.
+które implementuje ten interfejs. Kod tego repozytorium znajduje się w kodzie 53.
 
-.Interfejs PaymentRepository
+.Interfejs PaymentRepository.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/payment/repository/PaymentRepository.java[lines=12..18]
@@ -279,7 +285,7 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 
 Ostatnią funkcjonalnością pakietu _payment_ jest agregowanie danych, które później mogą zostać wyświetlone na przykład
 przy pomocy wykresu. Obecnie wspierane jest zbieranie danych o sumie przychodów w poszczególnych miesiącach.
-Odbywa się to oczywiście w klasie _PaymentFacade_.
+Odbywa się to oczywiście w klasie _PaymentFacade_, co pokazano w kodzie 54.
 
 .Metoda getPaymentsByEmail klasy PaymentFacade.
 [source, java]

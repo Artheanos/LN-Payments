@@ -3,21 +3,22 @@
 Pakiet _admin_ jest zdecydowanie najmniejszy pod względem ilości klas. Zajmuje się on obsługą zarządzania
 administratorami. Poszczególne serwisy i zasoby podobne są do klas znajdujących się w pakiecie _auth_, aczkolwiek
 dotyczą tylko i wyłącznie administratorów. Dodatkową funkcjonalnością jest możliwość odbierania kluczy publicznych od
-administratorów. Zawartość pakietu prezentuje się następująco:
+administratorów. Zawartość pakietu pokazana jest na rysunku 53.
 
 .Zawartość pakietu _admin_.
 image::../images/webservice_admin_content.png[]
 
-Interfejs HTTP zawiera kilka metod dostępnych pod adresem /admins. Są to metody służące do pobierania, dodawania
-oraz usuwania administratorów. Dodatkowo ścieżka /admins/keys z metodą PATH pozwala na przesłanie klucza publicznego.
+Interfejs HTTP zawiera kilka metod dostępnych pod adresem /admins, widocznych na rysunku 54. Są to metody służące do
+pobierania, dodawania oraz usuwania administratorów. Dodatkowo ścieżka /admins/keys z metodą PATH pozwala na przesłanie
+klucza publicznego.
 
 .API dostępne dla zarządzania administratorami.
 image::../images/webservice_admin_api.png[]
 
 Kod klasy _AdminResource_, obsługującej żądania HTTP jest bardzo prosta. Każda metoda deleguje wywołanie do klasy
 _AdminService_, która zawiera prawie całą logikę w tym pakiecie. Zawiera ona wiele metod bardzo podobnych do tych
-pochodzących z _UserService, tylko operujące na administratorach. Nową funkcjonalnością względem tamtej klasy
-jest usuwanie użytkowników.
+pochodzących z _UserService_, tylko operujące na administratorach. Nową funkcjonalnością względem tamtej klasy
+jest usuwanie użytkowników, którą pokazano w kodzie 55.
 
 .Metoda removeAdmin klasy AdminService.
 [source, java]
@@ -29,10 +30,10 @@ Aby usunąć administratora, należy najpierw pobrać jego obiekt z bazy danych.
 pobrany administrator jest członkiem aktualnego portfela. Gdyby administrator był członkiem portfela, usunięcie go
 mogłoby spowodować utratę środków, ponieważ przepadłaby możliwość podpisania i walidacji transakcji. Po udanej
 walidacji użytkownik może zostać usunięty przy pomocy repozytorium administratorów. Klasa _AdminService_ pozwala
-na przesłanie z aplikacji mobilnej klucza publicznego. Umożliwia on stworzenie adresu multisig przy tworzeniu portfela
-oraz weryfikację podpisów transakcji.
+na przesłanie z aplikacji mobilnej klucza publicznego, co pokazano w kodzie 56. Umożliwia on stworzenie adresu multisig
+przy tworzeniu portfela oraz weryfikację podpisów transakcji.
 
-.Metoda removeAdmin klasy AdminService.
+.Metoda uploadKey klasy AdminService.
 [source, java]
 ----
 include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webservice/admin/service/AdminService.java[lines=55..63]
@@ -51,7 +52,8 @@ include::../../../../../webservice/src/main/java/pl/edu/pjatk/lnpayments/webserv
 ----
 
 Klasa ta implementuje interfejs _ApplicationRunner_, dzięki czemu nadpisana metoda _run_ zostanie automatycznie
-wywołana przed załadowanie kontekstu Springa. Metoda ta pobiera domyślną nazwę użytkownika oraz hasło, po czym
-buduje obiekt DTO służący do tworzenia administratorów i wysyła go do odpowiedniego serwisu. W przypadku nieudanego
-zapisu odpowiedni komunikat jest logowany. Aktualnie próba dodania administratora następuje przy każdym uruchomieniu
-serwera. W przyszłości planowane jest uruchamianie jej tylko przy pierwszym uruchomieniu na danym komputerze.
+wywołana przed załadowanie kontekstu Springa. Została ona pokazana w kodzie 57. Metoda ta pobiera domyślną nazwę
+użytkownika oraz hasło, po czym buduje obiekt DTO służący do tworzenia administratorów i wysyła go do odpowiedniego
+serwisu. W przypadku nieudanego zapisu odpowiedni komunikat jest logowany. Aktualnie próba dodania administratora
+następuje przy każdym uruchomieniu serwera. W przyszłości planowane jest uruchamianie jej tylko przy pierwszym
+uruchomieniu na danym komputerze.

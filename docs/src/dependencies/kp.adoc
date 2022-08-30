@@ -1,0 +1,39 @@
+:imagesdir: ../images
+:pdf-style: src/themes/title-page-theme.yml
+:nofooter:
+
+[.text-center]
+image:pjatk_logo.png[image]
+
+[.text-center]
+== Karta projektu
+
+[cols="6,2,1,1"]
+|===
+1.2+| *_Temat projektu:_* Procesowanie mikropłatności w Bitcoinach za pomocą sieci Lightning (ang. Bitcoin
+micropayments processing with Lightning Network)
+3+|  *_Akronim:_* LNP
+3+| *_Data ustalenia tematu:_* 07.11.2021
+4+| *_Opiekun:_* Dr Tadeusz Puźniakowski
+4+| *_Cele projektu:_* System pozwalający na procesowanie płatności w sieci Lightning, zabezpieczający środki
+w portfelu multisig. Podpisywanie transakcji odbywać ma się przy pomocy aplikacji mobilnej przechowującej klucz
+prywatny użytkownika. Jeżeli to możliwe, działający projekt wdrożony jest w ramach europejskiego projektu iNGENIOUS.
+4+| *_Rezultaty projektu:_* Serwer do przyjmowania płatności wraz z aplikacją
+internetową oraz aplikacją mobilna do podpisywania transakcji z portfela.
+4+| *_Miary sukcesu:_* Działająca aplikacja z wysokiej jakości kodem. Ewentualne wdrożenie w ramach programu iNGENIOUS.
+4+| *_Ograniczenia:_* Brak wystarczającej wiedzy w dziedzinie kryptowalut i kanałów płatności. Niewystarczający czas
+na realizację.
+|===
+
+[cols="1,1,1,1"]
+|===
+| *_Wykonawcy_* | *_Numer albumu_* | *_Specjalizacja_* | *_Tryb studiów:_*
+| Aleksander Konieczny | s19376 1.3+^.^| Aplikacje Internetowe 1.3+^.^| niestacjonarne
+| Jan Pieczul | s19497
+| Sebastian Lewandowski | s18000
+|===
+
+[cols="1,1,1,1"]
+|===
+|*_Data ukończenia projektu:_* |  | *_Recenzent:_* |
+|===

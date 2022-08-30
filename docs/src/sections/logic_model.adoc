@@ -15,7 +15,7 @@ W następnych rozdziałach zostanie opisany model logiczny poszczególnych czę�
 ==== Sprzedaż tokenów
 
 Płatność dostępna będzie jednakowo dla zalogowanych i niezalogowanych użytkowników. Do widoku sprzedaży będzie można
-przejść z panelu użytkownika oraz ze strony głównej.
+przejść z panelu użytkownika oraz ze strony głównej. Proces został pokazany na rysunku 7.
 
 .Schemat blokowy procesu sprzedaży tokenów
 [plantuml]
@@ -42,6 +42,7 @@ zakupione tokeny.
 include::../diagrams/payment_highlevel_sequence.puml[]
 ----
 
+Na rysunku 8 został pokazany diagram sekwencji prezentujący interakcje pomiędzy komponentami w procesie płatności.
 Nie wliczając logowania, wszystkie punkty końcowe będą miały ścieżkę _/payments_. Gdy użytkownik znajdzie się na
 pierwszym ekranie, zostanie wysłane zapytanie do serwera o aktualne dane potrzebne do płatności. Będą to przykładowo
 cena, opis, a dla zalogowanych użytkowników również transakcje w trakcie. Pozwoli to na powrót do niedokończonej
@@ -62,7 +63,8 @@ serwerze, co 15 minut będzie uruchamiane zaplanowane zadanie. Sprawdza ono, czy
 stronie serwera osiągnęła limit określony w jego ustawieniach. Jeżeli limit zostanie przekroczony, to nastąpi
 próba zamknięcia wszystkich kanałów. Standardowo kanały będą zamykane kooperacyjnie. Dany kanał zostanie zamknięty
 siłowo, jeśli będzie nieaktywny dłużej niż tydzień. Dodatkowo administrator serwera będzie miał możliwość ręcznego
-zamknięcia kanałów, zarówno kooperacyjnie, jak i siłowo.
+zamknięcia kanałów, zarówno kooperacyjnie, jak i siłowo. Zamykanie kanałów zostało zobrazowane schematem blokowym na
+rysunku 9.
 
 .Schemat blokowy dla automatycznego zamykania kanałów
 [plantuml]
@@ -96,6 +98,7 @@ wszystkie powiadomienia przypisane do danego administratora.
 include::../diagrams/btc_transaction_sequence.puml[]
 ----
 
+Integracje pomiędzy komponentami w procesie podpisywania transakcji pokazane jako diagram sekwencji na rysunku 10.
 Administrator, otrzymując powiadomienie, będzie mógł je zatwierdzić, bądź odrzucić. Podczas procesu potwierdzania,
 aplikacja mobilna najpierw odpytuje serwer z prośbą o aktualną wartość transakcji. Serwer poza transakcją
 zapisaną w formacie szesnastkowym zwraca również wersję transakcji. Umożliwi to uniknięcie utraconych zapisów

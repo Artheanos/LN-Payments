@@ -13,7 +13,7 @@ wielu komponentów oraz nie pracuje nad nim dużo osób, więc rozwiązanie spra
 łącznie z dokumentacją i diagramami znajduje się w jednym miejscu. Ułatwia to wprowadzanie zmian do kilku
 komponentów jednocześnie, a także usprawnia proces _code review_, ponieważ zadanie będzie zawsze zawarte w jednym
 _pull requeście_. Repozytorium przechowywane w serwisie Github, z którego wykorzystywane są również wbudowane narzędzia
-do CI/CD. Główny folder projektu prezentuje się następująco:
+do CI/CD. Główny folder projektu zaprezentowany jest na rysunku 39.
 
 .Zawartość folderu głównego w programie Intellij IDEA.
 image::../images/root_dir_tree.png[]
@@ -55,6 +55,7 @@ automatycznie formatować dokumenty, które zapisane są w zwykłych plikach tek
 kompletnie martwić stylem dokumentu, gdyż sformatowane pliki _pdf_ oraz _html_ tworzone są automatycznie przez narzędzie
 _asciidoctor_. Cała dokumentacja projektu, czyli dokumenty wstępne i książka do pracy dyplomowej zostały napisane
 z wykorzystaniem tej technologii. Wszystkie pliki są przechowywane tak samo, jak kod źródłowy w folderze _docs_.
+Jego zawartość można zobaczyć na rysunku 79.
 
 .Zawartość katalogu docs.
 image::../images/docs_dir_tree.png[]
@@ -62,7 +63,7 @@ image::../images/docs_dir_tree.png[]
 Katalog główny zawiera standardowo pliki _.gitignore_ oraz _readme_, obecne w każdym z poprzednich modułów. Folder
 _src_ zawiera kod źródłowy, a katalog _target_ zbudowane dokumenty. Jest on tworzony automatycznie podczas budowania
 plików, co odbywa się z użyciem narzędzia _make_. Plikiem konfiguracyjnym dla tego programu, który zawiera informację
-o krokach potrzebnych do zbudowania projektu, jest _makefile_. Jego zawartość prezentuje się następująco:
+o krokach potrzebnych do zbudowania projektu, jest _makefile_. Jego zawartość pokazana została w kodzie 156.
 
 .Plik makefile obsługujący budowanie dokumentacji
 [source, make]
@@ -73,14 +74,15 @@ include::../../makefile[]
 Zdefiniowane są reguły pozwalające na zbudowanie całej dokumentacji w formatach _pdf_ oraz _html_. Kompilowane są
 wszystkie pliki z rozszerzeniem _.adoc_, a ich plik wyjściowy generowany jest w folderze _target_. Proces budowania
 całej książki ma kilka dodatkowych kroków. Główny plik zawierający pracę dyplomową nie zawiera w sobie strony
-tytułowej. Jest ona osobnym dokumentem, stworzonym z innym zestawem stylów. Aby złączyć oba pliki _pdf_ w całość,
-dodana została specjalna reguła, która łączy oba pliki przy pomocy narzędzia _pdftk_.
+tytułowej i karty projektu. Są one osobnymi dokumentami, stworzonymi z innym zestawem stylów. Aby złączyć wszystkie
+pliki _pdf_ w całość, dodana została specjalna reguła, która łączy je przy pomocy narzędzia _pdftk_.
 
 Części składowe plików dokumentacji zostały podzielone w hierarchii folderów znajdującej się w katalogu _src_. Główny
 folder zawiera przede wszystkim pliki dokumentów. Są to KP, SWS, DZW oraz właściwa praca dyplomowa. W pozostałych
 folderach znajdują się tylko pliki dotyczące pracy dyplomowej. Katalog _chapters_ przechowuje rozdziały, natomiast
 _sections_ podrozdziały. Wszystkie pliki są napisane w formacie _asciidoc_, co sprawia, że tekst można bardzo łatwo
-modyfikować przy pomocy prosTego języka znaczników.
+modyfikować przy pomocy prostego języka znaczników. Niesformatowany fragment jednego z rozdziałów można zobaczyć
+w kodzie 157.
 
 .Fragment kodu źródłowego rozdziału 4.
 [source, asciidoc]
@@ -100,7 +102,7 @@ jest _diagrams_, zawierający diagramy stworzone na potrzeby systemu. Większoś
 narzędzia _plantuml_. Pozwala ono na tworzenie diagramów w zwykłych plikach tekstowych, tak samo, jak w przypadku
 dokumentów w formacie _asciidoc_. Dzięki wykorzystaniu wtyczki _asciidoctor-diagram_, diagramy w plantuml mogą
 być dołączone do kodu pracy w taki sam sposób, jak w przypadku wszystkich innych zależności. Kompilowane są one razem
-z całością dokumentacji.
+z całością dokumentacji. Przykładowy diagram zaprezentowano w kodzie 158.
 
 .Przykładowy schemat blokowy w formacie _plantuml_.
 [source, puml]
@@ -115,8 +117,9 @@ to sprawdza się o wiele lepiej niż graficzne programy biurowe do tworzenia dok
 
 === Pozostałe elementy projektu
 
-Ostatnim folderem w repozytorium projektu jest _devtools_. Zawiera on dodatkowe pliki związane z programami
-wykorzystywanymi w pracach nad projektem. Aktualnie zawiera on foldery dla programów _postman_ oraz _docker_.
+Ostatnim folderem w repozytorium projektu jest _devtools_. Jest on widoczny na rysunku 80. Zawiera on dodatkowe pliki
+związane z programami wykorzystywanymi w pracach nad projektem. Aktualnie zawiera on foldery dla programów _postman_
+oraz _docker_.
 
 .Zawartość katalogu devtools.
 image::../images/devtools_dir.png[]

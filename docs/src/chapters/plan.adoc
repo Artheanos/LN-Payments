@@ -93,7 +93,7 @@ funkcjonalności bądź pisaniu fragmentów książki do pracy dyplomowej. Zadan
 zagadnień. Nie miały one przypisanych punktów historii, gdyż nauka i zdobywanie wiedzy ciężko jest rozplanować w czasie.
 Większość zadań nie miała na początku przypisanej osoby. Rozpoczynając iterację, wszystkie zadania mogły być wzięte
 przez dowolnego członka zespołu. Tylko zadania krytyczne, wymagające konkretnej osoby były od razu przypisywane do
-członka zespołu. Tablica _Kanban_ w każdej iteracji posiadała cztery kolumny.
+członka zespołu. Tablica _Kanban_ w każdej iteracji posiadała cztery kolumny. Pokazana ona została na rysunku 25.
 
 .Fragment tablicy kanban w trakcie trwania sprintu trzynastego.
 image::../images/kanban_board.png[]
@@ -112,7 +112,7 @@ Harmonogram prac powstał jeszcze w pierwszej fazie realizacji projektu i był p
 Zawierał ramy czasowe określający początek i koniec prac nad daną funkcjonalnością. Ułożony został w taki sposób, aby
 na każdą funkcjonalność poświęcić około 3 tygodnie. W ten sposób zespół spokojnie zdążyłby zrealizować cały projekt
 do końca maja 2022 roku. Niektóre funkcjonalności są silnie powiązane z innymi, dlatego zaplanowano równoległe
-prace nad niektórymi z nich.
+prace nad niektórymi z nich. Harmonogram z marca 2022 można zobaczyć na rysunku 26.
 
 .Oryginalny harmonogram prac na implementację projektu.
 image::../images/roadmap.png[]

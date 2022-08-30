@@ -86,5 +86,5 @@ w trakcie sprintu zdecydowano się dodać trzy nowe zadania polegające na imple
 Zrealizowano natomiast stronę główną oraz szablon dla karuzeli ekranów w procesie płatności. Nie udało się zrealizować
 zadania polegającego na zbadaniu płatności multisig oraz dodania ich do prototypu. Zadanie to zostało przeniesione
 do następnej iteracji. Finalnie udało się ukończyć wszystkie 37 punktów historii.footnote:[Niestety nie udało
-się tym razem pobrać diagramu spalania dla tego sprintu przez złe ustawienia oprogramowania Jira] Pomimo
+się tym razem pobrać diagramu spalania dla tego sprintu przez złe ustawienia oprogramowania Jira.] Pomimo
 nieosiągnięcia wszystkich celów sprintu, udało się poczynić duże postępy w implementacji procesu płatności.
