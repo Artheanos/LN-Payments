@@ -1,6 +1,8 @@
 :!sectnums:
 == Załączniki
 
+Wszystkie załączniki znajdują się na załączonym do pracy nośniku CD.
+
 * Główne repozytorium projektu zawierające:
 ** Kod źródłowy serwera
 ** Kod źródłowy aplikacji mobilnej
