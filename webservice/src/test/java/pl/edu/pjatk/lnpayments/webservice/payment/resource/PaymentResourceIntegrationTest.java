@@ -168,6 +168,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
+            System.out.println("ALL PAYMENTS: " + paymentRepository.count());
 
             mockMvc.perform(get("/api/payments/all").principal(principal))
                     .andExpect(status().isOk())
