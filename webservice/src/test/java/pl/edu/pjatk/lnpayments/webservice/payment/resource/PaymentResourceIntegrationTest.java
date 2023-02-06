@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -34,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createStandardUser;
 
+@DataJpaTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest(classes = IntegrationTestConfiguration.class)
@@ -168,7 +170,6 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, admin));
-            System.out.println("ALL PAYMENTS: " + paymentRepository.count());
 
             mockMvc.perform(get("/api/payments/all").principal(principal))
                     .andExpect(status().isOk())
