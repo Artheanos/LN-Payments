@@ -30,6 +30,12 @@
       "text": "Transfer Between Wallets",
       "success": "Transferring funds to BTC wallet...",
       "failure": "Error while transferring funds."
+    },
+    "toggleAutopilot": {
+      "textEnable": "Enable Autopilot",
+      "textDisable": "Disable Autopilot",
+      "success": "Toggling autopilot...",
+      "failure": "Error while toggling autopilot."
     }
   },
   "createForm": {

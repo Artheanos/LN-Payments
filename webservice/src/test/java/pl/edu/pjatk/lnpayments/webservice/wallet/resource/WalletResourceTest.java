@@ -62,4 +62,12 @@ class WalletResourceTest {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         verify(walletService).getDetails();
     }
+
+    @Test
+    void shouldReturnOkForToggleAutopilotRequest() {
+        ResponseEntity<?> response = walletResource.toggleAutopilot();
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        verify(walletService).toggleAutopilot();
+    }
 }

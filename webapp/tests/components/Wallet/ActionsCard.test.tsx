@@ -13,6 +13,9 @@ describe('ActionsCard', () => {
     }),
     rest.post(routesBuilder.api.wallet.transfer, (req, res, ctx) => {
       return res(ctx.status(statusCode))
+    }),
+    rest.post(routesBuilder.api.wallet.toggleAutopilot, (req, res, ctx) => {
+      return res(ctx.status(statusCode))
     })
   )
 
@@ -21,7 +24,13 @@ describe('ActionsCard', () => {
 
   beforeEach(() => {
     statusCode = 200
-    render(<ActionsCard channelsBalance={1} lightningWalletBalance={1} />)
+    render(
+      <ActionsCard
+        channelsBalance={1}
+        lightningWalletBalance={1}
+        autopilotEnabled={true}
+      />
+    )
   })
 
   it('should call closeChannels on closeChannels click and success', async () => {
@@ -85,6 +94,25 @@ describe('ActionsCard', () => {
     await waitFor(() => {
       expect(
         screen.getByText('Error while closing channels.')
+      ).toBeInTheDocument()
+    })
+  })
+
+  it('should call toggleAutopilot on disable autopilot click and success', async () => {
+    server.listen()
+    screen.getByText('Disable Autopilot').click()
+    await waitFor(() => {
+      expect(screen.getByText('Toggling autopilot...')).toBeInTheDocument()
+    })
+  })
+
+  it('should call toggleAutopilot on button click and fail', async () => {
+    statusCode = 400
+    server.listen()
+    screen.getByText('Disable Autopilot').click()
+    await waitFor(() => {
+      expect(
+        screen.getByText('Error while toggling autopilot.')
       ).toBeInTheDocument()
     })
   })

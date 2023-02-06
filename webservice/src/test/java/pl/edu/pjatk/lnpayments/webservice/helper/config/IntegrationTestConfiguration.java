@@ -10,6 +10,7 @@ import org.lightningj.lnd.wrapper.AsynchronousLndAPI;
 import org.lightningj.lnd.wrapper.StatusException;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
 import org.lightningj.lnd.wrapper.message.AddInvoiceResponse;
 import org.lightningj.lnd.wrapper.message.GetInfoResponse;
 import org.mockito.Mockito;
@@ -39,6 +40,11 @@ public class IntegrationTestConfiguration {
     @Bean
     AsynchronousLndAPI asynchronousLndAPI() {
         return Mockito.mock(AsynchronousLndAPI.class);
+    }
+
+    @Bean
+    SynchronousAutopilotAPI synchronousAutopilotAPI() {
+        return Mockito.mock(SynchronousAutopilotAPI.class);
     }
 
     @Bean

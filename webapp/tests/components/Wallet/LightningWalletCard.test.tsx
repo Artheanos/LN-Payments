@@ -8,12 +8,18 @@ describe('LightningWalletCard', () => {
         unconfirmedBalance={100}
         availableBalance={1600}
         autoTransferLimit={10000}
+        autopilotEnabled={true}
       />
     )
     expect(screen.getByText('Lightning Wallet')).toBeInTheDocument()
     expect(screen.getByText('1,600 sats')).toBeInTheDocument()
     expect(screen.getByText('0')).toBeInTheDocument()
     expect(screen.getByText('10,000')).toBeInTheDocument()
-    expect(screen.getByText('100 sats unconfirmed')).toBeInTheDocument()
+    expect(
+      screen.getByText('100 sats unconfirmed', { exact: false })
+    ).toBeInTheDocument()
+    expect(
+      screen.getByText('Autopilot enabled', { exact: false })
+    ).toBeInTheDocument()
   })
 })

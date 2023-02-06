@@ -79,9 +79,13 @@ public class WalletService {
                 .channelsBalance(channelService.getChannelsBalance())
                 .lightningWalletBalance(lightningWalletService.getBalance())
                 .totalIncomeData(paymentFacade.aggregateTotalIncomeData())
+                .autopilotEnabled(channelService.isAutopilotEnabled())
                 .build();
     }
 
+    public void toggleAutopilot() {
+        channelService.toggleAutopilot();
+    }
 
     @Transactional
     public void swapWallets() {

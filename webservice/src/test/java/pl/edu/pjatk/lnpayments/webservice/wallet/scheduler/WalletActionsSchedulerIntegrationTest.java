@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.lightningj.lnd.wrapper.AsynchronousLndAPI;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
+import org.lightningj.lnd.wrapper.autopilot.message.StatusResponse;
 import org.lightningj.lnd.wrapper.message.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,9 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private AsynchronousLndAPI asynchronousAPI;
 
+    @Autowired
+    private SynchronousAutopilotAPI autopilotAPI;
+
     @SpyBean
     private WalletActionsScheduler walletActionsScheduler;
 
@@ -89,6 +94,9 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
         listChannelsResponse.setChannels(List.of(channel1));
         when(lndAPI.channelBalance()).thenReturn(balanceResponse);
         when(lndAPI.listChannels(any())).thenReturn(listChannelsResponse);
+        StatusResponse statusResponse = new StatusResponse();
+        statusResponse.setActive(true);
+        when(autopilotAPI.status()).thenReturn(statusResponse);
 
         Awaitility.await().atMost(1, TimeUnit.SECONDS).untilAsserted(() -> {
             verify(walletActionsScheduler, atLeastOnce()).scheduleAutoTransfer();
@@ -169,6 +177,9 @@ class WalletActionsSchedulerIntegrationTest extends BaseIntegrationTest {
         listChannelsResponse.setChannels(List.of(channel1, channel2));
         when(lndAPI.channelBalance()).thenReturn(balanceResponse);
         when(lndAPI.listChannels(any())).thenReturn(listChannelsResponse);
+        StatusResponse statusResponse = new StatusResponse();
+        statusResponse.setActive(true);
+        when(autopilotAPI.status()).thenReturn(statusResponse);
 
         Awaitility.await().atMost(1, TimeUnit.SECONDS).untilAsserted(() -> {
             verify(walletActionsScheduler, atLeastOnce()).scheduleAutoChannelClose();

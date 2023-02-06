@@ -2,6 +2,8 @@ package pl.edu.pjatk.lnpayments.webservice.wallet.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lightningj.lnd.wrapper.*;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
+import org.lightningj.lnd.wrapper.autopilot.message.StatusResponse;
 import org.lightningj.lnd.wrapper.message.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +24,19 @@ public class ChannelService {
 
     private final SynchronousLndAPI lndAPI;
     private final AsynchronousLndAPI asyncApi;
+    private final SynchronousAutopilotAPI autopilotAPI;
     private final ChannelCloseObserver channelCloseObserver;
     private final PropertyService propertyService;
 
     @Autowired
     public ChannelService(SynchronousLndAPI lndAPI,
                           AsynchronousLndAPI asyncApi,
+                          SynchronousAutopilotAPI autopilotAPI,
                           ChannelCloseObserver channelCloseObserver,
                           PropertyService propertyService) {
         this.lndAPI = lndAPI;
         this.asyncApi = asyncApi;
+        this.autopilotAPI = autopilotAPI;
         this.channelCloseObserver = channelCloseObserver;
         this.propertyService = propertyService;
     }
@@ -63,6 +68,24 @@ public class ChannelService {
                     .build();
         } catch (StatusException | ValidationException e) {
             throw new LightningException("Unable to get channels balance!", e);
+        }
+    }
+
+    public void toggleAutopilot() {
+        boolean isAutopilotActive = isAutopilotEnabled();
+        try {
+            autopilotAPI.modifyStatus(!isAutopilotActive);
+        } catch (StatusException | ValidationException e) {
+            throw new LightningException("Unable to toggle autopilot!", e);
+        }
+    }
+
+    public boolean isAutopilotEnabled() {
+        try {
+            StatusResponse status = autopilotAPI.status();
+            return status.getActive();
+        } catch (StatusException | ValidationException e) {
+            throw new LightningException("Unable to get autopilot status!", e);
         }
     }
 

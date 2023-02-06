@@ -130,7 +130,10 @@ class Requests {
         this.request(routes.wallet.transfer),
 
       create: (data: WalletForm): Promise<Response<unknown>> =>
-        this.request(routes.wallet.index, { data })
+        this.request(routes.wallet.index, { data }),
+
+      toggleAutopilot: (): Promise<Response<unknown>> =>
+        this.request(routes.wallet.toggleAutopilot)
     },
     transactions: {
       getTransactions: async (

@@ -27,13 +27,17 @@ export const WalletPage: React.FC<Props> = ({ walletInfo }) => {
       </WalletCard>
       <BitcoinWalletCard {...walletInfo!.bitcoinWalletBalance} />
       <ChannelsBalanceCard {...walletInfo!.channelsBalance} />
-      <LightningWalletCard {...walletInfo!.lightningWalletBalance} />
+      <LightningWalletCard
+        {...walletInfo!.lightningWalletBalance}
+        autopilotEnabled={walletInfo!.autopilotEnabled}
+      />
       <TotalIncomeChart chartData={walletInfo?.totalIncomeData || []} />
       <ActionsCard
         channelsBalance={walletInfo!.channelsBalance.totalBalance}
         lightningWalletBalance={
           walletInfo!.lightningWalletBalance.availableBalance
         }
+        autopilotEnabled={walletInfo!.autopilotEnabled}
       />
     </Grid>
   )

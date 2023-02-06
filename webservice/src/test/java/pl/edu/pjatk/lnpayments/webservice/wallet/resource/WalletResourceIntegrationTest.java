@@ -10,7 +10,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.lightningj.lnd.wrapper.SynchronousLndAPI;
 import org.lightningj.lnd.wrapper.ValidationException;
-import org.lightningj.lnd.wrapper.message.*;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
+import org.lightningj.lnd.wrapper.autopilot.message.StatusResponse;
+import org.lightningj.lnd.wrapper.message.Channel;
+import org.lightningj.lnd.wrapper.message.ChannelBalanceResponse;
+import org.lightningj.lnd.wrapper.message.ListChannelsResponse;
+import org.lightningj.lnd.wrapper.message.SendCoinsResponse;
+import org.lightningj.lnd.wrapper.message.WalletBalanceResponse;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -45,6 +51,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -70,6 +77,9 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
     @Autowired
     private SynchronousLndAPI lndAPI;
+
+    @Autowired
+    private SynchronousAutopilotAPI autopilotAPI;
 
     @Autowired
     private WalletAppKit walletAppKit;
@@ -300,6 +310,9 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
         walletBalanceResponse.setUnconfirmedBalance(100L);
         walletBalanceResponse.setConfirmedBalance(1000L);
         when(lndAPI.walletBalance()).thenReturn(walletBalanceResponse);
+        StatusResponse statusResponse = new StatusResponse();
+        statusResponse.setActive(true);
+        when(autopilotAPI.status()).thenReturn(statusResponse);
         Instant date = Instant.ofEpochSecond(1656272934);
         Payment payment1 = new Payment("123", 1, 1, 123, PaymentStatus.COMPLETE, null);
         payment1.setDate(date);
@@ -331,6 +344,16 @@ class WalletResourceIntegrationTest extends BaseIntegrationTest {
 
         mockMvc.perform(get("/api/wallet"))
                 .andExpect(status().isInternalServerError());
+    }
+
+    @Test
+    void shouldToggleAutopilot() throws Exception {
+        StatusResponse statusResponse = new StatusResponse();
+        statusResponse.setActive(true);
+        when(autopilotAPI.status()).thenReturn(statusResponse);
+        mockMvc.perform(post("/api/wallet/toggleAutopilot"))
+                .andExpect(status().isOk());
+        verify(autopilotAPI).modifyStatus(false);
     }
 
 }
