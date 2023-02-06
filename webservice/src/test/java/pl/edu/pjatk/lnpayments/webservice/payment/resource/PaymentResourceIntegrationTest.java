@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,6 +160,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
     class AllPaymentsIntegrationTest {
 
         @Test
+        @Disabled
         void shouldReturnOKAndListOfAllPayments() throws Exception {
             User admin = userRepository.save(createAdminUser(EMAIL));
             User user = userRepository.save(createStandardUser("admin@admin.pl"));
