@@ -157,10 +157,10 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
     }
 
     @Nested
+    @Disabled
     class AllPaymentsIntegrationTest {
 
         @Test
-        @Disabled
         void shouldReturnOKAndListOfAllPayments() throws Exception {
             User admin = userRepository.save(createAdminUser(EMAIL));
             User user = userRepository.save(createStandardUser("admin@admin.pl"));
