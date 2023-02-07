@@ -2,7 +2,6 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
-import net.jcip.annotations.NotThreadSafe;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -35,7 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createStandardUser;
 
-@NotThreadSafe
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest(classes = IntegrationTestConfiguration.class)
@@ -165,6 +163,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             User admin = userRepository.save(createAdminUser(EMAIL));
             User user = userRepository.save(createStandardUser("admin@admin.pl"));
             String jsonContent = getJsonResponse("integration/payment/response/payments-all-GET-valid.json");
+            paymentRepository.deleteAll();
             paymentRepository.save(new Payment("123", 1, 1, 123, PaymentStatus.PENDING, user));
             paymentRepository.save(new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, user));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
