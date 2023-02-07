@@ -2,6 +2,7 @@ package pl.edu.pjatk.lnpayments.webservice.payment.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
+import net.jcip.annotations.NotThreadSafe;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -34,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createAdminUser;
 import static pl.edu.pjatk.lnpayments.webservice.helper.factory.UserFactory.createStandardUser;
 
+@NotThreadSafe
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
 @SpringBootTest(classes = IntegrationTestConfiguration.class)
@@ -62,7 +64,6 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
     void tearDown() {
         paymentRepository.deleteAll();
         userRepository.deleteAll();
-        System.out.println("CLEANING: " + paymentRepository.count());
     }
 
     @Nested
