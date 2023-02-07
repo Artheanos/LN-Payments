@@ -25,6 +25,7 @@ export interface WalletInfo {
   lightningWalletBalance: LightningWalletBalance
   bitcoinWalletBalance: BitcoinWalletBalance
   totalIncomeData: ChartData[]
+  autopilotEnabled: boolean
 }
 
 export interface WalletForm {

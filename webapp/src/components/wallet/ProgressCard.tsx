@@ -36,7 +36,7 @@ export const ProgressCard: React.FC<Props> = ({
         color={color}
         balance={value}
       />
-      <span className="text-slate-500">{bottomText}</span>
+      <pre className="h-6 text-slate-500">{bottomText}</pre>
     </WalletCard>
   )
 }

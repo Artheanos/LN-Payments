@@ -18,7 +18,8 @@ export const routes = {
   wallet: {
     index: '/api/wallet',
     closeChannels: '/api/wallet/closeChannels',
-    transfer: '/api/wallet/transfer'
+    transfer: '/api/wallet/transfer',
+    toggleAutopilot: '/api/wallet/toggleAutopilot'
   },
   transactions: {
     index: '/api/transactions',

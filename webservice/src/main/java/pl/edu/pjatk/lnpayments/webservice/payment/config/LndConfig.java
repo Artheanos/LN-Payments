@@ -1,6 +1,7 @@
 package pl.edu.pjatk.lnpayments.webservice.payment.config;
 
 import org.lightningj.lnd.wrapper.*;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
 import org.lightningj.lnd.wrapper.message.InvoiceSubscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +55,14 @@ class LndConfig {
                 new File(walletDirectory, macaroonPath));
         api.subscribeInvoices(new InvoiceSubscription(), new InvoiceObserver(paymentFacade));
         return api;
+    }
+
+    @Bean
+    SynchronousAutopilotAPI synchronousAutopilotAPI() throws ClientSideException, SSLException {
+        return new SynchronousAutopilotAPI(host,
+                port,
+                new File(walletDirectory, certificatePath),
+                new File(walletDirectory, macaroonPath));
     }
 
 }

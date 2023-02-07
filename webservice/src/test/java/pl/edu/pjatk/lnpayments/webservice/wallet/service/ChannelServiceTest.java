@@ -8,8 +8,20 @@ import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.lightningj.lnd.wrapper.*;
-import org.lightningj.lnd.wrapper.message.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.lightningj.lnd.wrapper.AsynchronousLndAPI;
+import org.lightningj.lnd.wrapper.ServerSideException;
+import org.lightningj.lnd.wrapper.StatusException;
+import org.lightningj.lnd.wrapper.SynchronousLndAPI;
+import org.lightningj.lnd.wrapper.ValidationException;
+import org.lightningj.lnd.wrapper.autopilot.SynchronousAutopilotAPI;
+import org.lightningj.lnd.wrapper.autopilot.message.StatusResponse;
+import org.lightningj.lnd.wrapper.message.Channel;
+import org.lightningj.lnd.wrapper.message.ChannelBalanceResponse;
+import org.lightningj.lnd.wrapper.message.ChannelEdge;
+import org.lightningj.lnd.wrapper.message.CloseChannelRequest;
+import org.lightningj.lnd.wrapper.message.ListChannelsResponse;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,7 +38,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.Mockito.anyLong;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ChannelServiceTest {
@@ -36,6 +55,9 @@ class ChannelServiceTest {
 
     @Mock
     private AsynchronousLndAPI asyncApi;
+
+    @Mock
+    private SynchronousAutopilotAPI autopilotAPI;
 
     @Mock
     private ChannelCloseObserver channelCloseObserver;
@@ -198,13 +220,60 @@ class ChannelServiceTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUnableToCallLndApi() throws StatusException, ValidationException {
+    void shouldThrowExceptionWhenUnableToCallLndApiWhenClosingChannels() throws StatusException, ValidationException {
         Class<ValidationException> exceptionClass = ValidationException.class;
         when(lndAPI.channelBalance()).thenThrow(exceptionClass);
 
         assertThatExceptionOfType(LightningException.class)
                 .isThrownBy(() -> channelService.getChannelsBalance())
                 .withMessage("Unable to get channels balance!")
+                .withCauseExactlyInstanceOf(exceptionClass);
+    }
+
+    @Test
+    void shouldReturnAutopilotStatus() throws StatusException, ValidationException {
+        boolean expected = true;
+        StatusResponse expectedResponse = new StatusResponse();
+        expectedResponse.setActive(expected);
+        when(autopilotAPI.status()).thenReturn(expectedResponse);
+
+        boolean result = channelService.isAutopilotEnabled();
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = {true, false})
+    void shouldToggleAutopilot(boolean status) throws StatusException, ValidationException {
+        StatusResponse expectedResponse = new StatusResponse();
+        expectedResponse.setActive(status);
+        when(autopilotAPI.status()).thenReturn(expectedResponse);
+
+        channelService.toggleAutopilot();
+        verify(autopilotAPI).modifyStatus(!status);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUnableToCallLndApiToCheckStatus() throws StatusException, ValidationException {
+        Class<ValidationException> exceptionClass = ValidationException.class;
+        when(autopilotAPI.status()).thenThrow(exceptionClass);
+
+        assertThatExceptionOfType(LightningException.class)
+                .isThrownBy(() -> channelService.isAutopilotEnabled())
+                .withMessage("Unable to get autopilot status!")
+                .withCauseExactlyInstanceOf(exceptionClass);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenUnableToCallLndApiToToggleAutopilot() throws StatusException, ValidationException {
+        Class<ValidationException> exceptionClass = ValidationException.class;
+        StatusResponse expectedResponse = new StatusResponse();
+        when(autopilotAPI.status()).thenReturn(expectedResponse);
+        when(autopilotAPI.modifyStatus(anyBoolean())).thenThrow(exceptionClass);
+
+        assertThatExceptionOfType(LightningException.class)
+                .isThrownBy(() -> channelService.toggleAutopilot())
+                .withMessage("Unable to toggle autopilot!")
                 .withCauseExactlyInstanceOf(exceptionClass);
     }
 

@@ -17,4 +17,5 @@ public class WalletDetails {
     private final LightningWalletBalance lightningWalletBalance;
     private final BitcoinWalletBalance bitcoinWalletBalance;
     private final List<AggregatedData> totalIncomeData;
+    private final boolean autopilotEnabled;
 }

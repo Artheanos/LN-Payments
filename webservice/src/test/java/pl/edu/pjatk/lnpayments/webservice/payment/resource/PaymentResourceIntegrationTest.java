@@ -163,6 +163,7 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
             User admin = userRepository.save(createAdminUser(EMAIL));
             User user = userRepository.save(createStandardUser("admin@admin.pl"));
             String jsonContent = getJsonResponse("integration/payment/response/payments-all-GET-valid.json");
+            paymentRepository.deleteAll();
             paymentRepository.save(new Payment("123", 1, 1, 123, PaymentStatus.PENDING, user));
             paymentRepository.save(new Payment("456", 3, 2, 126, PaymentStatus.COMPLETE, user));
             paymentRepository.save(new Payment("789", 4, 3, 129, PaymentStatus.CANCELLED, user));
@@ -185,5 +186,4 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         }
 
     }
-
 }

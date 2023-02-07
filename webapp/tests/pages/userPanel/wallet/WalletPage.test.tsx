@@ -35,7 +35,8 @@ describe('WalletPage', () => {
       }
     ],
     admins: [],
-    address: 'ddd'
+    address: 'ddd',
+    autopilotEnabled: true
   }
 
   beforeAll(() => {
@@ -61,7 +62,16 @@ describe('WalletPage', () => {
         expect(screen.getByText('789')).toBeInTheDocument()
         expect(screen.getByText('Lightning Wallet')).toBeInTheDocument()
         expect(screen.getByText('147 sats')).toBeInTheDocument()
-        expect(screen.getByText('40 sats unconfirmed')).toBeInTheDocument()
+        expect(
+          screen.getByText('40 sats unconfirmed', {
+            exact: false
+          })
+        ).toBeInTheDocument()
+        expect(
+          screen.getByText('Autopilot enabled', {
+            exact: false
+          })
+        ).toBeInTheDocument()
         expect(screen.getByText('369')).toBeInTheDocument()
         expect(screen.getByText('Total income')).toBeInTheDocument()
         expect(screen.getByText('ddd')).toBeInTheDocument()

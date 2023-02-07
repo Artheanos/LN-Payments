@@ -188,6 +188,7 @@ class WalletServiceTest {
         when(lightningWalletService.getBalance()).thenReturn(lightningWalletBalance);
         when(bitcoinService.getBalance()).thenReturn(bitcoinWalletBalance);
         when(channelService.getChannelsBalance()).thenReturn(channelsBalance);
+        when(channelService.isAutopilotEnabled()).thenReturn(true);
         when(paymentFacade.aggregateTotalIncomeData()).thenReturn(balanceHistoricData);
 
         WalletDetails details = walletService.getDetails();
@@ -197,6 +198,7 @@ class WalletServiceTest {
         assertThat(details.getBitcoinWalletBalance()).isEqualTo(bitcoinWalletBalance);
         assertThat(details.getLightningWalletBalance()).isEqualTo(lightningWalletBalance);
         assertThat(details.getTotalIncomeData()).isEqualTo(balanceHistoricData);
+        assertThat(details.isAutopilotEnabled()).isTrue();
     }
 
 
@@ -270,6 +272,13 @@ class WalletServiceTest {
         walletDataService.deleteCreatingWallet();
 
         verify(walletDataService).deleteCreatingWallet();
+    }
+
+    @Test
+    void shouldInvokeChannelServiceWhenTogglingAutopilot() {
+        channelService.toggleAutopilot();
+
+        verify(channelService).toggleAutopilot();
     }
 
 }

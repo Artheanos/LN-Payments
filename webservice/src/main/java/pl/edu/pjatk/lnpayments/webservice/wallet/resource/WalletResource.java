@@ -47,4 +47,10 @@ class WalletResource {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping(TOGGLE_AUTOPILOT_PATH)
+    ResponseEntity<?> toggleAutopilot() {
+        walletService.toggleAutopilot();
+        return ResponseEntity.ok().build();
+    }
+
 }

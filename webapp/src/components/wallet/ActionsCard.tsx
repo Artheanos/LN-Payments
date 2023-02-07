@@ -8,11 +8,13 @@ import { useTranslation } from 'react-i18next'
 type Props = {
   lightningWalletBalance: number
   channelsBalance: number
+  autopilotEnabled: boolean
 }
 
 export const ActionsCard: React.FC<Props> = ({
   lightningWalletBalance,
-  channelsBalance
+  channelsBalance,
+  autopilotEnabled
 }) => {
   const { t } = useTranslation('wallet')
   const notify = useNotification()
@@ -37,6 +39,16 @@ export const ActionsCard: React.FC<Props> = ({
     })
   }
 
+  const toggleAutopilot = () => {
+    api.wallet.toggleAutopilot().then(({ status }) => {
+      if (status === 200) {
+        notify(t('actions.toggleAutopilot.success'), 'success')
+      } else {
+        notify(t('actions.toggleAutopilot.failure'), 'error')
+      }
+    })
+  }
+
   return (
     <WalletCard standardSize={3}>
       <ActionButton
@@ -54,6 +66,14 @@ export const ActionsCard: React.FC<Props> = ({
         text={t('actions.transfer.text')}
         action={() => transfer()}
         disabled={lightningWalletBalance === 0}
+      />
+      <ActionButton
+        text={t(
+          `actions.toggleAutopilot.text${
+            autopilotEnabled ? 'Disable' : 'Enable'
+          }`
+        )}
+        action={() => toggleAutopilot()}
       />
     </WalletCard>
   )
