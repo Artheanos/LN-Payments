@@ -187,5 +187,4 @@ class PaymentResourceIntegrationTest extends BaseIntegrationTest {
         }
 
     }
-
 }
